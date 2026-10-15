@@ -1,0 +1,9 @@
+{
+  "meta": {
+    "name": "Kaanon",
+    "shortName": "Kaanon",
+    "website": "https://github.com/NeverPunch/Kaanon",
+    "signingKeyFingerprint": "cad5ae9fa0217e9063d869200cd11d0604f5d93396c42b7650084b69c1ec3de4"
+  },
+  "index_v2": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/index.json"
+}
