@@ -2318,12 +2318,12 @@
         "name": "Olympus Scanlation",
         "packageName": "eu.kanade.tachiyomi.extension.es.kaanon.olympusscanlation",
         "resources": {
-          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-es.kaanon.olympusscanlation-v1.6.11.apk",
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-es.kaanon.olympusscanlation-v1.6.12.apk",
           "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.es.kaanon.olympusscanlation.png"
         },
         "extensionLib": "1.6",
-        "versionCode": 106011,
-        "versionName": "1.6.11",
+        "versionCode": 106012,
+        "versionName": "1.6.12",
         "contentWarning": "SAFE",
         "sources": [
           {

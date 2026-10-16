@@ -103,7 +103,7 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | Inmortal scan | Spanisch | 1.6.12 |  |
 | Kiraproject | Spanisch | 1.6.12 |  |
 | ManhwaWeb | Spanisch | 1.6.12 | gemischt |
-| Olympus Scanlation | Spanisch | 1.6.11 |  |
+| Olympus Scanlation | Spanisch | 1.6.12 |  |
 | ZonaTMO | Spanisch | 1.6.11 | gemischt |
 | AnimeSama | Französisch | 1.6.11 |  |
 | Fmteam | Französisch | 1.6.12 |  |
