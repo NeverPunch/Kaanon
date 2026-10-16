@@ -25,108 +25,109 @@ Alle APKs sind mit demselben Schlüssel signiert. SHA-256-Fingerabdruck des Zert
 
 Der private Schlüssel liegt nicht in diesem Repository.
 
-## Extensions (98)
+## Extensions (99)
 
 | Name | Sprache | Version | Inhalt |
 |---|---|---|---|
 | MangaDot | all | 1.6.25 | gemischt |
-| Hizo Manga | ar | 1.6.10 |  |
-| Niadd | Deutsch | 1.6.10 |  |
-| NovelCool | Deutsch | 1.6.10 |  |
-| Toomics | Deutsch | 1.6.10 | 18+ |
-| Asmhentai | Englisch | 1.6.10 | 18+ |
-| aster scans | Englisch | 1.6.11 |  |
-| Asura Scans | Englisch | 1.6.10 |  |
-| Atsumaru | Englisch | 1.6.11 | gemischt |
-| Comizy | Englisch | 1.6.10 | gemischt |
-| Deathtollscans | Englisch | 1.6.11 |  |
-| Drake Scans | Englisch | 1.6.11 |  |
-| Dreamteams | Englisch | 1.6.11 |  |
-| Dynasty Scans | Englisch | 1.6.11 | 18+ |
-| En-thunderscans | Englisch | 1.6.12 |  |
-| GD Scans | Englisch | 1.6.13 |  |
-| Genz Toon | Englisch | 1.6.11 |  |
-| Grim Scans | Englisch | 1.6.11 |  |
-| Hentai4free.net | Englisch | 1.6.11 | 18+ |
-| Hentaifox | Englisch | 1.6.11 | 18+ |
-| Hentairox | Englisch | 1.6.11 | 18+ |
-| Hive Scans | Englisch | 1.6.10 |  |
-| Kencomics | Englisch | 1.6.12 |  |
-| Kingofshojo | Englisch | 1.6.12 |  |
-| KunManga | Englisch | 1.6.11 |  |
-| Lagoon Scans | Englisch | 1.6.11 |  |
-| Lua Scans | Englisch | 1.6.10 | gemischt |
-| Magus Manga | Englisch | 1.6.12 |  |
-| Manga Demon | Englisch | 1.6.10 |  |
-| Manga Eclipse | Englisch | 1.6.13 |  |
-| Mangabat | Englisch | 1.6.11 |  |
-| MangaDass | Englisch | 1.6.11 |  |
-| MangaDex | Englisch | 1.6.10 | gemischt |
-| Mangafreak | Englisch | 1.6.12 | gemischt |
-| MangaGeko | Englisch | 1.6.10 | gemischt |
-| MangaK | Englisch | 1.6.10 | gemischt |
-| Mangakakalot | Englisch | 1.6.10 | gemischt |
-| MangaKatana | Englisch | 1.6.10 | gemischt |
-| Manganato | Englisch | 1.6.12 | gemischt |
-| MangaNato | Englisch | 1.6.10 |  |
-| Mangapill | Englisch | 1.6.14 |  |
-| Mangaread | Englisch | 1.6.69 |  |
-| MangaTop | Englisch | 1.6.10 |  |
-| ManhuaBug.com | Englisch | 1.6.11 |  |
-| Manhwa Toon | Englisch | 1.6.10 |  |
-| Manhwa18 | Englisch | 1.6.11 | 18+ |
-| ManhwaHub | Englisch | 1.6.13 | 18+ |
+| Hizo Manga | ar | 1.6.11 |  |
+| Niadd | Deutsch | 1.6.11 |  |
+| NovelCool | Deutsch | 1.6.11 |  |
+| Toomics | Deutsch | 1.6.11 | 18+ |
+| Asmhentai | Englisch | 1.6.11 | 18+ |
+| aster scans | Englisch | 1.6.12 |  |
+| Asura Scans | Englisch | 1.6.11 |  |
+| Atsumaru | Englisch | 1.6.12 | gemischt |
+| Comizy | Englisch | 1.6.11 | gemischt |
+| Deathtollscans | Englisch | 1.6.12 |  |
+| Drake Scans | Englisch | 1.6.12 |  |
+| Dreamteams | Englisch | 1.6.12 |  |
+| Dynasty Scans | Englisch | 1.6.12 | 18+ |
+| En-thunderscans | Englisch | 1.6.13 |  |
+| GD Scans | Englisch | 1.6.14 |  |
+| Genz Toon | Englisch | 1.6.12 |  |
+| Grim Scans | Englisch | 1.6.12 |  |
+| Hentai4free.net | Englisch | 1.6.12 | 18+ |
+| Hentaifox | Englisch | 1.6.12 | 18+ |
+| Hentairox | Englisch | 1.6.12 | 18+ |
+| Hive Scans | Englisch | 1.6.11 |  |
+| Kencomics | Englisch | 1.6.13 |  |
+| Kingofshojo | Englisch | 1.6.13 |  |
+| KunManga | Englisch | 1.6.12 |  |
+| Lagoon Scans | Englisch | 1.6.12 |  |
+| Lua Scans | Englisch | 1.6.11 | gemischt |
+| Magus Manga | Englisch | 1.6.13 |  |
+| Manga Demon | Englisch | 1.6.11 |  |
+| Manga Eclipse | Englisch | 1.6.14 |  |
+| Mangabat | Englisch | 1.6.12 |  |
+| MangaDass | Englisch | 1.6.12 |  |
+| MangaDex | Englisch | 1.6.11 | gemischt |
+| Mangafreak | Englisch | 1.6.13 | gemischt |
+| MangaGeko | Englisch | 1.6.11 | gemischt |
+| MangaHub | Englisch | 1.6.11 | gemischt |
+| MangaK | Englisch | 1.6.11 | gemischt |
+| Mangakakalot | Englisch | 1.6.11 | gemischt |
+| MangaKatana | Englisch | 1.6.12 | gemischt |
+| Manganato | Englisch | 1.6.13 | gemischt |
+| MangaNato | Englisch | 1.6.11 |  |
+| Mangapill | Englisch | 1.6.15 |  |
+| Mangaread | Englisch | 1.6.70 |  |
+| MangaTop | Englisch | 1.6.11 |  |
+| ManhuaBug.com | Englisch | 1.6.12 |  |
+| Manhwa Toon | Englisch | 1.6.12 |  |
+| Manhwa18 | Englisch | 1.6.12 | 18+ |
+| ManhwaHub | Englisch | 1.6.14 | 18+ |
 | ManhwaRead | Englisch | 1.6.0 | gemischt |
-| Raven Scans | Englisch | 1.6.14 | gemischt |
-| Readonepiece | Englisch | 1.6.11 |  |
-| Rolia Scan | Englisch | 1.6.10 |  |
-| Tapas | Englisch | 1.6.10 | gemischt |
-| Tappytoon | Englisch | 1.6.10 | gemischt |
-| TaurusManga | Englisch | 1.6.11 |  |
-| TCB Scans | Englisch | 1.6.10 |  |
-| Temple Scan | Englisch | 1.6.10 | 18+ |
-| Toonily | Englisch | 1.6.11 | gemischt |
-| Toonizy | Englisch | 1.6.10 |  |
-| TopManhua | Englisch | 1.6.10 |  |
-| Tritinia Scans | Englisch | 1.6.11 |  |
-| Violetscans | Englisch | 1.6.11 |  |
-| Vortex Scans | Englisch | 1.6.10 |  |
-| Webtoons.com | Englisch | 1.6.10 |  |
-| Weeb Central | Englisch | 1.6.10 | gemischt |
-| YuriLabs | Englisch | 1.6.11 |  |
-| ZazaManga | Englisch | 1.6.11 | 18+ |
-| ZinManga | Englisch | 1.6.10 |  |
-| Datgarscanlation | Spanisch | 1.6.12 |  |
-| Dragon Translation | Spanisch | 1.6.11 |  |
-| InfraFandub | Spanisch | 1.6.11 |  |
-| Inmortal scan | Spanisch | 1.6.11 |  |
-| Kiraproject | Spanisch | 1.6.11 |  |
-| ManhwaWeb | Spanisch | 1.6.11 | gemischt |
-| Olympus Scanlation | Spanisch | 1.6.10 |  |
-| ZonaTMO | Spanisch | 1.6.10 | gemischt |
-| AnimeSama | Französisch | 1.6.10 |  |
-| Fmteam | Französisch | 1.6.11 |  |
-| Scan-vf | Französisch | 1.6.11 |  |
-| Sushi-Scan | Französisch | 1.6.10 | gemischt |
-| Re-yume | Indonesisch | 1.6.10 | 18+ |
-| -Mangalt- | Japanisch | 1.6.10 |  |
-| DAYS | Japanisch | 1.6.10 |  |
-| Ourfeel | Japanisch | 1.6.10 |  |
-| Source | Japanisch | 1.6.10 |  |
-| Source | Japanisch | 1.6.10 |  |
-| Source | Japanisch | 1.6.10 |  |
-| Source | Japanisch | 1.6.10 |  |
-| Web | Japanisch | 1.6.10 |  |
-| Inkapk | Portugiesisch | 1.6.11 | gemischt |
-| ReadHunter | Portugiesisch | 1.6.11 |  |
-| Doodmanga | Thai | 1.6.11 |  |
-| MangaIsekaiThai | Thai | 1.6.11 | 18+ |
-| ManhuaThai | Thai | 1.6.11 |  |
-| ManhwaBreakup | Thai | 1.6.11 |  |
-| Korelimanga | Türkisch | 1.6.11 |  |
-| Tilki Scans | Türkisch | 1.6.10 |  |
-| Mangarama | Ukrainisch | 1.6.11 |  |
-| NetTruyen | Vietnamesisch | 1.6.11 |  |
+| Raven Scans | Englisch | 1.6.15 | gemischt |
+| Readonepiece | Englisch | 1.6.12 |  |
+| Rolia Scan | Englisch | 1.6.11 |  |
+| Tapas | Englisch | 1.6.11 | gemischt |
+| Tappytoon | Englisch | 1.6.11 | gemischt |
+| TaurusManga | Englisch | 1.6.12 |  |
+| TCB Scans | Englisch | 1.6.11 |  |
+| Temple Scan | Englisch | 1.6.11 | 18+ |
+| Toonily | Englisch | 1.6.12 | gemischt |
+| Toonizy | Englisch | 1.6.11 |  |
+| TopManhua | Englisch | 1.6.11 |  |
+| Tritinia Scans | Englisch | 1.6.12 |  |
+| Violetscans | Englisch | 1.6.12 |  |
+| Vortex Scans | Englisch | 1.6.11 |  |
+| Webtoons.com | Englisch | 1.6.11 |  |
+| Weeb Central | Englisch | 1.6.11 | gemischt |
+| YuriLabs | Englisch | 1.6.12 |  |
+| ZazaManga | Englisch | 1.6.12 | 18+ |
+| ZinManga | Englisch | 1.6.11 |  |
+| Datgarscanlation | Spanisch | 1.6.13 |  |
+| Dragon Translation | Spanisch | 1.6.12 |  |
+| InfraFandub | Spanisch | 1.6.12 |  |
+| Inmortal scan | Spanisch | 1.6.12 |  |
+| Kiraproject | Spanisch | 1.6.12 |  |
+| ManhwaWeb | Spanisch | 1.6.12 | gemischt |
+| Olympus Scanlation | Spanisch | 1.6.11 |  |
+| ZonaTMO | Spanisch | 1.6.11 | gemischt |
+| AnimeSama | Französisch | 1.6.11 |  |
+| Fmteam | Französisch | 1.6.12 |  |
+| Scan-vf | Französisch | 1.6.12 |  |
+| Sushi-Scan | Französisch | 1.6.11 | gemischt |
+| Re-yume | Indonesisch | 1.6.11 | 18+ |
+| -Mangalt- | Japanisch | 1.6.11 |  |
+| DAYS | Japanisch | 1.6.11 |  |
+| Ourfeel | Japanisch | 1.6.11 |  |
+| Source | Japanisch | 1.6.11 |  |
+| Source | Japanisch | 1.6.11 |  |
+| Source | Japanisch | 1.6.11 |  |
+| Source | Japanisch | 1.6.11 |  |
+| Web | Japanisch | 1.6.11 |  |
+| Inkapk | Portugiesisch | 1.6.12 | gemischt |
+| ReadHunter | Portugiesisch | 1.6.13 |  |
+| Doodmanga | Thai | 1.6.12 |  |
+| MangaIsekaiThai | Thai | 1.6.12 | 18+ |
+| ManhuaThai | Thai | 1.6.12 |  |
+| ManhwaBreakup | Thai | 1.6.12 |  |
+| Korelimanga | Türkisch | 1.6.12 |  |
+| Tilki Scans | Türkisch | 1.6.11 |  |
+| Mangarama | Ukrainisch | 1.6.12 |  |
+| NetTruyen | Vietnamesisch | 1.6.12 |  |
 
 ## Übernommener Community-Code
 
@@ -134,7 +135,7 @@ Diese Extensions enthalten unveränderten Quellcode aus [keiyoushi/extensions-so
 
 | Name | Paket | Community-Modul | Stand |
 |---|---|---|---|
-| MangaDot | `eu.kanade.tachiyomi.extension.all.kaanon.mangadot` | `src/all/mangadotnet` | b11e9a1f3967 (2026-10-16) |
-| ManhwaRead | `eu.kanade.tachiyomi.extension.en.kaanon.manhwaread` | `src/en/manhwaread` | b11e9a1f3967 (2026-10-16) |
+| MangaDot | `eu.kanade.tachiyomi.extension.all.kaanon.mangadot` | `src/all/mangadotnet` | 7363e4298c2a (2026-10-16) |
+| ManhwaRead | `eu.kanade.tachiyomi.extension.en.kaanon.manhwaread` | `src/en/manhwaread` | 7363e4298c2a (2026-10-16) |
 
 Diese Datei wird automatisch erzeugt (`python -m kaanon_builder --store`).
