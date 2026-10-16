@@ -9,6 +9,776 @@
   "extensionList": {
     "extensions": [
       {
+        "name": "MangaDot",
+        "packageName": "eu.kanade.tachiyomi.extension.all.kaanon.mangadot",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-all.kaanon.mangadot-v1.6.25.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.all.kaanon.mangadot.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106025,
+        "versionName": "1.6.25",
+        "contentWarning": "MIXED",
+        "sources": [
+          {
+            "id": 5133570518916566066,
+            "name": "MangaDot",
+            "language": "ar",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 4728703871864086205,
+            "name": "MangaDot",
+            "language": "bn",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 4621039982977056475,
+            "name": "MangaDot",
+            "language": "bg",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 8689086897953658974,
+            "name": "MangaDot",
+            "language": "my",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 4593442970144109426,
+            "name": "MangaDot",
+            "language": "zh",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 2076066796458496830,
+            "name": "MangaDot",
+            "language": "zh-Hant",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 182506561627032263,
+            "name": "MangaDot",
+            "language": "cs",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 522919629093846860,
+            "name": "MangaDot",
+            "language": "da",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 5339181991315919474,
+            "name": "MangaDot",
+            "language": "nl",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 5900936305360403385,
+            "name": "MangaDot",
+            "language": "en",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 5536176722691621839,
+            "name": "MangaDot",
+            "language": "tl",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 7568879765052968178,
+            "name": "MangaDot",
+            "language": "fi",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 6544312035114371248,
+            "name": "MangaDot",
+            "language": "fr",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 7781185259229560796,
+            "name": "MangaDot",
+            "language": "ka",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 1739134904773959471,
+            "name": "MangaDot",
+            "language": "de",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 6280808899001059050,
+            "name": "MangaDot",
+            "language": "el",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 7524478288761759786,
+            "name": "MangaDot",
+            "language": "he",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 4686432307246610016,
+            "name": "MangaDot",
+            "language": "hi",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 2744567066632059507,
+            "name": "MangaDot",
+            "language": "hu",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 8591108444263884327,
+            "name": "MangaDot",
+            "language": "id",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 8788147393700258423,
+            "name": "MangaDot",
+            "language": "it",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 2305771977147956314,
+            "name": "MangaDot",
+            "language": "ja",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 8733946525904795862,
+            "name": "MangaDot",
+            "language": "ko",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 5980076819966447323,
+            "name": "MangaDot",
+            "language": "la",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 3456620422576095825,
+            "name": "MangaDot",
+            "language": "lt",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 2379671138411944871,
+            "name": "MangaDot",
+            "language": "ms",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 9192319104809604483,
+            "name": "MangaDot",
+            "language": "mn",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 2111970709663576933,
+            "name": "MangaDot",
+            "language": "no",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 6840185760082019759,
+            "name": "MangaDot",
+            "language": "fa",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 516446519459282312,
+            "name": "MangaDot",
+            "language": "pl",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 1374245104599191336,
+            "name": "MangaDot",
+            "language": "pt",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 6883842335519142390,
+            "name": "MangaDot",
+            "language": "pt-BR",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 7223291528565862680,
+            "name": "MangaDot",
+            "language": "ro",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 8911989140118399619,
+            "name": "MangaDot",
+            "language": "ru",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 1356109540530417190,
+            "name": "MangaDot",
+            "language": "es",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 5046796980408019790,
+            "name": "MangaDot",
+            "language": "es-419",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 4958143963089747877,
+            "name": "MangaDot",
+            "language": "sv",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 8348427309728988846,
+            "name": "MangaDot",
+            "language": "th",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 5964430973280552505,
+            "name": "MangaDot",
+            "language": "tr",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 3578850460057110410,
+            "name": "MangaDot",
+            "language": "uk",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 3741155905873931805,
+            "name": "MangaDot",
+            "language": "vi",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 2441838299826051230,
+            "name": "MangaDot",
+            "language": "zu",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 7865090004429530491,
+            "name": "MangaDot",
+            "language": "zh-tw",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 4921151708715305490,
+            "name": "MangaDot",
+            "language": "yo",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 5601626490491985162,
+            "name": "MangaDot",
+            "language": "uz",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 7589823463254376799,
+            "name": "MangaDot",
+            "language": "ur",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 8728081113036876931,
+            "name": "MangaDot",
+            "language": "tk",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 5231909047029777422,
+            "name": "MangaDot",
+            "language": "to",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 2687394203984331406,
+            "name": "MangaDot",
+            "language": "ti",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 8979608222684527323,
+            "name": "MangaDot",
+            "language": "te",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 1532736845269879240,
+            "name": "MangaDot",
+            "language": "ta",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 3300379104794255539,
+            "name": "MangaDot",
+            "language": "tg",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 9084839605166631973,
+            "name": "MangaDot",
+            "language": "ss",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 5128179410899824788,
+            "name": "MangaDot",
+            "language": "sw",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 3424023259825994677,
+            "name": "MangaDot",
+            "language": "so",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 4524523410546767783,
+            "name": "MangaDot",
+            "language": "sl",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 906841171861851373,
+            "name": "MangaDot",
+            "language": "sk",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 5151209771353483688,
+            "name": "MangaDot",
+            "language": "si",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 4791489272679823459,
+            "name": "MangaDot",
+            "language": "sd",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 667651300545386994,
+            "name": "MangaDot",
+            "language": "sn",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 1437553406755071980,
+            "name": "MangaDot",
+            "language": "st",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 5247335489585035333,
+            "name": "MangaDot",
+            "language": "sh",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 2958846473073557482,
+            "name": "MangaDot",
+            "language": "sr",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 6438885774622850088,
+            "name": "MangaDot",
+            "language": "sm",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 7682832424883392487,
+            "name": "MangaDot",
+            "language": "rm",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 852113960420602047,
+            "name": "MangaDot",
+            "language": "ps",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 5594683159745082451,
+            "name": "MangaDot",
+            "language": "ny",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 1388001857060182903,
+            "name": "MangaDot",
+            "language": "ne",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 4385496560007026082,
+            "name": "MangaDot",
+            "language": "mo",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 2403752440512665902,
+            "name": "MangaDot",
+            "language": "mr",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 1243113298307153697,
+            "name": "MangaDot",
+            "language": "mi",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 763520574319176694,
+            "name": "MangaDot",
+            "language": "mt",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 2065097680931770063,
+            "name": "MangaDot",
+            "language": "ml",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 3095899732404101103,
+            "name": "MangaDot",
+            "language": "mg",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 3378671539429193821,
+            "name": "MangaDot",
+            "language": "mk",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 7371980305504255093,
+            "name": "MangaDot",
+            "language": "lb",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 6496021153361901915,
+            "name": "MangaDot",
+            "language": "lv",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 2817234851765014214,
+            "name": "MangaDot",
+            "language": "lo",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 6432074668689969261,
+            "name": "MangaDot",
+            "language": "ky",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 642272481774520917,
+            "name": "MangaDot",
+            "language": "ku",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 3501653098098324330,
+            "name": "MangaDot",
+            "language": "kk",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 735891950196570992,
+            "name": "MangaDot",
+            "language": "kn",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 2450590764399511282,
+            "name": "MangaDot",
+            "language": "jv",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 1990999442874191049,
+            "name": "MangaDot",
+            "language": "ga",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 1212617635525738382,
+            "name": "MangaDot",
+            "language": "ig",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 7457818185508918624,
+            "name": "MangaDot",
+            "language": "is",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 7370016116750489216,
+            "name": "MangaDot",
+            "language": "ha",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 4906990011623468194,
+            "name": "MangaDot",
+            "language": "ht",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 7777361906352556467,
+            "name": "MangaDot",
+            "language": "gu",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 2649563537157849825,
+            "name": "MangaDot",
+            "language": "gn",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 9161576604389142963,
+            "name": "MangaDot",
+            "language": "gl",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 403504858442756278,
+            "name": "MangaDot",
+            "language": "fo",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 7085366320872721673,
+            "name": "MangaDot",
+            "language": "et",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 3900938574086240284,
+            "name": "MangaDot",
+            "language": "eo",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 6919139667129890361,
+            "name": "MangaDot",
+            "language": "hr",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 466560170889971500,
+            "name": "MangaDot",
+            "language": "cv",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 1104434747623062236,
+            "name": "MangaDot",
+            "language": "ceb",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 4126429070202050423,
+            "name": "MangaDot",
+            "language": "ca",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 6558905765171140287,
+            "name": "MangaDot",
+            "language": "km",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 2106727426891515868,
+            "name": "MangaDot",
+            "language": "bs",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 6349207918477337222,
+            "name": "MangaDot",
+            "language": "be",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 2365190675047124388,
+            "name": "MangaDot",
+            "language": "eu",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 8740468699151734392,
+            "name": "MangaDot",
+            "language": "az",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 3389751853142685462,
+            "name": "MangaDot",
+            "language": "hy",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 1214640310680383515,
+            "name": "MangaDot",
+            "language": "am",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 5004953853361383266,
+            "name": "MangaDot",
+            "language": "sq",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 626361877295636066,
+            "name": "MangaDot",
+            "language": "af",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          },
+          {
+            "id": 4735885360393755385,
+            "name": "MangaDot",
+            "language": "ab",
+            "homeUrl": "https://mangadot.net",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
         "name": "Hizo Manga",
         "packageName": "eu.kanade.tachiyomi.extension.ar.kaanon.hizomanga",
         "resources": {
@@ -534,6 +1304,27 @@
         ]
       },
       {
+        "name": "Lua Scans",
+        "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.luascans",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.luascans-v1.6.10.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.en.kaanon.luascans.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106010,
+        "versionName": "1.6.10",
+        "contentWarning": "MIXED",
+        "sources": [
+          {
+            "id": 7741623582242119453,
+            "name": "Lua Scans",
+            "language": "en",
+            "homeUrl": "https://luacomic.org",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
         "name": "Magus Manga",
         "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.magusmanga",
         "resources": {
@@ -933,6 +1724,30 @@
         ]
       },
       {
+        "name": "ManhwaRead",
+        "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.manhwaread",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.manhwaread-v1.6.0.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.en.kaanon.manhwaread.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106000,
+        "versionName": "1.6.0",
+        "contentWarning": "MIXED",
+        "sources": [
+          {
+            "id": 492596911850505683,
+            "name": "ManhwaRead",
+            "language": "en",
+            "homeUrl": "https://manhwaread.com",
+            "mirrorUrls": [
+              "https://manhwaread.com",
+              "https://manhwaread.org"
+            ]
+          }
+        ]
+      },
+      {
         "name": "Manhwa Toon",
         "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.manhwatoon",
         "resources": {
@@ -1101,15 +1916,36 @@
         ]
       },
       {
-        "name": "Toonily",
-        "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.toonily",
+        "name": "Temple Scan",
+        "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.templescan",
         "resources": {
-          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.toonily-v1.6.10.apk",
-          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.en.kaanon.toonily.png"
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.templescan-v1.6.10.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.en.kaanon.templescan.png"
         },
         "extensionLib": "1.6",
         "versionCode": 106010,
         "versionName": "1.6.10",
+        "contentWarning": "NSFW",
+        "sources": [
+          {
+            "id": 7025852861608073094,
+            "name": "Temple Scan",
+            "language": "en",
+            "homeUrl": "https://templetoons.com",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
+        "name": "Toonily",
+        "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.toonily",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.toonily-v1.6.11.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.en.kaanon.toonily.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106011,
+        "versionName": "1.6.11",
         "contentWarning": "MIXED",
         "sources": [
           {
@@ -1474,6 +2310,27 @@
             "name": "Olympus Scanlation",
             "language": "es",
             "homeUrl": "https://olympusxyz.com",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
+        "name": "ZonaTMO",
+        "packageName": "eu.kanade.tachiyomi.extension.es.kaanon.zonatmo",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-es.kaanon.zonatmo-v1.6.10.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.es.kaanon.zonatmo.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106010,
+        "versionName": "1.6.10",
+        "contentWarning": "MIXED",
+        "sources": [
+          {
+            "id": 8492615695108145656,
+            "name": "ZonaTMO",
+            "language": "es",
+            "homeUrl": "https://zonatmo.org",
             "mirrorUrls": []
           }
         ]

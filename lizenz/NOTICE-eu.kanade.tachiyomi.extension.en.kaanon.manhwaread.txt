@@ -1,0 +1,22 @@
+HERKUNFT UND LIZENZ DIESER EXTENSION / ORIGIN AND LICENSE
+==========================================================
+
+Der Quellcode dieser Extension stammt aus der Community-Sammlung
+  keiyoushi/extensions-source  (https://github.com/keiyoushi/extensions-source)
+und steht unter der Apache License, Version 2.0 (Text: LICENSE-Apache-2.0.txt).
+The source code of this extension comes from the community repository above and is licensed under the
+Apache License 2.0 (see LICENSE-Apache-2.0.txt).
+
+Modul:        src/en/manhwaread
+Stand:        Commit b11e9a1f3967e0e1ccabdfbbc2935f7cd4520c87 vom 2026-10-16 (spiegel)
+
+Beitragende laut Git-Verlauf des Moduls (der Verlauf im Spiegel reicht nur bis 2026-10-07 zurück; vollständig: Git-Verlauf des Community-Repos):
+  IvanNazaruk
+
+Änderungen durch den Kaanon Extension Builder 3.11.0 (Apache-2.0 §4 b):
+  - Quelldateien (*.kt, Ressourcen): unverändert.
+  - build.gradle.kts: pkgName = "en.kaanon.manhwaread" (eigener Paketname eu.kanade.tachiyomi.extension.en.kaanon.manhwaread), versionCode = 0 (Gesamtversion 0).
+  - hinzugefügt: assets/kaanon_lizenz/LICENSE-Apache-2.0.txt und assets/kaanon_lizenz/NOTICE.txt.
+
+Die Quell-ID (Name + Sprache) ist dieselbe wie bei der Community-Extension (eu.kanade.tachiyomi.extension.en.manhwaread). Beide NICHT gleichzeitig installieren.
+Signiert mit dem eigenen Kaanon-Schlüssel; nicht von den Community-Entwicklern geprüft oder unterstützt.

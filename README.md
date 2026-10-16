@@ -25,10 +25,11 @@ Alle APKs sind mit demselben Schlüssel signiert. SHA-256-Fingerabdruck des Zert
 
 Der private Schlüssel liegt nicht in diesem Repository.
 
-## Extensions (93)
+## Extensions (98)
 
 | Name | Sprache | Version | Inhalt |
 |---|---|---|---|
+| MangaDot | all | 1.6.25 | gemischt |
 | Hizo Manga | ar | 1.6.10 |  |
 | Niadd | Deutsch | 1.6.10 |  |
 | NovelCool | Deutsch | 1.6.10 |  |
@@ -54,6 +55,7 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | Kingofshojo | Englisch | 1.6.12 |  |
 | KunManga | Englisch | 1.6.11 |  |
 | Lagoon Scans | Englisch | 1.6.11 |  |
+| Lua Scans | Englisch | 1.6.10 | gemischt |
 | Magus Manga | Englisch | 1.6.12 |  |
 | Manga Demon | Englisch | 1.6.10 |  |
 | Manga Eclipse | Englisch | 1.6.13 |  |
@@ -74,6 +76,7 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | Manhwa Toon | Englisch | 1.6.10 |  |
 | Manhwa18 | Englisch | 1.6.11 | 18+ |
 | ManhwaHub | Englisch | 1.6.13 | 18+ |
+| ManhwaRead | Englisch | 1.6.0 | gemischt |
 | Raven Scans | Englisch | 1.6.14 | gemischt |
 | Readonepiece | Englisch | 1.6.11 |  |
 | Rolia Scan | Englisch | 1.6.10 |  |
@@ -81,7 +84,8 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | Tappytoon | Englisch | 1.6.10 | gemischt |
 | TaurusManga | Englisch | 1.6.11 |  |
 | TCB Scans | Englisch | 1.6.10 |  |
-| Toonily | Englisch | 1.6.10 | gemischt |
+| Temple Scan | Englisch | 1.6.10 | 18+ |
+| Toonily | Englisch | 1.6.11 | gemischt |
 | Toonizy | Englisch | 1.6.10 |  |
 | TopManhua | Englisch | 1.6.10 |  |
 | Tritinia Scans | Englisch | 1.6.11 |  |
@@ -99,6 +103,7 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | Kiraproject | Spanisch | 1.6.11 |  |
 | ManhwaWeb | Spanisch | 1.6.11 | gemischt |
 | Olympus Scanlation | Spanisch | 1.6.10 |  |
+| ZonaTMO | Spanisch | 1.6.10 | gemischt |
 | AnimeSama | Französisch | 1.6.10 |  |
 | Fmteam | Französisch | 1.6.11 |  |
 | Scan-vf | Französisch | 1.6.11 |  |
@@ -122,5 +127,14 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | Tilki Scans | Türkisch | 1.6.10 |  |
 | Mangarama | Ukrainisch | 1.6.11 |  |
 | NetTruyen | Vietnamesisch | 1.6.11 |  |
+
+## Übernommener Community-Code
+
+Diese Extensions enthalten unveränderten Quellcode aus [keiyoushi/extensions-source](https://github.com/keiyoushi/extensions-source) (Apache License 2.0), gebaut mit eigenem Paketnamen und eigener Signatur. Lizenztext und Herkunft stehen im Ordner `lizenz/` und in der APK (`assets/kaanon_lizenz/`). **Die gleichnamige Community-Extension nicht gleichzeitig installieren** (gleiche Quell-ID).
+
+| Name | Paket | Community-Modul | Stand |
+|---|---|---|---|
+| MangaDot | `eu.kanade.tachiyomi.extension.all.kaanon.mangadot` | `src/all/mangadotnet` | b11e9a1f3967 (2026-10-16) |
+| ManhwaRead | `eu.kanade.tachiyomi.extension.en.kaanon.manhwaread` | `src/en/manhwaread` | b11e9a1f3967 (2026-10-16) |
 
 Diese Datei wird automatisch erzeugt (`python -m kaanon_builder --store`).
