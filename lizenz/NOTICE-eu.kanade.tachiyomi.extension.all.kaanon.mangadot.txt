@@ -8,14 +8,14 @@ The source code of this extension comes from the community repository above and 
 Apache License 2.0 (see LICENSE-Apache-2.0.txt).
 
 Modul:        src/all/mangadotnet
-Stand:        Commit 7363e4298c2a6cc4e32e6ef6af2d48611d5b619e vom 2026-10-16 (spiegel)
+Stand:        Commit 0d83f6be79e12b0a8b6c6f20a500c0e9456c222a vom 2026-10-31 (spiegel)
 
 Beitragende laut Git-Verlauf des Moduls (der Verlauf im Spiegel reicht nur bis 2026-10-07 zurück; vollständig: Git-Verlauf des Community-Repos):
-  IvanNazaruk, hazptr
+  hazptr, Alpha-782, IvanNazaruk, Prem Kumar
 
-Änderungen durch den Kaanon Extension Builder 3.11.0 (Apache-2.0 §4 b):
+Änderungen durch den Kaanon Extension Builder 3.13.0 (Apache-2.0 §4 b):
   - Quelldateien (*.kt, Ressourcen): unverändert.
-  - build.gradle.kts: pkgName = "all.kaanon.mangadot" (eigener Paketname eu.kanade.tachiyomi.extension.all.kaanon.mangadot), versionCode = 25 (Gesamtversion 25).
+  - build.gradle.kts: pkgName = "all.kaanon.mangadot" (eigener Paketname eu.kanade.tachiyomi.extension.all.kaanon.mangadot), versionCode = 27 (Gesamtversion 27).
   - hinzugefügt: assets/kaanon_lizenz/LICENSE-Apache-2.0.txt und assets/kaanon_lizenz/NOTICE.txt.
 
 Die Quell-ID (Name + Sprache) ist dieselbe wie bei der Community-Extension (eu.kanade.tachiyomi.extension.en.mangadotnet). Beide NICHT gleichzeitig installieren.

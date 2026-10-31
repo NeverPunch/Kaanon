@@ -29,7 +29,7 @@ Der private Schlüssel liegt nicht in diesem Repository.
 
 | Name | Sprache | Version | Inhalt |
 |---|---|---|---|
-| MangaDot | all | 1.6.25 | gemischt |
+| MangaDot | all | 1.6.27 | gemischt |
 | Hizo Manga | ar | 1.6.11 |  |
 | Niadd | Deutsch | 1.6.11 |  |
 | NovelCool | Deutsch | 1.6.11 |  |
@@ -64,7 +64,7 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | MangaDex | Englisch | 1.6.11 | gemischt |
 | Mangafreak | Englisch | 1.6.13 | gemischt |
 | MangaGeko | Englisch | 1.6.11 | gemischt |
-| MangaHub | Englisch | 1.6.12 | gemischt |
+| MangaHub | Englisch | 1.6.13 | gemischt |
 | MangaK | Englisch | 1.6.11 | gemischt |
 | Mangakakalot | Englisch | 1.6.11 | gemischt |
 | MangaKatana | Englisch | 1.6.12 | gemischt |
@@ -135,7 +135,7 @@ Diese Extensions enthalten unveränderten Quellcode aus [keiyoushi/extensions-so
 
 | Name | Paket | Community-Modul | Stand |
 |---|---|---|---|
-| MangaDot | `eu.kanade.tachiyomi.extension.all.kaanon.mangadot` | `src/all/mangadotnet` | 7363e4298c2a (2026-10-16) |
+| MangaDot | `eu.kanade.tachiyomi.extension.all.kaanon.mangadot` | `src/all/mangadotnet` | 0d83f6be79e1 (2026-10-31) |
 | ManhwaRead | `eu.kanade.tachiyomi.extension.en.kaanon.manhwaread` | `src/en/manhwaread` | 7363e4298c2a (2026-10-16) |
 
 Diese Datei wird automatisch erzeugt (`python -m kaanon_builder --store`).
