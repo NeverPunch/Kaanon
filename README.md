@@ -71,7 +71,7 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | MangaDex | Englisch | 1.6.11 | gemischt |
 | Mangafreak | Englisch | 1.6.13 | gemischt |
 | MangaGeko | Englisch | 1.6.11 | gemischt |
-| MangaHub | Englisch | 1.6.13 | gemischt |
+| MangaHub | Englisch | 1.6.49 | gemischt |
 | MangaK | Englisch | 1.6.11 | gemischt |
 | Mangakakalot | Englisch | 1.6.11 | gemischt |
 | MangaKatana | Englisch | 1.6.12 | gemischt |
@@ -150,6 +150,7 @@ Diese Extensions enthalten unveränderten Quellcode aus [keiyoushi/extensions-so
 | Manga Tube | `eu.kanade.tachiyomi.extension.de.kaanon.mangatube` | `src/de/mangatube` | 0d83f6be79e1 (2026-10-31) |
 | MangaDot | `eu.kanade.tachiyomi.extension.all.kaanon.mangadot` | `src/all/mangadotnet` | 0d83f6be79e1 (2026-10-31) |
 | MangaFire | `eu.kanade.tachiyomi.extension.all.kaanon.mangafire` | `src/all/mangafire` | 0d83f6be79e1 (2026-10-31) |
+| MangaHub | `eu.kanade.tachiyomi.extension.en.kaanon.mangahub` | `src/en/mangahubio` | 0d83f6be79e1 (2026-10-31) |
 | ManhwaRead | `eu.kanade.tachiyomi.extension.en.kaanon.manhwaread` | `src/en/manhwaread` | 7363e4298c2a (2026-10-16) |
 
 Diese Datei wird automatisch erzeugt (`python -m kaanon_builder --store`).
