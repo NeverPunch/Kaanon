@@ -64,7 +64,7 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | MangaDex | Englisch | 1.6.11 | gemischt |
 | Mangafreak | Englisch | 1.6.13 | gemischt |
 | MangaGeko | Englisch | 1.6.11 | gemischt |
-| MangaHub | Englisch | 1.6.11 | gemischt |
+| MangaHub | Englisch | 1.6.12 | gemischt |
 | MangaK | Englisch | 1.6.11 | gemischt |
 | Mangakakalot | Englisch | 1.6.11 | gemischt |
 | MangaKatana | Englisch | 1.6.12 | gemischt |
