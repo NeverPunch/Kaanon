@@ -9,6 +9,97 @@
   "extensionList": {
     "extensions": [
       {
+        "name": "Comikey",
+        "packageName": "eu.kanade.tachiyomi.extension.all.kaanon.comikey",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-all.kaanon.comikey-v1.6.13.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.all.kaanon.comikey.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106013,
+        "versionName": "1.6.13",
+        "contentWarning": "SAFE",
+        "sources": [
+          {
+            "id": 2769857481066602061,
+            "name": "Comikey",
+            "language": "en",
+            "homeUrl": "https://comikey.com",
+            "mirrorUrls": []
+          },
+          {
+            "id": 374080003312345029,
+            "name": "Comikey",
+            "language": "es",
+            "homeUrl": "https://comikey.com",
+            "mirrorUrls": []
+          },
+          {
+            "id": 1684620622390751911,
+            "name": "Comikey",
+            "language": "id",
+            "homeUrl": "https://comikey.com",
+            "mirrorUrls": []
+          },
+          {
+            "id": 4174862482785095737,
+            "name": "Comikey",
+            "language": "pt-BR",
+            "homeUrl": "https://comikey.com",
+            "mirrorUrls": []
+          },
+          {
+            "id": 4923846262931005728,
+            "name": "Comikey Brasil",
+            "language": "pt-BR",
+            "homeUrl": "https://br.comikey.com",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
+        "name": "Lunar Manga",
+        "packageName": "eu.kanade.tachiyomi.extension.all.kaanon.lunarmanga",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-all.kaanon.lunarmanga-v1.6.5.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.all.kaanon.lunarmanga.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106005,
+        "versionName": "1.6.5",
+        "contentWarning": "MIXED",
+        "sources": [
+          {
+            "id": 5813468393870703615,
+            "name": "Lunar Manga",
+            "language": "all",
+            "homeUrl": "https://lunarx.to",
+            "mirrorUrls": []
+          },
+          {
+            "id": 7328677245254276970,
+            "name": "Lunar Manga",
+            "language": "en",
+            "homeUrl": "https://lunarx.to",
+            "mirrorUrls": []
+          },
+          {
+            "id": 8130073422666383933,
+            "name": "Lunar Manga",
+            "language": "id",
+            "homeUrl": "https://lunarx.to",
+            "mirrorUrls": []
+          },
+          {
+            "id": 2848743514286834588,
+            "name": "Lunar Manga",
+            "language": "ja",
+            "homeUrl": "https://lunarx.to",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
         "name": "MangaDot",
         "packageName": "eu.kanade.tachiyomi.extension.all.kaanon.mangadot",
         "resources": {
@@ -779,6 +870,146 @@
         ]
       },
       {
+        "name": "MangaFire",
+        "packageName": "eu.kanade.tachiyomi.extension.all.kaanon.mangafire",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-all.kaanon.mangafire-v1.6.35.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.all.kaanon.mangafire.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106035,
+        "versionName": "1.6.35",
+        "contentWarning": "MIXED",
+        "sources": [
+          {
+            "id": 6084907896154116083,
+            "name": "MangaFire",
+            "language": "en",
+            "homeUrl": "https://mangafire.to",
+            "mirrorUrls": []
+          },
+          {
+            "id": 8098539940032331958,
+            "name": "MangaFire",
+            "language": "es",
+            "homeUrl": "https://mangafire.to",
+            "mirrorUrls": []
+          },
+          {
+            "id": 3849324770075062403,
+            "name": "MangaFire",
+            "language": "es-419",
+            "homeUrl": "https://mangafire.to",
+            "mirrorUrls": []
+          },
+          {
+            "id": 6228021941803932286,
+            "name": "MangaFire",
+            "language": "fr",
+            "homeUrl": "https://mangafire.to",
+            "mirrorUrls": []
+          },
+          {
+            "id": 524110931382140732,
+            "name": "MangaFire",
+            "language": "ja",
+            "homeUrl": "https://mangafire.to",
+            "mirrorUrls": []
+          },
+          {
+            "id": 758400875161895515,
+            "name": "MangaFire",
+            "language": "pt",
+            "homeUrl": "https://mangafire.to",
+            "mirrorUrls": []
+          },
+          {
+            "id": 7842137233968841729,
+            "name": "MangaFire",
+            "language": "pt-BR",
+            "homeUrl": "https://mangafire.to",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
+        "name": "MANGA Plus by SHUEISHA",
+        "packageName": "eu.kanade.tachiyomi.extension.all.kaanon.mangaplusbyshueisha",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-all.kaanon.mangaplusbyshueisha-v1.6.67.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.all.kaanon.mangaplusbyshueisha.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106067,
+        "versionName": "1.6.67",
+        "contentWarning": "SAFE",
+        "sources": [
+          {
+            "id": 1998944621602463790,
+            "name": "MANGA Plus by SHUEISHA",
+            "language": "en",
+            "homeUrl": "https://mangaplus.shueisha.co.jp",
+            "mirrorUrls": []
+          },
+          {
+            "id": 1286073245950890830,
+            "name": "MANGA Plus by SHUEISHA",
+            "language": "es",
+            "homeUrl": "https://mangaplus.shueisha.co.jp",
+            "mirrorUrls": []
+          },
+          {
+            "id": 7642759409549978864,
+            "name": "MANGA Plus by SHUEISHA",
+            "language": "fr",
+            "homeUrl": "https://mangaplus.shueisha.co.jp",
+            "mirrorUrls": []
+          },
+          {
+            "id": 932564577108614127,
+            "name": "MANGA Plus by SHUEISHA",
+            "language": "id",
+            "homeUrl": "https://mangaplus.shueisha.co.jp",
+            "mirrorUrls": []
+          },
+          {
+            "id": 3444662672352788181,
+            "name": "MANGA Plus by SHUEISHA",
+            "language": "pt-BR",
+            "homeUrl": "https://mangaplus.shueisha.co.jp",
+            "mirrorUrls": []
+          },
+          {
+            "id": 3520485566708512181,
+            "name": "MANGA Plus by SHUEISHA",
+            "language": "ru",
+            "homeUrl": "https://mangaplus.shueisha.co.jp",
+            "mirrorUrls": []
+          },
+          {
+            "id": 6345211913721743017,
+            "name": "MANGA Plus by SHUEISHA",
+            "language": "th",
+            "homeUrl": "https://mangaplus.shueisha.co.jp",
+            "mirrorUrls": []
+          },
+          {
+            "id": 4696259977267090434,
+            "name": "MANGA Plus by SHUEISHA",
+            "language": "vi",
+            "homeUrl": "https://mangaplus.shueisha.co.jp",
+            "mirrorUrls": []
+          },
+          {
+            "id": 1893513843840146580,
+            "name": "MANGA Plus by SHUEISHA",
+            "language": "de",
+            "homeUrl": "https://mangaplus.shueisha.co.jp",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
         "name": "Hizo Manga",
         "packageName": "eu.kanade.tachiyomi.extension.ar.kaanon.hizomanga",
         "resources": {
@@ -795,6 +1026,27 @@
             "name": "Hizo Manga",
             "language": "ar",
             "homeUrl": "https://hizomanga.net",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
+        "name": "Manga Tube",
+        "packageName": "eu.kanade.tachiyomi.extension.de.kaanon.mangatube",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-de.kaanon.mangatube-v1.6.0.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.de.kaanon.mangatube.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106000,
+        "versionName": "1.6.0",
+        "contentWarning": "SAFE",
+        "sources": [
+          {
+            "id": 6851437974515624757,
+            "name": "Manga Tube",
+            "language": "de",
+            "homeUrl": "https://manga-tube.me",
             "mirrorUrls": []
           }
         ]
@@ -943,6 +1195,51 @@
             "language": "en",
             "homeUrl": "https://atsu.moe",
             "mirrorUrls": []
+          }
+        ]
+      },
+      {
+        "name": "BatCave",
+        "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.batcave",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.batcave-v1.6.13.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.en.kaanon.batcave.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106013,
+        "versionName": "1.6.13",
+        "contentWarning": "SAFE",
+        "sources": [
+          {
+            "id": 7422099479605463706,
+            "name": "BatCave",
+            "language": "en",
+            "homeUrl": "https://batcave.biz",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
+        "name": "Comix",
+        "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.comix",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.comix-v1.6.59.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.en.kaanon.comix.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106059,
+        "versionName": "1.6.59",
+        "contentWarning": "MIXED",
+        "sources": [
+          {
+            "id": 7537715367149829912,
+            "name": "Comix",
+            "language": "en",
+            "homeUrl": "https://comix.to",
+            "mirrorUrls": [
+              "https://comix.to",
+              "https://comix.ws"
+            ]
           }
         ]
       },
