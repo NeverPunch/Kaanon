@@ -1,0 +1,245 @@
+<title>Kaanon-Abdeckungskarte</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: ein Lesestrang — Übersichtsbalken, Handlungsbedarf, Hebel, dann der durchsuchbare Katalog. Rasterpunkte (Screentone) als einziges Ornament. */
+:root{
+  --paper:#f6f7fa; --surface:#ffffff; --ink:#15182a; --muted:#5d6278; --rule:#dfe2ea;
+  --accent:#3a3fd1; --accent-soft:#e7e8fb;
+  --c-eigen:#2f7d5b; --c-ausweg:#7a5bd1; --c-k1:#3a8fd6; --c-k2:#8fb8e3; --c-k3:#c7d6e6;
+  --c-nur:#c8553d; --c-konto:#a9a9b4; --warn-bg:#fff3e6; --warn-ink:#8a4a12;
+  --f-display:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#11131c; --surface:#181b27; --ink:#e8e9f1; --muted:#9a9eb3; --rule:#2a2e3e;
+  --accent:#8f93ff; --accent-soft:#252963;
+  --c-eigen:#4fb486; --c-ausweg:#a58bf0; --c-k1:#5aa8ec; --c-k2:#3f6c9a; --c-k3:#2f4257;
+  --c-nur:#e2735a; --c-konto:#5b5d6b; --warn-bg:#33240f; --warn-ink:#f2c48d; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#11131c; --surface:#181b27; --ink:#e8e9f1; --muted:#9a9eb3; --rule:#2a2e3e;
+  --accent:#8f93ff; --accent-soft:#252963;
+  --c-eigen:#4fb486; --c-ausweg:#a58bf0; --c-k1:#5aa8ec; --c-k2:#3f6c9a; --c-k3:#2f4257;
+  --c-nur:#e2735a; --c-konto:#5b5d6b; --warn-bg:#33240f; --warn-ink:#f2c48d; color-scheme:dark}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px;display:grid;gap:40px}
+header{position:relative;display:grid;gap:10px;padding-block:8px 4px}
+header::after{content:"";position:absolute;right:0;top:0;width:min(46%,380px);height:100%;pointer-events:none;
+  background-image:radial-gradient(var(--accent) 1.1px,transparent 1.3px);background-size:9px 9px;opacity:.13;
+  -webkit-mask-image:linear-gradient(to left,#000,transparent);mask-image:linear-gradient(to left,#000,transparent)}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:900;font-size:clamp(30px,6vw,46px);line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h2{font-family:var(--f-display);font-weight:700;font-size:22px;margin:0;text-wrap:balance}
+p{margin:0;max-width:68ch}
+.lead{color:var(--muted);max-width:66ch}
+section{display:grid;gap:16px;min-width:0}
+.mono{font-family:var(--f-mono);font-size:12.5px}
+/* Übersichtsbalken */
+.bar{display:flex;height:34px;border-radius:6px;overflow:hidden;border:1px solid var(--rule)}
+.bar span{display:block;height:100%;min-width:2px}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 24px}
+.lg{display:grid;grid-template-columns:12px 1fr auto;gap:10px;align-items:baseline}
+.lg i{width:12px;height:12px;border-radius:3px;align-self:center}
+.lg b{font-weight:600}
+.lg small{display:block;grid-column:2/4;color:var(--muted);font-size:13px;line-height:1.4}
+.lg .n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:500}
+/* Warnkasten */
+.warn{background:var(--warn-bg);color:var(--warn-ink);border-radius:10px;padding:18px 20px;display:grid;gap:12px}
+.warn h2{color:inherit;font-size:19px}
+.warn ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.warn li{max-width:72ch}
+/* Hebel */
+.lever{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.lv{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:14px 16px;display:grid;gap:6px;align-content:start}
+.lv .num{font-family:var(--f-display);font-weight:900;font-size:30px;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+.lv .t{font-weight:600}
+.lv p{color:var(--muted);font-size:13.5px}
+/* Sprachtabelle */
+.scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--rule);white-space:nowrap}
+th{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.03em;text-transform:uppercase;background:var(--surface);position:sticky;top:0}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--f-mono);font-size:13px}
+tr:last-child td{border-bottom:0}
+.minibar{display:flex;width:140px;height:8px;border-radius:4px;overflow:hidden;background:var(--rule)}
+.minibar span{height:100%}
+/* Katalog */
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.filters input[type=search],.filters select{font:inherit;font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:8px 10px;min-width:0}
+.filters input[type=search]{flex:1 1 220px}
+.filters label{display:flex;gap:6px;align-items:center;font-size:14px;color:var(--muted)}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.count{font-family:var(--f-mono);font-size:12.5px;color:var(--muted)}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap;color:#fff}
+.p-E{background:var(--c-eigen)}.p-A{background:var(--c-ausweg)}.p-N{background:var(--c-nur)}.p-C{background:var(--c-konto)}
+.p-K1{background:var(--c-k1)}.p-K2{background:var(--c-k2);color:var(--ink)}.p-K3{background:var(--c-k3);color:var(--ink)}
+.rc{display:inline-flex;gap:3px}
+.rc b{font-family:var(--f-mono);font-size:11px;font-weight:500;padding:1px 5px;border-radius:4px;border:1px solid var(--c-nur);color:var(--c-nur)}
+.rc b.soft{border-style:dashed;border-color:var(--muted);color:var(--muted)}
+td.name{white-space:normal;min-width:150px}
+td.name a{color:var(--ink);text-decoration:none;font-weight:500}
+td.name a:hover{text-decoration:underline;color:var(--accent)}
+td.name .h{display:block;font-family:var(--f-mono);font-size:11.5px;color:var(--muted)}
+.more{justify-self:start;font:inherit;font-size:14px;font-weight:500;color:var(--accent);background:var(--accent-soft);border:0;border-radius:8px;padding:9px 14px;cursor:pointer}
+.notes{display:grid;gap:10px;color:var(--muted);font-size:14px}
+.notes ul{margin:0;padding-left:18px;display:grid;gap:6px}
+.keyrow{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.more{transition:filter .15s}.more:hover{filter:brightness(.95)}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow" id="stand"></div>
+  <h1>Kaanon-Abdeckungskarte</h1>
+  <p class="lead" id="lead"></p>
+</header>
+
+<section aria-labelledby="s-uebersicht">
+  <h2 id="s-uebersicht">Wo wir stehen</h2>
+  <div class="bar" id="bar" role="img" aria-label="Verteilung aller Community-Module nach Kategorie"></div>
+  <div class="legend" id="legend"></div>
+</section>
+
+<section class="warn" aria-labelledby="s-warn">
+  <h2 id="s-warn">Zuerst testen: eigene Extensions, deren Website aufgerüstet hat</h2>
+  <p>Im aktuellen Community-Code dieser Websites steckt inzwischen eine Regel-Klasse. Unsere eigene Engine baut sie ohne diese Technik. Sie liefern deshalb vermutlich keine lesbaren Seiten mehr. Bitte beim nächsten Handy-Test je ein Kapitel öffnen. Geht es nicht, sind sie Ausweg-Kandidaten.</p>
+  <ul id="warnlist"></ul>
+</section>
+
+<section aria-labelledby="s-hebel">
+  <h2 id="s-hebel">Die größten Hebel</h2>
+  <p class="lead">Viele Websites teilen sich ein Theme (eine gemeinsame Bauweise). Ist ein Theme einmal im Rezept-Baukasten, lassen sich alle seine Websites mit wenig Aufwand bauen.</p>
+  <div class="lever" id="lever"></div>
+</section>
+
+<section aria-labelledby="s-sprachen">
+  <h2 id="s-sprachen">Nach Sprache</h2>
+  <div class="scroll"><table id="langtab"></table></div>
+</section>
+
+<section aria-labelledby="s-katalog">
+  <h2 id="s-katalog">Katalog</h2>
+  <div class="filters">
+    <input type="search" id="q" placeholder="Website, Host oder Theme suchen" aria-label="Suche">
+    <select id="fk" aria-label="Kategorie">
+      <option value="">Alle Kategorien</option>
+      <option value="E">Kaanon · eigene Engine</option>
+      <option value="A">Kaanon · Ausweg</option>
+      <option value="K1">Kandidat · Stufe 1</option>
+      <option value="K2">Kandidat · Stufe 2</option>
+      <option value="K3">Kandidat · Stufe 3</option>
+      <option value="N">Nur Ausweg möglich</option>
+      <option value="C">Eigener Server</option>
+    </select>
+    <select id="fl" aria-label="Sprache"><option value="">Alle Sprachen</option></select>
+    <label for="f18"><input type="checkbox" id="f18"> 18+ zeigen</label>
+    <span class="count" id="cnt"></span>
+  </div>
+  <div class="keyrow">
+    <span><span class="rc"><b>P</b></span> Prüfseite</span>
+    <span><span class="rc"><b>C</b></span> CAPTCHA</span>
+    <span><span class="rc"><b>D</b></span> DRM / Entschlüsselung</span>
+    <span><span class="rc"><b>S</b></span> Signatur / Schlüssel</span>
+    <span><span class="rc"><b class="soft">D</b></span> kann das Theme, nur manche Websites nutzen es</span>
+    <span><span class="rc"><b class="soft">M</b></span> Prüfseite, die man im WebView von Hand löst</span>
+    <span><span class="rc"><b class="soft">L</b></span> Anmeldung möglich (meist optional)</span>
+  </div>
+  <div class="scroll"><table id="tab"></table></div>
+  <button class="more" id="more" type="button">Weitere 100 anzeigen</button>
+</section>
+
+<section class="notes" aria-labelledby="s-methode">
+  <h2 id="s-methode">So ist die Karte entstanden</h2>
+  <ul>
+    <li>Ausgewertet wurde der Quellcode jedes Moduls, seines Themes und seiner Bibliotheken nach festen Mustern, ohne Kommentare. Dazu gehören WebView-Automatik mit Schutz-Signalen, Löser-Klassen, Turnstile, Cipher/AES, XOR, Bild-Entwürfelung, HMAC und die DRM-Bibliotheken speedbinb, publus, e4p, ece, aessiv und secretstream. Meldungen wie „bitte im WebView lösen“ zählen nicht als Automatik, sondern als Prüfseite von Hand (M). Das ist eine Voreinschätzung. Verbindlich bleibt die Regel-Prüfung im Builder.</li>
+    <li><b>Kandidat</b> heißt: Der Community-Code enthält keine Regel-Klasse. Ob die Website selbst eine Prüfseite vorschaltet, die man im WebView von Hand löst (so bei MangaDot und ManhwaRead), sieht man im Code nicht. Das zeigt erst der Prüfstand.</li>
+    <li><b>Stufe 1</b>: Das Theme haben wir schon für mindestens eine eigene Extension gebaut. <b>Stufe 2</b>: eigenständiges Modul oder neues Theme. <b>Stufe 3</b>: neue Technik (Protobuf, ZIP, JS-Engine, WebView, JS-Entschleierung) oder ein neues Theme, das eine Regel-Klasse enthalten kann.</li>
+    <li id="nurk"></li>
+    <li>Ob eine Website noch online ist, wurde nicht geprüft. Die Cloud erreicht die Websites nicht. Die Community räumt tote Module aber regelmäßig ab.</li>
+    <li>Zuordnung zu Kaanon: zuerst über die Quell-ID, sonst über den Host.</li>
+  </ul>
+</section>
+</div>
+
+<script>
+const D = __DATA__;
+const META = __META__;
+// Felder: 0 name,1 host,2 sprachen,3 n_sprachen,4 theme,5 kat,6 stufe,7 nsfw,8 regel,9 theme_kann,10 kaanon,11 modul,12 familie_bekannt,13 manuell,14 login
+const KAT = {
+  E:{t:'Kaanon · eigene Engine',c:'var(--c-eigen)',d:'Schon im Store, mit unserer Engine gebaut.'},
+  A:{t:'Kaanon · Ausweg',c:'var(--c-ausweg)',d:'Schon im Store, Community-Code unverändert übernommen.'},
+  K1:{t:'Kandidat · Stufe 1',c:'var(--c-k1)',d:'Keine Regel-Klasse, Theme schon bei uns gebaut. Am schnellsten machbar.'},
+  K2:{t:'Kandidat · Stufe 2',c:'var(--c-k2)',d:'Keine Regel-Klasse, eigenständiges Modul oder neues Theme.'},
+  K3:{t:'Kandidat · Stufe 3',c:'var(--c-k3)',d:'Keine Regel-Klasse, braucht aber neue Engine-Technik.'},
+  N:{t:'Nur Ausweg möglich',c:'var(--c-nur)',d:'Der Community-Code löst Prüfseiten, entschlüsselt oder signiert. Für uns nur als Ausweg.'},
+  C:{t:'Eigener Server',c:'var(--c-konto)',d:'Selbst gehostet (Komga, LANraragi …). Kein Ziel für den Store.'}
+};
+const ORDER=['E','A','K1','K2','K3','N','C'];
+const key = r => r[5]==='K' ? 'K'+r[6] : r[5];
+const fmt = n => n.toLocaleString('de-DE');
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const rc = (hard, soft, man, login) => '<span class="rc">' + [...hard].map(x=>`<b>${x}</b>`).join('') + [...soft].filter(x=>!hard.includes(x)).map(x=>`<b class="soft">${x}</b>`).join('') + (man?'<b class="soft">M</b>':'') + (login?'<b class="soft">L</b>':'') + '</span>';
+const [cStand, cDatum] = META.community.split(' ');
+document.getElementById('stand').textContent = `Community-Stand ${cStand} · ${new Date(cDatum).toLocaleDateString('de-DE')} · Store ${META.store.split(' ')[0]}`;
+document.getElementById('lead').textContent = `Alle ${fmt(META.module)} Community-Module, abgeglichen mit den ${META.kaanon} Kaanon-Extensions. Für jede Website steht hier, ob wir sie schon haben, ob unsere Engine sie bauen dürfte oder ob nur der Community-Code in Frage kommt.`;
+
+// Übersicht
+const cnt = {}; ORDER.forEach(k=>cnt[k]=0); D.forEach(r=>cnt[key(r)]++);
+document.getElementById('bar').innerHTML = ORDER.map(k=>`<span style="flex:${cnt[k]};background:${KAT[k].c}" title="${KAT[k].t}: ${cnt[k]}"></span>`).join('');
+document.getElementById('legend').innerHTML = ORDER.map(k=>`<div class="lg"><i style="background:${KAT[k].c}"></i><b>${KAT[k].t}</b><span class="n">${fmt(cnt[k])}</span><small>${KAT[k].d}</small></div>`).join('');
+
+// Warnliste
+const warn = D.filter(r=>r[5]==='E' && r[8]);
+const WL = {P:'Prüfseite',C:'CAPTCHA (Turnstile)',D:'Bild-Entwürfelung / Entschlüsselung',S:'Signatur'};
+const giga = D.filter(r=>r[5]==='E' && !r[8] && r[9].includes('D') && (r[4]==='gigaviewer'||r[4]==='comiciviewer'));
+document.getElementById('warnlist').innerHTML = warn.map(r=>`<li><b>${esc(r[10])}</b> (${esc(r[1])}): ${[...r[8]].map(x=>WL[x]).join(', ')}</li>`).join('')
+  + (giga.length ? `<li><b>${giga.length} Extensions auf GigaViewer/ComiciViewer</b> (${giga.map(r=>esc(r[10])).join(', ')}): Diese Bauweisen verwürfeln die Bilder je Seite. Prüfen, ob sie bei uns lesbar ankommen.</li>` : '');
+document.getElementById('s-warn').textContent = `Zuerst testen: ${warn.length + giga.length} eigene Extensions, deren Website aufgerüstet hat`;
+
+// Hebel
+const K = D.filter(r=>r[5]==='K');
+const byTheme = {}; K.forEach(r=>{ if(r[4]){ (byTheme[r[4]] ||= {n:0,known:r[12],n18:0}); byTheme[r[4]].n++; if(r[7]) byTheme[r[4]].n18++; }});
+const solo = K.filter(r=>!r[4]).length;
+const themeTop = Object.entries(byTheme).sort((a,b)=>b[1].n-a[1].n);
+const known = themeTop.filter(([,v])=>v.known).slice(0,4), fresh = themeTop.filter(([,v])=>!v.known).slice(0,3);
+const LV = [
+  ...known.map(([t,v])=>({num:v.n,t:`${t}`,p:`Theme schon im Baukasten. ${v.n} weitere Websites ohne Regel-Klasse${v.n18?`, davon ${v.n18} mit 18+-Inhalten`:''}.`})),
+  ...fresh.map(([t,v])=>({num:v.n,t:`${t} (neu)`,p: t==='mangahub' ? `Neues Theme mit ${v.n} Websites. Braucht den Baustein „bei Fehler erneuern“ (Punkt 6) und eine Regel-Prüfung der Entschlüsselung.` : `Neues Theme. Ein Rezept-Baustein öffnet ${v.n} Websites.`})),
+  {num:solo,t:'Einzelmodule',p:'Kandidaten ohne Theme. Jede Website braucht ihr eigenes Rezept.'}
+];
+document.getElementById('lever').innerHTML = LV.map(x=>`<div class="lv"><div class="num">${fmt(x.num)}</div><div class="t">${esc(x.t)}</div><p>${x.p}</p></div>`).join('');
+
+// Sprachtabelle
+const L = r => r[3]===1 ? r[2] : 'mehrsprachig';
+const lt = {}; D.forEach(r=>{ const l=L(r); (lt[l] ||= Object.fromEntries(ORDER.map(k=>[k,0]))); lt[l][key(r)]++; });
+const langs = Object.entries(lt).map(([l,c])=>[l,c,ORDER.reduce((s,k)=>s+c[k],0)]).sort((a,b)=>b[2]-a[2]);
+document.getElementById('langtab').innerHTML = '<thead><tr><th>Sprache</th><th class="n">Module</th><th class="n">Kaanon</th><th class="n">Stufe 1</th><th class="n">Stufe 2–3</th><th class="n">Nur Ausweg</th><th>Verteilung</th></tr></thead><tbody>' +
+  langs.map(([l,c,t])=>`<tr><td>${esc(l)}</td><td class="n">${t}</td><td class="n">${c.E+c.A}</td><td class="n">${c.K1}</td><td class="n">${c.K2+c.K3}</td><td class="n">${c.N}</td><td><div class="minibar">${ORDER.map(k=>c[k]?`<span style="flex:${c[k]};background:${KAT[k].c}"></span>`:'').join('')}</div></td></tr>`).join('') + '</tbody>';
+const fl = document.getElementById('fl');
+langs.forEach(([l,,t])=>{ const o=document.createElement('option'); o.value=l; o.textContent=`${l} (${t})`; fl.appendChild(o); });
+
+// Katalog
+const rank = {E:0,A:1,K1:2,K2:3,K3:4,N:5,C:6};
+let shown = 100;
+const q=document.getElementById('q'), fk=document.getElementById('fk'), f18=document.getElementById('f18');
+function list(){
+  const s=q.value.trim().toLowerCase(), k=fk.value, l=fl.value, adult=f18.checked;
+  return D.filter(r=>(adult||!r[7]) && (!k||key(r)===k) && (!l||L(r)===l) &&
+    (!s || (r[0]+' '+r[1]+' '+r[4]+' '+r[10]).toLowerCase().includes(s)))
+   .sort((a,b)=>rank[key(a)]-rank[key(b)] || a[0].localeCompare(b[0],'de'));
+}
+function render(){
+  const rows=list();
+  document.getElementById('cnt').textContent = `${fmt(rows.length)} Websites`;
+  document.getElementById('tab').innerHTML = '<thead><tr><th>Website</th><th>Status</th><th>Sprache</th><th>Theme</th><th>Regel</th><th>In Kaanon</th></tr></thead><tbody>' +
+    rows.slice(0,shown).map(r=>`<tr><td class="name"><a href="https://github.com/keiyoushi/extensions-source/tree/main/${r[11]}" target="_blank" rel="noopener">${esc(r[0])}</a><span class="h">${esc(r[1])}${r[7]?' · 18+':''}</span></td><td><span class="pill p-${key(r)}">${KAT[key(r)].t.replace('Kandidat · ','')}</span></td><td class="mono">${esc(r[2])}</td><td class="mono">${esc(r[4]||'–')}</td><td>${rc(r[8],r[9],r[13],r[14])}</td><td class="mono">${esc(r[10]||'')}</td></tr>`).join('') + '</tbody>';
+  document.getElementById('more').hidden = rows.length<=shown;
+}
+[q,fk,fl,f18].forEach(el=>el.addEventListener('input',()=>{shown=100;render();}));
+document.getElementById('more').addEventListener('click',()=>{shown+=100;render();});
+render();
+const nk = document.getElementById('nurk');
+if (META.nur_kaanon.length) nk.innerHTML = `<b>Nur bei Kaanon</b> (kein Community-Modul): ${META.nur_kaanon.map(esc).join(', ')}.`; else nk.hidden = true;
+</script>
