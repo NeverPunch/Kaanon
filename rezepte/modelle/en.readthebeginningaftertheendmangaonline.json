@@ -23,7 +23,87 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/"
+    },
+    "title": {
+     "const": "The Beginning After The End"
+    },
+    "cover": "meta[property='og:image']@content"
+   }
+  },
+  "search": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/"
+    },
+    "title": {
+     "const": "The Beginning After The End"
+    },
+    "cover": "meta[property='og:image']@content"
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{base}/",
+   "fields": {
+    "title": {
+     "const": "The Beginning After The End"
+    },
+    "cover": "meta[property='og:image']@content",
+    "description": "meta[property='og:description']@content"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a[href*='beginning-after-the-end-']",
+   "skip": {
+    "path": "@href",
+    "regex": "^((?!(?:chapter|ch)-\\d+/?$).)*$"
+   },
+   "fields": {
+    "url": "@href",
+    "name": {
+     "path": "@href",
+     "regex": "(?:chapter|ch)-(\\d+)/?$",
+     "group": 1,
+     "template": "Chapter {value}"
+    },
+    "number": {
+     "path": "@href",
+     "regex": "(?:chapter|ch)-(\\d+)/?$",
+     "group": 1
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".entry-content img",
+   "image": [
+    "@data-src",
+    "@data-lazy-src",
+    "@img"
+   ],
+   "include": "blogger\\.googleusercontent\\.com|bp\\.blogspot\\.com|img\\.thebeginningaftertheendmanga\\.com",
+   "exclude": "cropped-"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Ein-Serien-Website: ein Eintrag 'The Beginning After The End' (Startseite), Felder per const wie bei en.ruridragonmangaonline; Suche filtert lokal.",
+  "Kapitel = Links a[href*='beginning-after-the-end-'] mit Endung (chapter|ch)-<n>. Community entfernt Dubletten je Nummer und bevorzugt den 'ch-N'-Link (der hat Bilder) – hier nicht ausdrückbar: dieselbe Nummer kann doppelt erscheinen (chapter-N evtl. ohne Bilder); Reihenfolge wie auf der Seite.",
+  "Seiten: data-src/data-lazy-src/bestes Bild (srcset), nur Blogger-/img.thebeginningaftertheendmanga.com-Bilder, ohne 'cropped-' (wie Community); doppelte Bild-URLs werden nicht entfernt."
+ ]
 }

@@ -12365,7 +12365,7 @@
  },
  {
   "modul": "src/en/thebeginningaftertheendmangaonline",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Read The Beginning After The End Manga Online",
   "stufe": 2,
   "theme": null,
@@ -12375,11 +12375,14 @@
   "host": "w22.thebeginningaftertheendmanga.com",
   "nsfw": false,
   "wer": "agent-w5d",
-  "seit": "2026-11-03T10:50:51"
+  "seit": "2026-11-03T10:50:51",
+  "datei": "rezepte/modelle/en.readthebeginningaftertheendmangaonline.json",
+  "grund": null,
+  "geaendert": "2026-11-03T10:51:14"
  },
  {
   "modul": "src/en/theduckwebcomics",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "The Duck Webcomics",
   "stufe": 2,
   "theme": null,
@@ -12389,7 +12392,10 @@
   "host": "theduckwebcomics.com",
   "nsfw": false,
   "wer": "agent-w5a",
-  "seit": "2026-11-03T10:50:53"
+  "seit": "2026-11-03T10:50:53",
+  "datei": "rezepte/modelle/en.theduckwebcomics.json",
+  "grund": null,
+  "geaendert": "2026-11-03T10:51:16"
  },
  {
   "modul": "src/en/theexiledheavyknightmangaonline",
@@ -12407,7 +12413,7 @@
  },
  {
   "modul": "src/en/thegirlfromrandomchattingmangaonline",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "The Girl from Random Chatting Manga Online",
   "stufe": 2,
   "theme": null,
@@ -12415,7 +12421,9 @@
    "en"
   ],
   "host": "thegirlfromrandomchatting.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5d",
+  "seit": "2026-11-03T10:51:14"
  },
  {
   "modul": "src/en/thepropertyofhate",

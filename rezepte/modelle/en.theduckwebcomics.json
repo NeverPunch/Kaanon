@@ -23,7 +23,84 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/search/?page={page}",
+   "items": ".breadcrumb ~ div[style]:has(.size24)",
+   "fields": {
+    "url": ".size24@href",
+    "title": ".size24",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a.next"
+   }
+  },
+  "latest": {
+   "request": "{base}/search/?page={page}&last_update=today",
+   "items": ".breadcrumb ~ div[style]:has(.size24)",
+   "fields": {
+    "url": ".size24@href",
+    "title": ".size24",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a.next"
+   }
+  },
+  "search": {
+   "request": "{base}/search/?search={query}&page={page}",
+   "items": ".breadcrumb ~ div[style]:has(.size24)",
+   "fields": {
+    "url": ".size24@href",
+    "title": ".size24",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a.next"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     "meta[property=og:title]@content",
+     "title"
+    ],
+    "cover": "meta[property=og:image]@content",
+    "description": "meta[name=description]@content"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#page_dropdown > option",
+   "fields": {
+    "url": {
+     "path": "@value",
+     "template": "{value}/"
+    },
+    "name": {
+     "path": "",
+     "replace": [
+      [
+       "^.*?- ",
+       ""
+      ]
+     ]
+    }
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".page-image",
+   "image": "@src"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Listen über /search/ (Beliebt = ohne Filter, Neueste = last_update=today) wie in der Community; Suche nur Text, Typ/Ton/Stil/Genre/Rating-Filter nicht nachgebaut.",
+  "Details: Community übernimmt Autor/Genre/Beschreibung nur aus dem Listeneintrag (Detailseite hat keine eigenen Felder). Hier Titel/Cover/Beschreibung aus og:/meta-Angaben der Comicseite angenommen – auf dem PC prüfen.",
+  "Jede Comicseite ist ein Kapitel (#page_dropdown > option@value + '/'), Name = Text nach '- '. Community nummeriert in Dropdown-Reihenfolge ohne Umkehr; hier reverse angenommen (neueste zuerst) – Reihenfolge prüfen.",
+  "Fehlerhinweis der Website (.yellow-box > .paranomargin, z. B. gesperrte Comics) wird nicht ausgewertet."
+ ]
 }
