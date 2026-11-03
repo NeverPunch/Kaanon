@@ -1,0 +1,263 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "KomikIndoID",
+  "sprache": "id",
+  "base_url": "https://komikindo.ch",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.komikindoid",
+  "quellen": [
+   {
+    "name": "KomikIndoID",
+    "sprache": "id",
+    "quell_id": 5384836574731339537,
+    "home": "https://komikindo.ch"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/komikindoid",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 12,
+   "period_ms": 3000
+  },
+  "popular": {
+   "request": "{base}/daftar-manga/page/{page}/?order=popular",
+   "request_by_page": {
+    "1": "{base}/daftar-manga/?order=popular"
+   },
+   "items": "div.animepost",
+   "fields": {
+    "url": "div.animposx > a@href",
+    "title": [
+     "div.tt h3",
+     {
+      "path": "div.animposx > a@title",
+      "replace": [
+       [
+        "^Komik\\s*",
+        ""
+       ]
+      ]
+     }
+    ],
+    "cover": [
+     "div.limit img@data-lazy-src",
+     "div.limit img@data-src",
+     "div.limit img@src"
+    ]
+   },
+   "has_next": {
+    "exists": "a.next.page-numbers"
+   }
+  },
+  "latest": {
+   "request": "{base}/daftar-manga/page/{page}/?order=update",
+   "request_by_page": {
+    "1": "{base}/daftar-manga/?order=update"
+   },
+   "items": "div.animepost",
+   "fields": {
+    "url": "div.animposx > a@href",
+    "title": [
+     "div.tt h3",
+     {
+      "path": "div.animposx > a@title",
+      "replace": [
+       [
+        "^Komik\\s*",
+        ""
+       ]
+      ]
+     }
+    ],
+    "cover": [
+     "div.limit img@data-lazy-src",
+     "div.limit img@data-src",
+     "div.limit img@src"
+    ]
+   },
+   "has_next": {
+    "exists": "a.next.page-numbers"
+   }
+  },
+  "search": {
+   "request": "{base}/daftar-manga/page/{page}/?title={query}",
+   "request_by_page": {
+    "1": "{base}/daftar-manga/?title={query}"
+   },
+   "items": "div.animepost",
+   "fields": {
+    "url": "div.animposx > a@href",
+    "title": [
+     "div.tt h3",
+     {
+      "path": "div.animposx > a@title",
+      "replace": [
+       [
+        "^Komik\\s*",
+        ""
+       ]
+      ]
+     }
+    ],
+    "cover": [
+     "div.limit img@data-lazy-src",
+     "div.limit img@data-src",
+     "div.limit img@src"
+    ]
+   },
+   "has_next": {
+    "exists": "a.next.page-numbers"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "d": {
+     "path": "div.desc > .entry-content.entry-content-single p",
+     "all": true,
+     "join": " ",
+     "replace": [
+      [
+       "^.*?bercerita tentang ",
+       ""
+      ]
+     ]
+    },
+    "alt": ".infox > .spe > span:nth-child(1)"
+   },
+   "fields": {
+    "title": {
+     "path": "h1.entry-title",
+     "replace": [
+      [
+       "^Komik\\s*",
+       ""
+      ]
+     ]
+    },
+    "author": {
+     "path": ".infox .spe span:contains(Pengarang)",
+     "replace": [
+      [
+       "^\\s*Pengarang\\s*:?\\s*",
+       ""
+      ]
+     ]
+    },
+    "artist": {
+     "path": ".infox .spe span:contains(Ilustrator)",
+     "replace": [
+      [
+       "^\\s*Ilustrator\\s*:?\\s*",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": "div.infoanime .infox .genre-info a, div.infoanime .infox .spe span:contains(Grafis:) a, div.infoanime .infox .spe span:contains(Tema:) a, div.infoanime .infox .spe span:contains(Konten:) a, div.infoanime .infox .spe span:contains(Jenis Komik:) a",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": "div.infoanime .infox > .spe > span:nth-child(2)",
+     "regex": "(?i)(berjalan|ongoing|tamat|completed)",
+     "group": 1
+    },
+    "description": {
+     "const": "[[{l.d}]][[\n\n{l.alt}]]",
+     "replace": [
+      [
+       "^\\n+",
+       ""
+      ]
+     ]
+    },
+    "cover": [
+     {
+      "path": ".thumb > img:nth-child(1)@data-lazy-src",
+      "replace": [
+       [
+        "\\?[^?]*$",
+        ""
+       ]
+      ]
+     },
+     {
+      "path": ".thumb img@data-src",
+      "replace": [
+       [
+        "\\?[^?]*$",
+        ""
+       ]
+      ]
+     },
+     {
+      "path": ".thumb img@src",
+      "replace": [
+       [
+        "\\?[^?]*$",
+        ""
+       ]
+      ]
+     }
+    ]
+   },
+   "status_map": {
+    "berjalan": 1,
+    "ongoing": 1,
+    "tamat": 2,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#chapter_list li:has(.lchx a)",
+   "fields": {
+    "url": ".lchx a@href",
+    "name": ".lchx a",
+    "number": {
+     "path": ".lchx a",
+     "regex": "(?i)Chapter\\s+([0-9]+(?:\\.[0-9]+)?)",
+     "group": 1
+    },
+    "date": ".dt a"
+   },
+   "date_format": [
+    "MMM d, yyyy",
+    "relative"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.img-landmine img",
+   "referer": "chapter",
+   "image": [
+    {
+     "path": "@onerror",
+     "regex": "src='([^']+)'",
+     "group": 1
+    },
+    "@data-lazy-src",
+    "@data-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "HTML /daftar-manga/[page/n/]?order=popular|update, Suche title=… (wie Community); weitere Filter nicht übernommen. Rate-Limit 12 je 3 s wie Community. Gleiches Muster wie id.bacakomik.",
+  "Autor/Zeichner: Text der Info-Zeile ohne die Beschriftung 'Pengarang'/'Ilustrator' (Community: substringAfter des <b>-Texts).",
+  "Beschreibung: Absätze ab 'bercerita tentang ' + Alternativname; Cover ohne Query-String (Community: substringBeforeLast('?')).",
+  "Datum: 'MMM d, yyyy' (en) oder 'N … yang lalu' (relative; ob die Engine indonesische Angaben versteht, auf dem PC prüfen).",
+  "Seiten: Bild-URL bevorzugt aus onerror=\"…src='…'\" (Ausweich-URL der Website), sonst data-lazy-src/data-src/src; Referer = Kapitelseite."
+ ]
+}

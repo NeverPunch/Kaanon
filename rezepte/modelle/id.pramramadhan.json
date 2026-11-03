@@ -1,0 +1,118 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Pramramadhan",
+  "sprache": "id",
+  "base_url": "https://01.pramramadhan.my.id",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.pramramadhan",
+  "quellen": [
+   {
+    "name": "Pramramadhan",
+    "sprache": "id",
+    "quell_id": 637793516114361627,
+    "home": "https://01.pramramadhan.my.id"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/pramramadhan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/search.php?sort=popular&page=1",
+   "items": "a.result-card:has(div.result-title)",
+   "fields": {
+    "url": "@href",
+    "title": "div.result-title",
+    "cover": "div.result-cover img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/search.php?sort=newest&page=1",
+   "items": "a.result-card:has(div.result-title)",
+   "fields": {
+    "url": "@href",
+    "title": "div.result-title",
+    "cover": "div.result-cover img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/search.php?q={query}&page=1",
+   "items": "a.result-card:has(div.result-title)",
+   "fields": {
+    "url": "@href",
+    "title": "div.result-title",
+    "cover": "div.result-cover img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1.series-title",
+    "author": ".tag-row:has(.tag-label:contains(Author)) .tag-pill",
+    "artist": ".tag-row:has(.tag-label:contains(Artist)) .tag-pill",
+    "genres": {
+     "path": ".tag-row:has(.tag-label:contains(Genre)) .tag-list a.tag-pill",
+     "all": true,
+     "join": ", "
+    },
+    "status": ".tag-row:has(.tag-label:contains(Status)) .tag-pill",
+    "description": "p.series-desc",
+    "cover": "div.series-cover img@src"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.chapter-grid a.chapter-card",
+   "fields": {
+    "url": "@href",
+    "name": {
+     "path": "div.chapter-title, div.chapter-sub",
+     "all": true,
+     "join": " - ",
+     "replace": [
+      [
+       "(?: - )+$",
+       ""
+      ]
+     ]
+    },
+    "date": "div.chapter-time"
+   },
+   "date_format": [
+    "relative",
+    "d MMMM yyyy"
+   ],
+   "date_locale": "id"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.reader-container img.page",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "HTML /search.php (sort=popular|newest, Suche q=…); wie Community nur eine Seite (keine Pagination). Filter nicht übernommen.",
+  "Kapitelname = chapter-title + ' - ' + chapter-sub per Selektor-Vereinigung mit all/join (Reihenfolge = Dokumentreihenfolge, leerer Untertitel möglich).",
+  "Datum: 'N detik/menit/jam/hari/minggu/bulan/tahun lalu' (relative; indonesische Angaben auf dem PC prüfen) oder 'd MMMM yyyy' (id)."
+ ]
+}

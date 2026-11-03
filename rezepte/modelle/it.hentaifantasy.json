@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiFantasy",
+  "sprache": "it",
+  "base_url": "https://hentaifantasy.it",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.it.kaanon.hentaifantasy",
+  "quellen": [
+   {
+    "name": "HentaiFantasy",
+    "sprache": "it",
+    "quell_id": 398037379041422243,
+    "home": "https://hentaifantasy.it"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/it/hentaifantasy",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

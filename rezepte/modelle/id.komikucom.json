@@ -1,0 +1,161 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Komiku.com",
+  "sprache": "id",
+  "base_url": "https://01.komiku.asia",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.komikucom",
+  "quellen": [
+   {
+    "name": "Komiku.com",
+    "sprache": "id",
+    "quell_id": 8489420317813224728,
+    "home": "https://01.komiku.asia"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/komikucom",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.37",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "application/json, text/plain, */*",
+   "Accept-Language": "id-ID,id;q=0.9,en-US;q=0.8"
+  },
+  "popular": {
+   "request": "{base}/api/v2/comics?sort=popular&page={page}",
+   "format": "json",
+   "items": "items",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   },
+   "has_next": {
+    "lt": [
+     "page",
+     "totalPages"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/api/v2/comics?sort=update&page={page}",
+   "format": "json",
+   "items": "items",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   },
+   "has_next": {
+    "lt": [
+     "page",
+     "totalPages"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/api/v2/comics/search?q={query}&page={page}",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   },
+   "page_size": 1,
+   "has_next": {
+    "full": true
+   }
+  },
+  "details": {
+   "request": "{base}/api/v2/comics/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "let": {
+    "cid": "id"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "coverUrl",
+    "description": "synopsis",
+    "author": {
+     "path": [
+      "author",
+      "artist"
+     ],
+     "union": true
+    },
+    "genres": "genres",
+    "status": "comicStatus"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "Ongoing": 1,
+    "completed": 2,
+    "Completed": 2,
+    "hiatus": 6,
+    "Hiatus": 6,
+    "cancelled": 5,
+    "canceled": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/v2/comics/{l.cid}/chapters",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/read/id/{u.slug}/ch{f.n}-{value}#{l.cid}"
+    },
+    "name": [
+     "title",
+     {
+      "path": "n",
+      "template": "Chapter {value}"
+     }
+    ],
+    "number": "n",
+    "date": "releasedLabel"
+   },
+   "date_format": [
+    "d MMM yyyy",
+    "relative"
+   ],
+   "date_locale": "id"
+  },
+  "pages": {
+   "request": "{base}/api/v2/comics/{u.cid}/chapters/id/{u.chid}",
+   "format": "json",
+   "url_vars": {
+    "chid": "-(\\d+)#",
+    "cid": "#(\\d+)$"
+   },
+   "items": "pages",
+   "image": "url"
+  }
+ },
+ "hinweise": [
+  "API {base}/api/v2. Suche: /comics/search liefert eine Liste ohne Seitenangabe; Community blättert weiter, solange die Seite nicht leer ist (hier has_next full mit page_size 1 = gleiche Bedeutung, Annahme).",
+  "Kapitel: comicId (Feld id der Details) als let, Kapitel aus /comics/<id>/chapters. Kapitel-URL = Web-Pfad /read/id/<slug>/ch<n>-<id> plus '#<comicId>' für die Seiten-API (Annahme: {l.cid} aus den Details steht in den Kapitel-Feldern zur Verfügung, wie in en.goda).",
+  "Datum: 'N menit/jam/hari' (relative) oder 'd MMM yyyy' mit gemischten EN/ID-Monatskürzeln (Locale id; englische Kürzel wie Aug/Oct/Dec evtl. nicht erkannt). Autor = Autor + Zeichner (wie Community)."
+ ]
+}

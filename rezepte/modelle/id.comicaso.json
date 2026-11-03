@@ -1,0 +1,188 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Comicaso",
+  "sprache": "id",
+  "base_url": "https://v3.comicaso.pro",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.comicaso",
+  "quellen": [
+   {
+    "name": "Comicaso",
+    "sprache": "id",
+    "quell_id": 8105901253428833094,
+    "home": "https://v3.comicaso.pro"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/comicaso",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.5",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "X-Comicaso-Platform": "web"
+  },
+  "rate_limit": {
+   "permits": 4,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/trending.php?period=all&limit=60",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "const": "/{f.source}/{f.slug}",
+     "replace": [
+      [
+       "^//",
+       "/all/"
+      ]
+     ]
+    },
+    "title": "title",
+    "cover": "thumbnail"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/api/home.php?source=all&q=&mode=update&type=all&limit=60&offset={offset}",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "const": "/{f.source}/{f.slug}",
+     "replace": [
+      [
+       "^//",
+       "/all/"
+      ]
+     ]
+    },
+    "title": "title",
+    "cover": "thumbnail"
+   },
+   "page_size": 60,
+   "has_next": {
+    "exists": "has_more"
+   }
+  },
+  "search": {
+   "request": "{base}/api/home.php?source=all&q={query}&mode=update&type=all&genre=&limit=60&offset={offset}",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "const": "/{f.source}/{f.slug}",
+     "replace": [
+      [
+       "^//",
+       "/all/"
+      ]
+     ]
+    },
+    "title": "title",
+    "cover": "thumbnail"
+   },
+   "page_size": 60,
+   "has_next": {
+    "exists": "has_more"
+   }
+  },
+  "details": {
+   "request": "{base}/api/manga.php?source={u.source}&slug={u.slug}&platform=web",
+   "format": "json",
+   "url_vars": {
+    "source": "^/([^/]+)/",
+    "slug": "^/[^/]+/([^/?#]+)"
+   },
+   "let": {
+    "syn": {
+     "path": "data.synopsis",
+     "decode": "html_text"
+    },
+    "alt": "data.alternative"
+   },
+   "fields": {
+    "title": "data.title",
+    "cover": "data.thumbnail",
+    "author": "data.author",
+    "artist": "data.artist",
+    "genres": {
+     "path": "data.genres",
+     "all": true,
+     "join": ", "
+    },
+    "status": "data.status",
+    "description": {
+     "const": "[[{l.syn}]]\n\n[[Alternative: {l.alt}]]",
+     "replace": [
+      [
+       "^\\n+|\\n+$",
+       ""
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "on-going": 1,
+    "On-going": 1,
+    "On-Going": 1,
+    "ongoing": 1,
+    "Ongoing": 1,
+    "end": 2,
+    "End": 2,
+    "completed": 2,
+    "Completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "source": "^/([^/]+)/",
+    "slug": "^/[^/]+/([^/?#]+)"
+   },
+   "items": "data.chapters",
+   "fields": {
+    "url": {
+     "const": "/{u.source}/{u.slug}/{f.slug}?token={f.chapter_token}"
+    },
+    "name": "title",
+    "number": {
+     "path": "title",
+     "regex": "(?i)(?:bab|chapter|ch|ep|episode)\\s*(?:[-:]\\s*)?(\\d+(?:\\.\\d+)?)",
+     "group": 1
+    },
+    "date": "date"
+   },
+   "date_format": "epoch_s"
+  },
+  "pages": {
+   "request": "{base}/api/chapter.php?source={u.source}&manga={u.manga}&chapter={u.ch}&token={u.token}",
+   "format": "json",
+   "url_vars": {
+    "source": "^/([^/]+)/",
+    "manga": "^/[^/]+/([^/]+)/",
+    "ch": "^/[^/]+/[^/]+/([^/?#]+)",
+    "token": "[?&]token=([^&#]+)"
+   },
+   "items": "data.images",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "JSON-API (/api/trending.php, /api/home.php, /api/manga.php, /api/chapter.php) mit Header X-Comicaso-Platform: web wie Community.",
+  "Eintrags-URL /<source>/<slug> (source fehlt → 'all'), Kapitel /<source>/<manga>/<kapitel>?token=<chapter_token> wie Community (Token liefert die API selbst).",
+  "Beliebt: trending (60, eine Seite). Neueste/Suche: home.php mode=update, 60 je Seite über offset, weiter solange has_more. Quelle/Typ/Genre-Filter nicht übernommen.",
+  "Kapitel in API-Reihenfolge (Community sortiert nach Nummer aus dem Titel absteigend). Datum epoch Sekunden.",
+  "Nicht nachgebaut: Ausweich-CDN-Hosts bei Bildfehlern (imgmanga/imgmacha → basrat.online usw.) und die Login-Meldung bei gesperrten Inhalten (403 locked) – solche Inhalte bleiben unlesbar (Regel 0014)."
+ ]
+}

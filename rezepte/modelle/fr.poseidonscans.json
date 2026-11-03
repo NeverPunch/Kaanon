@@ -23,7 +23,232 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/series?page={page}",
+   "request_by_page": {
+    "1": "{base}/series"
+   },
+   "items": "div.grid a.block.group",
+   "has_next": {
+    "exists": "nav[aria-label=Pagination] a:contains(Suivant)"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h2",
+    "cover": {
+     "path": "@href",
+     "regex": "/serie/([^/?#]+)",
+     "group": 1,
+     "template": "https://poseidon-scans.net/api/covers/{value}.webp"
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}/api/manga/lastchapters?limit=16&page={page}",
+   "format": "json",
+   "items": "data",
+   "page_size": 16,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/serie/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "slug",
+     "template": "https://poseidon-scans.net/api/covers/{value}.webp"
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/series?search={query}&page={page}",
+   "request_by_page": {
+    "1": "{base}/series?search={query}"
+   },
+   "items": "div.grid a.block.group",
+   "has_next": {
+    "exists": "nav[aria-label=Pagination] a:contains(Suivant)"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h2",
+    "cover": {
+     "path": "@href",
+     "regex": "/serie/([^/?#]+)",
+     "group": 1,
+     "template": "https://poseidon-scans.net/api/covers/{value}.webp"
+    }
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "RSC": "1"
+    }
+   },
+   "format": "text",
+   "url_vars": {
+    "slug": "/serie/([^/?#]+)"
+   },
+   "fields": {
+    "title": {
+     "path": "",
+     "regex": "\"manga\":\\{[^\\n]*?\"title\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "description": {
+     "path": "",
+     "regex": "\"manga\":\\{[^\\n]*?\"description\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "author": {
+     "path": "",
+     "regex": "\"manga\":\\{[^\\n]*?\"author\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "artist": {
+     "path": "",
+     "regex": "\"manga\":\\{[^\\n]*?\"artist\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "status": {
+     "path": "",
+     "regex": "\"manga\":\\{[^\\n]*?\"status\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "genres": {
+     "path": "",
+     "regex": "\"categories\":\\[([^\\]]*)\\]",
+     "group": 1,
+     "replace": [
+      [
+       "\\{\"name\":\"\\s*([^\"]*?)\\s*\"[^{}]*\\}",
+       "$1"
+      ],
+      [
+       "\\s*,\\s*",
+       ", "
+      ]
+     ]
+    },
+    "cover": {
+     "const": "https://poseidon-scans.net/api/covers/{u.slug}.webp"
+    }
+   },
+   "status_map": {
+    "en cours": 1,
+    "terminé": 2,
+    "en pause": 6,
+    "hiatus": 6,
+    "annulé": 5,
+    "abandonné": 5
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "RSC": "1"
+    }
+   },
+   "format": "text",
+   "url_vars": {
+    "slug": "/serie/([^/?#]+)"
+   },
+   "items": "\\{(?=[^{}]*\"number\":)(?=[^{}]*\"createdAt\":)[^{}]*\\}",
+   "skip": {
+    "any": [
+     {
+      "path": "",
+      "regex": "\"premiumUntil\":\"(?:\\$D)?([^\"]+)\"",
+      "group": 1,
+      "is_future": "iso"
+     },
+     {
+      "path": "",
+      "regex": "^(?![\\s\\S]*\"premiumUntil\":\")[\\s\\S]*(\"isPremium\":true)"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"number\":([0-9.]+)",
+     "group": 1,
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "/serie/{u.slug}/chapter/{value}"
+    },
+    "name": {
+     "path": "",
+     "regex": "\"number\":([0-9.]+)",
+     "group": 1,
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "Chapitre {value}"
+    },
+    "number": {
+     "path": "",
+     "regex": "\"number\":([0-9.]+)",
+     "group": 1
+    },
+    "date": {
+     "path": "",
+     "regex": "\"createdAt\":\"(?:\\$D)?([^\"]+)\"",
+     "group": 1
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "RSC": "1"
+    }
+   },
+   "format": "text",
+   "items": "\\{(?=[^{}]*\"originalUrl\":\")(?=[^{}]*\"order\":)[^{}]*\\}",
+   "sort": {
+    "path": "",
+    "regex": "\"order\":(\\d+)"
+   },
+   "image": {
+    "path": "",
+    "regex": "\"originalUrl\":\"([^\"]+)\"",
+    "group": 1,
+    "replace": [
+     [
+      "^/(?!/)",
+      "https://poseidon-scans.net/"
+     ]
+    ]
+   }
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Beliebt: Community liest die erste Serienliste aus den Flight-Daten der Startseite; hier ersatzweise die HTML-Liste /series (Standardsortierung der Website, nicht 'beliebt'). Cover aus dem Slug (/api/covers/<slug>.webp) statt aus dem next/image-srcset.",
+  "Neueste: /api/manga/lastchapters?limit=16 (weiter solange 16 Einträge). Suche: /series?search=…",
+  "Details/Kapitel/Seiten: rsc:1-Abruf (Header RSC: 1 wie Community) und Regex auf die Flight-Daten (erstes Vorkommen im manga-Objekt). Datumswerte ggf. mit React-Präfix $D – wird übersprungen.",
+  "Kapitel: URL /serie/<slug>/chapter/<nummer ohne .0>; Name nur 'Chapitre <n>' (Kapiteltitel und Volume-Erkennung der Community nicht übernommen). Gesperrt = isPremium und premiumUntil fehlt oder liegt in der Zukunft → ausgelassen (Regel 0014). Community wiederholt bei leeren Flight-Daten mit Cache-Busting – hier nicht.",
+  "Seiten: Objekte mit originalUrl+order, nach order sortiert."
+ ]
 }

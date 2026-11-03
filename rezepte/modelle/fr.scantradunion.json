@@ -1,0 +1,191 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Scantrad Union",
+  "sprache": "fr",
+  "base_url": "https://scantrad-union.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.scantradunion",
+  "quellen": [
+   {
+    "name": "Scantrad Union",
+    "sprache": "fr",
+    "quell_id": 155525085323453412,
+    "home": "https://scantrad-union.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/scantradunion",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/projets/",
+   "items": ".index-top3-a",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "@href",
+    "title": {
+     "path": ".index-top3-title",
+     "replace": [
+      [
+       "^\\s*\\[Partenaire\\]\\s*",
+       ""
+      ]
+     ]
+    },
+    "cover": {
+     "path": ".index-top3-bg@style",
+     "regex": "background:url\\('([^']+)'\\)",
+     "group": 1
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}",
+   "items": ".dernieresmaj .colonne",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a.text-truncate@href",
+    "title": {
+     "path": "a.text-truncate",
+     "replace": [
+      [
+       "^\\s*\\[Partenaire\\]\\s*",
+       ""
+      ]
+     ]
+    },
+    "cover": "img.attachment-thumbnail@src"
+   }
+  },
+  "search": {
+   "request": "{base}/?s={query}&asp_active=1&p_asid=1&p_asp_data=YXNwX2dlbiU1QiU1RD10aXRsZSZjdXN0b21zZXQlNUIlNUQ9bWFuZ2E=",
+   "items": "article.post-outer",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a.index-post-header-a@href",
+    "title": {
+     "path": "a.index-post-header-a",
+     "replace": [
+      [
+       "^\\s*\\[Partenaire\\]\\s*",
+       ""
+      ]
+     ]
+    },
+    "cover": "img.wp-post-image@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "path": ".projet-description h2",
+     "replace": [
+      [
+       "^\\s*\\[Partenaire\\]\\s*",
+       ""
+      ]
+     ]
+    },
+    "cover": ".projet-image img@src",
+    "description": ".sContent",
+    "author": {
+     "path": "div.project-details a[href*=auteur]",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "div.project-details a[href*=auteur]",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": ".label.label-primary",
+     "all": true,
+     "join": "|",
+     "regex": "^[^|]*\\|[^|]*\\|\\s*([^|]*?)\\s*(?:\\||$)",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "en cours": 1,
+    "En cours": 1,
+    "En Cours": 1,
+    "terminé": 2,
+    "Terminé": 2,
+    "licencié": 3,
+    "Licencié": 3
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".links-projects li",
+   "fields": {
+    "url": [
+     ".btnlel[href^=https://scantrad-union.com/read/]@href",
+     ".btnlel@href"
+    ],
+    "name": {
+     "path": ".chapter-number, .chapter-name",
+     "all": true,
+     "join": " - ",
+     "replace": [
+      [
+       "^#\\s*",
+       ""
+      ],
+      [
+       "(?:\\s*-\\s*)+$",
+       ""
+      ],
+      [
+       "^\\s*-\\s*",
+       ""
+      ]
+     ]
+    },
+    "number": {
+     "path": ".chapter-number",
+     "regex": "([0-9]+(?:[.,][0-9]+)?)",
+     "group": 1
+    },
+    "date": ".name-chapter > :nth-child(3)",
+    "scanlator": {
+     "path": ".btnteam",
+     "all": true,
+     "join": " "
+    }
+   },
+   "date_format": "d-M-yyyy",
+   "date_locale": "fr"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#webtoon a img",
+   "image": [
+    "@data-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Beliebt = Top-3-Kacheln auf /projets/ (Cover aus background:url im style), Neueste = 'dernières mises à jour' der Startseite, Suche über Ajax-Search-Pro-Parameter wie Community – alle ohne Seiten.",
+  "'[Partenaire]'-Präfix im Titel entfernt (wie Community).",
+  "Status = drittes .label.label-primary (über Verbinden mit '|' und Regex nachgebildet).",
+  "Kapitelname 'Nummer - Name' (Nummer ohne '#'); Datum aus dem dritten Kind der ersten .name-chapter (Community: erstes .name-chapter im li). URL bevorzugt den /read/-Link.",
+  "Seiten: #webtoon a img (data-src vor src); doppelte Bilder entfernt die Community (distinct) – hier nicht."
+ ]
+}

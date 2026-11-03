@@ -1,0 +1,132 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Omicaso",
+  "sprache": "id",
+  "base_url": "https://omicaso.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.omicaso",
+  "quellen": [
+   {
+    "name": "Omicaso",
+    "sprache": "id",
+    "quell_id": 7347711054392056906,
+    "home": "https://omicaso.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/omicaso",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.5",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "{base}/api/manga.php?page=1&limit=1&mode=all",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "sections.trending.all",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga.php?slug={value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/api/manga.php?page={page}&limit=20&mode=all&sort=updated",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "items",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga.php?slug={value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   },
+   "has_next": {
+    "exists": "has_more"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/manga.php?page={page}&limit=20&mode=all&sort=updated&q={query}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "items",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga.php?slug={value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   },
+   "has_next": {
+    "exists": "has_more"
+   }
+  },
+  "details": {
+   "request": "{abs_url}&order=desc",
+   "fields": {
+    "title": "h1",
+    "cover": ".detail-poster img@img",
+    "author": ".detail-stat-grid div:has(> span:containsOwn(Author)) > strong",
+    "artist": ".detail-stat-grid div:has(> span:containsOwn(Artist)) > strong",
+    "genres": {
+     "path": ".detail-rating-line a",
+     "all": true,
+     "join": ", "
+    },
+    "description": ".synopsis-box p",
+    "status": ".detail-stat-grid div:has(> span:containsOwn(Status)) > strong"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a.chapter-row",
+   "fields": {
+    "url": "@href",
+    "name": "strong",
+    "date": "time@datetime"
+   },
+   "date_format": "yyyy-MM-dd HH:mm:ss"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img[data-reader-image]",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "API /api/manga.php: Beliebt = sections.trending.all (eine Seite), Neueste/Suche = items (sort=updated, mode=all, q=…; has_more). Genre-/Modusfilter nicht nachgebaut.",
+  "Eintrags-URL /manga.php?slug=<slug> (Community: nur Slug); Details und Kapitel aus derselben Seite mit &order=desc.",
+  "Genres ohne angehängten Typ; Beschreibung ohne alternativen Namen. Kapiteldatum (Zeitzone Asia/Jakarta in der Community) ohne Zeitzonenangabe."
+ ]
+}

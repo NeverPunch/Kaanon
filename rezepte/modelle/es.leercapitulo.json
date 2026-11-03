@@ -93,9 +93,13 @@
    },
    "status_map": {
     "ongoing": 1,
+    "Ongoing": 1,
     "completed": 2,
+    "Completed": 2,
     "paused": 6,
-    "cancelled": 5
+    "Paused": 6,
+    "cancelled": 5,
+    "Cancelled": 5
    }
   },
   "chapters": {

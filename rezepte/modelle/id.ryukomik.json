@@ -1,0 +1,225 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Ryukomik",
+  "sprache": "id",
+  "base_url": "https://ryukomik.my.id",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.ryukomik",
+  "quellen": [
+   {
+    "name": "Ryukomik",
+    "sprache": "id",
+    "quell_id": 8514921831398456146,
+    "home": "https://ryukomik.my.id"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/ryukomik",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://api.ryukomik.web.id/komiku/list?page={page}",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": [
+     {
+      "path": "source",
+      "regex": "^(.+)$",
+      "group": 1,
+      "template": "/komik/{value}/{f.slug}"
+     },
+     {
+      "path": "slug",
+      "template": "/komik/komiku/{value}"
+     },
+     {
+      "path": "detail_link",
+      "regex": "([^/]+)/?$",
+      "group": 1,
+      "template": "/komik/komiku/{value}"
+     },
+     {
+      "path": "link",
+      "regex": "([^/]+)/?$",
+      "group": 1,
+      "template": "/komik/komiku/{value}"
+     }
+    ],
+    "title": "title",
+    "cover": [
+     "image",
+     "cover_url"
+    ]
+   },
+   "has_next": {
+    "lt": [
+     "meta.currentPage",
+     "meta.totalPages"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/",
+   "items": "a.rk-cover-card[href^='/komik/']",
+   "fields": {
+    "url": "@href",
+    "title": [
+     "img@alt",
+     "p"
+    ],
+    "cover": "img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "https://api.ryukomik.web.id/komiku/search?q={query}",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": [
+     {
+      "path": "source",
+      "regex": "^(.+)$",
+      "group": 1,
+      "template": "/komik/{value}/{f.slug}"
+     },
+     {
+      "path": "slug",
+      "template": "/komik/komiku/{value}"
+     },
+     {
+      "path": "detail_link",
+      "regex": "([^/]+)/?$",
+      "group": 1,
+      "template": "/komik/komiku/{value}"
+     },
+     {
+      "path": "link",
+      "regex": "([^/]+)/?$",
+      "group": 1,
+      "template": "/komik/komiku/{value}"
+     }
+    ],
+    "title": "title",
+    "cover": [
+     "image",
+     "cover_url"
+    ]
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "cover": [
+     "div.rk-shell img[alt=Poster]@src",
+     "div.rk-shell div.flex-shrink-0 img@src"
+    ],
+    "author": {
+     "path": "div.rk-shell span.text-white\\/60.truncate",
+     "regex": "^(?!-$)(.+)$",
+     "group": 1
+    },
+    "genres": {
+     "path": [
+      "span.rk-chip",
+      "a[href*='/genre/']"
+     ],
+     "union": true
+    },
+    "description": "p.text-sm.leading-relaxed.text-white\\/70",
+    "status": "div.rk-shell div.flex.gap-3 span:last-child"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "Ongoing": 1,
+    "berjalan": 1,
+    "Berjalan": 1,
+    "completed": 2,
+    "Completed": 2,
+    "complete": 2,
+    "Complete": 2,
+    "tamat": 2,
+    "Tamat": 2,
+    "hiatus": 6,
+    "Hiatus": 6,
+    "dropped": 5,
+    "Dropped": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a[href*='/chapter/']",
+   "fields": {
+    "url": "@href",
+    "name": [
+     "span.text-\\[13px\\], span.font-medium",
+     "div > div > span",
+     ""
+    ],
+    "date": "span.text-\\[11px\\] > span:first-child"
+   },
+   "date_format": [
+    "dd/MM/yyyy",
+    "relative"
+   ],
+   "date_locale": "id"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "block_regex": "\\\\?\"images\\\\?\"\\s*:\\s*(\\[[^\\]]+\\])",
+   "items": "\\\\?\"((?:[^\"\\\\]|\\\\/)+)\\\\?\"",
+   "image": [
+    {
+     "path": "",
+     "replace": [
+      [
+       "\\\\/",
+       "/"
+      ]
+     ],
+     "regex": "^(https?://.+)$",
+     "group": 1
+    },
+    {
+     "path": "",
+     "replace": [
+      [
+       "\\\\/",
+       "/"
+      ],
+      [
+       "^/",
+       ""
+      ]
+     ],
+     "template": "{base}/{value}"
+    }
+   ]
+  }
+ },
+ "hinweise": [
+  "Beliebt = API-Liste api.ryukomik.web.id/komiku/list; Neu = Cover-Karten der Startseite (eine Seite).",
+  "Suche: Community fragt fünf Quellen parallel ab (project, komiku, kiryuu, komikid, josei) und vereint sie – hier nur komiku. Filter nicht übernommen.",
+  "Manga-URL /komik/<source|komiku>/<slug> wie Community (Slug ersatzweise letzter Teil von detail_link/link).",
+  "Seiten: Bildliste \"images\":[…] (ggf. escaped) aus dem HTML der Kapitelseite; relative Pfade an {base} gehängt. Datum: 'N jam/hari … ' (relative, Locale id) oder dd/MM/yyyy."
+ ]
+}

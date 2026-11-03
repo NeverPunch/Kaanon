@@ -1,0 +1,131 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MG Komik",
+  "sprache": "id",
+  "base_url": "https://web1.mgkomik.cc",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.mgkomik",
+  "quellen": [
+   {
+    "name": "MG Komik",
+    "sprache": "id",
+    "quell_id": 385263422541320229,
+    "home": "https://web1.mgkomik.cc"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/mgkomik",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.81",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/komik/?filter=&order_by=trending&page={page}",
+   "items": ".manga-card",
+   "fields": {
+    "url": [
+     "a[href]@href",
+     "@href"
+    ],
+    "title": [
+     "img.manga-cover@alt",
+     ".manga-title"
+    ],
+    "cover": "img.manga-cover@src"
+   },
+   "has_next": {
+    "exists": ".pagination a.page-link:contains(Next)"
+   }
+  },
+  "latest": {
+   "request": "{base}/komik/?filter=&order_by=latest&page={page}",
+   "items": ".manga-card",
+   "fields": {
+    "url": [
+     "a[href]@href",
+     "@href"
+    ],
+    "title": [
+     "img.manga-cover@alt",
+     ".manga-title"
+    ],
+    "cover": "img.manga-cover@src"
+   },
+   "has_next": {
+    "exists": ".pagination a.page-link:contains(Next)"
+   }
+  },
+  "search": {
+   "request": "{base}/search/?q={query}&page={page}",
+   "items": ".manga-card",
+   "fields": {
+    "url": [
+     "a[href]@href",
+     "@href"
+    ],
+    "title": [
+     "img.manga-cover@alt",
+     ".manga-title"
+    ],
+    "cover": "img.manga-cover@src"
+   },
+   "has_next": {
+    "exists": ".pagination a.page-link:contains(Next)"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".manga-title",
+    "cover": "img.manga-cover-large@src",
+    "description": "#sinopsisContainer p, .manga-description .sinopsis-wrapper p",
+    "genres": {
+     "path": ".genre-tag",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": ".status-Ongoing, .status-ongoing, .status-Completed, .status-completed@class",
+     "regex": "(?i)status-(ongoing|completed)",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "Ongoing": 1,
+    "completed": 2,
+    "Completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#chapterList .chapter-list-item:has(a.chapter-link)",
+   "fields": {
+    "url": "a.chapter-link@href",
+    "name": [
+     "a.chapter-link .chapter-number",
+     "a.chapter-link"
+    ],
+    "date": "a.chapter-link .chapter-date"
+   },
+   "date_format": "relative",
+   "date_locale": "id"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".reading-content img[src]",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Listen: /komik/?order_by=trending|latest&page=N, Suche /search/?q=…&page=N; weiter solange ein Pagination-Link 'Next' existiert. Sortier/Status/Typ/Genre-Filter nicht übernommen.",
+  "Status über die CSS-Klasse status-Ongoing/status-Completed (Regex auf @class).",
+  "Datum relativ auf Englisch/Indonesisch (second/detik … year/tahun) – 'relative' mit date_locale id, auf dem PC prüfen.",
+  "Doppelte Einträge in Listen entfernt die Community (distinctBy url) – hier nicht."
+ ]
+}

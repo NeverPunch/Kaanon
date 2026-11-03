@@ -1,0 +1,178 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Solaris Scans",
+  "sprache": "fr",
+  "base_url": "https://solaris-scans.fr",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.solarisscans",
+  "quellen": [
+   {
+    "name": "Solaris Scans",
+    "sprache": "fr",
+    "quell_id": 1172624746268381921,
+    "home": "https://solaris-scans.fr"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/solarisscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/manga/?catalog_sort=popular&catalog_page={page}",
+   "items": "article.solaris-catalog-card",
+   "fields": {
+    "url": "h2 a@href",
+    "title": "h2 a",
+    "cover": ".solaris-catalog-card__cover img@img"
+   },
+   "has_next": {
+    "min": 1
+   },
+   "skip": {
+    "path": "h2 a@href",
+    "regex": "^$"
+   }
+  },
+  "latest": {
+   "request": "{base}/manga/?catalog_sort=recent&catalog_page={page}",
+   "items": "article.solaris-catalog-card",
+   "fields": {
+    "url": "h2 a@href",
+    "title": "h2 a",
+    "cover": ".solaris-catalog-card__cover img@img"
+   },
+   "has_next": {
+    "min": 1
+   },
+   "skip": {
+    "path": "h2 a@href",
+    "regex": "^$"
+   }
+  },
+  "search": {
+   "request": "{base}/manga/?catalog_q={query}&catalog_sort=popular&catalog_page={page}",
+   "items": "article.solaris-catalog-card",
+   "fields": {
+    "url": "h2 a@href",
+    "title": "h2 a",
+    "cover": ".solaris-catalog-card__cover img@img"
+   },
+   "has_next": {
+    "min": 1
+   },
+   "skip": {
+    "path": "h2 a@href",
+    "regex": "^$"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "section.sz-ri-info-card h1",
+    "cover": ".sz-ri-cover img@img",
+    "description": [
+     "[data-hero-synopsis-full]",
+     "[data-hero-synopsis-short]"
+    ],
+    "author": ".sz-ri-byline strong:eq(0)",
+    "artist": ".sz-ri-byline strong:eq(1)",
+    "genres": ".sz-ri-main-genres span, .sz-ri-side-info div:has(> span:matchesOwn((?i)^type$)) > strong",
+    "status": ".sz-ri-side-info div:has(> span:matchesOwn((?i)^statut$)) > strong"
+   },
+   "status_map": {
+    "en cours": 1,
+    "terminé": 2,
+    "termine": 2,
+    "achevé": 2,
+    "en pause": 6,
+    "pause": 6,
+    "abandonné": 5,
+    "annulé": 5
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}?chapters_page={page}",
+   "request_by_page": {
+    "1": "details"
+   },
+   "items": "#swChapterGrid a.sz-chapter-card",
+   "fields": {
+    "url": "@href",
+    "name": [
+     ".sz-ri-chapter-body strong",
+     "strong",
+     {
+      "path": "@data-number",
+      "template": "Chapitre {value}"
+     }
+    ],
+    "number": "@data-number",
+    "date": "@data-recent"
+   },
+   "date_format": "epoch_s",
+   "skip": {
+    "any": [
+     {
+      "path": "@class",
+      "regex": "(is-premium)"
+     },
+     ".sz-ri-chapter-premium@class",
+     ".sz-ri-chapter-access@class"
+    ]
+   },
+   "paging": {
+    "has_next": {
+     "min": 1
+    },
+    "max_pages": 50
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "block_regex": "(?s)<script[^>]*id=[\"']chapter_preloaded_images[\"'][^>]*>(.*?)</script>",
+   "items": "\"([^\"]*solaris_chapter_image[^\"]*)\"",
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "\\\\/",
+      "/"
+     ],
+     [
+      "&amp;",
+      "&"
+     ],
+     [
+      "^//",
+      "https://"
+     ],
+     [
+      "^http://",
+      "https://"
+     ]
+    ]
+   },
+   "referer": "chapter"
+  }
+ },
+ "hinweise": [
+  "Listen über /manga/?catalog_sort=popular|recent&catalog_page=N wie in der Community; Status-/Typfilter nicht nachgebaut.",
+  "Nächste Seite: Community prüft, ob ein Link mit catalog_page=N+1 existiert (nicht ausdrückbar); hier has_next min 1 (weiter, solange Einträge kommen) – auf dem PC prüfen, ob eine leere Seite oder eine Wiederholung zurückkommt.",
+  "Kapitel: weitere Seiten über ?chapters_page=N (Community bis 'Page x sur N' bzw. höchste Link-Nummer, bricht bei 404/keinen neuen Einträgen ab); hier min 1 / max_pages 50 angenommen.",
+  "Premium-Kapitel (is-premium, .sz-ri-chapter-premium/.sz-ri-chapter-access) werden übersprungen (Community blendet sie standardmäßig aus).",
+  "Bilder aus script#chapter_preloaded_images (Regex wie Community); der Fallback .reading-content img.wp-manga-chapter-img ist nicht nachgebaut. Relative Bildpfade (ohne http) werden nicht ergänzt.",
+  "Status/Typ aus .sz-ri-side-info: div mit span 'Statut'/'Type' → strong; Typ zusätzlich als Genre wie in der Community."
+ ]
+}

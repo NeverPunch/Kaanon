@@ -1,0 +1,210 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Wurmz",
+  "sprache": "id",
+  "base_url": "https://wurmz.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.wurmz",
+  "quellen": [
+   {
+    "name": "Wurmz",
+    "sprache": "id",
+    "quell_id": 925868633785419090,
+    "home": "https://wurmz.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/wurmz",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/semua-komik?sort=popular_all&page={page}",
+   "items": "article.comic-card:has(a[href*=/detail/])",
+   "fields": {
+    "url": "a[href*=/detail/]@href",
+    "title": [
+     "h2",
+     "a[href*=/detail/]@aria-label"
+    ],
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a:contains(Berikutnya)"
+   }
+  },
+  "latest": {
+   "request": "{base}/semua-komik?sort=update&page={page}",
+   "items": "article.comic-card:has(a[href*=/detail/])",
+   "fields": {
+    "url": "a[href*=/detail/]@href",
+    "title": [
+     "h2",
+     "a[href*=/detail/]@aria-label"
+    ],
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a:contains(Berikutnya)"
+   }
+  },
+  "search": {
+   "request": "{base}/semua-komik?q={query}&page={page}",
+   "items": "article.comic-card:has(a[href*=/detail/])",
+   "fields": {
+    "url": "a[href*=/detail/]@href",
+    "title": [
+     "h2",
+     "a[href*=/detail/]@aria-label"
+    ],
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a:contains(Berikutnya)"
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "Rsc": "1"
+    }
+   },
+   "format": "text",
+   "fields": {
+    "title": {
+     "path": "",
+     "regex": "(?s)\\\\?\"@type\\\\?\":\\\\?\"ComicSeries\\\\?\".*?\\\\?\"name\\\\?\":\\\\?\"([^\"\\\\]+)",
+     "group": 1
+    },
+    "description": {
+     "path": "",
+     "regex": "(?s)\\\\?\"@type\\\\?\":\\\\?\"ComicSeries\\\\?\".*?\\\\?\"description\\\\?\":\\\\?\"((?:[^\"\\\\]|\\\\[^\"])*)",
+     "group": 1,
+     "replace": [
+      [
+       "\\\\+n",
+       "\n"
+      ]
+     ]
+    },
+    "cover": {
+     "path": "",
+     "regex": "(?s)\\\\?\"@type\\\\?\":\\\\?\"ComicSeries\\\\?\".*?\\\\?\"image\\\\?\":\\\\?\"([^\"\\\\]+)",
+     "group": 1
+    },
+    "author": {
+     "path": "",
+     "regex": "(?s)\\\\?\"@type\\\\?\":\\\\?\"ComicSeries\\\\?\".*?\\\\?\"author\\\\?\":\\{[^}]*?\\\\?\"name\\\\?\":\\\\?\"([^\"\\\\]+)",
+     "group": 1
+    },
+    "genres": {
+     "path": "",
+     "regex": "(?s)\\\\?\"@type\\\\?\":\\\\?\"ComicSeries\\\\?\".*?\\\\?\"genre\\\\?\":\\[([^\\]]*)\\]",
+     "group": 1,
+     "replace": [
+      [
+       "\\\\",
+       ""
+      ],
+      [
+       "\",\"",
+       ", "
+      ],
+      [
+       "\"",
+       ""
+      ]
+     ]
+    },
+    "status": {
+     "path": "",
+     "regex": "status-badge\\\\?\",\\\\?\"children\\\\?\":\\\\?\"([^\"\\\\]+)",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "Ongoing": 1,
+    "hiatus": 1,
+    "Hiatus": 1,
+    "tamat": 2,
+    "Tamat": 2,
+    "completed": 2,
+    "Completed": 2,
+    "drop": 5,
+    "Drop": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "text",
+   "url_vars": {
+    "ts": "/detail/([^/]+/[^/?#]+)"
+   },
+   "let": {
+    "src": [
+     {
+      "path": "",
+      "regex": "\"sourceSlug\":\"([^\"]+)\"",
+      "group": 1
+     },
+     {
+      "const": "{u.ts}"
+     }
+    ]
+   },
+   "items": "\\{[^{}]*\"chapter_label\":\"[^\"]*\"[^{}]*\\}",
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"chapter_label\":\"([^\"]*)\"",
+     "group": 1,
+     "template": "/detail/{l.src}/chapter/{value}"
+    },
+    "name": {
+     "path": "",
+     "regex": "\"chapter_label\":\"([^\"]*)\"",
+     "group": 1,
+     "template": "Chapter {value}"
+    },
+    "number": {
+     "path": "",
+     "regex": "\"chapter_sort\":([0-9.]+)",
+     "group": 1
+    }
+   }
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}?_rsc=",
+    "headers": {
+     "Rsc": "1"
+    }
+   },
+   "format": "text",
+   "block_regex": "(?s)\\\\?\"images\\\\?\":\\[(.*?)\\]",
+   "items": "\\\\?\"([^\"\\\\]+)\\\\?\"",
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "\\\\/",
+      "/"
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "Details und Kapitel aus der RSC-Antwort der Detailseite (Header Rsc: 1) per Regex: JSON-LD ComicSeries (name/description/image/author/genre, auch escaped im __html-String), Status aus dem status-badge. Werte mit Anführungszeichen/Backslash im Titel werden abgeschnitten; Alternativname nicht übernommen.",
+  "Kapitel: Objekte mit chapter_label/chapter_sort; URL /detail/<sourceSlug>/chapter/<label> (sourceSlug aus der Antwort, sonst Typ/Slug der Manga-URL). Ohne Datum (auch in der Community).",
+  "Seiten: RSC der Kapitelseite (?_rsc=, Rsc: 1), Bildliste \"images\":[…]. Status 'hiatus' wird wie in der Community als laufend gewertet. Filter nicht übernommen."
+ ]
+}

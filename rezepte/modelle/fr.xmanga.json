@@ -23,7 +23,256 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/api/mangas?page={page}&sort=views",
+   "format": "json",
+   "items": "mangas",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": [
+     {
+      "path": "coverPath",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "coverPath",
+      "regex": "^(/covers/.*)$",
+      "group": 1,
+      "template": "{base}{value}"
+     },
+     {
+      "path": "coverPath",
+      "replace": [
+       [
+        "^/",
+        ""
+       ]
+      ],
+      "template": "https://reader.hentai.gifts/{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "lt": [
+     "pagination.current",
+     "pagination.totalPages"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/api/mangas?page={page}&sort=latest",
+   "format": "json",
+   "items": "mangas",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": [
+     {
+      "path": "coverPath",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "coverPath",
+      "regex": "^(/covers/.*)$",
+      "group": 1,
+      "template": "{base}{value}"
+     },
+     {
+      "path": "coverPath",
+      "replace": [
+       [
+        "^/",
+        ""
+       ]
+      ],
+      "template": "https://reader.hentai.gifts/{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "lt": [
+     "pagination.current",
+     "pagination.totalPages"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/api/mangas?page={page}&search={query}",
+   "format": "json",
+   "items": "mangas",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": [
+     {
+      "path": "coverPath",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "coverPath",
+      "regex": "^(/covers/.*)$",
+      "group": 1,
+      "template": "{base}{value}"
+     },
+     {
+      "path": "coverPath",
+      "replace": [
+       [
+        "^/",
+        ""
+       ]
+      ],
+      "template": "https://reader.hentai.gifts/{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "lt": [
+     "pagination.current",
+     "pagination.totalPages"
+    ]
+   }
+  },
+  "details": {
+   "request": "{base}/api/mangas/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "fields": {
+    "title": "manga.title",
+    "cover": [
+     {
+      "path": "manga.coverPath",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "manga.coverPath",
+      "regex": "^(/covers/.*)$",
+      "group": 1,
+      "template": "{base}{value}"
+     },
+     {
+      "path": "manga.coverPath",
+      "replace": [
+       [
+        "^/",
+        ""
+       ]
+      ],
+      "template": "https://reader.hentai.gifts/{value}"
+     }
+    ],
+    "description": "manga.description",
+    "author": {
+     "path": "manga.authors.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "manga.artists.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": [
+      "manga.genres.*.name",
+      "manga.tags.*.name"
+     ],
+     "union": true
+    },
+    "status": "manga.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "ONGOING": 1,
+    "completed": 2,
+    "COMPLETED": 2,
+    "hiatus": 6,
+    "HIATUS": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "manga.chapters",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/read/{value}"
+    },
+    "name": [
+     {
+      "path": "title",
+      "regex": "(?i)^\\s*(chapitre.*?)\\s*$",
+      "group": 1
+     },
+     {
+      "path": "chapterNumber",
+      "replace": [
+       [
+        "\\.0$",
+        ""
+       ]
+      ],
+      "template": "Chapitre {value}[[: {f.title}]]"
+     },
+     {
+      "path": "title"
+     },
+     {
+      "const": "Chapitre"
+     }
+    ],
+    "number": "chapterNumber",
+    "date": "publishedAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api/mangas/read/{u.cid}",
+   "format": "json",
+   "url_vars": {
+    "cid": "/read/([^/?#]+)"
+   },
+   "items": "chapter.pages",
+   "image": [
+    {
+     "path": "filePath",
+     "regex": "^(https?://.+)$",
+     "group": 1
+    },
+    {
+     "path": "filePath",
+     "replace": [
+      [
+       "^/",
+       ""
+      ]
+     ],
+     "template": "https://reader.hentai.gifts/{value}"
+    }
+   ]
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "API /api/mangas (Seiten mit pagination.current/totalPages). Filter (Format/Status/Genre/Tag) nicht übernommen.",
+  "Cover/Bilder: absolute URL, /covers/… relativ zur Website, sonst relativ zu https://reader.hentai.gifts (wie Community).",
+  "Kapitelname angenähert: Titel, wenn er mit 'Chapitre' beginnt, sonst 'Chapitre N[: Titel]' (Community lässt den Titel allein stehen, wenn er die Nummer enthält)."
+ ]
 }

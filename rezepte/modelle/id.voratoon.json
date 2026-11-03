@@ -1,0 +1,228 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "VoraToon",
+  "sprache": "id",
+  "base_url": "https://voratoon.co",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.voratoon",
+  "quellen": [
+   {
+    "name": "VoraToon",
+    "sprache": "id",
+    "quell_id": 972717448578983812,
+    "home": "https://voratoon.co"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/voratoon",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.89",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/api/proxy/series?includeMeta=true&take=30&page={page}&sort=popularity&sortOrder=desc",
+    "headers": {
+     "Accept": "application/json",
+     "Accept-Language": "en-US,en;q=0.9,id;q=0.8",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": [
+      "data.slug",
+      "id"
+     ],
+     "template": "/series/{value}"
+    },
+    "title": "data.title",
+    "cover": "data.coverImage"
+   },
+   "has_next": {
+    "lt": [
+     "meta.page",
+     "meta.lastPage"
+    ]
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/api/proxy/series?includeMeta=true&take=30&page={page}&sort=latest&sortOrder=desc",
+    "headers": {
+     "Accept": "application/json",
+     "Accept-Language": "en-US,en;q=0.9,id;q=0.8",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": [
+      "data.slug",
+      "id"
+     ],
+     "template": "/series/{value}"
+    },
+    "title": "data.title",
+    "cover": "data.coverImage"
+   },
+   "has_next": {
+    "lt": [
+     "meta.page",
+     "meta.lastPage"
+    ]
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/proxy/series?includeMeta=true&take=30&page={page}&title={query}",
+    "headers": {
+     "Accept": "application/json",
+     "Accept-Language": "en-US,en;q=0.9,id;q=0.8",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": [
+      "data.slug",
+      "id"
+     ],
+     "template": "/series/{value}"
+    },
+    "title": "data.title",
+    "cover": "data.coverImage"
+   },
+   "has_next": {
+    "lt": [
+     "meta.page",
+     "meta.lastPage"
+    ]
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{base}/api/proxy/series/{u.slug}",
+    "headers": {
+     "Accept": "application/json",
+     "Accept-Language": "en-US,en;q=0.9,id;q=0.8",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/?#]+)"
+   },
+   "fields": {
+    "title": "data.data.title",
+    "cover": "data.data.coverImage",
+    "author": "data.data.author",
+    "description": "data.data.synopsis",
+    "genres": {
+     "path": "data.data.genres.*.data.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "data.data.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "on going": 1,
+    "completed": 2,
+    "complete": 2,
+    "hiatus": 6,
+    "cancelled": 5,
+    "canceled": 5
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/api/proxy/series/{u.slug}/chapters",
+    "headers": {
+     "Accept": "application/json",
+     "Accept-Language": "en-US,en;q=0.9,id;q=0.8",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/?#]+)"
+   },
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": [
+      "data.index",
+      "chapterIndex"
+     ],
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "/series/{u.slug}/chapter/{value}"
+    },
+    "name": {
+     "path": [
+      "data.index",
+      "chapterIndex"
+     ],
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "Chapter {value}[[: {f.data.title}]]"
+    },
+    "number": [
+     "data.index",
+     "chapterIndex"
+    ],
+    "date": [
+     "createdAt",
+     "updatedAt"
+    ]
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "{base}/api/proxy/series/{u.slug}/chapters/{u.idx}",
+    "headers": {
+     "Accept": "application/json",
+     "Accept-Language": "en-US,en;q=0.9,id;q=0.8",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/?#]+)/chapter/",
+    "idx": "/chapter/([^/?#]+)"
+   },
+   "items": "data.data.images",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "API {base}/api/proxy (series?includeMeta=true&take=30, sort=popularity|latest, title=…; series/<slug>; series/<slug>/chapters; series/<slug>/chapters/<index>) mit Accept: application/json wie Community.",
+  "Die API verlangt das Cookie vt_proxy, das die Startseite setzt; die Community lädt bei 403 einmal die Startseite und wiederholt die Anfrage – ein solcher Wiederholungsweg ist nicht ausdrückbar. Auf dem PC prüfen, ob das Cookie über den Cookie-Speicher (z. B. nach Öffnen der Website) reicht.",
+  "Kapitelname 'Chapter N[: Titel]', URL /series/<slug>/chapter/<index> wie Community. Filter nicht nachgebaut."
+ ]
+}

@@ -1,0 +1,189 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Ikiru",
+  "sprache": "id",
+  "base_url": "https://09.ikiru.wtf",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.ikiru",
+  "quellen": [
+   {
+    "name": "Ikiru",
+    "sprache": "id",
+    "quell_id": 2471382203854600486,
+    "home": "https://09.ikiru.wtf"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/ikiru",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.63",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "{base}/api/public/library/search?sortBy=popular&sort=desc&page={page}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data.mangas",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "featuredImage"
+   },
+   "has_next": {
+    "total": "data.total"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/api/public/library/search?sortBy=updated&sort=desc&page={page}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data.mangas",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "featuredImage"
+   },
+   "has_next": {
+    "total": "data.total"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/public/library/search?query={query}&page={page}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data.mangas",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "featuredImage"
+   },
+   "has_next": {
+    "total": "data.total"
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{base}/api/public/manga/{u.slug}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "fields": {
+    "title": "data.title",
+    "cover": "data.featuredImage",
+    "description": {
+     "path": "data.description",
+     "decode": "html_text"
+    },
+    "author": {
+     "path": "data.metadata.author.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "data.metadata.artist.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "data.metadata.genre.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "data.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "items": "data.chapters.chapters",
+   "fields": {
+    "url": {
+     "path": "number",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "/manga/{u.slug}/chapter-{value}"
+    },
+    "name": [
+     {
+      "path": "title",
+      "regex": "(?i)(Chapter\\s*[\\d.]+(?:\\s*[:\\-].*)?)",
+      "group": 1,
+      "replace": [
+       [
+        "^(?i)chapter",
+        "Chapter"
+       ]
+      ]
+     },
+     {
+      "path": "number",
+      "replace": [
+       [
+        "\\.0$",
+        ""
+       ]
+      ],
+      "template": "Chapter {value}"
+     }
+    ],
+    "number": "number",
+    "date": "createdAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img[src*='cdn.ikiru.id']",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "API /api/public/library/search (sortBy=popular|updated, sort=desc, query=…) und /api/public/manga/<slug> (Details mit eingebetteter vollständiger Kapitelliste, Antwort unter 'data'). Weiter laut data.total. Filter und 'Project'-Liste nicht nachgebaut.",
+  "Eintrags-URL /manga/<slug> (Community: nur Slug). Slugs mit Leerzeichen/Nicht-ASCII muss die Community prozentkodieren – hier unkodiert eingesetzt.",
+  "Kapitel-URL /manga/<slug>/chapter-<nummer> (wie Community). Name: letzter 'Chapter N…'-Teil des Titels (hier erster Treffer), sonst 'Chapter N'.",
+  "Beschreibung ohne die angehängten alternativen Titel."
+ ]
+}

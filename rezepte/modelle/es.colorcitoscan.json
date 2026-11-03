@@ -98,11 +98,20 @@
    },
    "status_map": {
     "en emision": 1,
+    "En emision": 1,
+    "En Emision": 1,
     "en emisión": 1,
+    "En emisión": 1,
+    "En Emisión": 1,
     "finalizado": 2,
+    "Finalizado": 2,
     "en pausa": 6,
+    "En pausa": 6,
+    "En Pausa": 6,
     "cancelado": 5,
-    "abandonado": 5
+    "Cancelado": 5,
+    "abandonado": 5,
+    "Abandonado": 5
    }
   },
   "chapters": {

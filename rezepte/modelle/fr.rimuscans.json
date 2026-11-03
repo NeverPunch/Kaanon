@@ -23,7 +23,267 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "{base}/api/series?sort=rating&page={page}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "series",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": [
+     {
+      "path": "cover_url",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "cover_url",
+      "regex": "^(/.*)$",
+      "group": 1,
+      "template": "{base}{value}"
+     },
+     {
+      "path": "cover_url",
+      "template": "{base}/{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "exists": "has_more"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/api/series?page={page}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "series",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": [
+     {
+      "path": "cover_url",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "cover_url",
+      "regex": "^(/.*)$",
+      "group": 1,
+      "template": "{base}{value}"
+     },
+     {
+      "path": "cover_url",
+      "template": "{base}/{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "exists": "has_more"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/series?search={query}&page={page}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "series",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": [
+     {
+      "path": "cover_url",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "cover_url",
+      "regex": "^(/.*)$",
+      "group": 1,
+      "template": "{base}{value}"
+     },
+     {
+      "path": "cover_url",
+      "template": "{base}/{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "exists": "has_more"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     {
+      "path": "script[type=\"application/ld+json\"]:containsData(ComicSeries)@html",
+      "regex": "\"name\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "decode": "json"
+     },
+     "h1"
+    ],
+    "description": {
+     "path": "script[type=\"application/ld+json\"]:containsData(ComicSeries)@html",
+     "regex": "\"description\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "decode": "json"
+    },
+    "cover": [
+     {
+      "path": "script[type=\"application/ld+json\"]:containsData(ComicSeries)@html",
+      "regex": "\"image\":\"(https?://[^\"]+)\""
+     },
+     {
+      "path": "script[type=\"application/ld+json\"]:containsData(ComicSeries)@html",
+      "regex": "\"image\":\"(/[^\"]+)\"",
+      "template": "{base}{value}"
+     }
+    ],
+    "author": {
+     "path": "script[type=\"application/ld+json\"]:containsData(ComicSeries)@html",
+     "regex": "\"author\":\\{[^}]*\"name\":\"([^\"]*)\""
+    },
+    "artist": {
+     "path": "script[type=\"application/ld+json\"]:containsData(ComicSeries)@html",
+     "regex": "\"illustrator\":\\{[^}]*\"name\":\"([^\"]*)\""
+    },
+    "genres": {
+     "path": "script[type=\"application/ld+json\"]:containsData(ComicSeries)@html",
+     "regex": "\"genre\":\\[([^\\]]*)\\]",
+     "replace": [
+      [
+       "\",\"",
+       ", "
+      ],
+      [
+       "\"",
+       ""
+      ]
+     ]
+    },
+    "status": "span:matchesOwn((?i)^(en cours|ongoing|terminé|termine|completed|en pause|hiatus|on hiatus|annulé|annule|abandonné|abandonne|cancelled)$)"
+   },
+   "status_map": {
+    "en cours": 1,
+    "ongoing": 1,
+    "terminé": 2,
+    "termine": 2,
+    "completed": 2,
+    "en pause": 6,
+    "hiatus": 6,
+    "on hiatus": 6,
+    "annulé": 5,
+    "annule": 5,
+    "abandonné": 5,
+    "abandonne": 5,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "RSC": "1",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "text",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "items": "\\{(?=[^{}]*\"number\":[0-9.]+)(?=[^{}]*\"type\":\")[^{}]*\\}",
+   "skip": {
+    "path": "",
+    "regex": "\"type\":\"PREMIUM\""
+   },
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"number\":(\\d+(?:\\.\\d*[1-9])?)",
+     "group": 1,
+     "template": "/read/{u.slug}/{value}"
+    },
+    "name": [
+     {
+      "path": "",
+      "regex": "\"title\":(\"[^\"]*(?:Chapitre|Chapter|chapitre|chapter)[^\"]*\")",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "",
+      "regex": "\"number\":(\\d+(?:\\.\\d*[1-9])?)",
+      "group": 1,
+      "template": "Chapitre {value}"
+     }
+    ],
+    "number": {
+     "path": "",
+     "regex": "\"number\":([0-9.]+)",
+     "group": 1
+    },
+    "date": {
+     "path": "",
+     "regex": "\"releaseDate\":\"([^\"]+)\"",
+     "group": 1
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "RSC": "1",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "text",
+   "block_regex": "(?s)\"images\":\\[(\\{.*?)\\]",
+   "items": "\\{[^{}]*\"url\":\"[^\"]+\"[^{}]*\\}",
+   "image": [
+    {
+     "path": "",
+     "regex": "\"url\":\"(https?://[^\"]+)\"",
+     "group": 1
+    },
+    {
+     "path": "",
+     "regex": "\"url\":\"(/[^\"]+)\"",
+     "group": 1,
+     "template": "{base}{value}"
+    }
+   ]
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Listen: /api/series (sort=rating = Beliebt, ohne sort = Neueste, search=…; has_more). Filter nicht nachgebaut.",
+  "Details aus dem JSON-LD 'ComicSeries' (Muster en.templescan); Status über das Badge vor h1 per matchesOwn statt Geschwisterposition; Typ-Badge und alternative Titel nicht übernommen.",
+  "Kapitel und Seiten aus Next.js-Flight-Daten (Abruf mit RSC: 1 als Text, wie en.revivalscans). Kapitel = alle Objekte mit number und type; Community entfernt Dubletten nach Nummer – hier nicht möglich (falls die Daten ein Kapitel doppelt materialisieren, erscheint es doppelt). Reihenfolge wie in den Daten (Community: absteigend).",
+  "Premium-Kapitel (type PREMIUM) übersprungen (Community-Standard). Name: Titel, wenn er 'Chapitre/Chapter' enthält, sonst 'Chapitre N' (Community hängt sonstige Titel als ' : Titel' an).",
+  "Seiten: erster nicht leerer Block \"images\":[…] der Leserseite; Community wählt das Kapitel mit passender Nummer und sortiert nach 'order' – hier Reihenfolge der Daten (Annahme)."
+ ]
 }

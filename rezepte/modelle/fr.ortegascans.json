@@ -23,7 +23,267 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/series?limit=18&page={page}&search=&tags=&status=&sort=popular&minChapters=0&isOrtegaOnly=false&unreadOnly=false&maxChapters=9999",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/serie/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "coverImage",
+     "replace": [
+      [
+       "storage/",
+       "api/"
+      ]
+     ],
+     "template": "{base}/{value}"
+    }
+   },
+   "has_next": {
+    "exists": "hasMore"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/series?limit=18&page={page}&search=&tags=&status=&sort=recent&minChapters=0&isOrtegaOnly=false&unreadOnly=false&maxChapters=9999",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/serie/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "coverImage",
+     "replace": [
+      [
+       "storage/",
+       "api/"
+      ]
+     ],
+     "template": "{base}/{value}"
+    }
+   },
+   "has_next": {
+    "exists": "hasMore"
+   }
+  },
+  "search": {
+   "request": "{base}/api/series?limit=18&page={page}&search={query}&tags=&status=&sort=popular&minChapters=0&isOrtegaOnly=false&unreadOnly=false&maxChapters=9999",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/serie/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "coverImage",
+     "replace": [
+      [
+       "storage/",
+       "api/"
+      ]
+     ],
+     "template": "{base}/{value}"
+    }
+   },
+   "has_next": {
+    "exists": "hasMore"
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{base}/serie/{u.slug}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "url_vars": {
+    "slug": "/serie/([^/?#]+)"
+   },
+   "let": {
+    "desc": {
+     "path": "",
+     "regex": "\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"description\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "alt": {
+     "path": "",
+     "regex": "\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"alternativeNames\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "cat_block": {
+     "path": "",
+     "regex": "\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"categories\":\\[([^\\]]*)\\]",
+     "group": 1
+    },
+    "cats": {
+     "const": "{l.cat_block}",
+     "regex": "(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "regex_all": true,
+     "decode": "json",
+     "join": ", "
+    }
+   },
+   "fields": {
+    "title": {
+     "path": "",
+     "regex": "\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"title\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "cover": {
+     "path": "",
+     "regex": "\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"coverImage\":\"([^\"]+)\"",
+     "group": 1,
+     "replace": [
+      [
+       "storage/",
+       "api/"
+      ]
+     ],
+     "template": "{base}/{value}"
+    },
+    "author": {
+     "path": "",
+     "regex": "\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"author\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "artist": {
+     "path": "",
+     "regex": "\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"artist\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "status": {
+     "path": "",
+     "regex": "\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"status\":\"([^\"]+)\"",
+     "group": 1
+    },
+    "description": {
+     "const": "[[{l.desc}]]\n\n[[Noms alternatifs : {l.alt}]]",
+     "replace": [
+      [
+       "^\\n+|\\n+$",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "const": "{l.cats}"
+    }
+   },
+   "status_map": {
+    "en cours": 1,
+    "En cours": 1,
+    "ongoing": 1,
+    "Ongoing": 1,
+    "terminé": 2,
+    "Terminé": 2,
+    "complete": 2,
+    "Complete": 2,
+    "en pause": 6,
+    "En pause": 6,
+    "on hold": 6,
+    "On hold": 6,
+    "annulé": 5,
+    "Annulé": 5,
+    "canceled": 5,
+    "Canceled": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "text",
+   "url_vars": {
+    "slug": "/serie/([^/?#]+)"
+   },
+   "items": "\\{(?=[^{}]*\"number\":[0-9.]+)(?=[^{}]*\"createdAt\":\")(?=[^{}]*\"isPremium\":)[^{}]*\\}",
+   "skip": {
+    "path": "",
+    "regex": "\"isPremium\":true"
+   },
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"number\":([0-9]+(?:\\.[0-9]*[1-9])?)(?:\\.0+)?(?=[,}])",
+     "group": 1,
+     "template": "/serie/{u.slug}/chapter/{value}"
+    },
+    "name": {
+     "path": "",
+     "replace": [
+      [
+       "(?s)^\\{(?=.*?\"number\":([0-9]+(?:\\.[0-9]*[1-9])?)(?:\\.0+)?(?=[,}]))(?:(?=.*?\"title\":\"((?:[^\"\\\\]|\\\\.)*)\"))?.*$",
+       "Chapitre $1 - $2"
+      ],
+      [
+       "\\s+-\\s*$",
+       ""
+      ],
+      [
+       "\\\\\"",
+       "\""
+      ]
+     ]
+    },
+    "number": {
+     "path": "",
+     "regex": "\"number\":([0-9.]+)",
+     "group": 1
+    },
+    "date": {
+     "path": "",
+     "regex": "\"createdAt\":\"(?:\\$D)?([^\"]+)\"",
+     "group": 1
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "items": "\\{(?=[^{}]*\"index\":[0-9]+)(?=[^{}]*\"url\":\")[^{}]*\\}",
+   "image": {
+    "path": "",
+    "regex": "\"url\":\"([^\"]+)\"",
+    "group": 1,
+    "replace": [
+     [
+      "^/(?!/)",
+      "https://ortegascans.fr/"
+     ]
+    ]
+   }
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Listen über die JSON-API /api/series (18 je Seite, weiter solange hasMore); Beliebt sort=popular, Neueste sort=recent, Suche search=…; Tag/Status/Kapitelanzahl-Filter nicht übernommen.",
+  "Details und Kapitel: Community liest die Next.js-Flight-Daten (extractNextJs, Header rsc: 1) von /serie/<slug>; hier derselbe Abruf als Text und Regex über das Objekt \"manga\":{…} (eine Verschachtelungsebene übersprungen). UNSICHER, auf dem PC prüfen.",
+  "Premium-Kapitel (isPremium) werden ausgelassen (Regel 0014). Name 'Chapitre N[ - Titel]', Datum ohne '$D'-Präfix.",
+  "Eintrags-URL /serie/<slug>, Kapitel-URL /serie/<slug>/chapter/<Nummer ohne .0> (Community speichert Slug bzw. Kapitel-ID + memo – nicht kompatibel).",
+  "Seiten: Objekte mit index und url aus dem RSC-Strom der Kapitelseite in Textreihenfolge (Community nutzt index), relative URLs mit Basis ergänzt. Ähnliche Serien (related) nicht nachgebaut."
+ ]
 }

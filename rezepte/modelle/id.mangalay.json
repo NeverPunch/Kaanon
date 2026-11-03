@@ -1,0 +1,81 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Mangalay",
+  "sprache": "id",
+  "base_url": "http://mangalay.blogspot.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.mangalay",
+  "quellen": [
+   {
+    "name": "Mangalay",
+    "sprache": "id",
+    "quell_id": 7859511511298731707,
+    "home": "http://mangalay.blogspot.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/mangalay",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/2013/04/daftar-baca-komik_20.html",
+   "items": ".post-body table",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a@href",
+    "title": ".tr-caption",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/2013/04/daftar-baca-komik_20.html",
+   "items": ".post-body table",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a@href",
+    "title": ".tr-caption",
+    "cover": "img@src"
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     ".post-title",
+     "meta[property=og:title]@content"
+    ]
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".post-body span > a",
+   "fields": {
+    "url": "@href",
+    "name": "b"
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".separator img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Blogger-Website: Katalog = Tabelle auf der Seite 'daftar-baca-komik_20' (eine Seite); Suche filtert diese Liste clientseitig (Community: keine Suche).",
+  "Details: Community lädt keine Details (Titel/Cover aus der Liste); hier nur Titel aus .post-title (Blogger-Standard, ungeprüft).",
+  "Kapitel = Links '.post-body span > a' mit Name aus <b>.",
+  "Seiten: '.separator img'; die Community verwirft das letzte Bild (dropLast) – dafür gibt es keinen Selektor, das letzte Bild wird hier mit ausgegeben."
+ ]
+}

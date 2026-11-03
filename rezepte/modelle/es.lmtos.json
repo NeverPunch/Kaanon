@@ -224,8 +224,14 @@
    },
    "status_map": {
     "ongoing": 1,
+    "Ongoing": 1,
+    "ONGOING": 1,
     "completed": 2,
-    "paused": 6
+    "Completed": 2,
+    "COMPLETED": 2,
+    "paused": 6,
+    "Paused": 6,
+    "PAUSED": 6
    }
   },
   "chapters": {

@@ -1,0 +1,156 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Twatt",
+  "sprache": "fr",
+  "base_url": "https://twatt.fr",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.twatt",
+  "quellen": [
+   {
+    "name": "Twatt",
+    "sprache": "fr",
+    "quell_id": 5157242904926355900,
+    "home": "https://twatt.fr"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/twatt",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/api/projects",
+   "format": "json",
+   "items": "projects",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/serie/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "coverImage",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://twatt.fr/"
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/api/projects",
+   "format": "json",
+   "items": "projects",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/serie/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "coverImage",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://twatt.fr/"
+      ]
+     ]
+    }
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{base}/api/series/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/serie/([^/?#]+)"
+   },
+   "fields": {
+    "title": "project.title",
+    "cover": {
+     "path": "project.coverImage",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://twatt.fr/"
+      ]
+     ]
+    },
+    "description": "project.description",
+    "author": "mainTeam.name",
+    "genres": {
+     "path": [
+      "project.genre",
+      "project.type"
+     ],
+     "union": true
+    },
+    "status": "project.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/series/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/serie/([^/?#]+)"
+   },
+   "items": "chapters",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/chapitre/{value}"
+    },
+    "name": [
+     "title",
+     {
+      "path": "number",
+      "template": "Chapitre {value}"
+     }
+    ],
+    "number": "number",
+    "date": "releasedAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api/chapters/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/chapitre/([^/?#]+)"
+   },
+   "items": "chapter.images",
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "^/(?!/)",
+      "https://twatt.fr/"
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "JSON-API wie Community: /api/projects (alle Serien, eine Seite; Suche lokal), /api/series/<id> (Details + Kapitel), /api/chapters/<id> (Bilder). Kein Latest (Community: supportsLatest=false).",
+  "Community bindet lib:dataimage ein: Cover/Bilder können data:-URIs sein. Keine Vorlage zeigt, dass die Engine data:-Bilder anzeigt – solche Bilder fallen hier ggf. aus; auf dem PC prüfen.",
+  "accessType der Kapitel wird wie in der Community nicht ausgewertet."
+ ]
+}

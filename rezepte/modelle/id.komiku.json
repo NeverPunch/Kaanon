@@ -1,0 +1,168 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Komiku",
+  "sprache": "id",
+  "base_url": "https://komiku.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.komiku",
+  "quellen": [
+   {
+    "name": "Komiku",
+    "sprache": "id",
+    "quell_id": 4838485846640015979,
+    "home": "https://komiku.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/komiku",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept-Language": "id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7"
+  },
+  "image_headers": {
+   "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://api.komiku.org/other/hot/page/{page}/?orderby=meta_value_num",
+   "items": "div.bge",
+   "fields": {
+    "url": "a:has(h3)@href",
+    "title": "h3",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "\\?.*$",
+       ""
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "full": true
+   },
+   "page_size": 10,
+   "request_by_page": {
+    "1": "https://api.komiku.org/other/hot/?orderby=meta_value_num"
+   }
+  },
+  "latest": {
+   "request": "https://api.komiku.org/manga/page/{page}/?orderby=modified",
+   "items": "div.bge",
+   "fields": {
+    "url": "a:has(h3)@href",
+    "title": "h3",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "\\?.*$",
+       ""
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "full": true
+   },
+   "page_size": 10,
+   "request_by_page": {
+    "1": "https://api.komiku.org/manga/?orderby=modified"
+   }
+  },
+  "search": {
+   "request": "https://api.komiku.org/manga/page/{page}/?s={query}",
+   "items": "div.bge",
+   "fields": {
+    "url": "a:has(h3)@href",
+    "title": "h3",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "\\?.*$",
+       ""
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "full": true
+   },
+   "page_size": 10,
+   "request_by_page": {
+    "1": "https://api.komiku.org/manga/?s={query}"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     "#Judul h1",
+     "h1"
+    ],
+    "cover": {
+     "path": "div.ims > img@src, img[itemprop=image]@src",
+     "replace": [
+      [
+       "\\?.*$",
+       ""
+      ]
+     ]
+    },
+    "description": "#Sinopsis > p, p.desc[itemprop=description]",
+    "author": "table.inftable td:contains(Pengarang)+td, table.inftable td:contains(Komikus)+td, table.inftable td:contains(Author)+td",
+    "genres": "ul.genre li.genre a span",
+    "status": "table.inftable tr > td:contains(Status) + td"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "on going": 1,
+    "end": 2,
+    "completed": 2,
+    "tamat": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#Daftar_Chapter tr:has(td.judulseries)",
+   "fields": {
+    "url": "a@href",
+    "name": "a",
+    "date": "td.tanggalseries"
+   },
+   "date_format": [
+    "dd/MM/yyyy",
+    "relative"
+   ],
+   "date_locale": "id"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#Baca_Komik img",
+   "image": "@src",
+   "exclude": "komiku-promosi",
+   "referer": "chapter"
+  }
+ },
+ "hinweise": [
+  "Listen über api.komiku.org (Seite 1 ohne /page/1/, wie Community). Nächste Seite: Community nimmt span[hx-get] ODER ≥10 Einträge; hier has_next full mit page_size 10.",
+  "Suche nur Text (?s=); Tipe/Order/Genre/Status-Filter nicht nachgebaut.",
+  "Titel kommt in der Community aus dem Listeneintrag (Details setzen keinen Titel); hier '#Judul h1' bzw. 'h1' angenommen – prüfen.",
+  "Alternativtitel (Judul Indonesia/Alternatif) wird nicht an die Beschreibung angehängt. Cover ohne Query-String wie Community.",
+  "Datum dd/MM/yyyy oder relativ auf Indonesisch ('… lalu', Zeitzone Asia/Jakarta in der Community) – prüfen, ob 'relative' mit date_locale id das versteht.",
+  "Bilder: Referer = Kapitelseite, Accept-Header für Bilder wie im Interceptor; Sec-Fetch-*-Header nicht gesetzt."
+ ]
+}

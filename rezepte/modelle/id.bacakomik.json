@@ -1,0 +1,180 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "BacaKomik",
+  "sprache": "id",
+  "base_url": "https://bacakomik.my",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.bacakomik",
+  "quellen": [
+   {
+    "name": "BacaKomik",
+    "sprache": "id",
+    "quell_id": 4383360263234319058,
+    "home": "https://bacakomik.my"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/bacakomik",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 12,
+   "period_ms": 3000
+  },
+  "popular": {
+   "request": "{base}/daftar-komik/page/{page}/?order=popular",
+   "request_by_page": {
+    "1": "{base}/daftar-komik/?order=popular"
+   },
+   "items": "div.animepost",
+   "fields": {
+    "url": "div.animposx > a@href",
+    "title": ".animposx .tt h4",
+    "cover": "div.limit img@img"
+   },
+   "has_next": {
+    "exists": "a.next.page-numbers"
+   }
+  },
+  "latest": {
+   "request": "{base}/daftar-komik/page/{page}/?order=update",
+   "request_by_page": {
+    "1": "{base}/daftar-komik/?order=update"
+   },
+   "items": "div.animepost",
+   "fields": {
+    "url": "div.animposx > a@href",
+    "title": ".animposx .tt h4",
+    "cover": "div.limit img@img"
+   },
+   "has_next": {
+    "exists": "a.next.page-numbers"
+   }
+  },
+  "search": {
+   "request": "{base}/daftar-komik/page/{page}/?order=&title={query}",
+   "request_by_page": {
+    "1": "{base}/daftar-komik/?title={query}"
+   },
+   "items": "div.animepost",
+   "fields": {
+    "url": "div.animposx > a@href",
+    "title": ".animposx .tt h4",
+    "cover": "div.limit img@img"
+   },
+   "has_next": {
+    "exists": "a.next.page-numbers"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     "#breadcrumbs li:last-child span",
+     {
+      "path": "h1.entry-title",
+      "replace": [
+       [
+        "^Komik\\s*",
+        ""
+       ]
+      ]
+     }
+    ],
+    "cover": [
+     ".thumb > img:nth-child(1)@img",
+     ".thumb img@img"
+    ],
+    "author": {
+     "path": ".infox .spe span:contains(Author) :not(b)",
+     "all": true,
+     "join": " "
+    },
+    "artist": {
+     "path": ".infox .spe span:contains(Artis) :not(b)",
+     "all": true,
+     "join": " "
+    },
+    "genres": {
+     "path": "div.infoanime .infox > .genre-info > a, div.infoanime .infox .spe span:contains(Jenis Komik) a",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": ".infox .spe span:contains(Status)",
+     "regex": "(?i)(berjalan|ongoing|tamat|completed)",
+     "group": 1
+    },
+    "description": [
+     {
+      "path": "div.desc > .entry-content.entry-content-single p",
+      "all": true,
+      "join": " ",
+      "regex": "(?s)bercerita tentang (.+)$",
+      "group": 1
+     },
+     {
+      "path": "div.desc > .entry-content.entry-content-single p",
+      "all": true,
+      "join": " "
+     }
+    ]
+   },
+   "status_map": {
+    "berjalan": 1,
+    "Berjalan": 1,
+    "ongoing": 1,
+    "Ongoing": 1,
+    "tamat": 2,
+    "Tamat": 2,
+    "completed": 2,
+    "Completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#chapter_list li:has(.lchx a)",
+   "fields": {
+    "url": ".lchx a@href",
+    "name": ".lchx a",
+    "number": {
+     "path": ".lchx a",
+     "regex": "(?i)Chapter\\s+([0-9]+(?:\\.[0-9]+)?)",
+     "group": 1
+    },
+    "date": ".dt a"
+   },
+   "date_format": [
+    "MMM d, yyyy",
+    "relative"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div:has(>img[alt*=Chapter]) > img",
+   "referer": "chapter",
+   "image": [
+    {
+     "path": "@onerror",
+     "regex": "src='([^']+)'",
+     "group": 1
+    },
+    "@data-lazy-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Listen: Seite 1 ohne /page/1/ (request_by_page), Filter nicht übernommen.",
+  "Datum: 'MMM d, yyyy' (englisch) oder 'N jam/hari … yang lalu' (relative; ob die Engine indonesische Angaben versteht, beim Test prüfen).",
+  "Seiten: Bilder direkt unter einem div mit img[alt*=Chapter] (Community nimmt alle Nachfahren außer noscript); echte URL bevorzugt aus onError=\"…src='…'\", sonst data-lazy-src/src; Referer = Kapitelseite."
+ ]
+}

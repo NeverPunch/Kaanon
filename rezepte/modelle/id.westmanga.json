@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "West Manga",
+  "sprache": "id",
+  "base_url": "https://v1.westmanga.my",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.westmanga",
+  "quellen": [
+   {
+    "name": "West Manga",
+    "sprache": "id",
+    "quell_id": 8883916630998758688,
+    "home": "https://v1.westmanga.my"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/westmanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.5",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

@@ -1,0 +1,192 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Riztranslation",
+  "sprache": "id",
+  "base_url": "https://riztranslation.pages.dev",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.riztranslation",
+  "quellen": [
+   {
+    "name": "Riztranslation",
+    "sprache": "id",
+    "quell_id": 7209416153926734838,
+    "home": "https://riztranslation.pages.dev"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/riztranslation",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "https://uefnaojxivvxeamljskn.supabase.co/rest/v1/Book?select=id,judul,cover&type=not.ilike.*novel*&order=id.desc&offset={offset}&limit=20",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlZm5hb2p4aXZ2eGVhbWxqc2tuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc3MTU5MjksImV4cCI6MjA2MzI5MTkyOX0._lEBN5puTvATwtYodg4zbcoTwg0ss3j2BebD8WoHt9A"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/detail/{value}"
+    },
+    "title": "judul",
+    "cover": "cover"
+   },
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "https://uefnaojxivvxeamljskn.supabase.co/rest/v1/Chapter?select=bookId,Book!inner(id,judul,cover)&Book.type=not.ilike.*novel*&order=created_at.desc&offset={offset}&limit=30",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlZm5hb2p4aXZ2eGVhbWxqc2tuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc3MTU5MjksImV4cCI6MjA2MzI5MTkyOX0._lEBN5puTvATwtYodg4zbcoTwg0ss3j2BebD8WoHt9A"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "page_size": 30,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "Book.id",
+     "template": "/detail/{value}"
+    },
+    "title": "Book.judul",
+    "cover": "Book.cover"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "https://uefnaojxivvxeamljskn.supabase.co/rest/v1/Book?select=id,judul,cover&judul=ilike.*{query}*&type=not.ilike.*novel*&order=updated_at.desc&offset={offset}&limit=20",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlZm5hb2p4aXZ2eGVhbWxqc2tuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc3MTU5MjksImV4cCI6MjA2MzI5MTkyOX0._lEBN5puTvATwtYodg4zbcoTwg0ss3j2BebD8WoHt9A"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/detail/{value}"
+    },
+    "title": "judul",
+    "cover": "cover"
+   },
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   }
+  },
+  "details": {
+   "request": {
+    "url": "https://uefnaojxivvxeamljskn.supabase.co/rest/v1/Book?select=*%2Cgenres%3A_BookGenre%28genre%3AGenre%28*%29%29&type=not.ilike.*novel*&id=eq.{u.id}",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlZm5hb2p4aXZ2eGVhbWxqc2tuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc3MTU5MjksImV4cCI6MjA2MzI5MTkyOX0._lEBN5puTvATwtYodg4zbcoTwg0ss3j2BebD8WoHt9A"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "/detail/([^/?#]+)"
+   },
+   "fields": {
+    "title": "0.judul",
+    "cover": "0.cover",
+    "author": "0.author",
+    "artist": "0.artist",
+    "description": "0.synopsis",
+    "genres": {
+     "path": "0.genres.*.genre.nama",
+     "all": true,
+     "join": ", "
+    },
+    "status": "0.status"
+   },
+   "status_map": {
+    "completed": 2,
+    "Completed": 2,
+    "complete": 2,
+    "Complete": 2,
+    "oneshot": 2,
+    "Oneshot": 2,
+    "ongoing": 1,
+    "Ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "https://uefnaojxivvxeamljskn.supabase.co/rest/v1/Chapter?select=id,bookId,chapter,nama,created_at&bookId=eq.{u.id}&order=chapter.desc",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlZm5hb2p4aXZ2eGVhbWxqc2tuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc3MTU5MjksImV4cCI6MjA2MzI5MTkyOX0._lEBN5puTvATwtYodg4zbcoTwg0ss3j2BebD8WoHt9A"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "/detail/([^/?#]+)"
+   },
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/view/{f.bookId}/{value}"
+    },
+    "name": [
+     {
+      "path": "chapter",
+      "replace": [
+       [
+        "\\.0$",
+        ""
+       ]
+      ],
+      "template": "Chapter {value}[[ - {f.nama}]]"
+     },
+     "nama"
+    ],
+    "number": "chapter",
+    "date": "created_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "https://uefnaojxivvxeamljskn.supabase.co/rest/v1/Chapter?select=id,bookId,isigambar&id=eq.{u.cid}",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlZm5hb2p4aXZ2eGVhbWxqc2tuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc3MTU5MjksImV4cCI6MjA2MzI5MTkyOX0._lEBN5puTvATwtYodg4zbcoTwg0ss3j2BebD8WoHt9A"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "cid": "/view/[^/]+/([^/?#]+)"
+   },
+   "items": "$",
+   "image": "",
+   "inner": {
+    "value": {
+     "path": "0.isigambar"
+    },
+    "format": "json",
+    "items": "$",
+    "image": ""
+   }
+  }
+ },
+ "hinweise": [
+  "Supabase-REST-API (uefnaojxivvxeamljskn.supabase.co) mit dem öffentlichen anon-apikey der Website wörtlich aus der Community (Muster wie en.webdexscans).",
+  "Eintrags-URL /detail/<id>, Kapitel-URL /view/<bookId>/<id> (Web-URLs der Community; Community speichert '<id>' bzw. '<bookId>/<id>').",
+  "Beliebt = Book order=id.desc, Neueste = letzte Kapitel mit eingebettetem Book (30 je Seite; doppelte Werke entfernt die Community per distinctBy – hier nicht), Suche judul=ilike.*q*; Typ/Status/Genre/Sortier-Filter nicht übernommen. Novels ausgeschlossen (type=not.ilike.*novel*).",
+  "Seiten: isigambar ist eine JSON-Liste als Text → per 'inner' (format json) entpackt."
+ ]
+}
