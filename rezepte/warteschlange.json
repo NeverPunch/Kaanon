@@ -17853,7 +17853,7 @@
  },
  {
   "modul": "src/zh/vomic",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "vomic",
   "stufe": 2,
   "theme": null,
@@ -17863,11 +17863,14 @@
   "host": "vomicmh.com",
   "nsfw": false,
   "wer": "agent-w8c",
-  "seit": "2026-11-03T11:32:31"
+  "seit": "2026-11-03T11:32:31",
+  "grund": "Jede API-Anfrage braucht Signatur-Header s/t (eigener Hash über Parameter+Zeit+Salz im SignInterceptor); Seiten (getChapterInfo) zusätzlich nur mit Login (Bearer-Token aus E-Mail/Passwort)",
+  "datei": null,
+  "geaendert": "2026-11-03T11:32:37"
  },
  {
   "modul": "src/zh/wnacg",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "WNACG",
   "stufe": 2,
   "theme": null,
@@ -17875,7 +17878,9 @@
    "zh"
   ],
   "host": "wn07.cfd",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8c",
+  "seit": "2026-11-03T11:32:38"
  },
  {
   "modul": "src/zh/zazhimi",
