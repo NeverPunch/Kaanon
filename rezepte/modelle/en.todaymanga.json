@@ -1,0 +1,134 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "TodayManga",
+  "sprache": "en",
+  "base_url": "https://todaymanga.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.todaymanga",
+  "quellen": [
+   {
+    "name": "TodayManga",
+    "sprache": "en",
+    "quell_id": 1147556681248758139,
+    "home": "https://todaymanga.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/todaymanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.5",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/category/most-popular?page={page}",
+   "items": "section > main > div.series-info",
+   "fields": {
+    "url": "a[href]@href",
+    "title": ".series-name",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": ".pagination > ul > li.active + li:has(a)"
+   }
+  },
+  "latest": {
+   "request": "{base}/category/recent?page={page}",
+   "items": "ul.series > li",
+   "fields": {
+    "url": "a[title][href]@href",
+    "title": ".series-name",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": ".pagination > ul > li.active + li:has(a)"
+   }
+  },
+  "search": {
+   "request": "{base}/search?q={query}&page={page}",
+   "items": [
+    "section div.serie",
+    "ul.series > li"
+   ],
+   "fields": {
+    "url": [
+     "a[title][href]@href",
+     "a[href]@href"
+    ],
+    "title": ".series-name",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": ".pagination > ul > li.active + li:has(a)"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "sum": ".series-summary@ownText",
+    "extra": ".series-summary div[style]"
+   },
+   "fields": {
+    "title": ".series-info h1",
+    "cover": ".series-info img@img",
+    "genres": {
+     "path": ".series-info [itemprop=genre] > a",
+     "all": true,
+     "join": ", "
+    },
+    "author": {
+     "path": ".series-info span[itemprop=author] > span",
+     "all": true,
+     "join": ", "
+    },
+    "status": ".series-info *:containsOwn(Status) + *",
+    "description": {
+     "const": "{l.sum}[[\n\n{l.extra}]]"
+    }
+   },
+   "status_map": {
+    "complete": 2,
+    "on going": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#chapList > li",
+   "fields": {
+    "url": "a@href",
+    "name": [
+     "strong",
+     "a"
+    ],
+    "date": "span.muted"
+   },
+   "date_format": [
+    "yyyy-MM-dd",
+    "relative"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".chapter-content > img[data-index]",
+   "image": "@img",
+   "sort": {
+    "path": "@data-index"
+   }
+  }
+ },
+ "hinweise": [
+  "HTML-Website; Listen/Details/Kapitel/Seiten wie Community. Seite 1 mit ?page=1 (Community lässt den Parameter weg).",
+  "Beschreibung: eigener Text von .series-summary (Zeilenumbrüche aus <br> gehen ggf. verloren) plus div[style].",
+  "Seiten nach data-index sortiert (sort-Form wie in Vorlagen mit path – auf dem PC prüfen). Community setzt beim Bildabruf einen Host-Header; hier nicht nötig angenommen.",
+  "Kategorie-/Genre-Filter nicht übernommen."
+ ]
+}

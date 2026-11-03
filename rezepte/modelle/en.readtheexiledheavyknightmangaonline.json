@@ -23,7 +23,83 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/"
+    },
+    "title": {
+     "const": "The Exiled Heavy Knight"
+    },
+    "cover": "meta[property='og:image']@content"
+   }
+  },
+  "search": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "client_filter": true,
+   "fields": {
+    "url": {
+     "const": "/"
+    },
+    "title": {
+     "const": "The Exiled Heavy Knight"
+    },
+    "cover": "meta[property='og:image']@content"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "The Exiled Heavy Knight"
+    },
+    "cover": "meta[property='og:image']@content",
+    "description": "meta[property='og:description']@content"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a[href*='the-exiled-heavy-knight-knows-how-to-game-the-system-chapter-']",
+   "skip": {
+    "path": "@href",
+    "regex": "^(?!.*the-exiled-heavy-knight-knows-how-to-game-the-system-chapter-\\d+/?$)"
+   },
+   "fields": {
+    "url": "@href",
+    "name": {
+     "path": "@href",
+     "regex": "the-exiled-heavy-knight-knows-how-to-game-the-system-chapter-(\\d+)/?$",
+     "group": 1,
+     "template": "Chapter {value}"
+    },
+    "number": {
+     "path": "@href",
+     "regex": "the-exiled-heavy-knight-knows-how-to-game-the-system-chapter-(\\d+)/?$",
+     "group": 1
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".post-single-content img, .entry-content img",
+   "image": "@img",
+   "include": "^https?://.*(?:blogger\\.googleusercontent\\.com|bp\\.blogspot\\.com|pic\\.readkakegurui\\.com|img\\.theexiledheavyknight\\.com|theexiledheavyknight\\.com/wp-content/uploads)",
+   "exclude": "cropped-"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Einzeltitel-Website: ein fester Eintrag (URL '/'); Suche filtert lokal (Community: Titelvergleich). Kein Latest (wie Community).",
+  "Kapitel: alle Links auf …-chapter-<n> der Startseite; die Community entfernt doppelte Nummern und sortiert nach Nummer absteigend – beides kann das Modell nicht (Doppelte möglich).",
+  "Seiten: Bilder in .post-single-content/.entry-content, nur von den Bild-Hosts der Community, ohne 'cropped-' (Logo); doppelte Bild-URLs werden nicht entfernt."
+ ]
 }

@@ -1,0 +1,35 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Toonz/Toonx",
+  "sprache": "en",
+  "base_url": "https://toonz.to",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.toonztoonx",
+  "quellen": [
+   {
+    "name": "Toonz",
+    "sprache": "en",
+    "quell_id": 225310046014902430,
+    "home": "https://toonz.to"
+   },
+   {
+    "name": "Toonx",
+    "sprache": "en",
+    "quell_id": 3603837449597882885,
+    "home": "https://toonx.to"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/toonz",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.6",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "The Property of Hate",
+  "sprache": "en",
+  "base_url": "https://jolleycomics.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.thepropertyofhate",
+  "quellen": [
+   {
+    "name": "The Property of Hate",
+    "sprache": "en",
+    "quell_id": 7307224992915342074,
+    "home": "https://jolleycomics.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/thepropertyofhate",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.7",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

@@ -23,7 +23,204 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/api/series/popular?timePeriod=all&genre=all&sortBy=rating&offset={offset}&limit=20",
+   "format": "json",
+   "items": "data",
+   "page_size": 20,
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": "thumbnail_url"
+   },
+   "has_next": {
+    "exists": "hasMore"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/series/popular?timePeriod=all&genre=all&sortBy=created&offset={offset}&limit=20",
+   "format": "json",
+   "items": "data",
+   "page_size": 20,
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": "thumbnail_url"
+   },
+   "has_next": {
+    "exists": "hasMore"
+   }
+  },
+  "search": {
+   "request": "{base}/api/search?q={query}",
+   "format": "json",
+   "items": "series",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": "thumbnail_url"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "let": {
+    "gen": {
+     "path": "",
+     "regex": "\"series\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"genres\":\\[([^\\]]*)\\]",
+     "group": 1,
+     "replace": [
+      [
+       "\",\"",
+       ", "
+      ],
+      [
+       "\"",
+       ""
+      ]
+     ]
+    },
+    "tags": {
+     "path": "",
+     "regex": "\"series\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"tags\":\\[([^\\]]*)\\]",
+     "group": 1,
+     "replace": [
+      [
+       "\",\"",
+       ", "
+      ],
+      [
+       "\"",
+       ""
+      ]
+     ]
+    }
+   },
+   "fields": {
+    "title": {
+     "path": "",
+     "regex": "\"series\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"title\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "description": {
+     "path": "",
+     "regex": "\"series\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"description\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "cover": {
+     "path": "",
+     "regex": "\"series\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"thumbnail_url\":\"([^\"]*)\"",
+     "group": 1
+    },
+    "status": {
+     "path": "",
+     "regex": "\"series\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"status\":\"([^\"]*)\"",
+     "group": 1
+    },
+    "genres": {
+     "const": "{l.gen}[[, {l.tags}]]",
+     "replace": [
+      [
+       "^, ",
+       ""
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "text",
+   "url_vars": {
+    "slug": "/series/([^/?#]+)"
+   },
+   "items": "\\{[^{}]*\"number\":[0-9.]+[^{}]*\\}",
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"number\":([0-9.]+)",
+     "group": 1,
+     "template": "/read/{u.slug}/{value}"
+    },
+    "name": [
+     {
+      "path": "",
+      "regex": "\"title\":(\"(?:[^\"\\\\]|\\\\.)+\")",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "",
+      "regex": "\"number\":([0-9.]+)",
+      "group": 1,
+      "template": "Chapter {value}"
+     }
+    ],
+    "number": {
+     "path": "",
+     "regex": "\"number\":([0-9.]+)",
+     "group": 1
+    },
+    "date": {
+     "path": "",
+     "regex": "\"created_at\":\"([^\"]+)\"",
+     "group": 1
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "block_regex": "(?s)\"pages\":\\[(.*?)\\]",
+   "items": "\"[^\"]+\"",
+   "image": {
+    "path": "",
+    "regex": "^\"(.*)\"$",
+    "group": 1,
+    "replace": [
+     [
+      "\\\\/",
+      "/"
+     ]
+    ]
+   }
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Listen über /api/series/popular (offset, limit=20, hasMore); Suche /api/search?q= (eine Seite) wie Community.",
+  "Details/Kapitel/Seiten: Community liest Next.js-Flight-Daten (extractNextJs, Header Rsc: 1). Hier Abruf mit rsc: 1 als Text und Regex auf das 'series'-Objekt bzw. die Kapitelobjekte (wie en.drakescans/en.revivalscans); Schlüsselreihenfolge und flache Objekte angenommen – auf dem PC prüfen.",
+  "Kapitel-URL /read/<slug>/<nummer> wie Community. Name: Kapiteltitel, sonst 'Chapter N' (Community: 'Chapter N: Titel'). Community sortiert absteigend nach Nummer; hier Reihenfolge der Daten.",
+  "Kapitelobjekte = alle flachen Objekte mit \"number\" – können andere Objekte mitfangen, auf dem PC prüfen.",
+  "Genre-/Sortierfilter nicht übernommen."
+ ]
 }

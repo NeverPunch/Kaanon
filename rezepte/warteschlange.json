@@ -12351,7 +12351,7 @@
  },
  {
   "modul": "src/en/teamshadowi",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Team Shadowi",
   "stufe": 2,
   "theme": null,
@@ -12361,7 +12361,10 @@
   "host": "team-shadowi.com",
   "nsfw": false,
   "wer": "agent-w5b",
-  "seit": "2026-11-03T10:50:51"
+  "seit": "2026-11-03T10:50:51",
+  "datei": "rezepte/modelle/en.teamshadowi.json",
+  "grund": null,
+  "geaendert": "2026-11-03T10:51:39"
  },
  {
   "modul": "src/en/thebeginningaftertheendmangaonline",
@@ -12399,7 +12402,7 @@
  },
  {
   "modul": "src/en/theexiledheavyknightmangaonline",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Read The Exiled Heavy Knight Manga Online",
   "stufe": 2,
   "theme": null,
@@ -12409,11 +12412,14 @@
   "host": "w2.theexiledheavyknight.com",
   "nsfw": false,
   "wer": "agent-w5c",
-  "seit": "2026-11-03T10:50:57"
+  "seit": "2026-11-03T10:50:57",
+  "datei": "rezepte/modelle/en.readtheexiledheavyknightmangaonline.json",
+  "grund": null,
+  "geaendert": "2026-11-03T10:51:42"
  },
  {
   "modul": "src/en/thegirlfromrandomchattingmangaonline",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "The Girl from Random Chatting Manga Online",
   "stufe": 2,
   "theme": null,
@@ -12423,11 +12429,14 @@
   "host": "thegirlfromrandomchatting.com",
   "nsfw": false,
   "wer": "agent-w5d",
-  "seit": "2026-11-03T10:51:14"
+  "seit": "2026-11-03T10:51:14",
+  "datei": "rezepte/modelle/en.thegirlfromrandomchattingmangaonline.json",
+  "grund": null,
+  "geaendert": "2026-11-03T10:51:45"
  },
  {
   "modul": "src/en/thepropertyofhate",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "The Property of Hate",
   "stufe": 2,
   "theme": null,
@@ -12435,11 +12444,13 @@
    "en"
   ],
   "host": "jolleycomics.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6a",
+  "seit": "2026-11-03T10:51:28"
  },
  {
   "modul": "src/en/todaymanga",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "TodayManga",
   "stufe": 2,
   "theme": null,
@@ -12447,11 +12458,13 @@
    "en"
   ],
   "host": "todaymanga.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5b",
+  "seit": "2026-11-03T10:51:40"
  },
  {
   "modul": "src/en/toongrab",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "ToonGrab",
   "stufe": 2,
   "theme": null,
@@ -12459,11 +12472,13 @@
    "en"
   ],
   "host": "toongrab.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5c",
+  "seit": "2026-11-03T10:51:42"
  },
  {
   "modul": "src/en/toonz",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Toonz/Toonx",
   "stufe": 2,
   "theme": null,
@@ -12471,7 +12486,9 @@
    "en"
   ],
   "host": "toonx.to",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5d",
+  "seit": "2026-11-03T10:51:45"
  },
  {
   "modul": "src/en/vgperson",
