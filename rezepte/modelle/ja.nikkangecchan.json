@@ -1,0 +1,126 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Nikkangecchan",
+  "sprache": "ja",
+  "base_url": "https://nikkangecchan.jp",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.nikkangecchan",
+  "quellen": [
+   {
+    "name": "Nikkangecchan",
+    "sprache": "ja",
+    "quell_id": 5200293225675847390,
+    "home": "https://nikkangecchan.jp"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/nikkangecchan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "image_headers": {
+   "Referer": "{base}/"
+  },
+  "popular": {
+   "request": "{base}/",
+   "items": ".contentInner > figure:has(.imgBox a):has(.detailBox h3)",
+   "fields": {
+    "url": ".imgBox a@href",
+    "title": [
+     ".detailBox:last-of-type h3",
+     ".detailBox h3"
+    ],
+    "cover": ".imgBox a > img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/",
+   "items": ".contentInner > figure:has(.imgBox a):has(.detailBox h3)",
+   "fields": {
+    "url": ".imgBox a@href",
+    "title": [
+     ".detailBox:last-of-type h3",
+     ".detailBox h3"
+    ],
+    "cover": ".imgBox a > img@src"
+   },
+   "client_filter": true,
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "#comicDetail .detailBox h3",
+    "author": "#comicDetail .detailBox .author",
+    "artist": "#comicDetail .detailBox .author",
+    "description": ".description",
+    "status": {
+     "const": "ongoing"
+    }
+   },
+   "status_map": {
+    "ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".episodeBox:has(.episode-page):has(h4.episodeTitle)",
+   "fields": {
+    "url": {
+     "path": ".episode-page@data-src",
+     "regex": "^(.*)/[^/]*$",
+     "group": 1
+    },
+    "name": {
+     "path": [
+      "h4.episodeTitle",
+      ".episode-page@data-title"
+     ],
+     "union": true,
+     "join": " - ",
+     "replace": [
+      [
+       "\\s*\\|.*$",
+       ""
+      ]
+     ]
+    },
+    "number": {
+     "path": "h4.episodeTitle",
+     "regex": "^\\s*(\\d+(?:\\.\\d+)?)\\s*$",
+     "group": 1
+    },
+    "scanlator": {
+     "const": "Akita Publishing"
+    }
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": "{base}/",
+   "items": "html",
+   "image": {
+    "path": "",
+    "template": "{abs_url}/image"
+   }
+  }
+ },
+ "hinweise": [
+  "Keine Suche auf der Website: Community filtert die Startseiten-Liste nach Titel – hier client_filter auf derselben Liste. Keine Neueste (supportsLatest = false).",
+  "Kapitelname: Community '<h4.episodeTitle> - <data-title vor '|'>'; hier per union/join + replace (Reihenfolge join/replace in der Engine nicht belegt – prüfen).",
+  "Kapitel-URL = data-src der .episode-page ohne letzten Pfadteil (wie Community). Eine Seite je Kapitel: Bild <Kapitel-URL>/image. Die Engine braucht eine Anfrage, daher wird die Startseite geladen und nur das Wurzelelement als einziges Element genutzt (Muster items 'html' wie bei Kapiteln anderer Rezepte; in pages nicht belegt).",
+  "Bild-Referer: Community setzt {base}<Kapitel-URL ohne letzten Teil>; hier pauschal {base}/ (prüfen).",
+  "Status fest laufend wie in der Community."
+ ]
+}

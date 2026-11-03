@@ -1,0 +1,119 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga Rw",
+  "sprache": "ja",
+  "base_url": "https://mangarw.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.mangarw",
+  "quellen": [
+   {
+    "name": "Manga Rw",
+    "sprache": "ja",
+    "quell_id": 7145934117309913101,
+    "home": "https://mangarw.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/mangarw",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/?page={page}",
+   "items": "a[href~=^/manga/[^/]+/\\d+$]",
+   "fields": {
+    "url": "@href",
+    "title": [
+     "@title",
+     ""
+    ],
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "a[href*='page=']"
+   }
+  },
+  "latest": {
+   "request": "{base}/browse?page={page}",
+   "items": "a[href~=^/manga/[^/]+/\\d+$]",
+   "fields": {
+    "url": "@href",
+    "title": [
+     "@title",
+     ""
+    ],
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "a[href*='page=']"
+   }
+  },
+  "search": {
+   "request": "{base}/browse?page={page}&search={query}",
+   "items": "a[href~=^/manga/[^/]+/\\d+$]",
+   "fields": {
+    "url": "@href",
+    "title": [
+     "@title",
+     ""
+    ],
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "a[href*='page=']"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "cover": "img[src*=covers]@src",
+    "description": [
+     "div.description",
+     "p.synopsis"
+    ],
+    "genres": "a[href*=genre]"
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/v1/chapters?id={u.id}",
+   "url_vars": {
+    "id": "/manga/[^/]+/(\\d+)"
+   },
+   "items": "option[value~=.]",
+   "fields": {
+    "url": {
+     "path": "@value",
+     "template": "/read?id={value}"
+    },
+    "name": "",
+    "number": {
+     "path": "",
+     "regex": "第(\\d+(?:\\.\\d+)?)話",
+     "group": 1
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img[src*=mangabuzz], img[data-src*=mangabuzz]",
+   "image": "@img"
+  }
+ },
+ "hinweise": [
+  "Listen: Links a[href^=/manga/] mit Pfad /manga/<slug>/<id> (hier als Jsoup-Regex-Attributselektor). Community entfernt doppelte URLs (distinctBy) – ob die Engine Dubletten zusammenfasst, auf dem PC prüfen.",
+  "Nächste Seite: Community prüft einen Link auf page=<aktuelle+1>; Platzhalter im Selektor nicht belegt, daher grob 'irgendein page=-Link vorhanden' – am Ende evtl. eine leere Zusatzseite.",
+  "Kapitel: GET /api/v1/chapters?id=<id> liefert HTML mit <option value=…>; Kapitel-URL /read?id=<value>, Nummer aus 第N話. Kein Datum, kein Status im Code.",
+  "Bilder: img mit mangabuzz in src/data-src (@img wählt data-src vor src)."
+ ]
+}

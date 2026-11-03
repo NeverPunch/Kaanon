@@ -1,0 +1,153 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Rawdevart.art",
+  "sprache": "ja",
+  "base_url": "https://rawdevart.art",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.rawdevartart",
+  "quellen": [
+   {
+    "name": "Rawdevart.art",
+    "sprache": "ja",
+    "quell_id": 3401714773439070137,
+    "home": "https://rawdevart.art"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/rawdevartart",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.6",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/spa/genre/all?page={page}&sort=most_viewed",
+   "format": "json",
+   "items": "manga_list",
+   "fields": {
+    "url": {
+     "path": "manga_id",
+     "template": "/g/ne{value}"
+    },
+    "title": "manga_name",
+    "cover": "manga_cover_img"
+   },
+   "has_next": {
+    "exists": "pagi.button.next"
+   }
+  },
+  "latest": {
+   "request": "{base}/spa/latest-manga?page={page}",
+   "format": "json",
+   "items": "manga_list",
+   "fields": {
+    "url": {
+     "path": "manga_id",
+     "template": "/g/ne{value}"
+    },
+    "title": "manga_name",
+    "cover": "manga_cover_img"
+   },
+   "has_next": {
+    "exists": "pagi.button.next"
+   }
+  },
+  "search": {
+   "request": "{base}/spa/search?page={page}&query={query}",
+   "format": "json",
+   "items": "manga_list",
+   "fields": {
+    "url": {
+     "path": "manga_id",
+     "template": "/g/ne{value}"
+    },
+    "title": "manga_name",
+    "cover": "manga_cover_img"
+   },
+   "has_next": {
+    "exists": "pagi.button.next"
+   }
+  },
+  "details": {
+   "request": "{base}/spa/manga/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/g/ne(\\d+)"
+   },
+   "fields": {
+    "title": "detail.manga_name",
+    "cover": [
+     "detail.manga_cover_img_full",
+     "detail.manga_cover_img"
+    ],
+    "description": "detail.manga_description",
+    "author": {
+     "path": "authors.*.author_name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "tags.*.tag_name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "detail.manga_status"
+   },
+   "status_map": {
+    "true": 2,
+    "false": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "chapters",
+   "fields": {
+    "url": {
+     "path": "chapter_number",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "/read/ne{u.id}/chapter-{value}"
+    },
+    "name": {
+     "path": "chapter_number",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "Chapter {value}[[: {f.chapter_title}]]"
+    },
+    "number": "chapter_number",
+    "date": "chapter_date_published"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/spa/manga/{u.mid}/{u.ch}",
+   "url_vars": {
+    "mid": "/read/ne(\\d+)/",
+    "ch": "/chapter-([^/?#]+)"
+   },
+   "format": "json_html",
+   "html_path": "chapter_detail.chapter_content",
+   "items": "img[data-src]",
+   "image": "@data-src"
+  }
+ },
+ "hinweise": [
+  "API /spa/… wie Community. Beliebt = /spa/genre/all?sort=most_viewed (Standardfilter der Community), Neueste /spa/latest-manga, Suche /spa/search?query=. Status-/Sortier-/Genrefilter nicht nachgebaut.",
+  "Nächste Seite: Community prüft pagi.button.next != 0; hier exists auf pagi.button.next – prüfen, ob die Engine 0 als nicht vorhanden wertet.",
+  "URLs wie die Website: Manga /g/ne<id>, Kapitel /read/ne<id>/chapter-<nummer> (Nummer ohne '.0'); Seiten über /spa/manga/<id>/<nummer> (Community speichert spa/manga/<id>/<nummer> direkt).",
+  "Bilder aus chapter_detail.chapter_content (HTML) img@data-src; Community löst relative Pfade gegen chapter_detail.server auf – hier nicht, prüfen.",
+  "Beschreibung nur Zusammenfassung (Community ergänzt Veröffentlichungsdatum, Aufrufe, Alternativtitel). Status: manga_status true = abgeschlossen, sonst laufend."
+ ]
+}

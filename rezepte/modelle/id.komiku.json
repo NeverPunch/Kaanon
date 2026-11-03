@@ -114,7 +114,10 @@
      "h1"
     ],
     "cover": {
-     "path": "div.ims > img@src, img[itemprop=image]@src",
+     "path": [
+      "div.ims > img@src",
+      "img[itemprop=image]@src"
+     ],
      "replace": [
       [
        "\\?.*$",

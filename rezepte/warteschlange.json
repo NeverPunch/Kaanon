@@ -14510,7 +14510,7 @@
  },
  {
   "modul": "src/ja/mangameets",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "MangaMeets",
   "stufe": 2,
   "theme": null,
@@ -14520,7 +14520,10 @@
   "host": "manga-meets.jp",
   "nsfw": false,
   "wer": "agent-w6b",
-  "seit": "2026-11-03T11:05:01"
+  "seit": "2026-11-03T11:05:01",
+  "datei": "rezepte/modelle/ja.mangameets.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:05:41"
  },
  {
   "modul": "src/ja/mangano",
@@ -14541,7 +14544,7 @@
  },
  {
   "modul": "src/ja/mangaraw",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "MangaRaw",
   "stufe": 2,
   "theme": null,
@@ -14551,11 +14554,14 @@
   "host": "mangaraw.co.uk",
   "nsfw": false,
   "wer": "agent-w6c",
-  "seit": "2026-11-03T11:05:24"
+  "seit": "2026-11-03T11:05:24",
+  "grund": "Bildliste 'selfhosted' als Vorlage mit Bereich from..to ({page} je Nummer einsetzen) – Zahlenbereich-Erzeugung in keiner Vorlage; dazu gemischte Inhaltstypen (selfhosted/hotlink/external) mit Präfix storageUrl",
+  "datei": null,
+  "geaendert": "2026-11-03T11:05:39"
  },
  {
   "modul": "src/ja/mangarw",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Manga Rw",
   "stufe": 2,
   "theme": null,
@@ -14565,11 +14571,14 @@
   "host": "mangarw.com",
   "nsfw": false,
   "wer": "agent-w6d",
-  "seit": "2026-11-03T11:05:27"
+  "seit": "2026-11-03T11:05:27",
+  "datei": "rezepte/modelle/ja.mangarw.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:06:04"
  },
  {
   "modul": "src/ja/mangaupjapan",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Manga UP! (Japan)",
   "stufe": 2,
   "theme": null,
@@ -14579,11 +14588,14 @@
   "host": "manga-up.com",
   "nsfw": false,
   "wer": "agent-w7a",
-  "seit": "2026-11-03T11:05:29"
+  "seit": "2026-11-03T11:05:29",
+  "datei": "rezepte/modelle/ja.mangaupjapan.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:06:50"
  },
  {
   "modul": "src/ja/miuraw",
-  "status": "offen",
+  "status": "fertig",
   "name": "MiuRaw",
   "stufe": 2,
   "theme": null,
@@ -14591,11 +14603,16 @@
    "ja"
   ],
   "host": "miuraw.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6c",
+  "seit": "2026-11-03T11:05:39",
+  "datei": "rezepte/modelle/ja.miuraw.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:06:05"
  },
  {
   "modul": "src/ja/momonga",
-  "status": "offen",
+  "status": "fertig",
   "name": "MomonGA",
   "stufe": 2,
   "theme": null,
@@ -14603,11 +14620,16 @@
    "ja"
   ],
   "host": "momon-ga.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w6b",
+  "seit": "2026-11-03T11:05:42",
+  "datei": "rezepte/modelle/ja.momonga.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:06:02"
  },
  {
   "modul": "src/ja/nicomanga",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Nicomanga",
   "stufe": 2,
   "theme": null,
@@ -14615,11 +14637,16 @@
    "ja"
   ],
   "host": "nicomanga.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6b",
+  "seit": "2026-11-03T11:06:02",
+  "grund": "Details, Kapitel und Bildliste nur in einem verschleierten RSC-Textstrom: je Zeichen (Codepoint-19968) XOR Schlüssel 'NicoMangaX2', danach UTF-8-JSON – eigene XOR-Entschlüsselung ist keine belegte decode-Art",
+  "datei": null,
+  "geaendert": "2026-11-03T11:06:15"
  },
  {
   "modul": "src/ja/nikkangecchan",
-  "status": "offen",
+  "status": "fertig",
   "name": "Nikkangecchan",
   "stufe": 2,
   "theme": null,
@@ -14627,11 +14654,16 @@
    "ja"
   ],
   "host": "nikkangecchan.jp",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6d",
+  "seit": "2026-11-03T11:06:04",
+  "datei": "rezepte/modelle/ja.nikkangecchan.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:07:04"
  },
  {
   "modul": "src/ja/rawbaka",
-  "status": "offen",
+  "status": "fertig",
   "name": "RawBaka",
   "stufe": 2,
   "theme": null,
@@ -14639,11 +14671,16 @@
    "ja"
   ],
   "host": "rawbaka.site",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6c",
+  "seit": "2026-11-03T11:06:05",
+  "datei": "rezepte/modelle/ja.rawbaka.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:06:19"
  },
  {
   "modul": "src/ja/rawdevartart",
-  "status": "offen",
+  "status": "fertig",
   "name": "Rawdevart.art",
   "stufe": 2,
   "theme": null,
@@ -14651,11 +14688,16 @@
    "ja"
   ],
   "host": "rawdevart.art",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6c",
+  "seit": "2026-11-03T11:06:19",
+  "datei": "rezepte/modelle/ja.rawdevartart.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:07:08"
  },
  {
   "modul": "src/ja/rawsakura",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "RawSakura",
   "stufe": 2,
   "theme": null,
@@ -14663,11 +14705,13 @@
    "ja"
   ],
   "host": "rawsakura.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7a",
+  "seit": "2026-11-03T11:06:50"
  },
  {
   "modul": "src/ja/rawuwu",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Raw UwU",
   "stufe": 2,
   "theme": null,
@@ -14675,11 +14719,13 @@
    "ja"
   ],
   "host": "rawuwu.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6d",
+  "seit": "2026-11-03T11:07:04"
  },
  {
   "modul": "src/ja/senmanga",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Sen Manga",
   "stufe": 2,
   "theme": null,
@@ -14687,7 +14733,9 @@
    "ja"
   ],
   "host": "raw.senmanga.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6c",
+  "seit": "2026-11-03T11:07:08"
  },
  {
   "modul": "src/ja/twi4",

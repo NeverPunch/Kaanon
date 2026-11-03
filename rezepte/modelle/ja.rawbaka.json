@@ -1,0 +1,127 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "RawBaka",
+  "sprache": "ja",
+  "base_url": "https://rawbaka.site",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.rawbaka",
+  "quellen": [
+   {
+    "name": "RawBaka",
+    "sprache": "ja",
+    "quell_id": 6022634600056613514,
+    "home": "https://rawbaka.site"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/rawbaka",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/manga/page/{page}/",
+   "items": "div.manga-grid article.manga-card, article.search-result-card",
+   "fields": {
+    "url": [
+     "h2 a@href",
+     "h3 a@href"
+    ],
+    "title": [
+     "h2 a",
+     "h3 a"
+    ],
+    "cover": "a.cover img@img"
+   },
+   "has_next": {
+    "exists": "a.next.page-numbers"
+   },
+   "request_by_page": {
+    "1": "{base}/manga/"
+   }
+  },
+  "latest": {
+   "request": "{base}/?latest_page={page}",
+   "items": "div.manga-grid article.manga-card, article.search-result-card",
+   "fields": {
+    "url": [
+     "h2 a@href",
+     "h3 a@href"
+    ],
+    "title": [
+     "h2 a",
+     "h3 a"
+    ],
+    "cover": "a.cover img@img"
+   },
+   "has_next": {
+    "exists": "a.next.page-numbers"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}&post_type=manga",
+   "items": "div.manga-grid article.manga-card, article.search-result-card",
+   "fields": {
+    "url": [
+     "h2 a@href",
+     "h3 a@href"
+    ],
+    "title": [
+     "h2 a",
+     "h3 a"
+    ],
+    "cover": "a.cover img@img"
+   },
+   "has_next": {
+    "exists": "a.next.page-numbers"
+   },
+   "request_by_page": {
+    "1": "{base}/?s={query}&post_type=manga"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "section.manga-hero h1.manga-title",
+    "cover": "section.manga-hero .cover img@img",
+    "status": "section.manga-hero .status-pill",
+    "description": {
+     "path": "section.manga-hero .manga-summary p",
+     "all": true,
+     "join": "\n\n"
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "on-going": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.chapter-list div.chapter-row",
+   "fields": {
+    "url": "a@href",
+    "name": "a",
+    "date": "time"
+   },
+   "date_format": "MMMM d, yyyy",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.reader-images img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Beliebt = ganzer Katalog /manga/[page/N/] (Website hat keine Beliebtheitsliste), Neueste /?latest_page=N, Suche /[page/N/]?s=…&post_type=manga wie Community.",
+  "Cover: Community nimmt den breitesten srcset-Eintrag; hier img@img (bestes Bild laut Engine) – prüfen.",
+  "Beschreibung: Absätze aus .manga-summary p mit Leerzeile verbunden; Zeilenumbrüche (br) innerhalb eines Absatzes gehen evtl. verloren.",
+  "Status kennt nur 'ongoing' (sonst unbekannt) wie Community."
+ ]
+}

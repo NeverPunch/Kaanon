@@ -23,7 +23,129 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/rankings/1",
+   "items": "div.grid > a",
+   "fields": {
+    "url": "@href",
+    "title": "div.line-clamp-2",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/series",
+   "items": "div.grid > a",
+   "fields": {
+    "url": "@href",
+    "title": "div.line-clamp-2",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/titles?word={query}",
+   "items": "div.grid > a",
+   "fields": {
+    "url": "@href",
+    "title": "div.line-clamp-2",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h2",
+    "cover": "section > img@src",
+    "author": {
+     "path": "div.flex.flex-col.gap-2xsmall > div",
+     "all": true,
+     "join": ", "
+    },
+    "description": "h2:contains(あらすじ) + div",
+    "genres": {
+     "path": "a[href*=/genres/]",
+     "all": true,
+     "join": ", "
+    },
+    "status": [
+     {
+      "path": "body",
+      "regex": "(完結)",
+      "group": 1
+     },
+     {
+      "path": "body",
+      "regex": "(更新)",
+      "group": 1
+     }
+    ]
+   },
+   "status_map": {
+    "完結": 2,
+    "更新": 1
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "url_vars": {
+    "tid": "/titles/([^/?#]+)"
+   },
+   "block_regex": "(?s)\"chapters\":\\[(.*?)\\],\"currentChapter\"",
+   "items": "\\{(?:[^{}]|\\{[^{}]*\\})*\\}",
+   "skip": {
+    "path": "",
+    "regex": "\"publishingStatus\":(?!3[,}])([^,}]*)",
+    "group": 1
+   },
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"id\":(\\d+)",
+     "group": 1,
+     "template": "/titles/{u.tid}/chapters/{value}"
+    },
+    "name": {
+     "path": "",
+     "regex": "\"name\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    }
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "block_regex": "(?s)\"pages\":\\[(.*?)\\],\"",
+   "items": "\"imageUrl\":\"([^\"]+)\"",
+   "image": ""
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Listen ohne Seitenwechsel wie in der Community (Beliebt = /rankings/1, Neueste = /series, Suche = /titles?word=); Wochentags-/Kategorie-Filter nicht übernommen.",
+  "Status wie in der Community über Seitentext: enthält die Seite '完結' → abgeschlossen, sonst '更新' → laufend.",
+  "Kapitel aus der RSC-Antwort (Header rsc: 1) wie in der Community: Block 'chapters' bis ',\"currentChapter\"', Objekte per Regex (eine Verschachtelungsebene). Kapitel mit publishingStatus ≠ 3 (Vorschau/kostenpflichtig) werden übersprungen statt mit Schloss angezeigt.",
+  "Kapitelname nur 'name' – der optionale Zusatz 'subName' der Community ('subName - name') wird nicht vorangestellt. Kapitel-URL /titles/<titelId>/chapters/<id> (Titel-ID aus der Manga-URL).",
+  "Seiten: Block 'pages' der RSC-Antwort, alle imageUrl-Werte darin."
+ ]
 }

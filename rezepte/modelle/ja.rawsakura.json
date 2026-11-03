@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "RawSakura",
+  "sprache": "ja",
+  "base_url": "https://rawsakura.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.rawsakura",
+  "quellen": [
+   {
+    "name": "RawSakura",
+    "sprache": "ja",
+    "quell_id": 3101702738832986286,
+    "home": "https://rawsakura.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/rawsakura",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

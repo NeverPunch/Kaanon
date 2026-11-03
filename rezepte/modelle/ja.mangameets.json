@@ -98,11 +98,11 @@
     },
     "description": "data.attributes.outline",
     "genres": {
-     "path": "included.*.?type=comic_genre.attributes.name",
+     "path": "included.?type=comic_genre.attributes.name",
      "all": true,
      "join": ", "
     },
-    "cover": "included.*.?type=image.attributes.url",
+    "cover": "included.?type=image.attributes.url",
     "status": {
      "path": "data.attributes.finished",
      "default": "false"
