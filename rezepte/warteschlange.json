@@ -16241,7 +16241,7 @@
  },
  {
   "modul": "src/tr/juratempest",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "JuraTempest",
   "stufe": 2,
   "theme": null,
@@ -16251,11 +16251,14 @@
   "host": "juratempe.st",
   "nsfw": false,
   "wer": "agent-w7c",
-  "seit": "2026-11-03T11:19:10"
+  "seit": "2026-11-03T11:19:10",
+  "datei": "rezepte/modelle/tr.juratempest.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:19:36"
  },
  {
   "modul": "src/tr/mangadiyari",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Manga Diyarı",
   "stufe": 2,
   "theme": null,
@@ -16263,11 +16266,13 @@
    "tr"
   ],
   "host": "mangadiyari.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:19:36"
  },
  {
   "modul": "src/tr/mangadusleri",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Mangadusleri",
   "stufe": 2,
   "theme": null,
@@ -16275,7 +16280,9 @@
    "tr"
   ],
   "host": "mangadusleri.mom",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:19:40"
  },
  {
   "modul": "src/tr/mangaportali",

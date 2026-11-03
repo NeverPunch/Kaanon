@@ -23,7 +23,232 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/api/rpc/search/manga",
+    "method": "POST",
+    "body": "{\"json\":{\"q\":\"***\",\"limit\":20,\"offset\":{offset}}}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "json.hits",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/explore/{value}"
+    },
+    "title": [
+     "titleTr",
+     "titleEn",
+     "titleJp",
+     "titleJpRomaji",
+     "slug"
+    ],
+    "cover": [
+     "coverImageUrl",
+     {
+      "path": "coverImageKey",
+      "template": "https://cdn.juratempe.st/{value}"
+     }
+    ]
+   },
+   "page_size": 20,
+   "has_next": {
+    "total": "json.estimatedTotalHits"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/api/rpc/release/latest",
+    "method": "POST",
+    "body": "{\"json\":{}}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "json",
+   "fields": {
+    "url": {
+     "path": "chapter.manga.slug",
+     "template": "/explore/{value}"
+    },
+    "title": [
+     "chapter.manga.titleTr",
+     "chapter.manga.titleEn",
+     "chapter.manga.titleJp",
+     "chapter.manga.titleJpRomaji",
+     "chapter.manga.slug"
+    ],
+    "cover": [
+     "chapter.manga.coverImageUrl",
+     {
+      "path": "chapter.manga.coverImageKey",
+      "template": "https://cdn.juratempe.st/{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/rpc/search/manga",
+    "method": "POST",
+    "body": "{\"json\":{\"q\":\"{query_raw}\",\"limit\":20,\"offset\":{offset}}}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "json.hits",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/explore/{value}"
+    },
+    "title": [
+     "titleTr",
+     "titleEn",
+     "titleJp",
+     "titleJpRomaji",
+     "slug"
+    ],
+    "cover": [
+     "coverImageUrl",
+     {
+      "path": "coverImageKey",
+      "template": "https://cdn.juratempe.st/{value}"
+     }
+    ]
+   },
+   "page_size": 20,
+   "has_next": {
+    "total": "json.estimatedTotalHits"
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{base}/api/rpc/manga/bySlug",
+    "method": "POST",
+    "body": "{\"json\":{\"slug\":\"{u.slug}\"}}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/explore/([^/?#]+)"
+   },
+   "fields": {
+    "title": [
+     "json.titleTr",
+     "json.titleEn",
+     "json.titleJp",
+     "json.titleJpRomaji",
+     "json.slug"
+    ],
+    "cover": [
+     "json.coverImageUrl",
+     {
+      "path": "json.coverImageKey",
+      "template": "https://cdn.juratempe.st/{value}"
+     }
+    ],
+    "description": [
+     "json.description",
+     "json.synopsis"
+    ],
+    "author": {
+     "path": "json.writers.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "json.artists.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": [
+      "json.genres.*.name",
+      "json.themes.*.name"
+     ],
+     "union": true
+    },
+    "status": "json.seriesStatus"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/api/rpc/chapter/byMangaSlug",
+    "method": "POST",
+    "body": "{\"json\":{\"slug\":\"{u.slug}\"}}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/explore/([^/?#]+)"
+   },
+   "items": "json",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/explore/{u.slug}/{value}"
+    },
+    "name": "title",
+    "number": "number",
+    "date": "createdAt",
+    "scanlator": {
+     "path": "isSpecial",
+     "replace": [
+      [
+       "^true$",
+       "Özel Bölüm"
+      ],
+      [
+       "^false$",
+       ""
+      ]
+     ]
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "{base}/api/rpc/release/byChapterSlug",
+    "method": "POST",
+    "body": "{\"json\":{\"mangaSlug\":\"{u.m}\",\"chapterSlug\":\"{u.c}\"}}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "url_vars": {
+    "m": "/explore/([^/?#]+)/",
+    "c": "/explore/[^/]+/([^/?#]+)"
+   },
+   "items": "json.0.pages",
+   "sort": "number",
+   "image": [
+    "imageUrl",
+    {
+     "path": "imageKey",
+     "template": "https://cdn.juratempe.st/{value}"
+    }
+   ]
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "oRPC-API {base}/api/rpc/… per POST mit JSON {\"json\":{…}} wie Community. Beliebt = search/manga mit q='***' (20 je Seite, offset; weiter bis estimatedTotalHits). Neueste = release/latest (eine Seite; doppelte Einträge werden nicht entfernt, Community: distinctBy).",
+  "Suche: search/manga mit Suchtext roh im JSON (Anführungszeichen im Suchtext würden ihn brechen). Für Suchtexte unter 3 Zeichen filtert die Community lokal über die ersten 150 Einträge – nicht nachgebaut.",
+  "Titel: titleTr → titleEn → titleJp → titleJpRomaji → slug; Cover coverImageUrl, sonst cdn.juratempe.st/<coverImageKey>.",
+  "Kapitel: chapter/byMangaSlug, URL /explore/<manga>/<kapitel>; Spezialkapitel bekommen Scanlator 'Özel Bölüm'.",
+  "Seiten: release/byChapterSlug liefert mehrere Releases; die Community nimmt das mit den meisten Seiten – hier das erste (json.0.pages), nach number sortiert. Auf dem PC prüfen."
+ ]
 }
