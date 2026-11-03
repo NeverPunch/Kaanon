@@ -1,0 +1,197 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "BigSolo",
+  "sprache": "fr",
+  "base_url": "https://bigsolo.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.bigsolo",
+  "quellen": [
+   {
+    "name": "BigSolo",
+    "sprache": "fr",
+    "quell_id": 4410528266393104437,
+    "home": "https://bigsolo.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/bigsolo",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.7",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/data/series",
+   "format": "json",
+   "items": "reco",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "cover.url_hq"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/data/series",
+   "format": "json",
+   "items": "series",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "cover.url_hq"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/data/series",
+   "format": "json",
+   "items": "series",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "cover.url_hq"
+   },
+   "has_next": {
+    "const": false
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{base}/data/series/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "fields": {
+    "title": "title",
+    "description": "description",
+    "author": "author",
+    "artist": "artist",
+    "genres": {
+     "path": "tags",
+     "all": true,
+     "join": ", "
+    },
+    "status": "status",
+    "cover": "cover.url_hq"
+   },
+   "status_map": {
+    "en cours": 1,
+    "En cours": 1,
+    "finis": 2,
+    "Finis": 2,
+    "fini": 2,
+    "Fini": 2
+   }
+  },
+  "chapters": {
+   "request": "{base}/data/series/{u.slug}",
+   "format": "text",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "items": "\"[0-9]+(?:\\.[0-9]+)?\":\\{(?:[^{}]|\\{[^{}]*\\})*\\}",
+   "skip": {
+    "any": [
+     {
+      "path": "",
+      "regex": "\"licensed\":true"
+     },
+     {
+      "path": "",
+      "regex": "^(?![\\s\\S]*\"source\":\\{)"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "^\"([^\"]+)\"",
+     "group": 1,
+     "template": "/manga/{u.slug}/{value}"
+    },
+    "name": {
+     "path": "",
+     "replace": [
+      [
+       "(?s)^\"([^\"]+)\":\\{(?:(?=.*?\"volume\":\"([^\"]*)\"))?(?:(?=.*?\"title\":\"((?:[^\"\\\\]|\\\\.)*)\"))?.*$",
+       "Vol. $2 Ch. $1 – $3"
+      ],
+      [
+       "^Vol\\.\\s+Ch\\.",
+       "Ch."
+      ],
+      [
+       "\\s+–\\s*$",
+       ""
+      ],
+      [
+       "\\\\\"",
+       "\""
+      ]
+     ]
+    },
+    "number": {
+     "path": "",
+     "regex": "^\"([^\"]+)\"",
+     "group": 1
+    },
+    "date": {
+     "path": "",
+     "regex": "\"timestamp\":([0-9]+)",
+     "group": 1
+    },
+    "scanlator": {
+     "path": "",
+     "regex": "\"teams\":\\[([^\\]]*)\\]",
+     "group": 1,
+     "replace": [
+      [
+       "\"\\s*,\\s*\"",
+       " & "
+      ],
+      [
+       "\"",
+       ""
+      ]
+     ]
+    }
+   },
+   "date_format": "epoch_s"
+  },
+  "pages": {
+   "request": "{base}/data/series/{u.slug}/{u.ch}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)",
+    "ch": "/manga/[^/]+/([^/?#]+)"
+   },
+   "items": "images",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "JSON-API /data/series (reco, series, os) und /data/series/<slug>[/<kapitel>] wie Community.",
+  "Beliebt = 'reco'; Neueste = 'series' in API-Reihenfolge (Community: series + os, sortiert nach last_chapter.timestamp – Sortieren/Vereinigen von Listen gibt es nicht). Suche clientseitig über 'series'. One-Shots ('os') erscheinen dadurch NICHT im Katalog.",
+  "Kapitel sind in der API ein JSON-Objekt (Schlüssel = Kapitelnummer). Da Objekt-Iteration nicht belegt ist, wird die Antwort als Text gelesen und jedes \"<nummer>\":{…} per Regex als Eintrag genommen (eine Verschachtelungsebene für 'source'). UNSICHER, auf dem PC prüfen; Name per Ersetzung mit optionalen Lookahead-Gruppen gebaut (leere Gruppen → leer).",
+  "Lizenzierte Kapitel und Kapitel ohne 'source' werden übersprungen (wie Community). Name immer 'Vol. V Ch. N – Titel' (Community: bei nur einem Kapitel nur Titel bzw. 'One Shot'). Reihenfolge wie in der API (Community sortiert absteigend nach Nummer).",
+  "Eintrags-URL /manga/<slug>, Kapitel /manga/<slug>/<nummer> (Web-URL wie Community-getMangaUrl; Community speichert ohne /manga)."
+ ]
+}

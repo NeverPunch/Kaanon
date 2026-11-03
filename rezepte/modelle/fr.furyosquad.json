@@ -1,0 +1,112 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "FuryoSquad",
+  "sprache": "fr",
+  "base_url": "https://www.furyosociety.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.furyosquad",
+  "quellen": [
+   {
+    "name": "FuryoSquad",
+    "sprache": "fr",
+    "quell_id": 267710359229814456,
+    "home": "https://www.furyosociety.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/furyosquad",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/mangas",
+   "items": "div#fs-tous div.fs-card-body:has(span.fs-comic-title a):has(div.fs-card-img-container a)",
+   "fields": {
+    "url": "div.fs-card-img-container a@href",
+    "title": "span.fs-comic-title a",
+    "cover": "div.fs-card-img-container img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/",
+   "items": "table.table-striped tr:has(span.fs-comic-title a)",
+   "fields": {
+    "url": "span.fs-comic-title a@href",
+    "title": "span.fs-comic-title a",
+    "cover": "img.fs-chap-img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/mangas",
+   "items": "div#fs-tous div.fs-card-body:has(span.fs-comic-title a):has(div.fs-card-img-container a)",
+   "fields": {
+    "url": "div.fs-card-img-container a@href",
+    "title": "span.fs-comic-title a",
+    "cover": "div.fs-card-img-container img@src"
+   },
+   "has_next": {
+    "const": false
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1.fs-comic-title",
+    "author": "div.comic-info p.fs-comic-label:matchesOwn((?i)^\\s*scénario\\s*$) + *",
+    "artist": "div.comic-info p.fs-comic-label:matchesOwn((?i)^\\s*dessins\\s*$) + *",
+    "genres": "div.comic-info p.fs-comic-label:matchesOwn((?i)^\\s*genre\\s*$) + *",
+    "description": "div.comic-info div.fs-comic-description",
+    "cover": "div.comic-info img.comic-cover@src"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.fs-chapter-list div.element:has(div.title a)",
+   "fields": {
+    "url": "div.title a@href",
+    "name": "div.title a@title",
+    "date": {
+     "path": "div.meta_r",
+     "replace": [
+      [
+       "^.*?\\ble\\s+",
+       ""
+      ]
+     ]
+    }
+   },
+   "date_format": [
+    "d MMM yyyy",
+    "relative"
+   ],
+   "date_locale": "fr"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.fs-read img[id]",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "HTML-Website (FoolSlide-ähnlich, eigenes Layout). Beliebt = alle Serien von /mangas (eine Seite), Suche lokal (client_filter), Neueste = Tabelle der Startseite – wie Community. Doppelte Einträge in Neueste entfernt die Community – hier nicht.",
+  "Details: Scénario/Dessins/Genre über das Element nach dem jeweiligen p.fs-comic-label.",
+  "Datum: 'le 12 janv. 2024' → Präfix bis 'le ' entfernt, dann 'd MMM yyyy' (fr); relative Angaben ('il y a 2 jours', 'hier', 'aujourd'hui') – ob 'relative' Französisch versteht, auf dem PC prüfen."
+ ]
+}

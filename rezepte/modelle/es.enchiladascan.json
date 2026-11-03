@@ -1,0 +1,111 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "EnchiladaScan",
+  "sprache": "es",
+  "base_url": "https://enchiladascan.github.io/enchiladaweb",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.enchiladascan",
+  "quellen": [
+   {
+    "name": "EnchiladaScan",
+    "sprache": "es",
+    "quell_id": 8884198347282365114,
+    "home": "https://enchiladascan.github.io/enchiladaweb"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/enchiladascan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/catalogo.json",
+   "format": "json",
+   "items": "items",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "post_url",
+    "title": "title",
+    "cover": {
+     "path": "portada",
+     "template": "{base}{value}"
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/catalogo.json",
+   "format": "json",
+   "items": "items",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "post_url",
+    "title": "title",
+    "cover": {
+     "path": "portada",
+     "template": "{base}{value}"
+    }
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "main.container .manga-title",
+    "cover": "main.container .manga-cover img@src",
+    "author": {
+     "path": "main.container .manga-meta-list > li:contains(Autor)@ownText"
+    },
+    "artist": {
+     "path": "main.container .manga-meta-list > li:contains(Arte)@ownText"
+    },
+    "genres": {
+     "path": "main.container .manga-meta-list > li:contains(Género)@ownText"
+    },
+    "status": {
+     "path": "main.container .manga-meta-list > li:contains(Estado)@ownText"
+    },
+    "description": "main.container .manga-sinopsis"
+   },
+   "status_map": {
+    "en publicación": 1,
+    "En publicación": 1,
+    "finalizado": 2,
+    "Finalizado": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "ul#chaptersList > li",
+   "fields": {
+    "url": "a@href",
+    "name": ".cap-title"
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": "{base}/assets/mangas/{u.ms}/{u.cs}/images.json",
+   "format": "json",
+   "url_vars": {
+    "ms": "/([^/]+)/[^/]+/?$",
+    "cs": "/([^/]+)/?$"
+   },
+   "items": "$",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "Katalog = statische Datei catalogo.json (eine Seite); Suche filtert lokal wie die Community. Cover = {base} + portada.",
+  "Seiten: images.json unter {base}/assets/mangas/<Manga-Slug>/<Kapitel-Slug>/ (die letzten beiden Pfadteile der Kapitel-URL), Liste absoluter Bild-URLs (Google Drive).",
+  "Community schickt Bildanfragen ohne Browser-Header (Google Drive antwortet sonst 403 auf Sec-Fetch-Dest: image) – im Rezept nicht steuerbar; beim Test prüfen."
+ ]
+}

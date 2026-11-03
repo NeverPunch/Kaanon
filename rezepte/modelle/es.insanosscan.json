@@ -1,0 +1,199 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "InsanosScan",
+  "sprache": "es",
+  "base_url": "https://insanoslibrary.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.insanosscan",
+  "quellen": [
+   {
+    "name": "InsanosScan",
+    "sprache": "es",
+    "quell_id": 4982291187322723927,
+    "home": "https://insanoslibrary.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/insanosscan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "{base}/series",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/serie/{value}"
+    },
+    "title": "title",
+    "cover": [
+     {
+      "path": "cover_image",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "cover_image",
+      "template": "{base}{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/series",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/serie/{value}"
+    },
+    "title": "title",
+    "cover": [
+     {
+      "path": "cover_image",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "cover_image",
+      "template": "{base}{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "const": false
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": {
+    "url": "{base}/series/{u.id}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "/serie/(\\d+)"
+   },
+   "fields": {
+    "title": "title",
+    "description": "description",
+    "cover": [
+     {
+      "path": "cover_image",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "cover_image",
+      "template": "{base}{value}"
+     }
+    ],
+    "genres": [
+     {
+      "path": "genre",
+      "replace": [
+       [
+        "\\s*,\\s*",
+        ", "
+       ]
+      ],
+      "template": "{f.series_type}, {value}"
+     },
+     "series_type"
+    ],
+    "status": "status"
+   },
+   "status_map": {
+    "en emisión": 1,
+    "en emision": 1,
+    "finalizado": 2
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/series/{u.id}/chapters",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "/serie/(\\d+)"
+   },
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/reader?series={u.id}&chapter={value}"
+    },
+    "name": {
+     "path": "chapter_number",
+     "template": "Capítulo {value}"
+    },
+    "number": "chapter_number",
+    "date": "created_at"
+   },
+   "date_format": "iso",
+   "reverse": true,
+   "locked": {
+    "path": "is_unlocked",
+    "equals": "false"
+   }
+  },
+  "pages": {
+   "request": {
+    "url": "{base}/series/{u.s}/chapters/{u.c}/pages",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "s": "[?&]series=(\\d+)",
+    "c": "[?&]chapter=(\\d+)"
+   },
+   "items": "pages",
+   "image": [
+    {
+     "path": "",
+     "regex": "^(https?://.+)$",
+     "group": 1
+    },
+    {
+     "path": "",
+     "template": "{base}{value}"
+    }
+   ]
+  }
+ },
+ "hinweise": [
+  "JSON-API direkt unter der Website: /series (alle Serien), /series/<id>, /series/<id>/chapters, /series/<sid>/chapters/<cid>/pages.",
+  "Eintrags-URL /serie/<id> (Community: nur <id>), Kapitel-URL /reader?series=<sid>&chapter=<cid> (Community: '<sid>/<cid>') – nicht mit Community-URLs kompatibel.",
+  "Beliebt = komplette Serienliste ohne Seiten; Suche filtert dieselbe Liste per client_filter; kein 'Neueste' (Community auch nicht).",
+  "Gesperrte Kapitel (is_unlocked=false) werden ausgelassen (Community-Standard). created_at teils ohne 'Z' (Community hängt Z an) – Zeitzone ggf. verschoben."
+ ]
+}

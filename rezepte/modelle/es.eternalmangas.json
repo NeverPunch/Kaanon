@@ -1,0 +1,132 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "EternalMangas",
+  "sprache": "es",
+  "base_url": "https://eternalmangas.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.eternalmangas",
+  "quellen": [
+   {
+    "name": "EternalMangas",
+    "sprache": "es",
+    "quell_id": 5749284484000945259,
+    "home": "https://eternalmangas.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/eternalmangas",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.32",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": "a.em-popular-card",
+   "fields": {
+    "url": "@href",
+    "title": "img@alt",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/series?page={page}",
+   "items": "a.em-series-catalog-card",
+   "skip": {
+    "path": ".em-series-type-badge",
+    "regex": "^(Novela)$"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "img@alt",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a[rel=next]"
+   }
+  },
+  "search": {
+   "request": "{base}/series?search={query}&page={page}",
+   "items": "a.em-series-catalog-card",
+   "skip": {
+    "path": ".em-series-type-badge",
+    "regex": "^(Novela)$"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "img@alt",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a[rel=next]"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "alt": "p:has(+ h1)",
+    "d": "#resume-content"
+   },
+   "fields": {
+    "title": "h1",
+    "cover": "img.em-cover-lg@src",
+    "genres": {
+     "path": [
+      "li:has(strong:containsOwn(Tipo:)) .badge",
+      "#tab-sinopsis .em-badge"
+     ],
+     "union": true
+    },
+    "status": "li:has(strong:containsOwn(Estado:))@ownText",
+    "description": {
+     "const": "[[{l.d}]][[\n\nTítulo alternativo: {l.alt}]]",
+     "replace": [
+      [
+       "^\\n+",
+       ""
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "en emisión": 1,
+    "finalizado": 2,
+    "pausado": 6,
+    "cancelado": 5,
+    "abandonado": 5
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}",
+   "format": "script_json",
+   "script_regex": "(?s)<script[^>]*id=[\"']em-v2-payload[\"'][^>]*>(.*?)</script>",
+   "items": "content.chapters",
+   "fields": {
+    "url": "url.url",
+    "name": "title",
+    "date": "published_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#em-reader-pages img.em-reader-img",
+   "image": [
+    "@data-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Beliebt: Karten a.em-popular-card der Startseite (eine Seite). Neueste/Suche: /series?[search=…&]page=n, Novelas (Badge 'Novela') ausgelassen wie Community; Filter (Typ/Estado/Género) nicht übernommen.",
+  "Kapitel aus dem JSON in script#em-v2-payload (content.chapters: title, url.url, published_at). Scanlator (Teams-Links der Serienseite) nicht übernommen – anderes Format als das Skript-JSON.",
+  "Manga-URL /series/<slug> (Community speichert nur den Slug, Web-URL identisch)."
+ ]
+}

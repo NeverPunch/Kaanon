@@ -1,0 +1,162 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Spicy Scan",
+  "sprache": "es",
+  "base_url": "https://spicyseries.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.spicyscan",
+  "quellen": [
+   {
+    "name": "Spicy Scan",
+    "sprache": "es",
+    "quell_id": 2665002677795338092,
+    "home": "https://spicyseries.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/spicyscan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}",
+   "Accept": "application/json, text/plain, */*"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://back.spicyseries.com/filtrar?page={page}&limit=12&orderBy=6&sort=desc&gendersId=&origin=&state=&loading=true",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}"
+    },
+    "title": "name",
+    "cover": "urlImg"
+   },
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.last_page"
+    ]
+   }
+  },
+  "latest": {
+   "request": "https://back.spicyseries.com/filtrar?page={page}&limit=12&orderBy=3&sort=desc&gendersId=&origin=&state=&loading=true",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}"
+    },
+    "title": "name",
+    "cover": "urlImg"
+   },
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.last_page"
+    ]
+   }
+  },
+  "search": {
+   "request": "https://back.spicyseries.com/home/buscar?query={query}",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}"
+    },
+    "title": "name",
+    "cover": "urlImg"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "https://back.spicyseries.com/serie/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/comic/([^/#?]+)"
+   },
+   "fields": {
+    "title": "serie.name",
+    "cover": "serie.urlImg",
+    "description": "serie.sinopsis",
+    "genres": {
+     "path": "serie.genders.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "serie.stateId"
+   },
+   "status_map": {
+    "1": 1,
+    "2": 6,
+    "3": 5,
+    "4": 2,
+    "5": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "slug": "/comic/([^/#?]+)"
+   },
+   "items": "serie.chapters",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{u.slug}/{value}"
+    },
+    "name": {
+     "path": "num",
+     "template": "Capítulo {value}"
+    },
+    "number": "num",
+    "date": "createdAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://back.spicyseries.com/serie/{u.path}/",
+   "format": "json",
+   "url_vars": {
+    "path": "/comic/([^#?]+?)/?$"
+   },
+   "inner": {
+    "value": {
+     "path": [
+      "pageches.urlImg",
+      "pageches.0.urlImg"
+     ]
+    },
+    "format": "json",
+    "items": "$",
+    "image": ""
+   }
+  }
+ },
+ "hinweise": [
+  "JSON-API back.spicyseries.com (/filtrar, /home/buscar, /serie/{slug}, /serie/{slug}/{kapitel}/) wie Community; orderBy 6 = beliebt, 3 = neueste.",
+  "Manga-URL /comic/<slug>, Kapitel-URL /comic/<slug>/<kapitel-slug> (Community speichert nur die Slugs).",
+  "Status nach stateId: 1 laufend, 2 pausiert, 3/5 abgebrochen, 4 abgeschlossen (wie Community).",
+  "Seiten: 'pageches' ist Objekt oder Liste (dann erstes Element); urlImg ist ein JSON-Text mit der Bildliste → inner.",
+  "Suche verlangt mindestens 2 Zeichen (Community wirft sonst einen Fehler). Filter nicht übernommen."
+ ]
+}

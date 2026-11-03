@@ -1,0 +1,155 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Shadow Manga",
+  "sprache": "es",
+  "base_url": "https://shademanga.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.shadowmanga",
+  "quellen": [
+   {
+    "name": "Shadow Manga",
+    "sprache": "es",
+    "quell_id": 5649269152264667286,
+    "home": "https://shademanga.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/shadowmanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.6",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/series-locales/popular",
+   "format": "json",
+   "items": "*.series.*",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/serie/local/{value}"
+    },
+    "title": "titulo",
+    "cover": "portadaUrl"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/api/series-locales/capitulos/recientes?page={page}&pageSize=24",
+   "format": "json",
+   "items": "items",
+   "fields": {
+    "url": {
+     "path": "serie.id",
+     "template": "/serie/local/{value}"
+    },
+    "title": "serie.titulo",
+    "cover": "serie.portadaUrl"
+   },
+   "has_next": {
+    "lt": [
+     "page",
+     "totalPages"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/api/series-locales/search-candidates?q={query}&includeAdult=false&showSinPortada=false&take=120",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/serie/local/{value}"
+    },
+    "title": "titulo",
+    "cover": "portadaUrl"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{base}/api/series-locales/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/serie/local/(\\d+)"
+   },
+   "fields": {
+    "title": "titulo",
+    "cover": "portadaUrl",
+    "description": "descripcion",
+    "author": "autor",
+    "genres": {
+     "path": "generos",
+     "replace": [
+      [
+       "\\s*,\\s*",
+       ", "
+      ]
+     ]
+    },
+    "status": "estado"
+   },
+   "status_map": {
+    "en curso": 1,
+    "En curso": 1,
+    "completado": 2,
+    "Completado": 2,
+    "pausada": 6,
+    "Pausada": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "capitulos",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/reader/local/{value}#{u.id}"
+    },
+    "name": {
+     "path": "numeroCapitulo",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "Cap. {value}[[ - {f.titulo}]]"
+    },
+    "number": "numeroCapitulo",
+    "date": "fechaSubida"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api/series-locales/{u.mid}/capitulos/{u.cid}/paginas",
+   "format": "json",
+   "url_vars": {
+    "cid": "/reader/local/(\\d+)",
+    "mid": "#(\\d+)$"
+   },
+   "items": "paginas",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "Nur die Quelle 'Shadow Manga' (allgemein). Die Quelle 'Shadow Manga (+18)' blättert mit einem selbst gebauten Base64-Seitentoken (cx_<base64 {lo,so}>) und hat Oneshot-Sonderfälle (ext/<smId>) – nicht übernommen, quellen auf die erste Quelle gekürzt.",
+  "Beliebt: /popular liefert Gruppen mit series-Listen (items *.series.*, Annahme: verschachtelte Listen werden wie bei es.manhwaweb 'top.*.*' abgeflacht); Dubletten werden nicht entfernt (Community: distinctBy id). Neu: Serien der neuesten Kapitel, Dubletten möglich.",
+  "Suche über search-candidates (take=120, ohne Erwachsenen-Inhalte, ohne Genre-Filter); Community sortiert nach Titel.",
+  "Kapitel-URL = /reader/local/<Kapitel-ID>#<Serien-ID> (Serien-ID für die Seiten-API nötig). Community sortiert nach Nummer absteigend; hier Reihenfolge der API.",
+  "Community weicht bei Bildfehlern auf den zweiten CDN-Host bzw. shademanga.com/api/media/ aus (Interceptor) – nicht abbildbar."
+ ]
+}

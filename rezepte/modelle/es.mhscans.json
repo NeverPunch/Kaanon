@@ -1,0 +1,135 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MHScans",
+  "sprache": "es",
+  "base_url": "https://mhscans.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.mhscans",
+  "quellen": [
+   {
+    "name": "MHScans",
+    "sprache": "es",
+    "quell_id": 9008444898589746680,
+    "home": "https://mhscans.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/mhscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.71",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 3000
+  },
+  "popular": {
+   "request": "{base}/library?sort=views&page={page}",
+   "items": "div.lib-grid > a[href^=/comics/]",
+   "skip": {
+    "path": "div.comic-cover ~ span",
+    "regex": "^Novel$"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "p",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "nav.lib-pagination a[aria-label=Siguiente]"
+   }
+  },
+  "latest": {
+   "request": "{base}/library?sort=updated&page={page}",
+   "items": "div.lib-grid > a[href^=/comics/]",
+   "skip": {
+    "path": "div.comic-cover ~ span",
+    "regex": "^Novel$"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "p",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "nav.lib-pagination a[aria-label=Siguiente]"
+   }
+  },
+  "search": {
+   "request": "{base}/library?q={query}&sort=views&page={page}",
+   "items": "div.lib-grid > a[href^=/comics/]",
+   "skip": {
+    "path": "div.comic-cover ~ span",
+    "regex": "^Novel$"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "p",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "nav.lib-pagination a[aria-label=Siguiente]"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".comic-hero h1",
+    "cover": ".comic-hero__cover img@img",
+    "description": "#comic-description",
+    "genres": {
+     "path": ".comic-chips li",
+     "all": true,
+     "join": ", "
+    },
+    "status": ".comic-meta__status"
+   },
+   "status_map": {
+    "en emisión": 1,
+    "completado": 2,
+    "en hiato": 6,
+    "cancelado": 5,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{abs_url}/chapters?page={page}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "items": "a[href^=/leer/][data-chapter-num]",
+   "fields": {
+    "url": "@href",
+    "name": "[data-cl-title]",
+    "number": "@data-chapter-num",
+    "date": "[data-cl-title] + div > span"
+   },
+   "date_format": "relative",
+   "date_locale": "es",
+   "paging": {
+    "has_next": {
+     "min": 1
+    },
+    "max_pages": 30
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img.page-img",
+   "image": "@img"
+  }
+ },
+ "hinweise": [
+  "Listen über /library (sort=views/updated, q=<text>, page=N); Typ-/Status-/Genre-Filter nicht nachgebaut. Novels (Typ-Badge 'Novel') übersprungen. Rate-Limit 1 Anfrage/3 s wie Community (dort nur für die Website, nicht /uploads/).",
+  "Eintrags-URL /comics/<slug>, Kapitel-URL /leer/<id> (Community speichert nur Slug/ID).",
+  "Kapitel: /comics/<slug>/chapters?page=N als XHR; die Community liest die Seitenzahl aus dem Antwort-Header X-Pages – nicht ausdrückbar, daher weiter, solange eine Seite Einträge hat (min 1, höchstens 30 Seiten). Falls die Website bei zu großer Seitennummer nicht leer antwortet, entstehen Dubletten – auf dem PC prüfen.",
+  "Bezahlte Kapitel verlinken auf /auth/login und fallen durch den Selektor a[href^=/leer/] heraus. Datum relativ ('hace N días' …)."
+ ]
+}

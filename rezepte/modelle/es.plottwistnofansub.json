@@ -1,0 +1,209 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Plot Twist No Fansub",
+  "sprache": "es",
+  "base_url": "https://plotnofansub.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.plottwistnofansub",
+  "quellen": [
+   {
+    "name": "Plot Twist No Fansub",
+    "sprache": "es",
+    "quell_id": 6935004473807791201,
+    "home": "https://plotnofansub.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/plottwistnofansub",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/biblioteca3/page/{page}/?m_orderby=trending",
+   "request_by_page": {
+    "1": "{base}/biblioteca3/?m_orderby=trending"
+   },
+   "items": "div.manga-grid-v2 figure:has(a[href])",
+   "fields": {
+    "url": "a[href]@href",
+    "title": [
+     "a[href]@title",
+     "figcaption"
+    ],
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "a.next.page-numbers, a.next, a:contains(Siguiente)"
+   }
+  },
+  "latest": {
+   "request": "{base}/biblioteca3/page/{page}/?m_orderby=latest3",
+   "request_by_page": {
+    "1": "{base}/biblioteca3/?m_orderby=latest3"
+   },
+   "items": "div.manga-grid-v2 figure:has(a[href])",
+   "fields": {
+    "url": "a[href]@href",
+    "title": [
+     "a[href]@title",
+     "figcaption"
+    ],
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "a.next.page-numbers, a.next, a:contains(Siguiente)"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}&post_type=wp-manga",
+   "request_by_page": {
+    "1": "{base}/?s={query}&post_type=wp-manga"
+   },
+   "items": "div.manga-grid-v2 figure:has(a[href])",
+   "fields": {
+    "url": "a[href]@href",
+    "title": [
+     "a[href]@title",
+     "figcaption"
+    ],
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "a.next.page-numbers, a.next, a:contains(Siguiente)"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "mid": [
+     "#mn-detail-load-more@data-manga",
+     {
+      "path": "html@html",
+      "regex": "mnWpMangaId\\s*=\\s*(\\d+)",
+      "group": 1
+     },
+     {
+      "path": "html@html",
+      "regex": "\"manga_id\"\\s*:\\s*\"(\\d+)\"",
+      "group": 1
+     }
+    ]
+   },
+   "fields": {
+    "title": [
+     "h1.mn-detail-title",
+     ".post-title h1"
+    ],
+    "cover": [
+     ".mn-detail-cover-frame img@img",
+     ".summary_image img@img"
+    ],
+    "description": [
+     ".mn-detail-synopsis",
+     ".summary__content"
+    ],
+    "genres": [
+     {
+      "path": ".mn-detail-genres-desktop a",
+      "all": true,
+      "join": ", "
+     },
+     {
+      "path": ".genres-content a",
+      "all": true,
+      "join": ", "
+     }
+    ],
+    "author": [
+     ".mn-detail-pill-label:contains(Autor) + .mn-detail-pill-value",
+     ".author-content a"
+    ],
+    "status": [
+     {
+      "path": ".mn-detail-pill-value@class",
+      "regex": "\\b(mn-st-[a-z]+)",
+      "group": 1
+     },
+     {
+      "path": ".mn-detail-pill-value",
+      "regex": "(?i)(en emisión|en curso|finalizado|completado|cancelado|en espera)",
+      "group": 1
+     }
+    ]
+   },
+   "status_map": {
+    "mn-st-emit": 1,
+    "mn-st-comp": 2,
+    "mn-st-cancel": 5,
+    "mn-st-pause": 6,
+    "en emisión": 1,
+    "En emisión": 1,
+    "en curso": 1,
+    "En curso": 1,
+    "finalizado": 2,
+    "Finalizado": 2,
+    "completado": 2,
+    "Completado": 2,
+    "cancelado": 5,
+    "Cancelado": 5,
+    "en espera": 6,
+    "En espera": 6
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php",
+    "method": "POST",
+    "form": {
+     "action": "plot_load_chapters",
+     "manga_id": "{l.mid}",
+     "page": "{page}"
+    }
+   },
+   "format": "json_html",
+   "html_path": "data.html",
+   "items": "a.mn-detail-chapter-item",
+   "page_size": 20,
+   "fields": {
+    "url": "@href",
+    "name": {
+     "path": ".mn-detail-chapter-name",
+     "template": "Capítulo {value}[[ - {f..mn-detail-chapter-extend}]]"
+    },
+    "date": ".mn-detail-chapter-date"
+   },
+   "date_format": "MMMM d, yyyy",
+   "date_locale": "es",
+   "paging": {
+    "has_next": {
+     "full": true
+    },
+    "max_pages": 100
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": [
+    "div.reading-content img",
+    "img.wp-manga-chapter-img",
+    ".chapter-content img",
+    "img.attachment-full",
+    "div.pg-box img, div.page-break img"
+   ],
+   "image": "@img"
+  }
+ },
+ "hinweise": [
+  "Madara-Abwandlung mit eigenem Layout (mn-detail-…). Listen über /biblioteca3/?m_orderby=trending|latest3, Suche ?s=&post_type=wp-manga.",
+  "Kapitel: Community nimmt die Kapitel der Detailseite und lädt den Rest per POST admin-ajax.php (action=plot_load_chapters, manga_id, page); Seite 1 der API entspricht laut Community den Kapiteln der Detailseite. Hier ALLE Kapitel per POST ab Seite 1 (json_html, data.html), weiter solange 20 Kapitel kommen.",
+  "manga_id aus #mn-detail-load-more@data-manga bzw. mnWpMangaId/manga_id im Skript (let der Details).",
+  "Kapitelname 'Capítulo N - Zusatz': Zusatz über {f..mn-detail-chapter-extend} (Feld-Selektor im Template wie de.toomics) – auf dem PC prüfen.",
+  "Status: Klasse mn-st-* oder Text; hier Klasse zuerst."
+ ]
+}

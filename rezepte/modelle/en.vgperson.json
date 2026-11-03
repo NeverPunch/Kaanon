@@ -23,7 +23,87 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/other/mangaviewer.php",
+   "items": ".content a[href^=?m]",
+   "fields": {
+    "url": {
+     "path": "@href",
+     "template": "/other/mangaviewer.php{value}"
+    },
+    "title": ""
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/other/mangaviewer.php",
+   "items": ".content a[href^=?m]",
+   "fields": {
+    "url": {
+     "path": "@href",
+     "template": "/other/mangaviewer.php{value}"
+    },
+    "title": ""
+   },
+   "has_next": {
+    "const": false
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".title",
+    "status": "div.content .complete",
+    "description": ".content@ownText"
+   },
+   "status_map": {
+    "(complete)": 2,
+    "(series in progress)": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".chaptertable tbody tr:has(td > a)",
+   "fields": {
+    "url": {
+     "path": "td > a@href",
+     "template": "/other/mangaviewer.php{value}"
+    },
+    "name": [
+     {
+      "path": "td:last-child:not(:first-child)",
+      "regex": "^(?:.*?- )?(.*)$",
+      "group": 1,
+      "template": "{f.a} - {value}"
+     },
+     "td > a"
+    ],
+    "number": {
+     "path": "td > a@href",
+     "regex": "[?&]c=([0-9.]+)",
+     "group": 1
+    },
+    "scanlator": {
+     "const": "vgperson"
+    }
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img",
+   "image": "@src"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Kleine Übersetzer-Seite: alle Mangas auf /other/mangaviewer.php (eine Seite), Suche lokal (client_filter) wie Community.",
+  "URLs: Community speichert nur '?m=…' relativ zur Viewer-Seite; hier /other/mangaviewer.php?m=… (andere Manga-URL als Community).",
+  "Cover: Community setzt für drei bekannte Titel feste imgur-Bilder; hier keine Cover.",
+  "Beschreibung: Community nimmt die Knoten von .content ab dem 6. bis zur Tabelle; hier eigener Text von .content (Näherung).",
+  "Sondernummern (Three Days of Happiness, Parameter b) nicht nachgebildet. User-Agent der Community (Tachiyomi-UA) nicht übernommen."
+ ]
 }

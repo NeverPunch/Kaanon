@@ -1,0 +1,198 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "AralosBD",
+  "sprache": "fr",
+  "base_url": "https://aralosbd.fr",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.aralosbd",
+  "quellen": [
+   {
+    "name": "AralosBD",
+    "sprache": "fr",
+    "quell_id": 7086384324753337104,
+    "home": "https://aralosbd.fr"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/aralosbd",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "popular": {
+   "request": "{base}/manga/search?s=sort:allviews;limit:24;-id:3;page:{page0};order:desc",
+   "format": "json",
+   "items": "mangas",
+   "page_size": 24,
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/display?id={value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "icon",
+     "template": "{base}/{value}"
+    }
+   },
+   "has_next": {
+    "full": true
+   }
+  },
+  "latest": {
+   "request": "{base}/manga/search?s=sort:id;limit:24;-id:3;page:{page0};order:desc",
+   "format": "json",
+   "items": "mangas",
+   "page_size": 24,
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/display?id={value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "icon",
+     "template": "{base}/{value}"
+    }
+   },
+   "has_next": {
+    "full": true
+   }
+  },
+  "search": {
+   "request": "{base}/manga/search?s=page:{page0};sort:id;order:desc;limit:24;text:{query}",
+   "format": "json",
+   "items": "mangas",
+   "page_size": 24,
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/display?id={value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "icon",
+     "template": "{base}/{value}"
+    }
+   },
+   "has_next": {
+    "full": true
+   }
+  },
+  "details": {
+   "request": "{base}/manga/api?get=manga&id={u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "[?&]id=(\\d+)"
+   },
+   "let": {
+    "d": {
+     "path": "description",
+     "decode": "html"
+    },
+    "fd": {
+     "path": "fulldescription",
+     "decode": "html"
+    }
+   },
+   "fields": {
+    "title": "main_title",
+    "cover": {
+     "path": "icon",
+     "template": "{base}/{value}"
+    },
+    "author": {
+     "path": "authors.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "tags.*.tag",
+     "all": true,
+     "join": ", "
+    },
+    "description": {
+     "const": "{l.d}[[\n\n{l.fd}]]",
+     "replace": [
+      [
+       "(?s)---.*$",
+       ""
+      ],
+      [
+       "\\[([^\\]]+)\\]\\(([^)]+)\\)",
+       "$2"
+      ],
+      [
+       "\\*+\\s*([^*]*)\\s*\\*+",
+       "$1"
+      ],
+      [
+       "_+\\s*([^_]*)\\s*_+",
+       "$1"
+      ],
+      [
+       ":+[a-zA-Z]+:",
+       ""
+      ],
+      [
+       "^\\s+|\\s+$",
+       ""
+      ]
+     ]
+    }
+   }
+  },
+  "chapters": {
+   "request": "{base}/manga/api?get=chapters&manga={u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "[?&]id=(\\d+)"
+   },
+   "items": "$",
+   "skip": {
+    "path": "chapter_released",
+    "regex": "^(?!1$)"
+   },
+   "fields": {
+    "url": {
+     "path": "chapter_id",
+     "template": "/manga/chapter?id={value}"
+    },
+    "name": {
+     "path": "chapter_number",
+     "template": "{value} - {f.chapter_title}"
+    },
+    "date": "chapter_release_time",
+    "scanlator": "chapter_translator"
+   },
+   "date_format": "yyyy-MM-dd HH:mm:ss"
+  },
+  "pages": {
+   "request": "{base}/manga/api?get=pages&chapter={u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "[?&]id=(\\d+)"
+   },
+   "items": "links",
+   "image": {
+    "path": "",
+    "template": "{base}/{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "JSON-API /manga/search?s=… und /manga/api?get=manga|chapters|pages wie Community.",
+  "Manga-/Kapitel-URLs relativ (/manga/display?id=…, /manga/chapter?id=…); Community speichert sie absolut.",
+  "Nächste Seite: Community vergleicht mit page_count; hier 'weiter solange 24 Einträge'. Suche mit limit:24 ergänzt (Community ohne limit) – auf dem PC prüfen.",
+  "Beschreibung: Markdown-Bereinigung der Community (Links, Fett, Kursiv, :icons:, ab '---' abschneiden) per replace nachgebildet.",
+  "Nicht veröffentlichte Kapitel (chapter_released≠1) übersprungen. Datum in Europe/Paris (Zeitzone hier nicht gesetzt)."
+ ]
+}

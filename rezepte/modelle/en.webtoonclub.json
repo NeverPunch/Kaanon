@@ -1,0 +1,179 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "WebtoonClub",
+  "sprache": "en",
+  "base_url": "https://webtoonclub.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.webtoonclub",
+  "quellen": [
+   {
+    "name": "WebtoonClub",
+    "sprache": "en",
+    "quell_id": 5827665338810887442,
+    "home": "https://webtoonclub.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/webtoonclub",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/webtoons?sort=popular&page={page}",
+   "items": "a[href^=/webtoon/]:has(img[data-cover])",
+   "fields": {
+    "url": "@href",
+    "title": "h3",
+    "cover": "img[data-cover]@img"
+   },
+   "has_next": {
+    "exists": "a[aria-label=Go to next page]"
+   }
+  },
+  "latest": {
+   "request": "{base}/webtoons?sort=latest&page={page}",
+   "items": "a[href^=/webtoon/]:has(img[data-cover])",
+   "fields": {
+    "url": "@href",
+    "title": "h3",
+    "cover": "img[data-cover]@img"
+   },
+   "has_next": {
+    "exists": "a[aria-label=Go to next page]"
+   }
+  },
+  "search": {
+   "request": "{base}/webtoons?search={query}&page={page}",
+   "items": "a[href^=/webtoon/]:has(img[data-cover])",
+   "fields": {
+    "url": "@href",
+    "title": "h3",
+    "cover": "img[data-cover]@img"
+   },
+   "has_next": {
+    "exists": "a[aria-label=Go to next page]"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "cid": "[data-comic-id]@data-comic-id",
+    "type": "dt:matchesOwn(^Type$) + dd",
+    "rel": "dt:matchesOwn(^Released$) + dd",
+    "org": "dt:matchesOwn(^Origin$) + dd",
+    "syn": "p.whitespace-pre-line",
+    "ablock": {
+     "path": "script[type=application/ld+json]@html",
+     "regex": "\"author\":\\[(.*?)\\]",
+     "group": 1
+    },
+    "authors": {
+     "const": "{l.ablock}",
+     "regex": "\"name\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "regex_all": true,
+     "decode": "json",
+     "join": ", "
+    },
+    "gen": {
+     "path": "script[type=application/ld+json]@html",
+     "regex": "\"genre\":\\[([^\\]]*)\\]",
+     "group": 1,
+     "replace": [
+      [
+       "\",\"",
+       ", "
+      ],
+      [
+       "\"",
+       ""
+      ]
+     ]
+    }
+   },
+   "fields": {
+    "title": "h1",
+    "cover": [
+     {
+      "path": "script[type=application/ld+json]@html",
+      "regex": "\"@type\":\"Book\".*?\"image\":\"([^\"]+)\"",
+      "group": 1
+     },
+     "meta[property=og:image]@content"
+    ],
+    "author": {
+     "const": "{l.authors}"
+    },
+    "genres": {
+     "const": "{l.type}[[, {l.gen}]]"
+    },
+    "description": {
+     "const": "[[{l.rel} · ]][[{l.org}]]\n\n{l.syn}"
+    },
+    "status": "dt:matchesOwn(^Status$) + dd"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "Ongoing": 1,
+    "completed": 2,
+    "Completed": 2,
+    "hiatus": 6,
+    "Hiatus": 6,
+    "cancelled": 5,
+    "Cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/comics/{l.cid}/chapters",
+   "format": "json",
+   "items": "chapters",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "replace": [
+      [
+       "^chapter-",
+       ""
+      ]
+     ],
+     "template": "{url}/chapter/{value}"
+    },
+    "name": {
+     "path": "slug",
+     "replace": [
+      [
+       "^chapter-",
+       ""
+      ]
+     ],
+     "template": "Chapter {value}[[: {f.title}]]"
+    },
+    "number": "chapterNumber",
+    "date": "date"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "block_regex": "(?s)images\\\\?\":\\[(.*?)\\]",
+   "items": "filename\\\\?\":\\\\?\"([^\"\\\\]+)",
+   "image": {
+    "path": "",
+    "template": "{base}/uploads/{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "Inhaltsfilter (Einstellung 'Content rating') und Filter nicht übernommen; Standard der Community ist ebenfalls ohne Rating-Parameter.",
+  "Details aus HTML und JSON-LD (@graph, Typ Book) per Regex: Cover (Book.image, sonst og:image), Autoren, Genres; Typ wird vorangestellt (Community entfernt zusätzlich Dubletten). Beschreibung: Released · Origin + Synopsis (p.whitespace-pre-line); Bewertung, Alternativtitel und Figuren der Community nicht übernommen.",
+  "Kapitel aus /api/comics/<data-comic-id>/chapters; URL/Name wie Community aus dem Slug ('chapter-4.1' → 4.1).",
+  "Seiten: Next.js-Flight-Daten der Leserseite (escaped JSON im HTML), Dateinamen aus \"images\":[…], Bild = {base}/uploads/<filename>. Community sortiert nach sortOrder – hier Reihenfolge wie im JSON (Annahme: bereits sortiert)."
+ ]
+}

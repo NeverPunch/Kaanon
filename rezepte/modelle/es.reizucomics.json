@@ -1,0 +1,425 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Reizu Comics",
+  "sprache": "es",
+  "base_url": "https://reizucomics.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.reizucomics",
+  "quellen": [
+   {
+    "name": "Reizu Comics",
+    "sprache": "es",
+    "quell_id": 1524441003627325028,
+    "home": "https://reizucomics.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/reizucomics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "https://zrydzcqveheuwviyerto.supabase.co/rest/v1/rpc/get_comics_by_period_views",
+    "method": "POST",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyeWR6Y3F2ZWhldXd2aXllcnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3ODEzOTUsImV4cCI6MjA3OTM1NzM5NX0.9YWTbyCsK5itpTMFnNT8q6nOYfpIRc7Aslm8OQHe7QU",
+     "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyeWR6Y3F2ZWhldXd2aXllcnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3ODEzOTUsImV4cCI6MjA3OTM1NzM5NX0.9YWTbyCsK5itpTMFnNT8q6nOYfpIRc7Aslm8OQHe7QU",
+     "Accept": "application/json"
+    },
+    "body": "{\"p_days\": null, \"p_genre\": \"all\", \"p_work_type\": \"all\", \"p_reading_format\": \"all\", \"p_language\": \"es\", \"p_limit\": 100}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "$",
+   "skip": {
+    "path": "work_type",
+    "equals": "novel"
+   },
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/{value}#{f.comic_id}"
+    },
+    "title": [
+     "title",
+     "slug"
+    ],
+    "cover": {
+     "path": [
+      "cover_image_url",
+      "cover_r2_key"
+     ],
+     "replace": [
+      [
+       "^\\s+|\\s+$",
+       ""
+      ],
+      [
+       "^//",
+       "https://"
+      ],
+      [
+       "^(?!https?://)(?i)([a-z0-9.-]+\\.[a-z]{2,}(?:/|$))",
+       "https://$1"
+      ],
+      [
+       "cdn\\.doki-labs\\.net",
+       "cdn.reizucomics.com"
+      ],
+      [
+       "doki-labs\\.net",
+       "reizucomics.com"
+      ],
+      [
+       "^https?://zrydzcqveheuwviyerto\\.supabase\\.co/storage/v1/object/(?:public|sign)/([^?]+).*$",
+       "https://cdn.reizucomics.com/$1"
+      ],
+      [
+       "^supabase:/*",
+       "https://cdn.reizucomics.com/"
+      ],
+      [
+       "^(?!https?://)/*",
+       "https://cdn.reizucomics.com/"
+      ]
+     ]
+    }
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "https://zrydzcqveheuwviyerto.supabase.co/rest/v1/rpc/get_comics_by_recent_chapter",
+    "method": "POST",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyeWR6Y3F2ZWhldXd2aXllcnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3ODEzOTUsImV4cCI6MjA3OTM1NzM5NX0.9YWTbyCsK5itpTMFnNT8q6nOYfpIRc7Aslm8OQHe7QU",
+     "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyeWR6Y3F2ZWhldXd2aXllcnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3ODEzOTUsImV4cCI6MjA3OTM1NzM5NX0.9YWTbyCsK5itpTMFnNT8q6nOYfpIRc7Aslm8OQHe7QU",
+     "Accept": "application/json"
+    },
+    "body": "{\"p_locale\": \"es\", \"p_search\": null, \"p_letter\": null, \"p_statuses\": null, \"p_work_type\": null, \"p_orientation\": null, \"p_format\": null, \"p_periodicity\": null, \"p_genres\": null, \"p_show_exclusive\": false, \"p_show_adult\": false, \"p_show_reizu_og\": false, \"p_show_roty\": false, \"p_month\": null, \"p_offset\": {offset}, \"p_limit\": 20}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "$",
+   "skip": {
+    "path": "work_type",
+    "equals": "novel"
+   },
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/{value}#{f.id}"
+    },
+    "title": [
+     "title",
+     "slug"
+    ],
+    "cover": {
+     "path": [
+      "cover_image_url",
+      "cover_r2_key"
+     ],
+     "replace": [
+      [
+       "^\\s+|\\s+$",
+       ""
+      ],
+      [
+       "^//",
+       "https://"
+      ],
+      [
+       "^(?!https?://)(?i)([a-z0-9.-]+\\.[a-z]{2,}(?:/|$))",
+       "https://$1"
+      ],
+      [
+       "cdn\\.doki-labs\\.net",
+       "cdn.reizucomics.com"
+      ],
+      [
+       "doki-labs\\.net",
+       "reizucomics.com"
+      ],
+      [
+       "^https?://zrydzcqveheuwviyerto\\.supabase\\.co/storage/v1/object/(?:public|sign)/([^?]+).*$",
+       "https://cdn.reizucomics.com/$1"
+      ],
+      [
+       "^supabase:/*",
+       "https://cdn.reizucomics.com/"
+      ],
+      [
+       "^(?!https?://)/*",
+       "https://cdn.reizucomics.com/"
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": {
+    "url": "https://zrydzcqveheuwviyerto.supabase.co/rest/v1/comics?select=id,slug,title,description,cover_image_url,cover_r2_key,genres,status,work_type,has_adult_content&approval_status=eq.approved&language=eq.es&status=neq.draft&status=neq.pending_review&status=neq.cancelled&title=ilike.*{query}*&order=title.asc&limit=20&offset={offset}",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyeWR6Y3F2ZWhldXd2aXllcnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3ODEzOTUsImV4cCI6MjA3OTM1NzM5NX0.9YWTbyCsK5itpTMFnNT8q6nOYfpIRc7Aslm8OQHe7QU",
+     "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyeWR6Y3F2ZWhldXd2aXllcnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3ODEzOTUsImV4cCI6MjA3OTM1NzM5NX0.9YWTbyCsK5itpTMFnNT8q6nOYfpIRc7Aslm8OQHe7QU",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "skip": {
+    "path": "work_type",
+    "equals": "novel"
+   },
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/{value}#{f.id}"
+    },
+    "title": [
+     "title",
+     "slug"
+    ],
+    "cover": {
+     "path": [
+      "cover_image_url",
+      "cover_r2_key"
+     ],
+     "replace": [
+      [
+       "^\\s+|\\s+$",
+       ""
+      ],
+      [
+       "^//",
+       "https://"
+      ],
+      [
+       "^(?!https?://)(?i)([a-z0-9.-]+\\.[a-z]{2,}(?:/|$))",
+       "https://$1"
+      ],
+      [
+       "cdn\\.doki-labs\\.net",
+       "cdn.reizucomics.com"
+      ],
+      [
+       "doki-labs\\.net",
+       "reizucomics.com"
+      ],
+      [
+       "^https?://zrydzcqveheuwviyerto\\.supabase\\.co/storage/v1/object/(?:public|sign)/([^?]+).*$",
+       "https://cdn.reizucomics.com/$1"
+      ],
+      [
+       "^supabase:/*",
+       "https://cdn.reizucomics.com/"
+      ],
+      [
+       "^(?!https?://)/*",
+       "https://cdn.reizucomics.com/"
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": {
+    "url": "https://zrydzcqveheuwviyerto.supabase.co/rest/v1/comics?select=id,slug,title,description,cover_image_url,cover_r2_key,genres,status,work_type,has_adult_content&id=eq.{u.id}&limit=1",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyeWR6Y3F2ZWhldXd2aXllcnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3ODEzOTUsImV4cCI6MjA3OTM1NzM5NX0.9YWTbyCsK5itpTMFnNT8q6nOYfpIRc7Aslm8OQHe7QU",
+     "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyeWR6Y3F2ZWhldXd2aXllcnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3ODEzOTUsImV4cCI6MjA3OTM1NzM5NX0.9YWTbyCsK5itpTMFnNT8q6nOYfpIRc7Aslm8OQHe7QU",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "#(.+)$"
+   },
+   "fields": {
+    "title": [
+     "0.title",
+     "0.slug"
+    ],
+    "cover": {
+     "path": [
+      "0.cover_image_url",
+      "0.cover_r2_key"
+     ],
+     "replace": [
+      [
+       "^\\s+|\\s+$",
+       ""
+      ],
+      [
+       "^//",
+       "https://"
+      ],
+      [
+       "^(?!https?://)(?i)([a-z0-9.-]+\\.[a-z]{2,}(?:/|$))",
+       "https://$1"
+      ],
+      [
+       "cdn\\.doki-labs\\.net",
+       "cdn.reizucomics.com"
+      ],
+      [
+       "doki-labs\\.net",
+       "reizucomics.com"
+      ],
+      [
+       "^https?://zrydzcqveheuwviyerto\\.supabase\\.co/storage/v1/object/(?:public|sign)/([^?]+).*$",
+       "https://cdn.reizucomics.com/$1"
+      ],
+      [
+       "^supabase:/*",
+       "https://cdn.reizucomics.com/"
+      ],
+      [
+       "^(?!https?://)/*",
+       "https://cdn.reizucomics.com/"
+      ]
+     ]
+    },
+    "description": "0.description",
+    "genres": {
+     "path": "0.genres",
+     "all": true,
+     "join": ", "
+    },
+    "status": "0.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "paused": 6,
+    "hiatus": 6,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "https://zrydzcqveheuwviyerto.supabase.co/rest/v1/chapters?select=id,chapter_number,title,is_locked,is_special,published_at&comic_id=eq.{u.id}&is_published=eq.true&order=chapter_number.desc",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyeWR6Y3F2ZWhldXd2aXllcnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3ODEzOTUsImV4cCI6MjA3OTM1NzM5NX0.9YWTbyCsK5itpTMFnNT8q6nOYfpIRc7Aslm8OQHe7QU",
+     "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyeWR6Y3F2ZWhldXd2aXllcnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3ODEzOTUsImV4cCI6MjA3OTM1NzM5NX0.9YWTbyCsK5itpTMFnNT8q6nOYfpIRc7Aslm8OQHe7QU",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "#(.+)$"
+   },
+   "items": "$",
+   "skip": "is_locked",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "{url}/{value}"
+    },
+    "name": {
+     "const": "{f.is_special}|Capítulo {f.chapter_number}[[: {f.title}]]",
+     "replace": [
+      [
+       "^true\\|",
+       "Especial "
+      ],
+      [
+       "^[^|]*\\|",
+       ""
+      ],
+      [
+       "(Capítulo \\d+)\\.0(?=$|:)",
+       "$1"
+      ]
+     ]
+    },
+    "number": "chapter_number",
+    "date": "published_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "https://zrydzcqveheuwviyerto.supabase.co/rest/v1/chapters?select=content_url,content_r2_keys,content_r2_keys_paged,content_r2_keys_scroll,is_locked&is_published=eq.true&limit=1&id=eq.{u.cid}",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyeWR6Y3F2ZWhldXd2aXllcnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3ODEzOTUsImV4cCI6MjA3OTM1NzM5NX0.9YWTbyCsK5itpTMFnNT8q6nOYfpIRc7Aslm8OQHe7QU",
+     "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyeWR6Y3F2ZWhldXd2aXllcnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3ODEzOTUsImV4cCI6MjA3OTM1NzM5NX0.9YWTbyCsK5itpTMFnNT8q6nOYfpIRc7Aslm8OQHe7QU",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "cid": "/([^/#]+)$"
+   },
+   "items": [
+    "0.content_r2_keys_paged",
+    "0.content_r2_keys_scroll",
+    "0.content_r2_keys",
+    "0.content_url.scroll",
+    "0.content_url"
+   ],
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "^\\s+|\\s+$",
+      ""
+     ],
+     [
+      "^//",
+      "https://"
+     ],
+     [
+      "^(?!https?://)(?i)([a-z0-9.-]+\\.[a-z]{2,}(?:/|$))",
+      "https://$1"
+     ],
+     [
+      "cdn\\.doki-labs\\.net",
+      "cdn.reizucomics.com"
+     ],
+     [
+      "doki-labs\\.net",
+      "reizucomics.com"
+     ],
+     [
+      "^https?://zrydzcqveheuwviyerto\\.supabase\\.co/storage/v1/object/(?:public|sign)/([^?]+).*$",
+      "https://cdn.reizucomics.com/$1"
+     ],
+     [
+      "^supabase:/*",
+      "https://cdn.reizucomics.com/"
+     ],
+     [
+      "^(?!https?://)/*",
+      "https://cdn.reizucomics.com/"
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "Supabase-REST-API (zrydzcqveheuwviyerto.supabase.co) wie Community; anon-Schlüssel (apikey/Bearer) ist der öffentliche Schlüssel der Website, wörtlich aus der Community (Muster wie en.webdexscans).",
+  "Eintrags-URL /<slug>#<uuid>, Kapitel-URL /<slug>#<uuid>/<kapitel-uuid> (Community: '<uuid>' bzw. '<uuid>/<kapitel-uuid>'; Web-Pfad der Website unbekannt). Nicht mit Community-URLs kompatibel.",
+  "Beliebt: rpc/get_comics_by_period_views; die Community lädt kumulativ (p_limit = 20*Seite) und schneidet zu – hier eine Seite mit p_limit 100. Neueste: rpc/get_comics_by_recent_chapter mit p_offset. Suche: title=ilike.*q*. Novels (work_type=novel) übersprungen.",
+  "Cover/Bild-URLs: resolveMediaUrl der Community als Ersetzungskette nachgebildet (//, Host ohne Schema, doki-labs → reizucomics, Supabase-Storage → CDN, supabase:-Präfix, sonst CDN-Pfad).",
+  "Gesperrte Kapitel (is_locked, RP) werden ausgelassen (Regel 0014). Name '[Especial ]Capítulo N[: Titel]' über const mit is_special – wie true gerendert wird, auf dem PC prüfen. Community sortiert Spezialkapitel ans Ende – hier API-Reihenfolge.",
+  "Seiten: content_r2_keys_paged, sonst _scroll, sonst content_r2_keys, sonst content_url (.scroll bzw. Liste). content_url als String/JSON-Text sowie 'paginated' ohne erstes Bild und das Entfernen direkt doppelter Bilder sind nicht nachgebaut."
+ ]
+}

@@ -1,0 +1,124 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "LeerCapitulo",
+  "sprache": "es",
+  "base_url": "https://www.leercapitulo.co",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.leercapitulo",
+  "quellen": [
+   {
+    "name": "LeerCapitulo",
+    "sprache": "es",
+    "quell_id": 5621901596522308538,
+    "home": "https://www.leercapitulo.co"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/leercapitulo",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 3000
+  },
+  "popular": {
+   "request": "{base}",
+   "items": ".lc-slide",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a.lc-slide-name@href",
+    "title": "a.lc-slide-name",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}",
+   "items": "article.lc-release",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a.lc-release-title@href",
+    "title": "a.lc-release-title",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/manga/?q={query}&page={page}",
+   "items": "article.lc-card",
+   "has_next": {
+    "exists": "a.page-link[rel=next]"
+   },
+   "fields": {
+    "url": "a.lc-card-name@href",
+    "title": "a.lc-card-name",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "syn": "#sinopsis p:not(.lc-muted)",
+    "alt": "h1 + p.lc-muted"
+   },
+   "fields": {
+    "title": "h1",
+    "cover": ".lc-cover-lg img@src",
+    "description": {
+     "const": "{l.syn}[[\n\nAlt name(s): {l.alt}]]",
+     "replace": [
+      [
+       "^\\s+",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": "a.badge[href^='/manga/?genre='], a.badge[href^='/manga/?theme=']",
+     "all": true,
+     "join": ", "
+    },
+    "author": ".lc-facts li:has(> .k:matchesOwn(^Autor$)) > *:last-child",
+    "artist": ".lc-facts li:has(> .k:matchesOwn(^Dibujo$)) > *:last-child",
+    "status": ".lc-facts li:has(> .k:matchesOwn(^Estado$)) > *:last-child"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "paused": 6,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a.lc-chapter-row",
+   "fields": {
+    "url": "@href",
+    "name": ".n",
+    "date": ".d"
+   },
+   "date_format": "yyyy-MM-dd"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#lcPages img[data-src]",
+   "image": "@data-src"
+  }
+ },
+ "hinweise": [
+  "Beliebt = Slider der Startseite (.lc-slide), Neueste = Veröffentlichungen der Startseite – jeweils nur eine Seite (wie Community).",
+  "Suche /manga/?q=…&page=N; Genre/Thema/Typ/Status/Sortier-Filter nicht nachgebaut.",
+  "Autor/Zeichner/Status aus .lc-facts (li mit .k = Label, letztes Kind); Selektor per :matchesOwn nachgebildet.",
+  "Beschreibung = Sinopsis + 'Alt name(s): <Zeile unter h1>' (Community entfernt dort noch den Haupttitel).",
+  "Rate-Limit 1 Anfrage je 3 s wie Community."
+ ]
+}

@@ -1,0 +1,174 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "InManga",
+  "sprache": "es",
+  "base_url": "https://inmanga.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.inmanga",
+  "quellen": [
+   {
+    "name": "InManga",
+    "sprache": "es",
+    "quell_id": 6963106975536326424,
+    "home": "https://inmanga.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/inmanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "{base}/manga/getMangasConsultResult",
+    "method": "POST",
+    "form": {
+     "filter[generes][]": "-1",
+     "filter[queryString]": "",
+     "filter[skip]": "{offset}",
+     "filter[take]": "10",
+     "filter[sortby]": "1",
+     "filter[broadcastStatus]": "0",
+     "filter[onlyFavorites]": "false",
+     "d": ""
+    }
+   },
+   "items": "body > a",
+   "page_size": 10,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h4.m0",
+    "cover": "img@data-src"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/manga/getMangasConsultResult",
+    "method": "POST",
+    "form": {
+     "filter[generes][]": "-1",
+     "filter[queryString]": "",
+     "filter[skip]": "{offset}",
+     "filter[take]": "10",
+     "filter[sortby]": "3",
+     "filter[broadcastStatus]": "0",
+     "filter[onlyFavorites]": "false",
+     "d": ""
+    }
+   },
+   "items": "body > a",
+   "page_size": 10,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h4.m0",
+    "cover": "img@data-src"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/manga/getMangasConsultResult",
+    "method": "POST",
+    "form": {
+     "filter[generes][]": "-1",
+     "filter[queryString]": "{query_raw}",
+     "filter[skip]": "{offset}",
+     "filter[take]": "10",
+     "filter[sortby]": "1",
+     "filter[broadcastStatus]": "0",
+     "filter[onlyFavorites]": "false",
+     "d": ""
+    }
+   },
+   "items": "body > a",
+   "page_size": 10,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h4.m0",
+    "cover": "img@data-src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.col-md-9 h1",
+    "description": "div.col-md-9 div.panel-body",
+    "cover": "div.col-md-3 div.panel.widget img@src",
+    "status": {
+     "path": "div.col-md-3 div.panel.widget a.list-group-item:contains(estado) span",
+     "regex": "(En emisión|Finalizado)",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "en emisión": 1,
+    "finalizado": 2
+   }
+  },
+  "chapters": {
+   "request": "{base}/chapter/getall?mangaIdentification={u.id}",
+   "format": "text",
+   "url_vars": {
+    "id": "/([^/?#]+)/?$"
+   },
+   "items": "\\{[^{}]*?\\\\\"Identification\\\\\"[^{}]*\\}",
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\\\\\"Identification\\\\\":\\\\\"([^\\\\\"]*)\\\\\"",
+     "group": 1,
+     "template": "/chapter/chapterIndexControls?identification={value}"
+    },
+    "name": {
+     "path": "",
+     "regex": "\\\\\"FriendlyChapterNumber\\\\\":\\\\\"([^\\\\\"]*)\\\\\"",
+     "group": 1,
+     "template": "Chapter {value}"
+    },
+    "number": {
+     "path": "",
+     "regex": "\\\\\"Number\\\\\":([0-9.]+)",
+     "group": 1
+    },
+    "date": {
+     "path": "",
+     "regex": "\\\\\"RegistrationDate\\\\\":\\\\\"(\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d)",
+     "group": 1
+    }
+   },
+   "date_format": "yyyy-MM-dd'T'HH:mm:ss"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "let": {
+    "mid": "input#MangaIdentification@value",
+    "cid": "input#ChapterIdentification@value"
+   },
+   "items": "img.ImageContainer",
+   "image": {
+    "path": "@id",
+    "template": "https://cdn1.intomanga.com/i/m/{l.mid}/c/{l.cid}/o/{value}.jpg"
+   }
+  }
+ },
+ "hinweise": [
+  "Listen: POST-Formular an /manga/getMangasConsultResult wie Community (take 10, skip = offset; Beliebt sortby 1, Neueste sortby 3, Suche queryString), weiter solange 10 Einträge.",
+  "Kapitel: /chapter/getall liefert JSON, dessen Feld data selbst ein JSON-Text ist; Rezept liest den Rohtext per Regex über die maskierten Anführungszeichen (\\\") statt doppelt zu parsen. success=false wird nicht geprüft. Sortierung nach Nummer (Community) nicht nachgebildet.",
+  "Datum: RegistrationDate ohne Bruchteil-Sekunden per Regex, Format yyyy-MM-dd'T'HH:mm:ss (Zeitzone wie Community nicht angegeben).",
+  "Seiten: Bild-URL https://cdn1.intomanga.com/i/m/<MangaIdentification>/c/<ChapterIdentification>/o/<img-id>.jpg aus den Feldern der Kapitelseite."
+ ]
+}

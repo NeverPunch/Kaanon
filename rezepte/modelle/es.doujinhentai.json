@@ -1,0 +1,169 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "DoujinHentai",
+  "sprache": "es",
+  "base_url": "https://doujinhentai.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.doujinhentai",
+  "quellen": [
+   {
+    "name": "DoujinHentai",
+    "sprache": "es",
+    "quell_id": 3895171315878328595,
+    "home": "https://doujinhentai.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/doujinhentai",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/lista-manga-hentai?orderby=views&page={page}",
+   "items": "div.group.bg-white.rounded-2xl a.block",
+   "fields": {
+    "url": "@href",
+    "title": "h3.font-bold",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "a[rel=next]"
+   }
+  },
+  "latest": {
+   "request": "{base}/lista-manga-hentai?orderby=last&page={page}",
+   "items": "div.group.bg-white.rounded-2xl a.block",
+   "fields": {
+    "url": "@href",
+    "title": "h3.font-bold",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "a[rel=next]"
+   }
+  },
+  "search": {
+   "request": "{base}/lista-manga-hentai?search={query}&page={page}",
+   "items": "div.group.bg-white.rounded-2xl a.block",
+   "fields": {
+    "url": "@href",
+    "title": "h3.font-bold",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "a[rel=next]"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     "main#main-content h1",
+     "h1"
+    ],
+    "author": {
+     "path": [
+      "main#main-content a[rel=author]",
+      "main#main-content a[href*='/artist/']"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": [
+      "main#main-content a[href*='/artist/']",
+      "main#main-content a[rel=author]"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "description": [
+     "main#main-content div.prose",
+     "div.prose"
+    ],
+    "genres": {
+     "path": "main#main-content a[rel=tag][href*='/category/'], main#main-content a[rel=tag][href*='/tag/']",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       "(^|, )#",
+       "$1"
+      ]
+     ]
+    },
+    "status": [
+     "main#main-content span[aria-label^=Estado]",
+     "main#main-content div.absolute span"
+    ],
+    "cover": "main#main-content figure img@src"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "en curso": 1,
+    "completed": 2,
+    "completo": 2,
+    "completado": 2,
+    "complete": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.flex.items-center.gap-4.p-3.mb-2.border.rounded-lg",
+   "fields": {
+    "url": [
+     "div.flex-1 > a.font-bold@href",
+     "div.flex-1 a@href"
+    ],
+    "name": {
+     "path": [
+      "div.flex-1 > a.font-bold",
+      "div.flex-1 a"
+     ],
+     "replace": [
+      [
+       "^Leer ",
+       ""
+      ]
+     ],
+     "template": "{value}[[: {f.div.text-sm.font-medium:not(.text-right)}]]"
+    },
+    "scanlator": "div.text-sm.text-right a[href*='/user/']",
+    "date": {
+     "path": "div.text-sm.text-right",
+     "regex": "(\\d{1,2} [A-Za-z]{3,4}\\. \\d{4})",
+     "group": 1
+    }
+   },
+   "date_format": "d MMM. yyyy",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "block_regex": "const pageUrls\\s*=\\s*(\\{[^;]+\\})",
+   "items": "\"\\d+\"\\s*:\\s*\"([^\"]+)\"",
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "\\\\/",
+      "/"
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "Listen über /lista-manga-hentai (orderby=views/last, search=<text>); Filter (Genre, Typ, Artist …) nicht nachgebaut.",
+  "Kapitelname: Linktext ohne 'Leer ' plus ': <Untertitel>' (Community lässt den Untertitel weg, wenn er gleich dem Namen ist – nicht ausdrückbar). Datum per Regex aus der rechten Spalte, Format 'd MMM. yyyy' englisch.",
+  "Status: Text aus span[aria-label^=Estado] bzw. div.absolute span; Community prüft per 'enthält' (Ongoing/En curso/Complet), hier nur exakte Schreibweisen.",
+  "Seiten: nur Strategie 1 der Community (Skriptobjekt 'const pageUrls = {\"1\":\"url\",…}' in Reihenfolge der Schlüssel, Sortierung nicht nachgebildet); die HTML-Ausweichwege (#vertical-pages-container, .single-page-mode) sind nicht kombinierbar."
+ ]
+}

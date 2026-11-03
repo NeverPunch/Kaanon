@@ -1,0 +1,140 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "BDplus",
+  "sprache": "fr",
+  "base_url": "https://bdplus.cc",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.bdplus",
+  "quellen": [
+   {
+    "name": "BDplus",
+    "sprache": "fr",
+    "quell_id": 316968276877762203,
+    "home": "https://bdplus.cc"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/bdplus",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/data/search_corpus.json",
+   "format": "json",
+   "items": "docs",
+   "sort": {
+    "path": "popularity",
+    "order": "desc"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/serie_static/{value}.html"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover",
+     "template": "{base}{value}"
+    }
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/data/search_corpus.json",
+   "format": "json",
+   "items": "docs",
+   "client_filter": true,
+   "sort": {
+    "path": "popularity",
+    "order": "desc"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/serie_static/{value}.html"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover",
+     "template": "{base}{value}"
+    }
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1#fhT",
+    "author": {
+     "path": ".fh-au b",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": ".fh-meta a.pill.pg@ownText",
+     "all": true,
+     "join": ", "
+    },
+    "description": "p.fh-lead",
+    "cover": ".fh-cov img@src"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#tl a.tr",
+   "fields": {
+    "url": {
+     "path": "@data-k",
+     "template": "/lecture.html?path={value}"
+    },
+    "name": {
+     "const": "[[{f..tn}]][[ : {f..tt}]]",
+     "replace": [
+      [
+       "^ : ",
+       ""
+      ]
+     ]
+    }
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": "{base}/_converted/{u.path}/pages.json",
+   "format": "json",
+   "url_vars": {
+    "path": "[?&]path=(.+)$"
+   },
+   "items": "pages",
+   "image": [
+    {
+     "path": "url",
+     "regex": "^(/.*)$",
+     "group": 1,
+     "template": "{base}{value}"
+    },
+    {
+     "path": "url",
+     "template": "{base}/_converted/{u.path}/{value}"
+    }
+   ]
+  }
+ },
+ "hinweise": [
+  "Statische BD-Website: Katalog als eine JSON-Datei (/data/search_corpus.json). Beliebt = ganzer Katalog nach popularity absteigend (Community blättert lokal in 24er-Seiten); Suche filtert lokal (client_filter; Community sucht auch in Alias/Autoren, ohne Akzente).",
+  "Neueste nicht abgebildet: Community liest erst den Pfad aus script#homeCfg der Startseite und lädt dann diese Datei (zweistufig).",
+  "Manga-URL /serie_static/<id>.html (Community speichert nur die id). Kapitel-URL /lecture.html?path=<data-k> wie Community; Seiten aus /_converted/<path>/pages.json – falls data-k Sonderzeichen enthält, Kodierung auf dem PC prüfen.",
+  "Kapitelname '.tn : .tt' über Feld-Selektoren im const ({f..tn}) – auf dem PC prüfen.",
+  "Genre-/Sortierfilter nicht übernommen."
+ ]
+}

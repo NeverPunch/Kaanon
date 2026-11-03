@@ -1,0 +1,195 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "LectorTMO (unoriginal)",
+  "sprache": "es",
+  "base_url": "https://lectortmo.vip",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.lectortmounoriginal",
+  "quellen": [
+   {
+    "name": "LectorTMO (unoriginal)",
+    "sprache": "es",
+    "quell_id": 7092791175237698168,
+    "home": "https://lectortmo.vip"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/lectortmounoriginal",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "vars": {
+   "nonce": {
+    "request": "{base}/manga/",
+    "format": "text",
+    "value": {
+     "path": "",
+     "regex": "(?s)MnArchive.*?nonce:\\s*\"(\\w+)\"",
+     "group": 1
+    },
+    "ttl_s": 600
+   }
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php",
+    "method": "POST",
+    "form": {
+     "action": "mn_archive_filter",
+     "nonce": "{v.nonce}",
+     "paged": "{page}",
+     "orderby": "views"
+    }
+   },
+   "format": "json_html",
+   "html_path": "data.html",
+   "items": "div.manga-card-wrapper > a.block",
+   "has_next": {
+    "exists": "#manga-pagination a.next"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h3.manga-title",
+    "cover": ".manga-cover-wrap img@src"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php",
+    "method": "POST",
+    "form": {
+     "action": "mn_archive_filter",
+     "nonce": "{v.nonce}",
+     "paged": "{page}",
+     "orderby": "date"
+    }
+   },
+   "format": "json_html",
+   "html_path": "data.html",
+   "items": "div.manga-card-wrapper > a.block",
+   "has_next": {
+    "exists": "#manga-pagination a.next"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h3.manga-title",
+    "cover": ".manga-cover-wrap img@src"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php",
+    "method": "POST",
+    "form": {
+     "action": "mn_archive_filter",
+     "nonce": "{v.nonce}",
+     "paged": "{page}",
+     "search": "{query_raw}",
+     "orderby": "views",
+     "media_type": "",
+     "genre": "",
+     "demographic": "",
+     "status": ""
+    }
+   },
+   "format": "json_html",
+   "html_path": "data.html",
+   "items": "div.manga-card-wrapper > a.block",
+   "has_next": {
+    "exists": "#manga-pagination a.next"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h3.manga-title",
+    "cover": ".manga-cover-wrap img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "syn": {
+     "path": [
+      "main h2:contains(Sinopsis) + div [data-syn-full] p",
+      "main h2:contains(Sinopsis) + div p"
+     ],
+     "all": true,
+     "join": "\n\n"
+    },
+    "orig": "main h1 + p"
+   },
+   "fields": {
+    "title": "main h1",
+    "cover": "main section img@src",
+    "status": "main div:has(> h1) > div:first-child > span:matchesOwn((?i)^(en emisión|finalizado|en pausa|descontinuado|no publicado)$)",
+    "genres": {
+     "path": [
+      "main div:has(> h1) > div:first-child > span:not(:matchesOwn((?i)^(en emisión|finalizado|en pausa|descontinuado|no publicado)$))",
+      "main div:has(> h1) ~ div a[href*=/manga-genre/]"
+     ],
+     "union": true
+    },
+    "description": {
+     "const": "[[{l.syn}]][[\n\nTítulo original: {l.orig}]]",
+     "replace": [
+      [
+       "^\\n+",
+       ""
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "en emisión": 1,
+    "finalizado": 2,
+    "en pausa": 6,
+    "descontinuado": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#mn-chapters-list a.chapter-card",
+   "fields": {
+    "url": "@href",
+    "name": "span.font-bold",
+    "date": {
+     "path": "div:last-child > span",
+     "regex": "(\\d{1,2}/\\d{1,2}/\\d{4})",
+     "group": 1
+    },
+    "scanlator": {
+     "const": "{l.scan}"
+    }
+   },
+   "let": {
+    "scan": "a[href^=/grupo/] p.font-bold"
+   },
+   "date_format": "dd/MM/yyyy",
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "main#reader-strip img",
+   "image": [
+    "@data-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Listen über admin-ajax.php (action=mn_archive_filter) wie Community; die WordPress-Nonce liefert die Website selbst im MnArchive-Skript von /manga/ (vars, ttl 10 min). Community holt sie bei 403 sofort neu – hier erst nach Ablauf der ttl.",
+  "Beliebt orderby=views, Neueste orderby=date, Suche search=… mit orderby=views (Community-Standard 'Más Vistos'); weitere Filter leer.",
+  "Status = Badge mit Statustext, Genres = übrige Badges + manga-genre-Links (wie Community). Beschreibung = Sinopsis-Absätze + 'Título original'.",
+  "Kapitel: Liste #mn-chapters-list umgedreht (Community asReversed); Scanlator aus dem Gruppen-Link der Serienseite per let – let in chapters mit request 'details' auf dem PC prüfen.",
+  "Manga-/Kapitel-URLs /manga/<slug>/ bzw. /manga-chapter/<slug>/ (Community speichert nur Slugs, Web-URL identisch)."
+ ]
+}

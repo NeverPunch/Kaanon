@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Mangakawaii",
+  "sprache": "fr",
+  "base_url": "https://www.mangakawaii.fr",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.mangakawaii",
+  "quellen": [
+   {
+    "name": "Mangakawaii",
+    "sprache": "fr",
+    "quell_id": 1384625280015637699,
+    "home": "https://www.mangakawaii.fr"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/mangakawaii",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

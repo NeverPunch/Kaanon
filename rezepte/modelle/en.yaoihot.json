@@ -1,0 +1,114 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "YaoiHot",
+  "sprache": "en",
+  "base_url": "https://yaoihot.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.yaoihot",
+  "quellen": [
+   {
+    "name": "YaoiHot",
+    "sprache": "en",
+    "quell_id": 2792939609625225108,
+    "home": "https://yaoihot.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/yaoihot",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/manga/page/{page}/?orderby=views",
+   "request_by_page": {
+    "1": "{base}/manga/?orderby=views"
+   },
+   "items": ".manga-grid .manga-card",
+   "fields": {
+    "url": ".manga-card-link@href",
+    "title": ".manga-card-title",
+    "cover": ".manga-cover-img@src"
+   },
+   "has_next": {
+    "exists": ".next.page-numbers"
+   }
+  },
+  "latest": {
+   "request": "{base}/manga/page/{page}/?orderby=modified",
+   "request_by_page": {
+    "1": "{base}/manga/?orderby=modified"
+   },
+   "items": ".manga-grid .manga-card",
+   "fields": {
+    "url": ".manga-card-link@href",
+    "title": ".manga-card-title",
+    "cover": ".manga-cover-img@src"
+   },
+   "has_next": {
+    "exists": ".next.page-numbers"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}&post_type=manga",
+   "request_by_page": {
+    "1": "{base}/?s={query}&post_type=manga"
+   },
+   "items": ".manga-grid .manga-card",
+   "fields": {
+    "url": ".manga-card-link@href",
+    "title": ".manga-card-title",
+    "cover": ".manga-cover-img@src"
+   },
+   "has_next": {
+    "exists": ".next.page-numbers"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".manga-title",
+    "author": {
+     "path": ".author-line",
+     "regex": "(?:Author:)?\\s*(.*)$",
+     "group": 1
+    },
+    "description": ".summary-content",
+    "genres": {
+     "path": ".genre-tag",
+     "all": true,
+     "join": ", "
+    },
+    "cover": ".manga-cover-img@src"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".chapters-list .chapter-item",
+   "fields": {
+    "url": "@href",
+    "name": ".chapter-title",
+    "date": ".chapter-date"
+   },
+   "date_format": "relative",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".reader-page img",
+   "image": [
+    "@src",
+    "@data-src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Eigenes WordPress-Theme; Listen /manga/?orderby=views|modified, Suche ?s=…&post_type=manga wie Community.",
+  "Kapiteldatum relativ ('2 days ago')."
+ ]
+}

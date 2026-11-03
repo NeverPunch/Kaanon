@@ -23,7 +23,139 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/api/manga/browse?page={page}&sort=Most%20Popular",
+   "format": "json",
+   "items": "data",
+   "page_size": 10,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/manga/browse?page={page}",
+   "format": "json",
+   "items": "data",
+   "page_size": 10,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   }
+  },
+  "search": {
+   "request": "{base}/api/manga/browse?search={query}&page={page}",
+   "format": "json",
+   "items": "data",
+   "page_size": 10,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   }
+  },
+  "details": {
+   "request": "{base}/api/manga/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "coverUrl",
+    "description": "description",
+    "author": "author",
+    "artist": "artist",
+    "genres": {
+     "path": [
+      "genres.*",
+      "type"
+     ],
+     "union": true
+    },
+    "status": "status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/manga/{u.slug}/chapters?limit=100&page={page}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "items": "chapters",
+   "paging": {
+    "has_next": {
+     "min": 100
+    },
+    "max_pages": 50
+   },
+   "fields": {
+    "url": {
+     "path": "chapterNumber",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "/manga/{u.slug}/chapter-{value}"
+    },
+    "name": {
+     "path": "chapterNumber",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "Chapter {value}[[ - {f.title}]]"
+    },
+    "number": "chapterNumber",
+    "date": "createdAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api/manga/{u.slug}/chapter/{u.n}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)/",
+    "n": "/chapter-([^/?#]+)"
+   },
+   "items": "images",
+   "image": ""
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "JSON-API /api/manga/browse wie Community (Beliebt sort=Most Popular, Neueste ohne sort, Suche search=…). Community: weiter solange page < totalPages – die Antwort enthält laut DTO keine Seitennummer, daher hier 'full' mit vorsichtigem page_size 10 (echte Seitengröße unbekannt; im schlechtesten Fall eine leere Zusatzanfrage). Statusfilter nicht übernommen.",
+  "Manga-URL /manga/<slug> (Community speichert nur den Slug, Web-URL identisch).",
+  "Kapitel: /api/manga/<slug>/chapters?limit=100&page=n, weiter solange 100 Einträge (Community: bis totalPages). Nummer ohne '.0' wie Community.",
+  "Seiten: /api/manga/<slug>/chapter/<nummer>, Liste images."
+ ]
 }

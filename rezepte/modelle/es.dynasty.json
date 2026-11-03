@@ -1,0 +1,179 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Dynasty",
+  "sprache": "es",
+  "base_url": "https://manhuako.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.dynasty",
+  "quellen": [
+   {
+    "name": "Dynasty",
+    "sprache": "es",
+    "quell_id": 1788469981763672104,
+    "home": "https://manhuako.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/dynasty",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "application/json, text/plain, */*",
+   "Referer": "{base}/"
+  },
+  "popular": {
+   "request": "{base}/api/mangas?page={page}&limit=20&sort=popular",
+   "format": "json",
+   "items": "data",
+   "skip": {
+    "path": "type",
+    "regex": "(?i)novel"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": "cover_image"
+   },
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   }
+  },
+  "latest": {
+   "request": "{base}/api/mangas?page={page}&limit=20&sort=newest",
+   "format": "json",
+   "items": "data",
+   "skip": {
+    "path": "type",
+    "regex": "(?i)novel"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": "cover_image"
+   },
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   }
+  },
+  "search": {
+   "request": "{base}/api/mangas?page={page}&limit=20&search={query}",
+   "format": "json",
+   "items": "data",
+   "skip": {
+    "path": "type",
+    "regex": "(?i)novel"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": "cover_image"
+   },
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   }
+  },
+  "details": {
+   "request": "{base}/api/mangas/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "#(\\d+)$"
+   },
+   "fields": {
+    "title": [
+     "data.title",
+     "title"
+    ],
+    "cover": [
+     "data.cover_image",
+     "cover_image"
+    ],
+    "description": [
+     "data.description",
+     "description"
+    ],
+    "author": [
+     "data.author",
+     "author"
+    ],
+    "artist": [
+     "data.artist",
+     "artist"
+    ],
+    "genres": [
+     "data.type",
+     "type"
+    ],
+    "status": [
+     "data.status",
+     "status"
+    ]
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/chapters/paginated?manga_id={u.id}&page={page}&limit=100&sort=desc",
+   "format": "json",
+   "url_vars": {
+    "id": "#(\\d+)$"
+   },
+   "items": "chapters",
+   "page_size": 100,
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/api/chapter-pages?chapter_id={value}"
+    },
+    "name": {
+     "path": "number",
+     "template": "Capítulo {value}[[ - {f.title}]]"
+    },
+    "number": "number",
+    "date": "created_at"
+   },
+   "date_format": "iso",
+   "paging": {
+    "has_next": {
+     "full": true
+    },
+    "max_pages": 50
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "json",
+   "items": "$",
+   "image": "image_url"
+  }
+ },
+ "hinweise": [
+  "JSON-API von manhuako.net (/api/mangas, /api/chapters/paginated, /api/chapter-pages) wie Community.",
+  "Manga-URL /manga/<slug>#<id> (Community speichert 'id|slug'); Kapitel-URL = API-Adresse der Seitenliste (wie Community getChapterUrl).",
+  "Nächste Listenseite: Community vergleicht die Seitennummer mit totalPages (die Antwort enthält keine aktuelle Seite); hier 'weiter solange 20 Einträge' – übersprungene Novels könnten das Ende zu früh melden, auf dem PC prüfen.",
+  "Novels werden übersprungen. Community sortiert jede Listenseite zusätzlich lokal (Aufrufe/Datum) – hier Server-Reihenfolge.",
+  "Kapitel: Seiten zu 100, weiter solange voll (Community: bis totalPages). Name 'Capítulo N - Titel'; Nummern ggf. mit '.0'. Titel 'null' wird nicht gefiltert.",
+  "Genre/Sortierfilter nicht übernommen."
+ ]
+}

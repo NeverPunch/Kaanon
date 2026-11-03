@@ -1,0 +1,142 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Lelscan",
+  "sprache": "fr",
+  "base_url": "https://lelscans.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.lelscan",
+  "quellen": [
+   {
+    "name": "Lelscan",
+    "sprache": "fr",
+    "quell_id": 8620544519921042006,
+    "home": "https://lelscans.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/lelscan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/lecture-en-ligne-one-piece",
+   "items": "#navigation select:nth-of-type(1) option",
+   "fields": {
+    "url": "@value",
+    "title": "@ownText",
+    "cover": {
+     "path": "@value",
+     "regex": "/lecture-(?:en-ligne|ligne)-([^/]+?)(?:\\.php)?/?$",
+     "group": 1,
+     "template": "{base}/mangas/{value}/thumb_cover.jpg"
+    }
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/lecture-en-ligne-one-piece",
+   "items": "#navigation select:nth-of-type(1) option",
+   "fields": {
+    "url": "@value",
+    "title": "@ownText",
+    "cover": {
+     "path": "@value",
+     "regex": "/lecture-(?:en-ligne|ligne)-([^/]+?)(?:\\.php)?/?$",
+     "group": 1,
+     "template": "{base}/mangas/{value}/thumb_cover.jpg"
+    }
+   },
+   "has_next": {
+    "const": false
+   },
+   "client_filter": true
+  },
+  "latest": {
+   "request": "{base}/lecture-en-ligne-one-piece",
+   "items": "#main_hot_ul li:has(a.hot_manga_img)",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a.hot_manga_img@href",
+    "title": {
+     "path": "a.hot_manga_img@title",
+     "replace": [
+      [
+       " Scan$",
+       ""
+      ]
+     ]
+    },
+    "cover": "a.hot_manga_img img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "path": "#header-image h2 div span[itemprop=title]:matchesOwn(^Lecture en ligne )",
+     "replace": [
+      [
+       "^Lecture en ligne ",
+       ""
+      ]
+     ]
+    },
+    "cover": {
+     "path": "meta[property=og:image]@content",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://lelscans.net/"
+      ]
+     ]
+    }
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#navigation select:nth-of-type(2) option",
+   "fields": {
+    "url": "@value",
+    "name": {
+     "path": "@ownText",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "Chapitre {value}"
+    },
+    "number": "@ownText"
+   }
+  },
+  "pages": {
+   "request": "{abs_url}/1",
+   "items": "#navigation select:nth-of-type(3) option",
+   "image": "@value",
+   "subpage": {
+    "request": {
+     "url": "{url}"
+    },
+    "format": "html",
+    "image": "#image img@src"
+   }
+  }
+ },
+ "hinweise": [
+  "Kein Katalog-Endpunkt: wie Community dient die Leseseite /lecture-en-ligne-one-piece als Katalog (1. Auswahlliste in #navigation = alle Serien), Neueste = #main_hot_ul. Suche lokal (client_filter).",
+  "Die Community nimmt die 1./2./3. <select> in #navigation per Index; hier :nth-of-type(n) – setzt voraus, dass die Auswahllisten Geschwister sind. Auf dem PC prüfen.",
+  "Cover in der Liste aus dem Pfad abgeleitet (/mangas/<slug>/thumb_cover.jpg) wie Community. Keine Kapiteldaten, kein Status.",
+  "Seiten: jede Bildseite ist eine eigene HTML-Seite (3. Auswahlliste der Kapitelseite …/1), Bild #image img (subpage)."
+ ]
+}

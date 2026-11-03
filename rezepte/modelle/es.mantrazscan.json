@@ -1,0 +1,104 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Mantraz Scan",
+  "sprache": "es",
+  "base_url": "https://mantrazscanss.lat",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.mantrazscan",
+  "quellen": [
+   {
+    "name": "Mantraz Scan",
+    "sprache": "es",
+    "quell_id": 7172992930543738693,
+    "home": "https://mantrazscanss.lat"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/mantrazscan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.60",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+  },
+  "popular": {
+   "request": "{base}/explorar/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/explorar/"
+   },
+   "items": "div.s-card:has(a.s-card-imglink):has(a.s-card-title)",
+   "fields": {
+    "url": "a.s-card-imglink@href",
+    "title": "a.s-card-title",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a.next, a[rel=next], a[href*=/explorar/page/]:containsOwn(Siguiente), a[href*=/explorar/page/]:containsOwn(›), a[href*=/explorar/page/]:containsOwn(»)"
+   }
+  },
+  "search": {
+   "request": "{base}/explorar/page/{page}/?q={query}",
+   "request_by_page": {
+    "1": "{base}/explorar/?q={query}"
+   },
+   "items": "div.s-card:has(a.s-card-imglink):has(a.s-card-title)",
+   "fields": {
+    "url": "a.s-card-imglink@href",
+    "title": "a.s-card-title",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a.next, a[rel=next], a[href*=/explorar/page/]:containsOwn(Siguiente), a[href*=/explorar/page/]:containsOwn(›), a[href*=/explorar/page/]:containsOwn(»)"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "cover": ".series-cover img@src",
+    "genres": {
+     "path": "a.genre-tag",
+     "all": true,
+     "join": ", "
+    },
+    "description": ".series-desc"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a.ch-row[href*=capitulo-]",
+   "fields": {
+    "url": "@href",
+    "name": {
+     "path": "@href",
+     "regex": "capitulo-([0-9]+(?:\\.[0-9]+)?)",
+     "group": 1,
+     "template": "Capítulo {value}"
+    },
+    "number": {
+     "path": "@href",
+     "regex": "capitulo-([0-9]+(?:\\.[0-9]+)?)",
+     "group": 1
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "items": "(https://[^\"\\\\ ]+/WP-manga/[^\"\\\\ ]+\\.(?:webp|WEBP|jpg|JPG|jpeg|JPEG|png|PNG))",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "Die Website hat nur eine Liste (nach Aktualisierung sortiert) → nur Beliebt, wie Community (kein Neu-Tab). Genre-Filter nicht übernommen.",
+  "Nächste Seite: Community prüft a[href*=/explorar/page/<n+1>/]; nicht ausdrückbar → allgemeine Weiter-Link-Selektoren (unsicher).",
+  "Kapitel: a.ch-row, Nummer aus 'capitulo-N'. Datum stammt in der Community aus Next.js-Daten (Map Nummer → Zeitstempel) – nicht ausdrückbar, daher ohne Datum. Dubletten-Entfernung und Sortierung nach Nummer nicht übernommen (Reihenfolge der Seite).",
+  "Seiten: Regex der Community über das ganze HTML (URLs mit /WP-manga/). Die Community entfernt doppelte URLs – hier nicht möglich, Bilder können doppelt erscheinen (z. B. in img und Next.js-Daten). Beim Test prüfen."
+ ]
+}

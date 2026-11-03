@@ -1,0 +1,145 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HeavenManga",
+  "sprache": "es",
+  "base_url": "https://heavenmanga.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.heavenmanga",
+  "quellen": [
+   {
+    "name": "HeavenManga",
+    "sprache": "es",
+    "quell_id": 1872740333369520717,
+    "home": "https://heavenmanga.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/heavenmanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "items": "div.page-item-detail",
+   "has_next": {
+    "exists": "ul.pagination a[rel=next]"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "div.manga-name",
+    "cover": "img@src"
+   },
+   "request": "{base}/top?orderby=views&pages={page}"
+  },
+  "latest": {
+   "request": "{base}/?pages={page}",
+   "items": "div.col-lg-8 > div#loop-content div.list-group-item:not(:has(div:containsOwn(Novela)))",
+   "has_next": {
+    "exists": "ul.pagination a[rel=next]"
+   },
+   "fields": {
+    "url": {
+     "path": "a@href",
+     "regex": "^(.*)/[^/]*$",
+     "group": 1
+    },
+    "title": [
+     "a .captitle",
+     "a"
+    ],
+    "cover": {
+     "path": "a@href",
+     "regex": "^(.*)/[^/]*$",
+     "group": 1,
+     "replace": [
+      [
+       "/manga/",
+       "/uploads/manga/"
+      ]
+     ],
+     "template": "{value}/cover/cover_250x350.jpg"
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/buscar?query={query}&pages={page}",
+   "items": "div.c-tabs-item__content",
+   "has_next": {
+    "exists": "ul.pagination a[rel=next]"
+   },
+   "fields": {
+    "url": "h4 a@href",
+    "title": "h4 a",
+    "cover": "img@data-src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "cover": "div.tab-summary div.summary_image img@data-src",
+    "genres": {
+     "path": "div.tab-summary div.genres-content a",
+     "all": true,
+     "join": ", "
+    },
+    "description": {
+     "path": "div.description-summary p",
+     "all": true,
+     "join": "\n"
+    }
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{abs_url}?columns%5B0%5D%5Bdata%5D=number&columns%5B0%5D%5Borderable%5D=true&columns%5B1%5D%5Bdata%5D=created_at&columns%5B1%5D%5Bsearchable%5D=true&order%5B0%5D%5Bcolumn%5D=1&order%5B0%5D%5Bdir%5D=desc&start=0&length=10000",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "{url}/{value}#{f.id}"
+    },
+    "name": {
+     "path": "slug",
+     "template": "Capítulo: {value}"
+    },
+    "number": "slug",
+    "date": "created_at"
+   },
+   "date_format": "yyyy-MM-dd HH:mm:ss"
+  },
+  "pages": {
+   "request": "{base}/manga/leer/{u.cid}",
+   "url_vars": {
+    "cid": "#(\\d+)$"
+   },
+   "format": "text",
+   "block_regex": "pUrl\\s*=\\s*(\\[[\\s\\S]*?\\])\\s*;",
+   "items": "imgURL[\"']?\\s*:\\s*[\"']([^\"']+)[\"']",
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "\\\\/",
+      "/"
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "Neu: Startseite (?pages=N), Romane (div:containsOwn(Novela)) ausgeschlossen; Manga-URL = Kapitel-Link ohne letzten Pfadteil, Cover aus der URL gebaut (/uploads/manga/<slug>/cover/cover_250x350.jpg) wie Community; Dubletten (mehrere Kapitel derselben Serie) entfernt die Community, hier nicht.",
+  "Suche: Website verlangt mindestens 3 Zeichen (Community bricht vorher mit Meldung ab). Filter (Genre/Alphabet/Listen) nicht übernommen.",
+  "Details: Titel bleibt aus der Liste (Community setzt keinen Titel). Kapitel per DataTables-JSON (?columns…&length=10000, X-Requested-With) von der Manga-URL; Kapitel-URL = <Manga-URL>/<slug>#<id> (setzt Manga-URL ohne '/' am Ende voraus). Community sortiert zusätzlich nach Nummer absteigend; hier Reihenfolge der API (created_at absteigend).",
+  "Seiten: /manga/leer/<id>, Bild-URLs per Regex aus dem Skript-Array pUrl (imgURL)."
+ ]
+}

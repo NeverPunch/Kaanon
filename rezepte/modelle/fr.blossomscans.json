@@ -1,0 +1,306 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Blossom Scans",
+  "sprache": "fr",
+  "base_url": "https://blossom-scans.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.blossomscans",
+  "quellen": [
+   {
+    "name": "Blossom Scans",
+    "sprache": "fr",
+    "quell_id": 5819845963401393451,
+    "home": "https://blossom-scans.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/blossomscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/api/series?page={page}&limit=36&sort=popularity",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/serie/{value}"
+    },
+    "title": "title",
+    "cover": [
+     {
+      "path": "cover",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "cover",
+      "regex": "^(/.*)$",
+      "group": 1,
+      "template": "{base}{value}"
+     },
+     {
+      "path": "cover",
+      "template": "{base}/{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "lt": [
+     "pagination.page",
+     "pagination.totalPages"
+    ]
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/api/series?page={page}&limit=36&sort=recents",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/serie/{value}"
+    },
+    "title": "title",
+    "cover": [
+     {
+      "path": "cover",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "cover",
+      "regex": "^(/.*)$",
+      "group": 1,
+      "template": "{base}{value}"
+     },
+     {
+      "path": "cover",
+      "template": "{base}/{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "lt": [
+     "pagination.page",
+     "pagination.totalPages"
+    ]
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/series?page={page}&limit=36&sort=popularity&search={query}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/serie/{value}"
+    },
+    "title": "title",
+    "cover": [
+     {
+      "path": "cover",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "cover",
+      "regex": "^(/.*)$",
+      "group": 1,
+      "template": "{base}{value}"
+     },
+     {
+      "path": "cover",
+      "template": "{base}/{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "lt": [
+     "pagination.page",
+     "pagination.totalPages"
+    ]
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{base}/api/series/{u.slug}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/serie/([^/?#]+)"
+   },
+   "fields": {
+    "title": "title",
+    "cover": [
+     {
+      "path": "cover",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "cover",
+      "regex": "^(/.*)$",
+      "group": 1,
+      "template": "{base}{value}"
+     },
+     {
+      "path": "cover",
+      "template": "{base}/{value}"
+     }
+    ],
+    "description": "synopsis",
+    "author": "author",
+    "artist": "artist",
+    "genres": {
+     "path": "genres.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "slug": "/serie/([^/?#]+)"
+   },
+   "items": "chapters",
+   "skip": {
+    "any": [
+     {
+      "path": "freeAt",
+      "is_future": "iso"
+     },
+     {
+      "const": "{f.isPremium}:[[{f.freeAt}]]",
+      "regex": "^(true:)$"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "pages",
+     "replace": [
+      [
+       "^\\s*\\[\\s*",
+       ""
+      ],
+      [
+       "\\s*\\]\\s*$",
+       ""
+      ],
+      [
+       "\"\\s*,\\s*\"",
+       ","
+      ],
+      [
+       "\"",
+       ""
+      ]
+     ],
+     "template": "/serie/{u.slug}/chapitre/{f.number}#{value}"
+    },
+    "name": {
+     "path": "number",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "Chapitre {value}[[ - {f.title}]]"
+    },
+    "number": "number",
+    "date": "publishedAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "{base}/api/series/{u.slug}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/serie/([^/?#]+)",
+    "liste": "#(.+)$"
+   },
+   "inner": {
+    "value": {
+     "const": "{u.liste}",
+     "replace": [
+      [
+       ",",
+       "\",\""
+      ]
+     ],
+     "template": "[\"{value}\"]"
+    },
+    "format": "json",
+    "items": "$",
+    "image": [
+     {
+      "path": "",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "",
+      "regex": "^(/.*)$",
+      "group": 1,
+      "template": "{base}{value}"
+     },
+     {
+      "path": "",
+      "template": "{base}/{value}"
+     }
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "JSON-API /api/series (page, limit=36, sort=popularity|recents, search) und /api/series/<slug> (Details inkl. aller Kapitel mit Bildliste im Feld 'pages' als JSON-Text).",
+  "Die Community sucht die Bilder beim Lesen erneut in /api/series/<slug> per chapterId – ein Filter mit Platzhalter ist nicht belegt. Deshalb trägt die Kapitel-URL die Bildliste im Fragment: /serie/<slug>/chapitre/<nummer>#<bild1>,<bild2>,… (Kommas in Bildpfaden würden stören); Seiten bauen daraus wie en.hentaikisu eine JSON-Liste (inner/const). Ändert die Website die Bilder, ändert sich die Kapitel-URL.",
+  "Kapitelnummer in der URL roh aus 'number' (evtl. '12.0'); Community-URL ist nur die chapterId – nicht kompatibel.",
+  "Premium-Kapitel (isPremium und freeAt fehlt/in der Zukunft) werden übersprungen (Community-Standard), Muster aus en.webdexscans.",
+  "Relative Bild-/Coverpfade: '/…' → Basis + Pfad, sonst Basis + '/' + Pfad. Genre-/Statusfilter nicht nachgebaut."
+ ]
+}

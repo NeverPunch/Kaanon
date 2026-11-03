@@ -1,0 +1,187 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "LectorManga.lat",
+  "sprache": "es",
+  "base_url": "https://lector-mangas.lat",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.lectormangalat",
+  "quellen": [
+   {
+    "name": "LectorManga.lat",
+    "sprache": "es",
+    "quell_id": 7178038133263703638,
+    "home": "https://lector-mangas.lat"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/lectormangalat",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Accept": "application/json, text/plain, */*"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://api.zerocomics.net/api/series?sort=views&page={page}",
+   "format": "json",
+   "items": "data",
+   "skip": {
+    "path": "slug",
+    "regex": "^$"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comics/{value}"
+    },
+    "title": "titulo",
+    "cover": "portada"
+   },
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.last_page"
+    ]
+   }
+  },
+  "latest": {
+   "request": "https://api.zerocomics.net/api/series?page={page}",
+   "format": "json",
+   "items": "data",
+   "skip": {
+    "path": "slug",
+    "regex": "^$"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comics/{value}"
+    },
+    "title": "titulo",
+    "cover": "portada"
+   },
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.last_page"
+    ]
+   }
+  },
+  "search": {
+   "request": "https://api.zerocomics.net/api/series?q={query}&page={page}",
+   "format": "json",
+   "items": "data",
+   "skip": {
+    "path": "slug",
+    "regex": "^$"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comics/{value}"
+    },
+    "title": "titulo",
+    "cover": "portada"
+   },
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.last_page"
+    ]
+   }
+  },
+  "details": {
+   "request": "https://api.zerocomics.net/api/series/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/comics/([^/#?]+)"
+   },
+   "let": {
+    "syn": "data.sinopsis",
+    "alt": "data.titulo_alternativo",
+    "grp": "data.grupo.nombre",
+    "tipo": "data.tipo",
+    "gen": {
+     "path": "data.generos.*",
+     "all": true,
+     "join": ", "
+    }
+   },
+   "fields": {
+    "title": "data.titulo",
+    "cover": "data.portada",
+    "description": {
+     "const": "{l.syn}[[\n\nNombres alternativos: {l.alt}]][[\n\nGrupo: {l.grp}]]",
+     "replace": [
+      [
+       "^\\n+",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "const": "[[{l.tipo}]][[, {l.gen}]]",
+     "replace": [
+      [
+       "^, ",
+       ""
+      ]
+     ]
+    },
+    "status": "data.estado"
+   },
+   "status_map": {
+    "en emisión": 1,
+    "finalizado": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "slug": "/comics/([^/#?]+)"
+   },
+   "items": "data.capitulos",
+   "fields": {
+    "url": {
+     "path": "numero",
+     "template": "/comics/{u.slug}/capitulo-{value}#{f.id}"
+    },
+    "name": {
+     "path": "numero",
+     "template": "Capítulo {value}[[ - {f.titulo}]]"
+    },
+    "number": "numero",
+    "date": "publicado_en"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://api.zerocomics.net/api/capitulos/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "#(\\d+)$"
+   },
+   "items": "data.paginas",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "JSON-API api.zerocomics.net (/series, /series/{slug}, /capitulos/{id}) wie Community.",
+  "Manga-URL /comics/<slug> (Community: ID + slug im memo); Kapitel-URL /comics/<slug>/capitulo-<n>#<id> – die ID hinter '#' dient der Seitenabfrage.",
+  "Einträge ohne slug werden übersprungen (wie Community). Fehlt 'meta', gibt es keine nächste Seite (wie Community).",
+  "Genres: tipo + generos.",
+  "Sortier-/Statusfilter nicht übernommen."
+ ]
+}

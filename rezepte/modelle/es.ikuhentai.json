@@ -1,0 +1,140 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Ikuhentai",
+  "sprache": "es",
+  "base_url": "https://ikuhentai.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.ikuhentai",
+  "quellen": [
+   {
+    "name": "Ikuhentai",
+    "sprache": "es",
+    "quell_id": 7567013997438852760,
+    "home": "https://ikuhentai.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/ikuhentai",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/page/{page}/?s=&post_type=wp-manga&m_orderby=views",
+   "request_by_page": {
+    "1": "{base}/?s=&post_type=wp-manga&m_orderby=views"
+   },
+   "items": "div.page-listing-item .page-item-detail, div.c-tabs-item__content",
+   "fields": {
+    "url": "div.item-thumb > a, div.tab-thumb > a@href",
+    "title": [
+     "div.item-thumb > a, div.tab-thumb > a@title",
+     "div.item-thumb > a, div.tab-thumb > a"
+    ],
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "a.nextpostslink, div.nav-previous > a"
+   }
+  },
+  "latest": {
+   "request": "{base}/page/{page}/?s=&post_type=wp-manga&m_orderby=latest",
+   "request_by_page": {
+    "1": "{base}/?s=&post_type=wp-manga&m_orderby=latest"
+   },
+   "items": "div.page-listing-item .page-item-detail, div.c-tabs-item__content",
+   "fields": {
+    "url": "div.item-thumb > a, div.tab-thumb > a@href",
+    "title": [
+     "div.item-thumb > a, div.tab-thumb > a@title",
+     "div.item-thumb > a, div.tab-thumb > a"
+    ],
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "a.nextpostslink, div.nav-previous > a"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}&post_type=wp-manga",
+   "request_by_page": {
+    "1": "{base}/?s={query}&post_type=wp-manga"
+   },
+   "items": "div.page-listing-item .page-item-detail, div.c-tabs-item__content",
+   "fields": {
+    "url": "div.item-thumb > a, div.tab-thumb > a@href",
+    "title": [
+     "div.item-thumb > a, div.tab-thumb > a@title",
+     "div.item-thumb > a, div.tab-thumb > a"
+    ],
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "a.nextpostslink, div.nav-previous > a"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "author": "div.site-content div.author-content",
+    "artist": "div.site-content div.artist-content",
+    "genres": {
+     "path": "div.site-content div.genres-content a",
+     "all": true,
+     "join": ", "
+    },
+    "status": "div.post-content_item:has(h5:contains(Estado)) div.summary-content",
+    "description": "div.description-summary",
+    "cover": "div.summary_image img@img"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "en emisión": 1,
+    "en emision": 1,
+    "emisión": 1,
+    "emision": 1,
+    "completado": 2,
+    "finalizado": 2
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}{u.path}/ajax/chapters/",
+    "method": "POST",
+    "form": {}
+   },
+   "url_vars": {
+    "path": "^(/[^?#]*?)/?$"
+   },
+   "items": "li.wp-manga-chapter",
+   "fields": {
+    "url": {
+     "path": "a@href",
+     "regex": "^([^?#]*)",
+     "group": 1,
+     "template": "{value}?style=list"
+    },
+    "name": "a",
+    "date": "span.chapter-release-date i"
+   },
+   "date_format": "MMMM d, yyyy",
+   "date_locale": "es"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.reading-content * img",
+   "image": "@img"
+  }
+ },
+ "hinweise": [
+  "Madara-ähnliche WordPress-Seite ohne Baukasten in der Community: Listen über ?s=&post_type=wp-manga&m_orderby=views|latest, Kapitel per POST <manga>/ajax/chapters/ wie Community.",
+  "Kapitel-URL mit ?style=list (Community ersetzt den style-Parameter; hier wird die Query vorher abgeschnitten).",
+  "Status: Community sucht Teilwörter (emisión/completado/finalizado); hier status_map mit den üblichen Vollformen – auf dem PC prüfen.",
+  "Autor-/Jahr-/Status-/Genre-Filter nicht übernommen."
+ ]
+}

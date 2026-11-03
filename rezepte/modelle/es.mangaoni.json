@@ -1,0 +1,140 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaOni",
+  "sprache": "es",
+  "base_url": "https://manga-oni.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.mangaoni",
+  "quellen": [
+   {
+    "name": "MangaOni",
+    "sprache": "es",
+    "quell_id": 2202687009511923782,
+    "home": "https://manga-oni.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/mangamx",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/directorio?genero=false&estado=false&filtro=visitas&tipo=false&adulto=false&orden=desc&p={page}",
+   "items": "#article-div a",
+   "fields": {
+    "url": "@href",
+    "title": "div:eq(1)",
+    "cover": "img@data-src"
+   },
+   "has_next": {
+    "exists": "ul.pagination a[rel=next]"
+   }
+  },
+  "latest": {
+   "request": "{base}/recientes?p={page}",
+   "items": "div._1bJU3:has(a[data-test=latest-update-name])",
+   "fields": {
+    "url": "a[data-test=latest-update-name]@href",
+    "title": "a[data-test=latest-update-name]",
+    "cover": "img@data-src"
+   },
+   "has_next": {
+    "exists": "ul.pagination a[rel=next]"
+   }
+  },
+  "search": {
+   "request": "{base}/buscar?q={query}&p={page}",
+   "items": "#article-div > div",
+   "fields": {
+    "url": "a@href",
+    "title": "a:matches(\\S)",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "ul.pagination a[rel=next]"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "cover": "img[src*=cover]@src",
+    "description": "div#sinopsis@ownText",
+    "author": {
+     "path": "div#info-i",
+     "regex": "Autor:\\s*(.*?)\\s*(?:Fecha:|$)",
+     "group": 1
+    },
+    "artist": {
+     "path": "div#info-i",
+     "regex": "Autor:\\s*(.*?)\\s*(?:Fecha:|$)",
+     "group": 1
+    },
+    "genres": {
+     "path": "div#categ a",
+     "all": true,
+     "join": ", "
+    },
+    "status": "strong:contains(Estado) + span"
+   },
+   "status_map": {
+    "en desarrollo": 1,
+    "En desarrollo": 1,
+    "finalizado": 2,
+    "Finalizado": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div#c_list a",
+   "fields": {
+    "url": "@href",
+    "name": "",
+    "number": "span@data-num",
+    "date": "span@datetime"
+   },
+   "date_format": "yyyy-MM-dd HH:mm:ss"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "let": {
+    "dec": {
+     "path": "script:containsData(unicap)@html",
+     "regex": "'((?:[A-Za-z0-9+/=]{4}){8,})",
+     "group": 1,
+     "decode": "base64"
+    },
+    "pth": {
+     "const": "{l.dec}",
+     "regex": "^(.*?)\\|\\|",
+     "group": 1
+    }
+   },
+   "inner": {
+    "value": {
+     "const": "{l.dec}",
+     "regex": "(\\[[^\\]]*\\])",
+     "group": 1
+    },
+    "format": "json",
+    "items": "$",
+    "image": {
+     "path": "",
+     "template": "{l.pth}{value}"
+    }
+   }
+  }
+ },
+ "hinweise": [
+  "HTML-Website (MangaOni, früher MangaMX). Beliebt = Verzeichnis nach Aufrufen mit adulto=false (Community-Standard: +18 nicht ausblenden).",
+  "Seiten: Skript mit 'unicap' enthält Base64 (Website liefert es selbst); Community schneidet den Rest (Länge mod 4) ab – hier per Regex nur volle 4er-Blöcke. Dekodiert: '<pfad>||[\"datei\",…]'; Bild = Pfad + Datei.",
+  "Beschreibung: Community nimmt das letzte div#sinopsis; hier das erste (meist nur eines).",
+  "Autor 'N/A', wenn kein 'Autor' gefunden wird (Community) – hier leer. Filter nicht übernommen."
+ ]
+}

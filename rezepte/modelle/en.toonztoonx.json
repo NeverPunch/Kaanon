@@ -5,7 +5,7 @@
   "name": "Toonz/Toonx",
   "sprache": "en",
   "base_url": "https://toonz.to",
-  "nsfw": false,
+  "nsfw": true,
   "paket": "eu.kanade.tachiyomi.extension.en.kaanon.toonztoonx",
   "quellen": [
    {
@@ -29,7 +29,203 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/comics?sort=popular&page={page}",
+   "items": [
+    "a[href]:has(img[data-cover])",
+    "*:has(> a[href]):has(img[data-cover])"
+   ],
+   "fields": {
+    "url": {
+     "path": [
+      "@href",
+      "a[href]@href"
+     ],
+     "regex": "^(?:https?://[^/]+)?(/[^/?#]+/[^/?#]+)",
+     "group": 1,
+     "replace": [
+      [
+       "^/manhua/",
+       "/manhwa/"
+      ],
+      [
+       "^/comic/",
+       "/adult/"
+      ]
+     ]
+    },
+    "title": "img[data-cover]@alt",
+    "cover": "img[data-cover]@src"
+   },
+   "has_next": {
+    "exists": "a[rel=next], a[aria-label*=Next], a[aria-label*=next], a[href*=\"page=\"]:containsOwn(Next), a[href*=\"page=\"]:containsOwn(›), a[href*=\"page=\"]:containsOwn(»)"
+   }
+  },
+  "latest": {
+   "request": "{base}/comics?sort=latest&page={page}",
+   "items": [
+    "a[href]:has(img[data-cover])",
+    "*:has(> a[href]):has(img[data-cover])"
+   ],
+   "fields": {
+    "url": {
+     "path": [
+      "@href",
+      "a[href]@href"
+     ],
+     "regex": "^(?:https?://[^/]+)?(/[^/?#]+/[^/?#]+)",
+     "group": 1,
+     "replace": [
+      [
+       "^/manhua/",
+       "/manhwa/"
+      ],
+      [
+       "^/comic/",
+       "/adult/"
+      ]
+     ]
+    },
+    "title": "img[data-cover]@alt",
+    "cover": "img[data-cover]@src"
+   },
+   "has_next": {
+    "exists": "a[rel=next], a[aria-label*=Next], a[aria-label*=next], a[href*=\"page=\"]:containsOwn(Next), a[href*=\"page=\"]:containsOwn(›), a[href*=\"page=\"]:containsOwn(»)"
+   }
+  },
+  "search": {
+   "request": "{base}/search?q={query}&page={page}",
+   "items": [
+    "a[href]:has(img[data-cover])",
+    "*:has(> a[href]):has(img[data-cover])"
+   ],
+   "fields": {
+    "url": {
+     "path": [
+      "@href",
+      "a[href]@href"
+     ],
+     "regex": "^(?:https?://[^/]+)?(/[^/?#]+/[^/?#]+)",
+     "group": 1,
+     "replace": [
+      [
+       "^/manhua/",
+       "/manhwa/"
+      ],
+      [
+       "^/comic/",
+       "/adult/"
+      ]
+     ]
+    },
+    "title": "img[data-cover]@alt",
+    "cover": "img[data-cover]@src"
+   },
+   "has_next": {
+    "exists": "a[rel=next], a[aria-label*=Next], a[aria-label*=next], a[href*=\"page=\"]:containsOwn(Next), a[href*=\"page=\"]:containsOwn(›), a[href*=\"page=\"]:containsOwn(»)"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "cid": {
+     "path": "html@html",
+     "regex": "comicId[^:]*:(\\d+)",
+     "group": 1
+    }
+   },
+   "fields": {
+    "title": "h1",
+    "cover": [
+     "img[data-cover]@src",
+     "div.group img[src]@src"
+    ],
+    "description": [
+     "div.prose",
+     "meta[name=description]@content"
+    ],
+    "author": {
+     "path": "a[href^=/author/]",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "a[href^=/author/]",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "a[href^=/genre/]",
+     "all": true,
+     "join": ", "
+    },
+    "status": "dt:contains(Status) + dd"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "Ongoing": 1,
+    "completed": 2,
+    "Completed": 2
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/comics/{l.cid}/chapters",
+   "format": "json",
+   "items": "chapters",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "replace": [
+      [
+       "^chapter-",
+       ""
+      ]
+     ],
+     "template": "{url}/chapter/{value}"
+    },
+    "name": [
+     {
+      "path": "title",
+      "regex": "(?i)^((?:chapter|ch\\.).*)$",
+      "group": 1
+     },
+     {
+      "path": "chapterNumber",
+      "template": "Chapter {value}[[: {f.title}]]"
+     }
+    ],
+    "number": "chapterNumber",
+    "date": "date"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "block_regex": "(?s)\"images\":\\[(.*?)\\]",
+   "items": "\"filename\":\"/?([^\"]+)\"",
+   "image": {
+    "path": "",
+    "template": "{base}/uploads/{value}"
+   }
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Beide Quellen (Toonz, Toonx) mit demselben Modell; Toonx ist eine Erwachsenen-Seite, daher nsfw=true. Katalog-/Genre-/Sortierfilter nicht übernommen (Beliebt/Neu = /comics?sort=popular|latest).",
+  "Listen: Community nimmt alle img[data-cover] und sucht den nächsten Link (closest a / Element mit direktem a-Kind); hier Einträge = a:has(img[data-cover]), sonst Element mit direktem a-Kind (Annahme zur Struktur). Next.js-Stream-Chunks (div[hidden][id^=S:]) werden nicht umsortiert, nur mitdurchsucht.",
+  "URL-Normalisierung wie Community: /manhua/ → /manhwa/, /comic/ → /adult/.",
+  "Nächste Seite: Community prüft a[href*=page=<n+1>]; nicht ausdrückbar → allgemeine Weiter-Link-Selektoren (unsicher).",
+  "comicId aus dem Skript der Detailseite (Regex comicId[^:]*:(\\d+)), Kapitel aus /api/comics/<id>/chapters; Kapitel-URL = <Manga-URL>/chapter/<slug ohne 'chapter-'>. Name: Titel, wenn er mit Chapter/Ch. beginnt, sonst 'Chapter N[: Titel]' (Nummer roh, Community kürzt '.0').",
+  "Seiten: RSC-Antwort (Header rsc: 1), Dateinamen aus \"images\":[{filename}], Bild = {base}/uploads/<filename>. Community löscht zusätzlich das Cookie reader_prefs (nicht übernommen)."
+ ]
 }

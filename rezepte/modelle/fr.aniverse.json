@@ -1,0 +1,231 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Aniverse",
+  "sprache": "fr",
+  "base_url": "https://aniverse.fr",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.aniverse",
+  "quellen": [
+   {
+    "name": "Aniverse",
+    "sprache": "fr",
+    "quell_id": 4821794959228633650,
+    "home": "https://aniverse.fr"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/aniverse",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/api/anime/search?media=manga&sort=popularity&page={page}&pageSize=40",
+   "format": "json",
+   "items": "data",
+   "page_size": 40,
+   "has_next": {
+    "total": "total"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "image"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/manga?page={page}",
+   "format": "json",
+   "items": "items",
+   "has_next": {
+    "exists": "hasNextPage"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "image"
+   }
+  },
+  "search": {
+   "request": "{base}/api/anime/search?media=manga&q={query}&sort=popularity&page={page}&pageSize=40",
+   "format": "json",
+   "items": "data",
+   "page_size": 40,
+   "has_next": {
+    "total": "total"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "image"
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "fields": {
+    "title": {
+     "path": "",
+     "regex": "\"userPreferred\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "cover": {
+     "path": "",
+     "regex": "\"coverImage\":\\{[^{}]*?\"large\":\"([^\"]+)\"",
+     "group": 1
+    },
+    "description": {
+     "path": "",
+     "regex": "\"manga\":\\{\"[^\\n]*?\"description\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json",
+     "replace": [
+      [
+       "\\s*<br\\s*/?>\\s*",
+       "\n"
+      ]
+     ]
+    },
+    "author": {
+     "path": "",
+     "regex": "\"manga\":\\{\"[^\\n]*?\"authors\":\\[([^\\]]*)\\]",
+     "group": 1,
+     "replace": [
+      [
+       "\"\\s*,\\s*\"",
+       ", "
+      ],
+      [
+       "^\"|\"$",
+       ""
+      ]
+     ]
+    },
+    "artist": {
+     "path": "",
+     "regex": "\"manga\":\\{\"[^\\n]*?\"artists\":\\[([^\\]]*)\\]",
+     "group": 1,
+     "replace": [
+      [
+       "\"\\s*,\\s*\"",
+       ", "
+      ],
+      [
+       "^\"|\"$",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": "",
+     "regex": "\"manga\":\\{\"[^\\n]*?\"genres\":\\[([^\\]]*)\\]",
+     "group": 1,
+     "replace": [
+      [
+       "\"\\s*,\\s*\"",
+       ", "
+      ],
+      [
+       "^\"|\"$",
+       ""
+      ]
+     ]
+    },
+    "status": {
+     "path": "",
+     "regex": "\"status\":\"(RELEASING|FINISHED|HIATUS|CANCELLED|NOT_YET_RELEASED)\"",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "releasing": 1,
+    "finished": 2,
+    "hiatus": 6,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "items": "\\{(?=[^{}]*\"number\":\")(?=[^{}]*\"updatedAt\":)[^{}]*\\}",
+   "skip": {
+    "path": "",
+    "regex": "\"premiumUntil\":\"([^\"]+)\"",
+    "group": 1,
+    "is_future": "iso"
+   },
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"id\":\"([^\"]+)\"",
+     "group": 1,
+     "template": "/read/{u.slug}/{value}"
+    },
+    "name": {
+     "path": "",
+     "regex": "\"number\":\"([^\"]*)\"",
+     "group": 1,
+     "template": "Chapitre {value}"
+    },
+    "number": {
+     "path": "",
+     "regex": "\"number\":\"([0-9.]+)\"",
+     "group": 1
+    },
+    "date": {
+     "path": "",
+     "regex": "\"updatedAt\":\"([^\"]+)\"",
+     "group": 1
+    }
+   },
+   "date_format": "iso",
+   "reverse": true
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "block_regex": "(?s)\"pages\":\\[(.*?)\\]",
+   "items": "\"src\":\"([^\"]+)\"",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "Listen über die JSON-API wie Community: Beliebt/Suche /api/anime/search?media=manga&sort=popularity&pageSize=40 (weiter solange page*40 < total), Neueste /api/manga (hasNextPage). Filter nicht übernommen.",
+  "Details/Kapitel: Community liest die Next.js-Flight-Daten (extractNextJs) von /manga/<slug>; hier rsc:1-Abruf (wie en.drakescans) und Regex auf die Felder des manga-Objekts (userPreferred, coverImage.large, description, authors/artists/genres, status). Erstes Vorkommen gewinnt – auf dem PC prüfen.",
+  "Kapitel: Objekte mit number+updatedAt; URL /read/<slug>/<id>; Kapitel mit premiumUntil in der Zukunft ausgelassen (wie Community, Regel 0014); Kapiteltitel nicht übernommen (Name 'Chapitre <n>'). Reihenfolge umgedreht wie Community.",
+  "Seiten: rsc:1-Abruf der Leseseite, Block \"pages\":[…], Bild = src. Gesperrte Kapitel leiten auf /sign-in um (dann keine Seiten)."
+ ]
+}

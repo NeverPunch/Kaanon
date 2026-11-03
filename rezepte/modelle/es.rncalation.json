@@ -1,0 +1,171 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Rncalation",
+  "sprache": "es",
+  "base_url": "https://rncalation.online",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.rncalation",
+  "quellen": [
+   {
+    "name": "Rncalation",
+    "sprache": "es",
+    "quell_id": 2973017642163731007,
+    "home": "https://rncalation.online"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/nartag",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/library?sort=views&page={page}",
+   "items": ".lib-grid a.comic-card",
+   "skip": {
+    "path": "span.absolute.top-2.left-2",
+    "regex": "(?i)(novel)"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "p.leading-snug",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a.lib-page-btn--nav:last-child"
+   }
+  },
+  "latest": {
+   "request": "{base}/library?sort=updated&page={page}",
+   "items": ".lib-grid a.comic-card",
+   "skip": {
+    "path": "span.absolute.top-2.left-2",
+    "regex": "(?i)(novel)"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "p.leading-snug",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a.lib-page-btn--nav:last-child"
+   }
+  },
+  "search": {
+   "request": "{base}/library?page={page}&q={query}&sort=latest",
+   "items": ".lib-grid a.comic-card",
+   "skip": {
+    "path": "span.absolute.top-2.left-2",
+    "regex": "(?i)(novel)"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "p.leading-snug",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a.lib-page-btn--nav:last-child"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     "h1",
+     "meta[property=og:title]@content"
+    ],
+    "cover": "meta[property=og:image]@content",
+    "description": "div.comic-page-wrap p[class*=text-][^data-astro-cid]",
+    "status": {
+     "path": "span.inline-flex.items-center.rounded:matches((?i)(emisión|curso|ongoing|completado|completed|pausa|hiatus|cancelado|cancelled))",
+     "regex": "(?i)(emisión|curso|ongoing|completado|completed|pausa|hiatus|cancelado|cancelled)",
+     "group": 1
+    },
+    "genres": {
+     "path": "span.inline-flex.items-center.rounded:not(:matchesOwn((?i)^(emisión|completado|pausa|cancelado)$))",
+     "all": true,
+     "join": ", "
+    },
+    "author": [
+     ".flex.items-baseline.justify-between.gap-2:has(span:matchesOwn(^Autor$)) span:not(:matchesOwn(^Autor$))",
+     "a[href^='/groups/']"
+    ],
+    "artist": [
+     ".flex.items-baseline.justify-between.gap-2:has(span:matchesOwn(^Arte$)) span:not(:matchesOwn(^Arte$))",
+     "a[href^='/groups/']"
+    ]
+   },
+   "status_map": {
+    "emisión": 1,
+    "curso": 1,
+    "ongoing": 1,
+    "completado": 2,
+    "completed": 2,
+    "pausa": 6,
+    "hiatus": 6,
+    "cancelado": 5,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}/comics/{u.slug}/chapters?page={page}",
+   "url_vars": {
+    "slug": "/([^/?#]+)/?$"
+   },
+   "items": "a[data-chapter-id]",
+   "paging": {
+    "has_next": {
+     "min": 1
+    },
+    "max_pages": 30
+   },
+   "fields": {
+    "url": "@href",
+    "name": [
+     "@data-chapter-label",
+     {
+      "path": "@data-chapter-num",
+      "replace": [
+       [
+        "\\.0*$",
+        ""
+       ]
+      ],
+      "template": "Capítulo {value}"
+     }
+    ],
+    "number": "@data-chapter-num",
+    "date": ".text-\\[0\\.65rem\\]"
+   },
+   "date_format": [
+    "MMM d, yyyy",
+    "relative"
+   ],
+   "date_locale": "es"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img.page-img, .page-wrap img",
+   "image": [
+    "@data-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Website setzt beim ersten Abruf das Cookie mv_ck per Set-Cookie und liefert eine 'mv-verifying'-Seite; die Community wiederholt die Anfrage einmal (kein JS, keine Prüfung lösen). Das Modell wiederholt nicht – der erste Abruf einer Sitzung kann leer bleiben, danach trägt der Cookie-Speicher mv_ck.",
+  "Listen: /library?sort=views|updated&page=n, Suche q=… (sort=latest wie Community-Standard des Sortierfilters); Novelas ausgelassen. Weitere Filter nicht übernommen.",
+  "Details: Titel/Cover sind in der Community nicht gesetzt (aus der Liste übernommen) – hier h1 bzw. og:title / og:image als Annahme. Status/Genres aus den Badges, Autor/Arte aus den Info-Zeilen, sonst Gruppenname.",
+  "Kapitel: /comics/<slug>/chapters?page=n; Community liest x-page/x-pages-Header (nicht lesbar), hier weiter solange die Seite Kapitel enthält (max. 30 Seiten) – falls die Website bei zu großer Seitenzahl die letzte Seite wiederholt, entstehen Doppelte; auf dem PC prüfen.",
+  "Datum 'MMM d, yyyy' (Community: Locale.US) oder 'hace …' relativ; date_locale es für die relativen Angaben – englische Monatsnamen auf dem PC prüfen."
+ ]
+}

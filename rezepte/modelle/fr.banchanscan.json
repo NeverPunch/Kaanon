@@ -1,0 +1,167 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Banchan Scan",
+  "sprache": "fr",
+  "base_url": "https://banchanscan.fr",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.banchanscan",
+  "quellen": [
+   {
+    "name": "Banchan Scan",
+    "sprache": "fr",
+    "quell_id": 8593333389489308586,
+    "home": "https://banchanscan.fr"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/banchanscan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/api/home-data",
+   "format": "json",
+   "items": "webtoons",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/api/data/webtoons?select=*&id=eq.{value}&limit=1"
+    },
+    "title": "title",
+    "cover": "cover_url"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/api/data/webtoons?select=*&order=updated_at.desc&limit=20&offset={offset}",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/api/data/webtoons?select=*&id=eq.{value}&limit=1"
+    },
+    "title": "title",
+    "cover": "cover_url"
+   },
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   }
+  },
+  "search": {
+   "request": "{base}/api/home-data",
+   "format": "json",
+   "items": "webtoons",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/api/data/webtoons?select=*&id=eq.{value}&limit=1"
+    },
+    "title": "title",
+    "cover": "cover_url"
+   },
+   "has_next": {
+    "const": false
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "json",
+   "url_vars": {
+    "id": "id=eq\\.([^&]+)"
+   },
+   "fields": {
+    "title": "0.title",
+    "cover": "0.cover_url",
+    "description": "0.description",
+    "author": "0.author",
+    "artist": "0.artist",
+    "genres": {
+     "path": [
+      "0.genres",
+      "0.demographic"
+     ],
+     "union": true
+    },
+    "status": "0.status"
+   },
+   "status_map": {
+    "en cours": 1,
+    "En cours": 1,
+    "terminé": 2,
+    "Terminé": 2,
+    "en pause": 6,
+    "En pause": 6,
+    "licenciée": 3,
+    "Licenciée": 3
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/data/chapters?select=id,webtoon_id,chapter_number,season,chapter_title,published_at,created_at,uploader_name&webtoon_id=eq.{u.id}&status=eq.published&order=published_at.desc.nullslast,created_at.desc",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/api/data/chapter_pages?select=image_url,sort_order&chapter_id=eq.{value}&order=sort_order.asc"
+    },
+    "name": [
+     {
+      "path": "chapter_title",
+      "replace": [
+       [
+        "⁣",
+        ""
+       ],
+       [
+        "banchan:.*$",
+        ""
+       ],
+       [
+        "^\\s+|\\s+$",
+        ""
+       ]
+      ],
+      "regex": "^(.+)$",
+      "group": 1,
+      "template": "Chapitre {f.chapter_number} : {value}"
+     },
+     {
+      "path": "chapter_number",
+      "template": "Chapitre {value}"
+     }
+    ],
+    "number": "chapter_number",
+    "date": [
+     "published_at",
+     "created_at"
+    ],
+    "scanlator": "uploader_name"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "json",
+   "items": "$",
+   "image": "image_url"
+  }
+ },
+ "hinweise": [
+  "Die Website bildet /webtoon/<slug> clientseitig aus dem Titel (Akzente entfernen, Kleinschreibung) – nicht nachbildbar. Manga- und Kapitel-URLs zeigen deshalb direkt auf die Daten-API (/api/data/…, PostgREST-Syntax wie in der Community); WebView zeigt JSON.",
+  "Beliebt: alle Webtoons aus /api/home-data (eine Seite); Community filtert auf veröffentlichte (publishedWebtoonIds) und sortiert nach Tagesaufrufen – nicht abbildbar. Suche filtert diese Liste lokal (Community auch nach Alternativtitel, akzentunabhängig).",
+  "Neu: Annahme – /api/data/webtoons nach updated_at absteigend (limit/offset); die Community geht über die neuesten Kapitel und lädt dann die Webtoons nach (zweistufig, nicht abbildbar).",
+  "Details: Antwort ist eine Liste, Felder per Index 0 (Annahme, dass '0.feld' auch an der Wurzel funktioniert). Genres + Demografie; 'Adulte' bei is_adult nicht ergänzt.",
+  "Kapitel nach Veröffentlichung absteigend (Community sortiert nach Staffel, dann Nummer). Kapiteltitel ohne angehängte 'banchan:'-Metadaten; Staffel-Präfix und Side-Story/FAQ/Bonus-Kennzeichen der Community nicht übernommen."
+ ]
+}

@@ -1,0 +1,186 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "XoManga",
+  "sprache": "en",
+  "base_url": "https://www.xomanga.site",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.xomanga",
+  "quellen": [
+   {
+    "name": "XoManga",
+    "sprache": "en",
+    "quell_id": 4986437736966387160,
+    "home": "https://www.xomanga.site"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/xomanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "{base}/index.json",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "latest",
+   "fields": {
+    "url": {
+     "path": "link",
+     "regex": "[?&]id=([^&#]+)",
+     "group": 1,
+     "template": "/details.html?id={value}"
+    },
+    "title": "title",
+    "cover": "image"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/index.json",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "latest",
+   "fields": {
+    "url": {
+     "path": "link",
+     "regex": "[?&]id=([^&#]+)",
+     "group": 1,
+     "template": "/details.html?id={value}"
+    },
+    "title": "title",
+    "cover": "image"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/index.json",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "latest",
+   "fields": {
+    "url": {
+     "path": "link",
+     "regex": "[?&]id=([^&#]+)",
+     "group": 1,
+     "template": "/details.html?id={value}"
+    },
+    "title": "title",
+    "cover": "image"
+   },
+   "has_next": {
+    "const": false
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": {
+    "url": "{base}/manga/{u.id}/details.json",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "[?&]id=([^&#]+)"
+   },
+   "fields": {
+    "title": "title",
+    "description": "description",
+    "cover": "cover",
+    "genres": {
+     "path": "tags.*",
+     "all": true,
+     "join": ", "
+    },
+    "status": "status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "id": "[?&]id=([^&#]+)"
+   },
+   "items": "chapters_list",
+   "fields": {
+    "url": {
+     "path": "link",
+     "regex": "[?&]ch=([^&#]+)",
+     "group": 1,
+     "template": "/reader.html?id={u.id}&ch={value}"
+    },
+    "name": {
+     "path": "chapter",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "Chapter {value}"
+    },
+    "number": "chapter",
+    "date": "date"
+   },
+   "date_format": [
+    "iso",
+    "yyyy-MM-dd"
+   ],
+   "skip": {
+    "path": "is_vip",
+    "equals": "true"
+   }
+  },
+  "pages": {
+   "request": {
+    "url": "{base}/manga/{u.id}/chapters/{u.ch}.json",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "[?&]id=([^&#]+)",
+    "ch": "[?&]ch=([^&#]+)"
+   },
+   "items": "images",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "Statische JSON-Dateien: /index.json (Liste), /manga/<id>/details.json (Details+Kapitel), /manga/<id>/chapters/<ch>.json (Bilder).",
+  "Eintrags-URL /details.html?id=<id> (Community: nur <id>), Kapitel-URL /reader.html?id=<id>&ch=<ch> (Community: '<id>#<ch>') – nicht mit Community-URLs kompatibel.",
+  "Beliebt: Community filtert index.json auf die 'Exclusive Works' (Titelliste aus /our-works) – Abgleich zweier Anfragen nicht ausdrückbar, daher alle Titel aus index.json (wie Neueste).",
+  "Suche: index.json mit client_filter (Community: Titel enthält Suchtext).",
+  "VIP-Kapitel (is_vip) werden übersprungen (Community-Standard 'ausblenden').",
+  "Datum: ISO mit Z oder yyyy-MM-dd."
+ ]
+}

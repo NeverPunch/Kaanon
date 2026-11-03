@@ -1,0 +1,98 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "XYZ Comics",
+  "sprache": "en",
+  "base_url": "https://xyzcomics.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.xyzcomics",
+  "quellen": [
+   {
+    "name": "XYZ Comics",
+    "sprache": "en",
+    "quell_id": 923206914242009120,
+    "home": "https://xyzcomics.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/xyzcomics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/allsexkomix/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/allsexkomix/"
+   },
+   "items": "article.post:has(figure.post-image a):has(h2.post-title a)",
+   "fields": {
+    "url": "figure.post-image a@href",
+    "title": "h2.post-title a",
+    "cover": "figure.post-image img.wp-post-image@img"
+   },
+   "has_next": {
+    "exists": "a.nextp, .pagenav a.next, a.page-numbers.next, a[rel=next]"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}",
+   "request_by_page": {
+    "1": "{base}/?s={query}"
+   },
+   "items": "article.post:has(figure.post-image a):has(h2.post-title a)",
+   "fields": {
+    "url": "figure.post-image a@href",
+    "title": "h2.post-title a",
+    "cover": "figure.post-image img.wp-post-image@img"
+   },
+   "has_next": {
+    "exists": "a.nextp, .pagenav a.next, a.page-numbers.next, a[rel=next]"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     "h1.post-title a",
+     "h1.post-title",
+     "title"
+    ],
+    "cover": ".pswp-gallery .pswp-gallery__item a[href]@href",
+    "genres": {
+     "path": "a.post-tag-button",
+     "all": true,
+     "join": ", "
+    }
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Chapter 1"
+    },
+    "number": {
+     "const": "1"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".pswp-gallery .pswp-gallery__item a[href]",
+   "image": "@href"
+  }
+ },
+ "hinweise": [
+  "WordPress-Galerie: jeder Beitrag ist ein Eintrag mit genau einem Kapitel (die Seite selbst), wie Community.",
+  "Künstler-/Tag-Filter (/tag/<slug>/) nicht übernommen; keine Neueste (Community ebenso)."
+ ]
+}

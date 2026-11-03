@@ -1,0 +1,151 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiMode",
+  "sprache": "es",
+  "base_url": "https://hentaimode.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.hentaimode",
+  "quellen": [
+   {
+    "name": "HentaiMode",
+    "sprache": "es",
+    "quell_id": 5208759847357095642,
+    "home": "https://hentaimode.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/hentaimode",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}",
+   "items": "div.row div[class*=\"book-list\"] > a",
+   "fields": {
+    "url": "@href",
+    "title": ".book-description > p",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/buscar?s={query}",
+   "items": "div.row div[class*=\"book-list\"] > a",
+   "fields": {
+    "url": "@href",
+    "title": ".book-description > p",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "serie": {
+     "path": "div#info-block > div#info div.tag-container:containsOwn(Serie) a.tag",
+     "all": true,
+     "join": ", "
+    },
+    "tipo": {
+     "path": "div#info-block > div#info div.tag-container:containsOwn(Tipo) a.tag",
+     "all": true,
+     "join": ", "
+    },
+    "personajes": {
+     "path": "div#info-block > div#info div.tag-container:containsOwn(Personajes) a.tag",
+     "all": true,
+     "join": ", "
+    },
+    "idioma": {
+     "path": "div#info-block > div#info div.tag-container:containsOwn(Idioma) a.tag",
+     "all": true,
+     "join": ", "
+    }
+   },
+   "fields": {
+    "title": "div#info-block > div#info h1",
+    "cover": "div#cover img@src",
+    "genres": {
+     "path": "div#info-block > div#info div.tag-container:containsOwn(Categorías) a.tag",
+     "all": true,
+     "join": ", "
+    },
+    "author": {
+     "path": "div#info-block > div#info div.tag-container:containsOwn(Grupo) a.tag",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "div#info-block > div#info div.tag-container:containsOwn(Artista) a.tag",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "const": "completed"
+    },
+    "description": {
+     "const": "[[Serie: {l.serie}\n]][[Tipo: {l.tipo}\n]][[Personajes: {l.personajes}\n]][[Idioma: {l.idioma}\n]]"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}",
+     "replace": [
+      [
+       "/g/",
+       "/leer/"
+      ]
+     ]
+    },
+    "name": {
+     "const": "Chapter"
+    },
+    "number": {
+     "const": "1"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "block_regex": "(?s)pages = \\[(.*?)\\]",
+   "items": ":\\s*\"[^\"]+\"",
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "^:\\s*\"([^\"]+)\"$",
+      "$1"
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "Galerie-Website: ein Kapitel 'Chapter' (Nummer 1), Kapitel-URL = Eintrags-URL mit /g/ → /leer/.",
+  "Startseite als einzige Beliebt-Liste (keine Seiten); Suche /buscar?s= ohne Seiten, Community verlangt mind. 3 Zeichen.",
+  "Seiten: Bildliste aus dem Skript 'pages = [ … ]' – je Eintrag der erste Wert in Anführungszeichen nach ':' (wie Community, genaues Skriptformat ungeprüft).",
+  "Status immer abgeschlossen (wie Community)."
+ ]
+}

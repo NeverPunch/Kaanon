@@ -1,0 +1,219 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Zonatmo.to (unoriginal)",
+  "sprache": "es",
+  "base_url": "https://zonatmo.to",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.zonatmotounoriginal",
+  "quellen": [
+   {
+    "name": "Zonatmo.to (unoriginal)",
+    "sprache": "es",
+    "quell_id": 1900395790630760038,
+    "home": "https://zonatmo.to"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/zonatmoto",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/wp-api/api/tops/views/month?postType=any&postsPerPage=50",
+   "format": "json",
+   "items": "data.items",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": [
+     {
+      "path": "cover",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "cover",
+      "replace": [
+       [
+        "^/",
+        ""
+       ]
+      ],
+      "template": "{base}/wp-content/uploads/{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/wp-api/api/listing/manga?page={page}&orderBy=post_modified",
+   "format": "json",
+   "items": "data.items",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": [
+     {
+      "path": "cover",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "cover",
+      "replace": [
+       [
+        "^/",
+        ""
+       ]
+      ],
+      "template": "{base}/wp-content/uploads/{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "exists": "data.pagination.has_next"
+   }
+  },
+  "search": {
+   "request": "{base}/wp-api/api/listing/manga?page={page}&search={query}",
+   "format": "json",
+   "items": "data.items",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": [
+     {
+      "path": "cover",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "cover",
+      "replace": [
+       [
+        "^/",
+        ""
+       ]
+      ],
+      "template": "{base}/wp-content/uploads/{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "exists": "data.pagination.has_next"
+   }
+  },
+  "details": {
+   "request": "{base}/wp-api/api/single/manga/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "fields": {
+    "title": "data.title",
+    "cover": [
+     {
+      "path": "data.cover",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "data.cover",
+      "replace": [
+       [
+        "^/",
+        ""
+       ]
+      ],
+      "template": "{base}/wp-content/uploads/{value}"
+     }
+    ],
+    "description": "data.overview",
+    "author": {
+     "path": "data.author.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": "data.status",
+     "all": true,
+     "join": ",",
+     "regex": "\\b(12|19|174|198)\\b",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "12": 1,
+    "19": 2,
+    "174": 6,
+    "198": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}/wp-api/api/single/manga/{u.slug}/chapters?page={page}&postsPerPage=50&order=asc",
+   "format": "json",
+   "items": "data.items",
+   "paging": {
+    "has_next": {
+     "exists": "data.pagination.has_next"
+    },
+    "max_pages": 100
+   },
+   "reverse": true,
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{u.slug}/{value}#{f.id}"
+    },
+    "name": {
+     "path": "chapter_number",
+     "template": "#{value}[[ - {f.title}]]"
+    },
+    "number": "chapter_number",
+    "date": "release_date"
+   },
+   "date_format": "yyyy-MM-dd HH:mm:ss"
+  },
+  "pages": {
+   "request": "{base}/wp-api/api/single/manga/{u.ms}/{u.cs}",
+   "format": "json",
+   "url_vars": {
+    "ms": "/manga/([^/]+)/[^/#?]+",
+    "cs": "/manga/[^/]+/([^/#?]+)"
+   },
+   "let": {
+    "jit": "data.chapter.jit"
+   },
+   "items": "data.chapter.images",
+   "sort": "page_number",
+   "image": {
+    "path": "image_url",
+    "template": "https://cdn.zonatmo.to/manga/{l.jit}/{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "API unter {base}/wp-api/api. Beliebt = Top-Aufrufe des Monats (50, eine Seite); Neu = Listing nach post_modified; Suche ohne Genre/Typ/Status-Filter.",
+  "Cover: absolute URL oder relativ zu {base}/wp-content/uploads/. Genres fehlen: die API liefert nur Genre-IDs, die Community übersetzt sie mit einer festen Tabelle – nicht abbildbar.",
+  "Status aus ID-Liste: 12 laufend, 19 abgeschlossen, 174 pausiert, 198 abgebrochen (erste passende ID; Community prüft in dieser Reihenfolge).",
+  "Kapitel: alle Seiten (50 je Seite, order=asc) und umgedreht; Community entfernt Dubletten und sortiert nach Nummer absteigend. Kapitel-URL /manga/<slug>/<kapitel-slug>#<id>.",
+  "Seiten: Bild = https://cdn.zonatmo.to/manga/<jit>/<image_url>, sortiert nach page_number (CDN-Host fest auf cdn.<Website-Host>)."
+ ]
+}

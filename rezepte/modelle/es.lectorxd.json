@@ -1,0 +1,145 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "LectorXD",
+  "sprache": "es",
+  "base_url": "https://lectorxd.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.lectorxd",
+  "quellen": [
+   {
+    "name": "LectorXD",
+    "sprache": "es",
+    "quell_id": 4078570629457850125,
+    "home": "https://lectorxd.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/lectorxd",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 2000
+  },
+  "popular": {
+   "request": "{base}/catalogo?adult=safe&filters=true&orderBy=rating&page={page}",
+   "items": ".manga-grid a[href]:not([href^=/novela/])",
+   "fields": {
+    "url": "@href",
+    "title": "h4",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "a[aria-label=\"Next page\"][href*=\"page=\"]"
+   }
+  },
+  "latest": {
+   "request": "{base}/catalogo?adult=safe&filters=true&orderBy=recent&page={page}",
+   "items": ".manga-grid a[href]:not([href^=/novela/])",
+   "fields": {
+    "url": "@href",
+    "title": "h4",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "a[aria-label=\"Next page\"][href*=\"page=\"]"
+   }
+  },
+  "search": {
+   "request": "{base}/catalogo?adult=safe&filters=true&orderBy=recent&page={page}&search={query}",
+   "items": ".manga-grid a[href]:not([href^=/novela/])",
+   "fields": {
+    "url": "@href",
+    "title": "h4",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "a[aria-label=\"Next page\"][href*=\"page=\"]"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "cover": "img.object-contain[src*='/manga/covers/']@img",
+    "description": "p.leading-relaxed",
+    "genres": {
+     "path": "a[href^=\"/catalogo?tags=\"]",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": ":has(> :has(> h1))",
+     "regex": "(?i)(completado|en emisi[oó]n)",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "completado": 2,
+    "en emisión": 1,
+    "en emision": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "text",
+   "url_vars": {
+    "type": "^(?:https?://[^/]+)?/([^/?#]+)/",
+    "slug": "^(?:https?://[^/]+)?/[^/?#]+/([^/?#]+)"
+   },
+   "block_regex": "(?s)component-url=\"[^\"]*ChapterList[^\"]*\"[^>]*?props=\"([^\"]*)\"",
+   "items": "\\{(?=[^{}]*(?:&quot;|&#34;|\")chapter(?:&quot;|&#34;|\"):)[^{}]*\\}",
+   "fields": {
+    "url": {
+     "path": "",
+     "replace": [
+      [
+       "^(?=.*?(?:&quot;|&#34;|\")chapter(?:&quot;|&#34;|\"):\\[0,\\s*(?:&quot;|&#34;|\")([^&\"]+)(?:&quot;|&#34;|\")\\])(?=.*?(?:&quot;|&#34;|\")groupId(?:&quot;|&#34;|\"):\\[0,\\s*(\\d+)\\]).*$",
+       "$1?g=$2"
+      ],
+      [
+       "^(?=.*?(?:&quot;|&#34;|\")chapter(?:&quot;|&#34;|\"):\\[0,\\s*(?:&quot;|&#34;|\")([^&\"]+)(?:&quot;|&#34;|\")\\]).*\\}$",
+       "$1"
+      ]
+     ],
+     "template": "/{u.type}/{u.slug}/leer/{value}"
+    },
+    "name": {
+     "path": "",
+     "regex": "(?:&quot;|&#34;|\")chapter(?:&quot;|&#34;|\"):\\[0,\\s*(?:&quot;|&#34;|\")([^&\"]+)(?:&quot;|&#34;|\")\\]",
+     "group": 1,
+     "template": "Capítulo {value}"
+    },
+    "number": {
+     "path": "",
+     "regex": "(?:&quot;|&#34;|\")chapter(?:&quot;|&#34;|\"):\\[0,\\s*(?:&quot;|&#34;|\")([0-9.]+)(?:&quot;|&#34;|\")\\]",
+     "group": 1
+    },
+    "date": {
+     "path": "",
+     "regex": "(?:&quot;|&#34;|\")publishAt(?:&quot;|&#34;|\"):\\[\\d+,\\s*(?:&quot;|&#34;|\")([^&\"]+)(?:&quot;|&#34;|\")\\]",
+     "group": 1
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img.page-image",
+   "image": "@img"
+  }
+ },
+ "hinweise": [
+  "Katalog /catalogo?adult=safe&filters=true&orderBy=rating|recent&page=N[&search=…]; Filter (Typ, Status, Demografie, Genres, Erwachseneninhalte) nicht nachgebaut, adult=safe wie Community-Standard. Novelas (/novela/) ausgeschlossen. Rate-Limit 1 Anfrage/2 s.",
+  "Kapitel: Props der Astro-Insel ChapterList (JSON, jeder Wert als [Typ, Wert], im HTML mit &quot; maskiert) per block_regex/Text-Regex gelesen; Kapitel-URL /<typ>/<slug>/leer/<kapitel>[?g=<groupId>] – Typ und Slug aus der Eintrags-URL statt aus mangaType/mangaSlug der Props (Annahme: identisch). Doppelte URLs werden nicht entfernt.",
+  "Status: Community sucht 'completado'/'en emisión' im Text des Großelternelements von h1; hier per :has(> :has(> h1)) + Regex (jsoup-Unterstützung auf dem PC prüfen).",
+  "Beschreibung nur Synopsis (Community stellt Sternebewertung aus /api/mangas/rating-summary und alternative Titel voran)."
+ ]
+}

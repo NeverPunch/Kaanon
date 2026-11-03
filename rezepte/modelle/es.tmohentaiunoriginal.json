@@ -1,0 +1,132 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "TMOHentai (unoriginal)",
+  "sprache": "es",
+  "base_url": "https://tmohentai.app",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.tmohentaiunoriginal",
+  "quellen": [
+   {
+    "name": "TMOHentai (unoriginal)",
+    "sprache": "es",
+    "quell_id": 6465093267346907024,
+    "home": "https://tmohentai.app"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/tmohentaiunoriginal",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/biblioteca?page={page}&order_item=likes_count&order_dir=desc",
+   "items": "a.manga-card[href*=/library/]:has(h3.manga-card__title)",
+   "fields": {
+    "url": "@href",
+    "title": "h3.manga-card__title",
+    "cover": "img.manga-card__cover@src"
+   },
+   "has_next": {
+    "exists": "ul.pagination li.active + li a[href*='page=']"
+   }
+  },
+  "latest": {
+   "request": "{base}/biblioteca?page={page}&order_item=creation&order_dir=desc",
+   "items": "a.manga-card[href*=/library/]:has(h3.manga-card__title)",
+   "fields": {
+    "url": "@href",
+    "title": "h3.manga-card__title",
+    "cover": "img.manga-card__cover@src"
+   },
+   "has_next": {
+    "exists": "ul.pagination li.active + li a[href*='page=']"
+   }
+  },
+  "search": {
+   "request": "{base}/biblioteca?page={page}&title={query}",
+   "items": "a.manga-card[href*=/library/]:has(h3.manga-card__title)",
+   "fields": {
+    "url": "@href",
+    "title": "h3.manga-card__title",
+    "cover": "img.manga-card__cover@src"
+   },
+   "has_next": {
+    "exists": "ul.pagination li.active + li a[href*='page=']"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1#md-title",
+    "cover": "img#md-cover@src",
+    "description": ".md-info-row--synopsis .md-info-row__value p",
+    "genres": {
+     "path": "#md-tags-list span.label-info",
+     "all": true,
+     "join": ", "
+    },
+    "author": {
+     "path": ".md-badge--author",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": ".md-badge--author",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": ".md-cover-card__status",
+     "regex": "(?i)(complete|ongoing)",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "complete": 2,
+    "Complete": 2,
+    "COMPLETE": 2,
+    "ongoing": 1,
+    "Ongoing": 1,
+    "ONGOING": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "path": "a.md-preview-read-btn[href*=/view_uploads/]@href",
+     "regex": "^([^#]*)",
+     "group": 1
+    },
+    "name": {
+     "const": "Capítulo único"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#reader-wrap .reader-img-wrap img",
+   "image": [
+    "@data-src",
+    "@data-original",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "HTML-Website (Doujin-Galerie): Liste /biblioteca (order_item=likes_count|creation, title= für Suche) wie Community.",
+  "Kapitel: Community nimmt alle Lese-Links (a.md-preview-read-btn → /view_uploads/) als 'Capítulo único', 'Lectura 2' …; hier nur der erste Link als 'Capítulo único' (weitere Lesungen entfallen).",
+  "Doppelte Bild-URLs entfernt die Community (distinct) – hier nicht."
+ ]
+}

@@ -1,0 +1,145 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Submanhwa",
+  "sprache": "es",
+  "base_url": "https://submanhwa.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.submanhwa",
+  "quellen": [
+   {
+    "name": "Submanhwa",
+    "sprache": "es",
+    "quell_id": 1136717301008230074,
+    "home": "https://submanhwa.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/submanhwa",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.5",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept-Language": "es-PE,es;q=0.9,en-US;q=0.8,en;q=0.7"
+  },
+  "popular": {
+   "request": "{base}/filterList?page={page}&sortBy=views&asc=false",
+   "items": ".series-card",
+   "fields": {
+    "url": "a@href",
+    "title": ".series-title",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "li a[rel=next]"
+   }
+  },
+  "latest": {
+   "request": "{base}/",
+   "items": "article.up-card",
+   "fields": {
+    "url": "a@href",
+    "title": "a.up-title",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/biblioteca?search={query}&page={page}",
+   "items": "a.lib-card",
+   "fields": {
+    "url": "@href",
+    "title": ".lib-title",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": ".lib-pages a[aria-label=Siguiente]"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "mid": "#item-rating@data-item"
+   },
+   "fields": {
+    "title": ".sr-info > h1",
+    "cover": "img.sr-cover@img",
+    "description": ".sr-summary > p",
+    "author": {
+     "path": ".sr-meta dt:contains(Autor(es)) + dd a",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": ".sr-meta dt:contains(Artist(s)) + dd a",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": ".sr-info .sr-badge.type, .sr-info .sr-cat, .sr-info .sr-tag",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": ".sr-info .ongoing, .sr-info .ended@class",
+     "regex": "\\b(ongoing|ended)\\b",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "ended": 2
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/lista-capitulos/serie/{l.mid}?orden=desc&offset={offset}&limit=50",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json_html",
+   "html_path": "html",
+   "items": "[id^=chapter-card]",
+   "page_size": 50,
+   "fields": {
+    "url": "a.lc-t@href",
+    "name": "a.lc-t",
+    "date": {
+     "path": ".lc-d@ownText",
+     "regex": "(\\d{1,2} [A-Za-z]{3,4}\\.? \\d{4})",
+     "group": 1
+    }
+   },
+   "date_format": [
+    "d MMM. yyyy",
+    "d MMM yyyy"
+   ],
+   "date_locale": "en",
+   "paging": {
+    "has_next": {
+     "full": true
+    },
+    "max_pages": 100
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#all img",
+   "image": "@img"
+  }
+ },
+ "hinweise": [
+  "Beliebt über /filterList?sortBy=views&asc=false (Community: /biblioteca?sort=popular steckt hinter Cloudflare), Neueste = Startseite (eine Seite), Suche /biblioteca?search=…; Filter nicht nachgebaut.",
+  "Kapitel: Serien-ID aus #item-rating@data-item (Details-let), dann /lista-capitulos/serie/<id>?orden=desc&offset=…&limit=50 (JSON mit HTML in 'html'); weiter bei voller Seite (Community: Feld 'mas').",
+  "Beschreibung nur die Synopsis (Community stellt Statistik und alternative Namen dazu). Status über Klasse .ongoing/.ended.",
+  "Datum 'd MMM. yyyy' (englische Monatskürzel wie Community), per Regex aus .lc-d."
+ ]
+}

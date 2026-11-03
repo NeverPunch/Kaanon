@@ -1,0 +1,254 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Webdex Scans",
+  "sprache": "en",
+  "base_url": "https://webdexscans.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.webdexscans",
+  "quellen": [
+   {
+    "name": "Webdex Scans",
+    "sprache": "en",
+    "quell_id": 3534396555218651855,
+    "home": "https://webdexscans.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/webdexscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.55",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "https://nrqghtbdrdnoywxjkgkf.supabase.co/rest/v1/series?select=id,title,slug,cover_url&order=view_count.desc&offset={offset}&limit=24",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ycWdodGJkcmRub3l3eGprZ2tmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4Njg4NDEsImV4cCI6MjA5MjQ0NDg0MX0.Gnrn33_LMxFA9m_OdCpybBZ-Cjcc5rdsJlD8Y9eOICg",
+     "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ycWdodGJkcmRub3l3eGprZ2tmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4Njg4NDEsImV4cCI6MjA5MjQ0NDg0MX0.Gnrn33_LMxFA9m_OdCpybBZ-Cjcc5rdsJlD8Y9eOICg",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover_url",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://webdexscans.com/"
+      ]
+     ]
+    }
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "https://nrqghtbdrdnoywxjkgkf.supabase.co/rest/v1/series?select=id,title,slug,cover_url&order=updated_at.desc&offset={offset}&limit=24",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ycWdodGJkcmRub3l3eGprZ2tmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4Njg4NDEsImV4cCI6MjA5MjQ0NDg0MX0.Gnrn33_LMxFA9m_OdCpybBZ-Cjcc5rdsJlD8Y9eOICg",
+     "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ycWdodGJkcmRub3l3eGprZ2tmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4Njg4NDEsImV4cCI6MjA5MjQ0NDg0MX0.Gnrn33_LMxFA9m_OdCpybBZ-Cjcc5rdsJlD8Y9eOICg",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover_url",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://webdexscans.com/"
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": {
+    "url": "https://nrqghtbdrdnoywxjkgkf.supabase.co/rest/v1/series?select=id,title,slug,cover_url&title=ilike.%25{query}%25&order=updated_at.desc&offset={offset}&limit=24",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ycWdodGJkcmRub3l3eGprZ2tmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4Njg4NDEsImV4cCI6MjA5MjQ0NDg0MX0.Gnrn33_LMxFA9m_OdCpybBZ-Cjcc5rdsJlD8Y9eOICg",
+     "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ycWdodGJkcmRub3l3eGprZ2tmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4Njg4NDEsImV4cCI6MjA5MjQ0NDg0MX0.Gnrn33_LMxFA9m_OdCpybBZ-Cjcc5rdsJlD8Y9eOICg",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover_url",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://webdexscans.com/"
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": {
+    "url": "https://nrqghtbdrdnoywxjkgkf.supabase.co/rest/v1/series?id=eq.{u.id}&select=*,genres(name)",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ycWdodGJkcmRub3l3eGprZ2tmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4Njg4NDEsImV4cCI6MjA5MjQ0NDg0MX0.Gnrn33_LMxFA9m_OdCpybBZ-Cjcc5rdsJlD8Y9eOICg",
+     "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ycWdodGJkcmRub3l3eGprZ2tmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4Njg4NDEsImV4cCI6MjA5MjQ0NDg0MX0.Gnrn33_LMxFA9m_OdCpybBZ-Cjcc5rdsJlD8Y9eOICg",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "#(.+)$"
+   },
+   "fields": {
+    "title": "0.title",
+    "cover": {
+     "path": "0.cover_url",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://webdexscans.com/"
+      ]
+     ]
+    },
+    "author": "0.author",
+    "artist": "0.artist",
+    "description": {
+     "path": "0.description",
+     "replace": [
+      [
+       "(?i)</(?:p|div|h[1-6])>",
+       "\n"
+      ]
+     ],
+     "decode": "html_text"
+    },
+    "genres": {
+     "path": "0.genres.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "0.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "https://nrqghtbdrdnoywxjkgkf.supabase.co/rest/v1/chapters?series_id=eq.{u.id}&select=id,chapter_number,title,slug,created_at,is_premium,free_at,series(slug)&order=chapter_number.desc",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ycWdodGJkcmRub3l3eGprZ2tmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4Njg4NDEsImV4cCI6MjA5MjQ0NDg0MX0.Gnrn33_LMxFA9m_OdCpybBZ-Cjcc5rdsJlD8Y9eOICg",
+     "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ycWdodGJkcmRub3l3eGprZ2tmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4Njg4NDEsImV4cCI6MjA5MjQ0NDg0MX0.Gnrn33_LMxFA9m_OdCpybBZ-Cjcc5rdsJlD8Y9eOICg",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "#(.+)$"
+   },
+   "items": "$",
+   "skip": {
+    "any": [
+     {
+      "path": "free_at",
+      "is_future": "iso"
+     },
+     {
+      "const": "{f.is_premium}:[[{f.free_at}]]",
+      "regex": "^(true:)$"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{f.series.slug}/{value}#{f.id}"
+    },
+    "name": [
+     "title",
+     {
+      "path": "chapter_number",
+      "replace": [
+       [
+        "\\.0$",
+        ""
+       ]
+      ],
+      "template": "Chapter {value}"
+     }
+    ],
+    "number": "chapter_number",
+    "date": "created_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "https://nrqghtbdrdnoywxjkgkf.supabase.co/rest/v1/pages?chapter_id=eq.{u.cid}&select=image_url,page_number&order=page_number.asc",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ycWdodGJkcmRub3l3eGprZ2tmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4Njg4NDEsImV4cCI6MjA5MjQ0NDg0MX0.Gnrn33_LMxFA9m_OdCpybBZ-Cjcc5rdsJlD8Y9eOICg",
+     "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ycWdodGJkcmRub3l3eGprZ2tmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4Njg4NDEsImV4cCI6MjA5MjQ0NDg0MX0.Gnrn33_LMxFA9m_OdCpybBZ-Cjcc5rdsJlD8Y9eOICg",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "cid": "#(.+)$"
+   },
+   "items": "$",
+   "image": {
+    "path": "image_url",
+    "replace": [
+     [
+      "^/(?!/)",
+      "https://webdexscans.com/"
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "Supabase-REST-API (nrqghtbdrdnoywxjkgkf.supabase.co) wie Community; der anon-Schlüssel (apikey/Bearer) ist der öffentliche Schlüssel der Website, wörtlich aus der Community (Muster wie ar.despairmanga) – kein Geheimnis, keine Signatur.",
+  "Community speichert Serien-/Kapitel-UUID als URL und Slugs im memo; Rezept: /series/<slug>#<uuid> und /series/<serien-slug>/<kapitel-slug>#<uuid> (Web-URL wie Community, ID hinter #).",
+  "Premium-Kapitel (is_premium und free_at fehlt oder liegt in der Zukunft) werden ausgelassen (Regel 0014; Community-Einstellung 'Show premium chapters' entfällt). Die Bedingung ist über const '{f.is_premium}:{f.free_at}' gebaut – auf dem PC prüfen, wie true/false gerendert wird.",
+  "Suche: title=ilike.%<q>% (Community), sortiert nach updated_at; Filter (Genre/Typ/Status/Sortierung) nicht übernommen.",
+  "Beschreibung: Blockenden zu Zeilenumbrüchen, dann HTML zu Text (Community bereinigt zusätzlich Leerzeilen)."
+ ]
+}

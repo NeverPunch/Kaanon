@@ -23,7 +23,95 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/"
+    },
+    "title": {
+     "const": "Vision Haze"
+    },
+    "cover": {
+     "const": "{base}/_assets/media/banners/banner0.png"
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/"
+    },
+    "title": {
+     "const": "Vision Haze"
+    },
+    "cover": {
+     "const": "{base}/_assets/media/banners/banner0.png"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "Vision Haze"
+    },
+    "author": {
+     "const": "Yttrium"
+    },
+    "cover": {
+     "const": "{base}/_assets/media/banners/banner0.png"
+    }
+   }
+  },
+  "chapters": {
+   "request": "{base}/archive/",
+   "items": ".archivepayload a",
+   "fields": {
+    "url": "@href",
+    "name": {
+     "path": "",
+     "template": "Page {value}"
+    }
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "url_vars": {
+    "p": "[?&]p=(\\d+)"
+   },
+   "let": {
+    "pn": {
+     "const": "00{u.p}",
+     "replace": [
+      [
+       "^0*(\\d{3,})$",
+       "$1"
+      ]
+     ]
+    }
+   },
+   "items": "(?i)<html\\b",
+   "image": {
+    "const": "{base}/comic/p{l.pn}.png"
+   }
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Webcomic mit einem einzigen Eintrag (Werte fest wie in der Community); Suche liefert wie in der Community immer diesen Eintrag.",
+  "Kapitel = einzelne Comicseiten aus /archive/ (.archivepayload a); Name nur 'Page N' – den Abschnittstitel (Community: 'Page N - <Abschnitt>' über Zuordnung .archive b ↔ .archivepayload per Index) kann das Rezept nicht zuordnen.",
+  "Seiten: ein Bild {base}/comic/pNNN.png, Nummer aus ?p=N auf 3 Stellen aufgefüllt (let mit const+replace). Die Seite selbst wird nur geladen, weil pages eine Anfrage braucht; items-Regex '<html' liefert genau einen Treffer (Annahme, auf dem PC prüfen)."
+ ]
 }

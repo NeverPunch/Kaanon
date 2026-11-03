@@ -1,0 +1,244 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "SkyMangas",
+  "sprache": "es",
+  "base_url": "https://skymangas.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.skymangas",
+  "quellen": [
+   {
+    "name": "SkyMangas",
+    "sprache": "es",
+    "quell_id": 4603660728091602676,
+    "home": "https://skymangas.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/skymangas",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 90,
+   "period_ms": 60000
+  },
+  "popular": {
+   "request": "https://api.skymangas.com/api/v1/manhuas/search?sort=popular&availability=readable&page={page}&perPage=24",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "lt": [
+     "^meta.page",
+     "^meta.totalPages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manhua/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "coverUrl",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://api.skymangas.com/"
+      ]
+     ]
+    }
+   }
+  },
+  "latest": {
+   "request": "https://api.skymangas.com/api/v1/manhuas/search?sort=updated&availability=readable&page={page}&perPage=24",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "lt": [
+     "^meta.page",
+     "^meta.totalPages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manhua/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "coverUrl",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://api.skymangas.com/"
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": "https://api.skymangas.com/api/v1/manhuas/search?q={query}&sort=popular&availability=readable&page={page}&perPage=24",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "lt": [
+     "^meta.page",
+     "^meta.totalPages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manhua/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "coverUrl",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://api.skymangas.com/"
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": "https://api.skymangas.com/api/v1/manhuas/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manhua/([^/?#]+)",
+    "id": "#(.+)$"
+   },
+   "let": {
+    "alt": {
+     "path": [
+      "data.titleOriginal",
+      "data.titleAlt"
+     ],
+     "union": true,
+     "join": "\n",
+     "replace": [
+      [
+       "\\n+",
+       "\n- "
+      ]
+     ]
+    }
+   },
+   "fields": {
+    "title": "data.title",
+    "author": "data.author",
+    "artist": "data.artist",
+    "cover": {
+     "path": "data.coverUrl",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://api.skymangas.com/"
+      ]
+     ]
+    },
+    "genres": {
+     "path": [
+      "data.originationName",
+      "data.genres.*.name",
+      "data.tags.*.name"
+     ],
+     "union": true
+    },
+    "description": {
+     "const": "[[{f.data.yearRelease}\n\n]][[{f.data.synopsis}\n\n]][[Títulos alternativos:\n- {l.alt}]]",
+     "replace": [
+      [
+       "\\n+$",
+       ""
+      ]
+     ]
+    },
+    "status": "data.statusId"
+   },
+   "status_map": {
+    "1": 1,
+    "2": 2,
+    "3": 6,
+    "4": 5
+   }
+  },
+  "chapters": {
+   "request": "https://api.skymangas.com/api/v1/chapters/manhua/{u.id}?page={page}&perPage=100&sort=desc",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manhua/([^/?#]+)",
+    "id": "#(.+)$"
+   },
+   "items": "data",
+   "paging": {
+    "has_next": {
+     "lt": [
+      "^meta.page",
+      "^meta.totalPages"
+     ]
+    },
+    "max_pages": 50
+   },
+   "fields": {
+    "url": {
+     "path": "chapterNumber",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "/leer/{u.slug}/{value}"
+    },
+    "name": {
+     "path": "chapterNumber",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "Capítulo {value}[[: {f.title}]]"
+    },
+    "number": "chapterNumber",
+    "date": "publishedAt",
+    "scanlator": "groupNames"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://api.skymangas.com/api/v1/chapters/{u.slug}/{u.n}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/leer/([^/]+)/",
+    "n": "/leer/[^/]+/([^/?#]+)"
+   },
+   "items": "data.pages",
+   "image": {
+    "path": "imageUrl",
+    "replace": [
+     [
+      "^/(?!/)",
+      "https://api.skymangas.com/"
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "API https://api.skymangas.com/api/v1 wie Community (Beliebt sort=popular, Neueste sort=updated, jeweils availability=readable; Suche q=…). Weitere Filter nicht übernommen. Rate-Limit 90/min wie Community (dort nur für API-Pfade außer Bildern).",
+  "Manga-URL /manhua/<slug>#<id>: Community merkt sich die Serien-ID im memo; die Kapitel-API braucht die ID, Details den Slug.",
+  "Kapitel-URL /leer/<slug>/<nummer> (Nummer ohne '.0' wie Community), Kapitel-Seiten /chapters/<slug>/<nummer>.",
+  "Beschreibung: Jahr + Synopsis + alternative Titel; Bewertung und Demografie (ID→Name-Tabelle) nicht übernommen. Alternativtitel nicht gegen den Haupttitel entdoppelt.",
+  "Bild-Token: Community erneuert bei 403 abgelaufene Bild-URLs über /releases/<id>/pages – hier nicht nötig, da die Seitenliste jedes Mal frisch geladen wird."
+ ]
+}

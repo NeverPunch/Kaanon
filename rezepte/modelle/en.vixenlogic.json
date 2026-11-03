@@ -1,0 +1,85 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Vixen Logic",
+  "sprache": "en",
+  "base_url": "https://www.vixenlogic.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.vixenlogic",
+  "quellen": [
+   {
+    "name": "Vixen Logic",
+    "sprache": "en",
+    "quell_id": 2247457324301240357,
+    "home": "https://www.vixenlogic.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/vixenlogic",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/archives/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/"
+    },
+    "title": {
+     "const": "Vixen Logic"
+    },
+    "cover": {
+     "const": "{base}/wp-content/uploads/2026/06/VL_Cover_Toocheke.png"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "Vixen Logic"
+    },
+    "author": {
+     "const": "tootaloo and foxboy83"
+    },
+    "cover": {
+     "const": "{base}/wp-content/uploads/2026/06/VL_Cover_Toocheke.png"
+    }
+   }
+  },
+  "chapters": {
+   "request": "{base}/archives/",
+   "items": "a:has(.comic-item)",
+   "fields": {
+    "url": "@href",
+    "name": ".comic-title",
+    "date": ".comic-post-date"
+   },
+   "date_format": [
+    "MMM dd, yyyy",
+    "relative"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#comic p a img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Einzelwerk-Website: ein fester Eintrag 'Vixen Logic' (Titel, Autor, Cover wörtlich aus dem Code), Status unbekannt.",
+  "Kapitel = alle .comic-item auf /archives/; URL aus dem umschließenden Link (Community: parent().href) – hier als a:has(.comic-item).",
+  "Datum 'MMM dd, yyyy' bzw. 'Today'/'Yesterday' (ob 'relative' diese Wörter versteht, auf dem PC prüfen). Reihenfolge wie auf der Seite.",
+  "Keine Suche (Community liefert immer den einen Eintrag)."
+ ]
+}

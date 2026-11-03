@@ -1,0 +1,146 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "LectorJPG",
+  "sprache": "es",
+  "base_url": "https://visorjpg.lat",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.lectorjpg",
+  "quellen": [
+   {
+    "name": "LectorJPG",
+    "sprache": "es",
+    "quell_id": 4439526602175493484,
+    "home": "https://visorjpg.lat"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/lectorjpg",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.51",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://api.visorjpg.lat/home/trending",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "name",
+    "cover": "cover_url"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "https://api.visorjpg.lat/home/lastest-updates?cursor=eyJsYXN0X3VwZGF0ZV9hdCI6IjIwOTktMTItMzEgMjM6NTk6NTkiLCJpZCI6MCwiX3BvaW50c1RvTmV4dEl0ZW1zIjp0cnVlfQ%3D%3D",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "name",
+    "cover": "cover_url"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "https://api.visorjpg.lat/search?cursor=&name={query}",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "name",
+    "cover": "cover_url"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.grid > h1",
+    "cover": {
+     "path": "div.bg_main.bg-cover@style",
+     "regex": "url\\((?:&quot;|[\"'])?([^)\"'&]+)",
+     "group": 1
+    },
+    "description": {
+     "path": "div.grid > div.container > p",
+     "all": true,
+     "join": " "
+    },
+    "status": "div.grid:has(span:contains(Status)) > button",
+    "genres": {
+     "path": "a[href*=/series?genres] > span",
+     "all": true,
+     "join": ", "
+    }
+   },
+   "status_map": {
+    "en emisión": 1,
+    "En emisión": 1,
+    "completado": 2,
+    "Completado": 2,
+    "en pausa": 6,
+    "En pausa": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.grid > a.group",
+   "fields": {
+    "url": "@href",
+    "name": "span.truncate",
+    "date": "span.w-fit"
+   },
+   "date_format": [
+    "dd/MM/yyyy",
+    "relative"
+   ],
+   "date_locale": "es"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "block_regex": "(?s)images:(\\[.*?\\])",
+   "items": "\"((?:[^\"\\\\]|\\\\.)*)\"",
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "\\\\/",
+      "/"
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "Listen über die API api.visorjpg.lat. Neu/Suche blättern per Cursor (next_cursor der vorigen Antwort) – nicht ausdrückbar, daher nur die erste Seite.",
+  "Neu: Die Community erzeugt den ersten Cursor als Base64 von {\"last_update_at\":\"<jetzt UTC>\",\"id\":0,\"_pointsToNextItems\":true}; hier fest mit Datum 2099-12-31 23:59:59 (kein Schlüssel, nur Startzeiger; beim Test prüfen, ob die API das annimmt).",
+  "Suche ohne Genre-Filter. Cover aus dem style-Attribut (url(...)) von div.bg_main.",
+  "Datum: 'hace N horas/minutos/días', 'ayer' oder dd/MM/yyyy → relative + dd/MM/yyyy (Locale es).",
+  "Seiten: Bildliste images:[…] aus dem SvelteKit-Skript der Kapitelseite."
+ ]
+}
