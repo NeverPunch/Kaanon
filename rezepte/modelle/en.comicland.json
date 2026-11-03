@@ -23,7 +23,132 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "https://api.comicland.org/api/comics/popular?offset={offset}&limit=20",
+   "format": "json",
+   "items": [
+    "data.list",
+    "data.items"
+   ],
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}"
+    },
+    "title": "title",
+    "cover": "cover_url"
+   },
+   "has_next": {
+    "full": true
+   },
+   "page_size": 20
+  },
+  "latest": {
+   "request": "https://api.comicland.org/api/comics?offset={offset}&limit=20&status=ongoing",
+   "format": "json",
+   "items": [
+    "data.list",
+    "data.items"
+   ],
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}"
+    },
+    "title": "title",
+    "cover": "cover_url"
+   },
+   "has_next": {
+    "full": true
+   },
+   "page_size": 20
+  },
+  "search": {
+   "request": "https://api.comicland.org/api/comic/search?q={query}&offset={offset}&limit=20",
+   "format": "json",
+   "items": [
+    "data.list",
+    "data.items"
+   ],
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}"
+    },
+    "title": "title",
+    "cover": "cover_url"
+   },
+   "has_next": {
+    "full": true
+   },
+   "page_size": 20
+  },
+  "details": {
+   "request": "https://api.comicland.org/api/comic/detail?slug={u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/comic/([^/?#]+)"
+   },
+   "fields": {
+    "title": "data.title",
+    "cover": "data.cover_url",
+    "description": "data.description",
+    "author": {
+     "path": "data.authors.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "data.artists.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "data.genres.*.name",
+     "all": true,
+     "join": ", "
+    }
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "slug": "/comic/([^/?#]+)"
+   },
+   "items": "data.chapters",
+   "fields": {
+    "url": {
+     "path": "chapter_index",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "/comic/{u.slug}/chapter/{value}"
+    },
+    "name": "title",
+    "number": "chapter_index"
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": "https://api.comicland.org/api/chapter/pages_by_index?slug={u.slug}&index={u.idx}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/comic/([^/?#]+)/chapter/",
+    "idx": "/chapter/([^/?#]+)"
+   },
+   "items": "data.pages",
+   "image": ""
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "JSON-API api.comicland.org; 20 Einträge je Seite über offset/limit. Nächste Seite: Community nutzt has_more, sonst 'Seite voll' – hier nur 'Seite voll'.",
+  "Manga-URL /comic/<slug> (Community speichert nur den Slug; Website-URL ist /comic/<slug>), Kapitel-URL /comic/<slug>/chapter/<index> wie Community.",
+  "Community setzt nur Browser-Fetch-Header (Fetch.XHR, Sec-Fetch-*); hier keine eigenen Header.",
+  "Kategorie-Filter (Official/Ongoing/Popular) nicht übernommen."
+ ]
 }

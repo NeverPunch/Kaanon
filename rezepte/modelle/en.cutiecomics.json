@@ -23,7 +23,84 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/page/{page}",
+   "items": "#dle-content > div.w25",
+   "has_next": {
+    "exists": ".navigation > a > i.fa-angle-right"
+   },
+   "fields": {
+    "url": "strong.field-content > a@href",
+    "title": "strong.field-content > a@ownText",
+    "cover": "a > img@src"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/index.php?do=search",
+    "method": "POST",
+    "form": {
+     "do": "search",
+     "subaction": "search",
+     "full_search": "0",
+     "search_start": "{page}",
+     "story": "{query_raw}"
+    }
+   },
+   "items": "#dle-content > div.w25",
+   "has_next": {
+    "exists": ".navigation > a > i.fa-angle-right"
+   },
+   "fields": {
+    "url": "strong.field-content > a@href",
+    "title": "strong.field-content > a@ownText",
+    "cover": "a > img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1#page-title",
+    "cover": "div.galery > img@src",
+    "genres": {
+     "path": "h3.field-label ~ span",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Chapter"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.galery > img",
+   "image": "@src"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "DLE-Website: Liste #dle-content > div.w25, nächste Seite über .navigation-Pfeil wie in der Community.",
+  "Suche per POST index.php?do=search mit search_start={page}; das Community-Feld result_from ((page-1)*20+1) ist nicht ausdrückbar und entfällt (DLE berechnet es aus search_start). Community verlangt mindestens 4 Zeichen Suchtext.",
+  "Ein Kapitel je Galerie (URL = Galerie), Status immer abgeschlossen wie in der Community. Kein Latest (Community: supportsLatest=false)."
+ ]
 }

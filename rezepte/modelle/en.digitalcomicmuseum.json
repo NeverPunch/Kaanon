@@ -2,22 +2,22 @@
  "rezept": "kaanon-rezept/1",
  "status": "entwurf",
  "extension": {
-  "name": "Dark Legacy Comics",
+  "name": "Digital Comic Museum",
   "sprache": "en",
-  "base_url": "https://www.darklegacycomics.com",
+  "base_url": "https://digitalcomicmuseum.com",
   "nsfw": false,
-  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.darklegacycomics",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.digitalcomicmuseum",
   "quellen": [
    {
-    "name": "Dark Legacy Comics",
+    "name": "Digital Comic Museum",
     "sprache": "en",
-    "quell_id": 1650720534254409337,
-    "home": "https://www.darklegacycomics.com"
+    "quell_id": 1057298314437889941,
+    "home": "https://digitalcomicmuseum.com"
    }
   ]
  },
  "quelle": {
-  "modul": "src/en/darklegacycomics",
+  "modul": "src/en/digitalcomicmuseum",
   "community_stand": "efa93f5a 2026-11-02",
   "community_version": "1.6.1",
   "theme": null

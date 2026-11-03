@@ -10496,7 +10496,7 @@
  },
  {
   "modul": "src/en/comicland",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "ComicLand",
   "stufe": 2,
   "theme": null,
@@ -10506,11 +10506,13 @@
   "host": "comicland.org",
   "nsfw": false,
   "wer": "agent-w4a",
-  "seit": "2026-11-03T10:38:46"
+  "seit": "2026-11-03T10:38:46",
+  "datei": "rezepte/modelle/en.comicland.json",
+  "geaendert": "2026-11-03T10:39:31"
  },
  {
   "modul": "src/en/cutiecomics",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Cutie Comics",
   "stufe": 2,
   "theme": null,
@@ -10520,11 +10522,13 @@
   "host": "cutiecomics.com",
   "nsfw": true,
   "wer": "agent-w4b",
-  "seit": "2026-11-03T10:38:46"
+  "seit": "2026-11-03T10:38:46",
+  "datei": "rezepte/modelle/en.cutiecomics.json",
+  "geaendert": "2026-11-03T10:39:28"
  },
  {
   "modul": "src/en/darklegacycomics",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "Dark Legacy Comics",
   "stufe": 2,
   "theme": null,
@@ -10534,11 +10538,13 @@
   "host": "darklegacycomics.com",
   "nsfw": false,
   "wer": "agent-w3d",
-  "seit": "2026-11-03T10:38:59"
+  "seit": "2026-11-03T10:38:59",
+  "grund": "Feste Titelliste und Specials-Kapitel fest im Code; Archivseite führt jedes Kapitel doppelt (auf-/absteigend), Community entfernt Duplikate – ohne Distinct nicht sauber abbildbar",
+  "geaendert": "2026-11-03T10:39:11"
  },
  {
   "modul": "src/en/darkscience",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Dark Science",
   "stufe": 2,
   "theme": null,
@@ -10548,11 +10554,13 @@
   "host": "dresdencodak.com",
   "nsfw": false,
   "wer": "agent-w4d",
-  "seit": "2026-11-03T10:39:04"
+  "seit": "2026-11-03T10:39:04",
+  "datei": "rezepte/modelle/en.darkscience.json",
+  "geaendert": "2026-11-03T10:39:42"
  },
  {
   "modul": "src/en/darthsdroids",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Darths & Droids",
   "stufe": 2,
   "theme": null,
@@ -10560,11 +10568,15 @@
    "en"
   ],
   "host": "darthsanddroids.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4c",
+  "seit": "2026-11-03T10:39:09",
+  "grund": "Buchliste zustandsabhängig: Titel steht in vorangehender th-Zeile, laufendes Buch als künstlicher Eintrag /archive.html, Cover je Position fest im Code – nicht ausdrückbar",
+  "geaendert": "2026-11-03T10:39:50"
  },
  {
   "modul": "src/en/digitalcomicmuseum",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Digital Comic Museum",
   "stufe": 2,
   "theme": null,
@@ -10572,11 +10584,13 @@
    "en"
   ],
   "host": "digitalcomicmuseum.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:39:28"
  },
  {
   "modul": "src/en/doujins",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Doujins",
   "stufe": 2,
   "theme": null,
@@ -10584,11 +10598,13 @@
    "en"
   ],
   "host": "doujins.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4a",
+  "seit": "2026-11-03T10:39:31"
  },
  {
   "modul": "src/en/eggporncomics",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Eggporncomics",
   "stufe": 2,
   "theme": null,
@@ -10596,11 +10612,13 @@
    "en"
   ],
   "host": "eggporncomics.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4d",
+  "seit": "2026-11-03T10:39:42"
  },
  {
   "modul": "src/en/egscomics",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "El Goonish Shive",
   "stufe": 2,
   "theme": null,
@@ -10608,7 +10626,9 @@
    "en"
   ],
   "host": "egscomics.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4c",
+  "seit": "2026-11-03T10:39:50"
  },
  {
   "modul": "src/en/elanschool",

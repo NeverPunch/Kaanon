@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Eggporncomics",
+  "sprache": "en",
+  "base_url": "https://eggporncomics.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.eggporncomics",
+  "quellen": [
+   {
+    "name": "Eggporncomics",
+    "sprache": "en",
+    "quell_id": 7229505035165953281,
+    "home": "https://eggporncomics.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/eggporncomics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}
