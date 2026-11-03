@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Joymii Hub",
+  "sprache": "all",
+  "base_url": "https://www.joymiihub.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.joymiihub",
+  "quellen": [
+   {
+    "name": "Joymii Hub",
+    "sprache": "all",
+    "quell_id": 8421979328901634475,
+    "home": "https://www.joymiihub.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/joymiihub",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": "masonry"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

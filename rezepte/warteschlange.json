@@ -7799,7 +7799,7 @@
  },
  {
   "modul": "src/all/femjoyhunter",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Femjoy Hunter",
   "stufe": 2,
   "theme": "masonry",
@@ -7809,11 +7809,13 @@
   "host": "femjoyhunter.com",
   "nsfw": true,
   "wer": "agent-w1c",
-  "seit": "2026-11-03T10:15:47"
+  "seit": "2026-11-03T10:15:47",
+  "datei": "rezepte/modelle/all.femjoyhunter.json",
+  "geaendert": "2026-11-03T10:16:18"
  },
  {
   "modul": "src/all/ftvhunter",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "FTV Hunter",
   "stufe": 2,
   "theme": "masonry",
@@ -7823,7 +7825,9 @@
   "host": "ftvhunter.com",
   "nsfw": true,
   "wer": "agent-w1a",
-  "seit": "2026-11-03T10:15:59"
+  "seit": "2026-11-03T10:15:59",
+  "datei": "rezepte/modelle/all.ftvhunter.json",
+  "geaendert": "2026-11-03T10:16:08"
  },
  {
   "modul": "src/all/joymiihub",
