@@ -12436,7 +12436,7 @@
  },
  {
   "modul": "src/en/thepropertyofhate",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "The Property of Hate",
   "stufe": 2,
   "theme": null,
@@ -12446,11 +12446,14 @@
   "host": "jolleycomics.com",
   "nsfw": false,
   "wer": "agent-w6a",
-  "seit": "2026-11-03T10:51:28"
+  "seit": "2026-11-03T10:51:28",
+  "datei": "rezepte/modelle/en.thepropertyofhate.json",
+  "grund": null,
+  "geaendert": "2026-11-03T10:52:07"
  },
  {
   "modul": "src/en/todaymanga",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "TodayManga",
   "stufe": 2,
   "theme": null,
@@ -12460,7 +12463,10 @@
   "host": "todaymanga.com",
   "nsfw": false,
   "wer": "agent-w5b",
-  "seit": "2026-11-03T10:51:40"
+  "seit": "2026-11-03T10:51:40",
+  "datei": "rezepte/modelle/en.todaymanga.json",
+  "grund": null,
+  "geaendert": "2026-11-03T10:51:59"
  },
  {
   "modul": "src/en/toongrab",
@@ -12492,7 +12498,7 @@
  },
  {
   "modul": "src/en/vgperson",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "vgperson",
   "stufe": 2,
   "theme": null,
@@ -12500,11 +12506,13 @@
    "en"
   ],
   "host": "vgperson.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5b",
+  "seit": "2026-11-03T10:51:59"
  },
  {
   "modul": "src/en/visionhaze",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Vision Haze",
   "stufe": 2,
   "theme": null,
@@ -12512,7 +12520,9 @@
    "en"
   ],
   "host": "visionhaze.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6a",
+  "seit": "2026-11-03T10:52:07"
  },
  {
   "modul": "src/en/vixenlogic",

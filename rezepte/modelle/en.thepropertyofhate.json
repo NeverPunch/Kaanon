@@ -23,7 +23,76 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/TPoH/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/TPoH/"
+    },
+    "title": {
+     "const": "The Property of Hate"
+    },
+    "cover": {
+     "const": "https://jolleycomics.com/images/Index/tpoh.png"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "The Property of Hate"
+    },
+    "author": {
+     "const": "Sarah Jolley"
+    },
+    "artist": {
+     "const": "Sarah Jolley"
+    },
+    "cover": {
+     "const": "https://jolleycomics.com/images/Index/tpoh.png"
+    }
+   }
+  },
+  "chapters": {
+   "request": "{base}/TPoH/",
+   "items": "select.jumpbox option[style*=bold]:not([value=-1]), select.jumpbox option[style*=bold] + option:not([style*=bold]):not([value=-1]), select.jumpbox option[value=-1] + option:not([style*=bold])",
+   "fields": {
+    "url": "@value",
+    "name": {
+     "path": "",
+     "replace": [
+      [
+       "\\s*:\\s*Page.*$",
+       ""
+      ]
+     ]
+    }
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "select.jumpbox option:not([style*=bold]):not([value=-1])",
+   "image": "@value",
+   "subpage": {
+    "request": {
+     "url": "{url}"
+    },
+    "format": "html",
+    "image": ".comic_comic > img@src"
+   }
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Webcomic mit einem einzigen Eintrag (Werte fest wie in der Community); keine Suche, kein 'Neueste'.",
+  "Kapitel aus der Sprungliste select.jumpbox auf /TPoH/: fett markierte Optionen = Kapitel; das gerade aktive Kapitel steht dort nur als Seitenliste, davon wird die erste Seite (Option direkt nach einer fetten bzw. nach der value=-1-Option) als Kapitel genommen. Annahme: jsoup liefert die Kommaliste in Dokumentreihenfolge.",
+  "Kapitel-URL des aktiven Kapitels ist die URL seiner ersten Seite (Community: Ordner ohne Seitenteil) – beim Laden ergibt sich dieselbe Seitenliste. Kapitelnummer/'#N'-Präfix (laufender Zähler) nicht ausdrückbar, Name nur der Optionstext ohne ' : Page …'.",
+  "Seiten: jede nicht fette Option der Sprungliste ist eine eigene HTML-Seite, Bild aus .comic_comic > img (subpage)."
+ ]
 }
