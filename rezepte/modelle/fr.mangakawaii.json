@@ -23,7 +23,153 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/mangas?sort=views&page={page}",
+   "items": "a.mk-card[href*=/manga/]",
+   "fields": {
+    "url": "@href",
+    "title": [
+     "p.mk-display",
+     "img@alt"
+    ],
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "nav[aria-label=Pagination] a[rel=next], nav[aria-label=Pagination] a[aria-label*=Next], nav[aria-label=Pagination] a[aria-label*=Suivant]"
+   }
+  },
+  "latest": {
+   "request": "{base}/mangas?sort=last_updated&dir=desc&page={page}",
+   "items": "a.mk-card[href*=/manga/]",
+   "fields": {
+    "url": "@href",
+    "title": [
+     "p.mk-display",
+     "img@alt"
+    ],
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "nav[aria-label=Pagination] a[rel=next], nav[aria-label=Pagination] a[aria-label*=Next], nav[aria-label=Pagination] a[aria-label*=Suivant]"
+   }
+  },
+  "search": {
+   "request": "{base}/recherche?q={query}&page={page}",
+   "items": "a.mk-card[href*=/manga/]",
+   "fields": {
+    "url": "@href",
+    "title": [
+     "p.mk-display",
+     "img@alt"
+    ],
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "nav[aria-label=Pagination] a[rel=next], nav[aria-label=Pagination] a[aria-label*=Next], nav[aria-label=Pagination] a[aria-label*=Suivant]"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "cover": "img.shadow-2xl@src",
+    "description": "[x-ref=desc]",
+    "author": {
+     "path": "p:has(i.fa-pen-nib)@html",
+     "regex": "(?s)fa-pen-nib[^>]*>(?:\\s*</i>)?(.*?)(?:<i[^>]*fa-paintbrush|$)",
+     "group": 1,
+     "decode": "html_text"
+    },
+    "artist": {
+     "path": "p:has(i.fa-pen-nib)@html",
+     "regex": "(?s)fa-paintbrush[^>]*>(?:\\s*</i>)?(.*)$",
+     "group": 1,
+     "decode": "html_text"
+    },
+    "genres": {
+     "path": "a[href*=genres]",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": "details p",
+     "regex": "·\\s*([^·]+?)\\s*$",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "en cours": 1,
+    "En cours": 1,
+    "terminé": 2,
+    "Terminé": 2
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}/chapitres?page={page}",
+   "request_by_page": {
+    "1": "details"
+   },
+   "paging": {
+    "has_next": {
+     "min": 1
+    },
+    "max_pages": 60
+   },
+   "items": "div.ch-row:has(a.ch-num)",
+   "fields": {
+    "url": "a.ch-num@href",
+    "name": "a.ch-num",
+    "number": {
+     "path": "a.ch-num",
+     "regex": "Ch\\.\\s*(\\d+)",
+     "group": 1
+    },
+    "date": "p"
+   },
+   "date_format": "relative",
+   "date_locale": "fr"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "[x-data*=imgs]",
+   "image": "@src",
+   "inner": {
+    "value": {
+     "path": "[x-data*=imgs]@x-data",
+     "replace": [
+      [
+       "\\\\+u0022",
+       "\""
+      ],
+      [
+       "\\\\+u0026",
+       "&"
+      ],
+      [
+       "\\\\+/",
+       "/"
+      ],
+      [
+       "\\\\+\"",
+       "\""
+      ]
+     ],
+     "regex": "(?s)\"imgs\":\\s*(\\[.*?\\])",
+     "group": 1
+    },
+    "format": "json",
+    "items": "$",
+    "image": "",
+    "exclude": "__mk_trap__"
+   },
+   "exclude": "__mk_trap__"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Nächste Seite: Community sucht im Pagination-Nav einen Link auf page=<n+1>; nicht ausdrückbar → rel=next/aria-label-Selektoren (unsicher). Filter nicht übernommen.",
+  "Details: Autoren/Zeichner aus dem Absatz mit fa-pen-nib, getrennt am Pinsel-Symbol (fa-paintbrush) per Regex + html_text (Trennzeichen evtl. anders als in der Community). Alternativtitel (zweites details p) nicht in die Beschreibung übernommen. Status = Text nach dem letzten '·' im ersten details p.",
+  "Kapitel: Seite 1 = Zeilen der Detailseite, danach {abs_url}/chapitres?page=N bis eine Seite leer ist (Community nimmt bevorzugt die URL aus [data-url*=chapitres]; hat die Detailseite keine Zeilen, beginnt sie bei page=1 – hier nicht). Datum 'il y a N jours…' relativ (Locale fr).",
+  "Seiten: Bildliste 'imgs' aus dem Alpine-x-data-Attribut; Escapes (\\u0022, \\u0026, \\/) per replace entfernt (Community entfernt sie in einer Schleife), Köder-URLs mit __mk_trap__ ausgeschlossen. Ausweichweg der Community (img[id^=pg-]) nicht übernommen; doppelte URLs nicht entfernt."
+ ]
 }

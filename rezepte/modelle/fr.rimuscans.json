@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Rimu Scans",
+  "sprache": "fr",
+  "base_url": "https://rimuscan.fr",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.rimuscans",
+  "quellen": [
+   {
+    "name": "Rimu Scans",
+    "sprache": "fr",
+    "quell_id": 203984087587807085,
+    "home": "https://rimuscan.fr"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/rimuscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

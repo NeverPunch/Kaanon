@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "X-Manga",
+  "sprache": "fr",
+  "base_url": "https://x-manga.org",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.xmanga",
+  "quellen": [
+   {
+    "name": "X-Manga",
+    "sprache": "fr",
+    "quell_id": 8214773311087111646,
+    "home": "https://x-manga.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/scanhentaimenu",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.61",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

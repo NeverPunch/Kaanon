@@ -153,7 +153,6 @@
     },
     "number": "number"
    },
-   "sort": "number",
    "reverse": true
   },
   "pages": {
@@ -178,6 +177,6 @@
   "API api.manga-nova.com mit dem festen öffentlichen Standard-Token der Website (Bearer, wie Community DEFAULT_TOKEN; kein Login) – nur bei API-Anfragen gesendet. Ein Token aus dem Cookie 'token' (eingeloggt) wird nicht übernommen.",
   "Listen: /catalogue/ (series = Beliebt, new_series = Neueste, Suche per client_filter über series); eine Seite.",
   "Details: Community sucht die Serie im Katalog per Slug (Filter mit Platzhalter nicht belegt); hier aus /mangas/<slug> unter 'serie' mit denselben Feldnamen wie im Katalog (title, description, poster, author, dessinateur, genres, running) – ANNAHME, auf dem PC prüfen. Status: running 0 = abgeschlossen, sonst laufend.",
-  "Kapitel: serie.chapitres[*].chapitres[*] (doppeltes * wie es.manhwaweb 'top.*.*'), kostenpflichtige (amount ≠ 0) übersprungen. Name 'Titel - Untertitel' ohne Kategorietitel (Elternfeld nicht zugreifbar). Datum (jetzt + available_time) weggelassen. 'sort' in chapters nicht in Vorlagen belegt – ggf. entfernen."
+  "Kapitel: serie.chapitres[*].chapitres[*] (doppeltes * wie es.manhwaweb 'top.*.*'), kostenpflichtige (amount ≠ 0) übersprungen. Name 'Titel - Untertitel' ohne Kategorietitel (Elternfeld nicht zugreifbar). Datum (jetzt + available_time) weggelassen. Reihenfolge: API vermutlich aufsteigend, daher reverse (Community sortiert absteigend nach Nummer; Sortierung in chapters nicht belegt)."
  ]
 }
