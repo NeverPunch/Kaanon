@@ -10448,7 +10448,7 @@
  },
  {
   "modul": "src/en/colorizedmangas",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Colorized Mangas",
   "stufe": 2,
   "theme": null,
@@ -10458,11 +10458,13 @@
   "host": "colorizedmangas.com",
   "nsfw": false,
   "wer": "agent-w3d",
-  "seit": "2026-11-03T10:38:12"
+  "seit": "2026-11-03T10:38:12",
+  "datei": "rezepte/modelle/en.colorizedmangas.json",
+  "geaendert": "2026-11-03T10:38:34"
  },
  {
   "modul": "src/en/comichubfree",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "ComicHubFree",
   "stufe": 2,
   "theme": null,
@@ -10472,11 +10474,13 @@
   "host": "comichubfree.com",
   "nsfw": false,
   "wer": "agent-w4a",
-  "seit": "2026-11-03T10:38:17"
+  "seit": "2026-11-03T10:38:17",
+  "datei": "rezepte/modelle/en.comichubfree.json",
+  "geaendert": "2026-11-03T10:38:46"
  },
  {
   "modul": "src/en/comickfan",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "ComicK Fanmade",
   "stufe": 2,
   "theme": null,
@@ -10484,11 +10488,13 @@
    "en"
   ],
   "host": "comickfan.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w3d",
+  "seit": "2026-11-03T10:38:34"
  },
  {
   "modul": "src/en/comicland",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "ComicLand",
   "stufe": 2,
   "theme": null,
@@ -10496,11 +10502,13 @@
    "en"
   ],
   "host": "comicland.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4a",
+  "seit": "2026-11-03T10:38:46"
  },
  {
   "modul": "src/en/cutiecomics",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Cutie Comics",
   "stufe": 2,
   "theme": null,
@@ -10508,7 +10516,9 @@
    "en"
   ],
   "host": "cutiecomics.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:38:46"
  },
  {
   "modul": "src/en/darklegacycomics",

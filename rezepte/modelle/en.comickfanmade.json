@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ComicK Fanmade",
+  "sprache": "en",
+  "base_url": "https://comickfan.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.comickfanmade",
+  "quellen": [
+   {
+    "name": "ComicK Fanmade",
+    "sprache": "en",
+    "quell_id": 569821715369244319,
+    "home": "https://comickfan.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/comickfan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

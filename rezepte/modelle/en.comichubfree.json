@@ -23,7 +23,95 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/popular-comic?page={page}",
+   "items": ".movie-list-index > .cartoon-box:has(.detail)",
+   "fields": {
+    "url": "a@href",
+    "title": "h3",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "ul.pagination a[rel=next]"
+   }
+  },
+  "latest": {
+   "request": "{base}/new-comic?page={page}",
+   "items": ".movie-list-index > .cartoon-box:has(.detail)",
+   "fields": {
+    "url": "a@href",
+    "title": "h3",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "ul.pagination a[rel=next]"
+   }
+  },
+  "search": {
+   "request": "{base}/search-comic?key={query}&page={page}",
+   "items": ".movie-list-index > .cartoon-box:has(.detail)",
+   "fields": {
+    "url": "a@href",
+    "title": "h3",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "ul.pagination a[rel=next]"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     "div.movie-info h1",
+     "h1"
+    ],
+    "description": "div.movie-info div#film-content",
+    "cover": "div.movie-info div.series-info img@img",
+    "author": "div.series-info dt:contains(Author:) + dd",
+    "genres": {
+     "path": "div.series-info dt:contains(Genres:) + dd a",
+     "all": true,
+     "join": ", "
+    },
+    "status": "div.series-info dt:contains(Status:) + dd"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}?page={page}",
+   "request_by_page": {
+    "1": "details"
+   },
+   "items": "div.episode-list > div > table > tbody > tr",
+   "fields": {
+    "url": "a@href",
+    "name": "a",
+    "date": "td:last-of-type"
+   },
+   "date_format": "d-MMM-yyyy",
+   "date_locale": "en",
+   "paging": {
+    "has_next": {
+     "exists": "ul.pagination a[rel=next]"
+    },
+    "max_pages": 50
+   }
+  },
+  "pages": {
+   "request": "{abs_url}/all",
+   "items": "img.chapter_img",
+   "image": "@img"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "HTML-Website; Listen/Suche wie Community (popular-comic, new-comic, search-comic?key=).",
+  "Kapitelliste ist paginiert: Community folgt dem Link ul.pagination a[rel=next]; hier als {abs_url}?page=N angenommen (auf dem PC prüfen).",
+  "Titel in den Details: Community setzt ihn nicht neu (nimmt den aus der Liste); hier h1 angenommen.",
+  "Doppelte Bild-URLs entfernt die Community (distinctBy) – hier nicht."
+ ]
 }
