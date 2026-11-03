@@ -23,7 +23,200 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "application/json"
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/api/comics?page={page}&pageSize=18&sort=popular",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "lt": [
+     "meta.page",
+     "meta.totalPages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comics/{value}"
+    },
+    "title": "title",
+    "cover": [
+     "coverUrl",
+     "coverThumbUrl"
+    ]
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/api/comics?page={page}&pageSize=18&sort=newest",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "lt": [
+     "meta.page",
+     "meta.totalPages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comics/{value}"
+    },
+    "title": "title",
+    "cover": [
+     "coverUrl",
+     "coverThumbUrl"
+    ]
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/comics?page={page}&pageSize=18&q={query}&sort=popular",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "lt": [
+     "meta.page",
+     "meta.totalPages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comics/{value}"
+    },
+    "title": "title",
+    "cover": [
+     "coverUrl",
+     "coverThumbUrl"
+    ]
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{base}/api/comics/{u.slug}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/comics/([^/?#]+)"
+   },
+   "let": {
+    "alt": {
+     "path": "data.altTitles",
+     "all": true,
+     "join": "\n- "
+    }
+   },
+   "fields": {
+    "title": "data.title",
+    "cover": [
+     "data.coverUrl",
+     "data.coverThumbUrl"
+    ],
+    "author": "data.author",
+    "artist": "data.artist",
+    "genres": {
+     "path": "data.genres.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "data.seriesStatus",
+    "description": {
+     "const": "[[{f.data.description}]][[\n\nAssociated Name(s):\n- {l.alt}]]",
+     "replace": [
+      [
+       "^\\n+",
+       ""
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "dropped": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "data.chapters",
+   "skip": {
+    "path": "priceCoins",
+    "regex": "^[1-9]"
+   },
+   "fields": {
+    "url": {
+     "path": "number",
+     "regex": "^(\\d+(?:\\.\\d*[1-9])?)",
+     "group": 1,
+     "template": "/comics/{u.slug}/chapter/{value}#{f.id}"
+    },
+    "name": [
+     {
+      "path": "title",
+      "regex": "^(.*\\S.*)$",
+      "group": 1
+     },
+     {
+      "path": "number",
+      "regex": "^(\\d+(?:\\.\\d*[1-9])?)",
+      "group": 1,
+      "template": "Chapter {value}"
+     }
+    ],
+    "number": "number",
+    "date": "publishedAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "{base}/api/comic-chapters/{u.id}/content",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "#(.+)$"
+   },
+   "items": "data.pages",
+   "sort": {
+    "path": "index"
+   },
+   "image": "url"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "JSON-API {base}/api/comics (pageSize 18; Beliebt sort=popular, Neueste sort=newest, Suche q=…&sort=popular); weiter bei meta.page < meta.totalPages. Filter nicht übernommen. Accept: application/json wie Community.",
+  "Kapitel-URL /comics/<slug>/chapter/<nr>#<kapitel-id>; die ID (Community: memo chapterId) steht im Fragment für /api/comic-chapters/<id>/content.",
+  "Gesperrte Kapitel (priceCoins > 0) übersprungen (Community-Standard 'Hide locked chapters'). Bewertung in der Beschreibung nicht übernommen.",
+  "Seiten nach 'index' sortiert (sort ohne regex – Annahme, dass Zahlenwert direkt verwendet wird)."
+ ]
 }

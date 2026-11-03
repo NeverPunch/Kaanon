@@ -2,22 +2,22 @@
  "rezept": "kaanon-rezept/1",
  "status": "entwurf",
  "extension": {
-  "name": "NineHentai",
+  "name": "Oglaf",
   "sprache": "en",
-  "base_url": "https://9hentai.so",
+  "base_url": "https://www.oglaf.com",
   "nsfw": true,
-  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.ninehentai",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.oglaf",
   "quellen": [
    {
-    "name": "NineHentai",
+    "name": "Oglaf",
     "sprache": "en",
-    "quell_id": 7689490563697355048,
-    "home": "https://9hentai.so"
+    "quell_id": 1725608127916018822,
+    "home": "https://www.oglaf.com"
    }
   ]
  },
  "quelle": {
-  "modul": "src/en/ninehentai",
+  "modul": "src/en/oglaf",
   "community_stand": "efa93f5a 2026-11-02",
   "community_version": "1.6.1",
   "theme": null

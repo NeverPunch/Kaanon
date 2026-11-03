@@ -23,7 +23,109 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/comic/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/comic/"
+    },
+    "title": {
+     "const": "Nortverse"
+    },
+    "cover": {
+     "const": "https://i0.wp.com/nortverse.com/wp-content/uploads/2023/02/cropped-Site-Icon.png?fit=512%2C512&ssl=1"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "Nortverse"
+    },
+    "cover": {
+     "const": "https://i0.wp.com/nortverse.com/wp-content/uploads/2023/02/cropped-Site-Icon.png?fit=512%2C512&ssl=1"
+    },
+    "description": {
+     "const": "Tara and Beverly"
+    },
+    "author": {
+     "const": "nortuet"
+    },
+    "artist": {
+     "const": "nortuet"
+    },
+    "status": {
+     "const": "ongoing"
+    }
+   },
+   "status_map": {
+    "ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": "{base}/wp-json/wp/v2/comic?order=desc&per_page=100&page={page}&_fields=slug,title,date_gmt",
+   "format": "json",
+   "items": "$",
+   "page_size": 100,
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}/"
+    },
+    "name": {
+     "path": "title.rendered",
+     "decode": "html"
+    },
+    "date": {
+     "path": "date_gmt",
+     "template": "{value}Z"
+    }
+   },
+   "date_format": "iso",
+   "paging": {
+    "has_next": {
+     "full": true
+    },
+    "max_pages": 30
+   }
+  },
+  "pages": {
+   "request": "{base}/wp-json/wp/v2/comic?slug={u.slug}&_fields=content",
+   "url_vars": {
+    "slug": "/comic/([^/?#]+)"
+   },
+   "format": "json_html",
+   "html_path": "0.content.rendered",
+   "items": "img",
+   "image": {
+    "path": "@src",
+    "replace": [
+     [
+      "([?&])resize=[^&]*&?",
+      "$1"
+     ],
+     [
+      "[?&]$",
+      ""
+     ]
+    ]
+   }
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Einzeltitel-Webcomic: ein fester Eintrag 'Nortverse' mit Angaben wie in der Community. Keine Suche (Community filtert nur den einen Eintrag).",
+  "Kapitel aus der WordPress-REST-API /wp/v2/comic, 100 je Seite; hier order=desc (neueste zuerst) statt asc + Umdrehen. Weiter bei voller Seite (Community: X-WP-TotalPages).",
+  "Kapitelname nur der Titel; die Community-Nummerierung '#N.' (Index ab ältestem Strip) ist nicht ausdrückbar. Datum = date_gmt (UTC).",
+  "Seiten aus content.rendered des Strips (REST), resize-Parameter entfernt (Originalgröße) wie in der Community."
+ ]
 }

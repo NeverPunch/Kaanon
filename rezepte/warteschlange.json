@@ -11728,7 +11728,7 @@
  },
  {
   "modul": "src/en/ninehentai",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "NineHentai",
   "stufe": 2,
   "theme": null,
@@ -11738,7 +11738,9 @@
   "host": "9hentai.so",
   "nsfw": true,
   "wer": "agent-w4d",
-  "seit": "2026-11-03T10:46:46"
+  "seit": "2026-11-03T10:46:46",
+  "grund": "Bildliste wird aus total_page (getBookByID) als 1..N.jpg erzeugt, plus 404-Probe der letzten Seite; Zählschleife in keiner Vorlage belegt",
+  "geaendert": "2026-11-03T10:47:03"
  },
  {
   "modul": "src/en/nortverse",
@@ -11784,7 +11786,7 @@
  },
  {
   "modul": "src/en/oglaf",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Oglaf",
   "stufe": 2,
   "theme": null,
@@ -11792,11 +11794,13 @@
    "en"
   ],
   "host": "oglaf.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4d",
+  "seit": "2026-11-03T10:47:03"
  },
  {
   "modul": "src/en/ohjoysextoy",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Oh Joy Sex Toy",
   "stufe": 2,
   "theme": null,
@@ -11804,7 +11808,9 @@
    "en"
   ],
   "host": "ohjoysextoy.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w5b",
+  "seit": "2026-11-03T10:47:10"
  },
  {
   "modul": "src/en/onepunchmanonline",
