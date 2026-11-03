@@ -7783,7 +7783,7 @@
  },
  {
   "modul": "src/all/elitebabes",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Elite Babes",
   "stufe": 2,
   "theme": "masonry",
@@ -7793,7 +7793,9 @@
   "host": "elitebabes.com",
   "nsfw": true,
   "wer": "agent-w1a",
-  "seit": "2026-11-03T10:15:28"
+  "seit": "2026-11-03T10:15:28",
+  "datei": "rezepte/modelle/all.elitebabes.json",
+  "geaendert": "2026-11-03T10:15:59"
  },
  {
   "modul": "src/all/femjoyhunter",
@@ -7811,7 +7813,7 @@
  },
  {
   "modul": "src/all/ftvhunter",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "FTV Hunter",
   "stufe": 2,
   "theme": "masonry",
@@ -7819,11 +7821,13 @@
    "all"
   ],
   "host": "ftvhunter.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w1a",
+  "seit": "2026-11-03T10:15:59"
  },
  {
   "modul": "src/all/joymiihub",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Joymii Hub",
   "stufe": 2,
   "theme": "masonry",
@@ -7831,7 +7835,9 @@
    "all"
   ],
   "host": "joymiihub.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2a",
+  "seit": "2026-11-03T10:16:05"
  },
  {
   "modul": "src/all/metarthunter",
