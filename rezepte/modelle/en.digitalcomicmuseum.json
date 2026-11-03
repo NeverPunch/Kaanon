@@ -23,7 +23,83 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/stats.php?ACT=topdl&start={offset}&limit=100",
+   "page_size": 100,
+   "items": "tbody > .mainrow",
+   "has_next": {
+    "exists": "img[alt=Next]"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "a",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/stats.php?ACT=latest&start={offset}&limit=100",
+   "page_size": 100,
+   "items": "tbody > .mainrow",
+   "has_next": {
+    "exists": "img[alt=Next]"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "a",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/index.php?ACT=dosearch",
+    "method": "POST",
+    "form": {
+     "terms": "{query_raw}"
+    }
+   },
+   "items": "#search-results tbody > tr",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "td > a@href",
+    "title": "td > a"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".tableborder #catname",
+    "cover": ".tableborder table img@src",
+    "description": ".tableborder:has(#catname:matches(^Description$)) table"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": ".tableborder .tablefooter a:first-of-type@href",
+    "name": ".tableborder #catname"
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".reader-page-list a.reader-page-link",
+   "image": "@href",
+   "subpage": {
+    "request": {
+     "url": "{url}"
+    },
+    "format": "html",
+    "image": "img.reader-page-image@src"
+   }
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Listen aus stats.php (ACT=topdl bzw. latest), 100 je Seite: start = (Seite-1)*100 → {offset} mit page_size 100.",
+  "Suche: Community sendet terms als multipart/form-data an index.php?ACT=dosearch; hier als normales Formular (PHP nimmt beides an, nicht geprüft). Keine Seitenweiterschaltung.",
+  "Ein Kapitel je Comic: Name/Link aus dem ersten .tableborder (erster Treffer im Dokument), Link = erster Footer-Link wie in der Community.",
+  "Seiten: jede Bildseite ist eine eigene HTML-Seite (img.reader-page-image) → subpage."
+ ]
 }

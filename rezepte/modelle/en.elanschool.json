@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Elan School",
+  "sprache": "en",
+  "base_url": "https://elan.school",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.elanschool",
+  "quellen": [
+   {
+    "name": "Elan School",
+    "sprache": "en",
+    "quell_id": 6159323532820101296,
+    "home": "https://elan.school"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/elanschool",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

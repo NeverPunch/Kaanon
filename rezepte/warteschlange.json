@@ -10576,7 +10576,7 @@
  },
  {
   "modul": "src/en/digitalcomicmuseum",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Digital Comic Museum",
   "stufe": 2,
   "theme": null,
@@ -10586,7 +10586,9 @@
   "host": "digitalcomicmuseum.com",
   "nsfw": false,
   "wer": "agent-w4b",
-  "seit": "2026-11-03T10:39:28"
+  "seit": "2026-11-03T10:39:28",
+  "datei": "rezepte/modelle/en.digitalcomicmuseum.json",
+  "geaendert": "2026-11-03T10:39:55"
  },
  {
   "modul": "src/en/doujins",
@@ -10632,7 +10634,7 @@
  },
  {
   "modul": "src/en/elanschool",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Elan School",
   "stufe": 2,
   "theme": null,
@@ -10640,7 +10642,9 @@
    "en"
   ],
   "host": "elan.school",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:39:55"
  },
  {
   "modul": "src/en/existentialcomics",

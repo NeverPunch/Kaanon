@@ -23,7 +23,110 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/top/month",
+   "items": "div:not(.premium-folder) > .thumbnail-doujin a.gallery-visited-from-favorites",
+   "fields": {
+    "url": "@href",
+    "title": "div.title .text",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/searches?words={query}&page={page}&sort=",
+   "items": "div:not(.premium-folder) > .thumbnail-doujin a.gallery-visited-from-favorites",
+   "fields": {
+    "url": "@href",
+    "title": "div.title .text",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": ".pagination li.page-item:last-child:not(.disabled)"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     ".folder-title a:last-of-type",
+     ".folder-title a"
+    ],
+    "artist": {
+     "path": ".gallery-artist a",
+     "all": true,
+     "join": ", "
+    },
+    "author": {
+     "path": ".gallery-artist a",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": ".tag-area a",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Chapter"
+    },
+    "scanlator": {
+     "path": "div.folder-message:contains(Translated)",
+     "regex": "by:\\s*(.+)",
+     "group": 1
+    },
+    "date": {
+     "path": ".text-md-right.text-sm-left > .folder-message",
+     "regex": "^(.*?)\\s*•",
+     "group": 1,
+     "replace": [
+      [
+       "(\\d+)(?:st|nd|rd|th),",
+       "$1,"
+      ]
+     ]
+    }
+   },
+   "date_format": "MMMM d, yyyy",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".doujin",
+   "image": {
+    "path": "@data-file",
+    "replace": [
+     [
+      "amp;",
+      ""
+     ]
+    ]
+   }
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Galerie-Website: ein Eintrag = ein Kapitel ('Chapter'); Übersetzer und Datum aus der Galerieseite (Ordinal-Endungen st/nd/rd/th werden vor dem Parsen entfernt).",
+  "Beliebt = /top/month, eine Seite (Community lädt immer dieselbe URL). Suche /searches?words=…&page=… (Sortierung leer = neueste).",
+  "Neueste nicht übernommen: Community bildet Zeitfenster (start/end als Epoch-Sekunden je 3 Tage ab heute) – keine Datums-Platzhalter in der Rezeptsprache.",
+  "Genres: Community nimmt nur die erste .tag-area; hier alle .tag-area-Links (evtl. zusätzliche Einträge).",
+  "Cover in Listen: Community nimmt img@srcset; hier img@img. Serien-/Zeitraum-/Sortierfilter nicht übernommen."
+ ]
 }
