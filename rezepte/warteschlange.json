@@ -15473,7 +15473,7 @@
  },
  {
   "modul": "src/pt/mediocretoons",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "Mediocre Toons",
   "stufe": 2,
   "theme": null,
@@ -15483,11 +15483,14 @@
   "host": "mediocrescan.com",
   "nsfw": false,
   "wer": "agent-w7b",
-  "seit": "2026-11-03T11:12:57"
+  "seit": "2026-11-03T11:12:57",
+  "grund": "Alle API-Anfragen (back2.mediocrescan.com) brauchen Bearer-Token aus Login mit E-Mail/Passwort (POST /auth/login); ohne Konto kein Zugriff (Login zum Lesen)",
+  "datei": null,
+  "geaendert": "2026-11-03T11:13:04"
  },
  {
   "modul": "src/pt/muitohentai",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Muito Hentai",
   "stufe": 2,
   "theme": null,
@@ -15495,7 +15498,9 @@
    "pt-BR"
   ],
   "host": "muitohentai.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w7b",
+  "seit": "2026-11-03T11:13:05"
  },
  {
   "modul": "src/pt/mundohentai",

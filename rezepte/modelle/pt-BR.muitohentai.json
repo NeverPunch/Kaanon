@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Muito Hentai",
+  "sprache": "pt-BR",
+  "base_url": "https://www.muitohentai.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.muitohentai",
+  "quellen": [
+   {
+    "name": "Muito Hentai",
+    "sprache": "pt-BR",
+    "quell_id": 1062606379654091909,
+    "home": "https://www.muitohentai.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/muitohentai",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

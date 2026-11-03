@@ -1,0 +1,186 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Mango Toons",
+  "sprache": "pt-BR",
+  "base_url": "https://mangotoons.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.mangotoons",
+  "quellen": [
+   {
+    "name": "Mango Toons",
+    "sprache": "pt-BR",
+    "quell_id": 8989984812354857153,
+    "home": "https://mangotoons.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/mangotoons",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://api.mangotoons.com/api/v1/obras?pagina={page}&limite=24&ordenar=populares",
+   "format": "json",
+   "items": "obras",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/obra/{value}"
+    },
+    "title": "nome",
+    "cover": "imagem"
+   },
+   "has_next": {
+    "lt": [
+     "pagina",
+     "total_paginas"
+    ]
+   }
+  },
+  "latest": {
+   "request": "https://api.mangotoons.com/api/v1/obras?pagina={page}&limite=24&ordenar=recentes",
+   "format": "json",
+   "items": "obras",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/obra/{value}"
+    },
+    "title": "nome",
+    "cover": "imagem"
+   },
+   "has_next": {
+    "lt": [
+     "pagina",
+     "total_paginas"
+    ]
+   }
+  },
+  "search": {
+   "request": "https://api.mangotoons.com/api/v1/obras?pagina={page}&limite=24&busca={query}",
+   "format": "json",
+   "items": "obras",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/obra/{value}"
+    },
+    "title": "nome",
+    "cover": "imagem"
+   },
+   "has_next": {
+    "lt": [
+     "pagina",
+     "total_paginas"
+    ]
+   }
+  },
+  "details": {
+   "request": "https://api.mangotoons.com/api/v1/obras/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/obra/(\\d+)"
+   },
+   "fields": {
+    "title": "nome",
+    "cover": "imagem",
+    "description": "descricao",
+    "genres": {
+     "path": "tags",
+     "all": true,
+     "join": ", "
+    },
+    "status": "status"
+   },
+   "status_map": {
+    "em andamento": 1,
+    "lançando": 1,
+    "ativo": 1,
+    "concluído": 2,
+    "finalizado": 2,
+    "hiato": 6,
+    "pausado": 6,
+    "cancelado": 5,
+    "Em andamento": 1,
+    "Lançando": 1,
+    "Ativo": 1,
+    "Concluído": 2,
+    "Finalizado": 2,
+    "Hiato": 6,
+    "Pausado": 6,
+    "Cancelado": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "capitulos",
+   "fields": {
+    "url": {
+     "path": "numero",
+     "replace": [
+      [
+       "^(\\d+)\\.0+$",
+       "$1"
+      ],
+      [
+       "^(\\d+\\.\\d*?[1-9])0+$",
+       "$1"
+      ]
+     ],
+     "template": "/obra/{u.id}/capitulo/{value}"
+    },
+    "name": {
+     "path": "numero",
+     "replace": [
+      [
+       "^(\\d+)\\.0+$",
+       "$1"
+      ],
+      [
+       "^(\\d+\\.\\d*?[1-9])0+$",
+       "$1"
+      ]
+     ],
+     "template": "Capitulo {value}"
+    },
+    "number": "numero",
+    "date": "published_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://api.mangotoons.com/api/v1/leitor/obras/{u.mid}/capitulos/{u.num}/manifest",
+   "format": "json",
+   "url_vars": {
+    "mid": "/obra/(\\d+)",
+    "num": "/capitulo/([^/?#]+)"
+   },
+   "items": "pages",
+   "image": {
+    "path": "url",
+    "replace": [
+     [
+      "^/(?!/)",
+      "https://cdn.mangotoons.com/"
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "API api.mangotoons.com/api/v1: Listen /obras (24 je Seite, ordenar populares/recentes, busca=), Details+Kapitel /obras/<id>, Seiten /leitor/obras/<id>/capitulos/<num>/manifest.",
+  "Manifest antwortet ab ~12 Anfragen/Minute mit 429; Community drosselt nur diesen Pfad auf 1 je 5 s – pfadabhängiges Rate-Limit nicht ausdrückbar, hier global 2/s (bei Massen-Downloads prüfen).",
+  "Kapitel-URL /obra/<id>/capitulo/<nummer> (Nummer ohne überflüssige Nullen wie Community); Reihenfolge wie geliefert (Community sortiert absteigend). Seiten nicht nach index sortiert (Community sortiert).",
+  "Cover/Bilder: relative Pfade bleiben relativ zur Website bzw. werden auf cdn.mangotoons.com gesetzt (wie Community)."
+ ]
+}
