@@ -23,7 +23,150 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "{base}/api/manga/common/list",
+    "method": "POST",
+    "body": "{\"pageNum\": {page}, \"pageSize\": 24, \"keyword\": null, \"orderBy\": \"views\", \"order\": \"desc\", \"theme\": null, \"grade\": null, \"updateStatus\": null}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "data.records",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/detail/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover",
+     "template": "{base}/api{value}"
+    }
+   },
+   "has_next": {
+    "lt": [
+     "data.current",
+     "data.pages"
+    ]
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/api/manga/common/list",
+    "method": "POST",
+    "body": "{\"pageNum\": {page}, \"pageSize\": 24, \"keyword\": null, \"orderBy\": \"updateTime\", \"order\": \"desc\", \"theme\": null, \"grade\": null, \"updateStatus\": null}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "data.records",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/detail/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover",
+     "template": "{base}/api{value}"
+    }
+   },
+   "has_next": {
+    "lt": [
+     "data.current",
+     "data.pages"
+    ]
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/manga/common/list",
+    "method": "POST",
+    "body": "{\"pageNum\": {page}, \"pageSize\": 24, \"keyword\": \"{query_raw}\", \"orderBy\": \"views\", \"order\": \"desc\", \"theme\": null, \"grade\": null, \"updateStatus\": null}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "data.records",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/detail/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover",
+     "template": "{base}/api{value}"
+    }
+   },
+   "has_next": {
+    "lt": [
+     "data.current",
+     "data.pages"
+    ]
+   }
+  },
+  "details": {
+   "request": "{base}/api/manga/common/get?id={u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/manga/detail/(\\d+)"
+   },
+   "fields": {
+    "title": "data.title",
+    "cover": {
+     "path": "data.cover",
+     "template": "{base}/api{value}"
+    },
+    "description": "data.description",
+    "author": "data.author",
+    "genres": {
+     "path": "data.genres.*",
+     "all": true,
+     "join": ", "
+    },
+    "status": "data.updateStatus"
+   },
+   "status_map": {
+    "0": 1,
+    "1": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "id": "/manga/detail/(\\d+)"
+   },
+   "items": "data.chapters",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/chapter/{value}"
+    },
+    "name": "title",
+    "date": "updateTime"
+   },
+   "date_format": "iso",
+   "reverse": true
+  },
+  "pages": {
+   "request": "{base}/api/manga/common/getChapterList?chapterId={u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/manga/chapter/(\\d+)"
+   },
+   "items": "data.chapters",
+   "image": {
+    "path": "url",
+    "template": "{base}/api{value}"
+   }
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "JSON-API {base}/api (POST /manga/common/list mit JSON-Körper wie Community: pageNum/pageSize 24/keyword/orderBy views|updateTime/order desc; Filter null).",
+  "Suche nur Text (keyword); Kategorie-/Sortierfilter nicht nachgebaut. Suchtext roh in JSON eingesetzt (Anführungszeichen im Suchtext würden den Körper brechen).",
+  "Manga-URL /manga/detail/<id>, Kapitel-URL /manga/chapter/<id> (Community speichert nur die ID).",
+  "Kapitel in der Detail-Antwort, umgedreht wie Community. Status '0' laufend, '1' abgeschlossen.",
+  "Bild-URLs sind 30 Minuten signiert; die Community lädt bei 403 die Seitenliste neu (Interceptor) – das kann das Rezept nicht, Kapitel ggf. neu öffnen."
+ ]
 }

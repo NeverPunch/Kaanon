@@ -1,0 +1,195 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Toptoon.net",
+  "sprache": "zh",
+  "base_url": "https://www.toptoon.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.toptoonnet",
+  "quellen": [
+   {
+    "name": "TOPTOON頂通",
+    "sprache": "zh",
+    "quell_id": 1680248666203661128,
+    "home": "https://www.toptoon.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/toptoon",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "vars": {
+   "rank": {
+    "request": "{base}/ranking",
+    "format": "text",
+    "value": {
+     "path": "",
+     "regex": "jsonFileUrl:\\s*\\[\"([^\"]+)\"",
+     "group": 1,
+     "replace": [
+      [
+       "\\\\/",
+       "/"
+      ]
+     ]
+    },
+    "ttl_s": 600
+   },
+   "all": {
+    "request": "{base}/search",
+    "format": "text",
+    "value": {
+     "path": "",
+     "regex": "var jsonFileUrl = '([^']+)'",
+     "group": 1,
+     "replace": [
+      [
+       "\\\\/",
+       "/"
+      ]
+     ]
+    },
+    "ttl_s": 600
+   }
+  },
+  "popular": {
+   "request": "https:{v.rank}",
+   "format": "json",
+   "items": "adult",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/comic/epList/{value}"
+    },
+    "title": "meta.title",
+    "cover": [
+     {
+      "path": "thumbnail.standard.0",
+      "template": "https://tw-contents-image.toptoon.net{value}"
+     },
+     {
+      "path": "thumbnail.standard",
+      "template": "https://tw-contents-image.toptoon.net{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "https:{v.all}",
+   "format": "text",
+   "client_filter": true,
+   "items": "\"[^\"]+\":\\{(?:[^{}]|\\{(?:[^{}]|\\{[^{}]*\\})*\\})*\\}",
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "^\"([^\"]+)\":",
+     "group": 1,
+     "template": "/comic/epList/{value}"
+    },
+    "title": {
+     "path": "",
+     "regex": "\"meta\":\\{[^{}]*?\"title\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "cover": {
+     "path": "",
+     "regex": "\"standard\":\\[?\"([^\"]+)\"",
+     "group": 1,
+     "replace": [
+      [
+       "\\\\/",
+       "/"
+      ]
+     ],
+     "template": "https://tw-contents-image.toptoon.net{value}"
+    }
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "section.infoContent div.title",
+    "cover": "div.comicThumb img@src",
+    "author": {
+     "path": "section.infoContent div.etc",
+     "regex": "作家 : ([^|]*)",
+     "group": 1
+    },
+    "description": "div.comic_story div.desc",
+    "genres": {
+     "path": "section.infoContent div.hashTag",
+     "replace": [
+      [
+       "\\s*#\\s*",
+       ", "
+      ],
+      [
+       "^, ",
+       ""
+      ]
+     ]
+    },
+    "status": [
+     {
+      "path": "div.etc span.comicDayBox@class",
+      "regex": "(comicDayBox)",
+      "group": 1
+     },
+     {
+      "path": "div.hashTag a[href=/search/keyword/79]@href",
+      "regex": "(keyword/79)",
+      "group": 1
+     }
+    ]
+   },
+   "status_map": {
+    "comicdaybox": 1,
+    "keyword/79": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "section.episode_area ul.list_area li.episodeBox",
+   "skip": {
+    "any": [
+     "button.coin, button.gift, button.waitFree"
+    ]
+   },
+   "fields": {
+    "url": "a@href",
+    "name": {
+     "path": "div.title",
+     "template": "{value}[[ {f.div.subTitle}]]"
+    },
+    "date": "div.pubDate"
+   },
+   "date_format": "yyyy-MM-dd",
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "article.epContent section.imgWrap div.cImg img",
+   "image": "@data-src"
+  }
+ },
+ "hinweise": [
+  "Beliebt: Community liest die JSON-Adresse aus /ranking (jsonFileUrl) und nimmt die Liste 'adult'; hier per vars (Muster es.lectortmounoriginal) und Anfrage https:{v.rank}.",
+  "Keine Neueste-Liste: Community lädt den Gesamtkatalog und sortiert nach lastUpdated.pubDate (Sortieren nicht ausdrückbar).",
+  "Suche: Gesamtkatalog (JSON-Objekt id → Werk, Adresse aus /search) als Text mit Regex je Werk + client_filter (Community sucht auch im Autor). Regex setzt höchstens 3 Verschachtelungsebenen und 'title' am Anfang von meta voraus – prüfen.",
+  "Altersabfrage: Ohne Bestätigung leitet die Website Detail-/Kapitelseiten auf die Startseite um (Community: 'in WebView bestätigen'); Cookie-Name unbekannt, daher nicht gesetzt – auf dem PC prüfen.",
+  "Gesperrte Kapitel (Münzen/Geschenk/Warten-frei-Knopf) werden übersprungen. Status: laufend, wenn Wochentags-Kennzeichen (span.comicDayBox) vorhanden; abgeschlossen bei Hashtag-Link /search/keyword/79 (wie Community)."
+ ]
+}

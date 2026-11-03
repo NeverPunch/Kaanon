@@ -1,0 +1,124 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Zazhimi",
+  "sprache": "zh",
+  "base_url": "https://www.zazhimi.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.zazhimi",
+  "quellen": [
+   {
+    "name": "杂志迷",
+    "sprache": "zh",
+    "quell_id": 6466445276541048432,
+    "home": "https://www.zazhimi.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/zazhimi",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "ZaZhiMi_6.0.0"
+  },
+  "popular": {
+   "request": "https://android2026.zazhimi.net/api/index.php?p={page}&s=20",
+   "format": "json",
+   "items": "new",
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "magId",
+     "template": "/show.php?a={value}"
+    },
+    "title": "magName",
+    "cover": "magCover"
+   }
+  },
+  "search": {
+   "request": "https://android2026.zazhimi.net/api/search.php?k={query}&p={page}&s=20",
+   "format": "json",
+   "items": "magazine",
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "magId",
+     "template": "/show.php?a={value}"
+    },
+    "title": "magName",
+    "cover": [
+     "magCover",
+     {
+      "path": "magDate",
+      "template": "https://img2020.zazhimi.net/aazzmpic-l/{value}001.jpg"
+     }
+    ]
+   }
+  },
+  "details": {
+   "request": "https://android2026.zazhimi.net/api/show.php?a={u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "a=(\\d+)"
+   },
+   "fields": {
+    "title": "content.0.magName",
+    "author": {
+     "path": "content.0.magName",
+     "regex": "^(\\S+)",
+     "group": 1
+    },
+    "cover": "content.0.magPic",
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "全本"
+    },
+    "number": {
+     "const": "1"
+    }
+   }
+  },
+  "pages": {
+   "request": "https://android2026.zazhimi.net/api/show.php?a={u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "a=(\\d+)"
+   },
+   "items": "content",
+   "image": "magPic"
+  }
+ },
+ "hinweise": [
+  "App-API android2026.zazhimi.net mit App-User-Agent wie im Community-Code; Fetch.XHR-Browserheader nicht nachgebildet.",
+  "Jedes Heft ist ein Manga mit genau einem Kapitel „全本“; Status fest auf abgeschlossen gesetzt (Community: ONLY_FETCH_ONCE).",
+  "Filter (Kategorie/Marke über lists.php) nicht abgebildet; Suche nur per Stichwort. Kein latest (Community auch nicht).",
+  "Suchergebnisse ohne Cover: Ersatzcover aus magDate wie im Community-Code."
+ ]
+}

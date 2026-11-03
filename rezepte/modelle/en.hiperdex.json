@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hiperdex",
+  "sprache": "en",
+  "base_url": "https://hiperdex.tv",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.hiperdex",
+  "quellen": [
+   {
+    "name": "Hiperdex",
+    "sprache": "en",
+    "quell_id": 3064755045370217842,
+    "home": "https://hiperdex.tv"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/hiperdex",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.91",
+  "theme": "hiper"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

@@ -1,0 +1,231 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "WNACG",
+  "sprache": "zh",
+  "base_url": "https://www.wn07.cfd",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.wnacg",
+  "quellen": [
+   {
+    "name": "紳士漫畫",
+    "sprache": "zh",
+    "quell_id": 6551136894818591762,
+    "home": "https://www.wn07.cfd"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/wnacg",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.5",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/121.0"
+  },
+  "popular": {
+   "request": "{base}/albums-favorite_ranking-page-{page}-type-week.html",
+   "format": "html",
+   "items": ".gallary_item",
+   "fields": {
+    "url": ".title > a@href",
+    "title": ".title > a",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "^/+",
+       ""
+      ]
+     ],
+     "template": "https://{value}"
+    }
+   },
+   "has_next": {
+    "exists": "span.thispage + a"
+   }
+  },
+  "latest": {
+   "request": "{base}/albums-index-page-{page}.html",
+   "format": "html",
+   "items": ".gallary_item",
+   "fields": {
+    "url": ".title > a@href",
+    "title": ".title > a",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "^/+",
+       ""
+      ]
+     ],
+     "template": "https://{value}"
+    }
+   },
+   "has_next": {
+    "exists": "span.thispage + a"
+   }
+  },
+  "search": {
+   "request": "{base}/search/index.php?s=create_time_DESC&q={query}&p={page}",
+   "format": "html",
+   "items": ".gallary_item",
+   "fields": {
+    "url": ".title > a@href",
+    "title": ".title > a",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "^/+",
+       ""
+      ]
+     ],
+     "template": "https://{value}"
+    }
+   },
+   "has_next": {
+    "exists": "span.thispage + a"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": "h2",
+    "artist": "div.uwuinfo p",
+    "author": "div.uwuinfo p",
+    "genres": {
+     "path": [
+      "div.uwconn label:contains(分類：)",
+      "div.addtags a.tagshow"
+     ],
+     "union": true,
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       "分類：",
+       ""
+      ],
+      [
+       "／",
+       ", "
+      ]
+     ]
+    },
+    "cover": {
+     "path": "div.uwthumb img@src",
+     "replace": [
+      [
+       "^/+",
+       ""
+      ]
+     ],
+     "template": "https://{value}"
+    },
+    "description": {
+     "path": "div.uwconn p:contains(簡介：)",
+     "replace": [
+      [
+       "^簡介：\\s*",
+       ""
+      ]
+     ]
+    },
+    "status": [
+     {
+      "path": "div.uwconn label:contains(狀態)",
+      "regex": "(連載中)"
+     },
+     {
+      "const": "完結"
+     }
+    ]
+   },
+   "status_map": {
+    "連載中": 1,
+    "完結": 2
+   }
+  },
+  "chapters": {
+   "request": "{base}/photos-index-aid-{u.aid}-page-{page}.html",
+   "request_by_page": {
+    "1": "details"
+   },
+   "format": "html",
+   "url_vars": {
+    "aid": "photos-index-aid-(\\d+)"
+   },
+   "items": [
+    "div.sr_compact a.tagshow[data-chid]",
+    "html"
+   ],
+   "paging": {
+    "has_next": {
+     "exists": "div.f_left.paginator span.thispage + a"
+    },
+    "max_pages": 30
+   },
+   "fields": {
+    "url": [
+     {
+      "path": "@data-chid",
+      "template": "/photos-index-aid-{value}.html"
+     },
+     {
+      "const": "{url}"
+     }
+    ],
+    "name": [
+     "@ownText",
+     {
+      "const": "Ch. 1"
+     }
+    ],
+    "date": [
+     {
+      "path": "@title",
+      "regex": "(\\d{4}-\\d{2}-\\d{2})"
+     },
+     {
+      "path": "li.gallary_item .info_col",
+      "regex": "(\\d{4}-\\d{2}-\\d{2})"
+     }
+    ]
+   },
+   "date_format": "yyyy-MM-dd",
+   "reverse": true
+  },
+  "pages": {
+   "request": "{base}/photos-gallery-aid-{u.aid}.html",
+   "url_vars": {
+    "aid": "photos-index-aid-(\\d+)"
+   },
+   "format": "text",
+   "items": "(?i)//[^\\s\"'\\\\]+\\.(?:jpeg|jpg|png|webp|gif)(?:\\?[^\\s\"'\\\\]*)?",
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "^/+",
+      ""
+     ]
+    ],
+    "template": "https://{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "HTML-Website; base_url = erster Community-Spiegel wn07.cfd (weitere wn07.shop, wn06.cfd, wn06.shop; Community aktualisiert die Spiegelliste selbst über eine Textdatei – nicht nachgebaut). Desktop-User-Agent wie im Code.",
+  "Titel-Sperrliste, Rangliste-/Kategorie-/Tag-Filter und Suchsortierung (fest create_time_DESC) nicht nachgebaut. Beliebt = Wochen-Rangliste.",
+  "Kapitel: Sammlungen (div.sr_compact a.tagshow[data-chid]) über alle Seiten photos-index-aid-<aid>-page-N.html; sonst ein Kapitel 'Ch. 1' = Galerie selbst (Ausweichkette items […, 'html'] wie all.yaoimangaonline). Community lädt Seiten parallel bis zur höchsten Seitenzahl und entfernt Dubletten – hier Blättern über span.thispage + a (Annahme).",
+  "Status: '連載中' → laufend, sonst abgeschlossen (Einzelgalerie ohne 章節-Angabe ebenfalls abgeschlossen); Ausweichkette mit const nachgebildet. Genres = Kategorie (分類：, ／ getrennt) + Tags per union.",
+  "Seiten: photos-gallery-aid-<aid>.html als Text, Bild-URLs per Regex (protokoll-relativ, führende / entfernt, https:// vorangestellt). Einige Galerien nur nach Login (404) – nicht unterstützt."
+ ]
+}

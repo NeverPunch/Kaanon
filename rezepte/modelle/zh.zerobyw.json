@@ -1,0 +1,126 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Zerobyw",
+  "sprache": "zh",
+  "base_url": "http://www.zerobyw33.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.zerobyw",
+  "quellen": [
+   {
+    "name": "zero搬运网",
+    "sprache": "zh",
+    "quell_id": 8743284448117690086,
+    "home": "http://www.zerobyw33.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/zerobyw",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/121.0"
+  },
+  "popular": {
+   "request": "{base}/pc/pc/?page={page}",
+   "items": "a[href*=/details/?kuid=]",
+   "has_next": {
+    "exists": "a:contains(下一页)"
+   },
+   "fields": {
+    "url": "@href",
+    "title": {
+     "path": "h3",
+     "replace": [
+      [
+       "\\s*【.*$",
+       ""
+      ]
+     ]
+    },
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/pc/pc/?keyword={query}&page={page}",
+   "items": "a[href*=/details/?kuid=]",
+   "has_next": {
+    "exists": "a:contains(下一页)"
+   },
+   "fields": {
+    "url": "@href",
+    "title": {
+     "path": "h3",
+     "replace": [
+      [
+       "\\s*【.*$",
+       ""
+      ]
+     ]
+    },
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "path": "main h1",
+     "replace": [
+      [
+       "\\s*【.*$",
+       ""
+      ]
+     ]
+    },
+    "cover": "main img.object-contain@src",
+    "author": {
+     "path": "main div.flex-wrap.text-sm > span:first-child",
+     "replace": [
+      [
+       "^作者:\\s*",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": "main div.flex-wrap.text-sm > span",
+     "all": true,
+     "join": ", "
+    },
+    "description": "p[x-ref=summaryText]",
+    "status": "main div.flex-wrap.text-sm > span:contains(连载中), main div.flex-wrap.text-sm > span:contains(已完结)"
+   },
+   "status_map": {
+    "连载中": 1,
+    "已完结": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.grid a[href*=/view/index.php]",
+   "reverse": true,
+   "fields": {
+    "url": "@href",
+    "name": ""
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#image-container img.manga-image",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Website hat kein Beliebt-Ranking; popular ist wie im Community-Code die Standardliste /pc/pc/ (eigentlich neueste). latest gibt es nicht.",
+  "Titel: Community schneidet ab dem ersten 【 (bzw. 【Ziffer) ab; hier vereinfacht ab dem ersten 【.",
+  "Community wechselt die Domain bei Fehlern automatisch über https://stevenyomi.github.io/source-domains/zerobyw.txt; das Rezept nutzt fest base_url – bei Domainwechsel base_url anpassen.",
+  "Filter (Kategorie/Status/Art) nicht abgebildet, nur Textsuche."
+ ]
+}

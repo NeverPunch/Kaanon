@@ -150,8 +150,15 @@ def p_mangacatalog(code, e, h):
 BAUKASTEN = {k[2:]: v for k, v in globals().items() if k.startswith('p_')}
 
 # ------------------------------------------------------------------------------------------------
-def paket_name(name):
-    return re.sub(r'[^a-z0-9]', '', name.lower()) or 'x'
+def paket_name(name, ersatz=''):
+    """Paketteil aus dem Namen: Akzente entfernen (ộ → o, đ → d), nur a-z0-9.
+    Bleibt dabei (z. B. bei koreanischen/chinesischen Namen) zu wenig übrig, gilt der Ordnername des Moduls."""
+    import unicodedata
+    t = unicodedata.normalize('NFKD', name.lower().replace('đ', 'd'))
+    t = re.sub(r'[^a-z0-9]', '', ''.join(c for c in t if not unicodedata.combining(c)))
+    if len(t) < 3 and ersatz:
+        t = re.sub(r'[^a-z0-9]', '', ersatz.rstrip('/').rsplit('/', 1)[-1].lower())
+    return t or 'x'
 
 def extension_block(r, ke):
     """Name, Sprache, Basis-URL, 18+, Paketname und Quellen (mit Community-ID) aus dem Community-Index."""
@@ -160,11 +167,11 @@ def extension_block(r, ke):
     sprachen = sorted({q['sprache'] for q in quellen})
     lang = sprachen[0] if len(sprachen) == 1 else 'all'
     ext = dict(name=ke['name'], sprache=lang, base_url=quellen[0]['home'], nsfw=r['cw'] == 'NSFW',
-               paket=f"eu.kanade.tachiyomi.extension.{lang}.kaanon.{paket_name(ke['name'])}", quellen=quellen)
+               paket=f"eu.kanade.tachiyomi.extension.{lang}.kaanon.{paket_name(ke['name'], r['modul'])}", quellen=quellen)
     return ext, quellen
 
 def dateiname(ext):
-    return f"{ext['sprache']}.{paket_name(ext['name'])}"
+    return f"{ext['sprache']}.{ext['paket'].rsplit('.', 1)[-1]}"
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)

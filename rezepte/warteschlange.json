@@ -17825,7 +17825,7 @@
  },
  {
   "modul": "src/zh/toptoon",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Toptoon.net",
   "stufe": 2,
   "theme": null,
@@ -17835,11 +17835,14 @@
   "host": "toptoon.net",
   "nsfw": false,
   "wer": "agent-w7d",
-  "seit": "2026-11-03T11:32:17"
+  "seit": "2026-11-03T11:32:17",
+  "datei": "rezepte/modelle/zh.toptoonnet.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:33:14"
  },
  {
   "modul": "src/zh/utifa",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Utifa",
   "stufe": 2,
   "theme": null,
@@ -17849,7 +17852,10 @@
   "host": "bx.yaimer.com",
   "nsfw": false,
   "wer": "agent-w8d",
-  "seit": "2026-11-03T11:32:29"
+  "seit": "2026-11-03T11:32:29",
+  "datei": "rezepte/modelle/zh.utifa.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:33:06"
  },
  {
   "modul": "src/zh/vomic",
@@ -17870,7 +17876,7 @@
  },
  {
   "modul": "src/zh/wnacg",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "WNACG",
   "stufe": 2,
   "theme": null,
@@ -17880,11 +17886,14 @@
   "host": "wn07.cfd",
   "nsfw": true,
   "wer": "agent-w8c",
-  "seit": "2026-11-03T11:32:38"
+  "seit": "2026-11-03T11:32:38",
+  "datei": "rezepte/modelle/zh.wnacg.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:33:36"
  },
  {
   "modul": "src/zh/zazhimi",
-  "status": "offen",
+  "status": "fertig",
   "name": "Zazhimi",
   "stufe": 2,
   "theme": null,
@@ -17892,11 +17901,16 @@
    "zh"
   ],
   "host": "zazhimi.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-03T11:32:50",
+  "datei": "rezepte/modelle/zh.zazhimi.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:33:29"
  },
  {
   "modul": "src/zh/zerobyw",
-  "status": "offen",
+  "status": "fertig",
   "name": "Zerobyw",
   "stufe": 2,
   "theme": null,
@@ -17904,11 +17918,16 @@
    "zh"
   ],
   "host": "zerobyw33.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-03T11:32:52",
+  "datei": "rezepte/modelle/zh.zerobyw.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:33:34"
  },
  {
   "modul": "src/pt/leitordemangas",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Leitor de Mangas",
   "stufe": 3,
   "theme": "aurora",
@@ -17916,11 +17935,16 @@
    "pt-BR"
   ],
   "host": "leitordemangas.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8d",
+  "seit": "2026-11-03T11:33:11",
+  "grund": "Aurora-Theme: Bild-URLs im RSC-Payload mit eigenem HMAC-SHA256-Keystream (XOR) verschlüsselt, Schlüssel von /api/atfield/key – kein aes_cryptojs, nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-03T11:33:27"
  },
  {
   "modul": "src/pt/manganyx",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Manga NXY",
   "stufe": 3,
   "theme": "aurora",
@@ -17928,11 +17952,16 @@
    "pt-BR"
   ],
   "host": "manganyx.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8d",
+  "seit": "2026-11-03T11:33:27",
+  "grund": "Aurora-Theme: Bild-URLs im RSC-Payload mit eigenem HMAC-SHA256-Keystream (XOR) verschlüsselt, Schlüssel von /api/atfield/key – kein aes_cryptojs, nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-03T11:33:33"
  },
  {
   "modul": "src/pt/mangasbrasuka",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Mangas Brasuka",
   "stufe": 3,
   "theme": "aurora",
@@ -17940,11 +17969,16 @@
    "pt-BR"
   ],
   "host": "mangasbrasuka.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-03T11:33:32",
+  "grund": "Aurora-Theme: Bild-URLs im RSC-Payload mit eigenem HMAC-SHA256-Keystream (XOR) verschlüsselt, Schlüssel von /api/atfield/key – kein aes_cryptojs, nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-03T11:33:50"
  },
  {
   "modul": "src/pt/mugiwarasoficial",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Mugiwaras Oficial",
   "stufe": 3,
   "theme": "aurora",
@@ -17952,11 +17986,16 @@
    "pt-BR"
   ],
   "host": "mugiwarasoficial.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8d",
+  "seit": "2026-11-03T11:33:33",
+  "grund": "Aurora-Theme: Bild-URLs im RSC-Payload mit eigenem HMAC-SHA256-Keystream (XOR) verschlüsselt, Schlüssel von /api/atfield/key – kein aes_cryptojs, nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-03T11:33:39"
  },
  {
   "modul": "src/en/hiperdex",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Hiperdex",
   "stufe": 3,
   "theme": "hiper",
@@ -17964,11 +18003,13 @@
    "en"
   ],
   "host": "hiperdex.tv",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-03T11:33:38"
  },
  {
   "modul": "src/pt/hipercool",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "HipercooL",
   "stufe": 3,
   "theme": "hiper",
@@ -17976,11 +18017,13 @@
    "pt-BR"
   ],
   "host": "lerhentais.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8d",
+  "seit": "2026-11-03T11:33:39"
  },
  {
   "modul": "src/pt/hipertoon",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Hipertoon",
   "stufe": 3,
   "theme": "hiper",
@@ -17988,11 +18031,13 @@
    "pt-BR"
   ],
   "host": "hipertoon.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8c",
+  "seit": "2026-11-03T11:33:39"
  },
  {
   "modul": "src/en/coffeemangaunoriginal",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Coffee Manga (Unoriginal)",
   "stufe": 3,
   "theme": "imperiomanhwa",
@@ -18000,7 +18045,9 @@
    "en"
   ],
   "host": "coffeemanga.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-03T11:33:50"
  },
  {
   "modul": "src/es/emperorscan",
