@@ -1,0 +1,145 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MyReadingComic",
+  "sprache": "en",
+  "base_url": "https://myreadingcomic.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.myreadingcomic",
+  "quellen": [
+   {
+    "name": "MyReadingComic",
+    "sprache": "en",
+    "quell_id": 2242106898634732967,
+    "home": "https://myreadingcomic.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/myreadingcomic",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "yiimanga"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/porn-comics/page/{page}/?order=views",
+   "items": ".latest-list .latest-item, .list .list-item",
+   "has_next": {
+    "exists": "#pagination li.next a"
+   },
+   "fields": {
+    "url": ".latest-right a:has(h3, h4), .item-title a@href",
+    "title": ".latest-right a:has(h3, h4), .item-title a",
+    "cover": ".latest-left img, .item-img img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/page/{page}/",
+   "items": ".latest-list .latest-item, .list .list-item",
+   "has_next": {
+    "exists": "#pagination li.next a"
+   },
+   "fields": {
+    "url": ".latest-right a:has(h3, h4), .item-title a@href",
+    "title": ".latest-right a:has(h3, h4), .item-title a",
+    "cover": ".latest-left img, .item-img img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/search/?q={query}&page={page}",
+   "items": ".latest-list .latest-item, .list .list-item",
+   "has_next": {
+    "exists": "#pagination li.next a"
+   },
+   "fields": {
+    "url": ".latest-right a:has(h3, h4), .item-title a@href",
+    "title": ".latest-right a:has(h3, h4), .item-title a",
+    "cover": ".latest-left img, .item-img img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "desc": [
+     {
+      "path": ".short-desc-content p, .short-desc-content li, .dsct p, .dsct li, .description-summary p, .description-summary li",
+      "all": true,
+      "join": "\n\n"
+     },
+     ".short-desc-content, .dsct, .description-summary"
+    ],
+    "alt": [
+     ".main-info-list li:has(> h5:matches(^\\s*(?:Alternative)\\s*(?::| -)?\\s*$)) > :not(h5), .post-content_item:has(.summary-heading > h5:matches(^\\s*(?:Alternative)\\s*(?::| -)?\\s*$)) > :not(.summary-heading), .info-item:has(> span.sh:matches(^\\s*(?:Alternative)\\s*(?::| -)?\\s*$)) > :not(.sh)",
+     ".main-info-list li > h4, .manga-detail .info h6"
+    ]
+   },
+   "fields": {
+    "title": "h1.main-info-title, .post-title h1, .manga-detail .info h1",
+    "cover": "img.img-cover, .summary_image img, .manga-detail .poster img@src",
+    "description": {
+     "const": "{l.desc}\n\n[[Alternative names: {l.alt}]]"
+    },
+    "author": [
+     {
+      "path": ".main-info-list li:has(> h5:matches(^\\s*(?:Author.s.|Author|Autores)\\s*(?::| -)?\\s*$)) > :not(h5) a, .post-content_item:has(.summary-heading > h5:matches(^\\s*(?:Author.s.|Author|Autores)\\s*(?::| -)?\\s*$)) > :not(.summary-heading) a, .info-item:has(> span.sh:matches(^\\s*(?:Author.s.|Author|Autores)\\s*(?::| -)?\\s*$)) > :not(.sh) a@ownText",
+      "all": true,
+      "join": ", "
+     },
+     ".main-info-list li:has(> h5:matches(^\\s*(?:Author.s.|Author|Autores)\\s*(?::| -)?\\s*$)) > :not(h5), .post-content_item:has(.summary-heading > h5:matches(^\\s*(?:Author.s.|Author|Autores)\\s*(?::| -)?\\s*$)) > :not(.summary-heading), .info-item:has(> span.sh:matches(^\\s*(?:Author.s.|Author|Autores)\\s*(?::| -)?\\s*$)) > :not(.sh)"
+    ],
+    "artist": [
+     {
+      "path": ".main-info-list li:has(> h5:matches(^\\s*(?:Artist.s.|Artist|Artistas)\\s*(?::| -)?\\s*$)) > :not(h5) a, .post-content_item:has(.summary-heading > h5:matches(^\\s*(?:Artist.s.|Artist|Artistas)\\s*(?::| -)?\\s*$)) > :not(.summary-heading) a, .info-item:has(> span.sh:matches(^\\s*(?:Artist.s.|Artist|Artistas)\\s*(?::| -)?\\s*$)) > :not(.sh) a@ownText",
+      "all": true,
+      "join": ", "
+     },
+     ".main-info-list li:has(> h5:matches(^\\s*(?:Artist.s.|Artist|Artistas)\\s*(?::| -)?\\s*$)) > :not(h5), .post-content_item:has(.summary-heading > h5:matches(^\\s*(?:Artist.s.|Artist|Artistas)\\s*(?::| -)?\\s*$)) > :not(.summary-heading), .info-item:has(> span.sh:matches(^\\s*(?:Artist.s.|Artist|Artistas)\\s*(?::| -)?\\s*$)) > :not(.sh)"
+    ],
+    "genres": [
+     {
+      "path": ".main-info-list li:has(> h5:matches(^\\s*(?:Genres|Genre.s.|Géneros)\\s*(?::| -)?\\s*$)) > :not(h5) a, .post-content_item:has(.summary-heading > h5:matches(^\\s*(?:Genres|Genre.s.|Géneros)\\s*(?::| -)?\\s*$)) > :not(.summary-heading) a, .info-item:has(> span.sh:matches(^\\s*(?:Genres|Genre.s.|Géneros)\\s*(?::| -)?\\s*$)) > :not(.sh) a@ownText",
+      "all": true,
+      "join": ", "
+     },
+     ".main-info-list li:has(> h5:matches(^\\s*(?:Genres|Genre.s.|Géneros)\\s*(?::| -)?\\s*$)) > :not(h5), .post-content_item:has(.summary-heading > h5:matches(^\\s*(?:Genres|Genre.s.|Géneros)\\s*(?::| -)?\\s*$)) > :not(.summary-heading), .info-item:has(> span.sh:matches(^\\s*(?:Genres|Genre.s.|Géneros)\\s*(?::| -)?\\s*$)) > :not(.sh)"
+    ],
+    "status": [
+     ".main-info-list li:has(> h5:matches(^\\s*(?:Status|Estado)\\s*(?::| -)?\\s*$)) > :not(h5), .post-content_item:has(.summary-heading > h5:matches(^\\s*(?:Status|Estado)\\s*(?::| -)?\\s*$)) > :not(.summary-heading), .info-item:has(> span.sh:matches(^\\s*(?:Status|Estado)\\s*(?::| -)?\\s*$)) > :not(.sh)",
+     ".manga-detail .info p.type"
+    ]
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "ul.chapter-list li, ul.row-content-chapter li, .list-items li.item",
+   "fields": {
+    "url": "a[href]@href",
+    "name": ".chapter-name, .item a > span:first-child",
+    "date": ".ct-update, .chapter-time, .item a > span:nth-child(2)"
+   },
+   "date_format": [
+    "dd MMM yyyy",
+    "dd MMM yy",
+    "MMM yy"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".reading-content img, .read-content img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Theme Yiimanga: Info-Zeilen (Autor/Artist/Genres/Status/Alternative) über h5/.summary-heading/span.sh-Überschriften per :matches nachgebildet.",
+  "Datumsformat der Community '[dd ]MMM [yyyy][yy]' als Liste dd MMM yyyy / dd MMM yy / MMM yy.",
+  "Genre-Filter nicht übernommen."
+ ]
+}

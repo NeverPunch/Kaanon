@@ -1,0 +1,155 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Doujiva",
+  "sprache": "all",
+  "base_url": "https://doujiva.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.doujiva",
+  "quellen": [
+   {
+    "name": "Doujiva",
+    "sprache": "all",
+    "quell_id": 1868981745168096185,
+    "home": "https://doujiva.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/doujiva",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/v1/manga?sort=popular-today&page={page}&limit=24",
+   "format": "json",
+   "items": "data",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/v1/manga?sort=newest&page={page}&limit=24",
+   "format": "json",
+   "items": "data",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   }
+  },
+  "search": {
+   "request": "{base}/api/v1/search?q={query}&page={page}&limit=24",
+   "format": "json",
+   "items": "data",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   }
+  },
+  "details": {
+   "request": "{base}/api/v1/manga/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/#?]+)"
+   },
+   "fields": {
+    "title": "data.title",
+    "cover": "data.coverUrl",
+    "description": "data.description",
+    "genres": {
+     "path": [
+      "data.tags.?category=TAG.name",
+      "data.tags.?category=PARODY.name"
+     ],
+     "union": true,
+     "all": true,
+     "join": ", "
+    },
+    "author": {
+     "path": [
+      "data.tags.?category=ARTIST.name",
+      "data.tags.?category=GROUP.name"
+     ],
+     "union": true,
+     "all": true,
+     "join": ", "
+    },
+    "status": "data.status"
+   },
+   "status_map": {
+    "completed": 2,
+    "ongoing": 1,
+    "hiatus": 6,
+    "on_hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/#?]+)"
+   },
+   "items": "data.chapters",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{u.slug}/chapters/{value}"
+    },
+    "name": {
+     "path": "number",
+     "regex": "^(.*?)(?:\\.0)?$",
+     "group": 1,
+     "template": "Chapter {value}[[ - {f.title}]]"
+    },
+    "number": "number",
+    "date": "createdAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api/v1{url}",
+   "format": "json",
+   "items": "data",
+   "image": "imageUrl"
+  }
+ },
+ "hinweise": [
+  "JSON-API {base}/api/v1. Listen limit=24; nächste Seite solange voll (Code: page < meta.totalPages, ohne aktuelle Seite im JSON nicht als lt ausdrückbar).",
+  "Manga-URL /manga/{slug}, Kapitel-URL /manga/{slug}/chapters/{id} – zugleich der API-Pfad der Seitenabfrage (api/v1 + URL).",
+  "Beschreibung nur description (Code hängt Seitenzahl, Sprache, Typ, Quelle an). Genres = Tags TAG+PARODY, Autor = ARTIST+GROUP wie im Code.",
+  "Leere Suche liefert im Code nichts; Rate-Limit gilt hier auch fürs CDN (Code nimmt cdn.doujiva.com aus)."
+ ]
+}

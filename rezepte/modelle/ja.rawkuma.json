@@ -1,0 +1,189 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Rawkuma",
+  "sprache": "ja",
+  "base_url": "https://rawkuma.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.rawkuma",
+  "quellen": [
+   {
+    "name": "Rawkuma",
+    "sprache": "ja",
+    "quell_id": 5746834068092446709,
+    "home": "https://rawkuma.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/rawkuma",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.44",
+  "theme": "natsuid"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/wp-json/wp/v2/manga?per_page=24&page={page}&_embed&orderby=modified&order=desc",
+   "format": "json",
+   "items": "$",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "skip": {
+    "path": "_embedded.wp:term.*.?taxonomy=type.name",
+    "regex": "(?i)^novel$"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}/#{f.id}"
+    },
+    "title": {
+     "path": "title.rendered",
+     "decode": "html"
+    },
+    "cover": [
+     "_embedded.wp:featuredmedia.0.source_url",
+     "yoast_head_json.og_image.0.url"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/wp-json/wp/v2/manga?per_page=24&page={page}&_embed&orderby=modified&order=desc",
+   "format": "json",
+   "items": "$",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "skip": {
+    "path": "_embedded.wp:term.*.?taxonomy=type.name",
+    "regex": "(?i)^novel$"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}/#{f.id}"
+    },
+    "title": {
+     "path": "title.rendered",
+     "decode": "html"
+    },
+    "cover": [
+     "_embedded.wp:featuredmedia.0.source_url",
+     "yoast_head_json.og_image.0.url"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/wp-json/wp/v2/manga?per_page=24&page={page}&_embed&search={query}",
+   "format": "json",
+   "items": "$",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "skip": {
+    "path": "_embedded.wp:term.*.?taxonomy=type.name",
+    "regex": "(?i)^novel$"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}/#{f.id}"
+    },
+    "title": {
+     "path": "title.rendered",
+     "decode": "html"
+    },
+    "cover": [
+     "_embedded.wp:featuredmedia.0.source_url",
+     "yoast_head_json.og_image.0.url"
+    ]
+   }
+  },
+  "details": {
+   "request": "{base}/wp-json/wp/v2/manga/{u.id}?_embed",
+   "format": "json",
+   "url_vars": {
+    "id": "#(\\d+)$",
+    "slug": "/manga/([^/#]+)"
+   },
+   "fields": {
+    "title": {
+     "path": "title.rendered",
+     "decode": "html"
+    },
+    "cover": [
+     "_embedded.wp:featuredmedia.0.source_url",
+     "yoast_head_json.og_image.0.url"
+    ],
+    "description": {
+     "path": "content.rendered",
+     "decode": "html_text"
+    },
+    "author": {
+     "path": "_embedded.wp:term.*.?taxonomy=series-author.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "_embedded.wp:term.*.?taxonomy=artist.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": [
+      "_embedded.wp:term.*.?taxonomy=genre.name",
+      "_embedded.wp:term.*.?taxonomy=type.name"
+     ],
+     "union": true,
+     "all": true,
+     "join": ", "
+    },
+    "status": "_embedded.wp:term.*.?taxonomy=status.name"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "cancelled": 5,
+    "on hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php?manga_id={u.id}&page=999&action=chapter_list",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "url_vars": {
+    "id": "#(\\d+)$"
+   },
+   "items": "div a:has(time)",
+   "fields": {
+    "url": "@href",
+    "name": "span@ownText",
+    "date": "time@datetime"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "section[data-image-data] img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Übernommen aus id.natsu (gleiches NatsuId-Theme); Rawkuma hat keine Overrides, daher kein eigenes Rate-Limit.",
+  "Theme NatsuId (WordPress). Community holt Listen über admin-ajax.php?action=advanced_search (Multipart-POST mit vorher geholter Nonce) und lädt dann die Treffer per wp-json nach – Nonce-Kette in Listen ist in keiner Vorlage belegt.",
+  "Ersatz: Listen direkt über die WP-REST-API /wp-json/wp/v2/manga?_embed (vom Code selbst genutzt). Beliebt kann die REST-API nicht sortieren → Beliebt = zuletzt geändert (wie Neueste). Suche über search=…",
+  "Manga-URL /manga/{slug}/#{id}; Details über /wp-json/wp/v2/manga/{id}?_embed (Begriffe aus _embedded.wp:term nach taxonomy). Novels werden übersprungen.",
+  "Kapitel: admin-ajax.php?action=chapter_list&manga_id=…&page=N; Code nimmt eine Zufallszahl 99–9999 für page (>3, damit versteckte Kapitel mitkommen) – hier fest 999.",
+  "Alternativtitel (meta.alternative_title) nicht an die Beschreibung angehängt.",
+  "Kapitelanfrage mit X-Requested-With wie Fetch.XHR im Code."
+ ]
+}

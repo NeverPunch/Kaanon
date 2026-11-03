@@ -1,0 +1,148 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Buon Dua",
+  "sprache": "all",
+  "base_url": "https://buondua.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.buondua",
+  "quellen": [
+   {
+    "name": "Buon Dua",
+    "sprache": "all",
+    "quell_id": 1435103006121310663,
+    "home": "https://buondua.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/buondua",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.12",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 10,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/hot?start={offset}",
+   "page_size": 20,
+   "items": ".blog > div:has(.item-content .item-link)",
+   "has_next": {
+    "exists": ".pagination-next:not([disabled])"
+   },
+   "fields": {
+    "url": ".item-content .item-link@href",
+    "title": ".item-content .item-link",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/?start={offset}",
+   "page_size": 20,
+   "items": ".blog > div:has(.item-content .item-link)",
+   "has_next": {
+    "exists": ".pagination-next:not([disabled])"
+   },
+   "fields": {
+    "url": ".item-content .item-link@href",
+    "title": ".item-content .item-link",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/?search={query}&start={offset}",
+   "page_size": 20,
+   "items": ".blog > div:has(.item-content .item-link)",
+   "has_next": {
+    "exists": ".pagination-next:not([disabled])"
+   },
+   "fields": {
+    "url": ".item-content .item-link@href",
+    "title": ".item-content .item-link",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "path": ".article-header",
+     "replace": [
+      [
+       " - \\( Page \\d+ / \\d+ \\)",
+       ""
+      ]
+     ]
+    },
+    "cover": [
+     ".article-fulltext img@src",
+     "meta[property=og:image]@content"
+    ],
+    "description": {
+     "path": ".article-info > strong",
+     "replace": [
+      [
+       "Buondua",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": ".article-tags .tags > .tag",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       "#",
+       ""
+      ]
+     ]
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "nav.pagination:first-of-type .pagination-link",
+   "reverse": true,
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "^\\s*(\\d+)\\s*$",
+     "template": "{url}?page={value}"
+    },
+    "name": {
+     "path": "",
+     "regex": "^\\s*(\\d+)\\s*$",
+     "template": "Page {value}"
+    },
+    "number": {
+     "path": "",
+     "regex": "^\\s*(\\d+)\\s*$"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".article-fulltext img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Community-Standard (Einstellung 'Split into multiple pages' = an): jede Unterseite ?page=N der Galerie ist ein Kapitel 'Page N' (N = maxPage … 1, maxPage aus dem letzten pagination-next-Link). Hier nachgebildet über die Seitennummern-Links der ersten Paginierung (.pagination-link, Text = Nummer) – ANNAHME: Bulma-Paginierung listet alle Seiten (keine Auslassungspunkte) und hat ein Element für die aktuelle Seite. Einseitige Galerien ohne Paginierung ergäben keine Kapitel – auf dem PC prüfen.",
+  "Der Modus 'Single gallery' (alle Unterseiten parallel laden und zusammenführen) ist nicht abgebildet.",
+  "Kapitel-Datum (.article-info > small, 'HH:mm dd-MM-yyyy') steht nur einmal auf der Seite und nicht im Paginierungs-Element – weggelassen.",
+  "Beschreibung: nur .article-info > strong (ohne 'Buondua'); Download-Links und Passwort (code) nicht angehängt. Cover in den Details ersatzweise erstes Galeriebild bzw. og:image (Community nutzt nur das Listen-Cover).",
+  "Zufälliger mobiler User-Agent der Community nicht übernommen; Rate-Limit 10/s."
+ ]
+}

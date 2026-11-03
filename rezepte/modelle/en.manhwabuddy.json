@@ -1,0 +1,203 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ManhwaBuddy",
+  "sprache": "en",
+  "base_url": "https://manhwabuddy.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.manhwabuddy",
+  "quellen": [
+   {
+    "name": "ManhwaBuddy",
+    "sprache": "en",
+    "quell_id": 397029358682805931,
+    "home": "https://manhwabuddy.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/manhwabuddy",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "yiimanga"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}",
+   "items": ".item-move",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": ".name a@href",
+    "title": ".name a",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/page/{page}/",
+   "items": ".latest-list .latest-item, .list .list-item",
+   "has_next": {
+    "exists": "#pagination li.next a"
+   },
+   "fields": {
+    "url": [
+     ".latest-right a:has(h3, h4)@href",
+     ".item-title a@href"
+    ],
+    "title": [
+     ".latest-right a:has(h3, h4)",
+     ".item-title a"
+    ],
+    "cover": [
+     ".latest-left img@src",
+     ".item-img img@src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/search/?s={query}&page={page}",
+   "items": ".latest-list .latest-item, .list .list-item",
+   "has_next": {
+    "exists": "#pagination li.next a"
+   },
+   "fields": {
+    "url": [
+     ".latest-right a:has(h3, h4)@href",
+     ".item-title a@href"
+    ],
+    "title": [
+     ".latest-right a:has(h3, h4)",
+     ".item-title a"
+    ],
+    "cover": [
+     ".latest-left img@src",
+     ".item-img img@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     "h1.main-info-title",
+     ".post-title h1",
+     ".manga-detail .info h1"
+    ],
+    "cover": [
+     "img.img-cover@src",
+     ".summary_image img@src",
+     ".manga-detail .poster img@src"
+    ],
+    "author": {
+     "path": [
+      ".main-info-list li:has(> h5:containsOwn(Author)) > :not(h5) a@ownText",
+      ".post-content_item:has(.summary-heading > h5:containsOwn(Author)) > :not(.summary-heading) a@ownText",
+      ".info-item:has(> span.sh:containsOwn(Author)) a@ownText",
+      ".main-info-list li:has(> h5:containsOwn(Autor)) > :not(h5) a@ownText",
+      ".post-content_item:has(.summary-heading > h5:containsOwn(Autor)) > :not(.summary-heading) a@ownText",
+      ".info-item:has(> span.sh:containsOwn(Autor)) a@ownText",
+      ".main-info-list li:has(> h5:containsOwn(Author)) > :not(h5)",
+      ".post-content_item:has(.summary-heading > h5:containsOwn(Author)) > :not(.summary-heading)",
+      ".info-item:has(> span.sh:containsOwn(Author)) > :not(.sh)",
+      ".main-info-list li:has(> h5:containsOwn(Autor)) > :not(h5)",
+      ".post-content_item:has(.summary-heading > h5:containsOwn(Autor)) > :not(.summary-heading)",
+      ".info-item:has(> span.sh:containsOwn(Autor)) > :not(.sh)"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": [
+      ".main-info-list li:has(> h5:containsOwn(Artist)) > :not(h5) a@ownText",
+      ".post-content_item:has(.summary-heading > h5:containsOwn(Artist)) > :not(.summary-heading) a@ownText",
+      ".info-item:has(> span.sh:containsOwn(Artist)) a@ownText",
+      ".main-info-list li:has(> h5:containsOwn(Artista)) > :not(h5) a@ownText",
+      ".post-content_item:has(.summary-heading > h5:containsOwn(Artista)) > :not(.summary-heading) a@ownText",
+      ".info-item:has(> span.sh:containsOwn(Artista)) a@ownText",
+      ".main-info-list li:has(> h5:containsOwn(Artist)) > :not(h5)",
+      ".post-content_item:has(.summary-heading > h5:containsOwn(Artist)) > :not(.summary-heading)",
+      ".info-item:has(> span.sh:containsOwn(Artist)) > :not(.sh)",
+      ".main-info-list li:has(> h5:containsOwn(Artista)) > :not(h5)",
+      ".post-content_item:has(.summary-heading > h5:containsOwn(Artista)) > :not(.summary-heading)",
+      ".info-item:has(> span.sh:containsOwn(Artista)) > :not(.sh)"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": [
+      ".main-info-list li:has(> h5:containsOwn(Genre)) > :not(h5) a@ownText",
+      ".post-content_item:has(.summary-heading > h5:containsOwn(Genre)) > :not(.summary-heading) a@ownText",
+      ".info-item:has(> span.sh:containsOwn(Genre)) a@ownText",
+      ".main-info-list li:has(> h5:containsOwn(Género)) > :not(h5) a@ownText",
+      ".post-content_item:has(.summary-heading > h5:containsOwn(Género)) > :not(.summary-heading) a@ownText",
+      ".info-item:has(> span.sh:containsOwn(Género)) a@ownText",
+      ".main-info-list li:has(> h5:containsOwn(Genre)) > :not(h5)",
+      ".post-content_item:has(.summary-heading > h5:containsOwn(Genre)) > :not(.summary-heading)",
+      ".info-item:has(> span.sh:containsOwn(Genre)) > :not(.sh)",
+      ".main-info-list li:has(> h5:containsOwn(Género)) > :not(h5)",
+      ".post-content_item:has(.summary-heading > h5:containsOwn(Género)) > :not(.summary-heading)",
+      ".info-item:has(> span.sh:containsOwn(Género)) > :not(.sh)"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "description": [
+     ".short-desc-content",
+     ".dsct",
+     ".description-summary"
+    ],
+    "status": [
+     ".main-info-list li:has(> h5:containsOwn(Status)) > :not(h5)",
+     ".post-content_item:has(.summary-heading > h5:containsOwn(Status)) > :not(.summary-heading)",
+     ".info-item:has(> span.sh:containsOwn(Status)) > :not(.sh)",
+     ".main-info-list li:has(> h5:containsOwn(Estado)) > :not(h5)",
+     ".post-content_item:has(.summary-heading > h5:containsOwn(Estado)) > :not(.summary-heading)",
+     ".info-item:has(> span.sh:containsOwn(Estado)) > :not(.sh)",
+     ".manga-detail .info p.type"
+    ]
+   },
+   "status_map": {
+    "ongoing": 1,
+    "Ongoing": 1,
+    "completed": 2,
+    "Completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "ul.chapter-list li, ul.row-content-chapter li, .list-items li.item",
+   "fields": {
+    "url": "a[href]@href",
+    "name": [
+     ".chapter-name",
+     "a > span:first-child"
+    ],
+    "date": [
+     ".ct-update",
+     ".chapter-time",
+     "a > span:nth-child(2)"
+    ]
+   },
+   "date_format": [
+    "dd MMM yyyy",
+    "dd MMM yy",
+    "MMM yy"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".reading-content img, .read-content img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Yiimanga-Theme (mangaPath 'manhwa'). Beliebt-Override: nur die Startseite (.item-move), keine weiteren Seiten. Neueste: /page/N/, Suche: /search/?s=…&page=N.",
+  "Infofelder (Autor/Künstler/Genres/Status) sucht der Code über die Überschrift (h5 bzw. span.sh) in drei Layouts; hier als :has(:containsOwn(…))-Ausweichketten, Linktexte bevorzugt. Alternativnamen nicht an die Beschreibung angehängt; Beschreibung als Gesamttext des Blocks (Code fügt Absätze mit Leerzeile zusammen).",
+  "Datum: Formate '06 Oct 2026', '12 Oct 26', 'Oct 26' (Tag fehlt → 1.)."
+ ]
+}

@@ -1,0 +1,170 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Lector Asteria",
+  "sprache": "es",
+  "base_url": "https://visor.chifa-tong.online",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.lectorasteria",
+  "quellen": [
+   {
+    "name": "Lector Asteria",
+    "sprache": "es",
+    "quell_id": 698506559036250327,
+    "home": "https://visor.chifa-tong.online"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/lectorasteria",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "moonlighttl"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/comics",
+   "format": "json",
+   "items": "response",
+   "skip": {
+    "path": "type",
+    "equals": "novela"
+   },
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/ver/{value}"
+    },
+    "title": "name",
+    "cover": "urlImg"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/lastUpdates",
+   "format": "json",
+   "items": "response",
+   "skip": {
+    "path": "type",
+    "equals": "novela"
+   },
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/ver/{value}"
+    },
+    "title": "name",
+    "cover": "urlImg"
+   }
+  },
+  "search": {
+   "request": "{base}/api/comics",
+   "format": "json",
+   "items": "response",
+   "skip": {
+    "path": "type",
+    "equals": "novela"
+   },
+   "has_next": {
+    "const": false
+   },
+   "client_filter": true,
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/ver/{value}"
+    },
+    "title": "name",
+    "cover": "urlImg"
+   }
+  },
+  "details": {
+   "request": "{base}/api/showProject/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/ver/([^/#?]+)"
+   },
+   "fields": {
+    "title": "response.name",
+    "cover": "response.urlImg",
+    "description": [
+     {
+      "path": "response.sinopsis",
+      "template": "{value}\n\n[[Nombres alternativos: {f.response.alternativeName}]]"
+     },
+     {
+      "const": "[[Nombres alternativos: {f.response.alternativeName}]]"
+     }
+    ],
+    "genres": {
+     "path": "response.genders.*.gender.name",
+     "all": true,
+     "join": ", "
+    },
+    "author": {
+     "path": "response.autors.*.autor.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "response.artists.*.artist.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "response.state_id"
+   },
+   "status_map": {
+    "1": 1,
+    "2": 6,
+    "3": 5,
+    "4": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "response.lastChapters",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/ver/{u.slug}/{value}"
+    },
+    "name": {
+     "path": "num",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "Capítulo {value}[[ - {f.name}]]"
+    },
+    "number": "num",
+    "date": "created_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "main > div > img.block",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Theme MoonlightTL: Liste/Suche aus /api/comics (Novelas per skip type=novela ausgelassen); Suche filtert clientseitig über den Namen (Community auch über alternativeName).",
+  "Popular sortiert die Community clientseitig nach trending.mensual; das Rezept nimmt die Reihenfolge der API.",
+  "Status setzt die Community nicht; state_id-Zuordnung (1 laufend, 2 pausiert, 3 abgebrochen, 4 fertig) aus dem Filter der Community übernommen.",
+  "Seiten: LectorAsteria überschreibt die Theme-Seitenliste (kein POST-Formular), nur 'main > div > img.block'@src."
+ ]
+}

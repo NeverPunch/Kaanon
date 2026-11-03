@@ -1,0 +1,245 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "GlobalComix",
+  "sprache": "all",
+  "base_url": "https://globalcomix.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.globalcomix",
+  "quellen": [
+   {
+    "name": "GlobalComix",
+    "sprache": "sq",
+    "quell_id": 3356591153022230079,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "ar",
+    "quell_id": 1187989220698209376,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "bg",
+    "quell_id": 6787452093863347937,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "bn",
+    "quell_id": 1751301957307147711,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "pt-BR",
+    "quell_id": 6857041228017945908,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "zh-Hans",
+    "quell_id": 7151191693036508367,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "cs",
+    "quell_id": 4590681486679254754,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "de",
+    "quell_id": 8246492784517686839,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "da",
+    "quell_id": 5048347663546425663,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "el",
+    "quell_id": 5023036788669530148,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "en",
+    "quell_id": 1702911211040495914,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "es",
+    "quell_id": 4898409906840499301,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "fa",
+    "quell_id": 3091586499988578585,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "fi",
+    "quell_id": 8293773554510083311,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "fil",
+    "quell_id": 7193534094270200605,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "fr",
+    "quell_id": 1331353277450289630,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "hi",
+    "quell_id": 7833228326192857667,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "hu",
+    "quell_id": 1139058264127464070,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "id",
+    "quell_id": 5793414625714246782,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "it",
+    "quell_id": 680772027911898954,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "he",
+    "quell_id": 4966216283610323571,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "ja",
+    "quell_id": 5239712539549115551,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "ko",
+    "quell_id": 7082086175158655309,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "ms",
+    "quell_id": 4045163592638299384,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "nl",
+    "quell_id": 8660336682320212854,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "pl",
+    "quell_id": 9036722702118837888,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "pt",
+    "quell_id": 1914303745574265340,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "ro",
+    "quell_id": 868801900692890109,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "ru",
+    "quell_id": 8611257855285214680,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "sv",
+    "quell_id": 3631246013481179045,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "sl",
+    "quell_id": 1644770244825001357,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "ta",
+    "quell_id": 5543642209942020458,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "th",
+    "quell_id": 7868281684851943971,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "tr",
+    "quell_id": 2641311214423625823,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "uk",
+    "quell_id": 1335726222164693622,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "ur",
+    "quell_id": 2272106648760140404,
+    "home": "https://globalcomix.com"
+   },
+   {
+    "name": "GlobalComix",
+    "sprache": "vi",
+    "quell_id": 6987743887369255757,
+    "home": "https://globalcomix.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/globalcomix",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

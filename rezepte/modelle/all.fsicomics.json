@@ -1,0 +1,53 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "FSI Comics",
+  "sprache": "all",
+  "base_url": "https://fsicomics.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.fsicomics",
+  "quellen": [
+   {
+    "name": "FSI Comics",
+    "sprache": "en",
+    "quell_id": 6559215119939537337,
+    "home": "https://fsicomics.com"
+   },
+   {
+    "name": "FSI Comics",
+    "sprache": "es",
+    "quell_id": 602403175358649566,
+    "home": "https://es.fsicomics.com"
+   },
+   {
+    "name": "FSI Comics",
+    "sprache": "de",
+    "quell_id": 8864443696116780443,
+    "home": "https://de.fsicomics.com"
+   },
+   {
+    "name": "FSI Comics",
+    "sprache": "fr",
+    "quell_id": 3957062723829771136,
+    "home": "https://fr.fsicomics.com"
+   },
+   {
+    "name": "FSI Comics",
+    "sprache": "it",
+    "quell_id": 439087378480236546,
+    "home": "https://it.fsicomics.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/fsicomics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

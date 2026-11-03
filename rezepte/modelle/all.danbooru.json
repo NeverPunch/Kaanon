@@ -1,0 +1,147 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Danbooru",
+  "sprache": "all",
+  "base_url": "https://danbooru.donmai.us",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.danbooru",
+  "quellen": [
+   {
+    "name": "Danbooru",
+    "sprache": "all",
+    "quell_id": 7602260701584916302,
+    "home": "https://danbooru.donmai.us"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/danbooru",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "image_headers": {
+   "Accept": "image/avif,image/webp,image/png,image/svg+xml,image/*;q=0.8,*/*;q=0.5",
+   "Sec-Fetch-Dest": "image",
+   "Sec-Fetch-Mode": "no-cors",
+   "Sec-Fetch-Site": "same-site"
+  },
+  "popular": {
+   "request": "{base}/pools/gallery?search[category]=series&page={page}",
+   "items": "article.post-preview",
+   "has_next": {
+    "exists": "a.paginator-next"
+   },
+   "fields": {
+    "url": ".post-preview-link@href",
+    "title": "div.text-center",
+    "cover": [
+     {
+      "path": "source@srcset",
+      "regex": "([^,\\s]+)\\s+\\S+\\s*$"
+     },
+     "img@src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/pools/gallery?search[category]=series&search[order]=created_at&page={page}",
+   "items": "article.post-preview",
+   "has_next": {
+    "exists": "a.paginator-next"
+   },
+   "fields": {
+    "url": ".post-preview-link@href",
+    "title": "div.text-center",
+    "cover": [
+     {
+      "path": "source@srcset",
+      "regex": "([^,\\s]+)\\s+\\S+\\s*$"
+     },
+     "img@src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/pools/gallery?search[category]=series&search[name_contains]={query}&page={page}",
+   "items": "article.post-preview",
+   "has_next": {
+    "exists": "a.paginator-next"
+   },
+   "fields": {
+    "url": ".post-preview-link@href",
+    "title": "div.text-center",
+    "cover": [
+     {
+      "path": "source@srcset",
+      "regex": "([^,\\s]+)\\s+\\S+\\s*$"
+     },
+     "img@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     ".pool-category-series",
+     ".pool-category-collection",
+     "h1"
+    ],
+    "description": "#description",
+    "author": "#description a[href*=artists]@ownText",
+    "artist": "#description a[href*=artists]@ownText"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Oneshot"
+    }
+   }
+  },
+  "pages": {
+   "request": {
+    "url": "{base}{url}.json",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "post_ids",
+   "image": {
+    "path": "",
+    "template": "{base}/posts/{value}.json"
+   },
+   "subpage": {
+    "request": "{url}",
+    "format": "json",
+    "image": [
+     "file_url",
+     "large_file_url",
+     "preview_file_url"
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "Pools (Kategorie 'series') über /pools/gallery; Beliebt = Standardreihenfolge (zuletzt aktualisiert), Neueste = search[order]=created_at, Suche = search[name_contains].",
+  "Community-Standard: ein Kapitel 'Oneshot' je Pool (Einstellung 'jeder Post ein Kapitel' nicht abgebildet). Datum (updated_at aus /pools/<id>.json) weggelassen, da Kapitel aus der Detailseite gebildet werden.",
+  "Seiten: /pools/<id>.json → post_ids; jede Seite ist /posts/<id>.json (subpage im JSON-Format – in den Vorlagen nur mit HTML belegt, auf dem PC prüfen), Bild = file_url, sonst large_file_url, sonst preview_file_url. Relative Bild-URLs ergänzt der Code um die Basis-URL.",
+  "CDN-Bildanfragen: Accept/Sec-Fetch-* wie im Interceptor des Codes als image_headers; das Entfernen der Cookies für cdn.donmai.us ist nicht abbildbar.",
+  "Cover: letzter Eintrag aus source@srcset, sonst img@src."
+ ]
+}

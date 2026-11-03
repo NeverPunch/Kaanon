@@ -1,0 +1,209 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Comick (Unoriginal)",
+  "sprache": "all",
+  "base_url": "https://comick.live",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.comickunoriginal",
+  "quellen": [
+   {
+    "name": "Comick (Unoriginal)",
+    "sprache": "all",
+    "quell_id": 4972933717624256217,
+    "home": "https://comick.live"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/comicklive",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.7",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/comics/top?{page_key}",
+   "format": "json",
+   "items": "data",
+   "page_map": [
+    "day=7&type=follow",
+    "day=30&type=follow",
+    "day=90&type=follow",
+    "day=7&type=most_follow_new",
+    "day=30&type=most_follow_new",
+    "day=90&type=most_follow_new"
+   ],
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}"
+    },
+    "title": "title",
+    "cover": "default_thumbnail"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/chapters/latest?order=new&page={page}",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}"
+    },
+    "title": "title",
+    "cover": "default_thumbnail"
+   }
+  },
+  "search": {
+   "request": "{base}/api/search?order_by=created_at&order_direction=desc&showAll=false&exclude_mylist=false&q={query}&type=comic",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}"
+    },
+    "title": "title",
+    "cover": "default_thumbnail"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "script_json",
+   "script_regex": "(?s)<script[^>]*id=[\"']comic-data[\"'][^>]*>(.*?)</script>",
+   "fields": {
+    "title": "title",
+    "cover": "default_thumbnail",
+    "description": {
+     "path": "desc",
+     "decode": "html_text"
+    },
+    "author": {
+     "path": "authors.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "artists.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": [
+      "country",
+      "content_rating",
+      "md_comic_md_genres.*.md_genres.name"
+     ],
+     "union": true,
+     "replace": [
+      [
+       "^jp$",
+       "Manga"
+      ],
+      [
+       "^cn$",
+       "Manhua"
+      ],
+      [
+       "^ko$",
+       "Manhwa"
+      ],
+      [
+       "^[a-z]{2}$",
+       ""
+      ],
+      [
+       "^suggestive$",
+       "Content Rating: Suggestive"
+      ],
+      [
+       "^erotica$",
+       "Content Rating: Erotica"
+      ],
+      [
+       "^safe$",
+       ""
+      ]
+     ]
+    },
+    "status": {
+     "const": "{f.status}/{f.translation_completed}"
+    }
+   },
+   "status_map": {
+    "1/true": 1,
+    "1/false": 1,
+    "2/true": 2,
+    "2/false": 4,
+    "3/true": 5,
+    "3/false": 5,
+    "4/true": 6,
+    "4/false": 6
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/comics/{u.slug}/chapter-list?lang=en&page={page}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/comic/([^/?#]+)"
+   },
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "hid",
+     "template": "/comic/{u.slug}/{value}-chapter-{f.chap}-{f.lang}"
+    },
+    "name": {
+     "path": "chap",
+     "template": "[[Vol. {f.vol} ]]Ch. {value}[[: {f.title}]]"
+    },
+    "number": "chap",
+    "date": "created_at",
+    "scanlator": {
+     "path": "group_name.*",
+     "all": true,
+     "join": ", "
+    }
+   },
+   "date_format": "iso",
+   "paging": {
+    "has_next": {
+     "lt": [
+      "^pagination.current_page",
+      "^pagination.last_page"
+     ]
+    },
+    "max_pages": 60
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "script_json",
+   "script_regex": "(?s)<script[^>]*id=[\"']sv-data[\"'][^>]*>(.*?)</script>",
+   "items": "chapter.images",
+   "image": "url"
+  }
+ },
+ "hinweise": [
+  "Popular: 6 feste Seiten wie in der Community (top, 7/30/90 Tage, follow bzw. most_follow_new) per page_map.",
+  "Latest und Suche blättern in der Community per next_cursor (Wert aus der vorigen Antwort) – das Rezept liefert nur die erste Seite.",
+  "Kapitel nur Sprache en (Community-Standard der Spracheinstellung, ?lang=en); andere Sprachen per Einstellung nicht übernommen.",
+  "Details: JSON aus script#comic-data per script_json/script_regex (in Vorlagen nur bei Seiten belegt); Alternativtitel (md_titles, Liste oder Objekt) nicht übernommen.",
+  "Status: 2 = abgeschlossen nur bei translation_completed, sonst Veröffentlichung beendet (wie Community).",
+  "Community wiederholt 429-Antworten bis zu 10-mal."
+ ]
+}

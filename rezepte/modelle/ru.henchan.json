@@ -1,0 +1,192 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HenChan",
+  "sprache": "ru",
+  "base_url": "https://xxl.hentaichan.live",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.ru.kaanon.henchan",
+  "quellen": [
+   {
+    "name": "HenChan",
+    "sprache": "ru",
+    "quell_id": 5504588601186153612,
+    "home": "https://xxl.hentaichan.live"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ru/henchan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "multichan"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/mostfavorites?offset={offset}",
+   "page_size": 20,
+   "items": "div.content_row",
+   "has_next": {
+    "exists": "a:contains(Вперед)"
+   },
+   "fields": {
+    "url": "h2 > a@href",
+    "title": [
+     "@title",
+     "h2 > a"
+    ],
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "(?i)/manganew_thumbs\\w*/",
+       "/showfull_retina/manga/"
+      ],
+      [
+       "_xxl\\.hentaichan\\.live",
+       "_hentaichan.ru"
+      ]
+     ]
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}/manga/newest?offset={offset}",
+   "page_size": 20,
+   "items": "div.content_row",
+   "has_next": {
+    "exists": "a:contains(Вперед)"
+   },
+   "fields": {
+    "url": "h2 > a@href",
+    "title": [
+     "@title",
+     "h2 > a"
+    ],
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "(?i)/manganew_thumbs\\w*/",
+       "/showfull_retina/manga/"
+      ],
+      [
+       "_xxl\\.hentaichan\\.live",
+       "_hentaichan.ru"
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/?do=search&subaction=search&story={query}&search_start={page}",
+   "items": ".content_row:not(:has(div.item:containsOwn(Тип)))",
+   "has_next": {
+    "exists": "a:contains(Далее)"
+   },
+   "fields": {
+    "url": "h2 > a@href",
+    "title": [
+     "@title",
+     "h2 > a"
+    ],
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "(?i)/manganew_thumbs\\w*/",
+       "/showfull_retina/manga/"
+      ],
+      [
+       "_xxl\\.hentaichan\\.live",
+       "_hentaichan.ru"
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "path": "title",
+     "regex": "^(.*?)(?: »|$)"
+    },
+    "cover": {
+     "path": "img#cover@src",
+     "replace": [
+      [
+       "(?i)/manganew_thumbs\\w*/",
+       "/showfull_retina/manga/"
+      ],
+      [
+       "_xxl\\.hentaichan\\.live",
+       "_hentaichan.ru"
+      ]
+     ]
+    },
+    "author": "#info_wrap tr:contains(Автор) .item2, #info_wrap > div:contains(Автор) .item2",
+    "genres": {
+     "path": ".sidetags ul a:last-child",
+     "all": true,
+     "join": ", "
+    },
+    "description": "div#description@ownText",
+    "status": {
+     "path": "#info_wrap tr:contains(Загружено), #info_wrap > div:contains(Загружено)",
+     "regex": "(перевод завершен|перевод продолжается)"
+    }
+   },
+   "status_map": {
+    "перевод завершен": 2,
+    "перевод продолжается": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "path": "title",
+     "regex": "^(.*?)(?: »|$)"
+    },
+    "number": {
+     "const": "1"
+    },
+    "date": "div.row4_right b"
+   },
+   "date_format": "dd MMMM yyyy",
+   "date_locale": "ru"
+  },
+  "pages": {
+   "request": {
+    "url": "{base}/online/{u.rest}",
+    "headers": {
+     "Accept": "image/webp,image/apng"
+    }
+   },
+   "url_vars": {
+    "rest": "/manga/(.+)$"
+   },
+   "format": "text",
+   "block_regex": "fullimg\"\\s*:\\s*\\[([^\\]]*)\\]",
+   "items": "([^'\",\\s]+)",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "MultiChan-Theme (HenChan). Listen: content_row, Titel aus title-Attribut, Cover auf HQ-Variante umgeschrieben (manganew_thumbs* → showfull_retina/manga) wie getHQThumbnail; der Domain-Ersatz '_<host>' → '_hentaichan.ru' ist auf die Standard-Domain xxl.hentaichan.live fest verdrahtet.",
+  "VEREINFACHUNG Kapitel: Die Community lädt /related/<id> (Serien-Teile, mit Paginierung 'Вперед', umgekehrt), fällt bei 404 auf ein Einzelkapitel zurück und behandelt ExHentai-Einträge (Cover-URL mit /manganew_thumbs_blur/) und 'похожий на'-Seiten gesondert. Diese Verzweigungen kann das Modell nicht; hier ist jeder Eintrag genau ein Kapitel (= der Eintrag selbst). Teile einer Serie sind als eigene Einträge in den Listen weiterhin erreichbar.",
+  "Seiten: /manga/… → /online/…, Bildliste aus dem Skript 'fullimg\": [ … ]' (Anführungszeichen ' oder \"), Accept-Header wie im Code.",
+  "Datum (div.row4_right b, 'dd MMMM yyyy' russisch) steht laut Code nur auf ExHentai-Einträgen; Monatsnamen im Genitiv auf dem PC prüfen. Status nur, wenn 'перевод завершен/продолжается' im Feld 'Загружено' steht."
+ ]
+}

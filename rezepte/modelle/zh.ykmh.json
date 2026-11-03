@@ -1,0 +1,193 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "YKMH",
+  "sprache": "zh",
+  "base_url": "https://www.ykmh.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.ykmh",
+  "quellen": [
+   {
+    "name": "优酷漫画",
+    "sprache": "zh",
+    "quell_id": 1637952806167036168,
+    "home": "https://www.ykmh.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/manhuadui",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "sinmh"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/list/click/?page={page}",
+   "items": "#contList > li, li.list-comic",
+   "has_next": {
+    "exists": "ul.pagination > li.next:not(.disabled)"
+   },
+   "fields": {
+    "url": "p > a, h3 > a@href",
+    "title": "p > a, h3 > a",
+    "cover": "img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/list/update/?page={page}",
+   "items": "#contList > li, li.list-comic",
+   "has_next": {
+    "exists": "ul.pagination > li.next:not(.disabled)"
+   },
+   "fields": {
+    "url": "p > a, h3 > a@href",
+    "title": "p > a, h3 > a",
+    "cover": "img@img"
+   }
+  },
+  "search": {
+   "request": "{base}/search/?keywords={query}&page={page}",
+   "items": "#contList > li, li.list-comic",
+   "has_next": {
+    "exists": "ul.pagination > li.next:not(.disabled)"
+   },
+   "fields": {
+    "url": "p > a, h3 > a@href",
+    "title": "p > a, h3 > a",
+    "cover": "img@img"
+   }
+  },
+  "details": {
+   "request": "https://m.ykmh.net{u.path}",
+   "url_vars": {
+    "path": "^(?:https?://[^/]+)?(/[^#]*)"
+   },
+   "fields": {
+    "title": "#comicName",
+    "cover": "#Cover img@img",
+    "author": ".Introduct_Sub .txtItme:has(.icon01)",
+    "genres": {
+     "path": ".Introduct_Sub .txtItme:has(.icon02) a",
+     "replace": [
+      [
+       "^#",
+       ""
+      ],
+      [
+       "^(连载中|已完结)$",
+       ""
+      ]
+     ]
+    },
+    "description": {
+     "path": [
+      "#full-des",
+      "#simple-des"
+     ],
+     "replace": [
+      [
+       "^介绍:",
+       ""
+      ]
+     ]
+    },
+    "status": {
+     "path": ".Introduct_Sub .txtItme:has(.icon02) a",
+     "all": true,
+     "join": " ",
+     "regex": "(连载中|已完结)"
+    }
+   },
+   "status_map": {
+    "连载中": 1,
+    "已完结": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".chapter-body li > a",
+   "fields": {
+    "url": "@href",
+    "name": [
+     "span:first-child",
+     ""
+    ]
+   }
+  },
+  "pages": {
+   "request": "{base}/js/config.js",
+   "format": "text",
+   "url_vars": {
+    "path": "^(?:https?://[^/]+)?(/[^#]*)"
+   },
+   "let": {
+    "host": {
+     "path": "",
+     "regex": "resHost:.+?\"?domain\"?:\\[\"(.+?)\""
+    }
+   },
+   "then": [
+    {
+     "request": "https://m.ykmh.net{u.path}",
+     "format": "text",
+     "let": {
+      "cpath": {
+       "path": "",
+       "regex": "chapterPath\\s*=\\s*\"([^\"]*)\";"
+      }
+     }
+    }
+   ],
+   "block_regex": "(?s)chapterImages\\s*=\\s*\\[(.*?)\\];",
+   "items": "\"((?:[^\"\\\\]|\\\\.)*)\"",
+   "image": [
+    {
+     "path": "",
+     "regex": "^(https?:.*)$",
+     "replace": [
+      [
+       "\\\\/",
+       "/"
+      ]
+     ]
+    },
+    {
+     "path": "",
+     "regex": "^(/.*)$",
+     "template": "{l.host}{value}",
+     "replace": [
+      [
+       "\\\\/",
+       "/"
+      ]
+     ]
+    },
+    {
+     "path": "",
+     "regex": "^(.+)$",
+     "template": "{l.host}/{l.cpath}{value}",
+     "replace": [
+      [
+       "\\\\/",
+       "/"
+      ]
+     ]
+    }
+   ]
+  }
+ },
+ "hinweise": [
+  "Theme SinMH: Details/Kapitel/Seiten von der Mobilseite (m.-Host) wie in der Community.",
+  "Seiten: Bildhost aus {base}/js/config.js (resHost…domain), Bildliste chapterImages + chapterPath aus dem Kapitelskript; drei Fälle wie getChapterImage().",
+  "Kapitel: Community dreht die Abschnitte (.chapter-body) um; bei mehreren Abschnitten kann die Reihenfolge abweichen. Datum nur fürs erste Kapitel in der Community, im Rezept keins.",
+  "Kategorie-/Sortierfilter nicht übernommen; Community setzt den System-User-Agent.",
+  "Website blockiert laut Community IPs außerhalb Chinas; YKMH lässt die Kapitel je Abschnitt in Seitenreihenfolge."
+ ]
+}

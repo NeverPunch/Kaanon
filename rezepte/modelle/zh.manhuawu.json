@@ -23,7 +23,119 @@
   "theme": "mccms"
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:150.0) Gecko/20100101 Firefox/150.0"
+  },
+  "image_headers": {
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:150.0) Gecko/20100101 Firefox/150.0"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/category/order/hits/page/{page}",
+   "items": ".common-comic-item",
+   "page_size": 10,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": ".comic__title > a@href",
+     "replace": [
+      [
+       "^/index\\.php",
+       ""
+      ]
+     ]
+    },
+    "title": ".comic__title > a@ownText",
+    "cover": "img@data-original"
+   }
+  },
+  "latest": {
+   "request": "{base}/category/order/addtime/page/{page}",
+   "items": ".common-comic-item",
+   "page_size": 10,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": ".comic__title > a@href",
+     "replace": [
+      [
+       "^/index\\.php",
+       ""
+      ]
+     ]
+    },
+    "title": ".comic__title > a@ownText",
+    "cover": "img@data-original"
+   }
+  },
+  "search": {
+   "request": "{base}/search/{query}/{page}",
+   "items": ".common-comic-item",
+   "page_size": 10,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": ".comic__title > a@href",
+     "replace": [
+      [
+       "^/index\\.php",
+       ""
+      ]
+     ]
+    },
+    "title": ".comic__title > a@ownText",
+    "cover": "img@data-original"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".de-info__box .comic-title@ownText",
+    "cover": ".de-info__box img@src",
+    "author": ".de-info__box .name",
+    "genres": ".de-info__box .comic-status a@ownText",
+    "description": ".de-info__box .intro-total"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".chapter__list-box > li",
+   "reverse": true,
+   "fields": {
+    "url": {
+     "path": "a@href",
+     "replace": [
+      [
+       "^/index\\.php",
+       ""
+      ]
+     ]
+    },
+    "name": "a"
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img[data-original]",
+   "image": "@data-original"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Theme MCCMS (Web-Variante MCCMSWeb, Desktop-Seiten mit Firefox-UA wie pcHeaders). Kein Referer, auch nicht für Bilder.",
+  "Listen: /category/order/hits|addtime/page/N, Suche /search/{Suchtext}/N (textSearchOnlyPageOne=false).",
+  "Nächste Seite: Community vergleicht die letzten beiden Links in #Pagination/.NewPages (nächste ≠ letzte) – nicht als Selektor ausdrückbar; ersatzweise has_next full mit kleiner page_size 10 (echte Seitengröße unbekannt, auf dem PC prüfen).",
+  "Captcha-Seite bei der Suche (#code-div) wird nicht gelöst; dann leere Trefferliste.",
+  "URL-Präfix /index.php wird wie im Code entfernt. Status steht im Code nicht, daher nicht gesetzt.",
+  "Kapitel ohne Datum, von derselben Seite wie die Details, Reihenfolge umgekehrt."
+ ]
 }

@@ -1,0 +1,115 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "CosplayTele",
+  "sprache": "all",
+  "base_url": "https://cosplaytele.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.cosplaytele",
+  "quellen": [
+   {
+    "name": "CosplayTele",
+    "sprache": "all",
+    "quell_id": 7395748658970167454,
+    "home": "https://cosplaytele.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/cosplaytele",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/wp-json/wordpress-popular-posts/v1/popular-posts?offset={offset}&limit=20&range=last7days&embed=true&_embed=wp:featuredmedia&_fields=title,link,_embedded,_links.wp:featuredmedia",
+   "format": "json",
+   "items": "$",
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "link",
+     "regex": "https?://[^/]+(/.*)",
+     "group": 1
+    },
+    "title": {
+     "path": "title.rendered",
+     "decode": "html"
+    },
+    "cover": "_embedded.wp:featuredmedia.0.source_url"
+   }
+  },
+  "latest": {
+   "request": "{base}/page/{page}/",
+   "items": "main div.box",
+   "has_next": {
+    "exists": ".next.page-number"
+   },
+   "fields": {
+    "url": "h5 a@href",
+    "title": "h5 a",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}",
+   "items": "main div.box",
+   "has_next": {
+    "exists": ".next.page-number"
+   },
+   "fields": {
+    "url": "h5 a@href",
+    "title": "h5 a",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".entry-title",
+    "description": ".entry-title",
+    "genres": "#main a[href*=/tag/], #main a[href*=/category/]",
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Gallery"
+    },
+    "date": {
+     "path": "time.updated@datetime",
+     "regex": "^(\\d{4}-\\d{2}-\\d{2})",
+     "group": 1
+    }
+   },
+   "date_format": "yyyy-MM-dd"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".gallery-item img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Galerie-Website: ein Kapitel 'Gallery' = Galerie selbst (Muster wie Masonry-Rezepte).",
+  "Beliebt über WordPress-Popular-Posts-API (last7days, 20 je Seite). Community rechnet offset = page*20 (überspringt die ersten 20) – hier {offset} = (page-1)*20.",
+  "Genres = Links auf /tag/ bzw. /category/ in #main. Kategorie-Filter nicht abgebildet."
+ ]
+}

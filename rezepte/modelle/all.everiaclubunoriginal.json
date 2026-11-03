@@ -1,0 +1,117 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "EveriaClub (unoriginal)",
+  "sprache": "all",
+  "base_url": "https://www.everiaclub.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.everiaclubunoriginal",
+  "quellen": [
+   {
+    "name": "EveriaClub (unoriginal)",
+    "sprache": "all",
+    "quell_id": 8698756602692547891,
+    "home": "https://www.everiaclub.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/everiaclubcom",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": ".mainright li a",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "@href",
+    "title": "img@title",
+    "cover": [
+     "img@data-original",
+     "img@data-lazy-src",
+     "img@data-src",
+     "img@src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/?page={page}",
+   "items": ".mainleft .leftp > a",
+   "has_next": {
+    "exists": "li:has(span.current) + li > a"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "img@title",
+    "cover": [
+     "img@data-original",
+     "img@data-lazy-src",
+     "img@data-src",
+     "img@src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/search/?keyword={query}&page={page}",
+   "items": ".mainleft .leftp > a",
+   "has_next": {
+    "exists": "li:has(span.current) + li > a"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "img@title",
+    "cover": [
+     "img@data-original",
+     "img@data-lazy-src",
+     "img@data-src",
+     "img@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "genres": "div.end span:contains(Tags:) ~ a > p.tags@ownText",
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Gallery"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".mainleft img",
+   "image": [
+    "@data-original",
+    "@data-lazy-src",
+    "@data-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Einzelgalerie: ein Kapitel 'Gallery' mit der Manga-URL; Titel/Cover aus der Liste (Community setzt sie in den Details nicht).",
+  "Tag-/Kategorie-Filter nicht übernommen."
+ ]
+}

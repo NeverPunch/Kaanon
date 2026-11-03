@@ -1,0 +1,208 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Senkuro",
+  "sprache": "ru",
+  "base_url": "https://senkuro.me",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ru.kaanon.senkuro",
+  "quellen": [
+   {
+    "name": "Senkuro",
+    "sprache": "ru",
+    "quell_id": 1452500215874655811,
+    "home": "https://senkuro.me"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ru/senkuro",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "senkuro"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "Tachiyomi (+https://github.com/keiyoushi/extensions-source)",
+   "App-Id": "4026531840100",
+   "App-Version": "060626"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": {
+    "url": "https://api.senkuro.me/graphql",
+    "method": "POST",
+    "json": {
+     "operationName": "searchTachiyomiManga",
+     "query": "query searchTachiyomiManga($query: String) { mangaTachiyomiSearch(query: $query, orderBy: { direction: DESC, field: POPULARITY_SCORE }, offset: {offset}) { mangas { id slug titles { lang content } cover { original { url } } } } }",
+     "variables": {
+      "query": null
+     }
+    }
+   },
+   "format": "json",
+   "items": "data.mangaTachiyomiSearch.mangas",
+   "page_size": 10,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}#{f.id}"
+    },
+    "title": [
+     "titles.?lang=RU.content",
+     "titles.?lang=EN.content",
+     "titles.0.content"
+    ],
+    "cover": "cover.original.url"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "https://api.senkuro.me/graphql",
+    "method": "POST",
+    "json": {
+     "operationName": "searchTachiyomiManga",
+     "query": "query searchTachiyomiManga($query: String) { mangaTachiyomiSearch(query: $query, orderBy: { direction: DESC, field: POPULARITY_SCORE }, offset: {offset}) { mangas { id slug titles { lang content } cover { original { url } } } } }",
+     "variables": {
+      "query": "{query_raw}"
+     }
+    }
+   },
+   "format": "json",
+   "items": "data.mangaTachiyomiSearch.mangas",
+   "page_size": 10,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}#{f.id}"
+    },
+    "title": [
+     "titles.?lang=RU.content",
+     "titles.?lang=EN.content",
+     "titles.0.content"
+    ],
+    "cover": "cover.original.url"
+   }
+  },
+  "details": {
+   "request": {
+    "url": "https://api.senkuro.me/graphql",
+    "method": "POST",
+    "json": {
+     "operationName": "fetchTachiyomiManga",
+     "query": "query fetchTachiyomiManga($mangaId: ID!) { mangaTachiyomiInfo(mangaId: $mangaId) { id slug titles { lang content } alternativeNames { lang content } localizations { lang description } type rating status formats labels { id rootId slug titles { lang content } } translationStatus cover { original { url } } mainStaff { roles person { name } } } }",
+     "variables": {
+      "mangaId": "{u.id}"
+     }
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "#([^~]+)",
+    "slug": "/manga/([^/#]+)"
+   },
+   "fields": {
+    "title": [
+     "data.mangaTachiyomiInfo.titles.?lang=RU.content",
+     "data.mangaTachiyomiInfo.titles.?lang=EN.content",
+     "data.mangaTachiyomiInfo.titles.0.content"
+    ],
+    "cover": "data.mangaTachiyomiInfo.cover.original.url",
+    "description": "data.mangaTachiyomiInfo.localizations.?lang=RU.description",
+    "author": {
+     "path": "data.mangaTachiyomiInfo.mainStaff.*.person.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "data.mangaTachiyomiInfo.labels.*.titles.?lang=RU.content",
+     "all": true,
+     "join": ", "
+    },
+    "status": "data.mangaTachiyomiInfo.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "announce": 1,
+    "finished": 2,
+    "hiatus": 6,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "https://api.senkuro.me/graphql",
+    "method": "POST",
+    "json": {
+     "operationName": "fetchTachiyomiChapters",
+     "query": "query fetchTachiyomiChapters($mangaId: ID!) { mangaTachiyomiChapters(mangaId: $mangaId) { message chapters { id slug branchId name teamIds number volume createdAt updatedAt } teams { id slug name } } }",
+     "variables": {
+      "mangaId": "{u.id}"
+     }
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "#([^~]+)",
+    "slug": "/manga/([^/#]+)"
+   },
+   "items": "data.mangaTachiyomiChapters.chapters",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{u.slug}/chapters/{f.slug}#{u.id}~{value}"
+    },
+    "name": {
+     "path": "number",
+     "template": "{f.volume}. Глава {value}[[ {f.name}]]"
+    },
+    "number": "number",
+    "date": [
+     "updatedAt",
+     "createdAt"
+    ]
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "https://api.senkuro.me/graphql",
+    "method": "POST",
+    "json": {
+     "operationName": "fetchTachiyomiChapterPages",
+     "query": "query fetchTachiyomiChapterPages($mangaId: ID!, $chapterId: ID!) { mangaTachiyomiChapterPages(mangaId: $mangaId, chapterId: $chapterId) { pages { url } } }",
+     "variables": {
+      "mangaId": "{u.mid}",
+      "chapterId": "{u.cid}"
+     }
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "mid": "#([^~]+)~",
+    "cid": "~([^~]+)$"
+   },
+   "items": "data.mangaTachiyomiChapterPages.pages",
+   "image": "url"
+  }
+ },
+ "hinweise": [
+  "Theme Senkuro: GraphQL unter api.<host>/graphql (Basis senkuro.me; Spiegel senkuro.com → dann api.senkuro.com). Kopfzeilen App-Id/App-Version/User-Agent wörtlich aus dem Code (öffentliche Werte, kein Geheimnis).",
+  "Blättern über offset=(Seite-1)*10: als Literal {offset} direkt im Query-Text, weil ein Zahl-Platzhalter in variables in keiner Vorlage belegt ist. Nächste Seite, solange 10 Treffer kommen (wie im Code).",
+  "Keine Neueste (Code: supportsLatest = false). Suche ohne Filter, sortiert nach POPULARITY_SCORE wie im Code; leerer Suchtext wird als \"\" statt null gesendet – auf dem PC prüfen.",
+  "Manga-URL /manga/{slug}#{id}, Kapitel-URL /manga/{slug}/chapters/{kslug}#{mangaId}~{kapitelId}.",
+  "Autor: alle mainStaff-Namen (Code filtert nach Rollen STORY/ART – Filter auf Listenmitgliedschaft nicht ausdrückbar), Künstler entfällt. Genres nur Labels (RU); Typ/Altersfreigabe/Formate (Enum → russischer Name) nicht übernommen; Alternativtitel nicht in der Beschreibung.",
+  "Scanlator (teamIds → teams-Namen) nicht nachgebaut (gleiche Antwort, kein Join möglich)."
+ ]
+}

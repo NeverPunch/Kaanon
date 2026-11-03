@@ -1,0 +1,209 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "92Manhua",
+  "sprache": "zh",
+  "base_url": "http://www.92mh.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.92manhua",
+  "quellen": [
+   {
+    "name": "92漫画",
+    "sprache": "zh",
+    "quell_id": 1520913911854846698,
+    "home": "http://www.92mh.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/jiuermanhua",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "sinmh"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/list/click/?page={page}",
+   "items": "#contList > li, li.list-comic",
+   "has_next": {
+    "exists": "ul.pagination > li.next:not(.disabled)"
+   },
+   "fields": {
+    "url": [
+     "p > a@href",
+     "h3 > a@href"
+    ],
+    "title": [
+     "p > a",
+     "h3 > a"
+    ],
+    "cover": [
+     "img@src",
+     "img@data-src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/list/update/?page={page}",
+   "items": "#contList > li, li.list-comic",
+   "has_next": {
+    "exists": "ul.pagination > li.next:not(.disabled)"
+   },
+   "fields": {
+    "url": [
+     "p > a@href",
+     "h3 > a@href"
+    ],
+    "title": [
+     "p > a",
+     "h3 > a"
+    ],
+    "cover": [
+     "img@src",
+     "img@data-src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/search/?keywords={query}&page={page}",
+   "items": "#contList > li, li.list-comic",
+   "has_next": {
+    "exists": "ul.pagination > li.next:not(.disabled)"
+   },
+   "fields": {
+    "url": [
+     "p > a@href",
+     "h3 > a@href"
+    ],
+    "title": [
+     "p > a",
+     "h3 > a"
+    ],
+    "cover": [
+     "img@src",
+     "img@data-src"
+    ]
+   }
+  },
+  "details": {
+   "request": "http://h5.92mh.com{url}",
+   "fields": {
+    "title": "#comicName",
+    "cover": "#Cover img@src",
+    "author": ".Introduct_Sub .txtItme:has(.icon01)",
+    "genres": {
+     "path": ".Introduct_Sub .txtItme:has(.icon02) a:not(:contains(连载中)):not(:contains(已完结))",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       "(^|, )#",
+       "$1"
+      ]
+     ]
+    },
+    "description": {
+     "path": [
+      "#full-des",
+      "#simple-des"
+     ],
+     "replace": [
+      [
+       "^介绍:",
+       ""
+      ]
+     ]
+    },
+    "status": {
+     "path": ".Introduct_Sub .txtItme:has(.icon02)",
+     "regex": "(连载中|已完结)"
+    }
+   },
+   "status_map": {
+    "连载中": 1,
+    "已完结": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".chapter-body li > a",
+   "reverse": true,
+   "fields": {
+    "url": "@href",
+    "name": [
+     ":first-child",
+     ""
+    ]
+   }
+  },
+  "pages": {
+   "request": "{base}/js/config.js",
+   "format": "text",
+   "let": {
+    "host": {
+     "path": "",
+     "regex": "resHost:.+?\"?domain\"?:\\[\"(.+?)\""
+    }
+   },
+   "then": [
+    {
+     "request": "{base}{url}",
+     "format": "scripts",
+     "let": {
+      "cpath": {
+       "path": "",
+       "regex": "chapterPath\\s*=\\s*\"([^\"]*)\""
+      }
+     }
+    }
+   ],
+   "block_regex": "chapterImages\\s*=\\s*\\[([^\\]]*)\\]",
+   "items": "\"([^\"]+)\"",
+   "image": [
+    {
+     "path": "",
+     "replace": [
+      [
+       "\\\\/",
+       "/"
+      ]
+     ],
+     "regex": "^(https://.*)$"
+    },
+    {
+     "path": "",
+     "replace": [
+      [
+       "\\\\/",
+       "/"
+      ]
+     ],
+     "regex": "^(/.*)$",
+     "template": "{l.host}{value}"
+    },
+    {
+     "path": "",
+     "replace": [
+      [
+       "\\\\/",
+       "/"
+      ]
+     ],
+     "template": "{l.host}/{l.cpath}{value}"
+    }
+   ]
+  }
+ },
+ "hinweise": [
+  "SinMH-Theme (圣樱漫画CMS). Listen/Suche auf der Desktop-Seite, Details+Kapitel von der Mobilseite http://h5.92mh.com (mobileUrl-Override, fest eingetragen), Seiten von der Desktop-Kapitelseite (pageListUrl-Override).",
+  "Seiten: zuerst {base}/js/config.js (Bild-Host aus resHost…domain, Community cacht ihn), dann Kapitelseite: chapterImages-Liste + chapterPath. Bild = absolute https-URL unverändert, '/…' → Host + Pfad, sonst Host/chapterPath + Name (drei Fälle als Ausweichkette mit regex – Reihenfolge/Leer-Verhalten der Kette auf dem PC prüfen).",
+  "Kapitel: Abschnitte und Einträge werden im Code jeweils umgedreht → insgesamt reverse. Nur das neueste Kapitel bekommt im Code ein Datum (.date) – hier weggelassen.",
+  "User-Agent setzt die Community auf den System-http.agent (nicht übernommen). Rate-Limit 2/s."
+ ]
+}

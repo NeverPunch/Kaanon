@@ -1,0 +1,108 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hentai Crot",
+  "sprache": "id",
+  "base_url": "https://hentaicrot.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.hentaicrot",
+  "quellen": [
+   {
+    "name": "Hentai Crot",
+    "sprache": "id",
+    "quell_id": 1764268677652741702,
+    "home": "https://hentaicrot.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/hentaicrot",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "oceanwp"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/"
+   },
+   "items": "article.blog-entry",
+   "has_next": {
+    "exists": "ul.page-numbers li a.next"
+   },
+   "fields": {
+    "url": "h2.blog-entry-title a@href",
+    "title": "h2.blog-entry-title a",
+    "cover": "div.thumbnail img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}",
+   "request_by_page": {
+    "1": "{base}/?s={query}"
+   },
+   "items": "article",
+   "has_next": {
+    "exists": "ul.page-numbers li a.next"
+   },
+   "fields": {
+    "url": "h2.search-entry-title a, h2.blog-entry-title a@href",
+    "title": "h2.search-entry-title a, h2.blog-entry-title a",
+    "cover": "div.thumbnail img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     "div#content .entry-title",
+     ".entry-title"
+    ],
+    "cover": [
+     "div#content div.thumbnail img@src",
+     "div.thumbnail img@src"
+    ],
+    "description": [
+     "div#content div.entry-content",
+     "div.entry-content"
+    ],
+    "genres": {
+     "path": "li.meta-cat a, li.meta-category a",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Chapter 1"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.entry-content img",
+   "image": "@src",
+   "referer": "chapter"
+  }
+ },
+ "hinweise": [
+  "Theme OceanWP: Einzelgalerie, ein Kapitel 'Chapter 1' mit der Manga-URL.",
+  "Kein Latest (Community: supportsLatest=false); Kategorie-/Tag-Filter nicht übernommen."
+ ]
+}

@@ -1,0 +1,196 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Senkognito",
+  "sprache": "ru",
+  "base_url": "https://senkuro.me",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.ru.kaanon.senkognito",
+  "quellen": [
+   {
+    "name": "Senkognito",
+    "sprache": "ru",
+    "quell_id": 8393977756208732343,
+    "home": "https://senkuro.me"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ru/senkognito",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "senkuro"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "Tachiyomi (+https://github.com/keiyoushi/extensions-source)",
+   "App-Id": "5033164800100",
+   "App-Version": "060626"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": {
+    "url": "https://api.senkuro.me/graphql",
+    "method": "POST",
+    "body": "{\"operationName\": \"searchTachiyomiManga\", \"query\": \"query searchTachiyomiManga($query: String, $orderBy: MangaTachiyomiOrder, $offset: Int) { mangaTachiyomiSearch(query: $query, orderBy: $orderBy, offset: $offset) { mangas { id slug titles { lang content } cover { original { url } } } } }\", \"variables\": {\"query\": null, \"orderBy\": {\"direction\": \"DESC\", \"field\": \"POPULARITY_SCORE\"}, \"offset\": {offset}}}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "data.mangaTachiyomiSearch.mangas",
+   "page_size": 10,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}#{f.id}"
+    },
+    "title": [
+     "titles.?lang=RU.content",
+     "titles.?lang=EN.content",
+     "titles.0.content"
+    ],
+    "cover": "cover.original.url"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "https://api.senkuro.me/graphql",
+    "method": "POST",
+    "body": "{\"operationName\": \"searchTachiyomiManga\", \"query\": \"query searchTachiyomiManga($query: String, $orderBy: MangaTachiyomiOrder, $offset: Int) { mangaTachiyomiSearch(query: $query, orderBy: $orderBy, offset: $offset) { mangas { id slug titles { lang content } cover { original { url } } } } }\", \"variables\": {\"query\": \"{query_raw}\", \"orderBy\": {\"direction\": \"DESC\", \"field\": \"POPULARITY_SCORE\"}, \"offset\": {offset}}}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "data.mangaTachiyomiSearch.mangas",
+   "page_size": 10,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}#{f.id}"
+    },
+    "title": [
+     "titles.?lang=RU.content",
+     "titles.?lang=EN.content",
+     "titles.0.content"
+    ],
+    "cover": "cover.original.url"
+   }
+  },
+  "details": {
+   "request": {
+    "url": "https://api.senkuro.me/graphql",
+    "method": "POST",
+    "body": "{\"operationName\": \"fetchTachiyomiManga\", \"query\": \"query fetchTachiyomiManga($mangaId: ID!) { mangaTachiyomiInfo(mangaId: $mangaId) { id slug titles { lang content } alternativeNames { lang content } localizations { lang description } type rating status formats labels { slug titles { lang content } } cover { original { url } } mainStaff { roles person { name } } } }\", \"variables\": {\"mangaId\": \"{u.mid}\"}}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "url_vars": {
+    "mid": "#([^#,]+)$",
+    "slug": "/manga/([^/#]+)"
+   },
+   "let": {
+    "alt": {
+     "path": "data.mangaTachiyomiInfo.alternativeNames.*.content",
+     "all": true,
+     "join": " / "
+    }
+   },
+   "fields": {
+    "title": [
+     "data.mangaTachiyomiInfo.titles.?lang=RU.content",
+     "data.mangaTachiyomiInfo.titles.?lang=EN.content",
+     "data.mangaTachiyomiInfo.titles.0.content"
+    ],
+    "cover": "data.mangaTachiyomiInfo.cover.original.url",
+    "description": {
+     "path": "data.mangaTachiyomiInfo.localizations.?lang=RU.description",
+     "template": "[[Альтернативные названия:\n{l.alt}\n\n]]{value}"
+    },
+    "author": {
+     "path": "data.mangaTachiyomiInfo.mainStaff.*.person.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": [
+      "data.mangaTachiyomiInfo.type",
+      "data.mangaTachiyomiInfo.rating",
+      "data.mangaTachiyomiInfo.formats",
+      "data.mangaTachiyomiInfo.labels.*.titles.?lang=RU.content"
+     ],
+     "union": true
+    },
+    "status": "data.mangaTachiyomiInfo.status"
+   },
+   "status_map": {
+    "finished": 2,
+    "ongoing": 1,
+    "announce": 1,
+    "hiatus": 6,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "https://api.senkuro.me/graphql",
+    "method": "POST",
+    "body": "{\"operationName\": \"fetchTachiyomiChapters\", \"query\": \"query fetchTachiyomiChapters($mangaId: ID!) { mangaTachiyomiChapters(mangaId: $mangaId) { chapters { id slug name teamIds number volume createdAt updatedAt } } }\", \"variables\": {\"mangaId\": \"{u.mid}\"}}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "url_vars": {
+    "mid": "#([^#,]+)$",
+    "slug": "/manga/([^/#]+)"
+   },
+   "items": "data.mangaTachiyomiChapters.chapters",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{u.slug}/chapters/{value}#{u.mid},,{f.id}"
+    },
+    "name": {
+     "path": "number",
+     "template": "{f.volume}. Глава {value}[[ {f.name}]]"
+    },
+    "number": "number",
+    "date": [
+     "updatedAt",
+     "createdAt"
+    ]
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "https://api.senkuro.me/graphql",
+    "method": "POST",
+    "body": "{\"operationName\": \"fetchTachiyomiChapterPages\", \"query\": \"query fetchTachiyomiChapterPages($mangaId: ID!, $chapterId: ID!) { mangaTachiyomiChapterPages(mangaId: $mangaId, chapterId: $chapterId) { pages { url } } }\", \"variables\": {\"mangaId\": \"{u.mid}\", \"chapterId\": \"{u.cid}\"}}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "url_vars": {
+    "mid": "#([^,#]+),,",
+    "cid": ",,([^,]+)$"
+   },
+   "items": "data.mangaTachiyomiChapterPages.pages",
+   "image": "url"
+  }
+ },
+ "hinweise": [
+  "Theme Senkuro: GraphQL-API https://api.senkuro.me/graphql (POST, JSON-Body als Text wie Vorlage en.roliascan, damit offset als Zahl gesendet wird). Header App-Id/App-Version/User-Agent wie Community.",
+  "Manga-URL /manga/<slug>#<id>, Kapitel-URL /manga/<slug>/chapters/<slug>#<mangaId>,,<chapterId> (Community: eigene Komma-Kodierung).",
+  "Seitengröße 10 (OFFSET_COUNT), nächste Seite solange voll. Beliebt = Suche nach POPULARITY_SCORE DESC; Neueste gibt es in der Community nicht.",
+  "Autor: alle mainStaff-Namen (Community filtert nach Rollen STORY/ART – Filter auf Listenfeld roles nicht belegt). Kein Zeichner.",
+  "Genres: type/rating/formats roh (Community übersetzt Codes ins Russische) + Labels (RU).",
+  "Übersetzerteams (teamIds → teams) nicht abgebildet (keine Verknüpfung möglich). Filter nicht abgebildet."
+ ]
+}

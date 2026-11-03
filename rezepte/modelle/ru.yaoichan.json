@@ -1,0 +1,136 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "YaoiChan",
+  "sprache": "ru",
+  "base_url": "https://yaoi-chan.me",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.ru.kaanon.yaoichan",
+  "quellen": [
+   {
+    "name": "YaoiChan",
+    "sprache": "ru",
+    "quell_id": 2466512768990363955,
+    "home": "https://yaoi-chan.me"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ru/yaoichan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "multichan"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/mostfavorites?offset={offset}",
+   "items": "div.content_row",
+   "has_next": {
+    "exists": "a:contains(Вперед)"
+   },
+   "fields": {
+    "url": "h2 > a@href",
+    "title": [
+     "@title",
+     "h2 > a"
+    ],
+    "cover": "img@src"
+   },
+   "page_size": 20
+  },
+  "latest": {
+   "request": "{base}/manga/new?offset={offset}",
+   "items": "div.content_row",
+   "has_next": {
+    "exists": "a:contains(Вперед)"
+   },
+   "fields": {
+    "url": "h2 > a@href",
+    "title": [
+     "@title",
+     "h2 > a"
+    ],
+    "cover": "img@src"
+   },
+   "page_size": 20
+  },
+  "search": {
+   "request": "{base}/?do=search&subaction=search&story={query}&search_start={page}",
+   "items": "div.content_row",
+   "has_next": {
+    "exists": "a:contains(Далее), a:contains(Вперед)"
+   },
+   "fields": {
+    "url": "h2 > a@href",
+    "title": [
+     "@title",
+     "h2 > a"
+    ],
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "path": "title",
+     "regex": "^(.*?)(?: »|$)"
+    },
+    "cover": "img#cover@src",
+    "description": "div#description@ownText",
+    "author": {
+     "path": "#info_wrap tr:contains(Автор) .item2, #info_wrap > div:contains(Автор) .item2",
+     "all": true,
+     "join": " "
+    },
+    "genres": {
+     "path": [
+      "#info_wrap tr:contains(Тип) a, #info_wrap > div:contains(Тип) a",
+      ".sidetags ul a:last-child"
+     ],
+     "union": true
+    },
+    "status": {
+     "path": "#info_wrap tr:contains(Загружено), #info_wrap > div:contains(Загружено)",
+     "regex": "(?i)(перевод завершен|перевод продолжается)"
+    }
+   },
+   "status_map": {
+    "перевод завершен": 2,
+    "перевод продолжается": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "table.table_cha tr:gt(1)",
+   "fields": {
+    "url": "a@href",
+    "name": "a",
+    "number": {
+     "path": "a",
+     "regex": "(?i)(?:глава|часть)\\s([0-9]+\\.?[0-9]*)"
+    },
+    "date": "div.date"
+   },
+   "date_format": "yyyy-MM-dd"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "block_regex": "(?s)fullimg\"\\s*:\\s*\\[(.*?),?\\]",
+   "items": "\"?([^\",\\s]+)\"?",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "Theme MultiChan: Seitenliste aus dem Skriptblock fullimg\":[…] (Community schneidet bis ',]' und trennt an Kommas).",
+  "Suche nur per Suchtext (Filter Tags/Status/Sortierung nicht übernommen).",
+  "Status nur 'перевод завершен'/'перевод продолжается' wie in der Community."
+ ]
+}

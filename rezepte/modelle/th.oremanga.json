@@ -1,0 +1,187 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "OreManga",
+  "sprache": "th",
+  "base_url": "https://www.oremanga.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.th.kaanon.oremanga",
+  "quellen": [
+   {
+    "name": "OreManga",
+    "sprache": "th",
+    "quell_id": 2081564483403474647,
+    "home": "https://www.oremanga.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/th/oremanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.7",
+  "theme": "zmanga"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/advance-search/page/{page}/?order=popular",
+   "request_by_page": {
+    "1": "{base}/advance-search/?order=popular"
+   },
+   "items": "div.flexbox2-item",
+   "has_next": {
+    "exists": "div.pagination .next"
+   },
+   "fields": {
+    "url": "div.flexbox2-content a@href",
+    "title": "div.flexbox2-title > span",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/advance-search/page/{page}/?order=update",
+   "request_by_page": {
+    "1": "{base}/advance-search/?order=update"
+   },
+   "items": "div.flexbox2-item",
+   "has_next": {
+    "exists": "div.pagination .next"
+   },
+   "fields": {
+    "url": "div.flexbox2-content a@href",
+    "title": "div.flexbox2-title > span",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/advance-search/page/{page}/?title={query}",
+   "request_by_page": {
+    "1": "{base}/advance-search/?title={query}"
+   },
+   "items": "div.flexbox2-item",
+   "has_next": {
+    "exists": "div.pagination .next"
+   },
+   "fields": {
+    "url": "div.flexbox2-content a@href",
+    "title": "div.flexbox2-title > span",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     ".series-title h2",
+     "h1",
+     "meta[property=og:title]@content"
+    ],
+    "cover": [
+     "div.series-thumb img@data-lazy-src",
+     "div.series-thumb img@src"
+    ],
+    "author": ".series-infolist li:contains(Author) span",
+    "artist": ".series-infolist li:contains(Artist) span",
+    "status": {
+     "path": ".series-infoz .status@ownText",
+     "regex": "(?i)(ongoing|completed)"
+    },
+    "description": "div.series-synops",
+    "genres": {
+     "path": [
+      "div.series-genres a",
+      "div.block span.type@ownText"
+     ],
+     "union": true,
+     "all": true,
+     "join": ", "
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "Ongoing": 1,
+    "completed": 2,
+    "Completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "ul.series-chapterlist div.flexch-infoz a",
+   "fields": {
+    "url": "@href",
+    "name": "span@ownText",
+    "date": {
+     "path": "span.date",
+     "replace": [
+      [
+       "มกราคม",
+       "January"
+      ],
+      [
+       "กุมภาพันธ์",
+       "February"
+      ],
+      [
+       "มีนาคม",
+       "March"
+      ],
+      [
+       "เมษายน",
+       "April"
+      ],
+      [
+       "พฤษภาคม",
+       "May"
+      ],
+      [
+       "มิถุนายน",
+       "June"
+      ],
+      [
+       "กรกฎาคม",
+       "July"
+      ],
+      [
+       "สิงหาคม",
+       "August"
+      ],
+      [
+       "กันยายน",
+       "September"
+      ],
+      [
+       "ตุลาคม",
+       "October"
+      ],
+      [
+       "พฤศจิกายน",
+       "November"
+      ],
+      [
+       "ธันวาคม",
+       "December"
+      ]
+     ]
+    }
+   },
+   "date_format": "d MMMM yyyy",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".reader-area-main img, .reader-area-main canvas",
+   "image": [
+    "@data-url",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "ZManga-Theme, searchPath 'advance-search'. Listen: /advance-search/[page/N/]?order=popular|update, Suche ?title=…; Seite 1 ohne 'page/1/' (request_by_page).",
+  "Titel setzt die Community in den Details nicht (nur aus der Liste); hier ersatzweise .series-title h2 / h1 / og:title (Annahme).",
+  "Datum: thailändische Monatsnamen werden wie im Code per replace ins Englische übersetzt, dann 'd MMMM yyyy'. Jahr ggf. buddhistisch (B.E.) – im Code nicht umgerechnet, hier ebenso.",
+  "Typ (span.type) wird an die Genres angehängt; Alternativname nicht an die Beschreibung angehängt.",
+  "Seiten: .reader-area-main img (src) bzw. canvas (data-url)."
+ ]
+}

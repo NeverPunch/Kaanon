@@ -1,0 +1,168 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Traducciones Moonlight",
+  "sprache": "es",
+  "base_url": "https://traduccionesmoonlight.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.traduccionesmoonlight",
+  "quellen": [
+   {
+    "name": "Traducciones Moonlight",
+    "sprache": "es",
+    "quell_id": 4349338377187141550,
+    "home": "https://traduccionesmoonlight.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/traduccionesmoonlight",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "moonlighttl"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/comics",
+   "format": "json",
+   "items": "response",
+   "skip": {
+    "path": "type",
+    "equals": "novela"
+   },
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/ver/{value}"
+    },
+    "title": "name",
+    "cover": "urlImg"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/lastUpdates",
+   "format": "json",
+   "items": "response",
+   "skip": {
+    "path": "type",
+    "equals": "novela"
+   },
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/ver/{value}"
+    },
+    "title": "name",
+    "cover": "urlImg"
+   }
+  },
+  "search": {
+   "request": "{base}/api/comics",
+   "format": "json",
+   "items": "response",
+   "skip": {
+    "path": "type",
+    "equals": "novela"
+   },
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/ver/{value}"
+    },
+    "title": "name",
+    "cover": "urlImg"
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{base}/api/showProject/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/ver/([^/?#]+)"
+   },
+   "fields": {
+    "title": "response.name",
+    "cover": "response.urlImg",
+    "description": {
+     "path": "response.sinopsis",
+     "template": "{value}[[\n\nNombres alternativos: {f.response.alternativeName}]]"
+    },
+    "genres": "response.genders.*.gender.name",
+    "author": {
+     "path": "response.autors.*.autor.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "response.artists.*.artist.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "response.state_id"
+   },
+   "status_map": {
+    "1": 1,
+    "2": 6,
+    "3": 5,
+    "4": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "slug": "/ver/([^/?#]+)"
+   },
+   "items": "response.lastChapters",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/ver/{u.slug}/{value}"
+    },
+    "name": {
+     "path": "num",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "Capítulo {value}[[ - {f.name}]]"
+    },
+    "number": "num",
+    "date": "created_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "html",
+   "items": "main.contenedor.read img, main > img",
+   "image": "@img",
+   "referer": "chapter"
+  }
+ },
+ "hinweise": [
+  "Theme MoonlightTL: Listen aus /api/comics bzw. /api/lastUpdates (eine Seite, Novelas per type=novela ausgeblendet).",
+  "Beliebt: Community sortiert lokal nach trending.mensual absteigend – Sortierung nicht abbildbar, Reihenfolge der API.",
+  "Suche: Community filtert lokal nach name/alternativeName; hier client_filter (vermutlich nur Titel).",
+  "Status: Community setzt keinen; hier state_id 1 laufend, 2 pausiert, 3 abgebrochen, 4 abgeschlossen (laut Filterliste).",
+  "Seiten: Community schickt vorher ein ggf. vorhandenes form[method=post] mit allen inputs ab (Zwischenseite) – nicht abgebildet; prüfen, ob die Zwischenseite auftritt.",
+  "Kapitelname 'Capítulo <num>[ - name]', '.0' entfernt."
+ ]
+}

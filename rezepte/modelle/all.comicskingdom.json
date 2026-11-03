@@ -1,0 +1,185 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ComicsKingdom",
+  "sprache": "all",
+  "base_url": "https://wp.comicskingdom.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.comicskingdom",
+  "quellen": [
+   {
+    "name": "Comics Kingdom",
+    "sprache": "en",
+    "quell_id": 3350274514125477391,
+    "home": "https://wp.comicskingdom.com"
+   },
+   {
+    "name": "Comics Kingdom",
+    "sprache": "es",
+    "quell_id": 6467305425630534148,
+    "home": "https://wp.comicskingdom.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/comicskingdom",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/wp-json/wp/v2/ck_feature?per_page=20&ck_language=english&page={page}&orderBy=relevance",
+   "format": "json",
+   "items": "$",
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "link",
+     "regex": "/([^/]+)/?$",
+     "template": "/{value}#{f.id}"
+    },
+    "title": {
+     "path": "title.rendered",
+     "decode": "html"
+    },
+    "cover": {
+     "path": "yoast_head",
+     "regex": "thumbnailUrl\":\"(\\S+)\",\"dateP",
+     "group": 1
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}/wp-json/wp/v2/ck_feature?per_page=20&ck_language=english&page={page}&orderBy=modified",
+   "format": "json",
+   "items": "$",
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "link",
+     "regex": "/([^/]+)/?$",
+     "template": "/{value}#{f.id}"
+    },
+    "title": {
+     "path": "title.rendered",
+     "decode": "html"
+    },
+    "cover": {
+     "path": "yoast_head",
+     "regex": "thumbnailUrl\":\"(\\S+)\",\"dateP",
+     "group": 1
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/wp-json/wp/v2/ck_feature?per_page=20&ck_language=english&page={page}&search={query}",
+   "format": "json",
+   "items": "$",
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "link",
+     "regex": "/([^/]+)/?$",
+     "template": "/{value}#{f.id}"
+    },
+    "title": {
+     "path": "title.rendered",
+     "decode": "html"
+    },
+    "cover": {
+     "path": "yoast_head",
+     "regex": "thumbnailUrl\":\"(\\S+)\",\"dateP",
+     "group": 1
+    }
+   }
+  },
+  "details": {
+   "request": "{base}/wp-json/wp/v2/ck_feature/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "#(\\d+)$",
+    "slug": "^/([^/#]+)"
+   },
+   "fields": {
+    "title": {
+     "path": "title.rendered",
+     "decode": "html"
+    },
+    "cover": {
+     "path": "yoast_head",
+     "regex": "thumbnailUrl\":\"(\\S+)\",\"dateP",
+     "group": 1
+    },
+    "author": {
+     "path": "meta.ck_byline_on_app",
+     "replace": [
+      [
+       "^.*?By\\s*",
+       ""
+      ]
+     ]
+    },
+    "description": {
+     "path": "content.rendered",
+     "decode": "html_text"
+    }
+   }
+  },
+  "chapters": {
+   "request": "{base}/wp-json/wp/v2/ck_comic?per_page=100&order=desc&ck_feature={u.slug}&page={page}",
+   "format": "json",
+   "url_vars": {
+    "slug": "^/([^/#]+)"
+   },
+   "items": "$",
+   "page_size": 100,
+   "paging": {
+    "has_next": {
+     "full": true
+    },
+    "max_pages": 40
+   },
+   "fields": {
+    "url": {
+     "path": "link",
+     "regex": "^https?://[^/]+(/[^#?]*)",
+     "template": "{value}#{f.id}"
+    },
+    "name": {
+     "path": "date",
+     "regex": "^([^T]+)",
+     "group": 1
+    },
+    "date": "date"
+   },
+   "date_format": "yyyy-MM-dd'T'HH:mm:ss"
+  },
+  "pages": {
+   "request": "{base}/wp-json/wp/v2/ck_comic?include={u.cid}",
+   "format": "json",
+   "url_vars": {
+    "cid": "#(\\d+)$"
+   },
+   "items": "$",
+   "image": "assets.single.url"
+  }
+ },
+ "hinweise": [
+  "WordPress-REST-API (wp.comicskingdom.com/wp-json/wp/v2): Serien ck_feature, Strips ck_comic. Zwei Community-Quellen (en, es) unterscheiden sich nur in ck_language; das Rezept folgt der en-Quelle (english).",
+  "Community-Standard 'Compact chapters' (100 Strips je Kapitel, Anzahl aus totalItems der HTML-Seite) ist nicht ausdrückbar; nachgebaut ist die Einstellung ohne Compact: jeder Strip ein Kapitel (Name = Datum), 100 je API-Seite, höchstens 40 Seiten (4000 Strips).",
+  "Manga-URL /{slug}#{id}, Kapitel-URL = Pfad des Strip-Links + #{id}. Seite: ein Bild aus assets.single.url; abgefragt über ck_comic?include={id} (Liste statt Einzelobjekt, Standard-WP-Parameter – Code ruft ck_comic/{id} ab).",
+  "Status unbekannt wie im Code. Genre-/Sortierfilter nicht nachgebaut; Code schickt _fields (leer) – weggelassen."
+ ]
+}

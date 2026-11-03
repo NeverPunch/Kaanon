@@ -1,0 +1,208 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hentai Origines",
+  "sprache": "fr",
+  "base_url": "https://hentai-origines.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.hentaiorigines",
+  "quellen": [
+   {
+    "name": "Hentai Origines",
+    "sprache": "fr",
+    "quell_id": 3875672872924535086,
+    "home": "https://hentai-origines.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/hentaiorigines",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.59",
+  "theme": "origines"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    },
+    "form": {
+     "action": "madara_child_catalogue",
+     "s": "",
+     "genres": "",
+     "statut": "tous",
+     "note": "0",
+     "origine": "",
+     "tri": "populaire",
+     "chmin": "0",
+     "chmax": "0",
+     "page": "{page}",
+     "auteur": "",
+     "artiste": "",
+     "annee": ""
+    }
+   },
+   "format": "json_html",
+   "html_path": "data.html",
+   "items": "a.ori-card:has(span.ori-card-title)",
+   "page_size": 10,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": "@href",
+    "title": "span.ori-card-title",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    },
+    "form": {
+     "action": "madara_child_catalogue",
+     "s": "",
+     "genres": "",
+     "statut": "tous",
+     "note": "0",
+     "origine": "",
+     "tri": "recents",
+     "chmin": "0",
+     "chmax": "0",
+     "page": "{page}",
+     "auteur": "",
+     "artiste": "",
+     "annee": ""
+    }
+   },
+   "format": "json_html",
+   "html_path": "data.html",
+   "items": "a.ori-card:has(span.ori-card-title)",
+   "page_size": 10,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": "@href",
+    "title": "span.ori-card-title",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    },
+    "form": {
+     "action": "madara_child_catalogue",
+     "s": "{query_raw}",
+     "genres": "",
+     "statut": "tous",
+     "note": "0",
+     "origine": "",
+     "tri": "recents",
+     "chmin": "0",
+     "chmax": "0",
+     "page": "{page}",
+     "auteur": "",
+     "artiste": "",
+     "annee": ""
+    }
+   },
+   "format": "json_html",
+   "html_path": "data.html",
+   "items": "a.ori-card:has(span.ori-card-title)",
+   "page_size": 10,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": "@href",
+    "title": "span.ori-card-title",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1.ori-sr-title",
+    "cover": "div.ori-sr-cover img@src",
+    "author": [
+     "div.ori-sr-infos dt:contains(Auteur) + *",
+     "div.ori-sr-infos dt:contains(Scénario) + *"
+    ],
+    "artist": [
+     "div.ori-sr-infos dt:contains(Artiste) + *",
+     "div.ori-sr-infos dt:contains(Dessin) + *"
+    ],
+    "description": {
+     "path": "div.ori-sr-syn-texte p",
+     "all": true,
+     "join": "\n"
+    },
+    "genres": {
+     "path": [
+      "div.ori-sr-genres a.ori-sr-genre",
+      "div.ori-sr-infos dt:contains(Type) + *"
+     ],
+     "union": true,
+     "all": true,
+     "join": ", "
+    },
+    "status": "div.ori-sr-infos dt:contains(Statut) + *"
+   },
+   "status_map": {
+    "en cours": 1,
+    "terminé": 2,
+    "en pause": 6,
+    "abandonné": 5,
+    "annulé": 5
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}{u.path}/ajax/chapters/",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    },
+    "form": {}
+   },
+   "items": "div.ori-chl-row",
+   "fields": {
+    "url": "a.ori-chl-corps@href",
+    "name": [
+     "span.ori-chl-nom",
+     "a.ori-chl-corps"
+    ],
+    "date": "span.ori-chl-date@title"
+   },
+   "date_format": [
+    "d MMMM yyyy"
+   ],
+   "date_locale": "fr"
+  },
+  "pages": {
+   "request": "{abs_url}?style=list",
+   "items": "div.reading-content img.wp-manga-chapter-img",
+   "image": "@img"
+  }
+ },
+ "hinweise": [
+  "Theme Origines (Madara-Kind 'child-origines'). Listen/Suche per POST admin-ajax.php action=madara_child_catalogue (tri=populaire/recents), Antwort JSON {data:{html,more}}.",
+  "Nächste Seite: Code nutzt data.more; ein exists auf ein JSON-Feld bei json_html ist in keiner Vorlage belegt → ersatzweise has_next full mit kleiner page_size 10 (Kartenzahl je Seite unbekannt, auf dem PC prüfen).",
+  "Details über dt/dd-Paare in div.ori-sr-infos (Auteur/Scénario, Artiste/Dessin, Statut, Type); Nom alternatif nicht an die Beschreibung angehängt.",
+  "Kapitel per POST {manga}/ajax/chapters/ (leeres Formular). Datum aus title von span.ori-chl-date: '8 Août 2026'; Angaben ohne Jahr ('8 Août') ergeben kein Datum (Code nimmt dann das letzte passende Jahr).",
+  "Seiten über ?style=list (Madara-Leser), Bild aus data-src bzw. src."
+ ]
+}

@@ -7895,7 +7895,7 @@
  },
  {
   "modul": "src/zh/manhuawu",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Manhuawu",
   "stufe": 2,
   "theme": "mccms",
@@ -7905,11 +7905,13 @@
   "host": "mhua5.com",
   "nsfw": false,
   "wer": "agent-w2c",
-  "seit": "2026-11-03T10:16:50"
+  "seit": "2026-11-03T10:16:50",
+  "datei": "rezepte/modelle/zh.manhuawu.json",
+  "geaendert": "2026-11-03T10:17:52"
  },
  {
   "modul": "src/en/monochromecustom",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "Monochrome Custom",
   "stufe": 2,
   "theme": "monochrome",
@@ -7919,11 +7921,13 @@
   "host": "monochromecms.netlify.app",
   "nsfw": false,
   "wer": "agent-w2a",
-  "seit": "2026-11-03T10:16:51"
+  "seit": "2026-11-03T10:16:51",
+  "grund": "API-URL ist Benutzereinstellung (Selbsthost-Vorlage, nur Demo-Instanz); Seitenliste wird ohne Abruf aus Kapitellänge 1..n erzeugt – items_count nur als JSON-Schlüssel belegt",
+  "geaendert": "2026-11-03T10:17:26"
  },
  {
   "modul": "src/en/monochromescans",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "Monochrome Scans",
   "stufe": 2,
   "theme": "monochrome",
@@ -7933,11 +7937,13 @@
   "host": "manga.d34d.one",
   "nsfw": false,
   "wer": "agent-w2b",
-  "seit": "2026-11-03T10:16:57"
+  "seit": "2026-11-03T10:16:57",
+  "grund": "Bildliste wird im Code als Zählschleife 1..length (aus Kapitel-JSON, im Kapitel-URL kodiert) erzeugt; items_count ist nur als JSON-Pfad belegt, Auswahl des Kapitels per ?id={Platzhalter}-Filter unbelegt",
+  "geaendert": "2026-11-03T10:17:47"
  },
  {
   "modul": "src/es/lectorasteria",
-  "status": "offen",
+  "status": "fertig",
   "name": "Lector Asteria",
   "stufe": 2,
   "theme": "moonlighttl",
@@ -7945,11 +7951,15 @@
    "es"
   ],
   "host": "visor.chifa-tong.online",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2d",
+  "seit": "2026-11-03T10:17:19",
+  "datei": "rezepte/modelle/es.lectorasteria.json",
+  "geaendert": "2026-11-03T10:18:16"
  },
  {
   "modul": "src/es/traduccionesmoonlight",
-  "status": "offen",
+  "status": "fertig",
   "name": "Traducciones Moonlight",
   "stufe": 2,
   "theme": "moonlighttl",
@@ -7957,11 +7967,15 @@
    "es"
   ],
   "host": "traduccionesmoonlight.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2a",
+  "seit": "2026-11-03T10:17:27",
+  "datei": "rezepte/modelle/es.traduccionesmoonlight.json",
+  "geaendert": "2026-11-03T10:18:29"
  },
  {
   "modul": "src/ru/henchan",
-  "status": "offen",
+  "status": "fertig",
   "name": "HenChan",
   "stufe": 2,
   "theme": "multichan",
@@ -7969,11 +7983,15 @@
    "ru"
   ],
   "host": "xxl.hentaichan.live",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2b",
+  "seit": "2026-11-03T10:17:47",
+  "datei": "rezepte/modelle/ru.henchan.json",
+  "geaendert": "2026-11-03T10:18:52"
  },
  {
   "modul": "src/ru/mangachan",
-  "status": "offen",
+  "status": "fertig",
   "name": "MangaChan",
   "stufe": 2,
   "theme": "multichan",
@@ -7981,11 +7999,15 @@
    "ru"
   ],
   "host": "im.manga-chan.me",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2c",
+  "seit": "2026-11-03T10:17:52",
+  "datei": "rezepte/modelle/ru.mangachan.json",
+  "geaendert": "2026-11-03T10:18:34"
  },
  {
   "modul": "src/ru/yaoichan",
-  "status": "offen",
+  "status": "fertig",
   "name": "YaoiChan",
   "stufe": 2,
   "theme": "multichan",
@@ -7993,11 +8015,15 @@
    "ru"
   ],
   "host": "yaoi-chan.me",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2d",
+  "seit": "2026-11-03T10:18:16",
+  "datei": "rezepte/modelle/ru.yaoichan.json",
+  "geaendert": "2026-11-03T10:19:02"
  },
  {
   "modul": "src/id/kiryuu",
-  "status": "offen",
+  "status": "fertig",
   "name": "Kiryuu",
   "stufe": 2,
   "theme": "natsuid",
@@ -8005,11 +8031,15 @@
    "id"
   ],
   "host": "v7.kiryuu.to",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2a",
+  "seit": "2026-11-03T10:18:29",
+  "datei": "rezepte/modelle/id.kiryuu.json",
+  "geaendert": "2026-11-03T10:19:40"
  },
  {
   "modul": "src/id/natsu",
-  "status": "offen",
+  "status": "fertig",
   "name": "Natsu",
   "stufe": 2,
   "theme": "natsuid",
@@ -8017,11 +8047,15 @@
    "id"
   ],
   "host": "natsu.one",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2c",
+  "seit": "2026-11-03T10:18:34",
+  "datei": "rezepte/modelle/id.natsu.json",
+  "geaendert": "2026-11-03T10:19:27"
  },
  {
   "modul": "src/ja/rawkuma",
-  "status": "offen",
+  "status": "fertig",
   "name": "Rawkuma",
   "stufe": 2,
   "theme": "natsuid",
@@ -8029,11 +8063,15 @@
    "ja"
   ],
   "host": "rawkuma.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2b",
+  "seit": "2026-11-03T10:18:52",
+  "datei": "rezepte/modelle/ja.rawkuma.json",
+  "geaendert": "2026-11-03T10:20:06"
  },
  {
   "modul": "src/id/hentaicrot",
-  "status": "offen",
+  "status": "fertig",
   "name": "Hentai Crot",
   "stufe": 2,
   "theme": "oceanwp",
@@ -8041,11 +8079,15 @@
    "id"
   ],
   "host": "hentaicrot.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2d",
+  "seit": "2026-11-03T10:19:03",
+  "datei": "rezepte/modelle/id.hentaicrot.json",
+  "geaendert": "2026-11-03T10:19:27"
  },
  {
   "modul": "src/id/pixhentai",
-  "status": "offen",
+  "status": "fertig",
   "name": "Pix Hentai",
   "stufe": 2,
   "theme": "oceanwp",
@@ -8053,11 +8095,15 @@
    "id"
   ],
   "host": "pixhentai.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2d",
+  "seit": "2026-11-03T10:19:27",
+  "datei": "rezepte/modelle/id.pixhentai.json",
+  "geaendert": "2026-11-03T10:19:34"
  },
  {
   "modul": "src/fr/hentaiorigines",
-  "status": "offen",
+  "status": "fertig",
   "name": "Hentai Origines",
   "stufe": 2,
   "theme": "origines",
@@ -8065,11 +8111,15 @@
    "fr"
   ],
   "host": "hentai-origines.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2c",
+  "seit": "2026-11-03T10:19:27",
+  "datei": "rezepte/modelle/fr.hentaiorigines.json",
+  "geaendert": "2026-11-03T10:20:15"
  },
  {
   "modul": "src/fr/mangasoriginesfr",
-  "status": "offen",
+  "status": "fertig",
   "name": "Mangas-Origines.fr",
   "stufe": 2,
   "theme": "origines",
@@ -8077,11 +8127,15 @@
    "fr"
   ],
   "host": "mangas-origines.fr",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2d",
+  "seit": "2026-11-03T10:19:34",
+  "datei": "rezepte/modelle/fr.mangasoriginesfr.json",
+  "geaendert": "2026-11-03T10:20:35"
  },
  {
   "modul": "src/fr/hentaiscanreader",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Hentai Scan Reader",
   "stufe": 2,
   "theme": "scanreader",
@@ -8089,11 +8143,15 @@
    "fr"
   ],
   "host": "hentai.scanreader.net",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2a",
+  "seit": "2026-11-03T10:19:40",
+  "grund": "Bild-URLs: Base64 im Skript-Array, nach dem Dekodieren Zeichenkette umgedreht (reversed) – String-Umkehr nicht abbildbar; Kapitel zudem per multipart-POST (admin-ajax + nonce) und h4-Elternsuche",
+  "geaendert": "2026-11-03T10:20:07"
  },
  {
   "modul": "src/fr/scanreader",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Scan Reader",
   "stufe": 2,
   "theme": "scanreader",
@@ -8101,11 +8159,15 @@
    "fr"
   ],
   "host": "scanreader.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2b",
+  "seit": "2026-11-03T10:20:06",
+  "grund": "Bild-URLs im Skript als Base64 kodiert und danach als String umgedreht (reversed) – Zeichenkettenumkehr gibt es in keiner Vorlage",
+  "geaendert": "2026-11-03T10:20:19"
  },
  {
   "modul": "src/ru/senkognito",
-  "status": "offen",
+  "status": "fertig",
   "name": "Senkognito",
   "stufe": 2,
   "theme": "senkuro",
@@ -8113,11 +8175,15 @@
    "ru"
   ],
   "host": "senkuro.me",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2a",
+  "seit": "2026-11-03T10:20:07",
+  "datei": "rezepte/modelle/ru.senkognito.json",
+  "geaendert": "2026-11-03T10:21:15"
  },
  {
   "modul": "src/ru/senkuro",
-  "status": "offen",
+  "status": "fertig",
   "name": "Senkuro",
   "stufe": 2,
   "theme": "senkuro",
@@ -8125,11 +8191,15 @@
    "ru"
   ],
   "host": "senkuro.me",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2c",
+  "seit": "2026-11-03T10:20:15",
+  "datei": "rezepte/modelle/ru.senkuro.json",
+  "geaendert": "2026-11-03T10:21:30"
  },
  {
   "modul": "src/zh/jiuermanhua",
-  "status": "offen",
+  "status": "fertig",
   "name": "92Manhua",
   "stufe": 2,
   "theme": "sinmh",
@@ -8137,11 +8207,15 @@
    "zh"
   ],
   "host": "92mh.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2b",
+  "seit": "2026-11-03T10:20:19",
+  "datei": "rezepte/modelle/zh.92manhua.json",
+  "geaendert": "2026-11-03T10:21:12"
  },
  {
   "modul": "src/zh/manhuadui",
-  "status": "offen",
+  "status": "fertig",
   "name": "YKMH",
   "stufe": 2,
   "theme": "sinmh",
@@ -8149,11 +8223,15 @@
    "zh"
   ],
   "host": "ykmh.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2d",
+  "seit": "2026-11-03T10:20:35",
+  "datei": "rezepte/modelle/zh.ykmh.json",
+  "geaendert": "2026-11-03T10:21:33"
  },
  {
   "modul": "src/tr/afroditscans",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Afrodit Scans",
   "stufe": 2,
   "theme": "uzaymanga",
@@ -8161,11 +8239,15 @@
    "tr"
   ],
   "host": "afroditscans.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2b",
+  "seit": "2026-11-03T10:21:12",
+  "grund": "UzayManga: alle Daten aus SvelteKit __data.json im devalue-Format (Felder sind Indizes in ein flaches Array, müssen dereferenziert werden) – in keiner Vorlage abbildbar",
+  "geaendert": "2026-11-03T10:21:26"
  },
  {
   "modul": "src/tr/eldermanga",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Elder Manga",
   "stufe": 2,
   "theme": "uzaymanga",
@@ -8173,11 +8255,15 @@
    "tr"
   ],
   "host": "eldermanga.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2a",
+  "seit": "2026-11-03T10:21:15",
+  "grund": "UzayManga: alle Daten aus SvelteKit __data.json im devalue-Format (Felder sind Indizes in ein flaches Array, müssen dereferenziert werden) – in keiner Vorlage abbildbar",
+  "geaendert": "2026-11-03T10:21:31"
  },
  {
   "modul": "src/tr/eskimangalar",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Eski Mangalar",
   "stufe": 2,
   "theme": "uzaymanga",
@@ -8185,11 +8271,15 @@
    "tr"
   ],
   "host": "eskimangalar.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2b",
+  "seit": "2026-11-03T10:21:26",
+  "grund": "UzayManga: alle Daten aus SvelteKit __data.json im devalue-Format (Felder sind Indizes in ein flaches Array, müssen dereferenziert werden) – in keiner Vorlage abbildbar",
+  "geaendert": "2026-11-03T10:21:34"
  },
  {
   "modul": "src/tr/limonmanga",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Limon Manga",
   "stufe": 2,
   "theme": "uzaymanga",
@@ -8197,11 +8287,15 @@
    "tr"
   ],
   "host": "limonmanga.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2c",
+  "seit": "2026-11-03T10:21:30",
+  "grund": "UzayManga: alle Daten aus SvelteKit __data.json im devalue-Format (Indizes in flaches Array, Dereferenzierung nötig) – in keiner Vorlage abbildbar",
+  "geaendert": "2026-11-03T10:21:48"
  },
  {
   "modul": "src/tr/mangakulesi",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Manga Kulesi",
   "stufe": 2,
   "theme": "uzaymanga",
@@ -8209,11 +8303,15 @@
    "tr"
   ],
   "host": "mangakulesi.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2a",
+  "seit": "2026-11-03T10:21:31",
+  "grund": "UzayManga: alle Daten aus SvelteKit __data.json im devalue-Format (Felder sind Indizes in ein flaches Array, müssen dereferenziert werden) – in keiner Vorlage abbildbar",
+  "geaendert": "2026-11-03T10:21:40"
  },
  {
   "modul": "src/tr/tenshimanga",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Tenshi Manga",
   "stufe": 2,
   "theme": "uzaymanga",
@@ -8221,11 +8319,15 @@
    "tr"
   ],
   "host": "tenshimanga.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2d",
+  "seit": "2026-11-03T10:21:33",
+  "grund": "UzayManga: alle Daten aus SvelteKit __data.json im devalue-Format (Felder sind Indizes in ein flaches Array, müssen dereferenziert werden) – in keiner Vorlage abbildbar",
+  "geaendert": "2026-11-03T10:21:47"
  },
  {
   "modul": "src/tr/uzaymanga",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Uzay Manga",
   "stufe": 2,
   "theme": "uzaymanga",
@@ -8233,11 +8335,15 @@
    "tr"
   ],
   "host": "uzaymanga.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2b",
+  "seit": "2026-11-03T10:21:34",
+  "grund": "UzayManga: alle Daten aus SvelteKit __data.json im devalue-Format (Felder sind Indizes in ein flaches Array, müssen dereferenziert werden) – in keiner Vorlage abbildbar",
+  "geaendert": "2026-11-03T10:21:39"
  },
  {
   "modul": "src/es/chochox",
-  "status": "offen",
+  "status": "fertig",
   "name": "ChoChoX",
   "stufe": 2,
   "theme": "vercomics",
@@ -8245,11 +8351,15 @@
    "es"
   ],
   "host": "chochox.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2b",
+  "seit": "2026-11-03T10:21:39",
+  "datei": "rezepte/modelle/es.chochox.json",
+  "geaendert": "2026-11-03T10:22:04"
  },
  {
   "modul": "src/es/vcpvmp",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "VCPVMP",
   "stufe": 2,
   "theme": "vercomics",
@@ -8257,11 +8367,15 @@
    "es"
   ],
   "host": "vercomicsporno.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2a",
+  "seit": "2026-11-03T10:21:40",
+  "grund": "Zwei Quellen (VCP/VMP) mit verschiedener Basis-URL UND verschiedenem Listenpfad (urlSuffix sex-comics bzw. manga-hentai-xxx) – ein Modell je Quelle ist im Rezeptformat nicht vorgesehen; sonst einfaches HTML (VerComics)",
+  "geaendert": "2026-11-03T10:22:03"
  },
  {
   "modul": "src/en/fourporncomic",
-  "status": "offen",
+  "status": "fertig",
   "name": "4PornComic",
   "stufe": 2,
   "theme": "yiimanga",
@@ -8269,11 +8383,15 @@
    "en"
   ],
   "host": "4porncomic.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2d",
+  "seit": "2026-11-03T10:21:47",
+  "datei": "rezepte/modelle/en.4porncomic.json",
+  "geaendert": "2026-11-03T10:22:34"
  },
  {
   "modul": "src/en/hentai20lol",
-  "status": "offen",
+  "status": "fertig",
   "name": "Hentai20 (Unoriginal)",
   "stufe": 2,
   "theme": "yiimanga",
@@ -8281,11 +8399,15 @@
    "en"
   ],
   "host": "hentai20.lol",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2c",
+  "seit": "2026-11-03T10:21:48",
+  "datei": "rezepte/modelle/en.hentai20unoriginal.json",
+  "geaendert": "2026-11-03T10:22:30"
  },
  {
   "modul": "src/en/manhwa18tx",
-  "status": "offen",
+  "status": "fertig",
   "name": "Manhwa18TX",
   "stufe": 2,
   "theme": "yiimanga",
@@ -8293,11 +8415,15 @@
    "en"
   ],
   "host": "manhwa18tx.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2a",
+  "seit": "2026-11-03T10:22:03",
+  "datei": "rezepte/modelle/en.manhwa18tx.json",
+  "geaendert": "2026-11-03T10:22:52"
  },
  {
   "modul": "src/en/manhwabuddy",
-  "status": "offen",
+  "status": "fertig",
   "name": "ManhwaBuddy",
   "stufe": 2,
   "theme": "yiimanga",
@@ -8305,11 +8431,15 @@
    "en"
   ],
   "host": "manhwabuddy.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2b",
+  "seit": "2026-11-03T10:22:04",
+  "datei": "rezepte/modelle/en.manhwabuddy.json",
+  "geaendert": "2026-11-03T10:23:14"
  },
  {
   "modul": "src/en/manhwaddict",
-  "status": "offen",
+  "status": "fertig",
   "name": "Manhwaddict",
   "stufe": 2,
   "theme": "yiimanga",
@@ -8317,11 +8447,15 @@
    "en"
   ],
   "host": "manhwaddict.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2c",
+  "seit": "2026-11-03T10:22:30",
+  "datei": "rezepte/modelle/en.manhwaddict.json",
+  "geaendert": "2026-11-03T10:22:43"
  },
  {
   "modul": "src/en/manhwagalaxy",
-  "status": "offen",
+  "status": "fertig",
   "name": "ManhwaGalaxy",
   "stufe": 2,
   "theme": "yiimanga",
@@ -8329,11 +8463,15 @@
    "en"
   ],
   "host": "manhwagalaxy.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2d",
+  "seit": "2026-11-03T10:22:34",
+  "datei": "rezepte/modelle/en.manhwagalaxy.json",
+  "geaendert": "2026-11-03T10:22:43"
  },
  {
   "modul": "src/en/manhwaonline",
-  "status": "offen",
+  "status": "fertig",
   "name": "ManhwaOnline",
   "stufe": 2,
   "theme": "yiimanga",
@@ -8341,11 +8479,15 @@
    "en"
   ],
   "host": "manhwaonline.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2c",
+  "seit": "2026-11-03T10:22:43",
+  "datei": "rezepte/modelle/en.manhwaonline.json",
+  "geaendert": "2026-11-03T10:22:51"
  },
  {
   "modul": "src/en/myreadingcomic",
-  "status": "offen",
+  "status": "fertig",
   "name": "MyReadingComic",
   "stufe": 2,
   "theme": "yiimanga",
@@ -8353,11 +8495,15 @@
    "en"
   ],
   "host": "myreadingcomic.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2d",
+  "seit": "2026-11-03T10:22:43",
+  "datei": "rezepte/modelle/en.myreadingcomic.json",
+  "geaendert": "2026-11-03T10:22:53"
  },
  {
   "modul": "src/en/toongodcc",
-  "status": "offen",
+  "status": "fertig",
   "name": "ToonGod (Unoriginal)",
   "stufe": 2,
   "theme": "yiimanga",
@@ -8365,11 +8511,15 @@
    "en"
   ],
   "host": "toongod.cc",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2c",
+  "seit": "2026-11-03T10:22:51",
+  "datei": "rezepte/modelle/en.toongodunoriginal.json",
+  "geaendert": "2026-11-03T10:23:01"
  },
  {
   "modul": "src/en/yaoiscanme",
-  "status": "offen",
+  "status": "fertig",
   "name": "YaoiScan (Unoriginal)",
   "stufe": 2,
   "theme": "yiimanga",
@@ -8377,11 +8527,15 @@
    "en"
   ],
   "host": "yaoiscan.me",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2a",
+  "seit": "2026-11-03T10:22:52",
+  "datei": "rezepte/modelle/en.yaoiscanunoriginal.json",
+  "geaendert": "2026-11-03T10:23:02"
  },
  {
   "modul": "src/es/leermanhwas",
-  "status": "offen",
+  "status": "fertig",
   "name": "LeerManhwas",
   "stufe": 2,
   "theme": "yiimanga",
@@ -8389,11 +8543,15 @@
    "es"
   ],
   "host": "leermanhwas.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2d",
+  "seit": "2026-11-03T10:22:53",
+  "datei": "rezepte/modelle/es.leermanhwas.json",
+  "geaendert": "2026-11-03T10:23:03"
  },
  {
   "modul": "src/es/tmomanhwa",
-  "status": "offen",
+  "status": "fertig",
   "name": "TmoManhwa",
   "stufe": 2,
   "theme": "yiimanga",
@@ -8401,11 +8559,15 @@
    "es"
   ],
   "host": "tmomanhwa.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2c",
+  "seit": "2026-11-03T10:23:01",
+  "datei": "rezepte/modelle/es.tmomanhwa.json",
+  "geaendert": "2026-11-03T10:23:13"
  },
  {
   "modul": "src/id/crotpedia",
-  "status": "offen",
+  "status": "fertig",
   "name": "CrotPedia",
   "stufe": 2,
   "theme": "zmanga",
@@ -8413,11 +8575,15 @@
    "id"
   ],
   "host": "crotpedia.net",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2a",
+  "seit": "2026-11-03T10:23:02",
+  "datei": "rezepte/modelle/id.crotpedia.json",
+  "geaendert": "2026-11-03T10:23:38"
  },
  {
   "modul": "src/id/maidmanga",
-  "status": "offen",
+  "status": "fertig",
   "name": "Maid - Manga",
   "stufe": 2,
   "theme": "zmanga",
@@ -8425,11 +8591,15 @@
    "id"
   ],
   "host": "maid.my.id",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2d",
+  "seit": "2026-11-03T10:23:03",
+  "datei": "rezepte/modelle/id.maidmanga.json",
+  "geaendert": "2026-11-03T10:23:35"
  },
  {
   "modul": "src/id/shirodoujin",
-  "status": "offen",
+  "status": "fertig",
   "name": "Shiro Doujin",
   "stufe": 2,
   "theme": "zmanga",
@@ -8437,11 +8607,15 @@
    "id"
   ],
   "host": "shirodoujin.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2c",
+  "seit": "2026-11-03T10:23:13",
+  "datei": "rezepte/modelle/id.shirodoujin.json",
+  "geaendert": "2026-11-03T10:23:43"
  },
  {
   "modul": "src/th/oremanga",
-  "status": "offen",
+  "status": "fertig",
   "name": "OreManga",
   "stufe": 2,
   "theme": "zmanga",
@@ -8449,11 +8623,15 @@
    "th"
   ],
   "host": "oremanga.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2b",
+  "seit": "2026-11-03T10:23:14",
+  "datei": "rezepte/modelle/th.oremanga.json",
+  "geaendert": "2026-11-03T10:23:42"
  },
  {
   "modul": "src/all/ahottie",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "AHottie",
   "stufe": 2,
   "theme": null,
@@ -8461,11 +8639,15 @@
    "all"
   ],
   "host": "ahottie.top",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2d",
+  "seit": "2026-11-03T10:23:35",
+  "grund": "Bildliste eines Albums verteilt auf Folgeseiten, die die Community per Schleife über a[rel=next] einsammelt (Länge unbekannt) – Pagination innerhalb der Seitenliste gibt es in keiner Vorlage (subpage liefert nur ein Bild je Unterseite)",
+  "geaendert": "2026-11-03T10:23:56"
  },
  {
   "modul": "src/all/baobua",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "BaoBua",
   "stufe": 2,
   "theme": null,
@@ -8473,11 +8655,15 @@
    "all"
   ],
   "host": "baobua.net",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2a",
+  "seit": "2026-11-03T10:23:38",
+  "grund": "Galerie-Bilder auf Folgeseiten verteilt, Community sammelt per Schleife über a.page-numbers:contains(Next) (Länge unbekannt) – Pagination innerhalb der Seitenliste gibt es in keiner Vorlage (subpage liefert nur ein Bild je Unterseite)",
+  "geaendert": "2026-11-03T10:24:01"
  },
  {
   "modul": "src/all/buondua",
-  "status": "offen",
+  "status": "fertig",
   "name": "Buon Dua",
   "stufe": 2,
   "theme": null,
@@ -8485,11 +8671,15 @@
    "all"
   ],
   "host": "buondua.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2b",
+  "seit": "2026-11-03T10:23:42",
+  "datei": "rezepte/modelle/all.buondua.json",
+  "geaendert": "2026-11-03T10:24:23"
  },
  {
   "modul": "src/all/comicfury",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Comic Fury",
   "stufe": 2,
   "theme": null,
@@ -8502,11 +8692,15 @@
    "fr"
   ],
   "host": "comicfury.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2c",
+  "seit": "2026-11-03T10:23:43",
+  "grund": "Kapitel verschachtelt (Archiv-Kapitel → je eigene paginierte Seiten, Kapitelkopf vom übergeordneten Eintrag) + Fallback auf <slug>.webcomic.ws; Content-Warning-Seite per Token-POST (Interceptor); 14 Quellen mit eigenem language-Parameter",
+  "geaendert": "2026-11-03T10:23:56"
  },
  {
   "modul": "src/all/comicklive",
-  "status": "offen",
+  "status": "fertig",
   "name": "Comick (Unoriginal)",
   "stufe": 2,
   "theme": null,
@@ -8514,11 +8708,15 @@
    "all"
   ],
   "host": "comick.live",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2d",
+  "seit": "2026-11-03T10:23:56",
+  "datei": "rezepte/modelle/all.comickunoriginal.json",
+  "geaendert": "2026-11-03T10:24:55"
  },
  {
   "modul": "src/all/comicskingdom",
-  "status": "offen",
+  "status": "fertig",
   "name": "ComicsKingdom",
   "stufe": 2,
   "theme": null,
@@ -8527,11 +8725,15 @@
    "es"
   ],
   "host": "wp.comicskingdom.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2c",
+  "seit": "2026-11-03T10:23:56",
+  "datei": "rezepte/modelle/all.comicskingdom.json",
+  "geaendert": "2026-11-03T10:24:40"
  },
  {
   "modul": "src/all/commitstrip",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Commit Strip",
   "stufe": 2,
   "theme": null,
@@ -8540,11 +8742,15 @@
    "fr"
   ],
   "host": "commitstrip.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2a",
+  "seit": "2026-11-03T10:24:01",
+  "grund": "Katalog wird im Code ohne Abruf erzeugt (ein Eintrag je Jahr 2012..aktuelles Jahr, Titel/Cover/Autor fest), zwei Sprachquellen mit Pfad /en bzw. /fr; Kapitel = alle Seiten 1..n des Jahresarchivs (n aus .wp-pagenavi) – synthetische Liste und sprachabhängige Pfade nicht abbildbar",
+  "geaendert": "2026-11-03T10:24:10"
  },
  {
   "modul": "src/all/cosplaytele",
-  "status": "offen",
+  "status": "fertig",
   "name": "CosplayTele",
   "stufe": 2,
   "theme": null,
@@ -8552,11 +8758,15 @@
    "all"
   ],
   "host": "cosplaytele.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2a",
+  "seit": "2026-11-03T10:24:10",
+  "datei": "rezepte/modelle/all.cosplaytele.json",
+  "geaendert": "2026-11-03T10:24:28"
  },
  {
   "modul": "src/all/danbooru",
-  "status": "offen",
+  "status": "fertig",
   "name": "Danbooru",
   "stufe": 2,
   "theme": null,
@@ -8564,11 +8774,15 @@
    "all"
   ],
   "host": "danbooru.donmai.us",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2b",
+  "seit": "2026-11-03T10:24:23",
+  "datei": "rezepte/modelle/all.danbooru.json",
+  "geaendert": "2026-11-03T10:24:52"
  },
  {
   "modul": "src/all/dbnewhope",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "DB New Hope",
   "stufe": 2,
   "theme": null,
@@ -8576,11 +8790,15 @@
    "all"
   ],
   "host": "dbnewhope.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2a",
+  "seit": "2026-11-03T10:24:28",
+  "grund": "Katalog im Code fest (3 Spracheinträge, kein Abruf); Details und Kapitel aus zwei verschiedenen Seiten je Sprache (landingPath/listPath), Seiten per ?page=1..n aus Anzahl der option-Elemente erzeugt – synthetische Liste und Zählschleife nicht abbildbar",
+  "geaendert": "2026-11-03T10:24:39"
  },
  {
   "modul": "src/all/deviantart",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "DeviantArt",
   "stufe": 2,
   "theme": null,
@@ -8588,11 +8806,15 @@
    "all"
   ],
   "host": "deviantart.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2a",
+  "seit": "2026-11-03T10:24:39",
+  "grund": "Kein Katalog (Beliebt/Neueste werfen Fehler, Suche nur als 'gallery:<user>[/<ordner>]' bzw. Galerie-URL); Zusatzbilder aus __INITIAL_STATE__ per Map-Schlüssel (deviationId) und URL-Bau mit <prettyName>-Ersatz + Token per Index; 403-Rückfall-Interceptor – nicht abbildbar",
+  "geaendert": "2026-11-03T10:24:52"
  },
  {
   "modul": "src/all/doujiva",
-  "status": "offen",
+  "status": "fertig",
   "name": "Doujiva",
   "stufe": 2,
   "theme": null,
@@ -8600,11 +8822,15 @@
    "all"
   ],
   "host": "doujiva.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2c",
+  "seit": "2026-11-03T10:24:40",
+  "datei": "rezepte/modelle/all.doujiva.json",
+  "geaendert": "2026-11-03T10:25:13"
  },
  {
   "modul": "src/all/dragonballmultiverse",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Dragon Ball Multiverse",
   "stufe": 2,
   "theme": null,
@@ -8617,11 +8843,15 @@
    "da"
   ],
   "host": "dragonball-multiverse.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2a",
+  "seit": "2026-11-03T10:24:52",
+  "grund": "37 Sprachquellen mit sprachabhängigem Pfad (/<internalLang>/read.html, eigene Code-Tabelle) in einer Extension; übersetzter Sprechblasentext wird per Interceptor auf das Bild gezeichnet (Canvas) – beides nicht abbildbar",
+  "geaendert": "2026-11-03T10:25:03"
  },
  {
   "modul": "src/all/e621",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "e621",
   "stufe": 2,
   "theme": null,
@@ -8629,11 +8859,15 @@
    "all"
   ],
   "host": "e621.net",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2b",
+  "seit": "2026-11-03T10:24:52",
+  "grund": "Listen (Standard Tag-Modus) und Bildliste/Cover brauchen Sammelabfragen mit aus JSON-Listen zusammengesetzten IDs (tags=id:1,2,3, Pools zu Post-IDs); Blacklist-/Platzhalterlogik; e621 verlangt eigenen beschreibenden User-Agent",
+  "geaendert": "2026-11-03T10:25:16"
  },
  {
   "modul": "src/all/everiaclub",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Everia.club",
   "stufe": 2,
   "theme": null,
@@ -8641,11 +8875,15 @@
    "all"
   ],
   "host": "everia.club",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2d",
+  "seit": "2026-11-03T10:24:55",
+  "grund": "Seitenliste: mehrteilige Beiträge (.page-links a.post-page-numbers) – Community lädt alle Teilseiten und sammelt je Seite mehrere Bilder (.entry-content img); subpage liefert nur ein Bild je Unterseite, Sammeln über mehrere Seiten gibt es in keiner Vorlage; Listen-has_next zudem aus Antwort-Header X-WP-TotalPages",
+  "geaendert": "2026-11-03T10:25:06"
  },
  {
   "modul": "src/all/everiaclubcom",
-  "status": "offen",
+  "status": "fertig",
   "name": "EveriaClub (unoriginal)",
   "stufe": 2,
   "theme": null,
@@ -8653,11 +8891,15 @@
    "all"
   ],
   "host": "everiaclub.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2d",
+  "seit": "2026-11-03T10:25:06",
+  "datei": "rezepte/modelle/all.everiaclubunoriginal.json",
+  "geaendert": "2026-11-03T10:25:24"
  },
  {
   "modul": "src/all/foamgirl",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "FoamGirl",
   "stufe": 2,
   "theme": null,
@@ -8665,11 +8907,15 @@
    "all"
   ],
   "host": "foamgirl.net",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2c",
+  "seit": "2026-11-03T10:25:13",
+  "grund": "Galerie über mehrere HTML-Seiten verteilt (Folgeseite per Next-Link .page-numbers[title=Next page], mehrere Bilder je Seite) – Blättern innerhalb von pages in keiner Vorlage",
+  "geaendert": "2026-11-03T10:25:29"
  },
  {
   "modul": "src/all/fourkhd",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "4KHD",
   "stufe": 2,
   "theme": null,
@@ -8677,11 +8923,13 @@
    "all"
   ],
   "host": "4khd.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2b",
+  "seit": "2026-11-03T10:25:16"
  },
  {
   "modul": "src/all/fsicomics",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "FSI Comics",
   "stufe": 2,
   "theme": null,
@@ -8693,11 +8941,13 @@
    "it"
   ],
   "host": "de.fsicomics.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2d",
+  "seit": "2026-11-03T10:25:24"
  },
  {
   "modul": "src/all/globalcomix",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "GlobalComix",
   "stufe": 2,
   "theme": null,
@@ -8710,7 +8960,9 @@
    "de"
   ],
   "host": "globalcomix.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2c",
+  "seit": "2026-11-03T10:25:29"
  },
  {
   "modul": "src/all/hdoujin",

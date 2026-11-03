@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "4KHD",
+  "sprache": "all",
+  "base_url": "https://www.4khd.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.4khd",
+  "quellen": [
+   {
+    "name": "4KHD",
+    "sprache": "all",
+    "quell_id": 6501663152246384585,
+    "home": "https://www.4khd.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/fourkhd",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.5",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}
