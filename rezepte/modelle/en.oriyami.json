@@ -1,0 +1,277 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "OriYami",
+  "sprache": "en",
+  "base_url": "https://oriyami.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.oriyami",
+  "quellen": [
+   {
+    "name": "OriYami",
+    "sprache": "en",
+    "quell_id": 3786594066286839843,
+    "home": "https://oriyami.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/oriyami",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "https://api.oriyami.com/api/mangas/popular-list/?page={page}&page_size=18",
+    "headers": {
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "items": "results",
+   "has_next": {
+    "exists": "has_next"
+   },
+   "fields": {
+    "url": {
+     "const": "/{f.type}/{f.slug}",
+     "replace": [
+      [
+       "^/Manhwa/",
+       "/manhwa/"
+      ],
+      [
+       "^/Manhua/",
+       "/manhua/"
+      ],
+      [
+       "^/Digital Comic/",
+       "/digital-comic/"
+      ],
+      [
+       "^/(?!manhwa/|manhua/|digital-comic/)[^/]+/",
+       "/manga/"
+      ]
+     ]
+    },
+    "title": "title",
+    "cover": "cover_url"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "https://api.oriyami.com/api/mangas/recently-updated/?page={page}&page_size=18",
+    "headers": {
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "items": "results",
+   "has_next": {
+    "exists": "has_next"
+   },
+   "fields": {
+    "url": {
+     "const": "/{f.type}/{f.slug}",
+     "replace": [
+      [
+       "^/Manhwa/",
+       "/manhwa/"
+      ],
+      [
+       "^/Manhua/",
+       "/manhua/"
+      ],
+      [
+       "^/Digital Comic/",
+       "/digital-comic/"
+      ],
+      [
+       "^/(?!manhwa/|manhua/|digital-comic/)[^/]+/",
+       "/manga/"
+      ]
+     ]
+    },
+    "title": "title",
+    "cover": "cover_url"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "https://api.oriyami.com/api/mangas/browse/?q={query}&page={page}&page_size=18",
+    "headers": {
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "items": "results",
+   "has_next": {
+    "exists": "next"
+   },
+   "fields": {
+    "url": {
+     "const": "/{f.type}/{f.slug}",
+     "replace": [
+      [
+       "^/Manhwa/",
+       "/manhwa/"
+      ],
+      [
+       "^/Manhua/",
+       "/manhua/"
+      ],
+      [
+       "^/Digital Comic/",
+       "/digital-comic/"
+      ],
+      [
+       "^/(?!manhwa/|manhua/|digital-comic/)[^/]+/",
+       "/manga/"
+      ]
+     ]
+    },
+    "title": "title",
+    "cover": "cover_url"
+   }
+  },
+  "details": {
+   "request": {
+    "url": "https://api.oriyami.com/api/mangas/{u.slug}/",
+    "headers": {
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/(?:manga|manhwa|manhua|digital-comic)/([^/?#]+)"
+   },
+   "let": {
+    "syn": "synopsis",
+    "alt": {
+     "path": "alternative_names",
+     "all": true,
+     "join": "\n- "
+    },
+    "yr": "release_year"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "cover_url",
+    "author": {
+     "path": "mangakas",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": [
+      "type",
+      "demographic",
+      "genres.*"
+     ],
+     "union": true
+    },
+    "status": "status",
+    "description": {
+     "const": "[[{l.yr}\n\n]][[{l.syn}\n\n]][[**Alternative names:**\n- {l.alt}]]",
+     "replace": [
+      [
+       "^\\s+|\\s+$",
+       ""
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "Ongoing": 1,
+    "completed": 2,
+    "Completed": 2,
+    "hiatus": 6,
+    "Hiatus": 6,
+    "cancelled": 5,
+    "Cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "https://api.oriyami.com/api/mangas/{u.slug}/",
+    "headers": {
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/(?:manga|manhwa|manhua|digital-comic)/([^/?#]+)",
+    "tp": "/(manga|manhwa|manhua|digital-comic)/[^/?#]+"
+   },
+   "items": "scans",
+   "reverse": true,
+   "fields": {
+    "url": {
+     "const": "/{u.tp}/{u.slug}/{f.kind}-{f.number}",
+     "replace": [
+      [
+       "/Chapter-",
+       "/chapter-"
+      ],
+      [
+       "/Volume-",
+       "/volume-"
+      ],
+      [
+       "/Episode-",
+       "/episode-"
+      ],
+      [
+       "/Oneshot-",
+       "/oneshot-"
+      ],
+      [
+       "/Extra-",
+       "/extra-"
+      ],
+      [
+       "/Special-",
+       "/special-"
+      ]
+     ]
+    },
+    "name": {
+     "const": "{f.kind} {f.number}"
+    },
+    "number": "number",
+    "date": [
+     "published_at",
+     "created_at"
+    ]
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "https://api.oriyami.com/api/mangas/{u.slug}/chapters/{u.num}/",
+    "headers": {
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/(?:manga|manhwa|manhua|digital-comic)/([^/?#]+)/",
+    "num": "-([^/?#-]+)/?$"
+   },
+   "items": "pages",
+   "image": "image_url"
+  }
+ },
+ "hinweise": [
+  "JSON-API api.oriyami.com: Beliebt /mangas/popular-list/, Neueste /mangas/recently-updated/ (je 18, has_next), Suche /mangas/browse/?q=… (weiter solange 'next' gesetzt). Filter (Typ, Status, Genre, Jahr …) nicht übernommen.",
+  "Manga-URL /<typ>/<slug> wie auf der Website (Manhwa→manhwa, Manhua→manhua, Digital Comic→digital-comic, sonst manga). Slug für die API aus der URL.",
+  "Beschreibung: Erscheinungsjahr, Synopsis, Alternativnamen (Community schreibt jedes Wort groß – hier unverändert). Bewertungszeile, 'Has anime' und Tracker-Links nicht abgebildet.",
+  "Kapitel-URL /<typ>/<slug>/<kind klein>-<nummer>; Kleinschreibung nur für bekannte Arten (Chapter, Volume, Episode, Oneshot, Extra, Special) – andere bleiben groß (nur Website-Link betroffen, Seiten-API nutzt Slug+Nummer).",
+  "Ähnliche Titel (relations_outgoing) nicht übernommen."
+ ]
+}

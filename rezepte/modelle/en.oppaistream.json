@@ -1,0 +1,220 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Oppai Stream",
+  "sprache": "en",
+  "base_url": "https://read.oppai.stream",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.oppaistream",
+  "quellen": [
+   {
+    "name": "Oppai Stream",
+    "sprache": "en",
+    "quell_id": 1938195875614354298,
+    "home": "https://read.oppai.stream"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/oppaistream",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/api-search.php?text=&order=views&genres=&blacklist=&page={page}&limit=36",
+   "items": "div.in-grid > a",
+   "page_size": 36,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": [
+     {
+      "path": "@href",
+      "regex": "/fw\\?to=(.+)$",
+      "group": 1,
+      "replace": [
+       [
+        "%3A",
+        ":"
+       ],
+       [
+        "%2F",
+        "/"
+       ],
+       [
+        "%3F",
+        "?"
+       ],
+       [
+        "%3D",
+        "="
+       ],
+       [
+        "%26",
+        "&"
+       ],
+       [
+        "%25",
+        "%"
+       ]
+      ]
+     },
+     "@href"
+    ],
+    "title": "h3.man-title",
+    "cover": "img.read-cover@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/api-search.php?text=&order=uploaded&genres=&blacklist=&page={page}&limit=36",
+   "items": "div.in-grid > a",
+   "page_size": 36,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": [
+     {
+      "path": "@href",
+      "regex": "/fw\\?to=(.+)$",
+      "group": 1,
+      "replace": [
+       [
+        "%3A",
+        ":"
+       ],
+       [
+        "%2F",
+        "/"
+       ],
+       [
+        "%3F",
+        "?"
+       ],
+       [
+        "%3D",
+        "="
+       ],
+       [
+        "%26",
+        "&"
+       ],
+       [
+        "%25",
+        "%"
+       ]
+      ]
+     },
+     "@href"
+    ],
+    "title": "h3.man-title",
+    "cover": "img.read-cover@src"
+   }
+  },
+  "search": {
+   "request": "{base}/api-search.php?text={query}&order=&genres=&blacklist=&page={page}&limit=36",
+   "items": "div.in-grid > a",
+   "page_size": 36,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": [
+     {
+      "path": "@href",
+      "regex": "/fw\\?to=(.+)$",
+      "group": 1,
+      "replace": [
+       [
+        "%3A",
+        ":"
+       ],
+       [
+        "%2F",
+        "/"
+       ],
+       [
+        "%3F",
+        "?"
+       ],
+       [
+        "%3D",
+        "="
+       ],
+       [
+        "%26",
+        "&"
+       ],
+       [
+        "%25",
+        "%"
+       ]
+      ]
+     },
+     "@href"
+    ],
+    "title": "h3.man-title",
+    "cover": "img.read-cover@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     {
+      "path": ".manhwa-info-in h1",
+      "regex": "(?s)^(.*)By",
+      "group": 1,
+      "replace": [
+       [
+        "^\\s+|\\s+$",
+        ""
+       ]
+      ]
+     },
+     ".manhwa-info-in h1"
+    ],
+    "cover": ".cover-img@src",
+    "author": ".manhwa-info-in h1 a.red",
+    "artist": ".manhwa-info-in h1 a.red",
+    "genres": {
+     "path": ".manhwa-info-in .genres h5",
+     "all": true,
+     "join": ", "
+    },
+    "description": ".manhwa-info-in .description"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".sort-chapters > a",
+   "fields": {
+    "url": "@href",
+    "name": "div > h4",
+    "date": "div > h6"
+   },
+   "date_format": "relative",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "https://myspacecat.pictures/manhwa/im.php?f-m={u.m}&c={u.c}",
+   "url_vars": {
+    "m": "[?&]m=([^&#]+)",
+    "c": "[?&]c=([^&#]+)"
+   },
+   "items": "img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Listen über {base}/api-search.php (HTML), limit 36, weiter bei voller Seite; Beliebt order=views, Neueste order=uploaded, Suche text=… ohne Sortierung. Genre-Filter nicht übernommen.",
+  "Links der Form /fw?to=<kodierte URL> werden per replace (%3A, %2F, %3F, %3D, %26, %25) dekodiert – nur die gängigen Escapes, keine allgemeine URL-Dekodierung.",
+  "Titel: Text von h1 vor dem letzten 'By' (Community substringBeforeLast).",
+  "Seiten: Bildliste von https://myspacecat.pictures/manhwa/im.php?f-m=<m>&c=<c> (m und c aus der Kapitel-URL)."
+ ]
+}

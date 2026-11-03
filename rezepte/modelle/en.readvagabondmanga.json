@@ -1,0 +1,119 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Read Vagabond Manga",
+  "sprache": "en",
+  "base_url": "https://readbagabondo.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.readvagabondmanga",
+  "quellen": [
+   {
+    "name": "Read Vagabond Manga",
+    "sprache": "en",
+    "quell_id": 5300358436613908601,
+    "home": "https://readbagabondo.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/readvagabondmanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/api/mihon/mangas",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/#{value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/api/mihon/mangas?q={query}&page={page}",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/#{value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{base}/api/mihon/mangas/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "#(\\d+)$"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "cover",
+    "author": "author",
+    "artist": "artist",
+    "description": "description",
+    "status": "status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/mihon/mangas/{u.id}/chapters",
+   "format": "json",
+   "url_vars": {
+    "id": "#(\\d+)$"
+   },
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "number",
+     "template": "/volume-{f.volume}/chapter-{value}/#{u.id}"
+    },
+    "name": "title",
+    "number": "number",
+    "date": "releaseDate",
+    "scanlator": {
+     "const": "Read Vagabond Manga"
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api/mihon/mangas/{u.id}/chapters/{u.num}",
+   "format": "json",
+   "url_vars": {
+    "id": "#(\\d+)$",
+    "num": "/chapter-(\\d+)/"
+   },
+   "items_count": "pageCount",
+   "image": {
+    "path": "",
+    "template": "https://pub.moleve.net/chapter-{u.num}/page-{value}.png"
+   }
+  }
+ },
+ "hinweise": [
+  "Eigene Mihon-API (/api/mihon/mangas …). URLs wie Community: Manga '/#<id>', Kapitel '/volume-<v>/chapter-<n>/#<id>'.",
+  "Seiten: Anzahl aus pageCount, Bild-URLs nach festem Muster pub.moleve.net/chapter-<n>/page-<i>.png (i = 1..n) wie in der Community; items_count wie in fr.animesama (JSON-Pfad → Zähler als {value}).",
+  "Keine Neuesten (Community ebenso); Suche mit q=, ohne weitere Seiten."
+ ]
+}

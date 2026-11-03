@@ -23,7 +23,120 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": ".index-post:has(.post-title a)",
+   "fields": {
+    "url": ".post-title a@href",
+    "title": ".post-title a",
+    "cover": [
+     ".post-thumb@data-src",
+     ".post-thumb@img"
+    ]
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/search?q={query}",
+   "items": ".index-post:has(.post-title a)",
+   "fields": {
+    "url": ".post-title a@href",
+    "title": ".post-title a",
+    "cover": [
+     ".post-thumb@data-src",
+     ".post-thumb@img"
+    ]
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1.post-title",
+    "description": ".post-details h3:contains(Synopsis) + p",
+    "cover": ".post-thumbnail img@src",
+    "author": {
+     "path": ".post-details p:contains(Author:)",
+     "replace": [
+      [
+       "^.*?Author:\\s*",
+       ""
+      ]
+     ]
+    },
+    "status": {
+     "path": ".post-details p:contains(Status:)",
+     "regex": "(?i)(ongoing|completed|dropped)",
+     "group": 1
+    },
+    "genres": {
+     "path": ".post-tab-genre .post-genre a",
+     "all": true,
+     "join": ", "
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "Ongoing": 1,
+    "completed": 2,
+    "Completed": 2,
+    "dropped": 5,
+    "Dropped": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".row-chapters .list-item a",
+   "fields": {
+    "url": "@href",
+    "name": [
+     {
+      "path": "",
+      "regex": "^\\s*(\\d+(?:\\.\\d+)?)\\s*$",
+      "group": 1,
+      "template": "Chapter {value}"
+     },
+     ""
+    ]
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "let": {
+    "red": {
+     "path": "html@html",
+     "regex": "window\\.location\\.replace\\(['\"](https?://[^'\"]+)['\"]\\)",
+     "group": 1
+    },
+    "u": [
+     {
+      "const": "[[{l.red}]]"
+     },
+     {
+      "const": "{abs_url}"
+     }
+    ]
+   },
+   "then": [
+    {
+     "request": "{l.u}"
+    }
+   ],
+   "items": ".post-body img:not(.watermark), .holder img:not(.watermark)",
+   "image": "@src",
+   "exclude": "(?i)logo|footer|credit"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Blogger-Website. Kapitel liegen teils auf einem anderen Host (nuxscans.blogspot.com); Community speichert absolute Kapitel-URLs – auf dem PC prüfen, dass @href absolut bleibt.",
+  "Community-Interceptoren: ?m=1 (Mobil-Weiterleitung) → m=0 und Folgen von window.location.replace(…). Mobil-Umleitung nicht nachgebaut (Desktop-User-Agent nötig); JS-Weiterleitung nur in pages per let/then (absolute Ziel-URL) wie ja.source.",
+  "Kapitelname: reine Zahl → 'Chapter N', sonst Linktext (Community ebenso).",
+  "Bilder mit logo/footer/credit in der URL bzw. Klasse watermark ausgelassen wie in der Community. Liste ohne Seiten (Community ebenso)."
+ ]
 }

@@ -11728,7 +11728,7 @@
  },
  {
   "modul": "src/en/ninehentai",
-  "status": "zurueckgestellt",
+  "status": "fertig",
   "name": "NineHentai",
   "stufe": 2,
   "theme": null,
@@ -11739,12 +11739,13 @@
   "nsfw": true,
   "wer": "agent-w4d",
   "seit": "2026-11-03T10:46:46",
-  "grund": "Bildliste wird aus total_page (getBookByID) als 1..N.jpg erzeugt, plus 404-Probe der letzten Seite; Zählschleife in keiner Vorlage belegt",
-  "geaendert": "2026-11-03T10:47:03"
+  "grund": null,
+  "geaendert": "2026-11-03T10:49:23",
+  "datei": "rezepte/modelle/en.ninehentai.json"
  },
  {
   "modul": "src/en/nortverse",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Nortverse",
   "stufe": 2,
   "theme": null,
@@ -11754,11 +11755,13 @@
   "host": "nortverse.com",
   "nsfw": true,
   "wer": "agent-w4b",
-  "seit": "2026-11-03T10:46:49"
+  "seit": "2026-11-03T10:46:49",
+  "datei": "rezepte/modelle/en.nortverse.json",
+  "geaendert": "2026-11-03T10:47:17"
  },
  {
   "modul": "src/en/nuviatoon",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Nuvia Toon",
   "stufe": 2,
   "theme": null,
@@ -11768,11 +11771,13 @@
   "host": "nuviatoon.net",
   "nsfw": false,
   "wer": "agent-w4c",
-  "seit": "2026-11-03T10:46:50"
+  "seit": "2026-11-03T10:46:50",
+  "datei": "rezepte/modelle/en.nuviatoon.json",
+  "geaendert": "2026-11-03T10:47:22"
  },
  {
   "modul": "src/en/nuxscans",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Nux Scans",
   "stufe": 2,
   "theme": null,
@@ -11782,11 +11787,13 @@
   "host": "nuxscans-comics.blogspot.com",
   "nsfw": false,
   "wer": "agent-w5a",
-  "seit": "2026-11-03T10:46:52"
+  "seit": "2026-11-03T10:46:52",
+  "datei": "rezepte/modelle/en.nuxscans.json",
+  "geaendert": "2026-11-03T10:47:22"
  },
  {
   "modul": "src/en/oglaf",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "Oglaf",
   "stufe": 2,
   "theme": null,
@@ -11796,11 +11803,13 @@
   "host": "oglaf.com",
   "nsfw": true,
   "wer": "agent-w4d",
-  "seit": "2026-11-03T10:47:03"
+  "seit": "2026-11-03T10:47:03",
+  "grund": "Seiten eines Strips nur durch Folgen von a[rel=next] über Unterseiten unbekannter Anzahl (Kette/Rekursion)",
+  "geaendert": "2026-11-03T10:47:30"
  },
  {
   "modul": "src/en/ohjoysextoy",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Oh Joy Sex Toy",
   "stufe": 2,
   "theme": null,
@@ -11810,11 +11819,13 @@
   "host": "ohjoysextoy.com",
   "nsfw": true,
   "wer": "agent-w5b",
-  "seit": "2026-11-03T10:47:10"
+  "seit": "2026-11-03T10:47:10",
+  "datei": "rezepte/modelle/en.ohjoysextoy.json",
+  "geaendert": "2026-11-03T10:47:43"
  },
  {
   "modul": "src/en/onepunchmanonline",
-  "status": "offen",
+  "status": "fertig",
   "name": "One Punch Man Online",
   "stufe": 2,
   "theme": null,
@@ -11822,11 +11833,15 @@
    "en"
   ],
   "host": "w20.1punchman.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:47:17",
+  "datei": "rezepte/modelle/en.onepunchmanonline.json",
+  "geaendert": "2026-11-03T10:47:37"
  },
  {
   "modul": "src/en/onlythebesthentai",
-  "status": "offen",
+  "status": "fertig",
   "name": "Only The Best Hentai",
   "stufe": 2,
   "theme": null,
@@ -11834,11 +11849,15 @@
    "en"
   ],
   "host": "onlythebesthentai.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:47:22",
+  "datei": "rezepte/modelle/en.onlythebesthentai.json",
+  "geaendert": "2026-11-03T10:47:47"
  },
  {
   "modul": "src/en/oots",
-  "status": "offen",
+  "status": "fertig",
   "name": "oots",
   "stufe": 2,
   "theme": null,
@@ -11846,11 +11865,15 @@
    "en"
   ],
   "host": "giantitp.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4c",
+  "seit": "2026-11-03T10:47:22",
+  "datei": "rezepte/modelle/en.oots.json",
+  "geaendert": "2026-11-03T10:47:35"
  },
  {
   "modul": "src/en/oppaistream",
-  "status": "offen",
+  "status": "fertig",
   "name": "Oppai Stream",
   "stufe": 2,
   "theme": null,
@@ -11858,11 +11881,15 @@
    "en"
   ],
   "host": "read.oppai.stream",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4c",
+  "seit": "2026-11-03T10:47:35",
+  "datei": "rezepte/modelle/en.oppaistream.json",
+  "geaendert": "2026-11-03T10:48:00"
  },
  {
   "modul": "src/en/oriyami",
-  "status": "offen",
+  "status": "fertig",
   "name": "OriYami",
   "stufe": 2,
   "theme": null,
@@ -11870,11 +11897,15 @@
    "en"
   ],
   "host": "oriyami.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:47:37",
+  "datei": "rezepte/modelle/en.oriyami.json",
+  "geaendert": "2026-11-03T10:48:27"
  },
  {
   "modul": "src/en/paradisescans",
-  "status": "offen",
+  "status": "fertig",
   "name": "Paradise Scans",
   "stufe": 2,
   "theme": null,
@@ -11882,11 +11913,15 @@
    "en"
   ],
   "host": "paradisescans.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w5b",
+  "seit": "2026-11-03T10:47:43",
+  "datei": "rezepte/modelle/en.paradisescans.json",
+  "geaendert": "2026-11-03T10:48:28"
  },
  {
   "modul": "src/en/patchfriday",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Patch Friday",
   "stufe": 2,
   "theme": null,
@@ -11894,11 +11929,15 @@
    "en"
   ],
   "host": "patchfriday.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:47:47",
+  "grund": "Feste Ein-Eintrag-Liste; Kapitelliste per /search/?search=&id=N, wobei N aus der höchsten Strip-Nummer der ersten Seite in 10er-Schritten herunterzählt (rechnerischer Cursor) und Kapitel 1 im Code ergänzt wird – Paging mit aus der ersten Seite berechneten Werten nicht ausdrückbar",
+  "geaendert": "2026-11-03T10:47:58"
  },
  {
   "modul": "src/en/porncomix",
-  "status": "offen",
+  "status": "fertig",
   "name": "PornComix",
   "stufe": 2,
   "theme": null,
@@ -11906,11 +11945,15 @@
    "en"
   ],
   "host": "bestporncomix.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:47:58",
+  "datei": "rezepte/modelle/en.porncomix.json",
+  "geaendert": "2026-11-03T10:48:15"
  },
  {
   "modul": "src/en/pornhwa18",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Pornhwa18",
   "stufe": 2,
   "theme": null,
@@ -11918,11 +11961,15 @@
    "en"
   ],
   "host": "pornhwa18.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4c",
+  "seit": "2026-11-03T10:48:00",
+  "grund": "Daten nur als Qwik-City q-data.json: alle Objekte/Listen sind Base-36-Verweise in _objs, die rekursiv aufgelöst werden müssen; Listen-Paging liefert kumulativ alle Vorseiten (drop). Nicht mit JSON-Pfaden ausdrückbar",
+  "geaendert": "2026-11-03T10:48:14"
  },
  {
   "modul": "src/en/pornhwadbreader",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "PornhwaDB Reader",
   "stufe": 2,
   "theme": null,
@@ -11930,11 +11977,15 @@
    "en"
   ],
   "host": "pornhwareader.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4d",
+  "seit": "2026-11-03T10:48:12",
+  "grund": "React-Streaming: Inhalte stehen in versteckten S:n-Segmenten und müssen per DOM-Umbau in P:n-Platzhalter verschoben werden; Kapitel über mehrere Editionen mit Folge-Links je Edition; Seiten aus Next.js-Flight-Daten",
+  "geaendert": "2026-11-03T10:48:25"
  },
  {
   "modul": "src/en/questionablecontent",
-  "status": "offen",
+  "status": "fertig",
   "name": "Questionable Content",
   "stufe": 2,
   "theme": null,
@@ -11942,11 +11993,15 @@
    "en"
   ],
   "host": "questionablecontent.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4c",
+  "seit": "2026-11-03T10:48:14",
+  "datei": "rezepte/modelle/en.questionablecontent.json",
+  "geaendert": "2026-11-03T10:48:31"
  },
  {
   "modul": "src/en/randowiz",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Randowiz",
   "stufe": 2,
   "theme": null,
@@ -11954,11 +12009,15 @@
    "en"
   ],
   "host": "randowis.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:48:15",
+  "grund": "Feste Liste aus 3 Einträgen im Code (Kategorien mit festen Titeln/Covern/Texten, keine Listen-Anfrage) – synthetische Mehrfach-Liste nicht abbildbar; Kapitel sonst einfach (Elementor-Archiv mit .next-Paging)",
+  "geaendert": "2026-11-03T10:48:25"
  },
  {
   "modul": "src/en/readhorimiyaonline",
-  "status": "offen",
+  "status": "fertig",
   "name": "Read Horimiya Online",
   "stufe": 2,
   "theme": null,
@@ -11966,11 +12025,15 @@
    "en"
   ],
   "host": "read-horimiya.online",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4d",
+  "seit": "2026-11-03T10:48:25",
+  "datei": "rezepte/modelle/en.readhorimiyaonline.json",
+  "geaendert": "2026-11-03T10:48:40"
  },
  {
   "modul": "src/en/readvagabondmanga",
-  "status": "offen",
+  "status": "fertig",
   "name": "Read Vagabond Manga",
   "stufe": 2,
   "theme": null,
@@ -11978,11 +12041,15 @@
    "en"
   ],
   "host": "readbagabondo.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:48:25",
+  "datei": "rezepte/modelle/en.readvagabondmanga.json",
+  "geaendert": "2026-11-03T10:48:49"
  },
  {
   "modul": "src/en/reallifecomics",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Real Life Comics",
   "stufe": 2,
   "theme": null,
@@ -11990,11 +12057,15 @@
    "en"
   ],
   "host": "reallifecomics.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:48:27",
+  "grund": "Kapitelname/-datum entstehen nur aus der Monatsüberschrift (h4.month) vor dem umgebenden .calendar + Tageszahl des Links (Zugriff auf Vorfahren/Geschwister nötig); Einträge je Jahr bis zum aktuellen Jahr erzeugt – Link-Text allein ist nur die Tageszahl",
+  "geaendert": "2026-11-03T10:48:54"
  },
  {
   "modul": "src/en/reimanga",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "ReiManga",
   "stufe": 2,
   "theme": null,
@@ -12002,11 +12073,15 @@
    "en"
   ],
   "host": "reimanga.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5b",
+  "seit": "2026-11-03T10:48:28",
+  "grund": "Seitenbilder teils als Byte-Bereiche aus Paketdateien (Range-Header je Seite berechnet), Kapitel/Seiten aus RSC-Stream (extractNextJs)",
+  "geaendert": "2026-11-03T10:48:41"
  },
  {
   "modul": "src/en/revivalscans",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Revival Scans",
   "stufe": 2,
   "theme": null,
@@ -12014,11 +12089,13 @@
    "en"
   ],
   "host": "revivalscans.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4c",
+  "seit": "2026-11-03T10:48:31"
  },
  {
   "modul": "src/en/rinkocomics",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Rinko Comics",
   "stufe": 2,
   "theme": null,
@@ -12026,11 +12103,13 @@
    "en"
   ],
   "host": "rinkocomics.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5b",
+  "seit": "2026-11-03T10:48:41"
  },
  {
   "modul": "src/en/ruridragonmangaonline",
-  "status": "offen",
+  "status": "fertig",
   "name": "RuriDragon Manga Online",
   "stufe": 2,
   "theme": null,
@@ -12038,11 +12117,15 @@
    "en"
   ],
   "host": "w2.ruridragon.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:48:49",
+  "datei": "rezepte/modelle/en.ruridragonmangaonline.json",
+  "geaendert": "2026-11-03T10:49:15"
  },
  {
   "modul": "src/en/sabrinaonline",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Sabrina Online",
   "stufe": 2,
   "theme": null,
@@ -12050,11 +12133,15 @@
    "en"
   ],
   "host": "sabrina-online.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:48:54",
+  "grund": "Kapitelnamen aus Archivtabelle: Jahr steht in der Spaltenüberschrift der vorigen Tabellenzeile (Zeilenpaare, Spaltenindex) – Zugriff auf Nachbarzeile/Spalte nicht ausdrückbar, Link-Text allein mehrdeutig",
+  "geaendert": "2026-11-03T10:49:08"
  },
  {
   "modul": "src/en/sacachispa",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "SACACHISPA",
   "stufe": 2,
   "theme": null,
@@ -12062,11 +12149,13 @@
    "en"
   ],
   "host": "sacachispa.site",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:49:08"
  },
  {
   "modul": "src/en/saturdaymorningbreakfastcomics",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Saturday Morning Breakfast Comics",
   "stufe": 2,
   "theme": null,
@@ -12074,7 +12163,9 @@
    "en"
   ],
   "host": "smbc-comics.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:49:15"
  },
  {
   "modul": "src/en/scansgg",

@@ -1,0 +1,119 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "One Punch Man Online",
+  "sprache": "en",
+  "base_url": "https://w20.1punchman.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.onepunchmanonline",
+  "quellen": [
+   {
+    "name": "One Punch Man Online",
+    "sprache": "en",
+    "quell_id": 897097334505121559,
+    "home": "https://w20.1punchman.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/onepunchmanonline",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "image_headers": {
+   "Referer": null
+  },
+  "popular": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/"
+    },
+    "title": {
+     "const": "One Punch Man"
+    },
+    "cover": {
+     "const": "https://1punchman.com/wp-content/uploads/2024/02/9782380712018_1_75.jpg"
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/"
+    },
+    "title": {
+     "const": "One Punch Man"
+    },
+    "cover": {
+     "const": "https://1punchman.com/wp-content/uploads/2024/02/9782380712018_1_75.jpg"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "One Punch Man"
+    },
+    "cover": {
+     "const": "https://1punchman.com/wp-content/uploads/2024/02/9782380712018_1_75.jpg"
+    },
+    "author": {
+     "const": "ONE"
+    },
+    "artist": {
+     "const": "Murata Yusuke"
+    },
+    "genres": {
+     "const": "Action, Comedy, Superhero, Seinen"
+    },
+    "description": {
+     "const": "One-Punch Man is a superhero who has trained so hard that his hair has fallen out, and who can overcome any enemy with one punch."
+    },
+    "status": {
+     "const": "ongoing"
+    }
+   },
+   "status_map": {
+    "ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "ul li a[href*='/manga/']",
+   "fields": {
+    "url": "@href",
+    "name": ""
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.entry-content img, .separator img, p img",
+   "image": [
+    "@data-src",
+    "@data-lazy-src",
+    "@src"
+   ],
+   "include": "^https?://"
+  }
+ },
+ "hinweise": [
+  "Einzeltitel-Website: ein fester Eintrag 'One Punch Man' mit Angaben wie in der Community; Suche liefert denselben Eintrag (ohne Titelvergleich).",
+  "Kapitel = Links ul li a[href*='/manga/'] der Startseite in Seitenreihenfolge.",
+  "Bild-Host (mangafreak) antwortet mit 403 bei Referer der Website: Community entfernt den Referer, hier image_headers Referer=null (wie all.kiutaku) – auf dem PC prüfen."
+ ]
+}

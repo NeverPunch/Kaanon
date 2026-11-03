@@ -1,0 +1,200 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "NineHentai",
+  "sprache": "en",
+  "base_url": "https://9hentai.so",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.ninehentai",
+  "quellen": [
+   {
+    "name": "NineHentai",
+    "sprache": "en",
+    "quell_id": 7689490563697355048,
+    "home": "https://9hentai.so"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/ninehentai",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "{base}/api/getBook",
+    "method": "POST",
+    "body": "{\"search\": {\"text\": \"\", \"page\": {page0}, \"sort\": 1, \"pages\": {\"range\": [0, 2000]}, \"tag\": {\"items\": {\"included\": [], \"excluded\": []}}}}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "results",
+   "has_next": {
+    "min": 1
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/g/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "id",
+     "template": "https://i.9hentai.so/images/{value}/cover.jpg"
+    }
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/api/getBook",
+    "method": "POST",
+    "body": "{\"search\": {\"text\": \"\", \"page\": {page0}, \"sort\": 0, \"pages\": {\"range\": [0, 2000]}, \"tag\": {\"items\": {\"included\": [], \"excluded\": []}}}}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "results",
+   "has_next": {
+    "min": 1
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/g/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "id",
+     "template": "https://i.9hentai.so/images/{value}/cover.jpg"
+    }
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/getBook",
+    "method": "POST",
+    "body": "{\"search\": {\"text\": \"{query_raw}\", \"page\": {page0}, \"sort\": 0, \"pages\": {\"range\": [0, 2000]}, \"tag\": {\"items\": {\"included\": [], \"excluded\": []}}}}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "results",
+   "has_next": {
+    "min": 1
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/g/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "id",
+     "template": "https://i.9hentai.so/images/{value}/cover.jpg"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "url_vars": {
+    "id": "/g/(\\d+)"
+   },
+   "let": {
+    "alt": "div#bigcontainer h2",
+    "pages": "div#bigcontainer div#info > div:contains(pages)",
+    "parody": {
+     "path": "div#bigcontainer div.field-name:contains(Parody:) a.tag",
+     "all": true,
+     "join": ", "
+    },
+    "category": {
+     "path": "div#bigcontainer div.field-name:contains(Category:) a.tag",
+     "all": true,
+     "join": ", "
+    },
+    "language": {
+     "path": "div#bigcontainer div.field-name:contains(Language:) a.tag",
+     "all": true,
+     "join": ", "
+    }
+   },
+   "fields": {
+    "title": "div#bigcontainer h1",
+    "cover": {
+     "const": "https://i.9hentai.so/images/{u.id}/cover.jpg"
+    },
+    "artist": {
+     "path": "div#bigcontainer div.field-name:contains(Artist:) a.tag",
+     "all": true,
+     "join": ", "
+    },
+    "author": [
+     {
+      "path": "div#bigcontainer div.field-name:contains(Group:) a.tag",
+      "all": true,
+      "join": ", "
+     },
+     {
+      "const": "Unknown circle"
+     }
+    ],
+    "genres": {
+     "path": "div#bigcontainer div.field-name:contains(Tag:) a.tag",
+     "all": true,
+     "join": ", "
+    },
+    "description": {
+     "const": "[[Alternative Title: {l.alt}\n\n]][[Pages: {l.pages}\n\n]][[Parody: {l.parody}\n\n]][[Category: {l.category}\n\n]][[Language: {l.language}]]"
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Chapter"
+    },
+    "date": "div#info div time"
+   },
+   "date_format": "relative"
+  },
+  "pages": {
+   "request": {
+    "url": "{base}/api/getBookByID",
+    "method": "POST",
+    "body": "{\"id\": {u.id}}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "/g/(\\d+)"
+   },
+   "let": {
+    "total": "results.total_page"
+   },
+   "items_count": "{l.total}",
+   "image": {
+    "path": "",
+    "template": "https://i.9hentai.so/images/{u.id}/{value}.jpg"
+   }
+  }
+ },
+ "hinweise": [
+  "Listen über POST /api/getBook (JSON-Body wie Community, Seite ab 0): Beliebt sort=1, Neuheiten sort=0. has_next 'min: 1' (weiter, solange Treffer kommen; Community vergleicht total_count mit der Seite).",
+  "Suchtext wird roh in den JSON-Body gesetzt (Anführungszeichen im Suchtext würden ihn brechen). 'id:'-Suche und Tag-/Seitenfilter (brauchen Tag-ID-Nachschlagen) nicht übernommen.",
+  "Bilder: Community fragt die Seitenzahl über POST /api/getBookByID ab und bildet i.9hentai.so/images/<id>/<n>.jpg für n=1..N – hier mit items_count wie fr.animesama (Annahme: {value} zählt ab 1). Die Community prüft zusätzlich per 404 auf preview/<N>t.jpg, ob die letzte Seite fehlt; das fehlt hier (ggf. eine kaputte letzte Seite).",
+  "Datum aus 'N … ago' (relative)."
+ ]
+}

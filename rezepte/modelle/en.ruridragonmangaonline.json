@@ -1,0 +1,109 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "RuriDragon Manga Online",
+  "sprache": "en",
+  "base_url": "https://w2.ruridragon.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.ruridragonmangaonline",
+  "quellen": [
+   {
+    "name": "RuriDragon Manga Online",
+    "sprache": "en",
+    "quell_id": 2796812439185810666,
+    "home": "https://w2.ruridragon.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/ruridragonmangaonline",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/"
+    },
+    "title": {
+     "const": "RuriDragon"
+    },
+    "cover": "meta[property=og:image]@content"
+   }
+  },
+  "search": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/"
+    },
+    "title": {
+     "const": "RuriDragon"
+    },
+    "cover": "meta[property=og:image]@content"
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{base}/",
+   "fields": {
+    "title": {
+     "const": "RuriDragon"
+    },
+    "cover": "meta[property=og:image]@content",
+    "description": "meta[property=og:description]@content"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a[href*=ruridragon-chapter-]",
+   "fields": {
+    "url": "@href",
+    "name": {
+     "path": "@href",
+     "regex": "ruridragon-chapter-(\\d+)/?$",
+     "group": 1,
+     "template": "Chapter {value}"
+    },
+    "number": {
+     "path": "@href",
+     "regex": "ruridragon-chapter-(\\d+)/?$",
+     "group": 1
+    }
+   },
+   "skip": {
+    "path": "@href",
+    "regex": "^((?!ruridragon-chapter-\\d+/?$).)*$"
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".entry-content img",
+   "image": [
+    "@data-src",
+    "@data-lazy-src",
+    "@img"
+   ],
+   "include": "blogger\\.googleusercontent\\.com|bp\\.blogspot\\.com|img\\.ruridragon\\.com|ruridragon\\.com/wp-content/uploads",
+   "exclude": "cropped-"
+  }
+ },
+ "hinweise": [
+  "Ein-Serien-Website: ein Eintrag 'RuriDragon' (Startseite), Felder per const wie bei en.xkcd; Suche filtert lokal.",
+  "Kapitel = alle Links auf ruridragon-chapter-<n> der Startseite. Community entfernt doppelte Nummern und sortiert absteigend – hier weder Distinct noch Sortierung (Website-Reihenfolge); Doppelte möglich.",
+  "Seiten: data-src/data-lazy-src/bestes Bild, nur Bild-Hosts wie in der Community (include), cropped-* ausgeschlossen; doppelte Bild-URLs werden nicht entfernt."
+ ]
+}

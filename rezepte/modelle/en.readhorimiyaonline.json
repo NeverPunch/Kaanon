@@ -1,0 +1,109 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Read Horimiya Online",
+  "sprache": "en",
+  "base_url": "https://read-horimiya.online",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.readhorimiyaonline",
+  "quellen": [
+   {
+    "name": "Read Horimiya Online",
+    "sprache": "en",
+    "quell_id": 855674716623999161,
+    "home": "https://read-horimiya.online"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/readhorimiyaonline",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/"
+    },
+    "title": {
+     "const": "Horimiya"
+    },
+    "cover": "img.manga-thumb@src"
+   }
+  },
+  "search": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/"
+    },
+    "title": {
+     "const": "Horimiya"
+    },
+    "cover": "img.manga-thumb@src"
+   }
+  },
+  "details": {
+   "request": "{base}/",
+   "fields": {
+    "title": {
+     "const": "Horimiya"
+    },
+    "cover": "img.manga-thumb@src",
+    "description": "span.desc",
+    "genres": {
+     "path": "span.genre-list-item",
+     "all": true,
+     "join": ", "
+    },
+    "author": "div.extra-manga-info-left p:matches(^(?i)Author\\(s\\)) span",
+    "artist": "div.extra-manga-info-left p:matches(^(?i)Artist\\(s\\)) span",
+    "status": "div.extra-manga-info-left p:matches(^(?i)Status) span"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "Ongoing": 1,
+    "completed": 2,
+    "Completed": 2,
+    "hiatus": 6,
+    "Hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div#chapter-list a.chapter-list-item",
+   "fields": {
+    "url": "@href",
+    "name": [
+     "span.chapter-name",
+     ""
+    ],
+    "date": "span.chapter-date"
+   },
+   "date_format": "MMMM d, yyyy",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.images-container img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Einzel-Manga 'Horimiya' (Startseite). Suche liefert wie in der Community immer diesen Eintrag.",
+  "Autor/Künstler/Status aus 'div.extra-manga-info-left p', deren Text mit dem Label beginnt (:matches mit ^, Annahme: Jsoup-Selektor wie in der Engine)."
+ ]
+}

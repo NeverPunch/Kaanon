@@ -2,22 +2,22 @@
  "rezept": "kaanon-rezept/1",
  "status": "entwurf",
  "extension": {
-  "name": "Oglaf",
+  "name": "Rinko Comics",
   "sprache": "en",
-  "base_url": "https://www.oglaf.com",
-  "nsfw": true,
-  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.oglaf",
+  "base_url": "https://rinkocomics.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.rinkocomics",
   "quellen": [
    {
-    "name": "Oglaf",
+    "name": "Rinko Comics",
     "sprache": "en",
-    "quell_id": 1725608127916018822,
-    "home": "https://www.oglaf.com"
+    "quell_id": 4915548839286527736,
+    "home": "https://rinkocomics.com"
    }
   ]
  },
  "quelle": {
-  "modul": "src/en/oglaf",
+  "modul": "src/en/rinkocomics",
   "community_stand": "efa93f5a 2026-11-02",
   "community_version": "1.6.1",
   "theme": null

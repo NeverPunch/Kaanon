@@ -124,8 +124,9 @@
     "slug": "/comics/([^/?#]+)"
    },
    "let": {
+    "desc": "data.description",
     "alt": {
-     "path": "data.altTitles",
+     "path": "data.altTitles.*",
      "all": true,
      "join": "\n- "
     }
@@ -145,7 +146,7 @@
     },
     "status": "data.seriesStatus",
     "description": {
-     "const": "[[{f.data.description}]][[\n\nAssociated Name(s):\n- {l.alt}]]",
+     "const": "[[{l.desc}]][[\n\nAssociated Name(s):\n- {l.alt}]]",
      "replace": [
       [
        "^\\n+",
@@ -207,9 +208,6 @@
     "id": "#(.+)$"
    },
    "items": "data.pages",
-   "sort": {
-    "path": "index"
-   },
    "image": "url"
   }
  },
@@ -217,6 +215,6 @@
   "JSON-API {base}/api/comics (pageSize 18; Beliebt sort=popular, Neueste sort=newest, Suche q=…&sort=popular); weiter bei meta.page < meta.totalPages. Filter nicht übernommen. Accept: application/json wie Community.",
   "Kapitel-URL /comics/<slug>/chapter/<nr>#<kapitel-id>; die ID (Community: memo chapterId) steht im Fragment für /api/comic-chapters/<id>/content.",
   "Gesperrte Kapitel (priceCoins > 0) übersprungen (Community-Standard 'Hide locked chapters'). Bewertung in der Beschreibung nicht übernommen.",
-  "Seiten nach 'index' sortiert (sort ohne regex – Annahme, dass Zahlenwert direkt verwendet wird)."
+  "Seiten in gelieferter Reihenfolge (Community sortiert zusätzlich nach index)."
  ]
 }

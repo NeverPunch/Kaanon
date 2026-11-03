@@ -1,0 +1,168 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Paradise Scans",
+  "sprache": "en",
+  "base_url": "https://paradisescans.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.paradisescans",
+  "quellen": [
+   {
+    "name": "Paradise Scans",
+    "sprache": "en",
+    "quell_id": 5928300995303689257,
+    "home": "https://paradisescans.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/paradisescans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.24",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Accept": "application/json, text/plain, */*"
+  },
+  "popular": {
+   "request": "{base}/api/series?sort=sales&dir=desc&per_page=12&page={page}",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": "cover_url"
+   },
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.last_page"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/api/series?sort=latest_chapter&per_page=12&page={page}",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": "cover_url"
+   },
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.last_page"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/api/series?q={query}&per_page=12&page={page}",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": "cover_url"
+   },
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.last_page"
+    ]
+   }
+  },
+  "details": {
+   "request": "{base}/api/series/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/#?]+)"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "cover_url",
+    "description": "description",
+    "author": "author",
+    "artist": [
+     "artist",
+     "author"
+    ],
+    "genres": {
+     "path": "genres.*",
+     "all": true,
+     "join": ", "
+    },
+    "status": "status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/series/{u.slug}/chapters",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/#?]+)"
+   },
+   "items": "$",
+   "skip": {
+    "any": [
+     "is_premium",
+     "early_access",
+     "early_locked",
+     {
+      "path": "price",
+      "regex": "^[1-9]"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "number",
+     "template": "/series/{u.slug}/chapter/{value}#{f.id}"
+    },
+    "name": {
+     "path": "number",
+     "template": "Chapter {value}[[ - {f.title}]]"
+    },
+    "number": "number",
+    "date": "created_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api/chapters/{u.id}/pages",
+   "format": "json",
+   "url_vars": {
+    "id": "#(.+)$"
+   },
+   "items": "$",
+   "sort": "page_number",
+   "image": "image_url"
+  }
+ },
+ "hinweise": [
+  "JSON-API (/api/series, /api/series/{slug}/chapters, /api/chapters/{id}/pages) wie Community.",
+  "Gesperrte Kapitel (price>0, is_premium, early_access, early_locked) werden übersprungen (Community-Standard: ausgeblendet).",
+  "Kapitel-URL trägt die Kapitel-ID hinter '#' (Community speichert sie im memo); Seiten werden über die ID geladen.",
+  "Kapitelname: Community lässt den Titel weg, wenn er gleich der Nummer ist oder mit 'Chapter' beginnt – hier immer 'Chapter N - Titel'. Nummern wie 1.0 erscheinen ggf. mit '.0'.",
+  "Sortierung der Kapitel: Community sortiert absteigend nach Nummer; hier API-Reihenfolge (auf dem PC prüfen).",
+  "Suchfilter (Sortierung/Status/Format) nicht übernommen."
+ ]
+}

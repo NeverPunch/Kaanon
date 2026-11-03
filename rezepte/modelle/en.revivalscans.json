@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Revival Scans",
+  "sprache": "en",
+  "base_url": "https://www.revivalscans.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.revivalscans",
+  "quellen": [
+   {
+    "name": "Revival Scans",
+    "sprache": "en",
+    "quell_id": 6875037148225675112,
+    "home": "https://www.revivalscans.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/revivalscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

@@ -1,0 +1,115 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "PornComix",
+  "sprache": "en",
+  "base_url": "https://bestporncomix.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.porncomix",
+  "quellen": [
+   {
+    "name": "PornComix",
+    "sprache": "en",
+    "quell_id": 6627320413337959683,
+    "home": "https://bestporncomix.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/porncomix",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/allmultking/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/allmultking/"
+   },
+   "items": "#loops-wrapper article:has(h2.post-title a)",
+   "fields": {
+    "url": "h2.post-title a@href",
+    "title": "h2.post-title a",
+    "cover": [
+     "img@data-pagespeed-lazy-src",
+     "img@img"
+    ]
+   },
+   "has_next": {
+    "exists": "a.nextp"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}",
+   "request_by_page": {
+    "1": "{base}/?s={query}"
+   },
+   "items": "#loops-wrapper article:has(h2.post-title a)",
+   "fields": {
+    "url": "h2.post-title a@href",
+    "title": "h2.post-title a",
+    "cover": [
+     "img@data-pagespeed-lazy-src",
+     "img@img"
+    ]
+   },
+   "has_next": {
+    "exists": "a.nextp"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1.post-title, h1.entry-title",
+    "cover": [
+     "div.post-inner img@data-pagespeed-lazy-src",
+     "div.post-inner img, div.entry-content img, article img@img"
+    ],
+    "description": "div.entry-content p, div.post-content p",
+    "genres": {
+     "path": "a[rel=tag], .post-tags a, .tags-links a",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "CHAPTER"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": [
+    ".pswp-gallery__item",
+    "div.entry-content img"
+   ],
+   "image": [
+    "@data-pswp-src",
+    "@data-pagespeed-lazy-src",
+    "@img"
+   ]
+  }
+ },
+ "hinweise": [
+  "WordPress-HTML (bestporncomix.com). Ein Kapitel je Comic = die Detailseite selbst (Community ebenso).",
+  "Seiten: zuerst PhotoSwipe-Galerie (.pswp-gallery__item@data-pswp-src), sonst Bilder in div.entry-content – als Ausweichkette in items.",
+  "Keine Neuesten (Community ebenso); Suche ?s=."
+ ]
+}

@@ -1,0 +1,109 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Questionable Content",
+  "sprache": "en",
+  "base_url": "https://www.questionablecontent.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.questionablecontent",
+  "quellen": [
+   {
+    "name": "Questionable Content",
+    "sprache": "en",
+    "quell_id": 5564060716297760161,
+    "home": "https://www.questionablecontent.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/questionablecontent",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/archive.php",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/archive.php"
+    },
+    "title": {
+     "const": "Questionable Content"
+    },
+    "cover": {
+     "const": "https://i.ibb.co/ZVL9ncS/qc-teh.png"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "Questionable Content"
+    },
+    "cover": {
+     "const": "https://i.ibb.co/ZVL9ncS/qc-teh.png"
+    },
+    "author": {
+     "const": "Jeph Jacques"
+    },
+    "artist": {
+     "const": "Jeph Jacques"
+    },
+    "description": {
+     "const": "An internet comic strip about romance and robots"
+    },
+    "status": {
+     "const": "ongoing"
+    }
+   },
+   "status_map": {
+    "ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div#container a[href^=\"view.php?comic=\"]",
+   "fields": {
+    "url": {
+     "path": "@href",
+     "regex": "(view\\.php\\?comic=.*)$",
+     "group": 1,
+     "template": "/{value}"
+    },
+    "name": {
+     "path": "",
+     "replace": [
+      [
+       "^See #(\\d+): \"(.*)\" with newspost$",
+       "$1: $2"
+      ]
+     ]
+    },
+    "number": {
+     "path": "@href",
+     "regex": "comic=(\\d+)",
+     "group": 1
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#strip",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Einzeltitel-Webcomic: ein fester Eintrag /archive.php, Details konstant wie in der Community. Keine Suche/Neueste.",
+  "Kapitel: Links view.php?comic=N in div#container, Reihenfolge der Seite; Name 'See #N: \"Titel\" with newspost' → 'N: Titel'. Dubletten nicht entfernt; das von der Community gemerkte Datum der neuesten Folge entfällt.",
+  "Community erzwingt Accept-Encoding 'br, gzip' (zstd-Antworten der Website werden abgeschnitten) – nicht übernommen; falls das Archiv auf dem PC abgeschnitten ist, headers ergänzen.",
+  "Autorennotizen als Textseite (TextInterceptor, standardmäßig aus) nicht abgebildet."
+ ]
+}

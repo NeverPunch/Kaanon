@@ -23,7 +23,109 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/category/comic/page/{page}/",
+   "items": ".comicthumbwrap",
+   "fields": {
+    "url": ".comicarchiveframe > a@href",
+    "title": {
+     "path": ".comicthumbdate",
+     "regex": "^(.*?)(?: by .*)?$",
+     "group": 1
+    },
+    "cover": ".comicarchiveframe > a img@src"
+   },
+   "has_next": {
+    "exists": ".pagenav-left a"
+   }
+  },
+  "latest": {
+   "request": "{base}/",
+   "items": "#MattsRecentComicsBar > ul > div",
+   "fields": {
+    "url": ".comicarchiveframe > a@href",
+    "title": {
+     "path": ".comicthumbdate",
+     "regex": "^(.*?)(?: by .*)?$",
+     "group": 1
+    },
+    "cover": ".comicarchiveframe > a img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/?s={query}",
+   "items": "h2.post-title",
+   "fields": {
+    "url": "a@href",
+    "title": {
+     "path": "a",
+     "regex": "^(.*?)(?: by .*)?$",
+     "group": 1
+    }
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "path": "meta[property=og:title]@content",
+     "regex": "^(.*?)(?: by .*)?$",
+     "group": 1
+    },
+    "author": {
+     "path": "meta[property=og:title]@content",
+     "regex": " by (.+)$",
+     "group": 1
+    },
+    "description": {
+     "path": "meta[property=og:description]@content",
+     "regex": "(?s)^(.*?)(?:\\s{6,}|$)",
+     "group": 1
+    },
+    "genres": {
+     "path": "meta[property=article:section]:not(:first-of-type)@content",
+     "all": true,
+     "join": ", "
+    },
+    "cover": "meta[property=og:image]@content",
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": "title",
+    "scanlator": ".post-author a",
+    "date": ".post-date"
+   },
+   "date_format": "M/d/yyyy",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.comicpane img",
+   "image": "@src"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "WordPress-Webcomic: jeder Comic ist ein Eintrag mit genau einem Kapitel (die Seite selbst), wie Community.",
+  "Beschreibung: Community kürzt og:description am ersten Block aus 6+ Leerzeichen und hängt Autorenlinks an; hier nur der erste Teil.",
+  "Suche hat keine Pagination und keine Cover (wie Community)."
+ ]
 }
