@@ -1,0 +1,207 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Leitura Manga",
+  "sprache": "pt-BR",
+  "base_url": "https://leituramanga.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.leituramanga",
+  "quellen": [
+   {
+    "name": "Leitura Mangá",
+    "sprache": "pt-BR",
+    "quell_id": 1445343849143422351,
+    "home": "https://leituramanga.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/leituramanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 2000
+  },
+  "popular": {
+   "request": "https://api.leituramanga.net/api/manga/?sort=view&limit=24&page={page}",
+   "format": "json",
+   "items": "data.data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "slug",
+     "template": "https://cdn.leituramanga.net/{value}/cover-md.webp"
+    }
+   },
+   "has_next": {
+    "lt": [
+     "data.pagination.page",
+     "data.pagination.totalPage"
+    ]
+   }
+  },
+  "latest": {
+   "request": "https://api.leituramanga.net/api/manga/?sort=time&limit=24&page={page}",
+   "format": "json",
+   "items": "data.data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "slug",
+     "template": "https://cdn.leituramanga.net/{value}/cover-md.webp"
+    }
+   },
+   "has_next": {
+    "lt": [
+     "data.pagination.page",
+     "data.pagination.totalPage"
+    ]
+   }
+  },
+  "search": {
+   "request": "https://api.leituramanga.net/api/manga/?limit=24&page={page}&keyword={query}&sort=time",
+   "format": "json",
+   "items": "data.data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "slug",
+     "template": "https://cdn.leituramanga.net/{value}/cover-md.webp"
+    }
+   },
+   "has_next": {
+    "lt": [
+     "data.pagination.page",
+     "data.pagination.totalPage"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "mid": [
+     {
+      "path": "html@html",
+      "regex": "mangaId\\\\?\":\\\\?\"([0-9a-f]{24})",
+      "group": 1
+     },
+     {
+      "path": "html@html",
+      "regex": "\\\\?\"manga\\\\?\":\\{\\\\?\"_id\\\\?\":\\\\?\"([0-9a-f]{24})",
+      "group": 1
+     }
+    ]
+   },
+   "fields": {
+    "title": "h1",
+    "description": "h2:contains(Sinopse) + div p",
+    "author": {
+     "path": "h2:contains(Informações) + div p:contains(Autor)",
+     "replace": [
+      [
+       "^[^:]*:\\s*",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": "h2 + div > a[href*=genre]",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": "h2:contains(Informações) + div p:contains(Status)",
+     "replace": [
+      [
+       "^[^:]*:\\s*",
+       ""
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "em breve": 1,
+    "Em breve": 1,
+    "em andamento": 1,
+    "Em andamento": 1,
+    "completo": 2,
+    "Completo": 2,
+    "cancelado": 5,
+    "Cancelado": 5,
+    "em pausa": 6,
+    "Em pausa": 6
+   }
+  },
+  "chapters": {
+   "request": "https://api.leituramanga.net/api/chapter/get-by-manga-id?mangaId={l.mid}&page=1&limit=9007199254740991",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "items": "data.data",
+   "fields": {
+    "url": {
+     "path": "chapterNumber",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "/manga/{u.slug}/chapter/{value}"
+    },
+    "name": [
+     "title",
+     {
+      "path": "chapterNumber",
+      "replace": [
+       [
+        "\\.0$",
+        ""
+       ]
+      ],
+      "template": "Capítulo {value}"
+     }
+    ],
+    "number": "chapterNumber",
+    "date": "releaseDate"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "block_regex": "(?s)\\\\?\"chapter\\\\?\":\\{.*?\\\\?\"images\\\\?\":\\[(.*?)\\]",
+   "items": "[{,]\\\\?\"url\\\\?\":\\\\?\"([^\"\\\\]+)",
+   "image": {
+    "path": "",
+    "template": "https://cdn.leituramanga.net/{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "Listen über api.leituramanga.net (limit=24) wie in der Community; Cover = cdn.leituramanga.net/<slug>/cover-md.webp. Genre-/Status-Filter nicht übernommen.",
+  "Bei HTTP 403 verlangt die Community, die Website erst im WebView zu öffnen (Schutzseite) – das löst das Rezept nicht.",
+  "Manga-ID aus den Next.js-Daten der Detailseite (self.__next_f, Anführungszeichen ggf. als \\\" maskiert) per Regex: 'mangaId', sonst 'manga':{'_id'. Kapitel: /api/chapter/get-by-manga-id mit dem Limit des Frontends (sonst strengeres Ratenlimit).",
+  "Status: Community vergleicht kleingeschriebenen Text mit großgeschriebenen Werten (ergibt immer unbekannt); hier die gemeinten Zuordnungen.",
+  "Seiten: Bildliste 'chapter'→'images' aus den Next.js-Daten der Kapitelseite (Text-Regex, maskiert oder nicht), URL = cdn.leituramanga.net/<url>."
+ ]
+}

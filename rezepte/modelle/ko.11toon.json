@@ -1,0 +1,165 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "11toon",
+  "sprache": "ko",
+  "base_url": "https://www.11toon.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ko.kaanon.11toon",
+  "quellen": [
+   {
+    "name": "11toon",
+    "sprache": "ko",
+    "quell_id": 8796296375202334266,
+    "home": "https://www.11toon.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ko/toon11",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/bbs/board.php?bo_table=toon_c&is_over=0&page={page}",
+   "items": "li[data-id]",
+   "fields": {
+    "url": {
+     "path": "@data-id",
+     "template": "/bbs/board.php?bo_table=toons&is={value}"
+    },
+    "title": ".homelist-title",
+    "cover": [
+     ".homelist-thumb@data-mobile-image",
+     {
+      "path": ".homelist-thumb@style",
+      "regex": "url\\('([^']+)'\\)",
+      "group": 1,
+      "template": "https:{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "exists": ".pg_end"
+   }
+  },
+  "latest": {
+   "request": "{base}/bbs/board.php?bo_table=toon_c&sord=&type=upd&page={page}",
+   "items": "li[data-id]",
+   "fields": {
+    "url": {
+     "path": "@data-id",
+     "template": "/bbs/board.php?bo_table=toons&is={value}"
+    },
+    "title": ".homelist-title",
+    "cover": {
+     "path": ".homelist-thumb@style",
+     "regex": "url\\('([^']+)'\\)",
+     "group": 1,
+     "template": "https:{value}"
+    }
+   },
+   "has_next": {
+    "exists": ".pg_end"
+   }
+  },
+  "search": {
+   "request": "{base}/bbs/search_stx.php?stx={query}",
+   "items": "li[data-id]",
+   "fields": {
+    "url": {
+     "path": "@data-id",
+     "template": "/bbs/board.php?bo_table=toons&is={value}"
+    },
+    "title": ".homelist-title",
+    "cover": {
+     "path": ".homelist-thumb@style",
+     "regex": "url\\('([^']+)'\\)",
+     "group": 1,
+     "template": "https:{value}"
+    }
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h2.title",
+    "cover": "img.banner@src",
+    "status": {
+     "path": "span:contains(분류) + span",
+     "regex": "(완결|주간|월간|연재|격주)",
+     "group": 1
+    },
+    "author": "span:contains(작가) + span",
+    "description": "span:contains(소개) + span",
+    "genres": {
+     "path": "span:contains(장르) + span",
+     "replace": [
+      [
+       "\\s*,\\s*",
+       ", "
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "완결": 2,
+    "주간": 1,
+    "월간": 1,
+    "연재": 1,
+    "격주": 1
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}&page={page}",
+   "request_by_page": {
+    "1": "details"
+   },
+   "items": "#comic-episode-list > li:has(button)",
+   "fields": {
+    "url": {
+     "path": "button@onclick",
+     "regex": "location\\.href='\\.([^']*)'",
+     "group": 1,
+     "template": "/bbs{value}"
+    },
+    "name": "button .episode-title",
+    "date": ".free-date@ownText"
+   },
+   "date_format": "yy.MM.dd",
+   "date_locale": "en",
+   "paging": {
+    "has_next": {
+     "exists": ".pg_current ~ .pg_page"
+    },
+    "max_pages": 50
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "script_json",
+   "script_regex": "(?s)img_list\\s*=\\s*(\\[.*?\\])",
+   "items": "$",
+   "image": {
+    "path": "",
+    "template": "https:{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "Manga-URL /bbs/board.php?bo_table=toons&is=<id> (Community hängt zusätzlich &stx=<Titel> an; laut getMangaByUrl reicht is).",
+  "Beliebt: Community lädt immer dieselbe Seite (ohne page, is_over=0), meldet aber .pg_end als weitere Seite – hier &page={page} ergänzt (Annahme). Suche über /bbs/search_stx.php?stx= ohne Blättern; Filter nicht übernommen.",
+  "Cover in Neueste/Suche aus style url('//…') mit https: davor; in Beliebt data-mobile-image.",
+  "Kapitelseiten: Community folgt dem href von .pg_current ~ .pg_page; hier Annahme, dass die Folgeseiten {abs_url}&page=N heißen (gnuboard) – prüfen.",
+  "Kapitel-URL = onclick location.href='./…' → /bbs/… (Community: '/bbs' + Rest). Datum yy.MM.dd.",
+  "Bilder aus img_list (JSON-Liste '//…' im Skript) mit https: davor. Ausweichspiegel img_list_2 (Interceptor bei Fehlern) nicht nachgebaut.",
+  "Status per Regex: erster Treffer von 완결/주간/월간/연재/격주 (Community prüft 완결 zuerst)."
+ ]
+}

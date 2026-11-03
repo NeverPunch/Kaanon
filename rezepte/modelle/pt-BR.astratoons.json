@@ -1,0 +1,163 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Astratoons",
+  "sprache": "pt-BR",
+  "base_url": "https://new.astratoons.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.astratoons",
+  "quellen": [
+   {
+    "name": "Astratoons",
+    "sprache": "pt-BR",
+    "quell_id": 551908063793499841,
+    "home": "https://new.astratoons.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/astratoons",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/",
+   "items": "#comicsSlider a:has(h3)",
+   "fields": {
+    "url": "@href",
+    "title": "h3",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/api/comics?sortBy=updated_at&page={page}",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comics/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover_image",
+     "template": "{base}/storage/{value}"
+    }
+   },
+   "has_next": {
+    "lt": [
+     "current_page",
+     "last_page"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/api/comics?page={page}&search={query}&sortBy=updated_at",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comics/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover_image",
+     "template": "{base}/storage/{value}"
+    }
+   },
+   "has_next": {
+    "lt": [
+     "current_page",
+     "last_page"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "cid": {
+     "path": "html@html",
+     "regex": "comicId:\\s*(\\d+)",
+     "group": 1
+    }
+   },
+   "fields": {
+    "title": "h1",
+    "cover": "img[class*=object-cover]@src",
+    "description": [
+     "div.space-y-4 > p",
+     "div:has(>h1) + div"
+    ],
+    "genres": {
+     "path": "h3:contains(Tags) + div a",
+     "all": true,
+     "join": ", "
+    },
+    "author": "span:contains(Autor) > span",
+    "artist": "span:contains(Artista) > span",
+    "status": "h3:contains(Informações) + div span.capitalize"
+   },
+   "status_map": {
+    "em andamento": 1,
+    "Em andamento": 1,
+    "em dia": 1,
+    "Em dia": 1,
+    "completo": 2,
+    "Completo": 2,
+    "hiato": 6,
+    "Hiato": 6,
+    "cancelado": 5,
+    "Cancelado": 5,
+    "dropado": 5,
+    "Dropado": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/comics/{l.cid}/chapters?search=&order=desc&page={page}",
+   "format": "json_html",
+   "html_path": "html",
+   "items": "a[href]",
+   "fields": {
+    "url": "@href",
+    "name": [
+     ".text-lg",
+     {
+      "const": "Chapter"
+     }
+    ]
+   },
+   "paging": {
+    "has_next": {
+     "exists": "^hasMore"
+    },
+    "max_pages": 100
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#reader-container img[src], #reader-container canvas[data-src]",
+   "image": [
+    "@src",
+    "@data-src"
+   ],
+   "referer": "chapter"
+  }
+ },
+ "hinweise": [
+  "Beliebt = Slider der Startseite (eine Seite) wie in der Community; Neueste/Suche über /api/comics (sortBy=updated_at), Cover {base}/storage/<cover_image>. Filter (Status, Typ, Tags) nicht übernommen.",
+  "Kapitel: comicId aus dem Skript der Detailseite, dann /api/comics/<id>/chapters seitenweise (JSON mit HTML-Feld 'html', weiter solange hasMore). Kein Datum.",
+  "Bilder mit Referer = Kapitelseite wie in der Community. Ob canvas[data-src] Bilder ohne Entwürfelung liefert, auf dem PC prüfen."
+ ]
+}

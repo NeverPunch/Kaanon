@@ -1,0 +1,152 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Animy",
+  "sprache": "pt-BR",
+  "base_url": "https://animy.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.animy",
+  "quellen": [
+   {
+    "name": "Animy",
+    "sprache": "pt-BR",
+    "quell_id": 4704251131541894836,
+    "home": "https://animy.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/animy",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "application/json",
+   "Referer": "{base}/"
+  },
+  "popular": {
+   "request": "{base}/api/v1/mangas?offset={offset}&limit=24&sort=popular",
+   "format": "json",
+   "items": "items",
+   "page_size": 24,
+   "has_next": {
+    "total": "total"
+   },
+   "fields": {
+    "url": "id",
+    "title": "t",
+    "cover": "cover"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/v1/mangas?offset={offset}&limit=24&sort=released&released=1",
+   "format": "json",
+   "items": "items",
+   "page_size": 24,
+   "has_next": {
+    "total": "total"
+   },
+   "fields": {
+    "url": "id",
+    "title": "t",
+    "cover": "cover"
+   }
+  },
+  "search": {
+   "request": "{base}/api/v1/mangas?offset={offset}&limit=24&search={query}",
+   "format": "json",
+   "items": "items",
+   "page_size": 24,
+   "has_next": {
+    "total": "total"
+   },
+   "fields": {
+    "url": "id",
+    "title": "t",
+    "cover": "cover"
+   }
+  },
+  "details": {
+   "request": "{base}/api/v1/mangas/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "^/?([0-9]+)"
+   },
+   "fields": {
+    "title": "t",
+    "cover": "cover",
+    "description": "desc",
+    "author": "au",
+    "genres": {
+     "path": [
+      "g.*",
+      "type"
+     ],
+     "union": true
+    },
+    "status": "status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/v1/mangas/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "^/?([0-9]+)"
+   },
+   "items": "chapters",
+   "reverse": true,
+   "fields": {
+    "url": {
+     "path": "number",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "{u.id}/{value}"
+    },
+    "name": {
+     "path": "number",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "Capítulo {value}"
+    },
+    "number": "number",
+    "date": "date"
+   },
+   "date_format": "yyyy-MM-dd"
+  },
+  "pages": {
+   "request": "{base}/api/v1/mangas/{u.mid}/chapters/{u.num}",
+   "format": "json",
+   "url_vars": {
+    "mid": "^/?([0-9]+)/",
+    "num": "/([^/]+)$"
+   },
+   "items": "pages",
+   "sort": "number",
+   "image": "imageUrl"
+  }
+ },
+ "hinweise": [
+  "JSON-API {base}/api/v1 wie Community (offset/limit 24, weiter solange offset+Anzahl < total). Filter (Typ/Status/Gênero) nicht übernommen.",
+  "Manga-URL ist die numerische ID, Kapitel-URL <id>/<nummer> wie in der Community; die Detailanfrage liefert die Kapitelliste mit (zweimal geladen, Community lädt einmal).",
+  "Gêneros: Community hängt den Typ nur an, wenn er nicht „manga“ ist; das Rezept nimmt ihn immer mit.",
+  "Datum yyyy-MM-dd, Community rechnet in America/Sao_Paulo."
+ ]
+}

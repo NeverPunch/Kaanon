@@ -1,0 +1,104 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Wolf.com",
+  "sprache": "ko",
+  "base_url": "https://wfwf507.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ko.kaanon.wolfcom",
+  "quellen": [
+   {
+    "name": "늑대닷컴 - 웹툰",
+    "sprache": "ko",
+    "quell_id": 5583626852311652499,
+    "home": "https://wfwf507.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ko/wolfdotcom",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/ing?o=f&pg={page}",
+   "items": "a.t-card[href*=/list?]",
+   "has_next": {
+    "exists": ".pagi .pg-btn.on + a.pg-btn"
+   },
+   "fields": {
+    "url": "@href",
+    "title": ".t-title",
+    "cover": ".t-img img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/ing?o=n&pg={page}",
+   "items": "a.t-card[href*=/list?]",
+   "has_next": {
+    "exists": ".pagi .pg-btn.on + a.pg-btn"
+   },
+   "fields": {
+    "url": "@href",
+    "title": ".t-title",
+    "cover": ".t-img img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1.w-title",
+    "cover": ".thumb-wrap img@src",
+    "description": ".summary",
+    "genres": {
+     "path": ".genre-tags a.gtag",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       "(^|, )#",
+       "$1"
+      ]
+     ]
+    }
+   }
+  },
+  "chapters": {
+   "request": "{base}/list?toon={u.toon}&s=n&pg={page}",
+   "request_by_page": {
+    "1": "details"
+   },
+   "url_vars": {
+    "toon": "toon=([^&#]+)"
+   },
+   "items": "a.ep-item",
+   "fields": {
+    "url": "@href",
+    "name": ".ep-title",
+    "date": ".ep-date"
+   },
+   "date_format": "yyyy-MM-dd",
+   "paging": {
+    "has_next": {
+     "exists": ".pagi .pg-btn.on + a.pg-btn"
+    },
+    "max_pages": 50
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#vimg-area img[data-src]",
+   "image": "@data-src"
+  }
+ },
+ "hinweise": [
+  "Quellen auf „늑대닷컴 - 웹툰“ gekürzt: Community bedient drei Quellen (웹툰 /ing + /list + /view, 만화책 /cm + /cl + /cv, 포토툰 /pt) mit verschiedenen Pfaden; ein Modell kann nur eine davon richtig abbilden (Sprache bleibt ko).",
+  "Keine Suche: die Website versteht den Suchbegriff (/sh?q=) nur EUC-KR-kodiert; die Rezeptsprache kodiert {query} als UTF-8.",
+  "Basis-URL wechselt häufig (wfwfNNN.com); Community lässt sie als Einstellung überschreiben.",
+  "Kapitel-Seiten ab 2: /list?toon=…&s=n&pg=N wie in der Community; Seite 1 ist die Detailseite."
+ ]
+}

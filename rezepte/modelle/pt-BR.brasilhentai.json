@@ -1,0 +1,99 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Brasil Hentai",
+  "sprache": "pt-BR",
+  "base_url": "https://brasilhentai.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.brasilhentai",
+  "quellen": [
+   {
+    "name": "Brasil Hentai",
+    "sprache": "pt-BR",
+    "quell_id": 8020430975962445741,
+    "home": "https://brasilhentai.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/brasilhentai",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 4,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/page/{page}",
+   "items": ".content-area article:has(a[title])",
+   "fields": {
+    "url": "a[title]@href",
+    "title": "a[title]@title",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": ".next.page-numbers"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}?s={query}",
+   "items": ".content-area article:has(a[title])",
+   "fields": {
+    "url": "a[title]@href",
+    "title": "a[title]@title",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": ".next.page-numbers"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1@ownText",
+    "cover": ".entry-content p a img@src",
+    "description": ".entry-content",
+    "genres": {
+     "path": ".cat-links a",
+     "all": true,
+     "join": ", "
+    },
+    "author": ".author",
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Capítulo único"
+    },
+    "date": ".entry-date.published@datetime"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".entry-content p > img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "WordPress-Blog: jeder Beitrag ist ein Werk mit einem Kapitel ('Capítulo único', URL = Beitrags-URL) wie in der Community. Keine Neuesten (Community ebenso).",
+  "Beschreibung = gesamter Text von .entry-content wie in der Community. Status fest abgeschlossen. Kategorie-Filter nicht übernommen."
+ ]
+}

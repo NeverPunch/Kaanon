@@ -1,0 +1,131 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Blackout Comics",
+  "sprache": "pt-BR",
+  "base_url": "https://blackoutcomics.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.blackoutcomics",
+  "quellen": [
+   {
+    "name": "Blackout Comics",
+    "sprache": "pt-BR",
+    "quell_id": 4905303791571172293,
+    "home": "https://blackoutcomics.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/blackoutcomics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "cookies": {
+   "age_gate_consent": "{\"consentAt\":1790812800000,\"expiresAt\":2145916800000}",
+   "_popprepop": "1"
+  },
+  "popular": {
+   "request": "{base}/ranking",
+   "items": ".ranking-grid a.webtoon-card",
+   "fields": {
+    "url": "@href",
+    "title": ".card-title span",
+    "cover": ".card-thumb img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/atualizados-recente?page={page}",
+   "items": ".webtoon-grid a.webtoon-card",
+   "fields": {
+    "url": "@href",
+    "title": ".card-title span",
+    "cover": ".card-thumb img@src"
+   },
+   "has_next": {
+    "exists": ".pagerx__link[rel=next]"
+   }
+  },
+  "search": {
+   "request": "{base}/comics",
+   "items": ".webtoon-grid a.webtoon-card",
+   "fields": {
+    "url": "@href",
+    "title": ".card-title span",
+    "cover": ".card-thumb img@src"
+   },
+   "client_filter": true,
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".project-title",
+    "cover": ".project-cover@src",
+    "author": ".quick-info-item:has(.fa-pen-nib) strong",
+    "artist": ".quick-info-item:has(.fa-palette) strong",
+    "description": ".project-description",
+    "genres": {
+     "path": ".project-genres .genre-tag",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": ".status-pill",
+     "regex": "(?i)(lançamento|lancamento|completo)",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "lançamento": 1,
+    "lancamento": 1,
+    "completo": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#tab-capitulos-list .normal_ep",
+   "fields": {
+    "url": [
+     "a[href]@href",
+     {
+      "path": ".num",
+      "template": "{url}/ler/capitulo-{value}"
+     }
+    ],
+    "name": {
+     "path": [
+      ".num",
+      ".cell-title strong.line-3"
+     ],
+     "union": true,
+     "join": " - ",
+     "template": "Capítulo {value}"
+    },
+    "date": ".cell-num .text-muted"
+   },
+   "date_format": "dd.MM.yy"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "script_json",
+   "script_regex": "\\bS\\s*=\\s*(\\[[\\s\\S]*?\\])",
+   "items": "$"
+  }
+ },
+ "hinweise": [
+  "Cookies age_gate_consent/_popprepop wie im Community-Code (Altersabfrage/Popup überspringen, kein Login).",
+  "Suche: Community nutzt POST /comics/search-preview mit CSRF-Token aus einer vorher geladenen Seite (zweistufig in Listen nicht belegt). Ersatz: Liste /comics (ohne Filter) mit client_filter auf den Titel – auf dem PC prüfen, ob /comics alle Titel zeigt. Status-/Genrefilter nicht übernommen.",
+  "Kapitel-URL: Link, sonst <Manga-URL>/ler/capitulo-<num> (wie Community). Name 'Capítulo <num>[ - Titel]' per union/join + template (Reihenfolge prüfen).",
+  "Seiten: JSON-Liste aus 'S = [...]' im Inline-Skript (Community: erster Treffer je Skript; hier mit Wortgrenze über die ganze Seite). Relative Bild-URLs bleiben relativ. Kapitel mit Login/Discord-Pflicht liefern keine Bilder.",
+  "Community entfernt den Referer bei Bildanfragen – hier nicht nachgebaut (prüfen)."
+ ]
+}

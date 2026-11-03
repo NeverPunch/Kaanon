@@ -1,0 +1,134 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Sen Manga",
+  "sprache": "ja",
+  "base_url": "https://raw.senmanga.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.senmanga",
+  "quellen": [
+   {
+    "name": "Sen Manga",
+    "sprache": "ja",
+    "quell_id": 7715542271185249444,
+    "home": "https://raw.senmanga.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/senmanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/api/directory?order=Popular&page={page}",
+   "format": "json",
+   "items": "series",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   },
+   "has_next": {
+    "lt": [
+     "currentPage",
+     "totalPages"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/api/home",
+   "format": "json",
+   "items": "series",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/api/directory?page={page}&s={query}",
+   "format": "json",
+   "items": "series",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   },
+   "has_next": {
+    "lt": [
+     "currentPage",
+     "totalPages"
+    ]
+   }
+  },
+  "details": {
+   "request": "{base}/api/manga/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "cover",
+    "description": "description",
+    "genres": "genre",
+    "status": {
+     "path": "status",
+     "regex": "(?i)(ongoing|complete|hiatus|dropped)",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "complete": 2,
+    "hiatus": 6,
+    "dropped": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "chapterList",
+   "fields": {
+    "url": {
+     "path": "url",
+     "template": "/manga/{u.slug}/chapter-{value}/"
+    },
+    "name": "title",
+    "date": "datetime"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api/read/{u.slug}/{u.ch}",
+   "url_vars": {
+    "slug": "/manga/([^/]+)/",
+    "ch": "/chapter-([^/?#]+)"
+   },
+   "format": "json",
+   "items": "pages",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "API /api/directory (Beliebt order=Popular, Suche s=), Neueste = /api/home (eine Seite) wie Community; Typ-/Status-/Sortierfilter nicht nachgebaut.",
+  "URLs wie die Website: Manga /manga/<slug>, Kapitel /manga/<slug>/chapter-<url>/ (Community speichert <slug>/<url>); Bilder über /api/read/<slug>/<url>.",
+  "Status per Regex (enthält ongoing/complete/hiatus/dropped) wie Community; Datum ISO angenommen (Community: Instant.tryParse)."
+ ]
+}

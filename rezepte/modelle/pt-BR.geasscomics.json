@@ -1,0 +1,186 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Geass Comics",
+  "sprache": "pt-BR",
+  "base_url": "https://geasscomics.xyz",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.geasscomics",
+  "quellen": [
+   {
+    "name": "Geass Comics",
+    "sprache": "pt-BR",
+    "quell_id": 7839519253265657488,
+    "home": "https://geasscomics.xyz"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/geasscomics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "application/json",
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://api.geasscomics.xyz/api/works?page={page}&limit=24&safe=true&sortBy=rating",
+   "format": "json",
+   "items": "data.items",
+   "has_next": {
+    "lt": [
+     "data.page",
+     "data.pageCount"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/work/{value}"
+    },
+    "title": "title",
+    "cover": [
+     "coverLarge",
+     "cover"
+    ]
+   }
+  },
+  "latest": {
+   "request": "https://api.geasscomics.xyz/api/works?page={page}&limit=24&safe=true&sortBy=recent",
+   "format": "json",
+   "items": "data.items",
+   "has_next": {
+    "lt": [
+     "data.page",
+     "data.pageCount"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/work/{value}"
+    },
+    "title": "title",
+    "cover": [
+     "coverLarge",
+     "cover"
+    ]
+   }
+  },
+  "search": {
+   "request": "https://api.geasscomics.xyz/api/works?page={page}&limit=24&safe=true&q={query}&sortBy=recent&sortDir=desc",
+   "format": "json",
+   "items": "data.items",
+   "has_next": {
+    "lt": [
+     "data.page",
+     "data.pageCount"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/work/{value}"
+    },
+    "title": "title",
+    "cover": [
+     "coverLarge",
+     "cover"
+    ]
+   }
+  },
+  "details": {
+   "request": "https://api.geasscomics.xyz/api/works/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/work/([^/?#]+)"
+   },
+   "fields": {
+    "title": "data.title",
+    "cover": [
+     "data.coverLarge",
+     "data.cover"
+    ],
+    "description": "data.synopsis",
+    "author": "data.author",
+    "genres": {
+     "path": "data.tags.*",
+     "all": true,
+     "join": ", "
+    },
+    "status": "data.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "cancelled": 5,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "https://api.geasscomics.xyz/api/works/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/work/([^/?#]+)"
+   },
+   "items": "data.chapters",
+   "fields": {
+    "url": {
+     "path": "number",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "/read/{u.slug}/{value}"
+    },
+    "name": {
+     "const": "Capítulo {f.number}[[ - {f.title}]]",
+     "replace": [
+      [
+       "^(Capítulo [0-9]+)\\.0(?=\\s|$)",
+       "$1"
+      ],
+      [
+       " - Capítulo.*$",
+       ""
+      ]
+     ]
+    },
+    "number": "number",
+    "date": "releasedAt"
+   },
+   "date_format": [
+    "iso",
+    "yyyy-MM-dd HH:mm:ss"
+   ]
+  },
+  "pages": {
+   "request": "https://api.geasscomics.xyz/api/works/{u.slug}/chapters/{u.num}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/read/([^/]+)/",
+    "num": "/read/[^/]+/([^/?#]+)"
+   },
+   "items": "data.pages",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "API https://api.geasscomics.xyz/api wie Community (limit 24, weiter bei data.page < data.pageCount). Community-Standard ohne Erwachseneninhalt: safe=true ist fest gesetzt; Filter nicht übernommen.",
+  "Manga-URL /work/<slug>, Kapitel-URL /read/<slug>/<nummer> (Website-Leser); Community speichert /manga/<slug> bzw. /chapter/<id>/<slug>/<nummer>.",
+  "Kapitelname „Capítulo N – Titel“; Titel, die selbst mit „Capítulo“ beginnen, werden wie in der Community weggelassen. Datum teils ISO, teils yyyy-MM-dd HH:mm:ss (UTC).",
+  "Zahl im JSON evtl. als 12.0 → „.0“ wird entfernt; auf dem PC prüfen."
+ ]
+}

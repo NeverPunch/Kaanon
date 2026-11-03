@@ -1,0 +1,128 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "BRScans",
+  "sprache": "pt-BR",
+  "base_url": "https://brscans.vercel.app",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.brscans",
+  "quellen": [
+   {
+    "name": "BRScans",
+    "sprache": "pt-BR",
+    "quell_id": 1420003550573697308,
+    "home": "https://brscans.vercel.app"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/brscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "application/json",
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "popular": {
+   "request": "https://e5oer7ngt8.execute-api.sa-east-1.amazonaws.com/dev/manhwas/top/",
+   "format": "json",
+   "items": "$",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "thumbnail.original"
+   }
+  },
+  "latest": {
+   "request": "https://e5oer7ngt8.execute-api.sa-east-1.amazonaws.com/dev/manhwas/?page={page}",
+   "format": "json",
+   "items": "results",
+   "has_next": {
+    "exists": "next"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "thumbnail.original"
+   }
+  },
+  "search": {
+   "request": "https://e5oer7ngt8.execute-api.sa-east-1.amazonaws.com/dev/manhwas/search/?query={query}",
+   "format": "json",
+   "items": "$",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "thumbnail.original"
+   }
+  },
+  "details": {
+   "request": "https://e5oer7ngt8.execute-api.sa-east-1.amazonaws.com/dev/manhwas/{u.id}/",
+   "format": "json",
+   "url_vars": {
+    "id": "/manga/(\\d+)"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "thumbnail.original",
+    "description": "description"
+   }
+  },
+  "chapters": {
+   "request": "https://e5oer7ngt8.execute-api.sa-east-1.amazonaws.com/dev/manhwas/{u.id}/",
+   "format": "json",
+   "url_vars": {
+    "id": "/manga/(\\d+)"
+   },
+   "items": "chapters",
+   "reverse": true,
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{u.id}/chapter/{value}?variant=translated"
+    },
+    "name": "title",
+    "date": "created_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://e5oer7ngt8.execute-api.sa-east-1.amazonaws.com/dev/chapters/{u.cid}/",
+   "format": "json",
+   "url_vars": {
+    "cid": "/chapter/(\\d+)"
+   },
+   "items": "pages",
+   "image": [
+    "images.translated",
+    "images.original"
+   ]
+  }
+ },
+ "hinweise": [
+  "API auf AWS (execute-api …/dev) wie in der Community fest eingetragen; Website-URLs /manga/<id> und /manga/<id>/chapter/<cid>.",
+  "Community bietet jedes Kapitel dreifach an (Varianten translated/original/raw als Scanlator „Português“/„Original“/„Sem texto“); das Rezept bietet nur die übersetzte Variante (Ausweichbild: original).",
+  "Beschreibung ohne angehängten Originaltitel (Community: „Título original: …“)."
+ ]
+}

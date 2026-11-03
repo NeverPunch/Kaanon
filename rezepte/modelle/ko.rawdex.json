@@ -1,0 +1,125 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "RawDEX",
+  "sprache": "ko",
+  "base_url": "https://rawdex.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.ko.kaanon.rawdex",
+  "quellen": [
+   {
+    "name": "RawDEX",
+    "sprache": "ko",
+    "quell_id": 7981220701421282731,
+    "home": "https://rawdex.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ko/rawdex",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/manga/page/{page}/?m_orderby=views",
+   "items": "article.rdx-library-card:has(.rdx-library-card__body h2 a)",
+   "fields": {
+    "url": ".rdx-library-card__body h2 a@href",
+    "title": ".rdx-library-card__body h2 a",
+    "cover": ".rdx-library-card__cover img@src"
+   },
+   "has_next": {
+    "exists": "a.next.page-numbers"
+   }
+  },
+  "latest": {
+   "request": "{base}/manga/page/{page}/?m_orderby=latest",
+   "items": "article.rdx-library-card:has(.rdx-library-card__body h2 a)",
+   "fields": {
+    "url": ".rdx-library-card__body h2 a@href",
+    "title": ".rdx-library-card__body h2 a",
+    "cover": ".rdx-library-card__cover img@src"
+   },
+   "has_next": {
+    "exists": "a.next.page-numbers"
+   }
+  },
+  "search": {
+   "request": "{base}/?s={query}&spage={page}",
+   "request_by_page": {
+    "1": "{base}/?s={query}"
+   },
+   "items": "article.rdx-library-card:has(.rdx-library-card__body h2 a)",
+   "fields": {
+    "url": ".rdx-library-card__body h2 a@href",
+    "title": ".rdx-library-card__body h2 a",
+    "cover": ".rdx-library-card__cover img@src"
+   },
+   "has_next": {
+    "exists": "a.next.page-numbers"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "summary": ".rdx-manga-summary",
+    "alt": ".rdx-manga-alternative"
+   },
+   "fields": {
+    "title": ".rdx-manga-heading h1",
+    "cover": "img.rdx-manga-cover@src",
+    "author": "dl.rdx-manga-meta div:has(dt:matchesOwn((?i)^\\s*author\\s*$)) dd",
+    "artist": "dl.rdx-manga-meta div:has(dt:matchesOwn((?i)^\\s*artist\\s*$)) dd",
+    "genres": {
+     "path": ".rdx-manga-tags a",
+     "all": true,
+     "join": ", "
+    },
+    "description": {
+     "const": "{l.summary}[[\n\nAlternative Names: {l.alt}]]"
+    },
+    "status": ".rdx-manga-status"
+   },
+   "status_map": {
+    "on-going": 1,
+    "On-going": 1,
+    "On-Going": 1,
+    "ON-GOING": 1,
+    "end": 2,
+    "End": 2,
+    "END": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".rdx-chapter-list > a.rdx-chapter-row:has(.rdx-chapter-row__label)",
+   "fields": {
+    "url": "@href",
+    "name": ".rdx-chapter-row__label",
+    "date": ".rdx-chapter-row__date",
+    "number": {
+     "path": ".rdx-chapter-row__label",
+     "regex": "(\\d+(?:\\.\\d+)?)",
+     "group": 1
+    }
+   },
+   "date_format": "relative",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".rdx-reader-page img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Eigenes rdx-Markup (früher Madara) wie in der Community. Suche: Seite 1 ohne spage, ab Seite 2 mit spage=<n>.",
+  "Community wertet nächste Seite nur, wenn Karten vorhanden sind (die Paginierung zeigt am Archivende zu viele Seiten; dann 404 ohne Karten) – hier nur a.next.page-numbers.",
+  "Status: 'on-going' → laufend, 'end' → abgeschlossen. Alternativnamen als eine Zeile an die Beschreibung angehängt.",
+  "Kapiteldatum nur relativ ('3 hours ago'), Nummer aus dem Kapitelnamen."
+ ]
+}

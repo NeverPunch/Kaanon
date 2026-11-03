@@ -1,0 +1,156 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaDash",
+  "sprache": "pt-BR",
+  "base_url": "https://mangadash.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.mangadash",
+  "quellen": [
+   {
+    "name": "MangaDash",
+    "sprache": "pt-BR",
+    "quell_id": 4579000402227688678,
+    "home": "https://mangadash.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/mangadash",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "application/json, text/plain, */*"
+  },
+  "popular": {
+   "request": "{base}/api/mangas/list?page={page}&q=&sort=populares&categoria=&status=&ano=&plus18=",
+   "format": "json",
+   "items": "items",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{value}-{f.slug}"
+    },
+    "title": "nome",
+    "cover": [
+     {
+      "path": "capa",
+      "regex": "^\\.\\./(.*)$",
+      "group": 1,
+      "template": "{base}/static/{value}"
+     },
+     "capa"
+    ]
+   },
+   "has_next": {
+    "exists": "pagination.has_next"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/mangas/list?page={page}&q=&sort=recentes&categoria=&status=&ano=&plus18=",
+   "format": "json",
+   "items": "items",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{value}-{f.slug}"
+    },
+    "title": "nome",
+    "cover": [
+     {
+      "path": "capa",
+      "regex": "^\\.\\./(.*)$",
+      "group": 1,
+      "template": "{base}/static/{value}"
+     },
+     "capa"
+    ]
+   },
+   "has_next": {
+    "exists": "pagination.has_next"
+   }
+  },
+  "search": {
+   "request": "{base}/api/mangas/list?page={page}&q={query}&sort=recentes&categoria=&status=&ano=&plus18=",
+   "format": "json",
+   "items": "items",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{value}-{f.slug}"
+    },
+    "title": "nome",
+    "cover": [
+     {
+      "path": "capa",
+      "regex": "^\\.\\./(.*)$",
+      "group": 1,
+      "template": "{base}/static/{value}"
+     },
+     "capa"
+    ]
+   },
+   "has_next": {
+    "exists": "pagination.has_next"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".neon-title",
+    "cover": ".cover-3d img@src",
+    "author": ".tag-author",
+    "genres": ".manga-tags a.tag:not(.tag-author)",
+    "description": ".manga-description",
+    "status": {
+     "path": ".stats-row",
+     "regex": "(?i)(lançamento|concluído|hiato)",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "lançamento": 1,
+    "concluído": 2,
+    "hiato": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".chapters-scroll-container .chapter-row",
+   "fields": {
+    "url": "@href",
+    "name": ".chapter-title-group h4",
+    "number": {
+     "path": ".chapter-title-group h4",
+     "regex": "Capítulo\\s*([0-9.]+)",
+     "group": 1
+    },
+    "date": ".chapter-meta-info:has(.fa-calendar)"
+   },
+   "date_format": "dd/MM/yyyy"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "script_json",
+   "script_regex": "(?s)<script[^>]*id=[\"']chapterViewerData[\"'][^>]*>(.*?)</script>",
+   "items": [
+    "images",
+    "imagens",
+    "pages"
+   ],
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "API /api/mangas/list (Beliebt sort=populares, Neueste sort=recentes, Suche q=), weiter solange pagination.has_next. Kategorie-/Status-/Jahr-/+18-Filter nicht nachgebaut.",
+  "Manga-URL /manga/<id>-<slug>; Cover: '../' am Anfang wird zu <base>/static/ wie Community.",
+  "Kapitel: Community sortiert nach der Nummer aus 'Capítulo N' absteigend (Website sortiert alphabetisch) – Sortierung nicht ausdrückbar, hier Seitenreihenfolge.",
+  "Seiten aus script#chapterViewerData (images/imagens/pages). Kapitel, die nur als PDF vorliegen (pdfUrl), rendert die Community selbst zu Bildern – das kann die Engine nicht, diese Kapitel bleiben leer.",
+  "Optionaler Login (CSRF + Formular, für +18-Inhalte) nicht nachgebaut."
+ ]
+}

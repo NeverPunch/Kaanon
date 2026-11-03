@@ -1,0 +1,155 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "BenDezOmniHero",
+  "sprache": "pt",
+  "base_url": "https://bendezomnihero.blogspot.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt.kaanon.bendezomnihero",
+  "quellen": [
+   {
+    "name": "BenDezOmniHero",
+    "sprache": "pt",
+    "quell_id": 4869303402178317312,
+    "home": "https://bendezomnihero.blogspot.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/bendezomnihero",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/feeds/posts/default?alt=json&max-results=500&start-index={page_key}",
+   "format": "json",
+   "page_map": [
+    "1",
+    "501",
+    "1001",
+    "1501",
+    "2001",
+    "2501",
+    "3001",
+    "3501",
+    "4001",
+    "4501"
+   ],
+   "page_size": 500,
+   "items": "feed.entry",
+   "skip": {
+    "path": "content.$t",
+    "regex": "(?s)^(?!(?:.*?<img[^>]+?src=\"https://blogger\\.googleusercontent\\.com){20})"
+   },
+   "fields": {
+    "url": "link.?rel=alternate.href",
+    "title": "title.$t",
+    "cover": {
+     "path": "content.$t",
+     "regex": "<img[^>]+?src=\"(https://blogger\\.googleusercontent\\.com[^\"]*)\"",
+     "group": 1
+    }
+   },
+   "has_next": {
+    "full": true
+   }
+  },
+  "search": {
+   "request": "{base}/feeds/posts/default?alt=json&max-results=500&start-index={page_key}",
+   "format": "json",
+   "page_map": [
+    "1",
+    "501",
+    "1001",
+    "1501",
+    "2001",
+    "2501",
+    "3001",
+    "3501",
+    "4001",
+    "4501"
+   ],
+   "page_size": 500,
+   "items": "feed.entry",
+   "skip": {
+    "path": "content.$t",
+    "regex": "(?s)^(?!(?:.*?<img[^>]+?src=\"https://blogger\\.googleusercontent\\.com){20})"
+   },
+   "fields": {
+    "url": "link.?rel=alternate.href",
+    "title": "title.$t",
+    "cover": {
+     "path": "content.$t",
+     "regex": "<img[^>]+?src=\"(https://blogger\\.googleusercontent\\.com[^\"]*)\"",
+     "group": 1
+    }
+   },
+   "has_next": {
+    "full": true
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     "meta[property=og:title]@content",
+     "h3.post-title",
+     "title"
+    ],
+    "cover": [
+     "meta[property=og:image]@content",
+     ".post-body img@src"
+    ],
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Oneshot"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".post-body img[src^=http]",
+   "image": {
+    "path": [
+     "@data-src",
+     "@src"
+    ],
+    "replace": [
+     [
+      "/[sw]\\d[\\w-]*/([^/]+)$",
+      "/s0/$1"
+     ]
+    ]
+   },
+   "include": "blogger\\.googleusercontent\\.com|bp\\.blogspot\\.com"
+  }
+ },
+ "hinweise": [
+  "Blogger-Feed /feeds/posts/default?alt=json, 500 je Seite (start-index über page_map). Nur Beiträge mit ≥20 Blogger-Bildern gelten als Comic (Skip-Regex wie Community). Suche filtert lokal (client_filter). Keine Neueste-Liste (wie Community).",
+  "Jeder Beitrag = ein Oneshot-Kapitel mit derselben URL. Details aus og:-Angaben der Beitragsseite (Community nimmt Titel/Cover aus dem Feed) – prüfen. Veröffentlichungsdatum nicht übernommen.",
+  "Bilder: .post-body img, nur blogger.googleusercontent.com/bp.blogspot.com, Größensegment durch /s0/ ersetzt (Originalgröße) wie Community; Doppelte werden nicht entfernt."
+ ]
+}

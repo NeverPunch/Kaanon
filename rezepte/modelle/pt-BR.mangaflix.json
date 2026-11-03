@@ -1,0 +1,145 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga Flix",
+  "sprache": "pt-BR",
+  "base_url": "https://mangaflix.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.mangaflix",
+  "quellen": [
+   {
+    "name": "MangaFlix",
+    "sprache": "pt-BR",
+    "quell_id": 6813136769153267900,
+    "home": "https://mangaflix.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/mangaflix",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "application/json",
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://api.mangaflix.net/v1/browse",
+   "format": "json",
+   "items": "data.*.?key=most-read.items.*",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "_id",
+     "template": "/br/manga/{value}"
+    },
+    "title": "name",
+    "cover": "poster.default_url"
+   }
+  },
+  "latest": {
+   "request": "https://api.mangaflix.net/v1/latest-releases?selected_language=pt-br",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "_id",
+     "template": "/br/manga/{value}"
+    },
+    "title": "name",
+    "cover": "poster.default_url"
+   }
+  },
+  "search": {
+   "request": "https://api.mangaflix.net/v1/search/mangas?query={query}&selected_language=pt-br",
+   "format": "json",
+   "items": "data.works",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "_id",
+     "template": "/br/manga/{value}"
+    },
+    "title": "name",
+    "cover": "poster.default_url"
+   }
+  },
+  "details": {
+   "request": "https://api.mangaflix.net/v1/mangas/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/([^/?#]+)$"
+   },
+   "fields": {
+    "title": "data.name",
+    "cover": "data.poster.default_url",
+    "description": "data.description",
+    "genres": {
+     "path": "data.genres.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "author": "data.chapters.0.owners.0.name"
+   }
+  },
+  "chapters": {
+   "request": "https://api.mangaflix.net/v1/mangas/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/([^/?#]+)$"
+   },
+   "items": "data.chapters",
+   "fields": {
+    "url": {
+     "path": "_id",
+     "template": "/br/manga/{value}"
+    },
+    "name": [
+     "name",
+     {
+      "const": "Capítulo {f.number}"
+     }
+    ],
+    "number": "number",
+    "date": "iso_date",
+    "scanlator": {
+     "path": "owners.*.name",
+     "all": true,
+     "join": ","
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://api.mangaflix.net/v1/chapters/{u.id}?selected_language=pt-br",
+   "format": "json",
+   "url_vars": {
+    "id": "/([^/?#]+)$"
+   },
+   "items": "data.images",
+   "image": "default_url"
+  }
+ },
+ "hinweise": [
+  "API https://api.mangaflix.net/v1 wie Community. Beliebt = Abschnitt key=most-read aus /browse; Pfad „data.*.?key=most-read.items.*“ (Filter, dann Liste darin) ist so in keiner Vorlage belegt – auf dem PC prüfen.",
+  "Latest/Beliebt/Suche ohne Paging (wie Community); Genre-Filter nicht übernommen.",
+  "Manga- und Kapitel-URLs /br/manga/<_id> wie Community (Kapitel-URL enthält die Kapitel-ID). Datum ISO (Community: America/Sao_Paulo)."
+ ]
+}

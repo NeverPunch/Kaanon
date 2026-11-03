@@ -1,0 +1,123 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hora Hentai",
+  "sprache": "pt-BR",
+  "base_url": "https://horahentai.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.horahentai",
+  "quellen": [
+   {
+    "name": "Hora Hentai",
+    "sprache": "pt-BR",
+    "quell_id": 542325806354392983,
+    "home": "https://horahentai.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/horahentai",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/popular/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/popular/"
+   },
+   "items": ".lista li.novo-card-item a.novo-card-link-img",
+   "fields": {
+    "url": "@href",
+    "title": "@title",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "ul.paginacao li.next a"
+   }
+  },
+  "latest": {
+   "request": "{base}/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/"
+   },
+   "items": ".lista li.novo-card-item a.novo-card-link-img",
+   "fields": {
+    "url": "@href",
+    "title": "@title",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "ul.paginacao li.next a"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}",
+   "request_by_page": {
+    "1": "{base}/?s={query}"
+   },
+   "items": ".lista li.novo-card-item a.novo-card-link-img",
+   "fields": {
+    "url": "@href",
+    "title": "@title",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "ul.paginacao li.next a"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1.post-titulo",
+    "cover": ".post-capa img@src",
+    "description": "h1.post-titulo + .form-group",
+    "genres": {
+     "path": "ul.post-itens a[href*=/category/] .postTagNome, ul.post-itens a[href*=/tag/] .postTagNome",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Capítulo"
+    },
+    "number": {
+     "const": "1"
+    },
+    "date": "meta[property=article:published_time]@content"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "ul.post-fotos li img, div.galeriaConteudo[id~=^galeria-\\d+$] img",
+   "image": "@img"
+  }
+ },
+ "hinweise": [
+  "Listen: /popular/, Startseite, Suche ?s= mit /page/N/ ab Seite 2 (request_by_page). Kategorie-/Tag-Filter nicht übernommen.",
+  "Kapitel: Community macht aus jeder Galerie (div.galeriaTabItem) ein eigenes Kapitel (URL <manga>#galeria-N, Bilder nur aus dieser Galerie). Bildauswahl je Fragment bräuchte einen Platzhalter im Selektor (nicht belegt) → hier immer genau ein Kapitel mit allen Bildern der Seite (ul.post-fotos und alle Galerien in Seitenreihenfolge). Mehrteilige Einträge erscheinen daher als ein langes Kapitel.",
+  "Status fest abgeschlossen wie Community; Datum aus article:published_time. Bilder data-src vor src (@img). Rate-Limit 2/s (Community nimmt Bilder unter /wp-content/uploads/ aus)."
+ ]
+}

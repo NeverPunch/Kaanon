@@ -1,0 +1,148 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Young Jump+",
+  "sprache": "ja",
+  "base_url": "https://ynjn.jp",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.youngjump",
+  "quellen": [
+   {
+    "name": "Young Jump+",
+    "sprache": "ja",
+    "quell_id": 3322701627784242064,
+    "home": "https://ynjn.jp"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/ynjn",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "vars": {
+   "feat": {
+    "request": "https://webapi.ynjn.jp/title/feature?displayLocation=TOP_PAGE_RENSAI",
+    "format": "json",
+    "value": "data.info.id",
+    "ttl_s": 3600
+   }
+  },
+  "popular": {
+   "request": "https://webapi.ynjn.jp/title/ranking?id=1742&type=LIST&rankingType=RANKING",
+   "format": "json",
+   "items": "data.ranking.titles",
+   "fields": {
+    "url": {
+     "path": "title.id",
+     "template": "/title/{value}"
+    },
+    "title": "title.name",
+    "cover": "title.image_url"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "https://webapi.ynjn.jp/title/feature?id={v.feat}&page={page}",
+   "format": "json",
+   "items": "data.titles",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/title/{value}"
+    },
+    "title": "name",
+    "cover": "image_url"
+   },
+   "has_next": {
+    "exists": "data.has_next"
+   }
+  },
+  "search": {
+   "request": "https://webapi.ynjn.jp/title/category/TEXT?text={query}&page={page}&sort=TITLE_SORT_POPULARITY",
+   "format": "json",
+   "items": "data.titles",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/title/{value}"
+    },
+    "title": "name",
+    "cover": "image_url"
+   },
+   "has_next": {
+    "total": "data.total_count"
+   },
+   "page_size": 12
+  },
+  "details": {
+   "request": "https://webapi.ynjn.jp/book/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/title/(\\d+)"
+   },
+   "fields": {
+    "title": "data.book.name",
+    "cover": "data.book.image_url",
+    "description": "data.book.summary",
+    "author": {
+     "path": "data.book.author.*",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "data.book.tags.*.value",
+     "all": true,
+     "join": ", "
+    }
+   }
+  },
+  "chapters": {
+   "request": "https://webapi.ynjn.jp/title/{u.id}/episode?isGetAll=true",
+   "format": "json",
+   "url_vars": {
+    "id": "/title/(\\d+)"
+   },
+   "items": "data.episodes",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/viewer/{u.id}/{value}"
+    },
+    "name": "name"
+   },
+   "skip": {
+    "path": "reading_condition",
+    "regex": "^(?!EPISODE_READ_CONDITION_FREE$).+"
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": "https://webapi.ynjn.jp/viewer?titleId={u.tid}&episodeId={u.eid}",
+   "format": "json",
+   "url_vars": {
+    "tid": "/viewer/(\\d+)/",
+    "eid": "/viewer/\\d+/(\\d+)"
+   },
+   "items": "data.pages.*.manga_page",
+   "image": "page_image_url",
+   "transform": {
+    "path": "page_image_url",
+    "template": "{\"type\":\"grid\",\"n\":4,\"multiple\":1,\"order\":\"transpose\"}"
+   }
+  }
+ },
+ "hinweise": [
+  "API webapi.ynjn.jp wie Community. Beliebt = Rangliste id=1742 (eine Seite). Neueste: Feature-ID wird über vars aus /title/feature?displayLocation=TOP_PAGE_RENSAI geholt (Community cacht sie je Tag), dann /title/feature?id=…&page=N.",
+  "Suche /title/category/TEXT?text=…&sort=TITLE_SORT_POPULARITY; Community: weiter, solange (Seite-1)*12+Anzahl < total_count – hier has_next total mit page_size 12. Kategorie-/Genrefilter nicht nachgebaut.",
+  "Kapitel ohne EPISODE_READ_CONDITION_FREE (Ticket/kostenpflichtig) werden übersprungen (Community blendet sie standardmäßig aus). URLs wie die Website: /title/<id>, /viewer/<titleId>/<episodeId>.",
+  "Bilder sind verwürfelt: 4×4-Blöcke transponiert (Block = Breite/4 bzw. Höhe/4 ohne Ausrichtung, Rand bleibt). Als grid-Transform mit order transpose und multiple 1 abgebildet (GigaViewer nutzt multiple 8) – auf dem PC prüfen.",
+  "Kein Datum/Status in der Community."
+ ]
+}

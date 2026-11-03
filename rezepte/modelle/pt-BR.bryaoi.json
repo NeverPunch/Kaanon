@@ -1,0 +1,100 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "BR Yaoi",
+  "sprache": "pt-BR",
+  "base_url": "https://bryaoi.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.bryaoi",
+  "quellen": [
+   {
+    "name": "BR Yaoi",
+    "sprache": "pt-BR",
+    "quell_id": 3480299458405323329,
+    "home": "https://bryaoi.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/bryaoi",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/yaoi/page/{page}?s=",
+   "items": ".listagem .item a:has(h2)",
+   "fields": {
+    "url": "@href",
+    "title": "h2",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": ".next.page-numbers"
+   }
+  },
+  "search": {
+   "request": "{base}/yaoi/page/{page}?s={query}",
+   "items": ".listagem .item a:has(h2)",
+   "fields": {
+    "url": "@href",
+    "title": "h2",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": ".next.page-numbers"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "path": "h1",
+     "replace": [
+      [
+       "^.*?Ler\\s*",
+       ""
+      ],
+      [
+       "\\s*Online(?!.*Online).*$",
+       ""
+      ]
+     ]
+    },
+    "cover": ".serie-capa img@src",
+    "description": {
+     "path": ".serie-texto p",
+     "all": true,
+     "join": "\n"
+    },
+    "genres": {
+     "path": ".serie-infos a",
+     "all": true,
+     "join": ", "
+    }
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".capitulos a",
+   "fields": {
+    "url": "@href",
+    "name": ""
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#images_all img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Beliebt = Suche ohne Text (/yaoi/page/<n>?s=) wie in der Community; keine Neuesten.",
+  "Titel: Text zwischen 'Ler' und dem letzten 'Online' der h1 wie in der Community. Kein Status/Autor auf der Seite.",
+  "Kapitel in umgekehrter Seitenreihenfolge wie in der Community, ohne Datum."
+ ]
+}

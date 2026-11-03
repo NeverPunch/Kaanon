@@ -23,7 +23,150 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/spa/genre/all?status=&sort=most_viewed&page={page}",
+   "format": "json",
+   "items": "manga_list",
+   "fields": {
+    "url": {
+     "path": "manga_id",
+     "template": "/title/sa{value}"
+    },
+    "title": "manga_name",
+    "cover": "manga_cover_img"
+   },
+   "has_next": {
+    "exists": "pagi.button.next"
+   }
+  },
+  "latest": {
+   "request": "{base}/spa/latest-manga?page={page}",
+   "format": "json",
+   "items": "manga_list",
+   "fields": {
+    "url": {
+     "path": "manga_id",
+     "template": "/title/sa{value}"
+    },
+    "title": "manga_name",
+    "cover": "manga_cover_img"
+   },
+   "has_next": {
+    "exists": "pagi.button.next"
+   }
+  },
+  "search": {
+   "request": "{base}/spa/search?query={query}&page={page}",
+   "format": "json",
+   "items": "manga_list",
+   "fields": {
+    "url": {
+     "path": "manga_id",
+     "template": "/title/sa{value}"
+    },
+    "title": "manga_name",
+    "cover": "manga_cover_img"
+   },
+   "has_next": {
+    "exists": "pagi.button.next"
+   }
+  },
+  "details": {
+   "request": "{base}/spa/manga/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/(?:title|reader)/sa(\\d+)"
+   },
+   "let": {
+    "desc": "detail.manga_description",
+    "alt": "detail.manga_others_name"
+   },
+   "fields": {
+    "title": "detail.manga_name",
+    "cover": [
+     "detail.manga_cover_img_full",
+     "detail.manga_cover_img"
+    ],
+    "author": {
+     "path": "authors.*.author_name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "tags.*.tag_name",
+     "all": true,
+     "join": ", "
+    },
+    "description": {
+     "const": "{l.desc}[[\n\nAlternative names: {l.alt}]]"
+    },
+    "status": "detail.manga_status"
+   },
+   "status_map": {
+    "true": 2,
+    "false": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "chapters",
+   "url_vars": {
+    "id": "/(?:title|reader)/sa(\\d+)"
+   },
+   "fields": {
+    "url": {
+     "path": "chapter_number",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "/reader/sa{u.id}/chapter-{value}"
+    },
+    "name": [
+     {
+      "path": "chapter_title",
+      "regex": "(\\S.*)",
+      "group": 1,
+      "template": "Ch. {f.chapter_number} - {value}"
+     },
+     {
+      "path": "chapter_number",
+      "replace": [
+       [
+        "\\.0$",
+        ""
+       ]
+      ],
+      "template": "Chapter {value}"
+     }
+    ],
+    "number": "chapter_number",
+    "date": "chapter_date_published"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/spa/manga/{u.id}/{u.num}",
+   "format": "json_html",
+   "url_vars": {
+    "id": "/reader/sa(\\d+)/",
+    "num": "/chapter-([^/?#]+)"
+   },
+   "html_path": "chapter_detail.chapter_content",
+   "items": "img",
+   "image": "@data-src"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "API /spa/… wie in der Community. Manga-URL /title/sa<id> (Community speichert nur die ID und zeigt diese URL); Details/Kapitel aus /spa/manga/<id>.",
+  "Beliebt = /spa/genre/all mit Standardfilter sort=most_viewed; Status-/Sortierfilter nicht übernommen.",
+  "Nächste Seite: Community prüft pagi.button.next > 0; hier exists auf pagi.button.next – ob die Engine 0 als 'nicht vorhanden' wertet, auf dem PC prüfen.",
+  "Autoren/Tags ohne die Title-Case-Umwandlung der Community; Alternativnamen als eine Zeile statt Liste.",
+  "Seiten: <img data-src> aus chapter_detail.chapter_content; die Community löst relative Pfade gegen chapter_detail.server auf – hier werden absolute URLs angenommen.",
+  "Kapitelname 'Ch. <Nr> - <Titel>' nutzt die Rohzahl (ggf. mit '.0')."
+ ]
 }

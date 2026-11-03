@@ -1,0 +1,151 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Cerise Scan",
+  "sprache": "pt-BR",
+  "base_url": "https://loverstoon.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.cerisescan",
+  "quellen": [
+   {
+    "name": "Cerise Scan",
+    "sprache": "pt-BR",
+    "quell_id": 6986357795598884919,
+    "home": "https://loverstoon.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/cerisescans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/comics?page={page}&limit=50&sort=views",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/#/comic/{value}"
+    },
+    "title": "title",
+    "cover": "coverImage"
+   },
+   "has_next": {
+    "full": true
+   },
+   "page_size": 50
+  },
+  "latest": {
+   "request": "{base}/api/comics?page={page}&limit=50&sort=recent",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/#/comic/{value}"
+    },
+    "title": "title",
+    "cover": "coverImage"
+   },
+   "has_next": {
+    "full": true
+   },
+   "page_size": 50
+  },
+  "search": {
+   "request": "{base}/api/comics?page={page}&limit=50&search={query}",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/#/comic/{value}"
+    },
+    "title": "title",
+    "cover": "coverImage"
+   },
+   "has_next": {
+    "full": true
+   },
+   "page_size": 50
+  },
+  "details": {
+   "request": "{base}/api/comics/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/(?:comic|obra)/([^/?#]+)"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "coverImage",
+    "author": "author",
+    "artist": "artist",
+    "description": "description",
+    "genres": {
+     "path": "genres.*",
+     "all": true,
+     "join": ", "
+    },
+    "status": "status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "dropped": 5,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "lastChapters",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/#/read/{value}"
+    },
+    "name": [
+     "title",
+     {
+      "path": "number",
+      "replace": [
+       [
+        "\\.0$",
+        ""
+       ]
+      ],
+      "template": "Capítulo {value}"
+     }
+    ],
+    "number": "number",
+    "date": "createdAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api/chapter-images?chapterId={u.cid}",
+   "format": "json",
+   "url_vars": {
+    "cid": "/read/([^/?#]+)"
+   },
+   "items": "$",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "SPA mit Hash-Routen: Manga-URL /#/comic/<slug>, Kapitel /#/read/<id> wie Community (getMangaUrl/getChapterUrl).",
+  "Listen /api/comics?page=N&limit=50 (&sort=views|recent, &search=). Community: weiter solange page < totalPages; die Antwort enthält die Seitennummer nicht sicher, daher hier full mit page_size 50. Genre-/Statusfilter nicht nachgebaut.",
+  "Kapitel = lastChapters aus /api/comics/<slug> (wie Community). Cover-/Bildpfade relativ zur Basis-URL (Community löst sie auf) – hier ungeändert.",
+  "Alte Madara-Bibliothekseinträge (/manga/<slug>/) werden nicht umgeschrieben."
+ ]
+}

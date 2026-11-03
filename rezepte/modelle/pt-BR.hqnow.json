@@ -1,0 +1,183 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HQ Now!",
+  "sprache": "pt-BR",
+  "base_url": "https://www.hq-now.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.hqnow",
+  "quellen": [
+   {
+    "name": "HQ Now!",
+    "sprache": "pt-BR",
+    "quell_id": 1639829368022947378,
+    "home": "https://www.hq-now.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/hqnow",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "application/json",
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 2000
+  },
+  "popular": {
+   "request": {
+    "url": "https://admin.hq-now.com/graphql",
+    "method": "POST",
+    "json": {
+     "operationName": "getHqsByFilters",
+     "query": "query getHqsByFilters($orderByViews: Boolean, $limit: Int, $publisherId: Int, $loadCovers: Boolean) { getHqsByFilters(orderByViews: $orderByViews, limit: $limit, publisherId: $publisherId, loadCovers: $loadCovers) { id name editoraId status publisherName hqCover synopsis updatedAt } }",
+     "variables": {
+      "orderByViews": true,
+      "loadCovers": true,
+      "limit": 300
+     }
+    }
+   },
+   "format": "json",
+   "items": "data.getHqsByFilters",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/hq/{value}"
+    },
+    "title": "name",
+    "cover": "hqCover"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "https://admin.hq-now.com/graphql",
+    "method": "POST",
+    "json": {
+     "operationName": "getRecentlyUpdatedHqs",
+     "query": "query getRecentlyUpdatedHqs { getRecentlyUpdatedHqs { name hqCover synopsis id updatedAt updatedChapters } }",
+     "variables": {}
+    }
+   },
+   "format": "json",
+   "items": "data.getRecentlyUpdatedHqs",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/hq/{value}"
+    },
+    "title": "name",
+    "cover": "hqCover"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "https://admin.hq-now.com/graphql",
+    "method": "POST",
+    "json": {
+     "operationName": "getHqsByName",
+     "query": "query getHqsByName($name: String!) { getHqsByName(name: $name) { id name editoraId status publisherName impressionsCount } }",
+     "variables": {
+      "name": "{query_raw}"
+     }
+    }
+   },
+   "format": "json",
+   "items": "data.getHqsByName",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/hq/{value}"
+    },
+    "title": "name"
+   }
+  },
+  "details": {
+   "request": {
+    "url": "https://admin.hq-now.com/graphql",
+    "method": "POST",
+    "json": {
+     "operationName": "getHqsById",
+     "query": "query getHqsById { getHqsById(id: {u.id}) { id name synopsis editoraId status publisherName hqCover impressionsCount capitulos { name id number } } }",
+     "variables": {}
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "/hq/(\\d+)"
+   },
+   "fields": {
+    "title": "data.getHqsById.0.name",
+    "cover": "data.getHqsById.0.hqCover",
+    "description": "data.getHqsById.0.synopsis",
+    "author": "data.getHqsById.0.publisherName",
+    "status": "data.getHqsById.0.status"
+   },
+   "status_map": {
+    "concluído": 2,
+    "em andamento": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "id": "/hq/(\\d+)"
+   },
+   "items": "data.getHqsById.0.capitulos",
+   "reverse": true,
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/hq-reader/{u.id}/chapter/{value}/page/1"
+    },
+    "name": {
+     "const": "#{f.number}[[ - {f.name}]]"
+    },
+    "number": "number"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "https://admin.hq-now.com/graphql",
+    "method": "POST",
+    "json": {
+     "operationName": "getChapterById",
+     "query": "query getChapterById { getChapterById(chapterId: {u.cid}) { name number oneshot pictures { pictureUrl } } }",
+     "variables": {}
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "cid": "/chapter/(\\d+)"
+   },
+   "items": "data.getChapterById.pictures",
+   "image": "pictureUrl"
+  }
+ },
+ "hinweise": [
+  "GraphQL https://admin.hq-now.com/graphql mit den Abfragen der Community. Manga-/Kapitel-ID als Zahl direkt in den Query-Text eingesetzt (wie en.voyceme/ru.senkuro), weil Zahl-Platzhalter in variables nicht belegt sind; Klammern im Query-Text immer mit Leerzeichen.",
+  "Manga-URL /hq/<id>, Kapitel-URL /hq-reader/<id>/chapter/<kapitel-id>/page/1 ohne den Namens-Slug der Community (Slug aus dem Namen ist nicht nachbildbar) – Links im Browser evtl. ungenau.",
+  "Beliebt: 300 Titel nach Aufrufen in einer Seite; Latest/Suche ebenfalls ohne Paging (wie Community). Kapitel ohne Datum.",
+  "Status: „Concluído“/„Em Andamento“."
+ ]
+}

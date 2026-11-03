@@ -1,0 +1,109 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Twi4",
+  "sprache": "ja",
+  "base_url": "https://sai-zen-sen.jp/comics/twi4",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.twi4",
+  "quellen": [
+   {
+    "name": "Twi4",
+    "sprache": "ja",
+    "quell_id": 493846804748918744,
+    "home": "https://sai-zen-sen.jp/comics/twi4"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/twi4",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": "#lineup_recent > div > section, #lineup > div > section:not(.zadankai):not([id])",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "div.hgroup > h3 > a@href",
+    "title": "div.hgroup > h3 > a",
+    "cover": "div.figgroup > figure > a > img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/",
+   "items": "#lineup_recent > div > section, #lineup > div > section:not(.zadankai):not([id])",
+   "has_next": {
+    "const": false
+   },
+   "client_filter": true,
+   "fields": {
+    "url": "div.hgroup > h3 > a@href",
+    "title": "div.hgroup > h3 > a",
+    "cover": "div.figgroup > figure > a > img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     {
+      "path": "title",
+      "regex": "『(.+)』.+ \\| ツイ４ \\| 最前線",
+      "group": 1
+     },
+     "title"
+    ],
+    "cover": "#introduction > header > div > h2 > img@src",
+    "description": "#introduction > div > div > p",
+    "author": [
+     "#introduction > div > section > header > div > h3:has(small:contains(原作)) span",
+     "#introduction > div > section > header > div > h3:has(small:contains(作者)) span"
+    ],
+    "artist": [
+     "#introduction > div > section > header > div > h3:has(small:contains(漫画)) span",
+     "#introduction > div > section > header > div > h3:has(small:contains(作者)) span"
+    ]
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#backnumbers > div > ul > li:has(a)",
+   "fields": {
+    "url": "a@href",
+    "name": {
+     "path": "a",
+     "replace": [
+      [
+       "^.+『(.+)』 #0*(\\d+)$",
+       "$2 - $1"
+      ]
+     ]
+    },
+    "number": {
+     "path": "a",
+     "regex": "『.+』 #(\\d+)$",
+     "group": 1
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "article.comic div > div > p > img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Kein Katalog-Paging: Beliebt listet wie die Community alle Titel der Startseite (laufend + Gesamtkatalog, ohne Zadankai). Suche gibt es auf der Website nicht; client_filter über dieselbe Liste wie in der Community.",
+  "Status steht nur auf der Startseite (em.is-completed), nicht auf der Detailseite; Community holt ihn dort extra – Rezept lässt den Status weg.",
+  "Kapitel ohne Datum; Community sortiert nach Nummer absteigend, das Rezept übernimmt die Reihenfolge der Seite (#backnumbers) – auf dem PC prüfen, ggf. reverse setzen.",
+  "Ein Bild pro Kapitel (article.comic). Basis-URL enthält den Pfad /comics/twi4; Links der Seite sind wurzelrelativ (/comics/twi4/…)."
+ ]
+}

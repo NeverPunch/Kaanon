@@ -1,0 +1,138 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Fenix Project",
+  "sprache": "pt-BR",
+  "base_url": "https://fenixproject.website",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.fenixproject",
+  "quellen": [
+   {
+    "name": "Fenix Project",
+    "sprache": "pt-BR",
+    "quell_id": 8852449878379679769,
+    "home": "https://fenixproject.website"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/fenixproject",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.60",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/manhwas?pagina={page}",
+   "items": "#works-grid > div:has(a[href^='/manga/'])",
+   "fields": {
+    "url": "a[href^='/manga/']@href",
+    "title": [
+     "h3",
+     "img@alt"
+    ],
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a[rel=next]"
+   }
+  },
+  "search": {
+   "request": "{base}/pesquisar?q={query}&pagina={page}",
+   "items": "#works-grid > div:has(a[href^='/manga/'])",
+   "fields": {
+    "url": "a[href^='/manga/']@href",
+    "title": [
+     "h3",
+     "img@alt"
+    ],
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a[rel=next]"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "latest": {
+     "path": "div[id^='chapter-card-'] a[href*='/capitulo-']@href",
+     "replace": [
+      [
+       "^https?://[^/]+",
+       ""
+      ]
+     ]
+    }
+   },
+   "fields": {
+    "title": "main h1",
+    "cover": "main img[alt]:not([alt=''])@src",
+    "author": {
+     "path": "dl dt:matchesOwn(^\\s*Autor\\s*$) + dd",
+     "regex": "^(?!—$)(.+)$",
+     "group": 1
+    },
+    "artist": {
+     "path": "dl dt:matchesOwn(^\\s*Artista\\s*$) + dd",
+     "regex": "^(?!—$)(.+)$",
+     "group": 1
+    },
+    "status": {
+     "path": "dl dt:matchesOwn(^\\s*Status\\s*$) + dd",
+     "regex": "(?i)(andamento|conclu|hiato|cancel)",
+     "group": 1
+    },
+    "genres": {
+     "path": "a[href*='genero=']",
+     "all": true,
+     "join": ", "
+    },
+    "description": "h2:matchesOwn(^\\s*Sinopse\\s*$) + *"
+   },
+   "status_map": {
+    "andamento": 1,
+    "Andamento": 1,
+    "conclu": 2,
+    "Conclu": 2,
+    "hiato": 6,
+    "Hiato": 6,
+    "cancel": 5,
+    "Cancel": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}{l.latest}",
+   "items": "#chapter-select-top a[href*='/capitulo-']",
+   "fields": {
+    "url": "@href",
+    "name": [
+     "",
+     {
+      "path": "@href",
+      "regex": "capitulo-(\\d+(?:\\.\\d+)?)",
+      "group": 1,
+      "template": "Capítulo {value}"
+     }
+    ],
+    "number": {
+     "path": "@href",
+     "regex": "capitulo-(\\d+(?:\\.\\d+)?)",
+     "group": 1
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img[alt^='Página ']",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Keine Neuesten (Community ebenso). Genre-Filter nicht übernommen.",
+  "Kapitel: Die Detailseite zeigt höchstens 10 Kapitel; die vollständige Liste steht in der Kapitelauswahl (#chapter-select-top) der neuesten Kapitelseite. Rezept lädt immer diese Seite (Link der ersten Kapitelkarte, Domain wird abgeschnitten). Kapiteldaten (nur auf den Karten) entfallen; Community sortiert nach Nummer absteigend – hier Reihenfolge der Auswahl, auf dem PC prüfen.",
+  "Status über Teilwörter (andamento/conclu/hiato/cancel) wie in der Community; Autor/Künstler '—' wird ignoriert."
+ ]
+}

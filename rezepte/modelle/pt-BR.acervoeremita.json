@@ -1,0 +1,189 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "AcervoEremita",
+  "sprache": "pt-BR",
+  "base_url": "https://acervoeremita.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.acervoeremita",
+  "quellen": [
+   {
+    "name": "AcervoEremita",
+    "sprache": "pt-BR",
+    "quell_id": 7769570061083458124,
+    "home": "https://acervoeremita.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/acervoeremita",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "image_headers": {
+   "Accept-Language": "pt-BR,en-US;q=0.9,en;q=0.8"
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/explore?page={page}",
+    "headers": {
+     "RSC": "1"
+    }
+   },
+   "format": "text",
+   "items": "\\{[^{}]*\"workId\":[^{}]*\\}",
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"slug\":\"([^\"]+)\"",
+     "group": 1,
+     "template": "/work/{value}"
+    },
+    "title": {
+     "path": "",
+     "regex": "\"title\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "cover": {
+     "path": "",
+     "regex": "\"coverUrl\":\"([^\"]+)\"",
+     "group": 1
+    }
+   },
+   "has_next": {
+    "full": true
+   },
+   "page_size": 1
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/explore?page={page}&sort=release&dir=desc",
+    "headers": {
+     "RSC": "1"
+    }
+   },
+   "format": "text",
+   "items": "\\{[^{}]*\"workId\":[^{}]*\\}",
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"slug\":\"([^\"]+)\"",
+     "group": 1,
+     "template": "/work/{value}"
+    },
+    "title": {
+     "path": "",
+     "regex": "\"title\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "cover": {
+     "path": "",
+     "regex": "\"coverUrl\":\"([^\"]+)\"",
+     "group": 1
+    }
+   },
+   "has_next": {
+    "full": true
+   },
+   "page_size": 1
+  },
+  "search": {
+   "request": {
+    "url": "{base}/explore?page={page}&q={query}",
+    "headers": {
+     "RSC": "1"
+    }
+   },
+   "format": "text",
+   "items": "\\{[^{}]*\"workId\":[^{}]*\\}",
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"slug\":\"([^\"]+)\"",
+     "group": 1,
+     "template": "/work/{value}"
+    },
+    "title": {
+     "path": "",
+     "regex": "\"title\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "cover": {
+     "path": "",
+     "regex": "\"coverUrl\":\"([^\"]+)\"",
+     "group": 1
+    }
+   },
+   "has_next": {
+    "full": true
+   },
+   "page_size": 1
+  },
+  "details": {
+   "request": "{abs_url}",
+   "url_vars": {
+    "slug": "/work/([^/?#]+)"
+   },
+   "let": {
+    "wid": {
+     "path": "html@html",
+     "regex": "workId\\\\?\":(\\d+)",
+     "group": 1
+    }
+   },
+   "fields": {
+    "title": "h1",
+    "cover": "img[data-component*=cover]@src",
+    "description": "p[data-component*=description]",
+    "genres": "[data-component*=tags] > span"
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/work/chapters?workId={l.wid}&cursor={offset}&limit=30",
+   "format": "json",
+   "items": "chapters",
+   "page_size": 30,
+   "fields": {
+    "url": {
+     "path": "chapterNumber",
+     "template": "/work/{u.slug}/read?chapter={value}&page=1"
+    },
+    "name": "name",
+    "number": "chapterNumber",
+    "date": "releasedAt"
+   },
+   "date_format": "iso",
+   "reverse": true,
+   "paging": {
+    "has_next": {
+     "full": true
+    },
+    "max_pages": 100
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "[data-component*=ReaderScreen] > img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Listen /explore?page=N (Neueste &sort=release&dir=desc, Suche &q=). Community liest das Next.js-Datenobjekt (works + pagination.hasMore); hier mit Header RSC: 1 als Text gelesen, je Werk ein JSON-Objekt mit workId (Regex wie modelle/en.revivalscans) – bricht, falls ein Werk verschachtelte Objekte enthält. Prüfen.",
+  "Nächste Seite: pagination.hasMore ist im Text nicht abfragbar; hier full mit page_size 1 (weiter, solange die Seite Einträge hat).",
+  "Manga-URL /work/<slug>. workId für die Kapitel-API per Regex aus dem HTML der Detailseite (let wid) – Escaping (\\\") im Next-Datenblock prüfen.",
+  "Kapitel: /api/work/chapters?workId=…&cursor=0,30,60…&limit=30, weiter solange 30 Einträge kommen (Community: pagination.hasMore/hasNext); umgekehrt wie Community.",
+  "Kapitel-URL /work/<slug>/read?chapter=<chapterNumber>&page=1; Community setzt die Nummer als Float ein (z. B. 1.0) – prüfen, ob die Website beides annimmt.",
+  "Bildanfragen: Community setzt Referer = Bild-URL selbst; hier nur Accept-Language übernommen."
+ ]
+}

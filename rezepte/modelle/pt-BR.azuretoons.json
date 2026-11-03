@@ -1,0 +1,152 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Azuretoons",
+  "sprache": "pt-BR",
+  "base_url": "https://azuretoons.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.azuretoons",
+  "quellen": [
+   {
+    "name": "Azuretoons",
+    "sprache": "pt-BR",
+    "quell_id": 6272815455807597212,
+    "home": "https://azuretoons.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/azuretoons",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
+   "Pragma": "no-cache"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/obras",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/obra/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/api/obras",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/obra/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/api/obras",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/obra/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   },
+   "has_next": {
+    "const": false
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{base}/api/obras/slug/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/obra/([^/?#]+)"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "coverUrl",
+    "description": {
+     "path": "description",
+     "decode": "html_text"
+    },
+    "status": "status"
+   },
+   "status_map": {
+    "em_lancamento": 1,
+    "em andamento": 1,
+    "ativo": 1,
+    "concluido": 2,
+    "concluído": 2,
+    "hiato": 6,
+    "cancelado": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "chapters",
+   "fields": {
+    "url": {
+     "path": "chapterNumber",
+     "template": "/obra/{u.slug}/capitulo/{value}"
+    },
+    "name": [
+     "title",
+     {
+      "path": "chapterNumber",
+      "replace": [
+       [
+        "\\.0$",
+        ""
+       ]
+      ],
+      "template": "Capítulo {value}"
+     }
+    ],
+    "number": "chapterNumber",
+    "date": "createdAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api/chapters/read/{u.slug}/{u.ch}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/obra/([^/]+)/",
+    "ch": "/capitulo/([^/?#]+)"
+   },
+   "items": "images",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "Alle Werke kommen aus einer Liste (/api/obras). Community sortiert Beliebt nach viewCount – Sortierung nicht ausdrückbar, Beliebt und Neueste zeigen daher dieselbe Reihenfolge der API. Suche filtert die Liste lokal (client_filter).",
+  "Kapitel aus /api/obras/slug/<slug>; Community sortiert nach Nummer absteigend und entfernt Doppelte – hier API-Reihenfolge.",
+  "Kapitel-URL /obra/<slug>/capitulo/<chapterNumber>; Community setzt die Nummer als Float ein (z. B. 12.0) – prüfen, ob /api/chapters/read/<slug>/<nummer> auch '12' annimmt.",
+  "Optionale Anmeldung (E-Mail/Passwort → Bearer-Token) nicht nachgebaut; Kapitel, die Anmeldung brauchen, schlagen fehl."
+ ]
+}

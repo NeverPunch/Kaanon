@@ -1,0 +1,222 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Lycan Toons",
+  "sprache": "pt-BR",
+  "base_url": "https://lycantoons.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.lycantoons",
+  "quellen": [
+   {
+    "name": "Lycan Toons",
+    "sprache": "pt-BR",
+    "quell_id": 9117178890425713139,
+    "home": "https://lycantoons.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/lycantoons",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Sec-Fetch-Site": "same-origin"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/metrics/popular?limit=20&page={page}",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   },
+   "has_next": {
+    "exists": "pagination.hasNext"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/metrics/recently-updated?limit=20&page={page}",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   },
+   "has_next": {
+    "exists": "pagination.hasNext"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/series",
+    "method": "POST",
+    "content_type": "application/json",
+    "body": "{\"limit\":20,\"page\":{page},\"search\":\"{query_raw}\",\"seriesType\":\"\",\"status\":\"\",\"tags\":[]}"
+   },
+   "format": "json",
+   "items": "series",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   },
+   "has_next": {
+    "exists": "pagination.hasNextPage"
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "fields": {
+    "title": {
+     "path": "",
+     "regex": "\"title\":(\"(?:[^\"\\\\]|\\\\.)*\"),\"slug\"",
+     "group": 1,
+     "decode": "json"
+    },
+    "cover": {
+     "path": "",
+     "regex": "\"coverUrl\":\"([^\"]+)\"",
+     "group": 1
+    },
+    "author": {
+     "path": "",
+     "regex": "\"author\":\"((?:[^\"\\\\-]|\\\\.)[^\"]*)\"",
+     "group": 1
+    },
+    "artist": {
+     "path": "",
+     "regex": "\"artist\":\"((?:[^\"\\\\-]|\\\\.)[^\"]*)\"",
+     "group": 1
+    },
+    "description": {
+     "path": "",
+     "regex": "\"description\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "genres": {
+     "const": "{l.genre_block}",
+     "regex": "(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "regex_all": true,
+     "decode": "json",
+     "join": ", "
+    },
+    "status": {
+     "path": "",
+     "regex": "\"status\":\"([A-Za-z]+)\"",
+     "group": 1
+    }
+   },
+   "let": {
+    "genre_block": {
+     "path": "",
+     "regex": "\"genre\":\\[([^\\]]*)\\]",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "cancelled": 5,
+    "ONGOING": 1,
+    "COMPLETED": 2,
+    "HIATUS": 6,
+    "CANCELLED": 5
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{abs_url}/1",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "items": "\\{[^{}]*\"numero\":[^{}]*\\}",
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"numero\":\"?([0-9.]+)",
+     "group": 1,
+     "template": "{url}/{value}"
+    },
+    "name": {
+     "path": "",
+     "regex": "\"numero\":\"?([0-9.]+)",
+     "group": 1,
+     "template": "Capítulo {value}"
+    },
+    "number": {
+     "path": "",
+     "regex": "\"numero\":\"?([0-9.]+)",
+     "group": 1
+    },
+    "date": {
+     "path": "",
+     "regex": "\"createdAt\":\"([^\"]+)\"",
+     "group": 1
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "let": {
+    "cid": {
+     "path": "",
+     "regex": "\"capituloId\":(\\d+)",
+     "group": 1
+    }
+   },
+   "then": [
+    {
+     "request": "{base}/api/chapters/{l.cid}/view-pages",
+     "format": "json"
+    }
+   ],
+   "items": "pages"
+  }
+ },
+ "hinweise": [
+  "Kopfzeile Sec-Fetch-Site: same-origin global (Website lehnt sonst ab, laut Code).",
+  "Listen: /api/metrics/popular bzw. recently-updated (20 je Seite, pagination.hasNext). Suche: POST /api/series mit JSON (Body-Text, Suchtext roh eingesetzt); Typ-/Status-/Tag-Filter und das Umschalten auf Tag bei Genre-Namen nicht übernommen.",
+  "Details/Kapitel/Seiten: Community liest Next.js-Flight-Daten aus der HTML-Seite (extractNextJs). Hier wie en.drakescans mit Kopfzeile rsc: 1 und Regex über den Rohtext – Annahmen: Feldreihenfolge \"title\",\"slug\" im Serienobjekt; erste Treffer von description/author/artist/status/genre gehören zur Serie. Auf dem PC prüfen.",
+  "Autor/Künstler '-' werden per Regex ausgelassen; Genres als Rohschlüssel (Community übersetzt action → Ação usw.).",
+  "Kapitel aus /series/<slug>/1 (Flight 'capitulos'), URL /series/<slug>/<numero> (Community hängt ?pages=<n> an – nur intern). Reihenfolge wie geliefert (Community sortiert absteigend nach Nummer).",
+  "Seiten: capituloId aus dem Kapitel-Flight, dann /api/chapters/<id>/view-pages → pages (Liste von URLs)."
+ ]
+}

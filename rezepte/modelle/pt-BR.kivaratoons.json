@@ -1,0 +1,135 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "KivaraToons",
+  "sprache": "pt-BR",
+  "base_url": "https://kivaratoons.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.kivaratoons",
+  "quellen": [
+   {
+    "name": "KivaraToons",
+    "sprache": "pt-BR",
+    "quell_id": 2454581737028097436,
+    "home": "https://kivaratoons.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/kivaratoons",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/obras?pagina={page}&limite=24&ordem=views",
+   "format": "json",
+   "items": "obras",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/obra/{value}"
+    },
+    "title": "nome",
+    "cover": "capa_url"
+   },
+   "has_next": {
+    "lt": [
+     "pagina",
+     "total_paginas"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/api/obras?pagina={page}&limite=24&ordem=recentes&busca={query}",
+   "format": "json",
+   "items": "obras",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/obra/{value}"
+    },
+    "title": "nome",
+    "cover": "capa_url"
+   },
+   "has_next": {
+    "lt": [
+     "pagina",
+     "total_paginas"
+    ]
+   }
+  },
+  "details": {
+   "request": "{base}/api/obras/{u.id}?mostrar_conteudo_adulto=true",
+   "format": "json",
+   "url_vars": {
+    "id": "/(?:obra|manhwa)/([^/?#]+)"
+   },
+   "fields": {
+    "title": "nome",
+    "cover": "capa_url",
+    "description": "descricao",
+    "author": "autor",
+    "artist": "artista",
+    "genres": {
+     "path": "tags.*",
+     "all": true,
+     "join": ", "
+    },
+    "status": "status_id"
+   },
+   "status_map": {
+    "1": 1,
+    "2": 2,
+    "3": 6,
+    "4": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "capitulos",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/reader/{u.id}/{value}"
+    },
+    "name": {
+     "path": "numero",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "Capítulo {value}"
+    },
+    "number": "numero",
+    "date": "data_publicacao"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api/capitulos/{u.cid}?mostrar_conteudo_adulto=true",
+   "format": "json",
+   "url_vars": {
+    "cid": "/reader/[^/]+/([^/?#]+)"
+   },
+   "items": "paginas",
+   "image": "url",
+   "sort": "ordem"
+  }
+ },
+ "hinweise": [
+  "API /api/obras (Beliebt ordem=views, Suche ordem=recentes&busca=), 24 je Seite, weiter solange pagina < total_paginas. +18-Werke in Listen nur mit Community-Einstellung (mostrar_conteudo_adulto=true) – hier wie Standard ohne; Details/Seiten immer mit dem Parameter wie Community. Format-/Status-/Genrefilter nicht nachgebaut.",
+  "Keine Neueste-Liste: /api/leitores/ultimas-atualizacoes liefert die Werk-ID teils base64+XOR-verschlüsselt (Schlüssel 4b7e8), das kann die Engine nicht entschlüsseln.",
+  "URLs wie die Website: /obra/<id>, Kapitel /reader/<werk-id>/<kapitel-id>. Cover-/Bildpfade ggf. relativ zur Basis-URL (Community löst sie auf) – hier ungeändert; Bilder nach 'ordem' sortiert.",
+  "Alternativtitel nicht an die Beschreibung angehängt."
+ ]
+}

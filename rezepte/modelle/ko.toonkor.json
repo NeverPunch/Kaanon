@@ -1,0 +1,133 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Toonkor",
+  "sprache": "ko",
+  "base_url": "https://toonkor0.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ko.kaanon.toonkor",
+  "quellen": [
+   {
+    "name": "Toonkor",
+    "sprache": "ko",
+    "quell_id": 6596496791271983268,
+    "home": "https://toonkor0.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ko/toonkor",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.12",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36"
+  },
+  "popular": {
+   "request": "{base}/%EC%9B%B9%ED%88%B0/%EC%97%B0%EC%9E%AC?fil=%EC%9D%B8%EA%B8%B0",
+   "items": "div.section-item-inner:has(div.section-item-title a h3)",
+   "fields": {
+    "url": "div.section-item-title a@href",
+    "title": "div.section-item-title a h3",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/%EC%9B%B9%ED%88%B0/%EC%97%B0%EC%9E%AC",
+   "items": "div.section-item-inner:has(div.section-item-title a h3)",
+   "fields": {
+    "url": "div.section-item-title a@href",
+    "title": "div.section-item-title a h3",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/bbs/search.php?sfl=wr_subject%7C%7Cwr_content&stx={query}",
+   "items": "div.section-item-inner:has(div.section-item-title a h3)",
+   "fields": {
+    "url": "div.section-item-title a@href",
+    "title": "div.section-item-title a h3",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "table.bt_view1 td.bt_title",
+    "author": {
+     "path": "table.bt_view1 td.bt_label span.bt_data",
+     "all": true,
+     "join": " "
+    },
+    "description": "table.bt_view1 td.bt_over",
+    "cover": "table.bt_view1 td.bt_thumb img@src"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "table.web_list tr:has(td.content__title[data-role])",
+   "fields": {
+    "url": "td.content__title@data-role",
+    "name": "td.content__title",
+    "date": "td.episode__index"
+   },
+   "date_format": "yyyy-MM-dd"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "let": {
+    "dec": {
+     "path": "",
+     "regex": "toon_img\\s*=\\s*'([^']+)'",
+     "group": 1,
+     "decode": "base64"
+    },
+    "srcs": {
+     "const": "{l.dec}",
+     "regex": "src=\"([^\"]*)\"",
+     "group": 1,
+     "regex_all": true,
+     "join": "\",\""
+    }
+   },
+   "inner": {
+    "value": {
+     "const": "[\"{l.srcs}\"]"
+    },
+    "format": "json",
+    "items": "$",
+    "image": [
+     {
+      "path": "",
+      "regex": "^(https?://.+)$"
+     },
+     {
+      "path": "",
+      "regex": "^(/.+)$",
+      "template": "{base}{value}"
+     }
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "Desktop-User-Agent wie in der Community (Android-UA bekommt nur 30 Einträge; Community wählt zufälligen Desktop-UA).",
+  "Listen ohne Seitenwechsel: Beliebt = /웹툰/연재?fil=인기, Neueste = /웹툰/연재; Typ-/Status-/Sortierfilter nicht übernommen. Die Domain (toonkor<N>.org) wechselt häufig.",
+  "Kein Status auf der Website. Autor = alle span.bt_data-Texte.",
+  "Seiten: base64-Wert 'toon_img' aus dem Seitentext dekodiert, alle src=\"…\" daraus als JSON-Liste weitergereicht (regex_all + join wie in en.drakescans, inner wie en.hentaikisu); relative Pfade bekommen die Basis-URL."
+ ]
+}

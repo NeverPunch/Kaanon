@@ -1,0 +1,110 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ExHentai.net.br",
+  "sprache": "pt-BR",
+  "base_url": "https://exhentai.net.br",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.exhentainetbr",
+  "quellen": [
+   {
+    "name": "ExHentai.net.br",
+    "sprache": "pt-BR",
+    "quell_id": 1408140394859123923,
+    "home": "https://exhentai.net.br"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/exhentainetbr",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/lista-de-mangas/page/{page}",
+   "items": "article.itemP",
+   "has_next": {
+    "exists": ".content-pagination li.active + li:not(.next)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "h3@ownText",
+    "cover": [
+     "img@data-lazy-src",
+     "img@data-src",
+     "img@data-cfsrc",
+     "img@src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}?s={query}",
+   "items": ".post article.itemP",
+   "has_next": {
+    "exists": ".content-pagination li.active + li:not(.next)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "h3@ownText",
+    "cover": [
+     "img@data-lazy-src",
+     "img@data-src",
+     "img@data-cfsrc",
+     "img@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".ex-manga-titles h1",
+    "description": ".ex-manga-synopsis .gerens-content p",
+    "cover": [
+     ".ex-manga-cover-box img@data-lazy-src",
+     ".ex-manga-cover-box img@data-src",
+     ".ex-manga-cover-box img@data-cfsrc",
+     ".ex-manga-cover-box img@src"
+    ],
+    "author": ".ex-meta-item:has(> span:contains(Artista)) a",
+    "artist": ".ex-meta-item:has(> span:contains(Artista)) a",
+    "genres": {
+     "path": ".ex-tags-section a.ex-badge-tag",
+     "all": true,
+     "join": ", "
+    }
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a.ex-chapter-row",
+   "fields": {
+    "url": "@href",
+    "name": ".ex-ch-left",
+    "date": ".ex-ch-date"
+   },
+   "date_format": "dd/MM/yyyy"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.manga_image > img",
+   "image": [
+    "@data-lazy-src",
+    "@data-src",
+    "@data-cfsrc",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Kein Latest (Community auch nicht). Buchstaben-Filter (lista-de-mangas?letra=) nicht übernommen.",
+  "Bildattribute in der Reihenfolge der Community: data-lazy-src, data-src, data-cfsrc, src. Rate-Limit 3/s wie Community."
+ ]
+}

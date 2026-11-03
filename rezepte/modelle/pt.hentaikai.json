@@ -1,0 +1,141 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hentai Kai",
+  "sprache": "pt",
+  "base_url": "https://hentaikai.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.pt.kaanon.hentaikai",
+  "quellen": [
+   {
+    "name": "Hentai Kai",
+    "sprache": "pt",
+    "quell_id": 8041889466081243774,
+    "home": "https://hentaikai.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/hentaikai",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/mangas-hentai/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/mangas-hentai/"
+   },
+   "items": "a:has(div.box-info-serie)",
+   "fields": {
+    "url": "@href",
+    "title": [
+     "@title",
+     "img@alt"
+    ],
+    "cover": [
+     "img@data-lazy-src",
+     {
+      "path": "img@src",
+      "regex": "^(?!data:)(.+)$",
+      "group": 1
+     }
+    ]
+   },
+   "has_next": {
+    "exists": "a.next, a[rel=next], link[rel=next]"
+   }
+  },
+  "latest": {
+   "request": "{base}/hentais/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/hentais/"
+   },
+   "items": "a:has(div.box-info-serie)",
+   "fields": {
+    "url": "@href",
+    "title": [
+     "@title",
+     "img@alt"
+    ],
+    "cover": [
+     "img@data-lazy-src",
+     {
+      "path": "img@src",
+      "regex": "^(?!data:)(.+)$",
+      "group": 1
+     }
+    ]
+   },
+   "has_next": {
+    "exists": "a.next, a[rel=next], link[rel=next]"
+   }
+  },
+  "search": {
+   "request": "{base}/?s={query}",
+   "items": "a:has(div.box-info-serie)",
+   "fields": {
+    "url": "@href",
+    "title": [
+     "@title",
+     "img@alt"
+    ],
+    "cover": [
+     "img@data-lazy-src",
+     {
+      "path": "img@src",
+      "regex": "^(?!data:)(.+)$",
+      "group": 1
+     }
+    ]
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "cover": "li img[data-src]@data-src"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Oneshot"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "li img[data-src]",
+   "image": [
+    {
+     "path": "@data-src",
+     "regex": "^(?!data:)(.+)$",
+     "group": 1
+    },
+    {
+     "path": "@src",
+     "regex": "^(?!data:)(.+)$",
+     "group": 1
+    }
+   ]
+  }
+ },
+ "hinweise": [
+  "Beliebt = /mangas-hentai/, Neueste = /hentais/ (Seite 1 ohne /page/1/) wie in der Community; Suche nur eine Seite, Typfilter nicht übernommen.",
+  "Nächste Seite: Community sucht einen Link auf /<typ>/page/<n+1>/ – Seitenzahl im Selektor nicht ausdrückbar; hier a.next / rel=next (WordPress-Paginierung angenommen) – auf dem PC prüfen.",
+  "Jeder Eintrag ist ein Werk mit einem Kapitel 'Oneshot' (URL = Werk-URL) wie in der Community.",
+  "Seiten: li img[data-src]; doppelte Bild-URLs entfernt die Community (distinct) – hier nicht möglich."
+ ]
+}

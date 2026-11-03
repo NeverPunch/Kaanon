@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manhastro",
+  "sprache": "pt-BR",
+  "base_url": "https://manhastro.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.manhastro",
+  "quellen": [
+   {
+    "name": "Manhastro",
+    "sprache": "pt-BR",
+    "quell_id": 5123733616022476906,
+    "home": "https://manhastro.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/manhastro",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

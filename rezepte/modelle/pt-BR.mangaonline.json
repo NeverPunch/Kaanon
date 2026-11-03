@@ -1,0 +1,114 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga Online",
+  "sprache": "pt-BR",
+  "base_url": "https://mangaonline.green",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.mangaonline",
+  "quellen": [
+   {
+    "name": "Manga Online",
+    "sprache": "pt-BR",
+    "quell_id": 7203957529449460928,
+    "home": "https://mangaonline.green"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/mangaonline",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/catalogo?perPage=24&page={page}&sort=popular",
+   "items": ".manga-card > a, .latest-manga-card",
+   "has_next": {
+    "exists": "a.public-page-link:contains(Proxima)"
+   },
+   "fields": {
+    "url": [
+     "@href",
+     "a@href"
+    ],
+    "title": "h3",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/atualizacoes?page={page}",
+   "items": ".manga-card > a, .latest-manga-card",
+   "has_next": {
+    "exists": "a.public-page-link:contains(Proxima)"
+   },
+   "fields": {
+    "url": [
+     "@href",
+     "a@href"
+    ],
+    "title": "h3",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/catalogo?perPage=24&page={page}&q={query}&sort=recent&status=all&type=all&adult=all",
+   "items": ".manga-card > a, .latest-manga-card",
+   "has_next": {
+    "exists": "a.public-page-link:contains(Proxima)"
+   },
+   "fields": {
+    "url": [
+     "@href",
+     "a@href"
+    ],
+    "title": "h3",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "description": ".synopsis",
+    "genres": {
+     "path": ".tags span",
+     "all": true,
+     "join": ", "
+    },
+    "status": ".manga-info-pill-status"
+   },
+   "status_map": {
+    "em andamento": 1,
+    "completo": 2,
+    "hiato": 6,
+    "cancelado": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".chapter-row",
+   "fields": {
+    "url": ".chapter-main-link@href",
+    "name": ".chapter-title-line"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".reader-content img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Katalog /catalogo?perPage=24 (Beliebt sort=popular; Suche mit den Standardwerten der Community-Filter sort=recent, status/type/adult=all). Filter nicht übernommen.",
+  "Kapitel ohne Datum (Community liest keins). Detailseite liefert kein Cover; Cover kommt aus der Liste."
+ ]
+}

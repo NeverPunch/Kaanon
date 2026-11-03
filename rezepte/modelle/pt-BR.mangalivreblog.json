@@ -1,0 +1,168 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga Livre Blog",
+  "sprache": "pt-BR",
+  "base_url": "https://mangalivre.blog",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.mangalivreblog",
+  "quellen": [
+   {
+    "name": "Manga Livre Blog",
+    "sprache": "pt-BR",
+    "quell_id": 588678420372440028,
+    "home": "https://mangalivre.blog"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/mangalivreblog",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/manga/page/{page}/?ordem=popular",
+   "items": ".manga-archive-grid article.home-manga-card:has(h3 a)",
+   "fields": {
+    "url": "h3 a@href",
+    "title": "h3 a",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "-150x150",
+       ""
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": ".manga-archive-pagination a.next"
+   }
+  },
+  "latest": {
+   "request": "{base}/?atualizacoes={page}",
+   "items": ".home-latest-grid article.home-manga-card:has(h3 a)",
+   "fields": {
+    "url": "h3 a@href",
+    "title": "h3 a",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "-150x150",
+       ""
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": ".home-latest-pagination span.is-current + a"
+   }
+  },
+  "search": {
+   "request": "{base}/?s={query}&rating_min=0&sort=title&order=asc&paged={page}",
+   "request_by_page": {
+    "1": "{base}/?s={query}&rating_min=0&sort=title&order=asc"
+   },
+   "items": ".manga-grid.search-results-grid .manga-card:has(a.manga-card-link)",
+   "fields": {
+    "url": "a.manga-card-link@href",
+    "title": [
+     "img@alt",
+     "h3.manga-card-title"
+    ],
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "-150x150",
+       ""
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": "a.next.page-numbers"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "ajax": ".chapters-container@data-ajax-url",
+    "mid": ".chapters-container@data-manga-id",
+    "nonce": ".chapters-container@data-nonce"
+   },
+   "fields": {
+    "title": "h1.manga-title",
+    "cover": ".manga-cover img@src",
+    "description": ".synopsis-content",
+    "genres": {
+     "path": ".manga-tags a",
+     "all": true,
+     "join": ", "
+    },
+    "status": ".manga-meta-item:has(.meta-label:matchesOwn(^\\s*Status:\\s*$)) .meta-value",
+    "author": ".manga-meta-item:has(.meta-label:matchesOwn(^\\s*Autor:\\s*$)) .meta-value",
+    "artist": ".manga-meta-item:has(.meta-label:matchesOwn(^\\s*Artista:\\s*$)) .meta-value"
+   },
+   "status_map": {
+    "em lançamento": 1,
+    "Em Lançamento": 1,
+    "em andamento": 1,
+    "Em Andamento": 1,
+    "completo": 2,
+    "Completo": 2,
+    "cancelado": 5,
+    "Cancelado": 5,
+    "pausado": 6,
+    "Pausado": 6,
+    "hiato": 6,
+    "Hiato": 6
+   }
+  },
+  "chapters": {
+   "request": "{l.ajax}?action=slimeread_manga_chapters&manga_id={l.mid}&nonce={l.nonce}&page={page}&search=",
+   "format": "json_html",
+   "html_path": "data.markup",
+   "items": ".chapter-item:has(.chapter-link)",
+   "fields": {
+    "url": ".chapter-link@href",
+    "name": [
+     ".chapter-number",
+     {
+      "const": "Capítulo"
+     }
+    ],
+    "date": ".chapter-date"
+   },
+   "date_format": "relative",
+   "date_locale": "pt-BR",
+   "paging": {
+    "has_next": {
+     "min": 1
+    },
+    "max_pages": 100
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".chapter-image-container img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Beliebt /manga/page/<n>/?ordem=popular, Neueste /?atualizacoes=<n>, Suche mit Standardfiltern (rating_min=0, sort=title, order=asc) wie in der Community; Filter nicht wählbar.",
+  "Kapitel: Community nimmt Seite 1 aus der Detailseite und weitere Seiten per admin-ajax (action=slimeread_manga_chapters, manga_id/nonce/URL aus .chapters-container, Anzahl aus data-total-chapters). Rezept lädt ALLE Seiten per AJAX ab page=1 bis eine Seite leer ist – Annahme: page=1 liefert die ersten Kapitel; auf dem PC prüfen. Nonce liefert die Website selbst.",
+  "Kapiteldatum relativ auf Portugiesisch ('2 dias', 'semana', 'mês' …) – ob die Engine das mit date_locale pt-BR versteht, prüfen.",
+  "Cover ohne '-150x150' wie in der Community."
+ ]
+}

@@ -1,0 +1,147 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "NewXToon",
+  "sprache": "ko",
+  "base_url": "https://newxtoon1.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ko.kaanon.newxtoon",
+  "quellen": [
+   {
+    "name": "NewXToon",
+    "sprache": "ko",
+    "quell_id": 1562897350957827542,
+    "home": "https://newxtoon1.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ko/newxtoon",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/comics?sort=popular&page={page}",
+   "items": "a.comic-link[href*=/comics/]:not([data-cover-ad])",
+   "fields": {
+    "url": {
+     "path": "@href",
+     "regex": "/comics/(\\d+)",
+     "group": 1,
+     "template": "/comics/{value}"
+    },
+    "title": "h3",
+    "cover": "img.cover-image@src"
+   },
+   "has_next": {
+    "exists": "nav[data-site-pagination] a[aria-label='다음 페이지']"
+   }
+  },
+  "latest": {
+   "request": "{base}/comics?sort=latest&page={page}",
+   "items": "a.comic-link[href*=/comics/]:not([data-cover-ad])",
+   "fields": {
+    "url": {
+     "path": "@href",
+     "regex": "/comics/(\\d+)",
+     "group": 1,
+     "template": "/comics/{value}"
+    },
+    "title": "h3",
+    "cover": "img.cover-image@src"
+   },
+   "has_next": {
+    "exists": "nav[data-site-pagination] a[aria-label='다음 페이지']"
+   }
+  },
+  "search": {
+   "request": "{base}/search?q={query}&page={page}",
+   "items": "a.comic-link[href*=/comics/]:not([data-cover-ad])",
+   "fields": {
+    "url": {
+     "path": "@href",
+     "regex": "/comics/(\\d+)",
+     "group": 1,
+     "template": "/comics/{value}"
+    },
+    "title": "h3",
+    "cover": "img.cover-image@src"
+   },
+   "has_next": {
+    "exists": "nav[data-site-pagination] a[aria-label='다음 페이지']"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "section[aria-labelledby=comic-title] #comic-title",
+    "cover": "section[aria-labelledby=comic-title] img[alt$=표지]@src",
+    "author": {
+     "path": "section[aria-labelledby=comic-title] #comic-title + p a",
+     "all": true,
+     "join": ", "
+    },
+    "description": "section[aria-labelledby=comic-title] [data-comic-description]",
+    "genres": {
+     "path": "section[aria-labelledby=comic-title] a[href*=/comics?category=]",
+     "all": true,
+     "join": ", "
+    },
+    "status": [
+     "section[aria-labelledby=comic-title] strong:containsOwn(완결)",
+     "section[aria-labelledby=comic-title] strong:containsOwn(연재중)",
+     "section[aria-labelledby=comic-title] strong:containsOwn(휴재)"
+    ]
+   },
+   "status_map": {
+    "완결": 2,
+    "연재중": 1,
+    "휴재": 6
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/comics/{u.id}/chapters?sort=latest&page={page}",
+    "headers": {
+     "Accept": "application/json",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "/comics/(\\d+)"
+   },
+   "items": "chapters",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/comics/{u.id}/chapters/{value}"
+    },
+    "name": "title",
+    "date": "date"
+   },
+   "date_format": "yyyy.MM.dd",
+   "paging": {
+    "has_next": {
+     "exists": "has_more"
+    },
+    "max_pages": 100
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "[data-reader-canvas] [data-reader-page] img[data-reader-image]",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Basis-URL wechselt (newxtoonN.com); Community: custom baseUrl https://newxtoon1.com.",
+  "Manga-URL /comics/<id> (Community speichert nur die id). Suche über /search?q=, Filter (Kategorie/Genre/Plattform/Status/Wochentag) nicht übernommen.",
+  "Kapitel: JSON /comics/<id>/chapters?sort=latest&page=N mit Accept/X-Requested-With, Blättern solange has_more (exists auf Boolean wie in einer Vorlage). Datum yyyy.MM.dd (Zeitzone Seoul in der Community).",
+  "Status über erstes vorhandenes strong mit 완결/연재중/휴재 (Ausweichkette; Community prüft in dieser Reihenfolge)."
+ ]
+}

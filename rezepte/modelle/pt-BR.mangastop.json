@@ -1,0 +1,180 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga Stop",
+  "sprache": "pt-BR",
+  "base_url": "https://mangastop.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.mangastop",
+  "quellen": [
+   {
+    "name": "Manga Stop",
+    "sprache": "pt-BR",
+    "quell_id": 924359643993288771,
+    "home": "https://mangastop.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/mangastop",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.14",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/wp-json/mangastop/v1/mais-populares?pagina={page}&por_pagina=24",
+   "format": "json",
+   "items": "mangas",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/obra/{value}"
+    },
+    "title": "titulo",
+    "cover": "thumbnail"
+   },
+   "has_next": {
+    "exists": "paginacao.tem_proxima"
+   }
+  },
+  "latest": {
+   "request": "{base}/wp-json/mangastop/v1/recentes?pagina={page}&por_pagina=24",
+   "format": "json",
+   "items": "mangas",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/obra/{value}"
+    },
+    "title": "titulo",
+    "cover": "thumbnail"
+   },
+   "has_next": {
+    "exists": "paginacao.tem_proxima"
+   }
+  },
+  "search": {
+   "request": "{base}/wp-json/mangastop/v1/busca?q={query}&tipo=obras&pagina={page}&por_pagina=24",
+   "format": "json",
+   "items": "obras.lista",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/obra/{value}"
+    },
+    "title": "titulo",
+    "cover": "thumbnail"
+   },
+   "has_next": {
+    "lt": [
+     "pagina",
+     "obras.total_paginas"
+    ]
+   }
+  },
+  "details": {
+   "request": "{base}/wp-json/mangastop/v1/obra/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/obra/(\\d+)"
+   },
+   "fields": {
+    "title": "titulo",
+    "cover": "capa_url",
+    "description": {
+     "path": "sinopse",
+     "decode": "html_text"
+    },
+    "author": [
+     {
+      "path": "manga_autor.*.nome",
+      "all": true,
+      "join": ", "
+     },
+     "autor"
+    ],
+    "artist": [
+     {
+      "path": "manga_artista.*.nome",
+      "all": true,
+      "join": ", "
+     },
+     "artista"
+    ],
+    "genres": {
+     "path": [
+      "generos.*.nome",
+      "tipo"
+     ],
+     "union": true
+    },
+    "status": "status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "capitulos",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/leitor/{value}"
+    },
+    "name": [
+     {
+      "path": "numero",
+      "replace": [
+       [
+        ",",
+        "."
+       ],
+       [
+        "\\.0+$",
+        ""
+       ]
+      ],
+      "template": "Capítulo {value}"
+     },
+     "titulo_post"
+    ],
+    "number": {
+     "path": "numero",
+     "replace": [
+      [
+       ",",
+       "."
+      ]
+     ]
+    },
+    "date": "data_publicacao"
+   },
+   "date_format": "yyyy-MM-dd"
+  },
+  "pages": {
+   "request": "{base}/wp-json/mangastop/v1/leitor/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/leitor/(\\d+)"
+   },
+   "items": "imagens",
+   "image": "url"
+  }
+ },
+ "hinweise": [
+  "JSON-API {base}/wp-json/mangastop/v1 (24 je Seite). Manga-URL /obra/<id>, Kapitel-URL /leitor/<id> (Community speichert die nackte id; getMangaUrl/getChapterUrl bilden genau diese Pfade).",
+  "Alte MangaThemesia-URLs (/manga/<slug>/) per wp/v2-Slug-Auflösung nicht nachgebaut. Sortier-/Typ-/Genrefilter nicht übernommen.",
+  "Kapitel aus dem obra-JSON (request details); Name 'Capítulo N' (Komma → Punkt, .0 entfernt), sonst titulo_post. Reihenfolge wie geliefert (Community sortiert absteigend nach Nummer). Datum yyyy-MM-dd.",
+  "Beschreibung ohne angehängte Alternativtitel; Genres = generos + tipo."
+ ]
+}

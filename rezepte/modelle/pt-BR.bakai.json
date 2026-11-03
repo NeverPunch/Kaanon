@@ -1,0 +1,134 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Bakai",
+  "sprache": "pt-BR",
+  "base_url": "https://bakai.org",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.bakai",
+  "quellen": [
+   {
+    "name": "Bakai",
+    "sprache": "pt-BR",
+    "quell_id": 1652448748031658277,
+    "home": "https://bakai.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/bakai",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": "[data-blockid^=app_tools_taMostViewedRecords] [id$=_week_panel] li.ipsData__item",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a.ipsLinkPanel@href",
+    "title": ".ipsData__image img@alt",
+    "cover": ".ipsData__image img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/home/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/home/"
+   },
+   "items": "article.ipsCmsEntries__item",
+   "has_next": {
+    "exists": "li.ipsPagination__next:not(.ipsPagination__inactive) > a"
+   },
+   "fields": {
+    "url": ".ipsCmsEntries__header h2 > a@href",
+    "title": ".ipsCmsEntries__header h2 > a",
+    "cover": ".ipsCmsEntries__thumb img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/search/?q={query}&page={page}&quick=1&type=cms_records1&search_and_or=and&sortby=relevancy",
+   "items": "li.ipsStreamItem:has(.ipsStreamItem__header[data-ips-hook=itemHeader]):has(.ipsStreamItem__summary i.fa-file-text)",
+   "has_next": {
+    "exists": "li.ipsPagination__next:not(.ipsPagination__inactive) > a"
+   },
+   "fields": {
+    "url": ".ipsStreamItem__title a@href",
+    "title": ".ipsStreamItem__title a",
+    "cover": ".ipsStreamItem__content-thumb img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "cover": ".mangaInfoBox__cover img@src",
+    "author": {
+     "path": ".mangaInfoBox__row:has(.mangaInfoBox__label:contains(Artista)) .mangaInfoBox__value a",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": [
+      ".mangaInfoBox__row:has(.mangaInfoBox__label:contains(Tipo)) .mangaInfoBox__value a",
+      ".mangaInfoBox__row:has(.mangaInfoBox__label:contains(Cor)) .mangaInfoBox__value a",
+      ".mangaInfoBox__row:has(.mangaInfoBox__label:contains(Parody)) .mangaInfoBox__value a",
+      ".mangaGenres__item a"
+     ],
+     "union": true
+    },
+    "description": {
+     "path": "article:not(.ipsEntry) div[data-role=commentContent]",
+     "replace": [
+      [
+       "^-$",
+       ""
+      ]
+     ]
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": [
+     "h1",
+     {
+      "const": "Chapter"
+     }
+    ],
+    "date": "time@datetime"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img[class*=Reader]",
+   "image": [
+    "@data-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Galerie-Website (IPS/Invision): ein Eintrag = ein Kapitel, Status abgeschlossen wie in der Community (dort zusätzlich ONLY_FETCH_ONCE).",
+  "Beliebt = Wochen-Panel „Most Viewed“ der Startseite (eine Seite).",
+  "Suche liefert bei zu schnellen Anfragen HTTP 429 (Community: 1 s warten); Filter auf Beiträge mit i.fa-file-text per :has() im Selektor.",
+  "Lesebilder: Klassenname wechselt (mangaReaderImage, mangaV2ReaderImage …), daher img[class*=Reader] wie Community."
+ ]
+}

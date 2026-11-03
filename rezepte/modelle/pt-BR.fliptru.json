@@ -1,0 +1,161 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Fliptru",
+  "sprache": "pt-BR",
+  "base_url": "https://fliptru.com.br",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.fliptru",
+  "quellen": [
+   {
+    "name": "Fliptru",
+    "sprache": "pt-BR",
+    "quell_id": 4098680004758739934,
+    "home": "https://fliptru.com.br"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/fliptru",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/most_popular_list/",
+   "items": "a.comic-card[href^=\"/comic/\"]",
+   "fields": {
+    "url": {
+     "path": "@href",
+     "replace": [
+      [
+       "\\?.*$",
+       ""
+      ]
+     ]
+    },
+    "title": [
+     "@data-title",
+     "h3"
+    ],
+    "cover": {
+     "path": "@style",
+     "regex": "url\\((https?://[^)]+)\\)",
+     "group": 1
+    }
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/comics/all?page={page}",
+   "request_by_page": {
+    "1": "{base}/comics/all"
+   },
+   "items": "a.comic-card[href^=\"/comic/\"]",
+   "fields": {
+    "url": {
+     "path": "@href",
+     "replace": [
+      [
+       "\\?.*$",
+       ""
+      ]
+     ]
+    },
+    "title": [
+     "@data-title",
+     "h3"
+    ],
+    "cover": {
+     "path": "@style",
+     "regex": "url\\((https?://[^)]+)\\)",
+     "group": 1
+    }
+   },
+   "has_next": {
+    "exists": "#loadMoreComics a"
+   }
+  },
+  "search": {
+   "request": "{base}/search/?term={query}",
+   "format": "json",
+   "items": "$",
+   "skip": {
+    "path": "url",
+    "regex": "^(?!/comic/)"
+   },
+   "fields": {
+    "url": {
+     "path": "url",
+     "regex": "^(/comic/[^?]*?)(?:/info)?(?:\\?.*)?$",
+     "group": 1
+    },
+    "title": {
+     "path": "label",
+     "replace": [
+      [
+       " - @.*$",
+       ""
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     "h1",
+     "meta[property=og:title]@content"
+    ],
+    "cover": "meta[property=og:image]@content",
+    "description": "meta[property=og:description]@content",
+    "author": {
+     "path": "html@html",
+     "regex": "\"@type\"\\s*:\\s*\"ComicSeries\"[\\s\\S]*?\"author\"\\s*:\\s*\\{[^}]*?\"name\"\\s*:\\s*\"([^\"]+)\"",
+     "group": 1
+    },
+    "genres": {
+     "path": "html@html",
+     "regex": "\"@type\"\\s*:\\s*\"ComicSeries\"[\\s\\S]*?\"genre\"\\s*:\\s*\"([^\"]+)\"",
+     "group": 1
+    }
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#chapterListContainer .chapter-list-item a[href]",
+   "fields": {
+    "url": "@href",
+    "name": "",
+    "number": {
+     "path": "@href",
+     "regex": "/comic/[^/]+/([0-9.]+)",
+     "group": 1
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.comic_page_image img",
+   "image": [
+    "@data-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Beliebt /most_popular_list/ (eine Seite), Neueste /comics/all[?page=N] (#loadMoreComics a), Suche /search/?term= (JSON label/url, nur /comic/-Einträge, '/info' und Query entfernt) wie Community. Genrefilter nicht nachgebaut.",
+  "Details: Community liest JSON-LD (ComicSeries) mit Vorrang; hier Titel/Cover/Beschreibung aus h1/og:-Angaben, Autor und Genre per Regex aus dem JSON-LD-Block – prüfen.",
+  "Kapitel: Community sortiert nach der Nummer aus der URL absteigend und entfernt Doppelte – hier Seitenreihenfolge.",
+  "Altersbeschränkte Kapitel leiten auf /users/… (Login) um – nicht abgebildet, diese schlagen fehl."
+ ]
+}
