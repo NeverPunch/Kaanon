@@ -1,0 +1,245 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaDNA",
+  "sprache": "all",
+  "base_url": "https://mangadna.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.mangadna",
+  "quellen": [
+   {
+    "name": "MangaDNA",
+    "sprache": "en",
+    "quell_id": 5181311401760417052,
+    "home": "https://mangadna.com"
+   },
+   {
+    "name": "MangaDNA",
+    "sprache": "all",
+    "quell_id": 6255493077716027174,
+    "home": "https://mangadna.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/mangadna",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "yiimadara"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/manga/page/{page}?orderby=trending",
+   "items": "div.page-item, div.page-item-detail, div.home-item, div.manga-item",
+   "has_next": {
+    "exists": "#blog-pager li.next a, ul.pagination li.next a"
+   },
+   "fields": {
+    "url": "h3 a@href",
+    "title": "h3 a",
+    "cover": "img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/manga/page/{page}",
+   "items": "div.page-item, div.page-item-detail, div.home-item, div.manga-item",
+   "has_next": {
+    "exists": "#blog-pager li.next a, ul.pagination li.next a"
+   },
+   "fields": {
+    "url": "h3 a@href",
+    "title": "h3 a",
+    "cover": "img@img"
+   }
+  },
+  "search": {
+   "request": "{base}/search?q={query}&page={page}",
+   "items": "div.page-item, div.page-item-detail, div.home-item, div.manga-item",
+   "has_next": {
+    "exists": "#blog-pager li.next a, ul.pagination li.next a"
+   },
+   "fields": {
+    "url": "h3 a@href",
+    "title": "h3 a",
+    "cover": "img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "genres": {
+     "path": [
+      "div.genres-content a",
+      ".post-content_item:has(> .summary-heading:contains(Genre)) > .summary-content a",
+      ".post-content_item:has(> b:contains(Genre)) > :not(b) a"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "type": [
+     ".post-content_item:has(> .summary-heading:contains(Type)) > .summary-content",
+     ".post-content_item:has(> b:contains(Type)) > :not(b)",
+     ".minfo:contains(Type) > i"
+    ]
+   },
+   "fields": {
+    "title": [
+     ".post-title h1@ownText",
+     ".post-title h1"
+    ],
+    "cover": [
+     ".summary_image img@img",
+     "meta[property=og:image]@content"
+    ],
+    "description": [
+     ".dsct",
+     ".ss-manga",
+     ".post-content_item .entry-content"
+    ],
+    "genres": {
+     "const": "{l.genres}[[, {l.type}]]"
+    },
+    "author": {
+     "path": [
+      "div.author-content > a",
+      ".post-content_item:has(> .summary-heading:contains(Author)) > .summary-content a",
+      ".post-content_item:has(> b:contains(Author)) > :not(b) a",
+      ".post-content_item:has(> .summary-heading:contains(Author)) > .summary-content",
+      ".post-content_item:has(> b:contains(Author)) > :not(b)"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": [
+      "div.artist-content > a",
+      ".post-content_item:has(> .summary-heading:contains(Artist)) > .summary-content a",
+      ".post-content_item:has(> b:contains(Artist)) > :not(b) a",
+      ".post-content_item:has(> .summary-heading:contains(Artist)) > .summary-content",
+      ".post-content_item:has(> b:contains(Artist)) > :not(b)"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": [
+      ".post-content_item:has(> .summary-heading:contains(Status)) > .summary-content",
+      ".post-content_item:has(> b:contains(Status)) > :not(b)",
+      ".minfo:contains(Status) > i"
+     ],
+     "all": true,
+     "join": " "
+    }
+   },
+   "status_map": {
+    "completed": 2,
+    "completo": 2,
+    "completado": 2,
+    "concluído": 2,
+    "concluido": 2,
+    "finalizado": 2,
+    "achevé": 2,
+    "terminé": 2,
+    "hoàn thành": 2,
+    "مكتملة": 2,
+    "مكتمل": 2,
+    "已完结": 2,
+    "tamamlandı": 2,
+    "đã hoàn thành": 2,
+    "завершено": 2,
+    "tamamlanan": 2,
+    "complété": 2,
+    "ongoing": 1,
+    "on going": 1,
+    "updating": 1,
+    "продолжается": 1,
+    "em lançamento": 1,
+    "em andamento": 1,
+    "en cours": 1,
+    "inativo": 6,
+    "ativo": 1,
+    "lançando": 1,
+    "đang tiến hành": 1,
+    "còn nữa": 1,
+    "devam ediyor": 1,
+    "in corso": 1,
+    "in arrivo": 1,
+    "مستمرة": 1,
+    "مستمر": 1,
+    "en curso": 1,
+    "emision": 1,
+    "curso": 1,
+    "en marcha": 1,
+    "publicandose": 1,
+    "publicándose": 1,
+    "en emision": 1,
+    "连载中": 1,
+    "đang làm": 1,
+    "em postagem": 1,
+    "devam eden": 1,
+    "em progresso": 1,
+    "atualizações semanais": 1,
+    "виходить": 1,
+    "đang ra": 1,
+    "on hold": 6,
+    "hiatus": 6,
+    "pausado": 6,
+    "en espera": 6,
+    "durduruldu": 6,
+    "beklemede": 6,
+    "đang chờ": 6,
+    "متوقف": 6,
+    "en pause": 6,
+    "заморожено": 6,
+    "en attente": 6,
+    "tạm dừng": 6,
+    "canceled": 5,
+    "cancelled": 5,
+    "cancelado": 5,
+    "iptal edildi": 5,
+    "đã hủy": 5,
+    "ملغي": 5,
+    "abandonné": 5,
+    "заброшено": 5,
+    "annulé": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": [
+    "ul.row-content-chapter li",
+    "li.a-h"
+   ],
+   "fields": {
+    "url": "a@href",
+    "name": "a",
+    "date": ".chapter-time"
+   },
+   "date_format": [
+    "dd MMM yy",
+    "dd MMM yyyy",
+    "relative"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".read-content img",
+   "image": "@img"
+  }
+ },
+ "hinweise": [
+  "Abweichungen laut Community: Katalog blättert als /manga/page/N (Beliebt mit ?orderby=trending, Neueste ohne), Suche wie Theme /search?q=…&page=N; Drosselung 2 Anfragen/s.",
+  "Zwei Community-Quellen (en, all) teilen sich ein Modell. Die Theme-Logik blendet Raws nur in der en-Quelle aus; das Rezept zeigt Raws (kein skip), wie die all-Quelle.",
+  "Ausgangspunkt: Vorlage en.manhwa18 (YiiMadara, gleiche Bauweise). Selektoren an den aktuellen Theme-Code angeglichen: Listen 'div.page-item, div.page-item-detail, div.home-item, div.manga-item' mit 'h3 a', nächste Seite '#blog-pager li.next a' (zusätzlich 'ul.pagination li.next a' wie Vorlage), Kapitel 'ul.row-content-chapter li' (Ausweich 'li.a-h'), Seiten '.read-content img'.",
+  "Infozeilen (Author/Artist/Genre/Type/Status) wie im Theme: '.post-content_item' mit '.summary-heading' oder '<b>'-Label, ersatzweise '.minfo > i'. Selektoren nutzen ':has(> …)' – setzt voraus, dass die Engine relative :has-Selektoren kann (kommt in Vorlage en.mangadass vor).",
+  "Datum wie im Theme 'dd MMM [yyyy][yy]': als Ausweichkette 'dd MMM yy', 'dd MMM yyyy', 'relative' – 'yy' zuerst, damit zweistellige Jahre nicht als Jahr 0026 gelesen werden.",
+  "Alternative Namen hängt das Theme an die Beschreibung an; hier weggelassen."
+ ]
+}

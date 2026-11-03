@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ReadManga18",
+  "sprache": "en",
+  "base_url": "https://readmanga18.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.readmanga18",
+  "quellen": [
+   {
+    "name": "ReadManga18",
+    "sprache": "en",
+    "quell_id": 8341261297497729714,
+    "home": "https://readmanga18.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/readmanga18",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "yiimadara"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

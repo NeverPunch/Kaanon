@@ -6291,7 +6291,7 @@
  },
  {
   "modul": "src/all/manga18fx",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Manga18fx",
   "stufe": 1,
   "theme": "yiimadara",
@@ -6302,11 +6302,13 @@
   "host": "manga18fx.com",
   "nsfw": true,
   "wer": "agent-s1",
-  "seit": "2026-11-03T10:03:47"
+  "seit": "2026-11-03T10:03:47",
+  "datei": "rezepte/modelle/all.manga18fx.json",
+  "geaendert": "2026-11-03T10:05:02"
  },
  {
   "modul": "src/all/manga18me",
-  "status": "offen",
+  "status": "fertig",
   "name": "Manga18Me",
   "stufe": 1,
   "theme": "yiimadara",
@@ -6315,11 +6317,15 @@
    "en"
   ],
   "host": "manga18.me",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-s1",
+  "seit": "2026-11-03T10:05:02",
+  "datei": "rezepte/modelle/all.manga18me.json",
+  "geaendert": "2026-11-03T10:05:12"
  },
  {
   "modul": "src/all/mangadna",
-  "status": "offen",
+  "status": "fertig",
   "name": "MangaDNA",
   "stufe": 1,
   "theme": "yiimadara",
@@ -6328,11 +6334,15 @@
    "en"
   ],
   "host": "mangadna.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-s1",
+  "seit": "2026-11-03T10:05:12",
+  "datei": "rezepte/modelle/all.mangadna.json",
+  "geaendert": "2026-11-03T10:05:18"
  },
  {
   "modul": "src/en/manhwaus",
-  "status": "offen",
+  "status": "fertig",
   "name": "ManhwaUS",
   "stufe": 1,
   "theme": "yiimadara",
@@ -6340,11 +6350,15 @@
    "en"
   ],
   "host": "manhwaus.net",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-s1",
+  "seit": "2026-11-03T10:05:18",
+  "datei": "rezepte/modelle/en.manhwaus.json",
+  "geaendert": "2026-11-03T10:05:25"
  },
  {
   "modul": "src/en/readmanga18",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "ReadManga18",
   "stufe": 1,
   "theme": "yiimadara",
@@ -6352,7 +6366,9 @@
    "en"
   ],
   "host": "readmanga18.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-s1",
+  "seit": "2026-11-03T10:05:25"
  },
  {
   "modul": "src/ar/comicverse",
