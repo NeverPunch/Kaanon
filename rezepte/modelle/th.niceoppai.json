@@ -23,7 +23,134 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/manga_list/all/any/most-popular-monthly/{page}",
+   "items": "div.fcard:has(a.fcard__title)",
+   "fields": {
+    "url": "a.fcard__title@href",
+    "title": "a.fcard__title",
+    "cover": "img.cover__img@src"
+   },
+   "has_next": {
+    "exists": "ul.pgg li a:matchesOwn(^\\s*Next\\s*$)"
+   }
+  },
+  "latest": {
+   "request": "{base}/manga_list/all/any/last-updated/{page}",
+   "items": "div.fcard:has(a.fcard__title)",
+   "fields": {
+    "url": "a.fcard__title@href",
+    "title": "a.fcard__title",
+    "cover": "img.cover__img@src"
+   },
+   "has_next": {
+    "exists": "ul.pgg li a:matchesOwn(^\\s*Next\\s*$)"
+   }
+  },
+  "search": {
+   "request": "{base}/manga_list/search/{query}/name-az/{page}",
+   "items": "div.fcard:has(a.fcard__title)",
+   "fields": {
+    "url": "a.fcard__title@href",
+    "title": "a.fcard__title",
+    "cover": "img.cover__img@src"
+   },
+   "has_next": {
+    "exists": "ul.pgg li a:matchesOwn(^\\s*Next\\s*$)"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "p2": [
+     {
+      "path": "ul.pgg li a:matchesOwn(^\\s*2\\s*$)@href",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "ul.pgg li a:matchesOwn(^\\s*2\\s*$)@href",
+      "regex": "^(/.+)$",
+      "group": 1,
+      "template": "{base}{value}"
+     }
+    ],
+    "ppre": {
+     "const": "{l.p2}",
+     "regex": "^(.*\\D)2(/?)$",
+     "group": 1
+    },
+    "psuf": {
+     "const": "{l.p2}",
+     "regex": "^(.*\\D)2(/?)$",
+     "group": 2
+    }
+   },
+   "fields": {
+    "title": "div.series__info h1",
+    "author": "div.series__info div.fact:has(span:matchesOwn(^\\s*ผู้แต่ง\\s*$)) b a",
+    "artist": "div.series__info div.fact:has(span:matchesOwn(^\\s*ผู้แต่ง\\s*$)) b a",
+    "status": "div.series__info div.fact:has(span:matchesOwn(^\\s*สถานะ\\s*$)) b",
+    "genres": {
+     "path": "div.series__info div.series__genres a.chip--genre",
+     "all": true,
+     "join": ", "
+    },
+    "description": "div.series__info p.series__syn",
+    "cover": "div.series__cover img.cover__img@src"
+   },
+   "status_map": {
+    "ยังไม่จบ": 1,
+    "จบแล้ว": 2
+   }
+  },
+  "chapters": {
+   "request": "{l.ppre}{page}[[{l.psuf}]]",
+   "request_by_page": {
+    "1": "details"
+   },
+   "items": "a.chrow",
+   "fields": {
+    "url": "@href",
+    "name": [
+     {
+      "path": "@data-ch",
+      "regex": "^(\\d+(?:\\.\\d+)?)",
+      "group": 1,
+      "template": "ตอนที่ {value}"
+     },
+     {
+      "path": "@data-ch",
+      "template": "ตอนที่ {value}"
+     }
+    ],
+    "number": {
+     "path": "@data-ch",
+     "regex": "^(\\d+(?:\\.\\d+)?)",
+     "group": 1
+    },
+    "date": "div.chrow__d"
+   },
+   "date_format": "MMM dd, yyyy",
+   "date_locale": "en",
+   "paging": {
+    "has_next": {
+     "exists": "ul.pgg li a:matchesOwn(^\\s*Next\\s*$)"
+    },
+    "max_pages": 50
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#image-container > center > img",
+   "image": "@src"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Listen /manga_list/all/any/<sortierung>/<n>, Suche /manga_list/search/<text>/name-az/<n> (Standardsortierung der Community). Sortierfilter nicht übernommen.",
+  "Kapitel: Community lädt alle nummerierten Seiten der Kapitel-Paginierung (ul.pgg) parallel. Hier: Seite 1 = Detailseite, weitere Seiten nach dem Muster des Links auf Seite '2' (Zahl am URL-Ende durch die Seitennummer ersetzt), weiter solange ein 'Next'-Link existiert – Annahme, auf dem PC prüfen.",
+  "Kapitelname nur 'ตอนที่ <Nr>' (Community hängt den Titel aus div.chrow__t an, wenn er von der Nummer abweicht). Datum 'MMM dd, yyyy' (englische Monatsnamen).",
+  "Künstler = Autor wie in der Community."
+ ]
 }
