@@ -47,7 +47,129 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/wp-json/wordpress-popular-posts/v1/popular-posts?limit=20&offset={offset}&range=last30days&order_by=views&embed=true&_embed=wp:featuredmedia&_fields=title,link,categories,_embedded,_links.wp:featuredmedia",
+   "format": "json",
+   "items": "$",
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "link",
+     "regex": "^https?://[^/]+(/.*)$"
+    },
+    "title": {
+     "path": "title.rendered",
+     "decode": "html"
+    },
+    "cover": "_embedded.wp:featuredmedia.0.source_url"
+   }
+  },
+  "latest": {
+   "request": "{base}/wp-json/wp/v2/posts?page={page}&per_page=20&_embed=wp:featuredmedia&_fields=link,title,categories,_embedded,_links.wp:featuredmedia",
+   "format": "json",
+   "items": "$",
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "link",
+     "regex": "^https?://[^/]+(/.*)$"
+    },
+    "title": {
+     "path": "title.rendered",
+     "decode": "html"
+    },
+    "cover": "_embedded.wp:featuredmedia.0.source_url"
+   }
+  },
+  "search": {
+   "request": "{base}/wp-json/wp/v2/posts?page={page}&per_page=20&_embed=wp:featuredmedia&_fields=link,title,categories,_embedded,_links.wp:featuredmedia&search={query}&orderby=date",
+   "format": "json",
+   "items": "$",
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "link",
+     "regex": "^https?://[^/]+(/.*)$"
+    },
+    "title": {
+     "path": "title.rendered",
+     "decode": "html"
+    },
+    "cover": "_embedded.wp:featuredmedia.0.source_url"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1.s-title",
+    "description": {
+     "path": "div.entry-content > p.wp-block-paragraph",
+     "all": true,
+     "join": "\n\n",
+     "replace": [
+      [
+       "(?is)(?:^|\\n\\n)[^\\n]*(?:Publisher of This Comic Book Episode|Watch comics feature genres|es el editor de este episodio|est l’auteur de cet épisode|publie cet épisode|ist der Herausgeber dieser|ist die Herausgeberin dieser|è l’editore di questo episodio).*$",
+       ""
+      ]
+     ]
+    },
+    "genres": "a[rel=tag]",
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Chapter"
+    },
+    "date": "time.published@datetime"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".entry-content .wp-block-gallery img",
+   "image": {
+    "path": "@src",
+    "replace": [
+     [
+      "-scaled(\\.\\w+)$",
+      "$1"
+     ]
+    ]
+   },
+   "exclude": "^data:image"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Fünf Sprachquellen (en/es/de/fr/it) mit eigener Subdomain; ein Modell mit {base} – Annahme: {base} ist je Quelle deren home.",
+  "Beschreibung: Absätze bis zum Herausgeber-Absatz; die sprachabhängigen Endmarken der Community sind in einem replace zusammengefasst.",
+  "Community filtert auf en die Video-Kategorie 320 aus; nicht übernommen (ID gilt nur für en).",
+  "has_next: Community nutzt Header X-WP-TotalPages (Latest/Suche) bzw. volle Seite (Popular); Rezept: volle Seite (20).",
+  "Kategorie-/Tag-/Sortierfilter nicht übernommen; Suche nach Datum sortiert (Community-Standard)."
+ ]
 }

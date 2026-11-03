@@ -1,0 +1,344 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "3Hentai",
+  "sprache": "all",
+  "base_url": "https://3hentai.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.3hentai",
+  "quellen": [
+   {
+    "name": "3Hentai",
+    "sprache": "all",
+    "quell_id": 6915411826598362561,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "en",
+    "quell_id": 7819216870104067677,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "ja",
+    "quell_id": 2859097949969075077,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "ko",
+    "quell_id": 1633661983859923604,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "zh",
+    "quell_id": 6260479722543828095,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "es",
+    "quell_id": 373755159908438683,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "pt",
+    "quell_id": 1132983959765816866,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "id",
+    "quell_id": 49558592523574241,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "jv",
+    "quell_id": 7615826761003926053,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "tl",
+    "quell_id": 3940534831604021485,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "vi",
+    "quell_id": 6096870058125388335,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "th",
+    "quell_id": 3039466073711396152,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "my",
+    "quell_id": 3523364768003208635,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "tr",
+    "quell_id": 359674482170560410,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "ru",
+    "quell_id": 4917651850397277037,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "uk",
+    "quell_id": 3501213105339612791,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "pl",
+    "quell_id": 7940950215101782907,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "de",
+    "quell_id": 7057309244033446342,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "it",
+    "quell_id": 419728421305339582,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "fr",
+    "quell_id": 4290439286788644779,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "nl",
+    "quell_id": 7640863230103182507,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "cs",
+    "quell_id": 3862668659803323645,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "hu",
+    "quell_id": 8643172240389130297,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "bg",
+    "quell_id": 2158865776377405902,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "is",
+    "quell_id": 8884989104958593922,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "la",
+    "quell_id": 5003216810967182175,
+    "home": "https://3hentai.net"
+   },
+   {
+    "name": "3Hentai",
+    "sprache": "ar",
+    "quell_id": 1533969146563051444,
+    "home": "https://3hentai.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/hentai3",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.7",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/search?q=pages%3A>0&page={page}&sort=popular",
+   "items": "a[href*=/d/]",
+   "has_next": {
+    "exists": "a[rel=next]"
+   },
+   "fields": {
+    "url": "@href",
+    "title": {
+     "path": "div.title@ownText",
+     "replace": [
+      [
+       "(\\[[^]]*]|[({][^)}]*[)}])",
+       ""
+      ],
+      [
+       "^\\s+|\\s+$",
+       ""
+      ]
+     ]
+    },
+    "cover": "img:not([class])@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/search?q=pages%3A>0&page={page}",
+   "items": "a[href*=/d/]",
+   "has_next": {
+    "exists": "a[rel=next]"
+   },
+   "fields": {
+    "url": "@href",
+    "title": {
+     "path": "div.title@ownText",
+     "replace": [
+      [
+       "(\\[[^]]*]|[({][^)}]*[)}])",
+       ""
+      ],
+      [
+       "^\\s+|\\s+$",
+       ""
+      ]
+     ]
+    },
+    "cover": "img:not([class])@src"
+   }
+  },
+  "search": {
+   "request": "{base}/search?q={query}&page={page}",
+   "items": "a[href*=/d/]",
+   "has_next": {
+    "exists": "a[rel=next]"
+   },
+   "fields": {
+    "url": "@href",
+    "title": {
+     "path": "div.title@ownText",
+     "replace": [
+      [
+       "(\\[[^]]*]|[({][^)}]*[)}])",
+       ""
+      ],
+      [
+       "^\\s+|\\s+$",
+       ""
+      ]
+     ]
+    },
+    "cover": "img:not([class])@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "path": "h1",
+     "replace": [
+      [
+       "(\\[[^]]*]|[({][^)}]*[)}])",
+       ""
+      ],
+      [
+       "^\\s+|\\s+$",
+       ""
+      ]
+     ]
+    },
+    "cover": "img@img",
+    "author": [
+     {
+      "path": "a[href*=/groups/]",
+      "all": true,
+      "join": ", "
+     },
+     {
+      "path": "a[href*=/artists/]",
+      "all": true,
+      "join": ", "
+     }
+    ],
+    "artist": [
+     {
+      "path": "a[href*=/artists/]",
+      "all": true,
+      "join": ", "
+     },
+     {
+      "path": "a[href*=/groups/]",
+      "all": true,
+      "join": ", "
+     }
+    ],
+    "genres": {
+     "path": "a[href*=/tags/]",
+     "all": true,
+     "join": ", "
+    },
+    "description": "div.tag-container:contains(pages:)",
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Chapter"
+    },
+    "date": "time@datetime"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img:not([class], [src*=thumb], [src*=cover])",
+   "image": {
+    "path": "@src",
+    "replace": [
+     [
+      "t(?=\\.[a-zA-Z]+$)",
+      ""
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "27 Community-Sprachquellen unterscheiden sich nur im Sprachpfad/-filter; ein Modell, das der all-Quelle folgt (Suche q=pages:>0).",
+  "Titel ohne [..]/(..)/{..}-Teile wie Standard-Einstellung 'Display full title' = aus.",
+  "Beschreibung nur Seitenzahl-Zeile (Code hängt Figuren, Serien, Gruppen, Sprachen an); Tags ohne ♀/♂-Umformung. Ein Kapitel 'Chapter' mit Datum aus <time datetime>.",
+  "Bild-URL: Vorschau-Suffix 't' vor der Dateiendung entfernt (Code: Regex t(?=\\.) – hier auf die letzte Endung begrenzt)."
+ ]
+}

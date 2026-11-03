@@ -239,7 +239,161 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "x-gc-client": "gck_d0f170d5729446dcb3b55e6b3ebc7bf6",
+   "x-gc-identmode": "cookie"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://api.globalcomix.com/v1/comics?lang_id[]=en&p={page}",
+   "format": "json",
+   "items": "payload.results",
+   "has_next": {
+    "lt": [
+     "payload.pagination.page",
+     "payload.pagination.total_pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "name",
+     "replace": [
+      [
+       "[^A-Za-z0-9]+",
+       "-"
+      ]
+     ],
+     "template": "/c/{value}#{f.id}"
+    },
+    "title": "name",
+    "cover": "image_url"
+   }
+  },
+  "latest": {
+   "request": "https://api.globalcomix.com/v1/comics?lang_id[]=en&p={page}&sort=recent",
+   "format": "json",
+   "items": "payload.results",
+   "has_next": {
+    "lt": [
+     "payload.pagination.page",
+     "payload.pagination.total_pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "name",
+     "replace": [
+      [
+       "[^A-Za-z0-9]+",
+       "-"
+      ]
+     ],
+     "template": "/c/{value}#{f.id}"
+    },
+    "title": "name",
+    "cover": "image_url"
+   }
+  },
+  "search": {
+   "request": "https://api.globalcomix.com/v1/comics?lang_id[]=en&p={page}&sort=relevance&q={query}",
+   "format": "json",
+   "items": "payload.results",
+   "has_next": {
+    "lt": [
+     "payload.pagination.page",
+     "payload.pagination.total_pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "name",
+     "replace": [
+      [
+       "[^A-Za-z0-9]+",
+       "-"
+      ]
+     ],
+     "template": "/c/{value}#{f.id}"
+    },
+    "title": "name",
+    "cover": "image_url"
+   }
+  },
+  "details": {
+   "request": "https://api.globalcomix.com/v1/read/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/c/([^/#]+)",
+    "id": "#(\\d+)$"
+   },
+   "fields": {
+    "title": "payload.results.name",
+    "cover": "payload.results.image_url",
+    "description": "payload.results.description",
+    "author": [
+     "payload.results.artist.roman_name",
+     "payload.results.artist.name"
+    ],
+    "genres": "payload.results.category_name",
+    "status": "payload.results.status_name"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "Ongoing": 1,
+    "preview": 1,
+    "Preview": 1,
+    "finished": 2,
+    "Finished": 2,
+    "on hold": 6,
+    "On hold": 6,
+    "cancelled": 5,
+    "Cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": "https://api.globalcomix.com/v1/comics/{u.id}/releases?lang_id=en&all=true",
+   "format": "json",
+   "url_vars": {
+    "id": "#(\\d+)$"
+   },
+   "items": "payload.results",
+   "skip": {
+    "path": "premium_only",
+    "equals": "1"
+   },
+   "fields": {
+    "url": {
+     "path": "key",
+     "template": "/read/{value}"
+    },
+    "name": {
+     "path": "chapter",
+     "template": "Ch.{value}[[ - {f.title}]]"
+    },
+    "number": "chapter",
+    "date": "published_time"
+   },
+   "date_format": "yyyy-MM-dd HH:mm:ss"
+  },
+  "pages": {
+   "request": "https://api.globalcomix.com/v1/readV2/{u.key}",
+   "format": "json",
+   "url_vars": {
+    "key": "/read/([^/#?]+)"
+   },
+   "items": "payload.results.page_objects",
+   "image": "desktop_image_url"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "API api.globalcomix.com/v1 mit Kopfzeilen x-gc-client (öffentliche Client-ID aus dem Code) und x-gc-identmode=cookie.",
+  "37 Community-Sprachquellen unterscheiden sich nur in lang_id; ein Modell, das der en-Quelle folgt (lang_id=en).",
+  "Details holt der Code über einen aus dem Titel gebildeten Slug (klein, [^a-z0-9]+ → '-'). Kleinschreibung ist in keiner Vorlage ausdrückbar – hier bleibt Groß/Klein erhalten; auf dem PC prüfen, ob /v1/read/{Slug} das akzeptiert.",
+  "Kostenpflichtige Kapitel (premium_only = 1) werden übersprungen (Community zeigt sie standardmäßig mit 🔒). Datensparmodus (mobile_image_url) nicht nachgebaut.",
+  "Kapitelname 'Ch.{chapter} - {title}'; bei leerer Kapitelnummer weicht der Code ab (nur Titel)."
+ ]
 }

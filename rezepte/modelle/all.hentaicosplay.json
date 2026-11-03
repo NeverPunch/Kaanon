@@ -1,0 +1,149 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hentai Cosplay",
+  "sprache": "all",
+  "base_url": "https://hentai-cosplay-xxx.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.hentaicosplay",
+  "quellen": [
+   {
+    "name": "Hentai Cosplay",
+    "sprache": "all",
+    "quell_id": 3422463439145930309,
+    "home": "https://hentai-cosplay-xxx.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/hentaicosplay",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/ranking/page/{page}/",
+   "items": "div.image-list-item:has(a[href*=/image/]), #entry_list > li > a[href*=/image/]",
+   "has_next": {
+    "exists": "div.wp-pagenavi > a[rel=next], a.paginator_page[rel=next]"
+   },
+   "fields": {
+    "url": [
+     "a@href",
+     "@href"
+    ],
+    "title": [
+     ".image-list-item-title",
+     "span:not(.posted)"
+    ],
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "^http://",
+       "https://"
+      ]
+     ]
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}/search/page/{page}/",
+   "items": "div.image-list-item:has(a[href*=/image/]), #entry_list > li > a[href*=/image/]",
+   "has_next": {
+    "exists": "div.wp-pagenavi > a[rel=next], a.paginator_page[rel=next]"
+   },
+   "fields": {
+    "url": [
+     "a@href",
+     "@href"
+    ],
+    "title": [
+     ".image-list-item-title",
+     "span:not(.posted)"
+    ],
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "^http://",
+       "https://"
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/search/keyword/{query}/page/{page}/",
+   "items": "div.image-list-item:has(a[href*=/image/]), #entry_list > li > a[href*=/image/]",
+   "has_next": {
+    "exists": "div.wp-pagenavi > a[rel=next], a.paginator_page[rel=next]"
+   },
+   "fields": {
+    "url": [
+     "a@href",
+     "@href"
+    ],
+    "title": [
+     ".image-list-item-title",
+     "span:not(.posted)"
+    ],
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "^http://",
+       "https://"
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "genres": {
+     "path": "#detail_tag a[href*=/tag/]",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Gallery"
+    }
+   }
+  },
+  "pages": {
+   "request": "{base}/story/{u.id}/",
+   "url_vars": {
+    "id": "/image/([^/?#]+)"
+   },
+   "items": "amp-img[src*=upload]:not(.related-thumbnail)",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Galerie-Website: ein Kapitel 'Gallery'; die Community lädt die Bilder von /story/<id>/ statt /image/<id>/ – hier über url_vars in pages nachgebildet.",
+  "Liste: Desktop- (div.image-list-item) und Mobil-Layout (#entry_list) per Selektor-Vereinigung und Ausweichketten abgedeckt.",
+  "Suche: Community ersetzt Leerzeichen durch '+' im Pfad; hier {query} (URL-kodiert) – auf dem PC prüfen. Tag-Filter nicht abgebildet.",
+  "Datum: Community nimmt das Datum aus der Liste (Cache, yyyy/M/d); auf der Detailseite unbekannt, daher kein Datum.",
+  "Titel kommt aus der Liste (Community setzt in den Details keinen Titel)."
+ ]
+}

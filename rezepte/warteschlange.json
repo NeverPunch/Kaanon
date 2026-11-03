@@ -8915,7 +8915,7 @@
  },
  {
   "modul": "src/all/fourkhd",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "4KHD",
   "stufe": 2,
   "theme": null,
@@ -8925,11 +8925,13 @@
   "host": "4khd.com",
   "nsfw": true,
   "wer": "agent-w2b",
-  "seit": "2026-11-03T10:25:16"
+  "seit": "2026-11-03T10:25:16",
+  "datei": "rezepte/modelle/all.4khd.json",
+  "geaendert": "2026-11-03T10:25:52"
  },
  {
   "modul": "src/all/fsicomics",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "FSI Comics",
   "stufe": 2,
   "theme": null,
@@ -8943,11 +8945,13 @@
   "host": "de.fsicomics.com",
   "nsfw": true,
   "wer": "agent-w2d",
-  "seit": "2026-11-03T10:25:24"
+  "seit": "2026-11-03T10:25:24",
+  "datei": "rezepte/modelle/all.fsicomics.json",
+  "geaendert": "2026-11-03T10:26:08"
  },
  {
   "modul": "src/all/globalcomix",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "GlobalComix",
   "stufe": 2,
   "theme": null,
@@ -8962,11 +8966,13 @@
   "host": "globalcomix.com",
   "nsfw": false,
   "wer": "agent-w2c",
-  "seit": "2026-11-03T10:25:29"
+  "seit": "2026-11-03T10:25:29",
+  "datei": "rezepte/modelle/all.globalcomix.json",
+  "geaendert": "2026-11-03T10:26:02"
  },
  {
   "modul": "src/all/hdoujin",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "HDoujin",
   "stufe": 2,
   "theme": null,
@@ -8979,11 +8985,15 @@
    "zh"
   ],
   "host": "hdoujin.org",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w3a",
+  "seit": "2026-11-03T10:25:51",
+  "grund": "Jede API-Anfrage braucht crt-Clearance-Token aus dem WebView-localStorage (getLocalStorage 'clearance'); ohne WebView nicht ausdrückbar",
+  "geaendert": "2026-11-03T10:26:03"
  },
  {
   "modul": "src/all/hennojin",
-  "status": "offen",
+  "status": "fertig",
   "name": "Hennojin",
   "stufe": 2,
   "theme": null,
@@ -8992,11 +9002,15 @@
    "ja"
   ],
   "host": "hennojin.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2b",
+  "seit": "2026-11-03T10:25:52",
+  "datei": "rezepte/modelle/all.hennojin.json",
+  "geaendert": "2026-11-03T10:26:25"
  },
  {
   "modul": "src/all/hentai3",
-  "status": "offen",
+  "status": "fertig",
   "name": "3Hentai",
   "stufe": 2,
   "theme": null,
@@ -9009,11 +9023,15 @@
    "en"
   ],
   "host": "3hentai.net",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2c",
+  "seit": "2026-11-03T10:26:02",
+  "datei": "rezepte/modelle/all.3hentai.json",
+  "geaendert": "2026-11-03T10:26:31"
  },
  {
   "modul": "src/all/hentaicosplay",
-  "status": "offen",
+  "status": "fertig",
   "name": "Hentai Cosplay",
   "stufe": 2,
   "theme": null,
@@ -9021,11 +9039,15 @@
    "all"
   ],
   "host": "hentai-cosplay-xxx.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w3a",
+  "seit": "2026-11-03T10:26:03",
+  "datei": "rezepte/modelle/all.hentaicosplay.json",
+  "geaendert": "2026-11-03T10:26:51"
  },
  {
   "modul": "src/all/hentailoop",
-  "status": "offen",
+  "status": "fertig",
   "name": "HentaiLoop",
   "stufe": 2,
   "theme": null,
@@ -9033,11 +9055,15 @@
    "all"
   ],
   "host": "hentailoop.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2d",
+  "seit": "2026-11-03T10:26:08",
+  "datei": "rezepte/modelle/all.hentailoop.json",
+  "geaendert": "2026-11-03T10:26:33"
  },
  {
   "modul": "src/all/holonometria",
-  "status": "offen",
+  "status": "fertig",
   "name": "HOLONOMETRIA",
   "stufe": 2,
   "theme": null,
@@ -9047,11 +9073,15 @@
    "ja"
   ],
   "host": "holoearth.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2b",
+  "seit": "2026-11-03T10:26:25",
+  "datei": "rezepte/modelle/all.holonometria.json",
+  "geaendert": "2026-11-03T10:26:46"
  },
  {
   "modul": "src/all/inkrush",
-  "status": "offen",
+  "status": "fertig",
   "name": "INKRUSH",
   "stufe": 2,
   "theme": null,
@@ -9060,11 +9090,15 @@
    "id"
   ],
   "host": "inkrush.site",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2c",
+  "seit": "2026-11-03T10:26:31",
+  "datei": "rezepte/modelle/all.inkrush.json",
+  "geaendert": "2026-11-03T10:26:53"
  },
  {
   "modul": "src/all/jjcos",
-  "status": "offen",
+  "status": "fertig",
   "name": "JJCOS",
   "stufe": 2,
   "theme": null,
@@ -9072,11 +9106,15 @@
    "all"
   ],
   "host": "jjcos.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2d",
+  "seit": "2026-11-03T10:26:33",
+  "datei": "rezepte/modelle/all.jjcos.json",
+  "geaendert": "2026-11-03T10:26:54"
  },
  {
   "modul": "src/all/junmeitu",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Junmeitu",
   "stufe": 2,
   "theme": null,
@@ -9084,11 +9122,15 @@
    "all"
   ],
   "host": "meijuntu.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2b",
+  "seit": "2026-11-03T10:26:46",
+  "grund": "Bildliste: Verzweigung (news-body vs. Einzelbildseiten) und Bildseiten-URLs als Zählschleife 1..N aus Seitenzahl gebildet, bei pc_cid über AJAX-Pfad ajax_<cat> mit JSON (HTML im Feld pic) – nicht abbildbar",
+  "geaendert": "2026-11-03T10:26:57"
  },
  {
   "modul": "src/all/kiutaku",
-  "status": "offen",
+  "status": "fertig",
   "name": "Kiutaku",
   "stufe": 2,
   "theme": null,
@@ -9096,11 +9138,15 @@
    "all"
   ],
   "host": "kiutaku.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w3a",
+  "seit": "2026-11-03T10:26:51",
+  "datei": "rezepte/modelle/all.kiutaku.json",
+  "geaendert": "2026-11-03T10:27:19"
  },
  {
   "modul": "src/all/kodokustudio",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Kodoku Studio",
   "stufe": 2,
   "theme": null,
@@ -9108,11 +9154,15 @@
    "all"
   ],
   "host": "kodokueasyaccess.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2d",
+  "seit": "2026-11-03T10:26:54",
+  "grund": "Ein-Serien-Seite: Listeneinträge = eine Serie je Sprache, abgeleitet aus den distinct languageCode der Kapitelliste (eigene Sortierung); Kapitel müssen nach der Sprache aus der Manga-URL gefiltert werden (Platzhalter im skip/Filter unbelegt) – nicht ausdrückbar",
+  "geaendert": "2026-11-03T10:27:06"
  },
  {
   "modul": "src/all/kyokotsu",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Kyokotsu",
   "stufe": 2,
   "theme": null,
@@ -9121,11 +9171,15 @@
    "ru"
   ],
   "host": "kyokotsu.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2b",
+  "seit": "2026-11-03T10:26:57",
+  "grund": "Aggregator: Bildliste je Kapitel-Quelle (mangalib/inkstory/weebcentral/mangadex/remanga) verschieden; remanga-Weg braucht selbst Base64-kodierte Proxy-URL und POST /proxy/sign mit aus der Antwort gebauter JSON-URL-Liste; Kapitel-Metadaten über memo – nicht abbildbar",
+  "geaendert": "2026-11-03T10:27:09"
  },
  {
   "modul": "src/all/leagueoflegends",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "League of Legends",
   "stufe": 2,
   "theme": null,
@@ -9138,7 +9192,9 @@
    "es-419"
   ],
   "host": "universe.leagueoflegends.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w3a",
+  "seit": "2026-11-03T10:27:19"
  },
  {
   "modul": "src/all/luscious",

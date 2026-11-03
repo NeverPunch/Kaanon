@@ -1,0 +1,129 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hennojin",
+  "sprache": "all",
+  "base_url": "https://hennojin.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.hennojin",
+  "quellen": [
+   {
+    "name": "Hennojin",
+    "sprache": "en",
+    "quell_id": 2486465102799235219,
+    "home": "https://hennojin.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/hennojin",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "vars": {
+   "nonce": {
+    "request": "{base}/home",
+    "format": "html",
+    "value": "input#_wpnonce@value",
+    "ttl_s": 600
+   }
+  },
+  "popular": {
+   "request": "{base}/home/page/{page}",
+   "items": ".grid-items .layer-content",
+   "has_next": {
+    "exists": ".paginate .next"
+   },
+   "fields": {
+    "url": ".title_link > a@href",
+    "title": ".title_link > a",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/home/page/{page}?keyword={query}&_wpnonce={v.nonce}",
+   "items": ".grid-items .layer-content",
+   "has_next": {
+    "exists": ".paginate .next"
+   },
+   "fields": {
+    "url": ".title_link > a@href",
+    "title": ".title_link > a",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     ".manga-title",
+     "h1",
+     "meta[property=og:title]@content"
+    ],
+    "cover": [
+     ".manga-thumbnail > img@src",
+     "meta[property=og:image]@content"
+    ],
+    "description": ".manga-subtitle + p + p",
+    "genres": {
+     "path": ".tags-list a[href*=/parody/], .tags-list a[href*=/tags/], .tags-list a[href*=/character/]",
+     "all": true,
+     "join": ", "
+    },
+    "artist": ".tags-list a[href*=/artist/]",
+    "author": [
+     ".tags-list a[href*=/group/]",
+     ".tags-list a[href*=/artist/]"
+    ],
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a:contains(Read Online)",
+   "fields": {
+    "url": {
+     "path": "@href",
+     "replace": [
+      [
+       "[?&]view=[^&#]*",
+       ""
+      ],
+      [
+       "^([^?#]*\\?.*)$",
+       "$1&view=multi"
+      ],
+      [
+       "^([^?#]*)$",
+       "$1?view=multi"
+      ]
+     ]
+    },
+    "name": {
+     "const": "Chapter"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".slideshow-container > img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Nur die englische Quelle: Die Community-Quelle 'ja' nutzt dieselbe Website mit /home/page/N/?archive=raw – ein Rezept kann keine sprachabhängige URL; die ja-Quelle wurde daher aus 'quellen' entfernt (wäre ein eigenes Rezept).",
+  "Suche braucht die rotierende WordPress-Nonce (input#_wpnonce von /home); hier als vars mit eigener Abfrage (Muster en.tappytoon, dort format next_data – format html bei vars auf dem PC prüfen), ttl 10 min.",
+  "Titel/Cover setzt die Community nur aus der Liste; Details ersatzweise .manga-title/h1/og:title und Thumbnail/og:image (Annahme).",
+  "Kapitel: Link 'Read Online', Parameter view auf 'multi' gesetzt (per replace). Datum kommt im Code aus dem Last-Modified-Header des Thumbnails (HEAD-Anfrage) – nicht abbildbar, weggelassen.",
+  "Beschreibung: Zeilenumbrüche (<br>) werden im Code erhalten; hier nur Text."
+ ]
+}

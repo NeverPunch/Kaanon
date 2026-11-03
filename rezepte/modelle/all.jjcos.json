@@ -1,0 +1,124 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "JJCOS",
+  "sprache": "all",
+  "base_url": "https://jjcos.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.jjcos",
+  "quellen": [
+   {
+    "name": "JJCOS",
+    "sprache": "all",
+    "quell_id": 5763134940669279175,
+    "home": "https://jjcos.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/jjcos",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/api/index.html?page=1",
+   "format": "json",
+   "items": "posts",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "link",
+     "regex": "^(?:https?://[^/]+)?(/?[^?#]*)"
+    },
+    "title": "title",
+    "cover": "feature"
+   }
+  },
+  "search": {
+   "request": "{base}/api/index.html?page=1&query={query}",
+   "format": "json",
+   "items": "posts",
+   "has_next": {
+    "const": false
+   },
+   "client_filter": true,
+   "fields": {
+    "url": {
+     "path": "link",
+     "regex": "^(?:https?://[^/]+)?(/?[^?#]*)"
+    },
+    "title": "title",
+    "cover": "feature"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "path": "h1.fh5co-article-title",
+     "replace": [
+      [
+       "\\s*-\\s*JJCOS$",
+       ""
+      ]
+     ]
+    },
+    "cover": "#post-content img, article img@src",
+    "genres": {
+     "path": ".tag-container a.tag",
+     "replace": [
+      [
+       "^#\\s*",
+       ""
+      ]
+     ]
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Gallery"
+    },
+    "date": [
+     "meta[property=article:published_time]@content",
+     ".breadcrumb-item.date-overlay"
+    ]
+   },
+   "date_format": [
+    "yyyy-MM-dd HH:mm:ss",
+    "yyyy-MM-dd"
+   ]
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#post-content img, article p img",
+   "image": [
+    "@src",
+    "@data-src"
+   ]
+  }
+ },
+ "hinweise": [
+  "/api/index.html liefert offenbar alle Beiträge; die Community schneidet daraus clientseitig 20er-Seiten – das Rezept zeigt alles auf Seite 1 (has_next false).",
+  "Suche: query-Parameter + clientseitiger Filter (Community: Titel oder content enthält Suchtext; client_filter prüft vermutlich nur den Titel).",
+  "Kein Latest (Community: supportsLatest=false). Bild-URLs dedupliziert die Community (linkedSet); das Rezept nicht."
+ ]
+}

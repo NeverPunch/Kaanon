@@ -1,0 +1,108 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HOLONOMETRIA",
+  "sprache": "all",
+  "base_url": "https://holoearth.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.holonometria",
+  "quellen": [
+   {
+    "name": "HOLONOMETRIA",
+    "sprache": "ja",
+    "quell_id": 8779183423368672304,
+    "home": "https://holoearth.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/holonometria",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/alt/holonometria/manga/",
+   "items": ".manga__item",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a@href",
+    "title": ".manga__title",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/alt/holonometria/manga/",
+   "items": ".manga__item",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a@href",
+    "title": ".manga__title",
+    "cover": "img@src"
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".alt-nav__met-sub-link.is-current",
+    "cover": ".manga-detail__thumb img@src",
+    "description": ".manga-detail__caption",
+    "author": {
+     "path": ".manga-detail__person@html",
+     "regex": "(?i)(?:manga|gambar|漫画)[^:：<]*[:：]\\s*([^<]+?)\\s*(?:<|$)",
+     "replace": [
+      [
+       "&amp;",
+       "&"
+      ]
+     ]
+    },
+    "artist": {
+     "path": ".manga-detail__person@html",
+     "regex": "(?i)(?:script|naskah|脚本)[^:：<]*[:：]\\s*([^<]+?)\\s*(?:<|$)",
+     "replace": [
+      [
+       "&amp;",
+       "&"
+      ]
+     ]
+    }
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".manga-detail__list .manga-detail__list-item",
+   "reverse": true,
+   "fields": {
+    "url": "a@href",
+    "name": ".manga-detail__list-title",
+    "date": ".manga-detail__list-date"
+   },
+   "date_format": [
+    "yyyy.M.d",
+    "d.M.yyyy"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".manga-detail__swiper-wrapper img",
+   "image": "@src",
+   "reverse": true
+  }
+ },
+ "hinweise": [
+  "Nur die japanische Quelle: Die Community bildet ja/en/id aus derselben Website mit Pfadpräfix (''/'en/'/'id/' vor alt/holonometria/manga/). Ein Rezept kann das nicht je Sprache; en/id aus 'quellen' entfernt (wären eigene Rezepte mit {base}/en/… bzw. {base}/id/…).",
+  "Liste = eine Seite ohne Paginierung; Suche filtert die Liste nach Titel (client_filter).",
+  "Autor/Künstler: Zeile aus .manga-detail__person (durch <br> getrennt) mit 'manga/gambar/漫画' bzw. 'script/naskah/脚本', Text nach ':'/'：' – per regex auf @html.",
+  "Seiten werden im Code umgedreht (Swiper von rechts nach links); 'reverse' in pages ist in den Vorlagen nur für Kapitel belegt – auf dem PC prüfen."
+ ]
+}

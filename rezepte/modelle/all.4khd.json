@@ -23,7 +23,147 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/index.php?rest_route=/wp/v2/posts&page={page}&per_page=20&_embed=1&orderby=modified",
+   "format": "json",
+   "items": "$",
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "link",
+     "regex": "^https?://[^/]+(/[^?#]*)",
+     "template": "{value}#{f.id}"
+    },
+    "title": {
+     "path": "title.rendered",
+     "decode": "html_text"
+    },
+    "cover": [
+     "jetpack_featured_media_url",
+     "_embedded.wp:featuredmedia.0.source_url"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/index.php?rest_route=/wp/v2/posts&page={page}&per_page=20&_embed=1&orderby=date",
+   "format": "json",
+   "items": "$",
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "link",
+     "regex": "^https?://[^/]+(/[^?#]*)",
+     "template": "{value}#{f.id}"
+    },
+    "title": {
+     "path": "title.rendered",
+     "decode": "html_text"
+    },
+    "cover": [
+     "jetpack_featured_media_url",
+     "_embedded.wp:featuredmedia.0.source_url"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/index.php?rest_route=/wp/v2/posts&page={page}&per_page=20&_embed=1&orderby=date&search={query}",
+   "format": "json",
+   "items": "$",
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "link",
+     "regex": "^https?://[^/]+(/[^?#]*)",
+     "template": "{value}#{f.id}"
+    },
+    "title": {
+     "path": "title.rendered",
+     "decode": "html_text"
+    },
+    "cover": [
+     "jetpack_featured_media_url",
+     "_embedded.wp:featuredmedia.0.source_url"
+    ]
+   }
+  },
+  "details": {
+   "request": "{base}/index.php?rest_route=/wp/v2/posts/{u.id}&_embed=1",
+   "format": "json",
+   "url_vars": {
+    "id": "#(\\d+)$"
+   },
+   "fields": {
+    "title": {
+     "path": "title.rendered",
+     "decode": "html_text"
+    },
+    "cover": [
+     "jetpack_featured_media_url",
+     "_embedded.wp:featuredmedia.0.source_url"
+    ],
+    "genres": {
+     "path": "_embedded.wp:term.*.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "link",
+     "regex": "^https?://[^/]+(/[^?#]*)",
+     "template": "{value}#{f.id}"
+    },
+    "name": {
+     "const": "Gallery"
+    },
+    "number": {
+     "const": "1"
+    },
+    "date": "date"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/index.php?rest_route=/wp/v2/posts/{u.id}&_embed=1",
+   "format": "json_html",
+   "html_path": "content.rendered",
+   "url_vars": {
+    "id": "#(\\d+)$"
+   },
+   "items": "img[data-src], img[data-lazy-src], img[src]",
+   "image": [
+    "@data-src",
+    "@data-lazy-src",
+    "@src"
+   ],
+   "include": "(?i)\\.(?:jpe?g|png|webp|gif|avif)(?:$|\\?)"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "WordPress-REST über index.php?rest_route=/wp/v2/posts (per_page 20). Beliebt = orderby=modified, Neueste = orderby=date, Suche = search=… . Nächste Seite: Code liest Header X-WP-TotalPages; hier 'volle Seite' als Ersatz.",
+  "Manga-URL = Pfad aus 'link' + '#<post-id>' (Muster en.roliascan); Details/Seiten über /wp/v2/posts/<id>. Eine Galerie = ein Kapitel 'Gallery'.",
+  "Seiten: content.rendered als HTML (json_html – in den Vorlagen nur für Listen belegt), Bilder aus img data-src/data-lazy-src/src mit Bild-Endung. Der Code beschränkt auf .entry-content, entfernt Duplikate (ohne Query) und fällt auf a[href]-Bildlinks zurück, wenn keine img gefunden werden – nicht abgebildet.",
+  "Genres = alle Begriffe aus _embedded.wp:term (Kategorien + Tags), wie im Code. Datum 'date' ist lokale Zeit ohne Zone."
+ ]
 }

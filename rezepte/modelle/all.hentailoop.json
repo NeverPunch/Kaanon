@@ -1,0 +1,155 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiLoop",
+  "sprache": "all",
+  "base_url": "https://hentailoop.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.hentailoop",
+  "quellen": [
+   {
+    "name": "HentaiLoop",
+    "sprache": "all",
+    "quell_id": 3077154580363219152,
+    "home": "https://hentailoop.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/hentailoop",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/manga/page/{page}/?sortmanga=views",
+   "request_by_page": {
+    "1": "{base}/manga/?sortmanga=views"
+   },
+   "items": "div.manga-card a",
+   "has_next": {
+    "exists": "nav.navigation a.next"
+   },
+   "fields": {
+    "url": "@href",
+    "title": ".title@ownText",
+    "cover": "img.attachment-manga_thumb@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/manga/page/{page}/?sortmanga=date",
+   "request_by_page": {
+    "1": "{base}/manga/?sortmanga=date"
+   },
+   "items": "div.manga-card a",
+   "has_next": {
+    "exists": "nav.navigation a.next"
+   },
+   "fields": {
+    "url": "@href",
+    "title": ".title@ownText",
+    "cover": "img.attachment-manga_thumb@img"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    },
+    "form": {
+     "action": "nativeSearch",
+     "subAction": "search",
+     "query": "{query_raw}"
+    }
+   },
+   "format": "json",
+   "items": "data.posts",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "link",
+     "regex": "^https?://[^/]+(/.*)$"
+    },
+    "title": "title",
+    "cover": "thumb"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "alt": ".manga-subtitle",
+    "counter": ".pre-meta .counter",
+    "views": ".pre-meta .manga-views",
+    "updated": ".pre-meta .manga-updated"
+   },
+   "fields": {
+    "title": ".manga-title",
+    "cover": ".manga-thumb img@img",
+    "author": {
+     "path": ".manga-term-content a[href*=/artists/]",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": ".manga-term-content a[href*=/artists/]",
+     "all": true,
+     "join": ", "
+    },
+    "description": {
+     "const": "[[Alternative Name: {l.alt}]]\n[[{l.counter}]]\n[[{l.views}]]\n[[{l.updated}]]"
+    },
+    "genres": {
+     "path": [
+      ".manga-term-content a[href*=/genres/]",
+      ".manga-term-content a[href*=/languages/]",
+      ".manga-term-content a[href*=/tag/]"
+     ],
+     "union": true
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "/manga/{u.slug}/read/"
+    },
+    "name": {
+     "const": "Chapter"
+    },
+    "date": {
+     "path": "script.yoast-schema-graph@html",
+     "regex": "\"datePublished\"\\s*:\\s*\"([^\"]+)\""
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".gallery-item > dt > img",
+   "image": "@img"
+  }
+ },
+ "hinweise": [
+  "Einzelgalerie: Kapitel = /manga/<slug>/read/; Datum aus dem Yoast-ld+json (erstes datePublished).",
+  "Suche: Schnellsuche (admin-ajax nativeSearch) wie Community ohne Filter; erweiterte Suche (advanced_search, ggf. mit Captcha) und alle Filter nicht übernommen.",
+  "Beschreibung ohne Likes/Dislikes und Term-Zeilen der Community; Aufrufzähler (addview) nicht nachgebildet."
+ ]
+}

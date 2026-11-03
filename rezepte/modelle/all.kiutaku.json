@@ -1,0 +1,125 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Kiutaku",
+  "sprache": "all",
+  "base_url": "https://kiutaku.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.kiutaku",
+  "quellen": [
+   {
+    "name": "Kiutaku",
+    "sprache": "all",
+    "quell_id": 3040035304874076216,
+    "home": "https://kiutaku.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/kiutaku",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "image_headers": {
+   "Referer": null
+  },
+  "popular": {
+   "request": "{base}/hot?start={offset}",
+   "page_size": 20,
+   "items": "div.blog > div.items-row",
+   "has_next": {
+    "exists": "nav > a.pagination-next:not([disabled])"
+   },
+   "fields": {
+    "url": "a.item-link@href",
+    "title": {
+     "path": "h2",
+     "default": "Cosplay"
+    },
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/?start={offset}",
+   "page_size": 20,
+   "items": "div.blog > div.items-row",
+   "has_next": {
+    "exists": "nav > a.pagination-next:not([disabled])"
+   },
+   "fields": {
+    "url": "a.item-link@href",
+    "title": {
+     "path": "h2",
+     "default": "Cosplay"
+    },
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/?search={query}&start={offset}",
+   "page_size": 20,
+   "items": "div.blog > div.items-row",
+   "has_next": {
+    "exists": "nav > a.pagination-next:not([disabled])"
+   },
+   "fields": {
+    "url": "a.item-link@href",
+    "title": {
+     "path": "h2",
+     "default": "Cosplay"
+    },
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.article-header",
+    "genres": {
+     "path": "div.article-tags a.tag > span",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       "(^|, )#",
+       "$1"
+      ]
+     ]
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "nav.pagination:first-of-type a",
+   "reverse": true,
+   "fields": {
+    "url": "@href",
+    "name": {
+     "path": "",
+     "template": "Page {value}"
+    },
+    "number": ""
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.article-fulltext img[src]",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Cosplay-Galerie; jede Unterseite der Galerie (Pagination-Links) ist ein Kapitel 'Page N', wie in der Community.",
+  "Bild-Host (mitaku.net) blockt Hotlinking mit kiutaku-Referer: Community entfernt den Referer. Hier image_headers Referer=null (wie 'Origin': null in den Vorlagen) – auf dem PC prüfen.",
+  "Genres: führendes '#' wird entfernt (replace über die verbundene Liste)."
+ ]
+}

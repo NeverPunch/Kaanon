@@ -24,6 +24,9 @@ Schon fertige Stufe-2-Rezepte (`rezepte/modelle/`) sind ebenfalls Vorlagen, beso
    `python3 werkzeuge/rezepte/warteschlange.py zurueck <modul> --grund "<kurz, konkret>"`.
 
 ## Regeln
+- Mehrere Quellen (Sprachen) in einem Modul: Ein Modell bedient alle Quellen gleich. Bildet es nur eine Quelle richtig ab
+  (z. B. Sprachfilter je Quelle), dann `extension.quellen` auf diese eine Quelle kürzen, `extension.sprache` anpassen
+  und das in `hinweise` vermerken. Nie dieselben Inhalte unter falscher Sprache anbieten.
 - Keine erfundenen Schlüssel oder Platzhalter. Was es in keiner Vorlage gibt → zurückstellen.
 - Regel 0014: keine Prüfseiten/CAPTCHAs lösen, kein DRM, keine Bezahlschranken umgehen, keine selbst erzeugten
   Schlüssel/Signaturen. Gesperrte Kapitel per `skip`/`locked` auslassen.
