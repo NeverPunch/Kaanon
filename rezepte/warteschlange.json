@@ -6873,7 +6873,7 @@
  },
  {
   "modul": "src/en/qiscans",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Qi Scans",
   "stufe": 2,
   "theme": "ezmanhwa",
@@ -6883,7 +6883,9 @@
   "host": "qimanga.com",
   "nsfw": false,
   "wer": "agent-w1b",
-  "seit": "2026-11-03T10:05:28"
+  "seit": "2026-11-03T10:05:28",
+  "datei": "rezepte/modelle/en.qiscans.json",
+  "geaendert": "2026-11-03T10:06:23"
  },
  {
   "modul": "src/ca/fansubscat",
@@ -6931,7 +6933,7 @@
  },
  {
   "modul": "src/ja/rawinu",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "RawINU",
   "stufe": 2,
   "theme": "fmreader",
@@ -6939,7 +6941,9 @@
    "ja"
   ],
   "host": "rawinu.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w1b",
+  "seit": "2026-11-03T10:06:23"
  },
  {
   "modul": "src/ja/rawlh",

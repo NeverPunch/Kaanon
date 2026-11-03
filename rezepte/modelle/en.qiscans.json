@@ -23,7 +23,165 @@
   "theme": "ezmanhwa"
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "application/json, text/plain, */*",
+   "Referer": "{base}/"
+  },
+  "popular": {
+   "request": "https://api.qimanga.com/api/v1/series?page={page}&perPage=20&sort=popular",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "lt": [
+     "current",
+     "totalPages"
+    ]
+   },
+   "skip": {
+    "path": "type",
+    "equals": "NOVEL"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   }
+  },
+  "latest": {
+   "request": "https://api.qimanga.com/api/v1/series?page={page}&perPage=20&sort=latest",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "lt": [
+     "current",
+     "totalPages"
+    ]
+   },
+   "skip": {
+    "path": "type",
+    "equals": "NOVEL"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   }
+  },
+  "search": {
+   "request": "https://api.qimanga.com/api/v1/series/search?page={page}&perPage=20&q={query}",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "lt": [
+     "current",
+     "totalPages"
+    ]
+   },
+   "skip": {
+    "path": "type",
+    "equals": "NOVEL"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   }
+  },
+  "details": {
+   "request": "https://api.qimanga.com/api/v1/series/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/#?]+)"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "cover",
+    "description": {
+     "path": "description",
+     "decode": "html_text"
+    },
+    "genres": "genres.*.name",
+    "author": "author",
+    "artist": "artist",
+    "status": "status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "mass_released": 1,
+    "completed": 2,
+    "dropped": 5,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "https://api.qimanga.com/api/v1/series/{u.slug}/chapters?page={page}&perPage=100&sort=desc",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/#?]+)"
+   },
+   "items": "data",
+   "skip": {
+    "any": [
+     "requiresPurchase"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{u.slug}/{value}"
+    },
+    "name": [
+     {
+      "path": "title",
+      "regex": "(?i)^((?:chapter|ch\\.?|episode|ep\\.?)\\s*.*)$",
+      "group": 1
+     },
+     {
+      "path": "number",
+      "template": "Chapter {value}[[ - {f.title}]]"
+     },
+     "title"
+    ],
+    "number": "number",
+    "date": "createdAt"
+   },
+   "date_format": "iso",
+   "paging": {
+    "has_next": {
+     "lt": [
+      "current",
+      "totalPages"
+     ]
+    },
+    "max_pages": 60
+   }
+  },
+  "pages": {
+   "request": "https://api.qimanga.com/api/v1/series/{u.slug}/chapters/{u.ch}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/]+)/",
+    "ch": "/series/[^/]+/([^/?#]+)"
+   },
+   "items": "images",
+   "image": "url"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "EZManhwa-Theme, reine JSON-API unter https://api.qimanga.com/api/v1 (Header Accept wie im Code). Listen: /series?page=N&perPage=20&sort=popular|latest, Suche /series/search?q=…; nächste Seite solange current < totalPages; Einträge vom Typ NOVEL werden ausgelassen.",
+  "Kapitel-URL wie die Website (/series/<serie>/<kapitel>); die API-Anfrage für die Seiten setzt '/chapters/' wieder ein (Community speichert series/<serie>/chapters/<kapitel>).",
+  "Kostenpflichtige Kapitel (requiresPurchase) werden übersprungen (Community blendet sie standardmäßig ebenfalls aus).",
+  "Kapitelname vereinfacht: Titel, wenn er mit Chapter/Ch./Episode beginnt, sonst 'Chapter <Nummer> - <Titel>'. Unklar, ob die API die Nummer als 12 oder 12.0 liefert – ggf. am PC nachschärfen.",
+  "Alternative Titel hängt die Community an die Beschreibung an; hier weggelassen."
+ ]
 }

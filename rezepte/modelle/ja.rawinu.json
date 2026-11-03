@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "RawINU",
+  "sprache": "ja",
+  "base_url": "https://rawinu.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.rawinu",
+  "quellen": [
+   {
+    "name": "RawINU",
+    "sprache": "ja",
+    "quell_id": 7788489411010171607,
+    "home": "https://rawinu.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/rawinu",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "fmreader"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

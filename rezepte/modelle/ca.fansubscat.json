@@ -23,7 +23,115 @@
   "theme": "fansubscat"
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "Tachiyomi/1.6",
+   "X-Requested-With": "XMLHttpRequest"
+  },
+  "popular": {
+   "request": "https://api.fansubs.cat/manga/popular/{page}",
+   "format": "json",
+   "items": "result",
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/{value}"
+    },
+    "title": "name",
+    "cover": "thumbnail_url"
+   }
+  },
+  "latest": {
+   "request": "https://api.fansubs.cat/manga/recent/{page}",
+   "format": "json",
+   "items": "result",
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/{value}"
+    },
+    "title": "name",
+    "cover": "thumbnail_url"
+   }
+  },
+  "search": {
+   "request": "https://api.fansubs.cat/manga/search/{page}?type=all&query={query}",
+   "format": "json",
+   "items": "result",
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/{value}"
+    },
+    "title": "name",
+    "cover": "thumbnail_url"
+   }
+  },
+  "details": {
+   "request": "https://api.fansubs.cat/manga/details/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/([^/?#]+)/?$"
+   },
+   "fields": {
+    "title": "result.name",
+    "cover": "result.thumbnail_url",
+    "description": "result.synopsis",
+    "author": "result.author",
+    "genres": "result.genres",
+    "status": "result.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "finished": 2
+   }
+  },
+  "chapters": {
+   "request": "https://api.fansubs.cat/manga/chapters/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/([^/?#]+)/?$"
+   },
+   "items": "result",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/{value}"
+    },
+    "name": "title",
+    "number": "number",
+    "scanlator": "fansub",
+    "date": "created"
+   },
+   "date_format": "epoch_ms"
+  },
+  "pages": {
+   "request": "https://api.fansubs.cat/manga/pages/{u.cid}",
+   "format": "json",
+   "url_vars": {
+    "cid": "/([^/?#]+)/?$"
+   },
+   "items": "result",
+   "image": "url"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "API-Host wie im Theme: baseUrl mit 'https://manga.' → 'https://api.' (api.fansubs.cat). Alle Anfragen als XHR, User-Agent wie in der Community 'Tachiyomi/<Version>' – die API erkennt App-Clients evtl. daran; Wert auf dem PC prüfen.",
+  "Manga-URL ist im Community-Code nur der Slug; hier '/<slug>'. Kapitel-ID enthält vermutlich '/' (Community: Webseite = id mit '/'→'?f='); Seiten nutzen nur den letzten Teil der ID.",
+  "Status im Code per contains('ongoing'/'finished'); status_map nimmt nur genaue Werte – falls die API längere Texte liefert, nachschärfen.",
+  "'created' wird im Code direkt als date_upload genommen → epoch_ms angenommen.",
+  "Nächste Seite solange 20 Einträge (wie Code: size >= 20). Suche ohne Filter: type=all."
+ ]
 }
