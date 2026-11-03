@@ -1,0 +1,264 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga Ball",
+  "sprache": "en",
+  "base_url": "https://mangaball.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.mangaball",
+  "quellen": [
+   {
+    "name": "Manga Ball",
+    "sprache": "en",
+    "quell_id": 1448906013733277368,
+    "home": "https://mangaball.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/mangaball",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.6",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "X-Requested-With": "XMLHttpRequest"
+  },
+  "popular": {
+   "request": "{base}/api/v1/title/search-advanced?page={page}&limit=24&tag_mode=AND&adult_mode=all&sort_by=views&sort_order=desc",
+   "format": "json",
+   "items": "data",
+   "page_size": 24,
+   "has_next": {
+    "lt": [
+     "pagination.page",
+     "pagination.total_pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/title-detail/{value}"
+    },
+    "title": "name",
+    "cover": [
+     {
+      "path": "image.cover.path",
+      "regex": "^\\s*(https?://\\S+)"
+     },
+     {
+      "path": "image.cover.path",
+      "replace": [
+       [
+        "\\\\",
+        "/"
+       ],
+       [
+        "^\\s+|\\s+$",
+        ""
+       ]
+      ],
+      "template": "https://bulbasaur.poke-black-and-white.net/covers/{value}"
+     },
+     "image.file",
+     "image.cdn_mangadex",
+     "image.cdn_mangaupdate",
+     "image.cdn_mangaupdates"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/api/v1/title/search-advanced?page={page}&limit=24&tag_mode=AND&adult_mode=all&sort_by=lastupdate&sort_order=desc",
+   "format": "json",
+   "items": "data",
+   "page_size": 24,
+   "has_next": {
+    "lt": [
+     "pagination.page",
+     "pagination.total_pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/title-detail/{value}"
+    },
+    "title": "name",
+    "cover": [
+     {
+      "path": "image.cover.path",
+      "regex": "^\\s*(https?://\\S+)"
+     },
+     {
+      "path": "image.cover.path",
+      "replace": [
+       [
+        "\\\\",
+        "/"
+       ],
+       [
+        "^\\s+|\\s+$",
+        ""
+       ]
+      ],
+      "template": "https://bulbasaur.poke-black-and-white.net/covers/{value}"
+     },
+     "image.file",
+     "image.cdn_mangadex",
+     "image.cdn_mangaupdate",
+     "image.cdn_mangaupdates"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/api/v1/title/search-advanced?page={page}&limit=24&tag_mode=AND&adult_mode=all&keyword={query}",
+   "format": "json",
+   "items": "data",
+   "page_size": 24,
+   "has_next": {
+    "lt": [
+     "pagination.page",
+     "pagination.total_pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/title-detail/{value}"
+    },
+    "title": "name",
+    "cover": [
+     {
+      "path": "image.cover.path",
+      "regex": "^\\s*(https?://\\S+)"
+     },
+     {
+      "path": "image.cover.path",
+      "replace": [
+       [
+        "\\\\",
+        "/"
+       ],
+       [
+        "^\\s+|\\s+$",
+        ""
+       ]
+      ],
+      "template": "https://bulbasaur.poke-black-and-white.net/covers/{value}"
+     },
+     "image.file",
+     "image.cdn_mangadex",
+     "image.cdn_mangaupdate",
+     "image.cdn_mangaupdates"
+    ]
+   }
+  },
+  "details": {
+   "request": "{base}/api/v1/title/detail/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/title-detail/([^/?#]+)"
+   },
+   "fields": {
+    "title": "data.name",
+    "cover": [
+     {
+      "path": "data.image.cover.path",
+      "regex": "^\\s*(https?://\\S+)"
+     },
+     {
+      "path": "data.image.cover.path",
+      "replace": [
+       [
+        "\\\\",
+        "/"
+       ],
+       [
+        "^\\s+|\\s+$",
+        ""
+       ]
+      ],
+      "template": "https://bulbasaur.poke-black-and-white.net/covers/{value}"
+     },
+     "data.image.file",
+     "data.image.cdn_mangadex",
+     "data.image.cdn_mangaupdate",
+     "data.image.cdn_mangaupdates"
+    ],
+    "description": {
+     "path": "data.description.*",
+     "all": true,
+     "join": "\n\n"
+    },
+    "author": {
+     "path": "data.author.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "data.tags.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "data.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/api/v1/chapter/chapter-listing-by-title-id",
+    "method": "POST",
+    "body": "{\"title_id\":\"{u.id}\"}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "/title-detail/([^/?#]+)"
+   },
+   "items": "data",
+   "skip": {
+    "path": "lang",
+    "regex": "(?i)^(?!en$)(.+)$"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/chapter-detail/{value}"
+    },
+    "name": {
+     "path": "number",
+     "template": "Ch. {value}[[ - {f.name}]]"
+    },
+    "number": "number",
+    "date": "created_at",
+    "scanlator": "group.name"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api/v1/chapter-detail?chapter_id={u.cid}",
+   "format": "json",
+   "url_vars": {
+    "cid": "/chapter-detail/([^/?#]+)"
+   },
+   "items": "data.chapter.pages",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "API /api/v1 (JSON). 42 Community-Quellen unterscheiden sich nur im Sprachfilter der Kapitel (Feld lang); Rezept auf die en-Quelle gekürzt, Kapitel mit anderer Sprache per skip ausgelassen.",
+  "Manga-URL /title-detail/{id} wie die Website selbst (Community speichert den Slug und die id im memo; Details-API nimmt beides).",
+  "Kapitelliste: POST JSON {\"title_id\":…}; die API lehnt laut Code jeden Content-Type außer exakt application/json mit 400 ab – auf dem PC prüfen, dass die Engine kein '; charset=utf-8' anhängt.",
+  "Cover: image.cover.path ist ein Windows-Pfad (\\ → /) unter https://bulbasaur.poke-black-and-white.net/covers/, sonst Ausweich-CDN-Felder.",
+  "adult_mode=all (Community-Standard); Kapitelname vereinfacht 'Ch. N - Name' (Community: Band-Präfix, Name allein falls er die Nummer enthält). Scanlator-Sperrliste und views/update-Aufruf nicht nachgebaut.",
+  "Kapiteldatum created_at ohne Zeitzone (UTC laut Code) – 'iso' angenommen."
+ ]
+}

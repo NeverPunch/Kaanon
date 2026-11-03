@@ -1,0 +1,182 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Arknights Comics",
+  "sprache": "en",
+  "base_url": "https://arknights.global",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.arknightscomics",
+  "quellen": [
+   {
+    "name": "Arknights Comics",
+    "sprache": "en",
+    "quell_id": 5973713386239249589,
+    "home": "https://arknights.global"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/arknightscomics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "X-Requested-With": "XMLHttpRequest"
+  },
+  "popular": {
+   "request": "{base}/api/resource/comic/list",
+   "format": "json",
+   "items": "data.rows",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "name",
+     "replace": [
+      [
+       "%",
+       "%25"
+      ],
+      [
+       " ",
+       "%20"
+      ],
+      [
+       "&",
+       "%26"
+      ],
+      [
+       "#",
+       "%23"
+      ],
+      [
+       "\\+",
+       "%2B"
+      ],
+      [
+       "\\?",
+       "%3F"
+      ]
+     ],
+     "template": "/comic?name={value}"
+    },
+    "title": "name",
+    "cover": [
+     {
+      "path": "smallImage",
+      "regex": "^(https?://[^\"\\]\\s]+)$"
+     },
+     "smallImage.0"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/api/resource/comic/list",
+   "format": "json",
+   "items": "data.rows",
+   "client_filter": true,
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "name",
+     "replace": [
+      [
+       "%",
+       "%25"
+      ],
+      [
+       " ",
+       "%20"
+      ],
+      [
+       "&",
+       "%26"
+      ],
+      [
+       "#",
+       "%23"
+      ],
+      [
+       "\\+",
+       "%2B"
+      ],
+      [
+       "\\?",
+       "%3F"
+      ]
+     ],
+     "template": "/comic?name={value}"
+    },
+    "title": "name",
+    "cover": [
+     {
+      "path": "smallImage",
+      "regex": "^(https?://[^\"\\]\\s]+)$"
+     },
+     "smallImage.0"
+    ]
+   }
+  },
+  "details": {
+   "request": "{base}/api/resource/comic/details?name={u.name}&index=1&size=9999",
+   "format": "json",
+   "url_vars": {
+    "name": "[?&]name=([^&#]+)"
+   },
+   "fields": {
+    "title": "data.rows.0.name",
+    "author": {
+     "const": "Hypergryph"
+    },
+    "status": {
+     "const": "ongoing"
+    }
+   },
+   "status_map": {
+    "ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "name": "[?&]name=([^&#]+)"
+   },
+   "items": "data.rows",
+   "fields": {
+    "url": {
+     "path": "chapter",
+     "template": "/comic-detail?name={u.name}&chapter={value}"
+    },
+    "name": "detailsName",
+    "number": "chapter",
+    "date": "publishTime"
+   },
+   "date_format": "epoch_ms"
+  },
+  "pages": {
+   "request": "{base}/api/resource/comic/details?name={u.name}&index=1&size=9999&chapter={u.ch}",
+   "format": "json",
+   "url_vars": {
+    "name": "[?&]name=([^&#]+)",
+    "ch": "[?&]chapter=(\\d+)"
+   },
+   "items": "data.rows.0.detailsContent",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "API arknights.global/api/resource/comic/{list,details}. Liste ohne Paginierung; Suche filtert wie die Community lokal (client_filter).",
+  "Manga-URL /comic?name=<Name> (Website-Route); der Name wird per replace URL-kodiert (Leerzeichen, &, #, +, ?, %) und so wieder in die API-Anfrage eingesetzt.",
+  "Details: Die Community sucht den Eintrag in der Gesamtliste per Name (Cover, Beschreibung) – ein JSON-Filter mit Platzhalter ist nicht belegt; hier Titel aus der Kapitelantwort, Cover nur aus der Liste, keine Beschreibung. Autor 'Hypergryph' und Status 'laufend' sind feste Annahmen (Community setzt beides nicht) – ggf. entfernen.",
+  "Kapitel: Community sortiert nach Kapitelnummer absteigend (API-Reihenfolge je Comic unterschiedlich) – keine Sortierung in chapters belegt, Reihenfolge wie API.",
+  "Cover: smallImage ist Text oder einelementige Liste – Ausweichkette."
+ ]
+}

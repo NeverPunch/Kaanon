@@ -1,0 +1,169 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Arab Toons",
+  "sprache": "ar",
+  "base_url": "https://arabtoons.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.arabtoons",
+  "quellen": [
+   {
+    "name": "عرب تونز",
+    "sprache": "ar",
+    "quell_id": 2424761902286195560,
+    "home": "https://arabtoons.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/arabtoons",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/api/browse?page={page}&sort=views_count",
+   "format": "json",
+   "items": "data.items",
+   "has_next": {
+    "exists": "data.pagination.hasNextPage"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover",
+     "template": "{base}/storage/covers/lg/{value}"
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}/api/browse?page={page}",
+   "format": "json",
+   "items": "data.items",
+   "has_next": {
+    "exists": "data.pagination.hasNextPage"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover",
+     "template": "{base}/storage/covers/lg/{value}"
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/api/browse?page={page}&keyword={query}",
+   "format": "json",
+   "items": "data.items",
+   "has_next": {
+    "exists": "data.pagination.hasNextPage"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover",
+     "template": "{base}/storage/covers/lg/{value}"
+    }
+   }
+  },
+  "details": {
+   "request": "{base}/api/manga/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/#?]+)"
+   },
+   "let": {
+    "d": "data.mangaDetails.description",
+    "alt": "data.mangaDetails.alternativeTitle"
+   },
+   "fields": {
+    "title": "data.mangaDetails.title",
+    "cover": {
+     "path": "data.mangaDetails.cover",
+     "template": "{base}/storage/covers/lg/{value}"
+    },
+    "author": "data.mangaDetails.author",
+    "artist": "data.mangaDetails.artist",
+    "description": {
+     "const": "[[{l.d}]][[\n\nAlternative Names: {l.alt}]]",
+     "replace": [
+      [
+       "^\\n+",
+       ""
+      ]
+     ]
+    },
+    "genres": "data.mangaDetails.genres.*.name",
+    "status": "data.mangaDetails.status"
+   },
+   "status_map": {
+    "1": 1,
+    "2": 2,
+    "3": 5,
+    "4": 6
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/manga/{u.id}/chapters",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/#?]+)",
+    "id": "#(\\d+)$"
+   },
+   "items": "data.items",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{u.slug}/{value}"
+    },
+    "name": {
+     "path": "number",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "الفصل {value}[[ - {f.title}]]"
+    },
+    "number": "number",
+    "date": "date"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api{url}",
+   "format": "json",
+   "let": {
+    "md": "data.mangaDir",
+    "cd": "data.chapterDir"
+   },
+   "items": "data.images",
+   "image": {
+    "path": "name",
+    "template": "{base}/storage/mangas/{l.md}/{l.cd}/{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "JSON-API /api/browse (Beliebt sort=views_count, Neueste ohne sort, Suche keyword=…).",
+  "Manga-URL = /manga/<slug>#<id> (Muster en.roliascan/id.kiryuu): Die Kapitel-API braucht die numerische ID (Community merkt sie sich im memo). Fehlt die ID in einem Listeneintrag, fehlen die Kapitel – auf dem PC prüfen.",
+  "Kapitel-URL = /manga/<manga-slug>/<kapitel-slug>, Seiten über /api/manga/<manga-slug>/<kapitel-slug>; Bild = /storage/mangas/<mangaDir>/<chapterDir>/<name> (let auf dem JSON wie in ja.source-then).",
+  "Alte Madara-URLs (memo path/mangaPath) nicht berücksichtigt. Filter (Sortierung, Typ, Status, Genres) nicht übernommen."
+ ]
+}

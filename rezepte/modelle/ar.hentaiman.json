@@ -1,0 +1,166 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiMan",
+  "sprache": "ar",
+  "base_url": "https://hentaiman.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.hentaiman",
+  "quellen": [
+   {
+    "name": "HentaiMan",
+    "sprache": "ar",
+    "quell_id": 4335920001580787887,
+    "home": "https://hentaiman.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/hentaiman",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/manga?page={page}",
+   "items": "#manga-grid > div:has(a[href*=/manga/]):has(h3)",
+   "has_next": {
+    "exists": "#manga-grid > div a[href*=/manga/]"
+   },
+   "fields": {
+    "url": "a[href*=/manga/]@href",
+    "title": "h3",
+    "cover": [
+     "img[src*=storage/covers]@src",
+     "img[src*=storage/covers]@data-src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/?page={page}",
+   "items": "#manga-grid > div:has(a[href*=/manga/]):has(h3)",
+   "has_next": {
+    "exists": "#manga-grid > div a[href*=/manga/]"
+   },
+   "fields": {
+    "url": "a[href*=/manga/]@href",
+    "title": "h3",
+    "cover": [
+     "img[src*=storage/covers]@src",
+     "img[src*=storage/covers]@data-src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/manga?page={page}&search={query}",
+   "items": "#manga-grid > div:has(a[href*=/manga/]):has(h3)",
+   "has_next": {
+    "exists": "#manga-grid > div a[href*=/manga/]"
+   },
+   "fields": {
+    "url": "a[href*=/manga/]@href",
+    "title": "h3",
+    "cover": [
+     "img[src*=storage/covers]@src",
+     "img[src*=storage/covers]@data-src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "cover": "img[src*=storage/covers/lg], img[src*=storage/covers/md]@src",
+    "description": [
+     {
+      "path": "[aria-label=Alternative Title]",
+      "all": true,
+      "join": " "
+     },
+     "dl dd"
+    ],
+    "genres": {
+     "path": "a[href*=list/genre]",
+     "all": true,
+     "join": ", "
+    },
+    "status": [
+     {
+      "path": "span.status-completed@class",
+      "regex": "^(.+)$",
+      "group": 1,
+      "template": "completed"
+     },
+     {
+      "path": "span.status-on-going@class",
+      "regex": "^(.+)$",
+      "group": 1,
+      "template": "ongoing"
+     },
+     {
+      "path": "span.status-hiatus@class",
+      "regex": "^(.+)$",
+      "group": 1,
+      "template": "hiatus"
+     },
+     {
+      "path": "span.status-canceled@class",
+      "regex": "^(.+)$",
+      "group": 1,
+      "template": "cancelled"
+     }
+    ]
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "cancelled": 5,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "li.chapter-item:has(a[href])",
+   "fields": {
+    "url": "a[href]@href",
+    "name": [
+     {
+      "path": "a[href]@href",
+      "regex": "/(\\d+)(?:\\.\\d+)?/?$",
+      "group": 1,
+      "template": "الفصل {value}"
+     },
+     "a[href] span:not([class])"
+    ],
+    "number": {
+     "path": "a[href]@href",
+     "regex": "/(\\d+(?:\\.\\d+)?)/?$",
+     "group": 1
+    },
+    "date": "a[href] p.text-gray-400"
+   },
+   "date_format": "d/M/yy",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#reader img.reader-page",
+   "image": [
+    "@src",
+    "@data-src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Nächste Seite, solange die Liste Einträge hat (Community: mangas.isNotEmpty()).",
+  "Kapitelname: Community bildet 'الفصل <Nr> - <Titel>'; hier nur 'الفصل <Nr>' (Nr aus dem letzten URL-Segment), Titelzusatz entfällt. Keine Sortierung nach Nummer und kein distinct.",
+  "Status über die CSS-Klassen status-completed/-on-going/-hiatus/-canceled."
+ ]
+}

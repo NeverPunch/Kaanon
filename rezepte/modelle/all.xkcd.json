@@ -1,0 +1,95 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "xkcd",
+  "sprache": "en",
+  "base_url": "https://xkcd.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.xkcd",
+  "quellen": [
+   {
+    "name": "xkcd",
+    "sprache": "en",
+    "quell_id": 1538249443376436084,
+    "home": "https://xkcd.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/xkcd",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/archive/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/archive/"
+    },
+    "title": {
+     "const": "xkcd"
+    },
+    "cover": "#masthead img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "xkcd"
+    },
+    "author": {
+     "const": "Randall Munroe"
+    },
+    "artist": {
+     "const": "Randall Munroe"
+    },
+    "description": {
+     "const": "A webcomic of romance, sarcasm, math and language."
+    },
+    "cover": "#masthead img@img",
+    "status": {
+     "const": "ongoing"
+    }
+   },
+   "status_map": {
+    "ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#middleContainer > a",
+   "fields": {
+    "url": "@href",
+    "name": "",
+    "number": {
+     "path": "@href",
+     "regex": "(\\d+)",
+     "group": 1
+    },
+    "date": "@title"
+   },
+   "date_format": "yyyy-M-d"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#comic > img",
+   "image": "@img"
+  }
+ },
+ "hinweise": [
+  "Fünf Community-Quellen mit eigenen Websites (xkcd.com, es.xkcd.com, xkcd.tw, xkcd.lapin.org, xkcd.ru) und je eigenen Selektoren; Rezept nur für die en-Quelle xkcd.com.",
+  "Ein einziger Eintrag 'xkcd' mit allen Comics aus /archive/ (Community-Standard 'Single manga'; Gruppierung nach Jahr/Monat nicht nachgebaut). Keine Suche (Community liefert leer).",
+  "Kapitelname nur der Titel (Community: '<Nummer>: <Titel>'), Nummer aus dem Link.",
+  "Seiten: nur das Comicbild; die Community hängt eine zweite, per TextInterceptor gerenderte Seite mit Alt-/Titeltext an – nicht ausdrückbar. Interaktive Comics liefern kein Bild.",
+  "Cover: Community nutzt ein mitgeliefertes Bild; hier das Logo aus #masthead (Annahme, auf dem PC prüfen)."
+ ]
+}

@@ -1,0 +1,117 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "One Piece Fans",
+  "sprache": "all",
+  "base_url": "https://one-piece-fans2.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.onepiecefans",
+  "quellen": [
+   {
+    "name": "One Piece Fans",
+    "sprache": "es",
+    "quell_id": 3010838382018156522,
+    "home": "https://one-piece-fans2.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/onepiecefans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/fansubs-config.json",
+   "format": "json",
+   "items": "es",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "path",
+     "template": "/manga/es/{value}"
+    },
+    "title": {
+     "path": "title",
+     "template": "One Piece ({value})"
+    },
+    "cover": {
+     "const": "{base}/images/luffy.png"
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/fansubs-config.json",
+   "format": "json",
+   "items": "es",
+   "has_next": {
+    "const": false
+   },
+   "client_filter": true,
+   "fields": {
+    "url": {
+     "path": "path",
+     "template": "/manga/es/{value}"
+    },
+    "title": {
+     "path": "title",
+     "template": "One Piece ({value})"
+    },
+    "cover": {
+     "const": "{base}/images/luffy.png"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "cover": {
+     "const": "{base}/images/luffy.png"
+    }
+   }
+  },
+  "chapters": {
+   "request": "{base}/server.php?lang=es&folderName={u.folder}",
+   "format": "json",
+   "url_vars": {
+    "folder": "/manga/es/([^/?#]+)"
+   },
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "",
+     "template": "/manga/es/{u.folder}/{value}"
+    },
+    "name": {
+     "path": "",
+     "template": "Chapter {value}"
+    },
+    "number": "$"
+   }
+  },
+  "pages": {
+   "request": "{base}/server.php?lang=es&folderName={u.folder}&chapter={u.num}",
+   "format": "json",
+   "url_vars": {
+    "folder": "/manga/es/([^/?#]+)/",
+    "num": "/manga/es/[^/]+/([^/?#]+)"
+   },
+   "items": "$",
+   "image": {
+    "path": "",
+    "template": "{base}/mangafiles/es/{u.folder}/{u.num}/{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "Nur die spanische Quelle: Die Community-Quellen es/en unterscheiden sich nur im Parameter lang (fansubs-config.json-Schlüssel, server.php?lang=, /mangafiles/<lang>/); ein Rezept kann keine sprachabhängige URL, en aus 'quellen' entfernt.",
+  "Manga = Fansub-Ordner aus fansubs-config.json; Community speichert nur den Ordnernamen als URL, das Rezept nutzt die Webansicht /manga/es/<ordner> (getMangaUrl) und zieht den Ordner per url_vars.",
+  "Details: Community lädt keine Details (initialized); Rezept lädt die Webseite und setzt nur das Standard-Cover (/images/luffy.png). Cover-Einstellung der Community nicht abgebildet.",
+  "Kapitelname 'Chapter N' wie in der Community (chapterPrefix). Kein Datum."
+ ]
+}

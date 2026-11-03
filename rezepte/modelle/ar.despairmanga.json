@@ -1,0 +1,207 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Despair Manga",
+  "sprache": "ar",
+  "base_url": "https://despair-world.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.despairmanga",
+  "quellen": [
+   {
+    "name": "Despair Manga",
+    "sprache": "ar",
+    "quell_id": 886527590434722171,
+    "home": "https://despair-world.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/despairmanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "{base}/supabase-api/rest/v1/manga_works?select=id,slug,title_ar,title_en,cover_url,genres,synopsis,status,author_or_studio&order=views_count.desc&limit=24&offset={offset}",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzkwMzczMDE4LCJleHAiOjE5NDgwNTMwMTh9.xYgAlC_9SuUCdzdff6wBYGWzYFmAI9apP_mk4DCPaVI",
+     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzkwMzczMDE4LCJleHAiOjE5NDgwNTMwMTh9.xYgAlC_9SuUCdzdff6wBYGWzYFmAI9apP_mk4DCPaVI"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": [
+     "title_ar",
+     "title_en"
+    ],
+    "cover": "cover_url"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/supabase-api/rest/v1/manga_works?select=id,slug,title_ar,title_en,cover_url,genres,synopsis,status,author_or_studio&order=updated_at.desc&limit=24&offset={offset}",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzkwMzczMDE4LCJleHAiOjE5NDgwNTMwMTh9.xYgAlC_9SuUCdzdff6wBYGWzYFmAI9apP_mk4DCPaVI",
+     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzkwMzczMDE4LCJleHAiOjE5NDgwNTMwMTh9.xYgAlC_9SuUCdzdff6wBYGWzYFmAI9apP_mk4DCPaVI"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": [
+     "title_ar",
+     "title_en"
+    ],
+    "cover": "cover_url"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/supabase-api/rest/v1/manga_works?select=id,slug,title_ar,title_en,cover_url,genres,synopsis,status,author_or_studio&or=(title_ar.ilike.%22*{query}*%22,title_en.ilike.%22*{query}*%22)&order=views_count.desc&limit=24&offset={offset}",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzkwMzczMDE4LCJleHAiOjE5NDgwNTMwMTh9.xYgAlC_9SuUCdzdff6wBYGWzYFmAI9apP_mk4DCPaVI",
+     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzkwMzczMDE4LCJleHAiOjE5NDgwNTMwMTh9.xYgAlC_9SuUCdzdff6wBYGWzYFmAI9apP_mk4DCPaVI"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": [
+     "title_ar",
+     "title_en"
+    ],
+    "cover": "cover_url"
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{base}/supabase-api/rest/v1/manga_works?select=id,slug,title_ar,title_en,cover_url,genres,synopsis,status,author_or_studio&slug=eq.{u.slug}&limit=1",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzkwMzczMDE4LCJleHAiOjE5NDgwNTMwMTh9.xYgAlC_9SuUCdzdff6wBYGWzYFmAI9apP_mk4DCPaVI",
+     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzkwMzczMDE4LCJleHAiOjE5NDgwNTMwMTh9.xYgAlC_9SuUCdzdff6wBYGWzYFmAI9apP_mk4DCPaVI"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/#?]+)"
+   },
+   "fields": {
+    "title": [
+     "0.title_ar",
+     "0.title_en"
+    ],
+    "cover": "0.cover_url",
+    "description": "0.synopsis",
+    "author": "0.author_or_studio",
+    "genres": {
+     "path": "0.genres",
+     "join": ", "
+    },
+    "status": "0.status"
+   },
+   "status_map": {
+    "مستمر": 1,
+    "مكتمل": 2
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/supabase-api/rest/v1/chapters?select=id,chapter_number,title,is_free,created_at&work_id=eq.{u.id}&order=chapter_number.desc,id.desc",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzkwMzczMDE4LCJleHAiOjE5NDgwNTMwMTh9.xYgAlC_9SuUCdzdff6wBYGWzYFmAI9apP_mk4DCPaVI",
+     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzkwMzczMDE4LCJleHAiOjE5NDgwNTMwMTh9.xYgAlC_9SuUCdzdff6wBYGWzYFmAI9apP_mk4DCPaVI"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/#?]+)",
+    "id": "#([^#]+)$"
+   },
+   "items": "$",
+   "skip": {
+    "path": "is_free",
+    "equals": "false"
+   },
+   "fields": {
+    "url": {
+     "path": "chapter_number",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "/series/{u.slug}/main/ch/{value}#{f.id}"
+    },
+    "name": [
+     "title",
+     {
+      "path": "chapter_number",
+      "replace": [
+       [
+        "\\.0$",
+        ""
+       ]
+      ],
+      "template": "الفصل {value}"
+     }
+    ],
+    "number": "chapter_number",
+    "date": "created_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "{base}/supabase-api/rest/v1/chapters?select=pages&id=eq.{u.id}",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzkwMzczMDE4LCJleHAiOjE5NDgwNTMwMTh9.xYgAlC_9SuUCdzdff6wBYGWzYFmAI9apP_mk4DCPaVI",
+     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzkwMzczMDE4LCJleHAiOjE5NDgwNTMwMTh9.xYgAlC_9SuUCdzdff6wBYGWzYFmAI9apP_mk4DCPaVI"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "#([^#]+)$"
+   },
+   "items": "0.pages",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "Supabase-REST-API ({base}/supabase-api/rest/v1). Der anon-Schlüssel (apikey/Bearer) ist der öffentliche Schlüssel, den die Website selbst ausliefert und die Community wörtlich übernimmt – kein Geheimnis, keine Signatur.",
+  "Community merkt sich work_id/chapter_id im memo; Rezept hängt die ID als #<id> an Manga- und Kapitel-URL (Muster wie en.kencomics/en.luascans).",
+  "Bezahlkapitel (is_free=false) zeigt die Community mit Schloss; Rezept lässt sie per skip aus (Regel 0014).",
+  "Beschreibung nur synopsis; Community hängt 'أسماء أخرى:' + englischen Titel an, wenn abweichend – nicht abgebildet. Details-Pfade mit Index 0 (Antwort ist eine Liste).",
+  "Suche: Community maskiert \\ und \" im Suchtext; im Rezept nicht.",
+  "Alte WordPress-URLs (/manga/<slug>/) der früheren Quelle werden nicht unterstützt."
+ ]
+}

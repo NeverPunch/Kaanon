@@ -1,0 +1,207 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Pawchive",
+  "sprache": "all",
+  "base_url": "https://pawchive.pw",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.pawchive",
+  "quellen": [
+   {
+    "name": "Pawchive",
+    "sprache": "all",
+    "quell_id": 4284527942812494681,
+    "home": "https://pawchive.pw"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/pawchive",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "image_headers": {
+   "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8"
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/api/v1/creators",
+    "headers": {
+     "Accept": "text/css"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/{f.service}/user/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "id",
+     "template": "{base}/icons/{f.service}/{value}"
+    }
+   },
+   "sort": {
+    "path": "favorited",
+    "order": "desc",
+    "limit": 300
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/api/v1/creators",
+    "headers": {
+     "Accept": "text/css"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/{f.service}/user/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "id",
+     "template": "{base}/icons/{f.service}/{value}"
+    }
+   },
+   "sort": {
+    "path": "updated",
+    "order": "desc",
+    "limit": 300
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/v1/creators",
+    "headers": {
+     "Accept": "text/css"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/{f.service}/user/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "id",
+     "template": "{base}/icons/{f.service}/{value}"
+    }
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": {
+    "url": "{base}/api/v1/{u.service}/user/{u.id}/posts?o=0",
+    "headers": {
+     "Accept": "text/css"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "service": "/([^/]+)/user/",
+    "id": "/user/([^/?#]+)"
+   },
+   "fields": {
+    "author": {
+     "const": "{u.service}",
+     "replace": [
+      [
+       "^fanbox$",
+       "Pixiv Fanbox"
+      ],
+      [
+       "^patreon$",
+       "Patreon"
+      ]
+     ]
+    },
+    "description": {
+     "const": "Jeder Beitrag ist ein Kapitel; geladen werden die neuesten 500 Beiträge."
+    }
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/api/v1{url}/posts?o={offset}",
+    "headers": {
+     "Accept": "text/css"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "page_size": 50,
+   "paging": {
+    "has_next": {
+     "full": true
+    },
+    "max_pages": 10
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/{f.service}/user/{f.user}/post/{value}"
+    },
+    "name": [
+     "title",
+     {
+      "path": "published",
+      "template": "Post from {value}"
+     }
+    ],
+    "date": [
+     "published",
+     "added",
+     "edited"
+    ]
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "{base}/api/v1{url}",
+    "headers": {
+     "Accept": "text/css"
+    }
+   },
+   "format": "text",
+   "items": "(?i)\"path\"\\s*:\\s*\"(/[^\"]+\\.(?:png|jpe?g|gif|webp))\"",
+   "image": {
+    "path": "",
+    "template": "https://file.pawchive.pw/data{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "API-Anfragen mit Accept: text/css wie im Community-Interceptor.",
+  "Beliebt/Neu: Community lädt die komplette Creator-Liste und sortiert/paginiert lokal (50 je Seite); hier sortiert (favorited bzw. updated absteigend) und auf 300 Einträge begrenzt. Suche filtert die komplette Liste lokal (client_filter).",
+  "Typ-/Favoriten-Filter (Favoriten brauchen Login) nicht übernommen.",
+  "Details: Community lädt keine Details (Autor = Dienstname, Beschreibung = Hinweis); Anfrage auf Beitragsseite 1 nur, weil details eine Anfrage braucht.",
+  "Kapitel: 10 Seiten à 50 Beiträge (Community-Standard 1, einstellbar bis 75). Beiträge ohne Bilder werden NICHT ausgelassen (Community lässt sie weg); Kapitelnummern nicht gesetzt.",
+  "Seiten: Bildpfade per Text-Regex aus file und attachments (Bildendungen); doppelte Pfade (file = erstes Attachment) werden anders als in der Community nicht entfernt. Kein Rückfall auf img.-Thumbnail bei 404, keine Low-Res-Einstellung."
+ ]
+}

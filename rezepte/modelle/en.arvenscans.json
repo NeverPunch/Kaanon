@@ -1,0 +1,195 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Arven Scans",
+  "sprache": "en",
+  "base_url": "https://arvenscans.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.arvenscans",
+  "quellen": [
+   {
+    "name": "Arven Scans",
+    "sprache": "en",
+    "quell_id": 640484333556017983,
+    "home": "https://arvenscans.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/arvenscansnet",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "https://api.arvenscans.net/works/most-read?limit=20",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover_url",
+     "template": "https://api.arvenscans.net{value}"
+    }
+   }
+  },
+  "latest": {
+   "request": "https://api.arvenscans.net/works?sort=updated&page={page}&limit=24",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.total_pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover_url",
+     "template": "https://api.arvenscans.net{value}"
+    }
+   }
+  },
+  "search": {
+   "request": "https://api.arvenscans.net/works?search={query}&page={page}&limit=24",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.total_pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover_url",
+     "template": "https://api.arvenscans.net{value}"
+    }
+   }
+  },
+  "details": {
+   "request": "https://api.arvenscans.net/works/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "#([^/?#]+)$"
+   },
+   "let": {
+    "d": "description",
+    "alt": {
+     "path": "alt_titles.*",
+     "all": true,
+     "join": " · "
+    }
+   },
+   "fields": {
+    "title": "title",
+    "cover": {
+     "path": "cover_url",
+     "template": "https://api.arvenscans.net{value}"
+    },
+    "author": "author",
+    "status": "status",
+    "description": {
+     "const": "[[{l.d}]][[\n\nAlternative titles: {l.alt}]]",
+     "replace": [
+      [
+       "^\\n+",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": [
+      "genres.*.name_en",
+      "tags.*"
+     ],
+     "union": true
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "https://api.arvenscans.net/works/{u.id}/chapters?page={page}&limit=100&order=desc",
+   "format": "json",
+   "url_vars": {
+    "id": "#([^/?#]+)$"
+   },
+   "items": "data",
+   "paging": {
+    "has_next": {
+     "lt": [
+      "meta.current_page",
+      "meta.total_pages"
+     ]
+    },
+    "max_pages": 30
+   },
+   "skip": {
+    "path": "coins",
+    "regex": "^[1-9]"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/reader/{value}"
+    },
+    "name": {
+     "path": "chapter_number",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "Chapter {value}[[ — {f.title}]]"
+    },
+    "number": "chapter_number",
+    "date": "created_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://api.arvenscans.net/chapters/{u.cid}",
+   "format": "json",
+   "url_vars": {
+    "cid": "/reader/([^/?#]+)"
+   },
+   "items": "images",
+   "image": {
+    "path": "",
+    "template": "https://api.arvenscans.net{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "JSON-API api.arvenscans.net. Beliebt = /works/most-read?limit=20 (einseitig wie Community), Neueste sort=updated, Suche search=… (24 je Seite).",
+  "Manga-URL /series/<slug>#<work-id> (Muster en.roliascan); Kapitel-URL /reader/<chapter-id> wie die Website.",
+  "Genres: Community lädt sie über /works/<id>/genres nach; hier genres aus der Werk-Antwort (falls vorhanden) + tags.",
+  "Bezahlkapitel (coins > 0) werden übersprungen (Community-Standard 'Show paid chapters' = aus).",
+  "Genre-Filter nicht übernommen; Kapiteltitel-Leerzeichen werden nicht normalisiert."
+ ]
+}

@@ -1,0 +1,108 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "The Library of Ohara",
+  "sprache": "all",
+  "base_url": "https://thelibraryofohara.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.thelibraryofohara",
+  "quellen": [
+   {
+    "name": "The Library of Ohara",
+    "sprache": "en",
+    "quell_id": 2727140669803764425,
+    "home": "https://thelibraryofohara.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/thelibraryofohara",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}",
+   "items": "#categories-7 ul li.cat-item-589813936, #categories-7 ul li.cat-item-607613583, #categories-7 ul li.cat-item-43972770, #categories-7 ul li.cat-item-9363667, #categories-7 ul li.cat-item-634609261, #categories-7 ul li.cat-item-699200615, #categories-7 ul li.cat-item-139757, #categories-7 ul li.cat-item-22695, #categories-7 ul li.cat-item-648324575",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "a"
+   }
+  },
+  "search": {
+   "request": "{base}",
+   "items": "#categories-7 ul li.cat-item-589813936, #categories-7 ul li.cat-item-607613583, #categories-7 ul li.cat-item-43972770, #categories-7 ul li.cat-item-9363667, #categories-7 ul li.cat-item-634609261, #categories-7 ul li.cat-item-699200615, #categories-7 ul li.cat-item-139757, #categories-7 ul li.cat-item-22695, #categories-7 ul li.cat-item-648324575",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "a"
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "path": "h1.page-title",
+     "replace": [
+      [
+       "^Category: ",
+       ""
+      ]
+     ]
+    },
+    "cover": "article:first-of-type img@src",
+    "status": {
+     "const": "ongoing"
+    }
+   },
+   "status_map": {
+    "ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}page/{page}/",
+   "request_by_page": {
+    "1": "details"
+   },
+   "paging": {
+    "has_next": {
+     "exists": "div.nav-previous a"
+    },
+    "max_pages": 60
+   },
+   "items": "article",
+   "skip": {
+    "path": "h2.entry-title a",
+    "regex": "French|Arabic|Italian|Indonesia|Spanish"
+   },
+   "fields": {
+    "url": "a.entry-thumbnail@href",
+    "name": "h2.entry-title a",
+    "date": "span.posted-on time@datetime"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.entry-content a img, div.entry-content img.size-full",
+   "image": "@data-orig-file"
+  }
+ },
+ "hinweise": [
+  "Nur die englische Quelle: Die Community wählt je Sprache andere Kategorie-IDs (#categories-7 li.cat-item-…) und filtert Kapitel nach Sprachnamen – ein Rezept kann das nicht je Sprache; id/es/it/ar/fr aus 'quellen' entfernt.",
+  "Liste = feste WordPress-Kategorien der Startseite (Chapter Secrets, Specials, Charlotte Family, Complete Guides, Parody Chapter, Return to the Reverie, SBS, Timeline, Vivre Card Databook) wie in der Community (en).",
+  "Kapitel-Pagination: Community folgt dem Link div.nav-previous a; Rezept bildet {abs_url}page/N/ (WordPress-Kategorieseiten) – prüfen.",
+  "Community filtert fremdsprachige Beiträge (French/Arabic/Italian/Indonesia/Spanish) nur in 'Return to the Reverie' aus; Rezept per skip für alle Kategorien.",
+  "Cover: Community wählt in Reverie das erste Vorschaubild ohne Fremdsprache; Rezept nimmt das Bild des ersten Beitrags.",
+  "Community setzt als User-Agent den Android-System-Agent (http.agent); nicht übernommen."
+ ]
+}

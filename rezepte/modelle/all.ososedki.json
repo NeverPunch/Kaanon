@@ -1,0 +1,210 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "OSOSEDKI",
+  "sprache": "all",
+  "base_url": "https://ososedki.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.ososedki",
+  "quellen": [
+   {
+    "name": "OSOSEDKI",
+    "sprache": "all",
+    "quell_id": 703138310497011533,
+    "home": "https://ososedki.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/ososedki",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/api/albums?page={page}&type=top&value=1",
+   "format": "json_html",
+   "html_path": "html",
+   "items": "article.gallery-item:has(a.gallery-link)",
+   "has_next": {
+    "exists": "^hasMore"
+   },
+   "fields": {
+    "url": {
+     "path": "a.gallery-link@href",
+     "regex": "(/photos/-?\\d+_\\d+)"
+    },
+    "title": [
+     "h3",
+     {
+      "path": "img.gallery-img@alt",
+      "regex": "^(.*?) nude\\."
+     },
+     "img.gallery-img@alt"
+    ],
+    "cover": [
+     "img.gallery-img@data-src",
+     "img.gallery-img@src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/api/albums?page={page}",
+   "format": "json_html",
+   "html_path": "html",
+   "items": "article.gallery-item:has(a.gallery-link)",
+   "has_next": {
+    "exists": "^hasMore"
+   },
+   "fields": {
+    "url": {
+     "path": "a.gallery-link@href",
+     "regex": "(/photos/-?\\d+_\\d+)"
+    },
+    "title": [
+     "h3",
+     {
+      "path": "img.gallery-img@alt",
+      "regex": "^(.*?) nude\\."
+     },
+     "img.gallery-img@alt"
+    ],
+    "cover": [
+     "img.gallery-img@data-src",
+     "img.gallery-img@src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/api/albums?page={page}&type=search&value={query}",
+   "format": "json_html",
+   "html_path": "html",
+   "items": "article.gallery-item:has(a.gallery-link)",
+   "has_next": {
+    "exists": "^hasMore"
+   },
+   "fields": {
+    "url": {
+     "path": "a.gallery-link@href",
+     "regex": "(/photos/-?\\d+_\\d+)"
+    },
+    "title": [
+     "h3",
+     {
+      "path": "img.gallery-img@alt",
+      "regex": "^(.*?) nude\\."
+     },
+     "img.gallery-img@alt"
+    ],
+    "cover": [
+     "img.gallery-img@data-src",
+     "img.gallery-img@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "url_vars": {
+    "owner": "/photos/(-?\\d+)_\\d+",
+    "post": "/photos/-?\\d+_(\\d+)"
+   },
+   "let": {
+    "m": "a[href^=/model/]",
+    "c": "a[href^=/cosplay/]",
+    "f": "a[href^=/fandom/]"
+   },
+   "fields": {
+    "title": [
+     {
+      "const": "[[{l.m}]][[ - {l.c}]][[ - {l.f}]]",
+      "replace": [
+       [
+        "^ - ",
+        ""
+       ]
+      ]
+     },
+     {
+      "path": "h1",
+      "replace": [
+       [
+        "(?i)\\s*\\(\\d+\\s+leaked\\s+photos\\)\\s+from\\s+Onlyfans,\\s+Patreon\\s+and\\s+Fansly\\s*$",
+        ""
+       ]
+      ]
+     }
+    ],
+    "cover": [
+     {
+      "const": "{base}/images/albums/{u.owner}/{u.post}.webp"
+     },
+     "img.gallery-img@data-src",
+     "meta[property=\"og:image\"]@content"
+    ],
+    "author": {
+     "path": "a[href^=/model/]",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "a[href^=/cosplay/]",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": [
+      "a[href^=/model/]",
+      "a[href^=/cosplay/]",
+      "a[href^=/fandom/]"
+     ],
+     "union": true
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Gallery"
+    },
+    "date": {
+     "path": "script[type=application/ld+json]@html",
+     "all": true,
+     "join": "\n",
+     "regex": "\"datePublished\":\"([^\"]+)\""
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#photos a[href^=/images/], #photos a[href^=https://ososedki.com/images/]",
+   "image": "@href",
+   "sort": {
+    "path": "@href",
+    "regex": "/(\\d+)\\.[^/]*$"
+   }
+  }
+ },
+ "hinweise": [
+  "Listen über /api/albums?page=N[&type=top&value=1 | &type=search&value=…]: JSON mit HTML im Feld html (json_html), nächste Seite laut hasMore (Muster '^data.more' aus fr.mangasoriginesfr).",
+  "Manga-URL = /photos/<owner>_<post> (Community speichert nur die Album-ID und baut /photos/<id>).",
+  "Titel in den Details: erstes Model - erster Cosplay - erstes Fandom (über let; Annahme: ein einfacher Selektor liefert den ersten Treffer – auf dem PC prüfen), sonst h1 ohne Suffix '(N leaked photos) from Onlyfans…'.",
+  "Cover wie Community: /images/albums/<owner>/<post>.webp.",
+  "Seiten: Links #photos a[href^=/images/], nach Dateinummer sortiert. Der Community-Interceptor (bei 404 /images/a/1280/ → /604/) ist nicht abbildbar.",
+  "Leere Suche → Community zeigt Beliebt; hier wird die Suche mit leerem value gesendet. Model-/Cosplay-/Fandom-Deeplinks nicht übernommen."
+ ]
+}

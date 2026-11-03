@@ -1,0 +1,151 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Team X",
+  "sprache": "ar",
+  "base_url": "https://olympustaff.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.teamx",
+  "quellen": [
+   {
+    "name": "Team X",
+    "sprache": "ar",
+    "quell_id": 4110737012647435874,
+    "home": "https://olympustaff.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/teamx",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.34",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 10,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/series/?page={page}",
+   "items": "div.listupd div.bsx",
+   "has_next": {
+    "exists": "a[rel=next]"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "a@title",
+    "cover": "img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/?page={page}",
+   "items": "div.last-chapter div.box",
+   "has_next": {
+    "exists": "a[rel=next]"
+   },
+   "fields": {
+    "url": "div.info a@href",
+    "title": "div.info a h3",
+    "cover": {
+     "path": "div.imgu img@img",
+     "replace": [
+      [
+       "thumbnail_",
+       ""
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/search?keyword={query}",
+   "items": "div.tx-grid a.tx-card",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h3",
+    "cover": {
+     "path": "img@img",
+     "replace": [
+      [
+       "thumbnail_",
+       ""
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.author-info-title h1",
+    "description": [
+     "div.review-content",
+     "div.review-content p"
+    ],
+    "genres": {
+     "path": "div.review-author-info a",
+     "all": true,
+     "join": ", "
+    },
+    "cover": "div.text-right img@img",
+    "status": ".full-list-info > small:first-child:contains(الحالة) + small",
+    "author": {
+     "path": ".full-list-info > small:first-child:contains(الرسام) + small",
+     "regex": "^(?!غير معروف$)(.+)$",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "مستمرة": 1,
+    "قادم قريبًا": 1,
+    "مكتمل": 2,
+    "متوقف": 6
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}?page={page}",
+   "request_by_page": {
+    "1": "details"
+   },
+   "items": "div.chapter-card",
+   "paging": {
+    "has_next": {
+     "exists": "ul.pagination a[rel=next]"
+    },
+    "max_pages": 50
+   },
+   "skip": {
+    "any": [
+     "span.locked"
+    ]
+   },
+   "fields": {
+    "url": "a@href",
+    "name": {
+     "path": "@data-number",
+     "template": "الفصل {value}"
+    },
+    "number": "@data-number",
+    "date": "@data-date"
+   },
+   "date_format": "epoch_s"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.image_list canvas[data-src], div.image_list img[src]",
+   "image": "@img"
+  }
+ },
+ "hinweise": [
+  "HTML-Website (olympustaff.com, Community-Standard; base_url in der Community änderbar). Rate-Limit 10/s wie im Code.",
+  "Kapitel über mehrere Seiten ({abs_url}?page=N); Community liest die höchste Seitenzahl aus ul.pagination und lädt alle parallel – hier Blättern, solange ul.pagination a[rel=next] existiert (Annahme Laravel-Paginierung).",
+  "Gesperrte Kapitel (span.locked) ausgelassen wie in der Community. Kapitelname nur 'الفصل N' (Community hängt den Kapiteltitel an, wenn er nicht nur die Nummer wiederholt).",
+  "Status-Schlüssel arabisch wie im Code (مستمرة/قادم قريبًا → laufend, مكتمل → abgeschlossen, متوقف → pausiert)."
+ ]
+}

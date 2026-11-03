@@ -1,0 +1,144 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaCloud",
+  "sprache": "ar",
+  "base_url": "https://mangacloud.online",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.mangacloud",
+  "quellen": [
+   {
+    "name": "MangaCloud",
+    "sprache": "ar",
+    "quell_id": 1630897072449336068,
+    "home": "https://mangacloud.online"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/mangacloud",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "https://firestore.googleapis.com/v1/projects/ninja-brew-crew-4d79c/databases/(default)/documents/cloudmangas?pageSize=1000&key=AIzaSyAvdmgz_r_d89Eo8JBs9vAjUAJR451bMYU",
+   "format": "json",
+   "items": "documents",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "name",
+     "regex": "/([^/]+)$",
+     "template": "/manga/{value}"
+    },
+    "title": "fields.title.stringValue",
+    "cover": "fields.coverImage.stringValue"
+   }
+  },
+  "latest": {
+   "request": "https://firestore.googleapis.com/v1/projects/ninja-brew-crew-4d79c/databases/(default)/documents/cloudmangas?pageSize=20&orderBy=updatedAt%20desc&key=AIzaSyAvdmgz_r_d89Eo8JBs9vAjUAJR451bMYU",
+   "format": "json",
+   "items": "documents",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "name",
+     "regex": "/([^/]+)$",
+     "template": "/manga/{value}"
+    },
+    "title": "fields.title.stringValue",
+    "cover": "fields.coverImage.stringValue"
+   }
+  },
+  "search": {
+   "request": "https://firestore.googleapis.com/v1/projects/ninja-brew-crew-4d79c/databases/(default)/documents/cloudmangas?pageSize=1000&key=AIzaSyAvdmgz_r_d89Eo8JBs9vAjUAJR451bMYU",
+   "format": "json",
+   "items": "documents",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "name",
+     "regex": "/([^/]+)$",
+     "template": "/manga/{value}"
+    },
+    "title": "fields.title.stringValue",
+    "cover": "fields.coverImage.stringValue"
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "https://firestore.googleapis.com/v1/projects/ninja-brew-crew-4d79c/databases/(default)/documents/cloudmangas/{u.id}?key=AIzaSyAvdmgz_r_d89Eo8JBs9vAjUAJR451bMYU",
+   "format": "json",
+   "url_vars": {
+    "id": "/manga/([^/?#]+)"
+   },
+   "fields": {
+    "title": "fields.title.stringValue",
+    "cover": "fields.coverImage.stringValue",
+    "description": "fields.description.stringValue",
+    "author": "fields.author.stringValue",
+    "artist": "fields.artist.stringValue",
+    "genres": "fields.genres.arrayValue.values.*.stringValue",
+    "status": "fields.status.stringValue"
+   },
+   "status_map": {
+    "مستمر": 1,
+    "مكتمل": 2,
+    "متروك": 6,
+    "متروكة": 6,
+    "معلق": 6
+   }
+  },
+  "chapters": {
+   "request": "https://firestore.googleapis.com/v1/projects/ninja-brew-crew-4d79c/databases/(default)/documents/cloudmangas/{u.id}/chapters?pageSize=1000&orderBy=index&key=AIzaSyAvdmgz_r_d89Eo8JBs9vAjUAJR451bMYU",
+   "format": "json",
+   "url_vars": {
+    "id": "/manga/([^/?#]+)"
+   },
+   "items": "documents",
+   "reverse": true,
+   "fields": {
+    "url": {
+     "path": "name",
+     "regex": "cloudmangas/(.+)$",
+     "template": "/manga/{value}"
+    },
+    "name": {
+     "path": "name",
+     "regex": "/(\\d+)$",
+     "template": "الفصل {value}"
+    },
+    "number": {
+     "path": "name",
+     "regex": "/(\\d+)$"
+    }
+   }
+  },
+  "pages": {
+   "request": "https://firestore.googleapis.com/v1/projects/ninja-brew-crew-4d79c/databases/(default)/documents/cloudmangas/{u.p}?key=AIzaSyAvdmgz_r_d89Eo8JBs9vAjUAJR451bMYU",
+   "format": "json",
+   "url_vars": {
+    "p": "/manga/(.+)$"
+   },
+   "items": "fields.pages.arrayValue.values",
+   "image": "stringValue"
+  }
+ },
+ "hinweise": [
+  "Daten aus Firestore-REST (Projekt ninja-brew-crew-4d79c, Sammlung cloudmangas) mit dem öffentlichen Web-API-Schlüssel der Website, wörtlich aus dem Community-Code (kein selbst erzeugter Schlüssel).",
+  "Firestore blättert nur über nextPageToken (Cursor). Beliebt holt daher einmalig pageSize=1000 ohne weitere Seiten (Community: 20er-Seiten mit Token); Neueste wie Community eine Seite (20, orderBy updatedAt desc).",
+  "Suche: Community lädt alle Einträge (300er-Seiten) und filtert lokal nach Titel/Alt-Titeln/Genres/Beschreibung; hier pageSize=1000 + client_filter (nur Titel).",
+  "Manga-URL /manga/<id>, Kapitel-URL /manga/<id>/chapters/<nr> (Firestore-Pfad), Kapitel orderBy=index umgedreht (Community sortiert absteigend nach Nummer); mehr als 1000 Kapitel (weitere Token-Seiten) nicht abgebildet.",
+  "Filter (Sortierung, Status, Genre) nicht übernommen."
+ ]
+}

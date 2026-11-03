@@ -1,0 +1,123 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Photos18",
+  "sprache": "all",
+  "base_url": "https://www.photos18.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.photos18",
+  "quellen": [
+   {
+    "name": "Photos18",
+    "sprache": "all",
+    "quell_id": 225835804698740720,
+    "home": "https://www.photos18.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/photos18",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/zh-hans/sort/views?page={page}",
+   "items": "#videos > *",
+   "has_next": {
+    "exists": ".next:not(.disabled)"
+   },
+   "fields": {
+    "url": {
+     "path": ".card-body a@href",
+     "replace": [
+      [
+       "^/zh-hans",
+       ""
+      ]
+     ]
+    },
+    "title": ".card-body a@ownText",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/zh-hans/?page={page}",
+   "items": "#videos > *",
+   "has_next": {
+    "exists": ".next:not(.disabled)"
+   },
+   "fields": {
+    "url": {
+     "path": ".card-body a@href",
+     "replace": [
+      [
+       "^/zh-hans",
+       ""
+      ]
+     ]
+    },
+    "title": ".card-body a@ownText",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/zh-hans?q={query}&page={page}&sort=views",
+   "items": "#videos > *",
+   "has_next": {
+    "exists": ".next:not(.disabled)"
+   },
+   "fields": {
+    "url": {
+     "path": ".card-body a@href",
+     "replace": [
+      [
+       "^/zh-hans",
+       ""
+      ]
+     ]
+    },
+    "title": ".card-body a@ownText",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Gallery"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#content img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Galerie-Website: ein Kapitel 'Gallery' = Galerie selbst (wie Community).",
+  "Sprache: Community nutzt standardmäßig vereinfachtes Chinesisch ({base}/zh-hans/…), traditionell nur per Einstellung; Rezept folgt dem Standard. URLs werden ohne /zh-hans gespeichert wie in der Community, Details/Seiten daher von der traditionellen Seite geladen (wie Community getMangaUrl/getChapterUrl).",
+  "Details: Community lädt keine Detailseite (Titel/Cover/Genre aus der Liste); Rezept setzt nur Status abgeschlossen. Genre (label in .card-body) aus der Liste nicht übernehmbar.",
+  "Suche mit sort=views (Standard des Community-Sortierfilters); Kategorie-Filter nicht abgebildet.",
+  "Community schaltet Weiterleitungen ab (followRedirects false); im Rezept nicht abbildbar – prüfen."
+ ]
+}

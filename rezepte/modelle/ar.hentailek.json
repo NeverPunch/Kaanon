@@ -1,0 +1,184 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hentai Lek",
+  "sprache": "ar",
+  "base_url": "https://hentailek.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.hentailek",
+  "quellen": [
+   {
+    "name": "هنتاي ليك",
+    "sprache": "ar",
+    "quell_id": 1258840903039841012,
+    "home": "https://hentailek.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/hentailek",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/library?sort=popular&page={page}",
+   "items": "a[href*=/manga/]:has(h3)",
+   "has_next": {
+    "exists": "a[rel=next]"
+   },
+   "fields": {
+    "url": {
+     "path": "@href",
+     "regex": "(/manga/[^/?#]+)/?(?:[?#].*)?$"
+    },
+    "title": "h3",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/library?sort=latest&page={page}",
+   "items": "a[href*=/manga/]:has(h3)",
+   "has_next": {
+    "exists": "a[rel=next]"
+   },
+   "fields": {
+    "url": {
+     "path": "@href",
+     "regex": "(/manga/[^/?#]+)/?(?:[?#].*)?$"
+    },
+    "title": "h3",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/search?q={query}&page={page}",
+   "items": "a[href*=/manga/]:has(h3)",
+   "has_next": {
+    "exists": "a[rel=next]"
+   },
+   "fields": {
+    "url": {
+     "path": "@href",
+     "regex": "(/manga/[^/?#]+)/?(?:[?#].*)?$"
+    },
+    "title": "h3",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1.h-hero",
+    "cover": "img[src*=cover]@src",
+    "description": "h3.h-sub:contains(الملخّص) + *",
+    "author": "h3.h-sub:contains(معلومات) + * div:has(> dt:contains(المؤلّف)) > dd",
+    "artist": "h3.h-sub:contains(معلومات) + * div:has(> dt:contains(الرسّام)) > dd",
+    "status": "h3.h-sub:contains(معلومات) + * div:has(> dt:contains(الحالة)) > dd",
+    "genres": {
+     "path": [
+      "h3.h-sub:contains(معلومات) + * div:has(> dt:contains(التصنيفات)) > dd a[href*=genres]",
+      "h3.h-sub:contains(معلومات) + * div:has(> dt:contains(النوع)) > dd"
+     ],
+     "union": true
+    }
+   },
+   "status_map": {
+    "مستمرّة": 1,
+    "مكتملة": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.overflow-hidden a[href*=/chapter-]",
+   "fields": {
+    "url": "@href",
+    "name": [
+     "span.min-w-0",
+     ""
+    ],
+    "date": {
+     "path": "span.text-xs.text-muted",
+     "replace": [
+      [
+       "يناير",
+       "01"
+      ],
+      [
+       "فبراير",
+       "02"
+      ],
+      [
+       "مارس",
+       "03"
+      ],
+      [
+       "أبريل",
+       "04"
+      ],
+      [
+       "ابريل",
+       "04"
+      ],
+      [
+       "مايو",
+       "05"
+      ],
+      [
+       "يونيو",
+       "06"
+      ],
+      [
+       "يوليو",
+       "07"
+      ],
+      [
+       "أغسطس",
+       "08"
+      ],
+      [
+       "اغسطس",
+       "08"
+      ],
+      [
+       "سبتمبر",
+       "09"
+      ],
+      [
+       "أكتوبر",
+       "10"
+      ],
+      [
+       "اكتوبر",
+       "10"
+      ],
+      [
+       "نوفمبر",
+       "11"
+      ],
+      [
+       "ديسمبر",
+       "12"
+      ]
+     ],
+     "regex": "(\\d{1,2}\\s+\\S+\\s+\\d{4})"
+    }
+   },
+   "date_format": "d MM yyyy"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.reader-page img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Listen: alle Links /manga/<slug> mit h3 (Community filtert a[href] auf genau zwei Pfadsegmente und entfernt Duplikate – hier über a[href*=/manga/]:has(h3); Duplikate nicht entfernt).",
+  "Infos (Autor, Zeichner, Status, Typ, Genres) aus dem Block nach 'معلومات' über dt:contains(Bezeichnung) > dd.",
+  "Datum: arabische Monatsnamen per replace in Zahlen umgesetzt (wie die Community-Tabelle), dann 'd MM yyyy'. Annahme: replace wird vor regex angewandt – Regex passt in beiden Fällen.",
+  "Filter (Typ, Status, Genre, Sortierung) nicht übernommen."
+ ]
+}

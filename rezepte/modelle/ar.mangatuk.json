@@ -1,0 +1,156 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaTuk",
+  "sprache": "ar",
+  "base_url": "https://mangatuk.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.mangatuk",
+  "quellen": [
+   {
+    "name": "MangaTuk",
+    "sprache": "ar",
+    "quell_id": 6924751245735287034,
+    "home": "https://mangatuk.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/mangatuk",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "https://api.mangatuk.com/api/catalog/search?sort=popular&limit=30&offset={offset}",
+   "format": "json",
+   "items": "data",
+   "page_size": 30,
+   "has_next": {
+    "total": "total"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": "coverImage"
+   }
+  },
+  "latest": {
+   "request": "https://api.mangatuk.com/api/catalog/search?sort=latest_updates&limit=30&offset={offset}",
+   "format": "json",
+   "items": "data",
+   "page_size": 30,
+   "has_next": {
+    "total": "total"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": "coverImage"
+   }
+  },
+  "search": {
+   "request": "https://api.mangatuk.com/api/catalog/search?q={query}&sort=popular&limit=30&offset={offset}",
+   "format": "json",
+   "items": "data",
+   "page_size": 30,
+   "has_next": {
+    "total": "total"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": "coverImage"
+   }
+  },
+  "details": {
+   "request": "https://api.mangatuk.com/api/catalog/series/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "#(.+)$"
+   },
+   "let": {
+    "d": "description",
+    "alt": "associatedNames"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "coverImage",
+    "author": "author",
+    "description": {
+     "const": "[[{l.d}]][[\n\nأسماء أخرى:\n{l.alt}]]",
+     "replace": [
+      [
+       "^\\n+",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": [
+      "type",
+      "genres.*.name"
+     ],
+     "union": true
+    },
+    "status": "status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/#?]+)"
+   },
+   "items": "chapters",
+   "skip": "coinAccess.locked",
+   "reverse": true,
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{u.slug}/{value}#{f.id}"
+    },
+    "name": {
+     "path": "number",
+     "template": "الفصل {value}[[ - {f.title}]]"
+    },
+    "number": "number",
+    "date": "publishedAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://api.mangatuk.com/api/catalog/chapters/{u.cid}/pages",
+   "format": "json",
+   "url_vars": {
+    "cid": "#(.+)$"
+   },
+   "items": "$",
+   "image": "imageUrl"
+  }
+ },
+ "hinweise": [
+  "JSON-API api.mangatuk.com/api/catalog (search mit limit=30/offset, nächste Seite solange offset+30 < total).",
+  "Manga-URL /series/<slug>#<id>, Kapitel-URL /series/<serie>/<kapitel>#<id> (Muster en.roliascan): Website-Pfad + API-ID (Community: ID in url, Slugs im memo).",
+  "Kapitel stehen in der Serien-Antwort (request 'details'); gesperrte Coin-Kapitel (coinAccess.locked) werden übersprungen wie in der Community.",
+  "Filter (Sortierung, Status) nicht übernommen; Suche sortiert nach popular (Community-Standard)."
+ ]
+}

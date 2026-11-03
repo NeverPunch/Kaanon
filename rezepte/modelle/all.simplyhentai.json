@@ -1,0 +1,162 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Simply Hentai",
+  "sprache": "en",
+  "base_url": "https://www.simply-hentai.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.simplyhentai",
+  "quellen": [
+   {
+    "name": "Simply Hentai",
+    "sprache": "en",
+    "quell_id": 298934354390867671,
+    "home": "https://www.simply-hentai.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/simplyhentai",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "application/json"
+  },
+  "popular": {
+   "request": "https://api.simply-hentai.com/v3/tag/english?type=language&page={page}",
+   "format": "json",
+   "items": "data.albums",
+   "has_next": {
+    "exists": "pagination.next"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/{f.series.slug}/{value}"
+    },
+    "title": "title",
+    "cover": "preview.sizes.thumb"
+   }
+  },
+  "latest": {
+   "request": "https://api.simply-hentai.com/v3/tag/english?type=language&page={page}&sort=newest",
+   "format": "json",
+   "items": "data.albums",
+   "has_next": {
+    "exists": "pagination.next"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/{f.series.slug}/{value}"
+    },
+    "title": "title",
+    "cover": "preview.sizes.thumb"
+   }
+  },
+  "search": {
+   "request": "https://api.simply-hentai.com/v3/search/complex?query={query}&page={page}&blacklist=&filter%5Blanguage%5D%5B0%5D=English",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "exists": "pagination.next"
+   },
+   "fields": {
+    "url": {
+     "path": "object.slug",
+     "template": "/{f.object.series.slug}/{value}"
+    },
+    "title": "object.title",
+    "cover": "object.preview.sizes.thumb"
+   }
+  },
+  "details": {
+   "request": "https://api.simply-hentai.com/v3/manga/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "^(?:https?://[^/]+)?/[^/]+/([^/?#]+)"
+   },
+   "let": {
+    "desc": "data.description",
+    "series": "data.series.title",
+    "chars": {
+     "path": "data.characters.*.title",
+     "all": true,
+     "join": ", "
+    }
+   },
+   "fields": {
+    "title": "data.title",
+    "cover": "data.preview.sizes.thumb",
+    "description": {
+     "const": "[[{l.desc}\n\n]]Series: {l.series}\nCharacters: {l.chars}"
+    },
+    "genres": {
+     "path": "data.tags.*.title",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "data.artists.*.title",
+     "all": true,
+     "join": ", "
+    },
+    "author": {
+     "path": "data.artists.*.title",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "slug": "^(?:https?://[^/]+)?/[^/]+/([^/?#]+)"
+   },
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "data.slug",
+     "template": "/{f.data.series.slug}/{value}/all-pages"
+    },
+    "name": {
+     "const": "Chapter"
+    },
+    "scanlator": {
+     "path": "data.translators.*.title",
+     "all": true,
+     "join": ", "
+    },
+    "date": "data.created_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://api.simply-hentai.com/v3/manga/{u.slug}/pages",
+   "format": "json",
+   "url_vars": {
+    "slug": "^(?:https?://[^/]+)?/[^/]+/([^/?#]+)"
+   },
+   "items": "data.pages",
+   "image": "sizes.full"
+  }
+ },
+ "hinweise": [
+  "API api.simply-hentai.com/v3. 10 Community-Quellen unterscheiden sich nur im Sprach-Tag (tag/english bzw. filter[language][0]=English); Rezept auf die en-Quelle gekürzt.",
+  "Ein Kapitel je Album (wie Community), Status abgeschlossen fest gesetzt (Community lässt Status offen).",
+  "Kapitel: items '$' = Wurzelobjekt der Details-Antwort (wie Vorlage en.dynastyscans).",
+  "Sperrliste (blacklist-Einstellung) leer; Weiter-Erkennung über pagination.next (null = Ende)."
+ ]
+}

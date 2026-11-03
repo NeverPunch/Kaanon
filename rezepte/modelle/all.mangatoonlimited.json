@@ -1,0 +1,197 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaToon (Limited)",
+  "sprache": "en",
+  "base_url": "https://mangatoon.mobi",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.mangatoonlimited",
+  "quellen": [
+   {
+    "name": "MangaToon (Limited)",
+    "sprache": "en",
+    "quell_id": 4795663388852759880,
+    "home": "https://mangatoon.mobi"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/mangatoon",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/en/genre/hot?type=1&page={page0}",
+   "items": "div.genre-content div.items a",
+   "has_next": {
+    "exists": "span.next"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "div.content-title",
+    "cover": {
+     "path": "img@img",
+     "replace": [
+      [
+       "(jpg)-poster(.*)\\d+?$",
+       "$1"
+      ]
+     ]
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}/en/genre/new?type=1&page={page0}",
+   "items": "div.genre-content div.items a",
+   "has_next": {
+    "exists": "span.next"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "div.content-title",
+    "cover": {
+     "path": "img@img",
+     "replace": [
+      [
+       "(jpg)-poster(.*)\\d+?$",
+       "$1"
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/en/search?word={query}",
+   "items": "div.comics-result div.recommend-item:has(a[href*=/detail/])",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "div.recommend-comics-title",
+    "cover": {
+     "path": "img@img",
+     "replace": [
+      [
+       "(jpg)-poster(.*)\\d+?$",
+       "$1"
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "author": {
+     "path": "div.detail-author-name span",
+     "replace": [
+      [
+       "^[^:]*:\\s*",
+       ""
+      ]
+     ]
+    },
+    "description": {
+     "path": "div.detail-description-short p",
+     "all": true,
+     "join": "\n\n"
+    },
+    "genres": {
+     "path": "div.detail-tags-info span",
+     "all": true,
+     "join": " ",
+     "replace": [
+      [
+       "\\s*/\\s*",
+       ", "
+      ]
+     ]
+    },
+    "status": "div.detail-status",
+    "cover": {
+     "path": "div.detail-img img@img",
+     "replace": [
+      [
+       "(jpg)-poster(.*)\\d+?$",
+       "$1"
+      ],
+      [
+       "^.*cartoon-big-images.*$",
+       ""
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "on going": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "text",
+   "url_vars": {
+    "id": "/detail/(\\d+)"
+   },
+   "items": "\\{[^{}]*?\\\\?\"weight\\\\?\"\\s*:\\s*[^{}]*\\}",
+   "skip": {
+    "path": "",
+    "regex": "\\\\?\"is_fee\\\\?\"\\s*:\\s*(true|false)",
+    "group": 1,
+    "equals": "true"
+   },
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\\\\?\"id\\\\?\"\\s*:\\s*(\\d+)",
+     "group": 1,
+     "template": "/en/watch/{u.id}/{value}"
+    },
+    "name": {
+     "path": "",
+     "regex": "\\\\?\"title\\\\?\"\\s*:\\s*\\\\?\"(.*?)\\\\?\"\\s*[,}]",
+     "group": 1,
+     "replace": [
+      [
+       "\\\\([\"'/])",
+       "$1"
+      ]
+     ]
+    },
+    "number": {
+     "path": "",
+     "regex": "\\\\?\"weight\\\\?\"\\s*:\\s*([0-9.]+)",
+     "group": 1
+    },
+    "date": {
+     "path": "",
+     "regex": "\\\\?\"open_at\\\\?\"\\s*:\\s*\\\\?\"(\\d{4}-\\d{2}-\\d{2})",
+     "group": 1
+    }
+   },
+   "date_format": "yyyy-MM-dd",
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.pictures div img:first-child",
+   "image": "@img"
+  }
+ },
+ "hinweise": [
+  "Acht Community-Sprachquellen unterscheiden sich im Sprachpfad (/cn/, /en/, /pt/ …); Modell bildet nur die englische Quelle ab (Pfad /en/), extension.quellen darauf gekürzt.",
+  "Kapitel: Community liest die Episodenliste aus data = JSON.parse('…') im Detail-Skript und entfernt JS-Escapes; hier per Text-Regex je Episodenobjekt (Anführungszeichen wahlweise escaped) – Feldreihenfolge und Escape-Form ungeprüft.",
+  "Kapitel-URL: Community nimmt den Pfad des ersten a.episode-item-new-Links ohne letztes Segment; hier angenommen /en/watch/<Detail-ID>/<Episoden-ID> (Detail-ID aus /detail/<id>).",
+  "Bezahlkapitel (is_fee=true) werden ausgelassen. Suche hat in der Community keine Seitenzählung (nur Seite 1).",
+  "Cover: Suffix -poster… wie in der Community entfernt; Detail-Cover mit cartoon-big-images verworfen. Titel kommt aus der Liste."
+ ]
+}

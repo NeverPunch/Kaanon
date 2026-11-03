@@ -1,0 +1,170 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "AriaToon",
+  "sprache": "ar",
+  "base_url": "https://ariatoon.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.ariatoon",
+  "quellen": [
+   {
+    "name": "AriaToon",
+    "sprache": "ar",
+    "quell_id": 8156789703798131884,
+    "home": "https://ariatoon.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/ariatoon",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "application/json"
+  },
+  "popular": {
+   "request": "https://api.ariatoon.com/v1/feed/mangas/popular?page={page}&limit=20",
+   "format": "json",
+   "items": "data",
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/series/manga/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "coverPath",
+     "template": "https://api.ariatoon.com/uploads/{value}"
+    }
+   }
+  },
+  "latest": {
+   "request": "https://api.ariatoon.com/v1/mangas?page={page}&limit=20",
+   "format": "json",
+   "items": "data",
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/series/manga/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "coverPath",
+     "template": "https://api.ariatoon.com/uploads/{value}"
+    }
+   }
+  },
+  "search": {
+   "request": "https://api.ariatoon.com/v1/mangas/search?page={page}&limit=20&search={query}",
+   "format": "json",
+   "items": "data",
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/series/manga/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "coverPath",
+     "template": "https://api.ariatoon.com/uploads/{value}"
+    }
+   }
+  },
+  "details": {
+   "request": "https://api.ariatoon.com/v1/mangas/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/series/manga/([^/?#]+)"
+   },
+   "let": {
+    "sum": "data.summary",
+    "ann": "data.announce"
+   },
+   "fields": {
+    "title": "data.title",
+    "cover": {
+     "path": "data.coverPath",
+     "template": "https://api.ariatoon.com/uploads/{value}"
+    },
+    "author": "data.author",
+    "status": "data.status",
+    "description": {
+     "const": "[[{l.sum}]][[\n\nإعلان:\n{l.ann}]]",
+     "replace": [
+      [
+       "^\\s+",
+       ""
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "https://api.ariatoon.com/v1/mangas/{u.id}/episodes?direction=desc&publishStatus=published&limit=100&page=1",
+   "format": "json",
+   "url_vars": {
+    "id": "/series/manga/([^/?#]+)"
+   },
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/series/manga/{f.mangaID}/episodes/{value}"
+    },
+    "name": [
+     {
+      "path": "number",
+      "template": "الفصل {value}[[ - {f.title}]]"
+     },
+     "title",
+     {
+      "const": "الفصل"
+     }
+    ],
+    "number": "number",
+    "date": "createdAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://api.ariatoon.com/v1/mangas/{u.mid}/episodes/{u.eid}",
+   "format": "json",
+   "url_vars": {
+    "mid": "/series/manga/([^/?#]+)/episodes/",
+    "eid": "/episodes/([^/?#]+)"
+   },
+   "items": "data.images",
+   "image": {
+    "path": "",
+    "template": "https://api.ariatoon.com/uploads/{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "API api.ariatoon.com/v1, Bilder/Cover unter api.ariatoon.com/uploads/. Weiter-Erkennung wie Community: volle Seite (20 Einträge).",
+  "Kapitel: wie Community nur die erste Seite mit 100 Kapiteln (direction=desc) – ältere Kapitel fehlen bei langen Serien.",
+  "Manga-URL /series/manga/<id> (Website-Pfad; Community speichert nur die id)."
+ ]
+}

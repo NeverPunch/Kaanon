@@ -1,0 +1,116 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Vinne Veritas - CCC",
+  "sprache": "en",
+  "base_url": "https://ccc.vinnieveritas.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.vinneveritasccc",
+  "quellen": [
+   {
+    "name": "Vinnie Veritas - CCC",
+    "sprache": "en",
+    "quell_id": 9005452006043030878,
+    "home": "https://ccc.vinnieveritas.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/vinnieVeritas",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/archiveIndex.php",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/archiveIndex.php"
+    },
+    "title": {
+     "const": "CCC: The city of opportunities"
+    },
+    "cover": {
+     "const": "{base}/comics/CCCr000E.jpg"
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/archiveIndex.php",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "client_filter": true,
+   "fields": {
+    "url": {
+     "const": "/archiveIndex.php"
+    },
+    "title": {
+     "const": "CCC: The city of opportunities"
+    },
+    "cover": {
+     "const": "{base}/comics/CCCr000E.jpg"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "CCC: The city of opportunities"
+    },
+    "author": {
+     "const": "Vinnie Veritas"
+    },
+    "artist": {
+     "const": "Vinnie Veritas"
+    },
+    "description": {
+     "const": "Almost 7 years ago I started working on a project where I would put everything I had drawn, characters, concepts and nonsense that came up while I was growing up .. it was so much I chose a city to put it all in. Like all people who draw, I abandoned many comics and concepts that I thought, sucked.. but I promised myself when I was around 19 years old that I would not abandon this one; because my ability to draw was less than today's, the first two volumes of CCC: The city of the opportunities are… umm, ugly. When I was around 21-22 years old I began to animate in flash, so I decided to animate the world embodied in the comic and continue with the comic this time drawn in flash, therefore Volume 3 has color.\n\nIn this period I had a lot of animation and illustration work would not let me continue the story of CCC: The city of opportunities, the hiatus lasted about 5 years, while I still did animations I did not carried on with the story in the comic .. Now new comics every Thursday.\n\nCCC is the name of the second largest city there is, is not an acronym or an abbreviation for something, CCC: The city of opportunies tells the story of Lucio Vasalle and his misadventures as a newcomer to CCC, comics, drawings and animations are related, they all have bits of story about the characters and their past, you are welcome to explore all this and draw your own conclusions, if you look closely you may find something that someone hasn't noticed yet (:"
+    },
+    "genres": {
+     "const": "webcomic"
+    },
+    "status": {
+     "const": "ongoing"
+    },
+    "cover": {
+     "const": "{base}/comics/CCCr000E.jpg"
+    }
+   },
+   "status_map": {
+    "ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".cccLeftInd .cccArchiveEntry[onclick]",
+   "fields": {
+    "url": {
+     "path": "@onclick",
+     "regex": "changeToComic\\(\"(.+?)\"\\)",
+     "template": "/{value}.php"
+    },
+    "name": ""
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img.cccComic.crazylan-en",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Einzeltitel-Webcomic; Liste/Details sind feste Werte wie in der Community (Archivseite wird nur geladen).",
+  "Nur die englische Quelle: Titel, Beschreibung, Cover und Bild-Selektor (crazylan-en/-es) hängen von der Sprache ab; es aus 'quellen' entfernt.",
+  "Suche filtert den festen Eintrag clientseitig (Community liefert immer eine leere Liste). Kapitelreihenfolge wie auf der Archivseite (Community dreht nicht um)."
+ ]
+}

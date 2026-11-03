@@ -1,0 +1,223 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga Bab",
+  "sprache": "ar",
+  "base_url": "https://mangabab.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.mangabab",
+  "quellen": [
+   {
+    "name": "مانجا باب",
+    "sprache": "ar",
+    "quell_id": 6899943547168982381,
+    "home": "https://mangabab.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/mangabab",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/search/manga?status=-1&sort=11&page={page}",
+   "request_by_page": {
+    "1": "{base}/search/manga?status=-1&sort=11"
+   },
+   "items": "a[href*=/manga/]:not([href*=/chapter-]):has(.font-haffer, img[alt])",
+   "has_next": {
+    "exists": "a[href*=page=]:matchesOwn(^\\s*›\\s*$)"
+   },
+   "fields": {
+    "url": "@href",
+    "title": [
+     ".font-haffer@ownText",
+     "img[alt]@alt"
+    ],
+    "cover": [
+     "img[data-original]@data-original",
+     "img[src]@src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/search/manga?status=-1&sort=-1&page={page}",
+   "request_by_page": {
+    "1": "{base}/search/manga?status=-1&sort=-1"
+   },
+   "items": "a[href*=/manga/]:not([href*=/chapter-]):has(.font-haffer, img[alt])",
+   "has_next": {
+    "exists": "a[href*=page=]:matchesOwn(^\\s*›\\s*$)"
+   },
+   "fields": {
+    "url": "@href",
+    "title": [
+     ".font-haffer@ownText",
+     "img[alt]@alt"
+    ],
+    "cover": [
+     "img[data-original]@data-original",
+     "img[src]@src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/search/manga?keyword={query}&page={page}",
+   "request_by_page": {
+    "1": "{base}/search/manga?keyword={query}"
+   },
+   "items": "a[href*=/manga/]:not([href*=/chapter-]):has(.font-haffer, img[alt])",
+   "has_next": {
+    "exists": "a[href*=page=]:matchesOwn(^\\s*›\\s*$)"
+   },
+   "fields": {
+    "url": "@href",
+    "title": [
+     ".font-haffer@ownText",
+     "img[alt]@alt"
+    ],
+    "cover": [
+     "img[data-original]@data-original",
+     "img[src]@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1.font-haffer, h1",
+    "cover": [
+     "img[src*=mangaonl.com], img[src*=covers/]@src",
+     "meta[property=og:image]@content"
+    ],
+    "author": "p:contains(المؤلف) span[class]",
+    "genres": {
+     "path": "a[href*=genre=]",
+     "all": true,
+     "join": ", "
+    },
+    "description": "article[class*=bg-background-detail], .description, .synopsis, .about",
+    "status": {
+     "path": "p:contains(الحالة) span[class]",
+     "regex": "(مستمر|مكتمل|النهاية|متوقف)",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "مستمر": 1,
+    "مكتمل": 2,
+    "النهاية": 2,
+    "متوقف": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a[href*=/chapter-]:not([class*=rounded-2xl])",
+   "fields": {
+    "url": "@href",
+    "name": [
+     ".font-semibold",
+     "p",
+     {
+      "path": "@href",
+      "regex": "([^/]+)/?$",
+      "group": 1
+     }
+    ],
+    "date": {
+     "path": ".text-lightgray",
+     "replace": [
+      [
+       "منذ",
+       ""
+      ],
+      [
+       "دقيقتين",
+       "2 minutes"
+      ],
+      [
+       "ساعتين",
+       "2 hours"
+      ],
+      [
+       "يومين",
+       "2 days"
+      ],
+      [
+       "أسبوعين",
+       "2 weeks"
+      ],
+      [
+       "شهرين",
+       "2 months"
+      ],
+      [
+       "سنتين",
+       "2 years"
+      ],
+      [
+       "(ثانية|ثوان[ٍي]?)",
+       "seconds"
+      ],
+      [
+       "(دقيقة|دقائق)",
+       "minutes"
+      ],
+      [
+       "(ساعة|ساعات|ساعه)",
+       "hours"
+      ],
+      [
+       "(يوم|أيام)",
+       "days"
+      ],
+      [
+       "(أسبوع|أسابيع|اسبوع)",
+       "weeks"
+      ],
+      [
+       "(أشهر|شهور|شهر)",
+       "months"
+      ],
+      [
+       "(سنوات|سنة|عام|أعوام)",
+       "years"
+      ],
+      [
+       "^\\s*([a-z])",
+       "1 $1"
+      ],
+      [
+       "^\\s+|\\s+$",
+       ""
+      ],
+      [
+       "^(\\d+ [a-z]+)$",
+       "$1 ago"
+      ]
+     ]
+    }
+   },
+   "date_format": "relative",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img[alt^=Page], img[src*=mangaonl.com]",
+   "image": [
+    "@src",
+    "@data-original"
+   ]
+  }
+ },
+ "hinweise": [
+  "Listen über /search/manga (Beliebt sort=11, Neu sort=-1, jeweils status=-1); Seite 1 ohne page-Parameter wie in der Community.",
+  "Kapiteldatum relativ auf Arabisch; per replace in englische Relativangaben übersetzt (Community-Parser rechnet Monate fehlerhaft).",
+  "Genre-/Status-Filter nicht übernommen."
+ ]
+}

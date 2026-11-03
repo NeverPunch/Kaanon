@@ -1,0 +1,161 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Webcomics",
+  "sprache": "en",
+  "base_url": "https://webcomicsapp.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.webcomics",
+  "quellen": [
+   {
+    "name": "Webcomics",
+    "sprache": "en",
+    "quell_id": 5830834696627804450,
+    "home": "https://webcomicsapp.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/webcomics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.12",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+   "X-Requested-With": "XMLHttpRequest"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/en/genres/all/all/hottest/{page}",
+   "items": ".grid > a",
+   "has_next": {
+    "exists": "div > span.cursor-default.bg-primary + a"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "p.text-ink, span[class*=text]",
+    "cover": "img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/en/genres/all/all/newest/{page}",
+   "items": ".grid > a",
+   "has_next": {
+    "exists": "div > span.cursor-default.bg-primary + a"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "p.text-ink, span[class*=text]",
+    "cover": "img@img"
+   }
+  },
+  "search": {
+   "request": "{base}/en/search?q={query}",
+   "items": ".grid > a",
+   "has_next": {
+    "exists": "div > span.cursor-default.bg-primary + a"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "p.text-ink, span[class*=text]",
+    "cover": "img@img"
+   }
+  },
+  "details": {
+   "request": {
+    "url": "https://official-website-api.webcomicsapp.com/api/web/v4/book/info",
+    "method": "POST",
+    "body": "{\"book_id\":\"{u.id}\"}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "^(?:https?://[^/]+)?/en/([^/]+)/[^/]+/[^/?#]+",
+    "name": "^(?:https?://[^/]+)?/en/[^/]+/([^/]+)/[^/?#]+",
+    "id": "^(?:https?://[^/]+)?/en/[^/]+/[^/]+/([^/?#]+)"
+   },
+   "fields": {
+    "title": "data.name",
+    "cover": "data.cover",
+    "description": "data.description",
+    "author": "data.author",
+    "genres": {
+     "path": "data.category.*",
+     "all": true,
+     "join": ", "
+    },
+    "status": "data.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "https://official-website-api.webcomicsapp.com/api/web/v4/book/chapter/list",
+    "method": "POST",
+    "body": "{\"book_id\":\"{u.id}\",\"page\":1,\"size\":9999,\"sort\":\"desc\"}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "^(?:https?://[^/]+)?/en/([^/]+)/[^/]+/[^/?#]+",
+    "name": "^(?:https?://[^/]+)?/en/[^/]+/([^/]+)/[^/?#]+",
+    "id": "^(?:https?://[^/]+)?/en/[^/]+/[^/]+/([^/?#]+)"
+   },
+   "items": "data.list",
+   "locked": {
+    "path": "is_pay",
+    "equals": "true"
+   },
+   "fields": {
+    "url": {
+     "path": "chapter_id",
+     "template": "/en/{u.slug}/{u.name}/{f.index}/{u.id}#{value}"
+    },
+    "name": "name",
+    "number": "index",
+    "date": "update_time"
+   },
+   "date_format": "epoch_ms"
+  },
+  "pages": {
+   "request": {
+    "url": "https://official-website-api.webcomicsapp.com/api/web/v4/book/chapter/detail",
+    "method": "POST",
+    "body": "{\"book_id\":\"{u.mid}\",\"chapter_id\":\"{u.cid}\",\"index\":{u.idx}}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "url_vars": {
+    "mid": "/([^/#]+)#",
+    "cid": "#(.+)$",
+    "idx": "/(\\d+)/[^/#]+#"
+   },
+   "let": {
+    "bu": "data.base_url"
+   },
+   "items": "data.images",
+   "image": {
+    "path": "url",
+    "template": "{l.bu}{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "Listen als HTML von webcomicsapp.com/en/genres/<genre>/<status>/<sort>/<seite>, Details/Kapitel/Seiten per POST-JSON an official-website-api.webcomicsapp.com/api/web/v4/book.",
+  "5 Community-Quellen unterscheiden sich in Pfadsprache und übersetzten Filter-/Statuswörtern; Rezept auf die en-Quelle gekürzt.",
+  "Manga-URL /en/<slug>/<name>/<book_id> (Website-Pfad; Community speichert slug/name im memo). Kapitel-URL /en/<slug>/<name>/<index>/<book_id>#<chapter_id> – chapter_id im Fragment, weil die Seiten-Anfrage sie braucht.",
+  "Bezahlkapitel (is_pay) per locked ausgelassen (Community zeigt sie mit 🔒). update_time als epoch_ms angenommen (Community übernimmt den Wert direkt als Millisekunden).",
+  "Cover: Community nimmt bei fehlendem img-src die URL per Regex aus __NUXT_DATA__ – nicht nachgebaut. User-Agent: Community würfelt einen Desktop-UA aus einer Liste; hier fester Desktop-UA.",
+  "Status: Community setzt alles außer 'Ongoing' auf abgeschlossen; hier nur ongoing/completed zugeordnet."
+ ]
+}

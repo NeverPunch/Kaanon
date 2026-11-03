@@ -1,0 +1,190 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Kawii Manga",
+  "sprache": "ar",
+  "base_url": "https://kawaiimanga.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.kawiimanga",
+  "quellen": [
+   {
+    "name": "Kawii Manga",
+    "sprache": "ar",
+    "quell_id": 5037404094705788694,
+    "home": "https://kawaiimanga.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/kawiimanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "x-app-key": "km_2026_live",
+   "X-Requested-With": "XMLHttpRequest"
+  },
+  "vars": {
+   "tok": {
+    "request": "https://manga-api.kawaii-anime.com/api/manga/token",
+    "format": "json",
+    "value": "token",
+    "ttl_s": 300
+   }
+  },
+  "popular": {
+   "request": {
+    "url": "https://manga-api.kawaii-anime.com/api/manga/own?action=browse&page={page}&sort=views",
+    "headers": {
+     "x-app-token": "{v.tok}"
+    }
+   },
+   "format": "json",
+   "items": "results",
+   "has_next": {
+    "exists": "hasMore"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "https://manga-api.kawaii-anime.com/api/manga/own?action=browse&page={page}",
+    "headers": {
+     "x-app-token": "{v.tok}"
+    }
+   },
+   "format": "json",
+   "items": "results",
+   "has_next": {
+    "exists": "hasMore"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "https://manga-api.kawaii-anime.com/api/manga/own?action=search&q={query}",
+    "headers": {
+     "x-app-token": "{v.tok}"
+    }
+   },
+   "format": "json",
+   "items": "results",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   }
+  },
+  "details": {
+   "request": {
+    "url": "https://manga-api.kawaii-anime.com/api/manga/own?action=series&slug={u.slug}",
+    "headers": {
+     "x-app-token": "{v.tok}"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "coverUrl",
+    "description": "description",
+    "author": {
+     "path": "author",
+     "regex": "(?i)^(?!unknown$)(.*\\S.*)$",
+     "group": 1
+    },
+    "artist": {
+     "path": "artist",
+     "regex": "(?i)^(?!unknown$)(.*\\S.*)$",
+     "group": 1
+    },
+    "genres": {
+     "path": "genres.*",
+     "all": true,
+     "join": ", "
+    },
+    "status": "status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "coming_soon": 1,
+    "completed": 2,
+    "cancelled": 5,
+    "dropped": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "items": "chapters",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/reader/{u.slug}/{f.number}#{value}"
+    },
+    "name": {
+     "path": "number",
+     "template": "الفصل {value}[[ - {f.title}]]",
+     "replace": [
+      [
+       "^(الفصل \\S+) - \\1$",
+       "$1"
+      ]
+     ]
+    },
+    "number": "number",
+    "date": "createdAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "https://manga-api.kawaii-anime.com/api/manga/own?action=pages&chapterId={u.cid}",
+    "headers": {
+     "x-app-token": "{v.tok}"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "cid": "#(.+)$"
+   },
+   "items": "pages",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "API manga-api.kawaii-anime.com mit fester Kopfzeile x-app-key (öffentlicher Wert aus dem Code) und kurzlebigem x-app-token, den die API selbst unter /token ausgibt (vars wie Vorlage en.tappytoon).",
+  "Token-Laufzeit: Community nutzt expiresIn − 120 s und holt bei 401 neu; hier fest ttl_s 300 (Annahme, auf dem PC prüfen).",
+  "Kapitel-URL /reader/<slug>/<nummer>#<chapterId> – die Seiten-Anfrage braucht die chapterId (Community: memo).",
+  "Genres ohne den vorangestellten Typ (Manga/Manhua/Manhwa)."
+ ]
+}

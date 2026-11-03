@@ -1,0 +1,153 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MayoTune",
+  "sprache": "all",
+  "base_url": "https://mayochuu.xyz",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.mayotune",
+  "quellen": [
+   {
+    "name": "MayoTune",
+    "sprache": "en",
+    "quell_id": 1480743237782384863,
+    "home": "https://mayochuu.xyz"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/mayotune",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/"
+    },
+    "title": {
+     "const": "Tune In to the Midnight Heart"
+    },
+    "cover": {
+     "const": "{base}/img/cover.jpg"
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "client_filter": true,
+   "fields": {
+    "url": {
+     "const": "/"
+    },
+    "title": {
+     "const": "Tune In to the Midnight Heart"
+    },
+    "cover": {
+     "const": "{base}/img/cover.jpg"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "Tune In to the Midnight Heart"
+    },
+    "author": {
+     "const": "Masakuni Igarashi"
+    },
+    "description": ".text-lg",
+    "genres": {
+     "path": "span.text-sm:nth-child(2)",
+     "replace": [
+      [
+       "\\s*•\\s*",
+       ", "
+      ]
+     ]
+    },
+    "status": {
+     "path": "div.text-center:contains(Status)",
+     "regex": "^\\s*(.*?)\\s*Status",
+     "group": 1
+    },
+    "cover": [
+     "img.object-contain@src",
+     {
+      "const": "{base}/img/cover.jpg"
+     }
+    ]
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "cancelled": 5,
+    "hiatus": 6,
+    "finished": 4
+   }
+  },
+  "chapters": {
+   "request": "{base}/api//chapters",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "number",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "/api//chapters?id={f.id}&number={value}"
+    },
+    "name": {
+     "path": "number",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "Chapter {value}[[: {f.title}]]"
+    },
+    "number": "number",
+    "date": "date"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}{url}",
+   "format": "json",
+   "url_vars": {
+    "id": "[?&]id=([^&]+)"
+   },
+   "items_count": "pageCount",
+   "image": {
+    "path": "",
+    "template": "{base}/api/manga/{u.id}/{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "Einzeltitel-Website (Mayonaka Heart Tune); Liste ist ein fester Eintrag wie in der Community (Startseite wird nur geladen, Inhalt konstant).",
+  "Nur die englische Quelle: Die Community-Quelle 'ja' nutzt den Endpunkt /api/raw/chapters und einen japanischen Titel – ein Rezept kann keine sprachabhängige URL; ja aus 'quellen' entfernt.",
+  "Kapitel-Endpunkt mit doppeltem Schrägstrich (/api//chapters) wörtlich wie in der Community (chapterEndpoint = '' für en).",
+  "Seiten: pageCount aus dem Kapitel-JSON, Bilder {base}/api/manga/<id>/<1..n> – items_count wie in fr.animesama (Annahme: Zählung ab 1).",
+  "Kapitelreihenfolge: Community sortiert absteigend nach number; Rezept übernimmt die API-Reihenfolge (keine Sortierung in chapters belegt)."
+ ]
+}

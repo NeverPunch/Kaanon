@@ -1,0 +1,179 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manta Comics",
+  "sprache": "en",
+  "base_url": "https://manta.net/en",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.mantacomics",
+  "quellen": [
+   {
+    "name": "Manta",
+    "sprache": "en",
+    "quell_id": 8753096034341798862,
+    "home": "https://manta.net/en"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/manta",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.12",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Origin": "https://manta.net",
+   "Accept-Language": "en",
+   "X-Requested-With": "XMLHttpRequest"
+  },
+  "popular": {
+   "request": "https://manta.net/manta/v1/search/series?cat=New&lang=en",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/series/{value}"
+    },
+    "title": [
+     "data.title.en",
+     "data.title.es"
+    ],
+    "cover": [
+     "image.1280x1840_480.downloadUrl",
+     "image.1280x1840_720.downloadUrl",
+     "image.1440x3072.downloadUrl",
+     "image.1440x1440_480.downloadUrl"
+    ]
+   }
+  },
+  "search": {
+   "request": "https://manta.net/manta/v1/search/series?lang=en&q={query}",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/series/{value}"
+    },
+    "title": [
+     "data.title.en",
+     "data.title.es"
+    ],
+    "cover": [
+     "image.1280x1840_480.downloadUrl",
+     "image.1280x1840_720.downloadUrl",
+     "image.1440x3072.downloadUrl",
+     "image.1440x1440_480.downloadUrl"
+    ]
+   }
+  },
+  "details": {
+   "request": "https://manta.net/front/v1/series/{u.id}?lang=en",
+   "format": "json",
+   "url_vars": {
+    "id": "/series/(\\d+)"
+   },
+   "let": {
+    "short": "data.data.description.short",
+    "long": "data.data.description.long"
+   },
+   "fields": {
+    "title": [
+     "data.data.title.en",
+     "data.data.title.es"
+    ],
+    "cover": [
+     "data.image.1280x1840_480.downloadUrl",
+     "data.image.1280x1840_720.downloadUrl",
+     "data.image.1440x3072.downloadUrl",
+     "data.image.1440x1440_480.downloadUrl"
+    ],
+    "description": {
+     "const": "[[{l.short}\n\n]]{l.long}"
+    },
+    "author": {
+     "path": "data.data.creators.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "data.data.creators.?role=Illustration.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "data.data.tags.*.name.en",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": "data.data.isCompleted",
+     "default": "false"
+    }
+   },
+   "status_map": {
+    "true": 2,
+    "false": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "id": "/series/(\\d+)"
+   },
+   "items": "data.episodes",
+   "reverse": true,
+   "skip": {
+    "path": "lockData.state",
+    "regex": "^(?!(?:110|130)$)\\d+$"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/episodes/{value}"
+    },
+    "name": [
+     "data.title",
+     {
+      "path": "ord",
+      "template": "Episode {value}"
+     }
+    ],
+    "number": "ord",
+    "date": [
+     "openAt",
+     "createdAt"
+    ]
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://manta.net/front/v1/episodes/{u.eid}?lang=en",
+   "format": "json",
+   "url_vars": {
+    "eid": "/episodes/(\\d+)"
+   },
+   "items": "data.cutImages",
+   "image": "downloadUrl",
+   "exclude": "just-black\\.jpg"
+  }
+ },
+ "hinweise": [
+  "API auf https://manta.net (Community: apiUrl = Host der base_url ohne /en). Kopfzeilen Origin und Accept-Language wie im Code.",
+  "Zwei Community-Quellen (en, es) unterscheiden sich in lang=… und in der Wahl der Namensfelder (en/es); Rezept auf die en-Quelle gekürzt.",
+  "Kostenpflichtige Kapitel (lockData.state gesetzt und nicht 110/130) werden per skip ausgelassen (Community zeigt sie standardmäßig mit 🔒 und liefert nur Vorschaubilder). Login-Token-Erneuerung nicht nachgebaut.",
+  "Autor: alle creators (Community: alle außer role=Illustration); Zeichner: role=Illustration.",
+  "Popular = Kategorie 'New', keine Paginierung (wie Community); kein Latest."
+ ]
+}

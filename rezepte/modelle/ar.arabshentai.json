@@ -1,0 +1,145 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Arabs Hentai",
+  "sprache": "ar",
+  "base_url": "https://arabshentai.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.arabshentai",
+  "quellen": [
+   {
+    "name": "هنتاي العرب",
+    "sprache": "ar",
+    "quell_id": 3472625749271868375,
+    "home": "https://arabshentai.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/arabshentai",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/manga/page/{page}/?orderby=new-manga",
+   "items": "#archive-content .wp-manga",
+   "has_next": {
+    "exists": ".pagination a.arrow_pag i#nextpagination"
+   },
+   "fields": {
+    "url": ".data h3 a@href",
+    "title": ".data h3 a",
+    "cover": "a .poster img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/manga/page/{page}/?orderby=new_chapter",
+   "items": "#archive-content .wp-manga",
+   "has_next": {
+    "exists": ".pagination a.arrow_pag i#nextpagination"
+   },
+   "fields": {
+    "url": ".data h3 a@href",
+    "title": ".data h3 a",
+    "cover": "a .poster img@img"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}",
+   "items": ".search-page .result-item article:not(:has(.tvshows))",
+   "has_next": {
+    "exists": ".pagination span.current + a"
+   },
+   "fields": {
+    "url": ".details .title a@href",
+    "title": ".details .title",
+    "cover": ".image .thumbnail a img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "desc": "#manga-info .wp-content p",
+    "alt": "#manga-info div b:contains(أسماء أُخرى) + span"
+   },
+   "fields": {
+    "title": ".content .sheader .data h1",
+    "cover": ".content .sheader .poster img@img",
+    "description": {
+     "const": "؜{l.desc}\nأسماء أُخرى: {l.alt}"
+    },
+    "author": "#manga-info div b:contains(الكاتب) + span a",
+    "artist": "#manga-info div b:contains(الرسام) + span a",
+    "genres": {
+     "path": [
+      "#manga-info div b:contains(نوع العمل) + span a",
+      ".content .data .sgeneros a"
+     ],
+     "all": true,
+     "union": true,
+     "join": ", "
+    },
+    "status": {
+     "path": "#manga-info div b:contains(حالة المانجا) + span",
+     "regex": "(مستمر|مكتمل|متوقف|ملغية)",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "مستمر": 1,
+    "مكتمل": 2,
+    "متوقف": 6,
+    "ملغية": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#chapter-list:not(.oneshot-reader) a[href*='/manga/'], .oneshot-reader .image-item a[href$='style=paged']",
+   "fields": {
+    "url": {
+     "path": "@href",
+     "replace": [
+      [
+       "\\?[^?]*style=paged$",
+       ""
+      ]
+     ]
+    },
+    "name": [
+     ".chapternum",
+     {
+      "const": "ونشوت"
+     }
+    ],
+    "date": ".chapterdate"
+   },
+   "date_format": "yyyy-MM-dd"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "script_json",
+   "script_regex": "(?s)const images = (\\[.*?\\]);",
+   "items": "$",
+   "image": {
+    "path": "url",
+    "decode": "base64"
+   }
+  }
+ },
+ "hinweise": [
+  "Eigenes WordPress-Theme (DooPlay-ähnlich), Listen #archive-content .wp-manga.",
+  "Beschreibung = Text aus .wp-content p plus Zeile 'أسماء أُخرى: …' (wie Community, mit führendem U+061C).",
+  "Status: Community prüft per contains (مستمر/مكتمل/متوقف/ملغية); Rezept zieht das Stichwort per Regex.",
+  "Kapitel: normale Kapitel aus #chapter-list, Oneshots aus .oneshot-reader (Link mit ?style=paged, Query entfernt, Name 'ونشوت'). Dubletten entfernt die Community (distinctBy url) – im Rezept nicht.",
+  "Seiten: JSON-Liste 'const images = [...]' im Skript, jede url Base64-kodiert.",
+  "Genre-/Status-Filter der Suche nicht abgebildet."
+ ]
+}

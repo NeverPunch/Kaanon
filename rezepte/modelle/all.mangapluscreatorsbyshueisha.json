@@ -1,0 +1,146 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MANGA Plus Creators by SHUEISHA",
+  "sprache": "en",
+  "base_url": "https://mangaplus-creators.jp",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.mangapluscreatorsbyshueisha",
+  "quellen": [
+   {
+    "name": "MANGA Plus Creators by SHUEISHA",
+    "sprache": "en",
+    "quell_id": 4994699950662723787,
+    "home": "https://mangaplus-creators.jp"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/mangapluscreators",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36"
+  },
+  "popular": {
+   "request": "{base}/titles/popular/?p=m&l=en",
+   "items": "div.item-recent",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": ".image-area img@src",
+     "regex": "^https?://[^/]+/[^/]+/[^/]+/([^/?#]+)",
+     "template": "/titles/{value}"
+    },
+    "title": ".title-area .title",
+    "cover": ".image-area img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/titles/recent/?page={page}&l=en&t=episode",
+   "format": "json",
+   "items": "titles",
+   "has_next": {
+    "exists": "titles.0.title"
+   },
+   "fields": {
+    "url": {
+     "path": "latest_episode.title_connect_id",
+     "template": "/titles/{value}"
+    },
+    "title": "title",
+    "cover": "thumbnail"
+   }
+  },
+  "search": {
+   "request": "{base}/keywords?q={query}&s=date&lang=en",
+   "items": "div.item-search",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": ".image-area img@src",
+     "regex": "^https?://[^/]+/[^/]+/[^/]+/([^/?#]+)",
+     "template": "/titles/{value}"
+    },
+    "title": ".title-area .title",
+    "cover": ".image-area img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".book-box div.title",
+    "cover": ".book-box div.cover img@data-src",
+    "author": ".book-box div.mod-btn-profile div.name",
+    "description": {
+     "path": ".book-box div.summary p",
+     "all": true,
+     "join": "\n\n"
+    },
+    "genres": ".book-box div.genre-area div.tag-genre",
+    "status": ".book-box div.book-submit-type"
+   },
+   "status_map": {
+    "series": 1,
+    "one-shot": 2
+   }
+  },
+  "chapters": {
+   "request": "{base}{url}/?page={page}",
+   "items": ".mod-item-series",
+   "paging": {
+    "has_next": {
+     "exists": ".mod-pagination .next"
+    },
+    "max_pages": 60
+   },
+   "reverse": true,
+   "fields": {
+    "url": {
+     "path": "@href",
+     "regex": "([^/]+)/?$",
+     "template": "/episodes/{value}"
+    },
+    "name": ".number",
+    "number": {
+     "path": ".number",
+     "regex": "#\\s*([0-9.]+)"
+    },
+    "date": ".first-update"
+   },
+   "date_format": "yyyy-MM-dd",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div[react=viewer]",
+   "image": "@data-pages",
+   "inner": {
+    "value": {
+     "path": "div[react=viewer]@data-pages"
+    },
+    "format": "json",
+    "items": "pc",
+    "image": "image_url"
+   },
+   "referer": "chapter"
+  }
+ },
+ "hinweise": [
+  "Community bedient en und es über den Parameter l/lang in der URL; das Modell ist auf die englische Quelle gekürzt (es nicht übernommen).",
+  "Popular und Suche sind einseitig (Community: hasNextPage=false); Latest blättert, solange die API Titel liefert (Community: status != error).",
+  "Manga-URL /titles/<id>: id aus dem Cover-Pfad (3. Pfadsegment) wie in der Community.",
+  "Kapitelliste seitenweise über /titles/<id>/?page=N, danach umgedreht; One-shot-Kapitel bekommen keine Nummer (Community: 0).",
+  "Bilder aus dem JSON im Attribut data-pages (Schlüssel pc), Referer = Kapitelseite.",
+  "Genre-/Sortier-Filter (nur ohne Suchtext) nicht übernommen."
+ ]
+}

@@ -1,0 +1,110 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Mitaku",
+  "sprache": "all",
+  "base_url": "https://mitaku.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.mitaku",
+  "quellen": [
+   {
+    "name": "Mitaku",
+    "sprache": "all",
+    "quell_id": 7541045796029140694,
+    "home": "https://mitaku.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/mitaku",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.5",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/category/ero-cosplay/page/{page}/",
+   "items": "div.article-container article",
+   "has_next": {
+    "exists": "div.wp-pagenavi a.page.larger"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": [
+     "a@title",
+     "h1, h2, h3"
+    ],
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}",
+   "items": "div.article-container article",
+   "has_next": {
+    "exists": "div.wp-pagenavi a.page.larger"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": [
+     "a@title",
+     "h1, h2, h3"
+    ],
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "article h1",
+    "genres": {
+     "path": "article span.cat-links a, article span.tag-links a",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": [
+     {
+      "path": "article h1",
+      "regex": "(\\(Video\\))\\s*$",
+      "group": 1,
+      "template": "Nur Video – in WebView ansehen"
+     },
+     {
+      "const": "Gallery"
+     }
+    ],
+    "date": "article .entry-date@datetime"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "a.msacwl-img-link",
+   "image": [
+    "@data-mfp-src",
+    "@href"
+   ]
+  }
+ },
+ "hinweise": [
+  "Keine Neuheiten-Liste (Community: supportsLatest = false). Beliebt = Kategorie ero-cosplay.",
+  "Suche: Community leitet bei direktem Treffer auf die Post-Seite weiter und liest dann die Details; das bildet das Modell nicht ab (nur Ergebnisliste).",
+  "Filter Kategorie/Tag nicht übernommen. Ein Kapitel je Post; Video-Posts haben keine Bilder (Kapitelname weist darauf hin)."
+ ]
+}

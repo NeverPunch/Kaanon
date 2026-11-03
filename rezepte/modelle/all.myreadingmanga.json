@@ -1,0 +1,230 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MyReadingManga",
+  "sprache": "en",
+  "base_url": "https://myreadingmanga.info",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.myreadingmanga",
+  "quellen": [
+   {
+    "name": "MyReadingManga",
+    "sprache": "en",
+    "quell_id": 6318378620301107421,
+    "home": "https://myreadingmanga.info"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/myreadingmanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/page/{page}/?s=&ep_sort=rand&ep_filter_lang=English",
+   "items": "article:not(.category-video)",
+   "has_next": {
+    "exists": "li.pagination-next"
+   },
+   "fields": {
+    "url": "a[rel]@href",
+    "title": {
+     "path": "a[rel]",
+     "replace": [
+      [
+       "\\[[^\\]]*\\]",
+       ""
+      ],
+      [
+       "\\([^(]*$",
+       ""
+      ],
+      [
+       "^\\s+|\\s+$",
+       ""
+      ]
+     ]
+    },
+    "cover": {
+     "path": "a.entry-image-link img@img",
+     "replace": [
+      [
+       "-[^-/]*\\.(jpe?g|png|webp)$",
+       ".$1"
+      ]
+     ]
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}/lang/english/page/{page}/",
+   "items": "article:not(.category-video)",
+   "has_next": {
+    "exists": "li.pagination-next"
+   },
+   "fields": {
+    "url": "a[rel]@href",
+    "title": {
+     "path": "a[rel]",
+     "replace": [
+      [
+       "\\[[^\\]]*\\]",
+       ""
+      ],
+      [
+       "\\([^(]*$",
+       ""
+      ],
+      [
+       "^\\s+|\\s+$",
+       ""
+      ]
+     ]
+    },
+    "cover": {
+     "path": "a.entry-image-link img@img",
+     "replace": [
+      [
+       "-[^-/]*\\.(jpe?g|png|webp)$",
+       ".$1"
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}&ep_filter_lang=English",
+   "items": "article:not(.category-video)",
+   "has_next": {
+    "exists": "li.pagination-next"
+   },
+   "fields": {
+    "url": "a[rel]@href",
+    "title": {
+     "path": "a[rel]",
+     "replace": [
+      [
+       "\\[[^\\]]*\\]",
+       ""
+      ],
+      [
+       "\\([^(]*$",
+       ""
+      ],
+      [
+       "^\\s+|\\s+$",
+       ""
+      ]
+     ]
+    },
+    "cover": {
+     "path": "a.entry-image-link img@img",
+     "replace": [
+      [
+       "-[^-/]*\\.(jpe?g|png|webp)$",
+       ".$1"
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "h1": "h1",
+    "groups": {
+     "path": ".entry-terms:has(a[href*=group]) a[href*=group]",
+     "all": true,
+     "join": ", "
+    },
+    "text": {
+     "path": ".entry-content p:not(p:containsOwn(|)):not(.chapter-class + p)",
+     "all": true,
+     "join": "\n"
+    }
+   },
+   "fields": {
+    "title": {
+     "path": "h1",
+     "replace": [
+      [
+       "\\[[^\\]]*\\]",
+       ""
+      ],
+      [
+       "\\([^(]*$",
+       ""
+      ],
+      [
+       "^\\s+|\\s+$",
+       ""
+      ]
+     ]
+    },
+    "author": {
+     "path": "h1",
+     "regex": "\\[([^\\]]*)\\]",
+     "group": 1
+    },
+    "artist": {
+     "path": "h1",
+     "regex": "\\[([^\\]]*)\\]",
+     "group": 1
+    },
+    "genres": {
+     "path": ".entry-header p a[href*=genre], [href*=tag], span.entry-categories a",
+     "all": true,
+     "join": ", "
+    },
+    "description": {
+     "const": "{l.h1}[[\nScanlated by: {l.groups}]][[\n{l.text}]]"
+    },
+    "status": "a[href*=status]"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html, a[class=page-numbers]",
+   "reverse": true,
+   "fields": {
+    "url": [
+     "@href",
+     {
+      "const": "{url}"
+     }
+    ],
+    "name": [
+     {
+      "path": "@href",
+      "regex": "/(\\d+)/?$",
+      "group": 1,
+      "template": "Part {value}"
+     },
+     {
+      "const": "Part 1"
+     }
+    ]
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.entry-content img, div.separator img[data-src]",
+   "image": "@img"
+  }
+ },
+ "hinweise": [
+  "13 Community-Quellen unterscheiden sich nur im Sprachfilter (ep_filter_lang=English bzw. /lang/english); Rezept auf die en-Quelle gekürzt.",
+  "Kapitel = Teile des Beitrags (WordPress-Unterseiten /2/, /3/ …). Community erzeugt Part 1…N aus der höchsten Seitenzahl (auch ausgeblendete Zwischenseiten bei '1 2 3 … 7 8 9'); das Rezept nimmt nur die sichtbaren a[class=page-numbers] plus die Hauptseite als Part 1 – bei langen Einträgen können Teile fehlen.",
+  "Kapiteldatum (.entry-time der Hauptseite) nicht übernommen. Cover nur aus der Liste (Community lädt bei kaputtem Cover über die Suche nach).",
+  "Liste: Video-Beiträge (article.category-video) ausgelassen; Cover ohne Größen-Suffix (-300x450) wie im Code. Weiter-Erkennung über li.pagination-next (Community zählt bei der Suche die Treffer aus .ep-search-count).",
+  "Community setzt eine zufällige X-Requested-With-Kopfzeile und entfernt sie im Interceptor wieder – also keine; nicht nachgebaut."
+ ]
+}

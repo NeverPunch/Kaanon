@@ -1,0 +1,139 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "AsgardScans",
+  "sprache": "ar",
+  "base_url": "https://asgardscans.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.asgardscans",
+  "quellen": [
+   {
+    "name": "AsgardScans",
+    "sprache": "ar",
+    "quell_id": 1271101147092894805,
+    "home": "https://asgardscans.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/asgardscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/manga?page={page}&sort=popular",
+   "items": ".grid a.group",
+   "has_next": {
+    "exists": "a[rel=next]"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h3",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/manga?page={page}&sort=",
+   "items": ".grid a.group",
+   "has_next": {
+    "exists": "a[rel=next]"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h3",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/manga?page={page}&q={query}",
+   "items": ".grid a.group",
+   "has_next": {
+    "exists": "a[rel=next]"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h3",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "desc": [
+     {
+      "path": "script[type=application/ld+json]:containsData(CreativeWorkSeries)@html",
+      "regex": "\"CreativeWorkSeries\"[^{}]*?\"description\"\\s*:\\s*(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     },
+     "meta[property=og:description]@content"
+    ],
+    "alt": {
+     "path": "script[type=application/ld+json]:containsData(CreativeWorkSeries)@html",
+     "regex": "\"CreativeWorkSeries\"[^{}]*?\"alternateName\"\\s*:\\s*(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    }
+   },
+   "fields": {
+    "title": "h1",
+    "cover": "meta[property=og:image]@content",
+    "description": {
+     "const": "{l.desc}[[\n\nAlternative: {l.alt}]]"
+    },
+    "genres": [
+     {
+      "path": "a[href^=/manga?genres=]",
+      "all": true,
+      "join": ", "
+     },
+     {
+      "path": "script[type=application/ld+json]:containsData(CreativeWorkSeries)@html",
+      "regex": "\"CreativeWorkSeries\"[^{}]*?\"genre\"\\s*:\\s*(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     }
+    ],
+    "status": {
+     "path": "span:containsOwn(الحالة) + span",
+     "regex": "(مستمر|مكتمل|متوقف)",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "مستمر": 1,
+    "مكتمل": 2,
+    "متوقف": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "ol > li > a[dir=ltr]",
+   "fields": {
+    "url": "@href",
+    "name": "div[dir=rtl] span",
+    "date": "div[dir=rtl] span.tabular"
+   },
+   "date_format": "dd/MM/yyyy",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "items": "imageUrl:\"([^\"]+)\"",
+   "image": {
+    "path": "",
+    "template": "{base}{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "Beschreibung/Alternativtitel aus dem ld+json-Objekt CreativeWorkSeries per Regex (nur Zeichenketten; als Array gelieferte alternateName/genre werden nicht verbunden), Rückfall og:description.",
+  "Genres zuerst aus den Genre-Links (Community: ld+json genre, Rückfall Links).",
+  "Seiten: imageUrl:\"/api/public/page/…\" per Text-Regex aus der Kapitelseite, mit Basis-URL davor wie in der Community."
+ ]
+}

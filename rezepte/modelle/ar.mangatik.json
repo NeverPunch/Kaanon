@@ -1,0 +1,184 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaTik",
+  "sprache": "ar",
+  "base_url": "https://mangatik.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.mangatik",
+  "quellen": [
+   {
+    "name": "MangaTik",
+    "sprache": "ar",
+    "quell_id": 7080835850401649994,
+    "home": "https://mangatik.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/mangatik",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/manga?sort=views&page={page}",
+   "items": "article.manga-card:has(.manga-title > a)",
+   "has_next": {
+    "exists": "a.btn[href^=?page=]:contains(التالي)"
+   },
+   "fields": {
+    "url": ".manga-title > a@href",
+    "title": ".manga-title > a",
+    "cover": [
+     "img.manga-poster@data-src",
+     "img.manga-poster@src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/latest?page={page}",
+   "items": "article.manga-card:has(.manga-title > a)",
+   "has_next": {
+    "exists": "a.btn[href^=?page=]:contains(التالي)"
+   },
+   "fields": {
+    "url": ".manga-title > a@href",
+    "title": ".manga-title > a",
+    "cover": [
+     "img.manga-poster@data-src",
+     "img.manga-poster@src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/manga?q={query}&page={page}",
+   "items": "article.manga-card:has(.manga-title > a)",
+   "has_next": {
+    "exists": "a.btn[href^=?page=]:contains(التالي)"
+   },
+   "fields": {
+    "url": ".manga-title > a@href",
+    "title": ".manga-title > a",
+    "cover": [
+     "img.manga-poster@data-src",
+     "img.manga-poster@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "gblock": {
+     "path": "script[type=application/ld+json]@html",
+     "regex": "(?s)\"genre\"\\s*:\\s*\\[(.*?)\\]",
+     "group": 1
+    }
+   },
+   "fields": {
+    "title": [
+     {
+      "path": "script[type=application/ld+json]@html",
+      "regex": "(?s)^\\s*\\{(?:[^{}]|\\{[^{}]*\\})*?\"name\"\\s*:\\s*(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     },
+     "h1"
+    ],
+    "description": {
+     "path": "script[type=application/ld+json]@html",
+     "regex": "(?s)^\\s*\\{(?:[^{}]|\\{[^{}]*\\})*?\"description\"\\s*:\\s*(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "cover": [
+     {
+      "path": "script[type=application/ld+json]@html",
+      "regex": "(?s)\"image\"\\s*:\\s*\\{[^{}]*?\"url\"\\s*:\\s*(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "script[type=application/ld+json]@html",
+      "regex": "\"image\"\\s*:\\s*(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     }
+    ],
+    "author": {
+     "path": "script[type=application/ld+json]@html",
+     "regex": "(?s)\"author\"\\s*:\\s*\\{[^{}]*?\"name\"\\s*:\\s*(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json",
+     "replace": [
+      [
+       "^(?i)(unknown|updating)$",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "const": "{l.gblock}",
+     "regex": "(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "regex_all": true,
+     "decode": "json",
+     "join": ", "
+    },
+    "status": {
+     "path": "span.badge",
+     "all": true,
+     "join": " ",
+     "regex": "(مستمر|مكتمل|متوقف)",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "مستمر": 1,
+    "مكتمل": 2,
+    "متوقف": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a.chapter-item-card",
+   "fields": {
+    "url": "@href",
+    "name": [
+     "span:matchesOwn(^\\s*الفصل)",
+     {
+      "path": "@data-chapter",
+      "template": "الفصل {value}"
+     }
+    ],
+    "number": "@data-chapter",
+    "date": {
+     "path": "span",
+     "all": true,
+     "join": " ",
+     "regex": "(\\d{4}-\\d{2}-\\d{2})\\s*$",
+     "group": 1
+    }
+   },
+   "date_format": "yyyy-MM-dd",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img.webtoon-image",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Details aus dem ersten ld+json-Skript per Regex (Community parst es als JSON): name/description auf oberster Ebene (verschachtelte Objekte einer Ebene werden übersprungen), image.url, author.name, genre-Liste per regex_all wie in en.drakescans.",
+  "Titel-Rückfall h1 ist nicht im Community-Code (dort nur ld+json name).",
+  "Kapiteldatum = letztes span des Kapitels (yyyy-MM-dd)."
+ ]
+}

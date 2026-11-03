@@ -1,0 +1,159 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "YSK Comics",
+  "sprache": "en",
+  "base_url": "https://www.ysk-comics.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.yskcomics",
+  "quellen": [
+   {
+    "name": "YSK Comics",
+    "sprache": "en",
+    "quell_id": 177448809266948921,
+    "home": "https://www.ysk-comics.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/yskcomics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "x-localization": "en",
+   "X-Requested-With": "XMLHttpRequest"
+  },
+  "popular": {
+   "request": "{base}/api/home/best-comics",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/en/comic/{value}"
+    },
+    "title": "full_name",
+    "cover": "image"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/home/latest-comics?page={page}",
+   "format": "json",
+   "items": "data.data_messages",
+   "has_next": {
+    "exists": "data.meta.link_next"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/en/comic/{value}"
+    },
+    "title": "full_name",
+    "cover": "image"
+   }
+  },
+  "search": {
+   "request": "https://api.ysk-comics.com/api/v1/search-comics-home?name={query}",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/en/comic/{value}"
+    },
+    "title": "full_name",
+    "cover": "image"
+   }
+  },
+  "details": {
+   "request": "{base}/api/comic/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/comic/([^/?#]+)"
+   },
+   "let": {
+    "pub": "data.publisher.name",
+    "date": "data.published_at",
+    "desc": {
+     "path": "data.description",
+     "decode": "html_text"
+    }
+   },
+   "fields": {
+    "title": "data.full_name",
+    "cover": "data.image",
+    "author": "data.writer.name",
+    "artist": {
+     "path": "data.artists.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "data.genres.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "description": {
+     "const": "[[Publisher: {l.pub}\n]][[Published at: {l.date}\n]]\n{l.desc}"
+    },
+    "status": "data.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/comic/chapter/{u.slug}?page={page}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/comic/([^/?#]+)"
+   },
+   "items": "data.data_messages",
+   "reverse": true,
+   "paging": {
+    "has_next": {
+     "exists": "data.meta.link_next"
+    },
+    "max_pages": 50
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/en/chapter/{value}"
+    },
+    "name": {
+     "path": "rank",
+     "template": "#{value}"
+    },
+    "number": "rank"
+   }
+  },
+  "pages": {
+   "request": "{base}/api/chapters/images/{u.cid}",
+   "format": "json",
+   "url_vars": {
+    "cid": "/chapter/([^/?#]+)"
+   },
+   "items": "data",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "Zwei Community-Quellen (ar, en) unterscheiden sich in der Kopfzeile x-localization und im URL-Präfix /<sprache>/; Rezept auf die en-Quelle gekürzt.",
+  "Suche: Community verlangt mindestens 3 Zeichen (sonst Fehlermeldung) – hier ohne Prüfung.",
+  "Bewertungssterne in der Beschreibung nicht nachgebaut; Hinweis 'nicht in dieser Sprache verfügbar' (language_code ≠ en) ebenfalls nicht.",
+  "Kapitel: Community sammelt alle Seiten und kehrt die Reihenfolge um; hier paging + reverse (Annahme: reverse gilt für die Gesamtliste). Kein Kapiteldatum in der API."
+ ]
+}

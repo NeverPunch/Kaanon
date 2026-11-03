@@ -1,0 +1,140 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "V2PH",
+  "sprache": "all",
+  "base_url": "https://www.v2ph.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.v2ph",
+  "quellen": [
+   {
+    "name": "V2PH",
+    "sprache": "all",
+    "quell_id": 4511819378822109646,
+    "home": "https://www.v2ph.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/v2ph",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept-Language": "en-US,en;q=0.9"
+  },
+  "popular": {
+   "request": "{base}/category/best-quality?page={page}",
+   "items": ".albums-list .card:has(a.media-cover)",
+   "has_next": {
+    "exists": "ul.pagination li.page-item a:contains(Next)"
+   },
+   "fields": {
+    "url": "a.media-cover@href",
+    "title": ".card-body h6 a",
+    "cover": ".card-cover img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/?page={page}",
+   "items": "#latest-albums-title ~ .albums-list .card:has(a.media-cover)",
+   "has_next": {
+    "exists": "ul.pagination li.page-item a:contains(Next)"
+   },
+   "fields": {
+    "url": "a.media-cover@href",
+    "title": ".card-body h6 a",
+    "cover": ".card-cover img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/search/?q={query}&page={page}",
+   "items": ".albums-list .card:has(a.media-cover)",
+   "has_next": {
+    "exists": "ul.pagination li.page-item a:contains(Next)"
+   },
+   "fields": {
+    "url": "a.media-cover@href",
+    "title": ".card-body h6 a",
+    "cover": ".card-cover img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "n": "dl dt:contains(Photos) + dd",
+    "intro": ".album-intro"
+   },
+   "fields": {
+    "title": "h1",
+    "cover": "meta[property=og:image]@content",
+    "author": "dl dt:contains(Vendor) + dd a",
+    "artist": "dl dt:contains(Model) + dd a",
+    "genres": {
+     "path": "dl dt:contains(Tags) + dd a",
+     "all": true,
+     "join": ", "
+    },
+    "description": {
+     "const": "[[Photos: {l.n}\n\n]]{l.intro}"
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html, ul.pagination li.page-item a:matchesOwn(^[0-9]+$):not(:matchesOwn(^1$))",
+   "fields": {
+    "url": [
+     "@href",
+     {
+      "const": "{url}"
+     }
+    ],
+    "name": [
+     {
+      "path": "@ownText",
+      "regex": "^([0-9]+)$",
+      "group": 1,
+      "template": "Teil {value}"
+     },
+     {
+      "const": "Teil 1"
+     }
+    ],
+    "number": [
+     {
+      "path": "@ownText",
+      "regex": "^([0-9]+)$",
+      "group": 1
+     },
+     {
+      "const": "1"
+     }
+    ],
+    "date": "dl dt:contains(Date) + dd"
+   },
+   "date_format": "yyyy-MM-dd",
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".photos-list img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Album-Seiten zeigen je 10 Fotos; Community lädt alle Unterseiten (?page=2…) parallel nach. Das Modell kann Seiten nicht über mehrere Anfragen sammeln, deshalb ist jede Album-Unterseite ein eigenes Kapitel (Teil 1 = Album-URL, weitere aus den Ziffern-Links der Pagination – Pagination-Markup auf Albumseiten ungeprüft, ggf. doppelt oben/unten).",
+  "Gäste sehen laut Community nur die ersten 20 Fotos (mehr nur mit Login); Premium-Alben (Weiterleitung auf /user/) werden nicht erkannt.",
+  "Filter Kategorie/Land nicht übernommen."
+ ]
+}

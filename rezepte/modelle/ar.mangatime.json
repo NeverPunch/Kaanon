@@ -1,0 +1,260 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaTime",
+  "sprache": "ar",
+  "base_url": "https://mangatime.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.mangatime",
+  "quellen": [
+   {
+    "name": "MangaTime",
+    "sprache": "ar",
+    "quell_id": 215553151312092548,
+    "home": "https://mangatime.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/mangatime",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "X-Requested-With": "XMLHttpRequest"
+  },
+  "popular": {
+   "request": "{base}/api/trpc/search.searchSeries?batch=1&input=%7B%220%22%3A%7B%22json%22%3A%7B%22page%22%3A{page}%2C%22limit%22%3A24%2C%22sortBy%22%3A%22popularity%22%2C%22sortOrder%22%3A%22desc%22%7D%7D%7D",
+   "format": "json",
+   "items": "0.result.data.json.results",
+   "has_next": {
+    "exists": "0.result.data.json.hasMore"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/{f.type}/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": [
+     {
+      "path": "coverUrl",
+      "regex": "^(https?://.*)$",
+      "replace": [
+       [
+        " ",
+        "%20"
+       ]
+      ]
+     },
+     {
+      "path": "coverUrl",
+      "template": "{base}{value}",
+      "replace": [
+       [
+        " ",
+        "%20"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/api/trpc/search.searchSeries?batch=1&input=%7B%220%22%3A%7B%22json%22%3A%7B%22page%22%3A{page}%2C%22limit%22%3A24%2C%22sortBy%22%3A%22recent%22%2C%22sortOrder%22%3A%22desc%22%7D%7D%7D",
+   "format": "json",
+   "items": "0.result.data.json.results",
+   "has_next": {
+    "exists": "0.result.data.json.hasMore"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/{f.type}/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": [
+     {
+      "path": "coverUrl",
+      "regex": "^(https?://.*)$",
+      "replace": [
+       [
+        " ",
+        "%20"
+       ]
+      ]
+     },
+     {
+      "path": "coverUrl",
+      "template": "{base}{value}",
+      "replace": [
+       [
+        " ",
+        "%20"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/api/trpc/search.searchSeries?batch=1&input=%7B%220%22%3A%7B%22json%22%3A%7B%22page%22%3A{page}%2C%22limit%22%3A24%2C%22sortBy%22%3A%22popularity%22%2C%22sortOrder%22%3A%22desc%22%2C%22query%22%3A%22{query}%22%7D%7D%7D",
+   "format": "json",
+   "items": "0.result.data.json.results",
+   "has_next": {
+    "exists": "0.result.data.json.hasMore"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/{f.type}/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": [
+     {
+      "path": "coverUrl",
+      "regex": "^(https?://.*)$",
+      "replace": [
+       [
+        " ",
+        "%20"
+       ]
+      ]
+     },
+     {
+      "path": "coverUrl",
+      "template": "{base}{value}",
+      "replace": [
+       [
+        " ",
+        "%20"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "details": {
+   "request": "{base}/api/trpc/content.getSeriesBySlug?batch=1&input=%7B%220%22%3A%7B%22json%22%3A%7B%22slug%22%3A%22{u.slug}%22%7D%7D%7D",
+   "format": "json",
+   "url_vars": {
+    "slug": "^(?:https?://[^/]+)?/[^/]+/([^/?#]+)"
+   },
+   "fields": {
+    "title": "0.result.data.json.title",
+    "cover": [
+     {
+      "path": "0.result.data.json.coverUrl",
+      "regex": "^(https?://.*)$",
+      "replace": [
+       [
+        " ",
+        "%20"
+       ]
+      ]
+     },
+     {
+      "path": "0.result.data.json.coverUrl",
+      "template": "{base}{value}",
+      "replace": [
+       [
+        " ",
+        "%20"
+       ]
+      ]
+     }
+    ],
+    "description": "0.result.data.json.description",
+    "genres": {
+     "path": "0.result.data.json.genres.*.name",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       "،",
+       ","
+      ]
+     ]
+    },
+    "status": "0.result.data.json.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/trpc/content.getChapters?batch=1&input=%7B%220%22%3A%7B%22json%22%3A%7B%22seriesId%22%3A%22{u.id}%22%2C%22limit%22%3A-1%7D%7D%7D",
+   "format": "json",
+   "url_vars": {
+    "id": "#(.+)$",
+    "slugpath": "^(?:https?://[^/]+)?/([^/]+/[^/?#]+)"
+   },
+   "items": "0.result.data.json.chapters",
+   "fields": {
+    "url": {
+     "path": "number",
+     "template": "/{u.slugpath}/chapter/{value}"
+    },
+    "name": {
+     "path": "title",
+     "template": "Chapter {f.number} - {value}",
+     "replace": [
+      [
+       "^Chapter (\\S+) - (.*\\1.*)$",
+       "$2"
+      ]
+     ]
+    },
+    "number": "number",
+    "date": "publishedAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api/trpc/content.getChapterPages?batch=1&input=%7B%220%22%3A%7B%22json%22%3A%7B%22seriesSlug%22%3A%22{u.slug}%22%2C%22chapterNumber%22%3A{u.num}%7D%7D%7D",
+   "format": "json",
+   "url_vars": {
+    "slug": "^(?:https?://[^/]+)?/[^/]+/([^/?#]+)/chapter/",
+    "num": "/chapter/([^/?#]+)"
+   },
+   "items": "0.result.data.json.pages",
+   "image": [
+    {
+     "path": "",
+     "regex": "^(https?://.*)$",
+     "replace": [
+      [
+       " ",
+       "%20"
+      ]
+     ]
+    },
+    {
+     "path": "",
+     "template": "{base}{value}",
+     "replace": [
+      [
+       " ",
+       "%20"
+      ]
+     ]
+    }
+   ]
+  }
+ },
+ "hinweise": [
+  "tRPC-API {base}/api/trpc/<endpunkt>?batch=1&input=<URL-kodiertes JSON> (GET), Antwort-Pfad 0.result.data.json.",
+  "Manga-URL /<type>/<slug>#<id> wie Community; Kapitel /<type>/<slug>/chapter/<nummer>.",
+  "Suche: Suchtext steht URL-kodiert im JSON-Text; Anführungszeichen/Backslash im Suchtext werden nicht maskiert (Muster wie ar.despairmanga).",
+  "Gesperrte Kapitel (isUnlocked=false) erkennt die Community erst beim Laden der Seiten (Fehler) – ebenso hier, die Kapitelliste enthält keine Sperrinfo. trackView-Aufruf nicht nachgebaut.",
+  "Kapitelname: 'Chapter N - Titel', nur Titel, wenn er die Nummer enthält (per Rückverweis-Regex). Genre: Typ (manga/manhwa) nicht angehängt.",
+  "chapterNumber wird als Zahl aus der URL eingesetzt (Community: toInt()); Kapitel mit Nachkommastelle können abweichen."
+ ]
+}

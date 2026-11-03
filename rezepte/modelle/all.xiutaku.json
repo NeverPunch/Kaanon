@@ -1,0 +1,160 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Xiutaku",
+  "sprache": "all",
+  "base_url": "https://xiutaku.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.xiutaku",
+  "quellen": [
+   {
+    "name": "Xiutaku",
+    "sprache": "all",
+    "quell_id": 6520733892888572506,
+    "home": "https://xiutaku.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/xiutaku",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 10,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/hot?start={offset}",
+   "page_size": 20,
+   "items": ".blog > div:has(.item-content .item-link)",
+   "has_next": {
+    "exists": ".pagination-next:not([disabled])"
+   },
+   "fields": {
+    "url": ".item-content .item-link@href",
+    "title": ".item-content .item-link",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/?start={offset}",
+   "page_size": 20,
+   "items": ".blog > div:has(.item-content .item-link)",
+   "has_next": {
+    "exists": ".pagination-next:not([disabled])"
+   },
+   "fields": {
+    "url": ".item-content .item-link@href",
+    "title": ".item-content .item-link",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/?search={query}&start={offset}",
+   "page_size": 20,
+   "items": ".blog > div:has(.item-content .item-link)",
+   "has_next": {
+    "exists": ".pagination-next:not([disabled])"
+   },
+   "fields": {
+    "url": ".item-content .item-link@href",
+    "title": ".item-content .item-link",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".article-header",
+    "description": ".article-info:not(:has(small))",
+    "genres": {
+     "path": ".article-tags .tags > .tag",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       "(^|, )#",
+       "$1"
+      ]
+     ]
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "let": {
+    "d": {
+     "path": ".article-info > small",
+     "replace": [
+      [
+       "^\\s*🕒\\s*",
+       ""
+      ]
+     ]
+    }
+   },
+   "items": "html:not(:has(.pagination-list a)), .pagination-list a:matchesOwn(^\\s*\\d+\\s*$)",
+   "fields": {
+    "url": [
+     {
+      "path": "@ownText",
+      "regex": "^\\s*(\\d+)\\s*$",
+      "group": 1,
+      "template": "{url}?page={value}"
+     },
+     {
+      "const": "{url}?page=1"
+     }
+    ],
+    "name": [
+     {
+      "path": "@ownText",
+      "regex": "^\\s*(\\d+)\\s*$",
+      "group": 1,
+      "template": "Page {value}"
+     },
+     {
+      "const": "Page 1"
+     }
+    ],
+    "number": [
+     {
+      "path": "@ownText",
+      "regex": "^\\s*(\\d+)\\s*$",
+      "group": 1
+     },
+     {
+      "const": "1"
+     }
+    ],
+    "date": {
+     "const": "{l.d}"
+    }
+   },
+   "date_format": "HH:mm d-M-yyyy",
+   "date_locale": "en",
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".article-fulltext img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Gleiche Website-Familie wie all.kiutaku; Modell von dort übernommen und an den Xiutaku-Code angepasst.",
+  "Kapitel: Community erzeugt Page 1…N aus der höchsten Zahl in .pagination-list; hier je Zahl-Link der Pagination ein Kapitel (bei ausgelassenen Seiten '…' fehlen diese), ohne Pagination ein Kapitel Page 1.",
+  "Zufälliger Mobil-User-Agent (lib randomua) nicht übernommen."
+ ]
+}

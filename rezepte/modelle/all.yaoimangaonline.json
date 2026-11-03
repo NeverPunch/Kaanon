@@ -1,0 +1,114 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Yaoi Manga Online",
+  "sprache": "all",
+  "base_url": "https://yaoimangaonline.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.yaoimangaonline",
+  "quellen": [
+   {
+    "name": "Yaoi Manga Online",
+    "sprache": "all",
+    "quell_id": 7988826691692266469,
+    "home": "https://yaoimangaonline.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/yaoimangaonline",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/page/{page}/",
+   "items": ".post:not(.sticky):not(.category-gay-movies):not(.category-yaoi-anime) > div > a",
+   "has_next": {
+    "exists": ".herald-pagination > .next"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "@title",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}",
+   "items": ".post:not(.sticky):not(.category-gay-movies):not(.category-yaoi-anime) > div > a",
+   "has_next": {
+    "exists": ".herald-pagination > .next"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "@title",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     {
+      "path": "h1.entry-title",
+      "regex": "^(.*)by",
+      "replace": [
+       [
+        "\\s+$",
+        ""
+       ]
+      ]
+     },
+     "h1.entry-title"
+    ],
+    "cover": ".herald-post-thumbnail img@src",
+    "description": {
+     "path": ".entry-content > p:not(:has(img)):not(:contains(You need to login))",
+     "all": true,
+     "join": "\n\n"
+    },
+    "genres": ".meta-tags > a",
+    "author": {
+     "path": ".entry-content > p:contains(Mangaka:)",
+     "regex": "Mangaka:\\s*(.*?)\\s*(?:Language:|$)"
+    }
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": [
+    ".mpp-toc a",
+    "html"
+   ],
+   "reverse": true,
+   "fields": {
+    "url": [
+     "@href",
+     {
+      "const": "{url}"
+     }
+    ],
+    "name": [
+     "@ownText",
+     {
+      "const": "Chapter"
+     }
+    ]
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".entry-content img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "WordPress (Herald-Theme). Kein Latest (wie Community).",
+  "Kapitel aus dem Inhaltsverzeichnis der mehrseitigen Beiträge (.mpp-toc a); ohne Verzeichnis ein Kapitel 'Chapter' = Beitrags-URL (Ausweiche items 'html'). Eintrag der aktuellen Seite ohne href → Beitrags-URL wie Community (baseUri).",
+  "Titel: Text vor dem letzten 'by' (substringBeforeLast).",
+  "Kategorie- und Tag-Filter nicht übernommen."
+ ]
+}

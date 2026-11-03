@@ -1,0 +1,135 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MissKon",
+  "sprache": "all",
+  "base_url": "https://misskon.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.misskon",
+  "quellen": [
+   {
+    "name": "MissKon",
+    "sprache": "all",
+    "quell_id": 492049561920540214,
+    "home": "https://misskon.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/misskon",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.6",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 10,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/top3/",
+   "items": "article.item-list",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": ".post-box-title a@href",
+    "title": ".post-box-title",
+    "cover": ".post-thumbnail img@data-src"
+   }
+  },
+  "latest": {
+   "request": "{base}/page/{page}",
+   "items": "article.item-list",
+   "has_next": {
+    "exists": ".current + a.page"
+   },
+   "fields": {
+    "url": ".post-box-title a@href",
+    "title": ".post-box-title",
+    "cover": ".post-thumbnail img@data-src"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}",
+   "items": "article.item-list",
+   "has_next": {
+    "exists": "div.content > div.pagination > span.current + a"
+   },
+   "fields": {
+    "url": ".post-box-title a@href",
+    "title": ".post-box-title",
+    "cover": ".post-thumbnail img@data-src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "article > .post-inner .post-title",
+    "cover": [
+     ".entry img@data-src",
+     "meta[property=\"og:image\"]@content"
+    ],
+    "genres": {
+     "path": "article > .post-inner .post-tag > a",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": [
+    "div.page-link:first-of-type .post-page-numbers",
+    "html"
+   ],
+   "reverse": true,
+   "fields": {
+    "url": [
+     "@href",
+     {
+      "const": "{url}"
+     }
+    ],
+    "name": [
+     {
+      "path": "",
+      "regex": "^\\s*(\\d+)\\s*$",
+      "template": "Page {value}"
+     },
+     {
+      "const": "Page 1"
+     }
+    ],
+    "number": [
+     {
+      "path": "",
+      "regex": "^\\s*(\\d+)\\s*$"
+     },
+     {
+      "const": "1"
+     }
+    ]
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.post-inner > div.entry > p > img",
+   "image": "@data-src"
+  }
+ },
+ "hinweise": [
+  "Galerie-Seite (WordPress/Jannah): jede Unterseite /<beitrag>/N der Galerie ist ein Kapitel 'Page N' wie in der Community. Nachgebildet über die Seitenlinks der ersten div.page-link (.post-page-numbers inkl. aktueller Seite als span); Seite 1 = Beitrags-URL selbst. Ohne Paginierung greift die Ausweiche 'html' → ein Kapitel 'Page 1'. Annahme: die Paginierung listet alle Seitenzahlen; auf dem PC prüfen.",
+  "Community setzt die Kapitel-URL als <manga-url>/N; hier die echten Links (@href) der Paginierung.",
+  "Kapiteldatum (aus dem Datumspfad der ersten Bild-URL) nicht abgebildet; Cover in den Details ersatzweise erstes Bild/og:image (Community nutzt nur das Listen-Cover).",
+  "Kategorie-Filter (Top-/Tag-Listen) nicht übernommen; Beliebt = /top3/ (einseitig) wie in der Community. Ähnliche Titel (yarpp) nicht übernommen."
+ ]
+}

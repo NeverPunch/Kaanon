@@ -1,0 +1,197 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "PornPics",
+  "sprache": "en",
+  "base_url": "https://www.pornpics.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.pornpics",
+  "quellen": [
+   {
+    "name": "PornPics",
+    "sprache": "en",
+    "quell_id": 1459635082044256286,
+    "home": "https://www.pornpics.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/pornpics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "cookies": {
+   "pp_lang": ""
+  },
+  "popular": {
+   "request": "{base}/popular/api/galleries/list/?limit=19&offset={offset}&lang=en&period=1&category_id=2586",
+   "format": "json",
+   "items": "$",
+   "page_size": 19,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": [
+     {
+      "path": "g_url",
+      "regex": "^https?://[^/]+(/.*)$"
+     },
+     "g_url"
+    ],
+    "title": [
+     "desc",
+     {
+      "path": "g_url",
+      "regex": "/([^/]+)/?$",
+      "replace": [
+       [
+        "-\\d+(?=-|$)",
+        ""
+       ],
+       [
+        "-",
+        " "
+       ]
+      ]
+     }
+    ],
+    "cover": "t_url"
+   }
+  },
+  "latest": {
+   "request": "{base}/popular/api/galleries/list/?limit=19&offset={offset}&lang=en&period=2&category_id=2587",
+   "format": "json",
+   "items": "$",
+   "page_size": 19,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": [
+     {
+      "path": "g_url",
+      "regex": "^https?://[^/]+(/.*)$"
+     },
+     "g_url"
+    ],
+    "title": [
+     "desc",
+     {
+      "path": "g_url",
+      "regex": "/([^/]+)/?$",
+      "replace": [
+       [
+        "-\\d+(?=-|$)",
+        ""
+       ],
+       [
+        "-",
+        " "
+       ]
+      ]
+     }
+    ],
+    "cover": "t_url"
+   }
+  },
+  "search": {
+   "request": "{base}/search/srch.php?lang=en&limit=19&offset={offset}&q={query}",
+   "format": "json",
+   "items": "$",
+   "page_size": 19,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": [
+     {
+      "path": "g_url",
+      "regex": "^https?://[^/]+(/.*)$"
+     },
+     "g_url"
+    ],
+    "title": [
+     "desc",
+     {
+      "path": "g_url",
+      "regex": "/([^/]+)/?$",
+      "replace": [
+       [
+        "-\\d+(?=-|$)",
+        ""
+       ],
+       [
+        "-",
+        " "
+       ]
+      ]
+     }
+    ],
+    "cover": "t_url"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     ".gallery-title h1",
+     "#main li.thumbwook > a.rel-link img@alt"
+    ],
+    "cover": "#main li.thumbwook > a.rel-link img@data-src",
+    "author": {
+     "path": "div.gallery-info.to-gall-info div.gallery-info__item:nth-child(2) a",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "div.gallery-info.to-gall-info div.gallery-info__item:not(:nth-child(2)) a",
+     "all": true,
+     "join": ", "
+    },
+    "description": {
+     "path": "div.gallery-info.to-gall-info .info-rate, div.gallery-info.to-gall-info .info-views",
+     "all": true,
+     "join": " "
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Gallery"
+    },
+    "number": {
+     "const": "0"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#main li.thumbwook > a.rel-link",
+   "image": "@href"
+  }
+ },
+ "hinweise": [
+  "Community bedient 8 Sprachen über den Parameter lang (Titel übersetzt); Modell auf die englische Quelle gekürzt.",
+  "Listen als JSON-API (popular/api/galleries/list mit period=1/2 und category_id 2586/2587, Suche search/srch.php). Community fordert limit=20 an und erkennt die nächste Seite am 20. Eintrag; hier limit=19 und 'volle Seite' (offset = (Seite-1)*19 wie im Code).",
+  "Titel-Ersatz aus dem Slug (Ziffernteile entfernt) nur angenähert; Großschreibung des ersten Buchstabens fehlt.",
+  "Einstellung 'Kategorie' (Listen aus /<kategorie>/) und Filter (Kategorien/Tags/Pornostars/Kanäle, Sortierung) nicht übernommen.",
+  "Eine Galerie = ein Kapitel 'Gallery'; Bilder = Links der Vorschaubilder (#main li.thumbwook > a.rel-link@href)."
+ ]
+}

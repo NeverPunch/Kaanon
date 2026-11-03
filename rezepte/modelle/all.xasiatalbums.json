@@ -1,0 +1,143 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Xasiat Albums",
+  "sprache": "all",
+  "base_url": "https://www.xasiat.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.xasiatalbums",
+  "quellen": [
+   {
+    "name": "XAsiat Albums",
+    "sprache": "all",
+    "quell_id": 7187893778775685546,
+    "home": "https://www.xasiat.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/xasiatalbums",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "X-Requested-With": "XMLHttpRequest"
+  },
+  "image_headers": {
+   "X-Requested-With": null
+  },
+  "vars": {
+   "ts": {
+    "value": {
+     "const": "{now_s}"
+    },
+    "ttl_s": 30
+   }
+  },
+  "popular": {
+   "request": "{base}/albums/?mode=async&function=get_block&block_id=list_albums_common_albums_list&from={page}&sort_by=album_viewed_week&_={v.ts}",
+   "items": ".list-albums .item a[href*=/albums/]",
+   "page_size": 12,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": "@href",
+    "title": [
+     "@title",
+     "img@alt"
+    ],
+    "cover": [
+     "img@data-original",
+     "img@src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/albums/?mode=async&function=get_block&block_id=list_albums_common_albums_list&from={page}&sort_by=post_date&_={v.ts}",
+   "items": ".list-albums .item a[href*=/albums/]",
+   "page_size": 12,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": "@href",
+    "title": [
+     "@title",
+     "img@alt"
+    ],
+    "cover": [
+     "img@data-original",
+     "img@src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/search/search/?mode=async&function=get_block&block_id=list_albums_albums_list_search_result&from={page}&from_albums={page}&q={query}&_={v.ts}",
+   "items": ".list-albums .item a[href*=/albums/]",
+   "page_size": 12,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": "@href",
+    "title": [
+     "@title",
+     "img@alt"
+    ],
+    "cover": [
+     "img@data-original",
+     "img@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".entry-title",
+    "description": "meta[property=og:description]@content",
+    "cover": "meta[property=og:image]@content",
+    "genres": {
+     "path": ".info-content a[href*=/albums/]",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Photobook"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "a[href*='/get_image/']",
+   "image": "@href"
+  }
+ },
+ "hinweise": [
+  "KVS-Website (Kernel Video Sharing): Listen über async-Blöcke ?mode=async&function=get_block&block_id=….",
+  "Pagination: Community setzt from=(page-1)*12+1 (1, 13, 25 …); im Rezept nicht rechenbar ({offset}+1 fehlt). Rezept nutzt from={page}, wie bei KVS üblich (from = Seitennummer) – auf dem PC prüfen.",
+  "Cache-Buster _=<Zeit>: Community nimmt Millisekunden, Rezept {now_s} über vars wie en.roliascan.",
+  "X-Requested-With nur für HTML-Anfragen; für Bilder per image_headers null entfernt (wie 'Origin': null in den Vorlagen) – prüfen.",
+  "has_next: Community prüft Next-Link ODER volle Seite (12); Rezept nur volle Seite. Kategorie-/Tag-Filter nicht abgebildet.",
+  "Galerie = ein Kapitel 'Photobook'; Bilder = Links /get_image/… (Bild steht im href, img ist Platzhalter)."
+ ]
+}

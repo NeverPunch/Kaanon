@@ -1,0 +1,120 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Oduto",
+  "sprache": "ar",
+  "base_url": "https://nb19u.blogspot.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.oduto",
+  "quellen": [
+   {
+    "name": "Oduto",
+    "sprache": "ar",
+    "quell_id": 1862668423724227387,
+    "home": "https://nb19u.blogspot.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/oduto",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/search/label/%D9%85%D8%A7%D9%86%D8%AC%D8%A7%20%D8%A8%D9%88%D8%B1%D9%88%D8%AA%D9%88"
+    },
+    "title": {
+     "const": "BORUTO: Two Blue Vortex"
+    },
+    "cover": {
+     "const": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEggWB9vWPMqjEvIoDsJSO29OmW-srULDQD3cS9HJ8cDk0vq2jLwDerUX-i61CqmZf62eBVmWZwU5CgXi0p2lxhKrh2_nZum3p-k3q9QJ2uozove0QAbOKtbd1QPjytjrJc9UsL65X4BbFdgcicLDYubD9LgY1Kco8wyhDGm4YEOim8u1TL42gOFe16NaaEP/s3464/4D55C3C5-9168-4103-B45C-99B52B58B6A5.jpeg"
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/search/label/%D9%85%D8%A7%D9%86%D8%AC%D8%A7%20%D8%A8%D9%88%D8%B1%D9%88%D8%AA%D9%88"
+    },
+    "title": {
+     "const": "BORUTO: Two Blue Vortex"
+    },
+    "cover": {
+     "const": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEggWB9vWPMqjEvIoDsJSO29OmW-srULDQD3cS9HJ8cDk0vq2jLwDerUX-i61CqmZf62eBVmWZwU5CgXi0p2lxhKrh2_nZum3p-k3q9QJ2uozove0QAbOKtbd1QPjytjrJc9UsL65X4BbFdgcicLDYubD9LgY1Kco8wyhDGm4YEOim8u1TL42gOFe16NaaEP/s3464/4D55C3C5-9168-4103-B45C-99B52B58B6A5.jpeg"
+    }
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "BORUTO: Two Blue Vortex"
+    },
+    "cover": {
+     "const": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEggWB9vWPMqjEvIoDsJSO29OmW-srULDQD3cS9HJ8cDk0vq2jLwDerUX-i61CqmZf62eBVmWZwU5CgXi0p2lxhKrh2_nZum3p-k3q9QJ2uozove0QAbOKtbd1QPjytjrJc9UsL65X4BbFdgcicLDYubD9LgY1Kco8wyhDGm4YEOim8u1TL42gOFe16NaaEP/s3464/4D55C3C5-9168-4103-B45C-99B52B58B6A5.jpeg"
+    },
+    "author": {
+     "const": "Masashi Kishimoto"
+    },
+    "artist": {
+     "const": "Mikio Ikemoto"
+    },
+    "genres": {
+     "const": "شونين, دراما, خيال, أكشن, نينجا"
+    },
+    "status": {
+     "const": "مستمر"
+    }
+   },
+   "status_map": {
+    "مستمر": 1
+   }
+  },
+  "chapters": {
+   "request": "{base}/feeds/posts/summary/-/%D9%85%D8%A7%D9%86%D8%AC%D8%A7%20%D8%A8%D9%88%D8%B1%D9%88%D8%AA%D9%88?alt=json&max-results=500",
+   "format": "json",
+   "items": "feed.entry",
+   "fields": {
+    "url": {
+     "path": "link.?rel=alternate.href",
+     "regex": "^https?://[^/]+(/[^?#]*)",
+     "group": 1
+    },
+    "name": {
+     "path": "title.$t",
+     "template": "{value}‏"
+    },
+    "date": "published.$t",
+    "scanlator": "author.0.name.$t"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div#post-body img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Blogger-Website mit einem einzigen Titel (Boruto: Two Blue Vortex, arabisch); Liste ist ein fester Eintrag wie in der Community.",
+  "Community speichert das Blogger-Label 'مانجا بوروتو' als URL; Rezept nutzt die Label-Seite /search/label/<Label> (für Webansicht) und lädt Kapitel aus dem Feed /feeds/posts/summary/-/<Label>?alt=json&max-results=500 (Label URL-kodiert fest eingetragen).",
+  "Kapitelname = Beitragstitel + U+200F (wie Community), Scanlator = Beitragsautor."
+ ]
+}

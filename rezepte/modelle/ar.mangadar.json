@@ -1,0 +1,178 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaDar",
+  "sprache": "ar",
+  "base_url": "https://mangadar.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.mangadar",
+  "quellen": [
+   {
+    "name": "MangaDar",
+    "sprache": "ar",
+    "quell_id": 3975276517041363504,
+    "home": "https://mangadar.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/mangadar",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/manga/page/{page}/",
+   "items": "a[href*=/manga/]:has(img)",
+   "skip": {
+    "path": "@href",
+    "regex": "^(?!(?:https?://[^/]+)?/manga/(?!page/)[^/?#]+/?(?:[?#].*)?$)"
+   },
+   "has_next": {
+    "exists": "a.next, a[rel=next]"
+   },
+   "fields": {
+    "url": "@href",
+    "title": [
+     "img@alt",
+     "h3, h4, .font-semibold"
+    ],
+    "cover": [
+     "img@src",
+     "img@data-src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/manga/page/{page}/?sort=new",
+   "items": "a[href*=/manga/]:has(img)",
+   "skip": {
+    "path": "@href",
+    "regex": "^(?!(?:https?://[^/]+)?/manga/(?!page/)[^/?#]+/?(?:[?#].*)?$)"
+   },
+   "has_next": {
+    "exists": "a.next, a[rel=next]"
+   },
+   "fields": {
+    "url": "@href",
+    "title": [
+     "img@alt",
+     "h3, h4, .font-semibold"
+    ],
+    "cover": [
+     "img@src",
+     "img@data-src"
+    ]
+   },
+   "request_by_page": {
+    "1": "{base}/manga/?sort=new"
+   }
+  },
+  "search": {
+   "request": "{base}/wp-admin/admin-ajax.php?action=mangaverse_search&q={query}",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "url",
+     "regex": "^(?:https?://[^/]+)?(/.*)$",
+     "group": 1
+    },
+    "title": "title",
+    "cover": "cover"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "description": [
+     "meta[name=description]@content",
+     "p.text-neutral-400"
+    ],
+    "status": {
+     "path": "body",
+     "regex": "(مستمر|مكتمل)",
+     "group": 1
+    },
+    "genres": {
+     "path": "a[href*=/genre/]",
+     "all": true,
+     "join": ", "
+    },
+    "author": "aside div:has(> span:contains(المؤلف)) > span:nth-of-type(2)",
+    "artist": "aside div:has(> span:contains(الرسام)) > span:nth-of-type(2)",
+    "cover": "meta[property=og:image]@content"
+   },
+   "status_map": {
+    "مستمر": 1,
+    "مكتمل": 2
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}",
+   "format": "text",
+   "items": "\\[\\s*\\d+\\s*,\\s*(?:&quot;|&#34;|\")?[0-9.]+(?:&quot;|&#34;|\")?\\s*,\\s*(?:&quot;|&#34;|\")https?:[^,\\]]*?(?:&quot;|&#34;|\")\\s*,\\s*(?:&quot;|&#34;|\")?\\d+",
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "(?:&quot;|&#34;|\")(https?:[^,\\]]*?)(?:&quot;|&#34;|\")\\s*,\\s*(?:&quot;|&#34;|\")?\\d+$",
+     "group": 1,
+     "replace": [
+      [
+       "\\\\/",
+       "/"
+      ],
+      [
+       "^https?://[^/]+",
+       ""
+      ]
+     ]
+    },
+    "name": {
+     "path": "",
+     "regex": "^\\[\\s*\\d+\\s*,\\s*(?:&quot;|&#34;|\")?([0-9.]+)",
+     "group": 1,
+     "template": "الفصل {value}"
+    },
+    "number": {
+     "path": "",
+     "regex": "^\\[\\s*\\d+\\s*,\\s*(?:&quot;|&#34;|\")?([0-9.]+)",
+     "group": 1
+    },
+    "date": {
+     "path": "",
+     "regex": "(\\d+)$",
+     "group": 1
+    }
+   },
+   "date_format": "epoch_s"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".reader-page img",
+   "image": [
+    "@src",
+    "@data-src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Eigenes WordPress-Theme 'MangaVerse' (Tailwind/Alpine.js).",
+  "Listen: Community nimmt alle a[href*=/manga/] mit genau zwei Pfadsegmenten (/manga/<slug>/), Titel aus img@alt oder h3/h4/.font-semibold, entfernt Dubletten. Rezept: nur Links mit img, Nicht-Manga-Links per skip; Dubletten möglich – prüfen.",
+  "URL: Community speichert nur den Slug und baut /manga/<slug>; Rezept speichert den Pfad /manga/<slug>/.",
+  "Kapitel stehen als kompakte JSON-Liste im Alpine-Attribut div[x-data] ('rows: [[id, nummer, url, zeitstempel, num], …]'). Rezept liest sie per Text-Regex aus dem rohen HTML; die Regex akzeptiert \", &quot; und &#34; als Anführungszeichen und entfernt \\/ – auf dem PC prüfen.",
+  "Status: Community sucht 'مستمر'/'مكتمل' irgendwo im Seitentext (laufend hat Vorrang); Rezept nimmt den ersten Treffer im body.",
+  "Suche über admin-ajax.php?action=mangaverse_search (eine Seite). Sortier-/Typ-/Status-/Genre-Filter nicht abgebildet."
+ ]
+}

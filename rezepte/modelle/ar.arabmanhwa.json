@@ -1,0 +1,197 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ArabManhwa",
+  "sprache": "ar",
+  "base_url": "https://arabmanhwa.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.arabmanhwa",
+  "quellen": [
+   {
+    "name": "ArabManhwa",
+    "sprache": "ar",
+    "quell_id": 5823096631874106406,
+    "home": "https://arabmanhwa.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/arabmanhwa",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/manga/page/{page}/?sort=popular",
+   "request_by_page": {
+    "1": "{base}/manga/?sort=popular"
+   },
+   "items": "article.card:has(a.card__cover)",
+   "has_next": {
+    "exists": "a[rel=next]"
+   },
+   "fields": {
+    "url": "a.card__cover@href",
+    "title": ".card__title",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/manga/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/manga/"
+   },
+   "items": "article.card:has(a.card__cover)",
+   "has_next": {
+    "exists": "a[rel=next]"
+   },
+   "fields": {
+    "url": "a.card__cover@href",
+    "title": ".card__title",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}",
+   "request_by_page": {
+    "1": "{base}/?s={query}"
+   },
+   "items": "article.card:has(a.card__cover)",
+   "has_next": {
+    "exists": "a[rel=next]"
+   },
+   "fields": {
+    "url": "a.card__cover@href",
+    "title": ".card__title",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1.thead__title",
+    "cover": ".thead__cover img@src",
+    "description": "#syn-body",
+    "genres": {
+     "path": ".tgenres a",
+     "all": true,
+     "join": ", "
+    },
+    "status": [
+     {
+      "path": ".thead__badges .badge--ongoing@class",
+      "regex": "^(.+)$",
+      "group": 1,
+      "template": "ongoing"
+     },
+     {
+      "path": ".thead__badges .badge--completed@class",
+      "regex": "^(.+)$",
+      "group": 1,
+      "template": "completed"
+     }
+    ]
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a.chapter-row",
+   "fields": {
+    "url": "@href",
+    "name": ".chapter-row__l",
+    "date": {
+     "path": ".chapter-row__d",
+     "replace": [
+      [
+       "منذ",
+       ""
+      ],
+      [
+       "دقيقتين",
+       "2 minutes"
+      ],
+      [
+       "ساعتين",
+       "2 hours"
+      ],
+      [
+       "يومين",
+       "2 days"
+      ],
+      [
+       "أسبوعين",
+       "2 weeks"
+      ],
+      [
+       "شهرين",
+       "2 months"
+      ],
+      [
+       "سنتين",
+       "2 years"
+      ],
+      [
+       "(ثانية|ثوان[ٍي]?)",
+       "seconds"
+      ],
+      [
+       "(دقيقة|دقائق)",
+       "minutes"
+      ],
+      [
+       "(ساعة|ساعات)",
+       "hours"
+      ],
+      [
+       "(يوم|أيام)",
+       "days"
+      ],
+      [
+       "(أسبوع|أسابيع)",
+       "weeks"
+      ],
+      [
+       "(أشهر|شهور|شهر)",
+       "months"
+      ],
+      [
+       "(سنوات|سنة)",
+       "years"
+      ],
+      [
+       "^\\s*([a-z])",
+       "1 $1"
+      ],
+      [
+       "^\\s+|\\s+$",
+       ""
+      ],
+      [
+       "^(\\d+ [a-z]+)$",
+       "$1 ago"
+      ]
+     ]
+    }
+   },
+   "date_format": "relative",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".reader img[data-src]",
+   "image": "@data-src"
+  }
+ },
+ "hinweise": [
+  "Seite 1 ohne /page/1/ wie in der Community.",
+  "Kapiteldatum nur relativ auf Arabisch (منذ 8 أشهر, Dualformen ohne Zahl); per replace in englische Relativangaben übersetzt ('8 months ago'). Die Community hält ein früheres Datum fest, solange es zum Text passt – das kann das Modell nicht.",
+  "Status über die Badge-Klassen badge--ongoing/badge--completed (Badge-Text beliebig; @class mit regex ^(.+)$ nur als Existenzprüfung)."
+ ]
+}
