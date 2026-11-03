@@ -12081,7 +12081,7 @@
  },
  {
   "modul": "src/en/revivalscans",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Revival Scans",
   "stufe": 2,
   "theme": null,
@@ -12091,11 +12091,14 @@
   "host": "revivalscans.com",
   "nsfw": true,
   "wer": "agent-w4c",
-  "seit": "2026-11-03T10:48:31"
+  "seit": "2026-11-03T10:48:31",
+  "datei": "rezepte/modelle/en.revivalscans.json",
+  "grund": null,
+  "geaendert": "2026-11-03T10:49:36"
  },
  {
   "modul": "src/en/rinkocomics",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Rinko Comics",
   "stufe": 2,
   "theme": null,
@@ -12105,7 +12108,10 @@
   "host": "rinkocomics.com",
   "nsfw": false,
   "wer": "agent-w5b",
-  "seit": "2026-11-03T10:48:41"
+  "seit": "2026-11-03T10:48:41",
+  "datei": "rezepte/modelle/en.rinkocomics.json",
+  "grund": null,
+  "geaendert": "2026-11-03T10:49:56"
  },
  {
   "modul": "src/en/ruridragonmangaonline",
@@ -12141,7 +12147,7 @@
  },
  {
   "modul": "src/en/sacachispa",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "SACACHISPA",
   "stufe": 2,
   "theme": null,
@@ -12151,11 +12157,14 @@
   "host": "sacachispa.site",
   "nsfw": false,
   "wer": "agent-w4b",
-  "seit": "2026-11-03T10:49:08"
+  "seit": "2026-11-03T10:49:08",
+  "datei": "rezepte/modelle/en.sacachispa.json",
+  "grund": null,
+  "geaendert": "2026-11-03T10:49:50"
  },
  {
   "modul": "src/en/saturdaymorningbreakfastcomics",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Saturday Morning Breakfast Comics",
   "stufe": 2,
   "theme": null,
@@ -12165,11 +12174,14 @@
   "host": "smbc-comics.com",
   "nsfw": false,
   "wer": "agent-w5a",
-  "seit": "2026-11-03T10:49:15"
+  "seit": "2026-11-03T10:49:15",
+  "datei": "rezepte/modelle/en.saturdaymorningbreakfastcomics.json",
+  "grund": null,
+  "geaendert": "2026-11-03T10:49:35"
  },
  {
   "modul": "src/en/scansgg",
-  "status": "offen",
+  "status": "fertig",
   "name": "ScansGG",
   "stufe": 2,
   "theme": null,
@@ -12177,11 +12189,16 @@
    "en"
   ],
   "host": "scans.gg",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:49:35",
+  "datei": "rezepte/modelle/en.scansgg.json",
+  "grund": null,
+  "geaendert": "2026-11-03T10:50:05"
  },
  {
   "modul": "src/en/schalescans",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Schale Scans",
   "stufe": 2,
   "theme": null,
@@ -12189,11 +12206,13 @@
    "en"
   ],
   "host": "schalescans.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4c",
+  "seit": "2026-11-03T10:49:36"
  },
  {
   "modul": "src/en/schlockmercenary",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Schlock Mercenary",
   "stufe": 2,
   "theme": null,
@@ -12201,11 +12220,16 @@
    "en"
   ],
   "host": "schlockmercenary.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5c",
+  "seit": "2026-11-03T10:49:37",
+  "grund": "Kapitel per Titelabgleich im Archiv, Seiten per Datumsbereich (Tag-für-Tag-Abfrage bis zum nächsten Kapitel)",
+  "datei": null,
+  "geaendert": "2026-11-03T10:49:49"
  },
  {
   "modul": "src/en/silentquill",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "SilentQuill",
   "stufe": 2,
   "theme": null,
@@ -12213,11 +12237,13 @@
    "en"
   ],
   "host": "silentquill.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5c",
+  "seit": "2026-11-03T10:49:49"
  },
  {
   "modul": "src/en/snafucomic",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Snafu Comics",
   "stufe": 2,
   "theme": null,
@@ -12225,11 +12251,16 @@
    "en"
   ],
   "host": "snafu-comics.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5b",
+  "seit": "2026-11-03T10:49:56",
+  "grund": "Details nur per Abgleich im Katalog /all-comics (Slug-Vergleich), Kapitel = Links mit /<slug>/-Präfix zwischen 'Archive'-Überschrift und nächster Überschrift (Platzhalter im Filter nicht belegt)",
+  "datei": null,
+  "geaendert": "2026-11-03T10:50:20"
  },
  {
   "modul": "src/en/solarandsundry",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Solar and Sundry",
   "stufe": 2,
   "theme": null,
@@ -12237,11 +12268,13 @@
    "en"
   ],
   "host": "sas-api.fly.dev",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:50:05"
  },
  {
   "modul": "src/en/stonescape",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "StoneScape",
   "stufe": 2,
   "theme": null,
@@ -12249,7 +12282,9 @@
    "en"
   ],
   "host": "stonescape.xyz",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5b",
+  "seit": "2026-11-03T10:50:20"
  },
  {
   "modul": "src/en/supermega",

@@ -23,7 +23,208 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "https://api.sacachispa.site/api/manga?page={page}&limit=24",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "lt": [
+     "^pagination.page",
+     "^pagination.pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "const": "/manga/{f.id}/{f.slug}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover",
+     "replace": [
+      [
+       "^/?(?!https?://)",
+       "https://cdn.sacachispa.site/"
+      ]
+     ]
+    }
+   }
+  },
+  "latest": {
+   "request": "https://api.sacachispa.site/api/releases?page=1&limit=100",
+   "format": "json",
+   "items": "data.*.manga",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/manga/{f.id}/{f.slug}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover",
+     "replace": [
+      [
+       "^/?(?!https?://)",
+       "https://cdn.sacachispa.site/"
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": "https://api.sacachispa.site/api/manga/search?q={query}&page={page}&limit=24",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "lt": [
+     "^pagination.page",
+     "^pagination.pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "const": "/manga/{f.id}/{f.slug}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover",
+     "replace": [
+      [
+       "^/?(?!https?://)",
+       "https://cdn.sacachispa.site/"
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": "https://api.sacachispa.site/api/manga/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/manga/([^/?#]+)"
+   },
+   "let": {
+    "syn": "data.synopses.0.synopsis",
+    "alt": {
+     "path": "data.titles.*.title",
+     "all": true,
+     "join": "\n- "
+    }
+   },
+   "fields": {
+    "title": "data.title",
+    "cover": {
+     "path": "data.cover",
+     "replace": [
+      [
+       "^/?(?!https?://)",
+       "https://cdn.sacachispa.site/"
+      ]
+     ]
+    },
+    "author": {
+     "path": "data.authors.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "data.artists.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": [
+      "data.demographic",
+      "data.genres.*.name"
+     ],
+     "union": true,
+     "replace": [
+      [
+       "^NONE(, )?",
+       ""
+      ]
+     ]
+    },
+    "description": {
+     "const": "[[{l.syn}]]\n\n[[**Alternative titles:**\n- {l.alt}]]",
+     "replace": [
+      [
+       "^\\s+|\\s+$",
+       ""
+      ]
+     ]
+    },
+    "status": "data.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "ONGOING": 1,
+    "completed": 2,
+    "COMPLETED": 2,
+    "hiatus": 6,
+    "HIATUS": 6,
+    "dropped": 5,
+    "DROPPED": 5
+   }
+  },
+  "chapters": {
+   "request": "https://api.sacachispa.site/api/releases?mangaId={u.id}&page={page}&limit=500",
+   "format": "json",
+   "url_vars": {
+    "id": "/manga/([^/?#]+)"
+   },
+   "items": "data",
+   "skip": {
+    "any": [
+     {
+      "path": "chapter.freeAt",
+      "is_future": "iso"
+     },
+     {
+      "path": "chapter.patreonOnly",
+      "equals": "true"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/read/{value}"
+    },
+    "name": {
+     "const": "Chapter {f.chapter.chapter}[[ - {f.chapter.title}]]"
+    },
+    "number": "chapter.chapter",
+    "date": "publishedAt"
+   },
+   "date_format": "iso",
+   "paging": {
+    "has_next": {
+     "lt": [
+      "^pagination.page",
+      "^pagination.pages"
+     ]
+    },
+    "max_pages": 20
+   }
+  },
+  "pages": {
+   "request": "https://api.sacachispa.site/api/releases/{u.rid}/pages",
+   "format": "json",
+   "url_vars": {
+    "rid": "/read/([^/?#]+)"
+   },
+   "items": "data.items",
+   "image": "url"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "JSON-API api.sacachispa.site: Beliebt = /manga (Standardreihenfolge der Community, 24 je Seite), Suche /manga/search?q=…, weiter solange pagination.page < pages. Genre-/Katalogfilter nicht übernommen.",
+  "Neueste = die 100 neuesten Releases (/releases, nur Seite 1 wie in der Community); Serien können mehrfach erscheinen (Community entfernt Doppelte).",
+  "Manga-URL /manga/<id>/<slug>; API nutzt die id. Cover über das CDN https://cdn.sacachispa.site/ aufgelöst. Beschreibung = erste Synopsis + Alternativtitel (Haupttitel wird nicht herausgefiltert).",
+  "Patreon-Kapitel übersprungen (Community-Standard 'ausblenden'): freeAt in der Zukunft oder patreonOnly=true. Community wertet patreonOnly nur ohne freeAt – bereits freigegebene Patreon-Kapitel mit gesetztem Flag fehlen hier evtl.",
+  "Kapitel in API-Reihenfolge (Community sortiert absteigend nach Nummer)."
+ ]
 }

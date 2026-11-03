@@ -23,7 +23,160 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": ".comics-flex-pinned a.pinned-comic-card",
+   "fields": {
+    "url": "@href",
+    "title": ".pinned-comic-title",
+    "cover": ".comic-thumbnail img@img"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/comic/page/{page}/?sort=newest",
+   "request_by_page": {
+    "1": "{base}/comic/?sort=newest"
+   },
+   "items": "article.ac-card:has(.ac-title a)",
+   "fields": {
+    "url": ".ac-title a@href",
+    "title": ".ac-title a",
+    "cover": ".ac-thumb img@img"
+   },
+   "has_next": {
+    "exists": ".ac-pagination a.next"
+   }
+  },
+  "search": {
+   "request": "{base}/comic/page/{page}/?post_type=comic&s={query}",
+   "request_by_page": {
+    "1": "{base}/comic/?post_type=comic&s={query}"
+   },
+   "items": "article.ac-card:has(.ac-title a)",
+   "fields": {
+    "url": ".ac-title a@href",
+    "title": ".ac-title a",
+    "cover": ".ac-thumb img@img"
+   },
+   "has_next": {
+    "exists": ".ac-pagination a.next"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "cid": [
+     "#loadMoreChaptersBtn@data-comic-id",
+     {
+      "path": "link[rel=shortlink]@href",
+      "regex": "[?&]p=(\\d+)",
+      "group": 1
+     }
+    ],
+    "nonce": {
+     "path": "html@html",
+     "regex": "comicworld_ajax\\s*=\\s*\\{[^}]*\"nonce\"\\s*:\\s*\"([^\"]+)\"",
+     "group": 1
+    }
+   },
+   "fields": {
+    "title": [
+     ".comic-info-upper h1",
+     "h1"
+    ],
+    "cover": "meta[property=og:image]@content",
+    "author": ".comic-graph > span:not(:contains(•)):eq(0)",
+    "artist": ".comic-graph > span:not(:contains(•)):eq(1)",
+    "status": ".comic-status span:last-child",
+    "genres": {
+     "path": ".comic-genres .genres .genre",
+     "all": true,
+     "join": ", "
+    },
+    "description": ".comic-synopsis"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "cancelled": 5,
+    "canceled": 5
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    },
+    "form": {
+     "action": "load_more_chapters",
+     "nonce": "{l.nonce}",
+     "comic_id": "{l.cid}",
+     "offset": "{offset}"
+    }
+   },
+   "format": "json_html",
+   "html_path": "data.html",
+   "items": "li.chapter",
+   "page_size": 10,
+   "skip": {
+    "any": [
+     {
+      "path": "@data-reason",
+      "regex": "^(?!free$)."
+     },
+     {
+      "path": "@class",
+      "regex": "locked-chapter"
+     },
+     ".chapter_price",
+     {
+      "path": "a@href",
+      "regex": "^#$"
+     }
+    ]
+   },
+   "fields": {
+    "url": [
+     "@data-permalink",
+     "a@href"
+    ],
+    "name": [
+     ".chapter-number",
+     "@data-title"
+    ],
+    "date": ".chapter-date"
+   },
+   "date_format": [
+    "MMMM d, yyyy",
+    "MMM d, yyyy"
+   ],
+   "date_locale": "en",
+   "paging": {
+    "has_next": {
+     "full": true
+    },
+    "max_pages": 100
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img.chapter-image",
+   "image": "@img"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Eigenes WordPress-Theme. Beliebt = angeheftete Comics der Startseite (eine Seite) wie Community.",
+  "Kapitel: Community nimmt die ersten Kapitel von der Detailseite und lädt den Rest per POST admin-ajax.php (action=load_more_chapters, nonce aus comicworld_ajax, comic_id aus #loadMoreChaptersBtn, offset in 10er-Schritten). Rezept lädt ALLE Kapitel per POST ab offset 0 (json_html, data.html) – Annahme: offset 0 liefert die ersten Kapitel; auf dem PC prüfen.",
+  "comic_id-Ersatz: WordPress-Shortlink ?p=<id>, falls der Mehr-laden-Knopf fehlt (wenige Kapitel) – Annahme, auf dem PC prüfen.",
+  "Nonce liefert die Website selbst (comicworld_ajax).",
+  "Gesperrte/bezahlte Kapitel (data-reason≠free, .locked-chapter, .chapter_price, href '#') werden übersprungen.",
+  "Autor/Künstler: Community nimmt die 1./2. nicht leere Spanne in .comic-graph ohne '•'; hier per :eq – prüfen.",
+  "Genre-Filter nicht übernommen."
+ ]
 }

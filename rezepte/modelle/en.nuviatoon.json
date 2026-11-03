@@ -208,6 +208,7 @@
     "id": "#(.+)$"
    },
    "items": "data.pages",
+   "sort": "index",
    "image": "url"
   }
  },
@@ -215,6 +216,6 @@
   "JSON-API {base}/api/comics (pageSize 18; Beliebt sort=popular, Neueste sort=newest, Suche q=…&sort=popular); weiter bei meta.page < meta.totalPages. Filter nicht übernommen. Accept: application/json wie Community.",
   "Kapitel-URL /comics/<slug>/chapter/<nr>#<kapitel-id>; die ID (Community: memo chapterId) steht im Fragment für /api/comic-chapters/<id>/content.",
   "Gesperrte Kapitel (priceCoins > 0) übersprungen (Community-Standard 'Hide locked chapters'). Bewertung in der Beschreibung nicht übernommen.",
-  "Seiten in gelieferter Reihenfolge (Community sortiert zusätzlich nach index)."
+  "Seiten nach 'index' sortiert (sort als Pfad wie en.atsumaru)."
  ]
 }

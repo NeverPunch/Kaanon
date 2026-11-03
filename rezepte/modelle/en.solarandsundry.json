@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Solar and Sundry",
+  "sprache": "en",
+  "base_url": "https://sas-api.fly.dev",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.solarandsundry",
+  "quellen": [
+   {
+    "name": "Solar and Sundry",
+    "sprache": "en",
+    "quell_id": 7250486205199627024,
+    "home": "https://sas-api.fly.dev"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/solarandsundry",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

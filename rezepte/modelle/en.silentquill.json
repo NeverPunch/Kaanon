@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "SilentQuill",
+  "sprache": "en",
+  "base_url": "https://silentquill.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.silentquill",
+  "quellen": [
+   {
+    "name": "SilentQuill",
+    "sprache": "en",
+    "quell_id": 3696994059835859589,
+    "home": "https://silentquill.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/silentquill",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

@@ -1,0 +1,168 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ScansGG",
+  "sprache": "en",
+  "base_url": "https://scans.gg",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.scansgg",
+  "quellen": [
+   {
+    "name": "ScansGG",
+    "sprache": "en",
+    "quell_id": 5988638662832109557,
+    "home": "https://scans.gg"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/scansgg",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "https://api.scans.gg/series?limit=21&offset={offset}",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover",
+     "template": "https://cdn.scans.gg/uploads/covers/{value}"
+    }
+   },
+   "page_size": 21,
+   "has_next": {
+    "full": true
+   }
+  },
+  "latest": {
+   "request": "https://api.scans.gg/chapters?page={page}&limit=14&chapters=true&series_details=true&group_details=true&sort=date",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover",
+     "template": "https://cdn.scans.gg/uploads/covers/{value}"
+    }
+   },
+   "has_next": {
+    "exists": "meta.has_more"
+   }
+  },
+  "search": {
+   "request": "https://api.scans.gg/series?limit=21&offset={offset}&q={query}&q_type=%5B%5D&q_status=%5B%5D&q_tags=%5B%5D",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover",
+     "template": "https://cdn.scans.gg/uploads/covers/{value}"
+    }
+   },
+   "page_size": 21,
+   "has_next": {
+    "full": true
+   }
+  },
+  "details": {
+   "request": "https://api.scans.gg/series?id={u.id}&trackers=true&sources=true",
+   "format": "json",
+   "url_vars": {
+    "id": "/series/(\\d+)"
+   },
+   "fields": {
+    "title": "data.title",
+    "description": "data.summary",
+    "cover": {
+     "path": "data.cover",
+     "template": "https://cdn.scans.gg/uploads/covers/{value}"
+    },
+    "author": {
+     "path": "data.author.*",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "data.artist.*",
+     "all": true,
+     "join": ", "
+    },
+    "status": "data.status"
+   },
+   "status_map": {
+    "1": 1,
+    "2": 2,
+    "3": 5,
+    "4": 5,
+    "5": 5
+   }
+  },
+  "chapters": {
+   "request": "https://api.scans.gg/chapters?series_id={u.id}&limit=100&page={page}&group_details=true",
+   "format": "json",
+   "url_vars": {
+    "id": "/series/(\\d+)"
+   },
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/chapter-navigation?series_id={u.id}&chapter_id={value}&group_id={f.group_id}"
+    },
+    "name": {
+     "path": "number",
+     "template": "Chapter {value}[[ - {f.title}]]"
+    },
+    "number": "number",
+    "date": "created_at",
+    "scanlator": "group.title"
+   },
+   "date_format": "yyyy-MM-dd HH:mm:ss",
+   "paging": {
+    "has_next": {
+     "exists": "meta.has_more"
+    },
+    "max_pages": 30
+   }
+  },
+  "pages": {
+   "request": "https://api.scans.gg{url}",
+   "format": "json",
+   "let": {
+    "cid": "data.chapter.id"
+   },
+   "items": "data.chapter.pages",
+   "sort": "position",
+   "image": {
+    "path": "path",
+    "template": "https://cdn.scans.gg/uploads/pages/{l.cid}/{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "JSON-API api.scans.gg, Bilder/Cover von cdn.scans.gg/uploads.",
+  "Kapitel-URL ist (wie in der Community) der API-Pfad /chapter-navigation?series_id=…&chapter_id=…&group_id=…; pages fragt api.scans.gg{url} ab. group_id leer statt 0, wenn die API null liefert (auf dem PC prüfen).",
+  "Status: 1 laufend, 2 abgeschlossen, 3/4/5 (Hiatus/Cancelled/Dropped) → abgebrochen wie in der Community. Genres sind nur Tag-IDs (Community übersetzt per fester Tabelle) – weggelassen.",
+  "Kapitelnummer im Namen evtl. als '1.0' statt '1' (Community entfernt '.0'). Suche nur Text, Typ/Status/Tag-Filter leer.",
+  "Datum 'yyyy-MM-dd HH:mm:ss' in UTC (Community)."
+ ]
+}
