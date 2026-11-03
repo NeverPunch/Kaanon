@@ -1,0 +1,110 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Playmate Hunter",
+  "sprache": "all",
+  "base_url": "https://pmatehunter.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.playmatehunter",
+  "quellen": [
+   {
+    "name": "Playmate Hunter",
+    "sprache": "all",
+    "quell_id": 1082062847119890629,
+    "home": "https://pmatehunter.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/playmatehunter",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": "masonry"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/archive/page/{page}/",
+   "items": ".list-gallery:not(.static) figure:not(:has(a[href*=/video/]))",
+   "has_next": {
+    "exists": ".pagination-a li.next"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "a@title",
+    "cover": "img@img"
+   },
+   "request_by_page": {
+    "1": "{base}/archive/"
+   }
+  },
+  "latest": {
+   "request": "{base}/updates/sort/newest/mpage/{page}/",
+   "items": ".list-gallery:not(.static) figure:not(:has(a[href*=/video/]))",
+   "has_next": {
+    "exists": ".pagination-a li.next"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "a@title",
+    "cover": "img@img"
+   }
+  },
+  "search": {
+   "request": "{base}/search/post/{query}/mpage/{page}/",
+   "items": ".list-gallery:not(.static) figure:not(:has(a[href*=/video/]))",
+   "has_next": {
+    "exists": ".pagination-a li.next"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "a@title",
+    "cover": "img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "author": "p.link-btn a",
+    "artist": {
+     "path": "p.link-btn a[href*=/model/]",
+     "all": true,
+     "join": ", "
+    },
+    "genres": "p.link-btn a[href*=/tag/]",
+    "description": "#content > p",
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Gallery"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".list-gallery a[href^=https://cdn.]",
+   "image": "@href"
+  }
+ },
+ "hinweise": [
+  "Theme Masonry (Galerie-Seite): ein Kapitel 'Gallery' = die Galerie selbst (Muster wie Vorlage en.hentaifox).",
+  "Beliebt: Community zeigt auf Seite 1 die Startseite, ab Seite 2 /archive/ bzw. /archive/page/<N-1>/ – Rechnen mit N-1 ist nicht belegt; Rezept startet direkt mit /archive/ (Seite 1) und /archive/page/N/ (gleiche Liste, nur ohne Startseite).",
+  "Suche: Suchtext als Pfadsegment /search/post/<query>/mpage/N/ – Kodierung von {query} (Leerzeichen) prüfen.",
+  "Status fest 'abgeschlossen' (Community: COMPLETED, nur einmal laden). Bilder = Links auf https://cdn.… in .list-gallery.",
+  "Tag-/Sortierfilter nicht abgebildet."
+ ]
+}

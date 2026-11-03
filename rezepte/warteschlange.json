@@ -7861,7 +7861,7 @@
  },
  {
   "modul": "src/all/playmatehunter",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Playmate Hunter",
   "stufe": 2,
   "theme": "masonry",
@@ -7871,11 +7871,13 @@
   "host": "pmatehunter.com",
   "nsfw": true,
   "wer": "agent-w2a",
-  "seit": "2026-11-03T10:16:35"
+  "seit": "2026-11-03T10:16:35",
+  "datei": "rezepte/modelle/all.playmatehunter.json",
+  "geaendert": "2026-11-03T10:16:43"
  },
  {
   "modul": "src/all/xarthunter",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "XArt Hunter",
   "stufe": 2,
   "theme": "masonry",
@@ -7883,7 +7885,9 @@
    "all"
   ],
   "host": "xarthunter.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w2a",
+  "seit": "2026-11-03T10:16:43"
  },
  {
   "modul": "src/zh/manhuawu",

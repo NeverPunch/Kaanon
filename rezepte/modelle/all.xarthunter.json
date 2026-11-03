@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "XArt Hunter",
+  "sprache": "all",
+  "base_url": "https://www.xarthunter.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.xarthunter",
+  "quellen": [
+   {
+    "name": "XArt Hunter",
+    "sprache": "all",
+    "quell_id": 7425515716363969566,
+    "home": "https://www.xarthunter.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/xarthunter",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": "masonry"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}
