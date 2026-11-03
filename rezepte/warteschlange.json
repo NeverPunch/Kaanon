@@ -14357,7 +14357,7 @@
  },
  {
   "modul": "src/ja/ganma",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "GANMA!",
   "stufe": 2,
   "theme": null,
@@ -14367,7 +14367,10 @@
   "host": "ganma.jp",
   "nsfw": false,
   "wer": "agent-w6d",
-  "seit": "2026-11-03T11:03:48"
+  "seit": "2026-11-03T11:03:48",
+  "datei": "rezepte/modelle/ja.ganma.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:05:27"
  },
  {
   "modul": "src/ja/hachiraw",
@@ -14552,7 +14555,7 @@
  },
  {
   "modul": "src/ja/mangarw",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Manga Rw",
   "stufe": 2,
   "theme": null,
@@ -14560,11 +14563,13 @@
    "ja"
   ],
   "host": "mangarw.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6d",
+  "seit": "2026-11-03T11:05:27"
  },
  {
   "modul": "src/ja/mangaupjapan",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Manga UP! (Japan)",
   "stufe": 2,
   "theme": null,
@@ -14572,7 +14577,9 @@
    "ja"
   ],
   "host": "manga-up.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7a",
+  "seit": "2026-11-03T11:05:29"
  },
  {
   "modul": "src/ja/miuraw",

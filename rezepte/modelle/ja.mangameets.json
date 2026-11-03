@@ -23,7 +23,135 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/api/comics/search.json?sort=weekly_view_count&page={page}&size=20",
+   "format": "json",
+   "items": "included.*.?type=comic",
+   "fields": {
+    "url": {
+     "path": "attributes.dir_name",
+     "template": "/comics/{value}"
+    },
+    "title": "attributes.title"
+   },
+   "has_next": {
+    "lt": [
+     "data.attributes.current_page",
+     "data.attributes.total_page"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/api/episodes/latest.json?page={page}&size=20",
+   "format": "json",
+   "items": "included.*.?type=comic",
+   "fields": {
+    "url": {
+     "path": "attributes.dir_name",
+     "template": "/comics/{value}"
+    },
+    "title": "attributes.title"
+   },
+   "has_next": {
+    "lt": [
+     "data.attributes.current_page",
+     "data.attributes.total_page"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/api/comics/search.json?keywords={query}&size=20&page={page}",
+   "format": "json",
+   "items": "included.*.?type=comic",
+   "fields": {
+    "url": {
+     "path": "attributes.dir_name",
+     "template": "/comics/{value}"
+    },
+    "title": "attributes.title"
+   },
+   "has_next": {
+    "lt": [
+     "data.attributes.current_page",
+     "data.attributes.total_page"
+    ]
+   }
+  },
+  "details": {
+   "request": "{base}/api/comics/{u.dir}.json",
+   "format": "json",
+   "url_vars": {
+    "dir": "/comics/([^/?#]+)"
+   },
+   "fields": {
+    "title": "data.attributes.title",
+    "author": {
+     "path": "data.attributes.authors",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "data.attributes.authors",
+     "all": true,
+     "join": ", "
+    },
+    "description": "data.attributes.outline",
+    "genres": {
+     "path": "included.*.?type=comic_genre.attributes.name",
+     "all": true,
+     "join": ", "
+    },
+    "cover": "included.*.?type=image.attributes.url",
+    "status": {
+     "path": "data.attributes.finished",
+     "default": "false"
+    }
+   },
+   "status_map": {
+    "true": 2,
+    "false": 1
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/comics/{u.dir}/episodes.json",
+   "format": "json",
+   "url_vars": {
+    "dir": "/comics/([^/?#]+)"
+   },
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "attributes.sort_volume",
+     "template": "/comics/{u.dir}/{value}"
+    },
+    "name": {
+     "path": "attributes.volume",
+     "template": "Chapter {value}[[ - {f.attributes.title}]]"
+    },
+    "number": "attributes.sort_volume",
+    "date": "attributes.published_at"
+   },
+   "date_format": "iso",
+   "reverse": true
+  },
+  "pages": {
+   "request": "{base}/api/comics/{u.dir}/episodes/{u.ch}/viewer.json",
+   "format": "json",
+   "url_vars": {
+    "dir": "/comics/([^/?#]+)/",
+    "ch": "/comics/[^/]+/([^/?#]+)"
+   },
+   "items": "episode_pages",
+   "sort": "order_index",
+   "image": "image.original_url"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "JSON:API von manga-meets.jp (/api/comics/search.json, /api/episodes/latest.json, 20 je Seite, weiter solange current_page < total_page).",
+  "Listen: Werke als 'included'-Einträge mit type=comic (Community löst die Reihenfolge über data.relationships auf; doppelte Werke in 'Neueste' entfernt sie per distinctBy – hier nicht). Cover in Listen fehlen, weil sie nur über eine ID-Verknüpfung (thumbnail_image → included image) erreichbar sind.",
+  "Details: Cover = erstes included-Bild (type=image), Genre = alle included comic_genre – Community löst beides über die Relationship-ID auf; bei mehreren Bildern ggf. falsches Cover. Status: finished true → abgeschlossen, sonst laufend.",
+  "Eintrags-URL /comics/<dir_name>, Kapitel-URL /comics/<dir_name>/<sort_volume> (Web-URLs der Community).",
+  "Suche keywords=…; Sortier- und Tag/Genre-Filter nicht übernommen."
+ ]
 }

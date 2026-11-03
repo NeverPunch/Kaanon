@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga UP! (Japan)",
+  "sprache": "ja",
+  "base_url": "https://www.manga-up.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.mangaupjapan",
+  "quellen": [
+   {
+    "name": "Manga UP! (Japan)",
+    "sprache": "ja",
+    "quell_id": 697820552173578283,
+    "home": "https://www.manga-up.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/mangaupjapan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}
