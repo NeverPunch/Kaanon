@@ -131,16 +131,7 @@
     "name": "[?&]name=([^&#]+)"
    },
    "fields": {
-    "title": "data.rows.0.name",
-    "author": {
-     "const": "Hypergryph"
-    },
-    "status": {
-     "const": "ongoing"
-    }
-   },
-   "status_map": {
-    "ongoing": 1
+    "title": "data.rows.0.name"
    }
   },
   "chapters": {
@@ -175,7 +166,7 @@
  "hinweise": [
   "API arknights.global/api/resource/comic/{list,details}. Liste ohne Paginierung; Suche filtert wie die Community lokal (client_filter).",
   "Manga-URL /comic?name=<Name> (Website-Route); der Name wird per replace URL-kodiert (Leerzeichen, &, #, +, ?, %) und so wieder in die API-Anfrage eingesetzt.",
-  "Details: Die Community sucht den Eintrag in der Gesamtliste per Name (Cover, Beschreibung) – ein JSON-Filter mit Platzhalter ist nicht belegt; hier Titel aus der Kapitelantwort, Cover nur aus der Liste, keine Beschreibung. Autor 'Hypergryph' und Status 'laufend' sind feste Annahmen (Community setzt beides nicht) – ggf. entfernen.",
+  "Details: Die Community sucht den Eintrag in der Gesamtliste per Name (Cover, Beschreibung) – ein JSON-Filter mit Platzhalter ist nicht belegt; hier Titel aus der Kapitelantwort, Cover nur aus der Liste, keine Beschreibung.",
   "Kapitel: Community sortiert nach Kapitelnummer absteigend (API-Reihenfolge je Comic unterschiedlich) – keine Sortierung in chapters belegt, Reihenfolge wie API.",
   "Cover: smallImage ist Text oder einelementige Liste – Ausweichkette."
  ]

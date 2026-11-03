@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "aurora",
+  "sprache": "en",
+  "base_url": "https://comicaurora.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.aurora",
+  "quellen": [
+   {
+    "name": "Aurora",
+    "sprache": "en",
+    "quell_id": 9148518200946142514,
+    "home": "https://comicaurora.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/aurora",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.5",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

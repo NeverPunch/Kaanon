@@ -10302,7 +10302,7 @@
  },
  {
   "modul": "src/en/arknightscomics",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Arknights Comics",
   "stufe": 2,
   "theme": null,
@@ -10312,7 +10312,9 @@
   "host": "arknights.global",
   "nsfw": false,
   "wer": "agent-w3b",
-  "seit": "2026-11-03T10:36:44"
+  "seit": "2026-11-03T10:36:44",
+  "datei": "rezepte/modelle/en.arknightscomics.json",
+  "geaendert": "2026-11-03T10:37:18"
  },
  {
   "modul": "src/en/arvenscansnet",
@@ -10346,7 +10348,7 @@
  },
  {
   "modul": "src/en/bbato",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Bbato",
   "stufe": 2,
   "theme": null,
@@ -10354,7 +10356,9 @@
    "en"
   ],
   "host": "bato1.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w3b",
+  "seit": "2026-11-03T10:37:18"
  },
  {
   "modul": "src/en/broccolisoup",
