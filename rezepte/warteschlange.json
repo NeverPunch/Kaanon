@@ -12198,7 +12198,7 @@
  },
  {
   "modul": "src/en/schalescans",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Schale Scans",
   "stufe": 2,
   "theme": null,
@@ -12208,7 +12208,10 @@
   "host": "schalescans.com",
   "nsfw": false,
   "wer": "agent-w4c",
-  "seit": "2026-11-03T10:49:36"
+  "seit": "2026-11-03T10:49:36",
+  "datei": "rezepte/modelle/en.schalescans.json",
+  "grund": null,
+  "geaendert": "2026-11-03T10:50:33"
  },
  {
   "modul": "src/en/schlockmercenary",
@@ -12260,7 +12263,7 @@
  },
  {
   "modul": "src/en/solarandsundry",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Solar and Sundry",
   "stufe": 2,
   "theme": null,
@@ -12270,7 +12273,10 @@
   "host": "sas-api.fly.dev",
   "nsfw": false,
   "wer": "agent-w5a",
-  "seit": "2026-11-03T10:50:05"
+  "seit": "2026-11-03T10:50:05",
+  "datei": "rezepte/modelle/en.solarandsundry.json",
+  "grund": null,
+  "geaendert": "2026-11-03T10:50:28"
  },
  {
   "modul": "src/en/stonescape",
@@ -12288,7 +12294,7 @@
  },
  {
   "modul": "src/en/supermega",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "SUPER MEGA",
   "stufe": 2,
   "theme": null,
@@ -12296,11 +12302,16 @@
    "en"
   ],
   "host": "supermegacomics.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:50:28",
+  "grund": "Kapitelliste wird als Zählschleife N..1 erzeugt (N = ?i= des 'previous'-Buttons der Startseite + 1, Elternelement-Zugriff) – Zahlenbereich als Kapitelquelle in keiner Vorlage belegt; feste Ein-Eintrag-Liste",
+  "datei": null,
+  "geaendert": "2026-11-03T10:50:39"
  },
  {
   "modul": "src/en/swordscomic",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Swords Comic",
   "stufe": 2,
   "theme": null,
@@ -12308,7 +12319,9 @@
    "en"
   ],
   "host": "swordscomic.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:50:39"
  },
  {
   "modul": "src/en/tailspace",

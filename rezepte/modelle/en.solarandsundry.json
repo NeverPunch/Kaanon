@@ -23,7 +23,78 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/page",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/page"
+    },
+    "title": {
+     "const": "Solar and Sundry"
+    },
+    "cover": {
+     "const": "https://imagedelivery.net/zthi1l8fKrUGB5ig08mq-Q/de292ba7-f164-4f43-ec17-1876a7a44600/public"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "json",
+   "fields": {
+    "title": {
+     "const": "Solar and Sundry"
+    },
+    "author": {
+     "const": "Ewan Breakey"
+    },
+    "artist": {
+     "const": "Ewan Breakey"
+    },
+    "description": {
+     "const": "a sci-fi horror webcomic about life blooming against all odds"
+    },
+    "cover": {
+     "const": "https://imagedelivery.net/zthi1l8fKrUGB5ig08mq-Q/de292ba7-f164-4f43-ec17-1876a7a44600/public"
+    },
+    "status": {
+     "const": "ongoing"
+    }
+   },
+   "status_map": {
+    "ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "page_number",
+     "template": "/page/{value}"
+    },
+    "name": "name",
+    "number": "page_number",
+    "date": "published_at"
+   },
+   "date_format": "iso",
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "items": "\"image_url\"\\s*:\\s*\"([^\"]+)\"",
+   "image": ""
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Ein einziger Eintrag (Community ohne Anfrage); Liste lädt die API-Seitenliste {base}/page (sas-api.fly.dev) nur als Träger, Felder per const.",
+  "Jede Comicseite ist ein Kapitel (/page/<n>); Bild per Text-Regex aus dem Einzelobjekt (image_url).",
+  "Keine Suche (Community ebenso). Die Webview-URL der Community (sas.ewanb.me) wird nicht nachgebildet."
+ ]
 }
