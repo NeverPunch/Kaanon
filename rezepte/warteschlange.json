@@ -14221,7 +14221,7 @@
  },
  {
   "modul": "src/id/westmanga",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "West Manga",
   "stufe": 2,
   "theme": null,
@@ -14231,11 +14231,14 @@
   "host": "v1.westmanga.my",
   "nsfw": false,
   "wer": "agent-w6c",
-  "seit": "2026-11-03T11:02:58"
+  "seit": "2026-11-03T11:02:58",
+  "datei": "rezepte/modelle/id.westmanga.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:03:43"
  },
  {
   "modul": "src/id/wurmz",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Wurmz",
   "stufe": 2,
   "theme": null,
@@ -14245,7 +14248,10 @@
   "host": "wurmz.net",
   "nsfw": false,
   "wer": "agent-w5d",
-  "seit": "2026-11-03T11:03:04"
+  "seit": "2026-11-03T11:03:04",
+  "datei": "rezepte/modelle/id.wurmz.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:03:41"
  },
  {
   "modul": "src/it/animegdrclub",
@@ -14266,7 +14272,7 @@
  },
  {
   "modul": "src/it/hentaiarchive",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "HentaiArchive",
   "stufe": 2,
   "theme": null,
@@ -14276,7 +14282,10 @@
   "host": "hentai-archive.com",
   "nsfw": true,
   "wer": "agent-w6a",
-  "seit": "2026-11-03T11:03:17"
+  "seit": "2026-11-03T11:03:17",
+  "datei": "rezepte/modelle/it.hentaiarchive.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:03:43"
  },
  {
   "modul": "src/it/hentaifantasy",
@@ -14294,7 +14303,7 @@
  },
  {
   "modul": "src/it/zeurelscan",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "ZeurelScan",
   "stufe": 2,
   "theme": null,
@@ -14302,11 +14311,13 @@
    "it"
   ],
   "host": "zeurelscan.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5d",
+  "seit": "2026-11-03T11:03:41"
  },
  {
   "modul": "src/ja/dokiraw",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Dokiraw",
   "stufe": 2,
   "theme": null,
@@ -14314,11 +14325,13 @@
    "ja"
   ],
   "host": "dokiraw.city",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6c",
+  "seit": "2026-11-03T11:03:43"
  },
  {
   "modul": "src/ja/ganganonline",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Gangan Online",
   "stufe": 2,
   "theme": null,
@@ -14326,7 +14339,9 @@
    "ja"
   ],
   "host": "ganganonline.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6a",
+  "seit": "2026-11-03T11:03:43"
  },
  {
   "modul": "src/ja/ganma",

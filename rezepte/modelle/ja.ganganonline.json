@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Gangan Online",
+  "sprache": "ja",
+  "base_url": "https://www.ganganonline.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.ganganonline",
+  "quellen": [
+   {
+    "name": "Gangan Online",
+    "sprache": "ja",
+    "quell_id": 1467355738916791140,
+    "home": "https://www.ganganonline.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/ganganonline",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ZeurelScan",
+  "sprache": "it",
+  "base_url": "https://www.zeurelscan.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.it.kaanon.zeurelscan",
+  "quellen": [
+   {
+    "name": "ZeurelScan",
+    "sprache": "it",
+    "quell_id": 8830049663587145084,
+    "home": "https://www.zeurelscan.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/it/zeurelscan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

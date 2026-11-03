@@ -23,7 +23,157 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "vars": {
+   "visit": {
+    "request": "{base}/api/visit-token",
+    "format": "json",
+    "value": "token",
+    "ttl_s": 1800
+   }
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/api/contents?orderBy=Popular&page={page}&per_page=20&type=Comic",
+    "headers": {
+     "X-WM-Visit": "{v.visit}",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   },
+   "has_next": {
+    "lt": [
+     "paginator.current_page",
+     "paginator.last_page"
+    ]
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/api/contents?orderBy=Update&page={page}&per_page=20&type=Comic",
+    "headers": {
+     "X-WM-Visit": "{v.visit}",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   },
+   "has_next": {
+    "lt": [
+     "paginator.current_page",
+     "paginator.last_page"
+    ]
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/contents?q={query}&page={page}&per_page=20&type=Comic",
+    "headers": {
+     "X-WM-Visit": "{v.visit}",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   },
+   "has_next": {
+    "lt": [
+     "paginator.current_page",
+     "paginator.last_page"
+    ]
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{base}/api/comic/{u.slug}",
+    "headers": {
+     "X-WM-Visit": "{v.visit}",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/(?:comic|manga)/([^/?#]+)"
+   },
+   "fields": {
+    "title": "data.title",
+    "cover": "data.cover",
+    "description": {
+     "path": "data.sinopsis",
+     "decode": "html_text"
+    },
+    "author": "data.author",
+    "genres": "data.genres.*.name",
+    "status": "data.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "data.chapters",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/view/{value}"
+    },
+    "name": {
+     "path": "number",
+     "template": "Chapter {value}"
+    },
+    "number": "number",
+    "date": "updated_at.time"
+   },
+   "date_format": "epoch_s"
+  },
+  "pages": {
+   "request": {
+    "url": "{base}/api/v/{u.slug}",
+    "headers": {
+     "X-WM-Visit": "{v.visit}",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/view/([^/?#]+)"
+   },
+   "items": "data.images",
+   "image": ""
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "API /api/contents, /api/comic/<slug>, /api/v/<kapitel-slug> wie Community. Header X-WM-Visit = Besuchs-Token, das die Website selbst unter /api/visit-token ausgibt (vars, ttl 30 min; Community erneuert bei 403/404).",
+  "Sortierung Beliebt/Neueste: orderBy=Popular bzw. orderBy=Update (aus Filters.kt). Status-/Land-/Farb-/Genrefilter nicht nachgebaut.",
+  "Manga-URL /comic/<slug> (Community speichert /manga/<slug>/ aus Altgründen), Kapitel-URL /view/<slug> (Community /<slug>/).",
+  "Optionales Bearer-Token aus dem Local Storage (Anmeldung) nicht nachgebaut. Land/Farbe als Genre und Alternativname in der Beschreibung weggelassen.",
+  "Relative Cover-/Bildpfade ergänzt die Community um die Basis-URL; hier ungeändert übernommen."
+ ]
 }

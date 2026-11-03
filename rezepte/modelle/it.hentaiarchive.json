@@ -23,7 +23,102 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "image_headers": {
+   "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8"
+  },
+  "popular": {
+   "request": "{base}/category/hentai-recenti/page/{page}",
+   "items": "div.posts-container article",
+   "fields": {
+    "url": "a.entire-meta-link@href",
+    "title": "span.screen-reader-text",
+    "cover": [
+     "span.post-featured-img img.wp-post-image@data-nectar-img-src",
+     "span.post-featured-img img.wp-post-image@img"
+    ]
+   },
+   "has_next": {
+    "exists": "nav#pagination a.next.page-numbers"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}",
+   "items": "article.result",
+   "fields": {
+    "url": "h2.title a@href",
+    "title": "h2.title a",
+    "cover": "a img.wp-post-image@img"
+   },
+   "has_next": {
+    "exists": "a.next.page-numbers"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.main-content h1",
+    "genres": {
+     "path": "div.main-content .meta-category > *@class",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       "-",
+       " "
+      ],
+      [
+       "hentai",
+       ""
+      ],
+      [
+       "\\s+,",
+       ","
+      ],
+      [
+       "\\s{2,}",
+       " "
+      ]
+     ]
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Chapter"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.content-inner img:not(.sp-banner img)",
+   "image": {
+    "path": "@img",
+    "replace": [
+     [
+      "-(\\d+x\\d+)(?=\\.jpg)",
+      ""
+     ]
+    ]
+   }
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "WordPress-Galerieseite: Beliebt = Kategorie 'hentai-recenti' (Community hat kein 'Neueste'), Suche ?s=….",
+  "Ein Kapitel 'Chapter' = Galerie-URL (wie Community, Muster en.myhentaigallery); Status fest abgeschlossen.",
+  "Genres aus den Klassennamen unter .meta-category ('-' → Leerzeichen, 'hentai' entfernt) – Annahme, dass @class bei 'all' je Element den Klassentext liefert.",
+  "Bilder: Größenzusatz -WxH vor .jpg entfernt (Originalgröße). CDN-Accept-Header als image_headers (Community nur für picsarchive1.b-cdn.net)."
+ ]
 }
