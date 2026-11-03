@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Qi Scans",
+  "sprache": "en",
+  "base_url": "https://qimanga.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.qiscans",
+  "quellen": [
+   {
+    "name": "QiScans",
+    "sprache": "en",
+    "quell_id": 5806040666300479660,
+    "home": "https://qimanga.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/qiscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "ezmanhwa"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

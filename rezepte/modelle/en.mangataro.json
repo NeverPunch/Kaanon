@@ -228,6 +228,7 @@
   "Kapitelliste braucht wie bei Rolia Scan das Token _t = md5('<epoch>mng_ch_<yyyyMMddHH UTC>')[:16] + _ts; übernommen aus der Vorlage (vars mit hash md5). Bei falscher Geräteuhr antwortet die Seite 403 – die Community korrigiert per Date-Header, das Rezept nicht. Zeitzone von {nowf:yyyyMMddHH} muss UTC sein – auf dem PC prüfen.",
   "Kapitelname wie im Theme: 'Chapter X: Titel' (Titel optional); Platzhalter-Titel wie 'N/A' filtert das Rezept nicht heraus.",
   "Suche wie in der Vorlage über /wp-json/manga/v1/load mit search; Community nutzt ohne Filter standardmäßig POST /auth/search (limit 25, keine Seiten).",
-  "Status steht bei MangaTaro nur in der Liste, nicht in /wp-json/wp/v2/manga – Details ohne Status (wie Vorlage)."
+  "Status steht bei MangaTaro nur in der Liste, nicht in /wp-json/wp/v2/manga – Details ohne Status (wie Vorlage).",
+  "Regel-Prüfung im Builder: Die Kapitelliste braucht ein Zeit-Token (md5 aus Zeitstempel + fester Text), das das Skript der Website selbst bildet – genau wie bei unserer ausgelieferten Rolia-Scan-Extension. Wird das dort beanstandet, gilt es hier ebenso."
  ]
 }

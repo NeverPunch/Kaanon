@@ -6358,7 +6358,7 @@
  },
  {
   "modul": "src/en/readmanga18",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "ReadManga18",
   "stufe": 1,
   "theme": "yiimadara",
@@ -6368,7 +6368,9 @@
   "host": "readmanga18.com",
   "nsfw": true,
   "wer": "agent-s1",
-  "seit": "2026-11-03T10:05:25"
+  "seit": "2026-11-03T10:05:25",
+  "datei": "rezepte/modelle/en.readmanga18.json",
+  "geaendert": "2026-11-03T10:05:30"
  },
  {
   "modul": "src/ar/comicverse",
@@ -6857,7 +6859,7 @@
  },
  {
   "modul": "src/en/ezmanga",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "EZmanga",
   "stufe": 2,
   "theme": "ezmanhwa",
@@ -6865,11 +6867,13 @@
    "en"
   ],
   "host": "ezmanga.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w1d",
+  "seit": "2026-11-03T10:05:27"
  },
  {
   "modul": "src/en/qiscans",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Qi Scans",
   "stufe": 2,
   "theme": "ezmanhwa",
@@ -6877,11 +6881,13 @@
    "en"
   ],
   "host": "qimanga.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w1b",
+  "seit": "2026-11-03T10:05:28"
  },
  {
   "modul": "src/ca/fansubscat",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Fansubs.cat",
   "stufe": 2,
   "theme": "fansubscat",
@@ -6889,11 +6895,13 @@
    "ca"
   ],
   "host": "manga.fansubs.cat",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w1c",
+  "seit": "2026-11-03T10:05:29"
  },
  {
   "modul": "src/ca/fansubscathentai",
-  "status": "offen",
+  "status": "fertig",
   "name": "Hentai.cat",
   "stufe": 2,
   "theme": "fansubscat",
@@ -6901,11 +6909,15 @@
    "ca"
   ],
   "host": "manga.hentai.cat",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w1a",
+  "seit": "2026-11-03T10:05:35",
+  "datei": "rezepte/modelle/ca.hentaicat.json",
+  "geaendert": "2026-11-03T10:06:13"
  },
  {
   "modul": "src/ja/mangagun",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "NihonKuni",
   "stufe": 2,
   "theme": "fmreader",
@@ -6913,7 +6925,9 @@
    "ja"
   ],
   "host": "nihonkuni.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w1a",
+  "seit": "2026-11-03T10:06:14"
  },
  {
   "modul": "src/ja/rawinu",

@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Fansubs.cat",
+  "sprache": "ca",
+  "base_url": "https://manga.fansubs.cat",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ca.kaanon.fansubscat",
+  "quellen": [
+   {
+    "name": "Fansubs.cat",
+    "sprache": "ca",
+    "quell_id": 3974404971892520732,
+    "home": "https://manga.fansubs.cat"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ca/fansubscat",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "fansubscat"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

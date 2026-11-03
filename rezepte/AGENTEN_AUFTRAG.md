@@ -20,11 +20,13 @@ Schon fertige Stufe-2-Rezepte (`rezepte/modelle/`) sind ebenfalls Vorlagen, beso
 5. `python3 werkzeuge/rezepte/pruefe_rezepte.py rezepte/modelle/<datei>.json` → keine FEHLER.
 6. `python3 werkzeuge/rezepte/warteschlange.py fertig <modul> --datei rezepte/modelle/<datei>.json`
    Nicht ausdrückbar (WebView, JS ausführen, unbekannte Entschlüsselung/Entwürfelung außer aes_cryptojs/packer/base64/grid/rects,
-   Protobuf, Signaturen, Login zum Lesen, Rekursion): Gerüst löschen,
+   Protobuf, Signaturen mit geheimen Schlüsseln (HMAC o. ä.), Login zum Lesen, Rekursion): Gerüst löschen,
    `python3 werkzeuge/rezepte/warteschlange.py zurueck <modul> --grund "<kurz, konkret>"`.
 
 ## Regeln
 - Keine erfundenen Schlüssel oder Platzhalter. Was es in keiner Vorlage gibt → zurückstellen.
 - Regel 0014: keine Prüfseiten/CAPTCHAs lösen, kein DRM, keine Bezahlschranken umgehen, keine selbst erzeugten
   Schlüssel/Signaturen. Gesperrte Kapitel per `skip`/`locked` auslassen.
+- Zeit-Tokens, die das Skript der Website selbst bildet und die schon in einer Vorlage vorkommen (`vars` mit `hash`, z. B. en.roliascan),
+  dürfen wie dort verwendet werden; in `hinweise` vermerken.
 - Nur eigene `rezepte/modelle/*.json` anlegen; die Warteschlange nur über das Skript ändern.
