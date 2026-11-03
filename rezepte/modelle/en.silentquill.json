@@ -23,7 +23,129 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": "[class*=grid-cols-4]:has(a[href]) > *:has(img[alt])",
+   "fields": {
+    "url": "a@href",
+    "title": "img@alt",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/search/?q=&page={page}",
+   "items": "[class*=grid-cols] > *:has(img[src][alt])",
+   "fields": {
+    "url": "a@href",
+    "title": "img@alt",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a[rel=next], a[aria-label*=Next], a:containsOwn(Next)"
+   }
+  },
+  "search": {
+   "request": "{base}/search/?q={query}&page={page}",
+   "items": "[class*=grid-cols] > *:has(img[src][alt])",
+   "fields": {
+    "url": "a@href",
+    "title": "img@alt",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a[rel=next], a[aria-label*=Next], a:containsOwn(Next)"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "author": {
+     "path": "p.mt-2.text-sm.text-ink-dim",
+     "replace": [
+      [
+       " · art by .*$",
+       ""
+      ]
+     ]
+    },
+    "artist": {
+     "path": "p.mt-2.text-sm.text-ink-dim",
+     "regex": " · art by (.+)$",
+     "group": 1
+    },
+    "description": "div.reader-content",
+    "genres": {
+     "path": "a[href^=/search/?genre=]",
+     "all": true,
+     "join": ", "
+    },
+    "status": "dt:containsOwn(Status) + dd, dt:containsOwn(Status) + *",
+    "cover": "main img[src^=/img/]@src"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "items": "\\{[^{}]*\"chapter_no\":[^{}]*\\}",
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"slug\":\"([^\"]+)\"",
+     "group": 1,
+     "template": "{url}{value}/"
+    },
+    "name": {
+     "path": "",
+     "regex": "\"chapter_no\":\"([^\"]*)\"",
+     "group": 1,
+     "template": "Chapter {value}"
+    },
+    "number": {
+     "path": "",
+     "regex": "\"chapter_no\":\"(\\d+(?:\\.\\d+)?)",
+     "group": 1
+    },
+    "date": {
+     "path": "",
+     "regex": "\"time_ago\":\"([^\"]*)\"",
+     "group": 1
+    }
+   },
+   "date_format": "relative",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "block_regex": "(?s)\"pages\":\\[(.*?)\\]",
+   "items": "\"url\":\"([^\"]+)\"",
+   "image": ""
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Community liest Liste/Suche aus den Next.js-Flight-Daten (rsc:1, Baumsuche nach className grid-cols…); hier gleichwertig aus dem gerenderten HTML: Karten = Kinder des grid-cols-Containers mit img[alt] (Titel) und a@href (/series/<slug>/). Beliebt: Startseite, nur erster grid-cols-4-Block in der Community – hier alle passenden Blöcke (ggf. Doppelte).",
+  "Neueste = Suche mit leerem q wie Community. Weiter-Erkennung: Community sucht einen Link mit page=<n+1>; hier per rel=next/Next-Link geraten – auf dem PC prüfen.",
+  "Details per HTML wie Community (Autor/Zeichner aus 'p.mt-2.text-sm.text-ink-dim' getrennt an ' · art by ').",
+  "Kapitel: Community nimmt die erste JSON-Liste aus den Flight-Daten der Serienseite; hier rsc:1-Abruf und Regex auf Objekte mit chapter_no (Schlüssel einzeln per Regex, Reihenfolge egal). URL /series/<slug>/<kapitel-slug>/, Datum aus time_ago (relativ). Sortierung nach Nummer absteigend nicht nachgebildet.",
+  "Seiten: rsc:1-Abruf der Kapitelseite, Block \"pages\":[…], Bild = url (relativ zu base)."
+ ]
 }

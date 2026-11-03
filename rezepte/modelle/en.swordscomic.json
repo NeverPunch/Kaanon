@@ -1,0 +1,106 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Swords Comic",
+  "sprache": "en",
+  "base_url": "https://swordscomic.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.swordscomic",
+  "quellen": [
+   {
+    "name": "Swords Comic",
+    "sprache": "en",
+    "quell_id": 4098334577101891258,
+    "home": "https://swordscomic.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/swordscomic",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/archive/pages/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/archive/pages/"
+    },
+    "title": {
+     "const": "Swords Comic"
+    },
+    "cover": {
+     "const": "https://swordscomic.com/media/ArgoksEdgeEmote.png"
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/archive/pages/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/archive/pages/"
+    },
+    "title": {
+     "const": "Swords Comic"
+    },
+    "cover": {
+     "const": "https://swordscomic.com/media/ArgoksEdgeEmote.png"
+    }
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "Swords Comic"
+    },
+    "author": {
+     "const": "Matthew Wills"
+    },
+    "artist": {
+     "const": "Matthew Wills"
+    },
+    "description": {
+     "const": "A webcomic about swords and the heroes who wield them"
+    },
+    "cover": {
+     "const": "https://swordscomic.com/media/ArgoksEdgeEmote.png"
+    }
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a.archive-tile",
+   "fields": {
+    "url": "@href",
+    "name": "strong",
+    "date": "small"
+   },
+   "date_format": "dd MMM yyyy",
+   "date_locale": "en",
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img#comic-image",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Ein einziger Eintrag (Community ohne Anfrage); Archivseite /archive/pages/ als Listen-Anfrage, Felder per const. Suche filtert lokal (Community liefert immer den Eintrag).",
+  "Jede Comicseite ist ein Kapitel (a.archive-tile). Seiten: nur das Comicbild; die Community hängt den title-Text als gerenderte Textseite an (TextInterceptor) – nicht ausdrückbar."
+ ]
+}

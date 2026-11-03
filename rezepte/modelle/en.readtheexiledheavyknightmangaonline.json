@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Read The Exiled Heavy Knight Manga Online",
+  "sprache": "en",
+  "base_url": "https://w2.theexiledheavyknight.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.readtheexiledheavyknightmangaonline",
+  "quellen": [
+   {
+    "name": "Read The Exiled Heavy Knight Manga Online",
+    "sprache": "en",
+    "quell_id": 7393909338134202317,
+    "home": "https://w2.theexiledheavyknight.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/theexiledheavyknightmangaonline",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

@@ -12232,7 +12232,7 @@
  },
  {
   "modul": "src/en/silentquill",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "SilentQuill",
   "stufe": 2,
   "theme": null,
@@ -12242,7 +12242,10 @@
   "host": "silentquill.net",
   "nsfw": false,
   "wer": "agent-w5c",
-  "seit": "2026-11-03T10:49:49"
+  "seit": "2026-11-03T10:49:49",
+  "datei": "rezepte/modelle/en.silentquill.json",
+  "grund": null,
+  "geaendert": "2026-11-03T10:50:57"
  },
  {
   "modul": "src/en/snafucomic",
@@ -12280,7 +12283,7 @@
  },
  {
   "modul": "src/en/stonescape",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "StoneScape",
   "stufe": 2,
   "theme": null,
@@ -12290,7 +12293,10 @@
   "host": "stonescape.xyz",
   "nsfw": false,
   "wer": "agent-w5b",
-  "seit": "2026-11-03T10:50:20"
+  "seit": "2026-11-03T10:50:20",
+  "datei": "rezepte/modelle/en.stonescape.json",
+  "grund": null,
+  "geaendert": "2026-11-03T10:50:42"
  },
  {
   "modul": "src/en/supermega",
@@ -12311,7 +12317,7 @@
  },
  {
   "modul": "src/en/swordscomic",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Swords Comic",
   "stufe": 2,
   "theme": null,
@@ -12321,11 +12327,14 @@
   "host": "swordscomic.com",
   "nsfw": false,
   "wer": "agent-w5a",
-  "seit": "2026-11-03T10:50:39"
+  "seit": "2026-11-03T10:50:39",
+  "datei": "rezepte/modelle/en.swordscomic.json",
+  "grund": null,
+  "geaendert": "2026-11-03T10:50:53"
  },
  {
   "modul": "src/en/tailspace",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Tailspace",
   "stufe": 2,
   "theme": null,
@@ -12333,11 +12342,16 @@
    "en"
   ],
   "host": "tailspace.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w5b",
+  "seit": "2026-11-03T10:50:42",
+  "grund": "React-Router-turbo-stream (.data) mit Index-Referenzen, die erst rekursiv aufgelöst werden müssen; Serien als verkettete Liste (previous/nextComic) per Einzelabruf",
+  "datei": null,
+  "geaendert": "2026-11-03T10:50:51"
  },
  {
   "modul": "src/en/teamshadowi",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Team Shadowi",
   "stufe": 2,
   "theme": null,
@@ -12345,11 +12359,13 @@
    "en"
   ],
   "host": "team-shadowi.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5b",
+  "seit": "2026-11-03T10:50:51"
  },
  {
   "modul": "src/en/thebeginningaftertheendmangaonline",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Read The Beginning After The End Manga Online",
   "stufe": 2,
   "theme": null,
@@ -12357,11 +12373,13 @@
    "en"
   ],
   "host": "w22.thebeginningaftertheendmanga.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5d",
+  "seit": "2026-11-03T10:50:51"
  },
  {
   "modul": "src/en/theduckwebcomics",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "The Duck Webcomics",
   "stufe": 2,
   "theme": null,
@@ -12369,11 +12387,13 @@
    "en"
   ],
   "host": "theduckwebcomics.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:50:53"
  },
  {
   "modul": "src/en/theexiledheavyknightmangaonline",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Read The Exiled Heavy Knight Manga Online",
   "stufe": 2,
   "theme": null,
@@ -12381,7 +12401,9 @@
    "en"
   ],
   "host": "w2.theexiledheavyknight.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5c",
+  "seit": "2026-11-03T10:50:57"
  },
  {
   "modul": "src/en/thegirlfromrandomchattingmangaonline",

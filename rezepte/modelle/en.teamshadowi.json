@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Team Shadowi",
+  "sprache": "en",
+  "base_url": "https://www.team-shadowi.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.teamshadowi",
+  "quellen": [
+   {
+    "name": "Team Shadowi",
+    "sprache": "en",
+    "quell_id": 1326600535134927871,
+    "home": "https://www.team-shadowi.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/teamshadowi",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}
