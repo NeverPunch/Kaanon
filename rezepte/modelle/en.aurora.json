@@ -23,7 +23,86 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/archive/",
+   "items": ".wp-block-image:has(a)",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a@href",
+    "title": {
+     "path": "a",
+     "template": "Aurora - {value}"
+    },
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/archive/",
+   "items": ".wp-block-image:has(a)",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a@href",
+    "title": {
+     "path": "a",
+     "template": "Aurora - {value}"
+    },
+    "cover": "img@src"
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "author": {
+     "const": "OSP-Red"
+    },
+    "genres": {
+     "const": "fantasy"
+    },
+    "description": {
+     "const": "Aurora is a fantasy webcomic (updates M/W/F) written and illustrated by Red, better known for her work on the YouTube channel “Overly Sarcastic Productions.” It’s been in the works for over a decade, and she’s finally decided to stop putting it off.\n\nIf you’d like to discuss the comic, it now has a subreddit, as well as a dedicated twitter and a tumblr where you can ask questions. There’s also a dedicated room on the channel discord for conversations about it!\n\nFind Red’s general ramblings on Twitter, alongside her cohost Blue, at OSPYouTube."
+    }
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}page/{page}/",
+   "request_by_page": {
+    "1": "{abs_url}"
+   },
+   "items": ".post-content",
+   "paging": {
+    "has_next": {
+     "exists": "#paginav .paginav-next a, #paginav a[rel=next], #paginav a[title*=Next], #paginav a[title*=next]"
+    },
+    "max_pages": 60
+   },
+   "reverse": true,
+   "fields": {
+    "url": "a.webcomic-link@href",
+    "name": ".post-title a",
+    "number": {
+     "path": ".post-title a",
+     "regex": "\\.\\s*([0-9.]+)"
+    },
+    "date": ".post-date"
+   },
+   "date_format": "MMMM dd, yyyy",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".webcomic-media .webcomic-link .attachment-full",
+   "image": "@src"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Einzel-Webcomic; wie in der Community ist jedes Kapitel aus /archive/ ein eigener 'Manga' (Titel 'Aurora - <Kapitel>'), jede Comicseite ein Kapitel. Status (letztes Kapitel laufend, sonst abgeschlossen) nicht abgebildet; Details-Titel/Cover kommen aus der Liste.",
+  "UNSICHER: Die Community lädt alle Seiten der Kapitelübersicht über die Links in #paginav a[title]. Hier angenommen: WordPress-Muster <url>page/N/ und ein 'nächste Seite'-Link in #paginav (Selektoren geraten). Findet keiner davon, bleibt es bei der ersten Seite – auf dem PC prüfen.",
+  "Suche filtert die Archivliste clientseitig (Community: keine Suche)."
+ ]
 }

@@ -10256,7 +10256,7 @@
  },
  {
   "modul": "src/ar/rocksmanga",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Rocks Manga",
   "stufe": 2,
   "theme": null,
@@ -10266,7 +10266,9 @@
   "host": "rocksmanga.com",
   "nsfw": false,
   "wer": "agent-w3d",
-  "seit": "2026-11-03T10:36:12"
+  "seit": "2026-11-03T10:36:12",
+  "datei": "rezepte/modelle/ar.rocksmanga.json",
+  "geaendert": "2026-11-03T10:37:42"
  },
  {
   "modul": "src/ar/teamx",
@@ -10334,7 +10336,7 @@
  },
  {
   "modul": "src/en/aurora",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "aurora",
   "stufe": 2,
   "theme": null,
@@ -10344,11 +10346,13 @@
   "host": "comicaurora.com",
   "nsfw": false,
   "wer": "agent-w3c",
-  "seit": "2026-11-03T10:37:11"
+  "seit": "2026-11-03T10:37:11",
+  "datei": "rezepte/modelle/en.aurora.json",
+  "geaendert": "2026-11-03T10:37:49"
  },
  {
   "modul": "src/en/bbato",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Bbato",
   "stufe": 2,
   "theme": null,
@@ -10358,11 +10362,13 @@
   "host": "bato1.com",
   "nsfw": false,
   "wer": "agent-w3b",
-  "seit": "2026-11-03T10:37:18"
+  "seit": "2026-11-03T10:37:18",
+  "datei": "rezepte/modelle/en.bbato.json",
+  "geaendert": "2026-11-03T10:37:43"
  },
  {
   "modul": "src/en/broccolisoup",
-  "status": "offen",
+  "status": "fertig",
   "name": "Broccoli Soup",
   "stufe": 2,
   "theme": null,
@@ -10370,11 +10376,15 @@
    "en"
   ],
   "host": "politeandgood.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4a",
+  "seit": "2026-11-03T10:37:26",
+  "datei": "rezepte/modelle/en.broccolisoup.json",
+  "geaendert": "2026-11-03T10:38:17"
  },
  {
   "modul": "src/en/buttsmithy",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "buttsmithy",
   "stufe": 2,
   "theme": null,
@@ -10382,11 +10392,15 @@
    "en"
   ],
   "host": "incase.buttsmithy.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w3d",
+  "seit": "2026-11-03T10:37:42",
+  "grund": "Kapitel nur per Rekursion über .comic-nav-next (jede Seite einzeln laden); Liste aus zwei Domains zusammengesetzt, Cover per TextInterceptor erzeugt",
+  "geaendert": "2026-11-03T10:37:49"
  },
  {
   "modul": "src/en/clonemanga",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Clone Manga",
   "stufe": 2,
   "theme": null,
@@ -10394,11 +10408,15 @@
    "en"
   ],
   "host": "manga.clone-army.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w3d",
+  "seit": "2026-11-03T10:37:49",
+  "grund": "Kapitelliste wird als Zählschleife 1..N aus einem Skriptwert erzeugt (kein Zahlen-Generator für Kapitel); je Kapitel nur ein Bild",
+  "geaendert": "2026-11-03T10:38:05"
  },
  {
   "modul": "src/en/clowncorps",
-  "status": "offen",
+  "status": "fertig",
   "name": "Clown Corps",
   "stufe": 2,
   "theme": null,
@@ -10406,11 +10424,15 @@
    "en"
   ],
   "host": "clowncorps.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w3b",
+  "seit": "2026-11-03T10:37:53",
+  "datei": "rezepte/modelle/en.clowncorps.json",
+  "geaendert": "2026-11-03T10:38:10"
  },
  {
   "modul": "src/en/collectedcurios",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Collected Curios",
   "stufe": 2,
   "theme": null,
@@ -10418,11 +10440,15 @@
    "en"
   ],
   "host": "collectedcurios.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w3d",
+  "seit": "2026-11-03T10:38:05",
+  "grund": "Feste Titelliste im Code (keine Listen-Anfrage) und Kapitel als Zählschleife N..1 aus der letzten Strip-Nummer; nicht ausdrückbar",
+  "geaendert": "2026-11-03T10:38:12"
  },
  {
   "modul": "src/en/colorizedmangas",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Colorized Mangas",
   "stufe": 2,
   "theme": null,
@@ -10430,11 +10456,13 @@
    "en"
   ],
   "host": "colorizedmangas.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w3d",
+  "seit": "2026-11-03T10:38:12"
  },
  {
   "modul": "src/en/comichubfree",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "ComicHubFree",
   "stufe": 2,
   "theme": null,
@@ -10442,7 +10470,9 @@
    "en"
   ],
   "host": "comichubfree.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4a",
+  "seit": "2026-11-03T10:38:17"
  },
  {
   "modul": "src/en/comickfan",

@@ -1,0 +1,103 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Clown Corps",
+  "sprache": "en",
+  "base_url": "https://clowncorps.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.clowncorps",
+  "quellen": [
+   {
+    "name": "Clown Corps",
+    "sprache": "en",
+    "quell_id": 285164574089229147,
+    "home": "https://clowncorps.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/clowncorps",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/comic/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/comic"
+    },
+    "title": {
+     "const": "Clown Corps"
+    },
+    "cover": {
+     "const": "{base}/wp-content/uploads/2022/11/clowns41.jpg"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "Clown Corps"
+    },
+    "author": {
+     "const": "Joe Chouinard"
+    },
+    "artist": {
+     "const": "Joe Chouinard"
+    },
+    "description": {
+     "const": "Clown Corps is a comic about crime-fighting clowns.\nIt's pronounced \"core.\" Like marine corps."
+    },
+    "cover": {
+     "const": "{base}/wp-content/uploads/2022/11/clowns41.jpg"
+    },
+    "status": {
+     "const": "ongoing"
+    }
+   },
+   "status_map": {
+    "ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": "{base}/comic/page/{page}/",
+   "request_by_page": {
+    "1": "details"
+   },
+   "items": ".comic",
+   "paging": {
+    "has_next": {
+     "exists": "#paginav li.paginav-next a"
+    },
+    "max_pages": 100
+   },
+   "fields": {
+    "url": ".post-title a@href",
+    "name": ".post-title a",
+    "date": ".post-date"
+   },
+   "date_format": "MMMM d, yyyy",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#comic img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Einzelwerk-Website: ein fester Eintrag 'Clown Corps' (Titel, Autor, Beschreibung, Cover wörtlich aus dem Code; Code-Kommentar: von /about/).",
+  "Kapitel = Beiträge auf /comic/ bzw. /comic/page/N/. Community liest die Gesamtseitenzahl aus #paginav li.paginav-pages und speichert bereits geladene Kapitel zwischen (Cache) – hier Blättern, solange #paginav li.paginav-next a existiert (Annahme zum Markup, auf dem PC prüfen).",
+  "Datum nur aus .post-date (Community hängt .post-time an). Optionale Autorennotiz-Seite (TextInterceptor) nicht nachgebaut.",
+  "Suche: Community liefert immer den einen Eintrag – kein search-Teil."
+ ]
+}

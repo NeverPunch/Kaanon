@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ComicHubFree",
+  "sprache": "en",
+  "base_url": "https://comichubfree.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.comichubfree",
+  "quellen": [
+   {
+    "name": "ComicHubFree",
+    "sprache": "en",
+    "quell_id": 2310489567413492709,
+    "home": "https://comichubfree.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/comichubfree",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

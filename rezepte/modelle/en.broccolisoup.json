@@ -1,0 +1,91 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Broccoli Soup",
+  "sprache": "en",
+  "base_url": "https://politeandgood.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.broccolisoup",
+  "quellen": [
+   {
+    "name": "Broccoli Soup",
+    "sprache": "en",
+    "quell_id": 2175678633501332475,
+    "home": "https://politeandgood.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/broccolisoup",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/comic/archive",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/comic/archive"
+    },
+    "title": {
+     "const": "Broccoli Soup"
+    },
+    "cover": {
+     "const": "https://politeandgood.com/assets/images/static/Bocki%20(correct%20size).png"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "Broccoli Soup"
+    },
+    "author": {
+     "const": "Secret Pie"
+    },
+    "artist": {
+     "const": "Secret Pie"
+    },
+    "description": {
+     "const": "Hello there! How is the Weather? This comic is made by me, Secret Pie. I am a pie with legs who draws comics and makes music. I am also an entomologist."
+    },
+    "cover": {
+     "const": "https://politeandgood.com/assets/images/static/Bocki%20(correct%20size).png"
+    }
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "li.archive-marker li.archive-page:has(a span.page-title)",
+   "fields": {
+    "url": "a@href",
+    "name": "a span.page-title",
+    "number": {
+     "path": "a@href",
+     "regex": "/(\\d+)$",
+     "group": 1
+    }
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#comic img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Einzelner Webcomic (politeandgood.com): ein fester Eintrag 'Broccoli Soup' mit Kapiteln aus /comic/archive; Suche liefert in der Community nichts, daher keine Suche.",
+  "Kapitelname nur der Seitentitel; Community setzt '<Nummer>: <Titel> (<Arc> #n)' – Arc-Name und laufende Nummer je Arc nicht ausdrückbar (Zugriff auf übergeordnetes Element).",
+  "Das Zusatz-Kapitel 'Characters' (/comic-characters, Text per TextInterceptor gerendert) fehlt – Textseiten nicht ausdrückbar.",
+  "Keine Kapiteldaten auf der Website (wie Community)."
+ ]
+}

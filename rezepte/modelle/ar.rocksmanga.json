@@ -23,7 +23,273 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/browse?page={page}&sort=most_viewed",
+   "request_by_page": {
+    "1": "{base}/browse?sort=most_viewed"
+   },
+   "items": ".catalog-grid-compact .unit:has(.info > a[href]), main .unit:has(.info > a[href])",
+   "has_next": {
+    "exists": "li.page-item > a.page-link[rel=next]"
+   },
+   "fields": {
+    "url": ".info > a[href]@href",
+    "title": ".info > a[href]",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/browse?page={page}",
+   "request_by_page": {
+    "1": "{base}/browse"
+   },
+   "items": ".catalog-grid-compact .unit:has(.info > a[href]), main .unit:has(.info > a[href])",
+   "has_next": {
+    "exists": "li.page-item > a.page-link[rel=next]"
+   },
+   "fields": {
+    "url": ".info > a[href]@href",
+    "title": ".info > a[href]",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/browse?page={page}&search={query}",
+   "request_by_page": {
+    "1": "{base}/browse?search={query}"
+   },
+   "items": ".catalog-grid-compact .unit:has(.info > a[href]), main .unit:has(.info > a[href])",
+   "has_next": {
+    "exists": "li.page-item > a.page-link[rel=next]"
+   },
+   "fields": {
+    "url": ".info > a[href]@href",
+    "title": ".info > a[href]",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "let": {
+    "syn": [
+     {
+      "path": "",
+      "regex": "\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"synopsis\":(\"(?:[^\"\\\\]|\\\\.)*\")(?=(?:[^{}]|\\{(?:[^{}]|\\{[^{}]*\\})*\\})*\\}\\s*,\\s*\"readHref\")",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "",
+      "regex": "\"readHref\":\"[^\"]*\"\\s*,\\s*\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"synopsis\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     }
+    ],
+    "alt": [
+     {
+      "path": "",
+      "regex": "\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"alternative_titles\":(\"(?:[^\"\\\\]|\\\\.)*\")(?=(?:[^{}]|\\{(?:[^{}]|\\{[^{}]*\\})*\\})*\\}\\s*,\\s*\"readHref\")",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "",
+      "regex": "\"readHref\":\"[^\"]*\"\\s*,\\s*\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"alternative_titles\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     }
+    ],
+    "altd": [
+     {
+      "const": "{l.alt}",
+      "regex": "\"title\"\\s*:\\s*(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "regex_all": true,
+      "decode": "json",
+      "join": "\n"
+     },
+     {
+      "const": "{l.alt}"
+     }
+    ],
+    "gen": [
+     {
+      "path": "",
+      "regex": "\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"genres\":\\[([^\\]]*)\\](?=(?:[^{}]|\\{(?:[^{}]|\\{[^{}]*\\})*\\})*\\}\\s*,\\s*\"readHref\")",
+      "group": 1
+     },
+     {
+      "path": "",
+      "regex": "\"readHref\":\"[^\"]*\"\\s*,\\s*\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"genres\":\\[([^\\]]*)\\]",
+      "group": 1
+     }
+    ],
+    "aut": [
+     {
+      "path": "",
+      "regex": "\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"authors\":\\[([^\\]]*)\\](?=(?:[^{}]|\\{(?:[^{}]|\\{[^{}]*\\})*\\})*\\}\\s*,\\s*\"readHref\")",
+      "group": 1
+     },
+     {
+      "path": "",
+      "regex": "\"readHref\":\"[^\"]*\"\\s*,\\s*\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"authors\":\\[([^\\]]*)\\]",
+      "group": 1
+     }
+    ],
+    "art": [
+     {
+      "path": "",
+      "regex": "\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"artists\":\\[([^\\]]*)\\](?=(?:[^{}]|\\{(?:[^{}]|\\{[^{}]*\\})*\\})*\\}\\s*,\\s*\"readHref\")",
+      "group": 1
+     },
+     {
+      "path": "",
+      "regex": "\"readHref\":\"[^\"]*\"\\s*,\\s*\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"artists\":\\[([^\\]]*)\\]",
+      "group": 1
+     }
+    ]
+   },
+   "fields": {
+    "title": [
+     {
+      "path": "",
+      "regex": "\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"title\":(\"(?:[^\"\\\\]|\\\\.)*\")(?=(?:[^{}]|\\{(?:[^{}]|\\{[^{}]*\\})*\\})*\\}\\s*,\\s*\"readHref\")",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "",
+      "regex": "\"readHref\":\"[^\"]*\"\\s*,\\s*\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"title\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     }
+    ],
+    "cover": [
+     {
+      "path": "",
+      "regex": "\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"cover_url\":(\"(?:[^\"\\\\]|\\\\.)*\")(?=(?:[^{}]|\\{(?:[^{}]|\\{[^{}]*\\})*\\})*\\}\\s*,\\s*\"readHref\")",
+      "group": 1,
+      "decode": "json",
+      "template": "https://api.rocksmanga.com{value}"
+     },
+     {
+      "path": "",
+      "regex": "\"readHref\":\"[^\"]*\"\\s*,\\s*\"manga\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"cover_url\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json",
+      "template": "https://api.rocksmanga.com{value}"
+     }
+    ],
+    "description": {
+     "const": "{l.syn}[[\n\nأسماء أخرى:\n{l.altd}]]"
+    },
+    "author": {
+     "const": "{l.aut}",
+     "regex": "\"name\"\\s*:\\s*(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "regex_all": true,
+     "decode": "json",
+     "join": ", "
+    },
+    "artist": {
+     "const": "{l.art}",
+     "regex": "\"name\"\\s*:\\s*(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "regex_all": true,
+     "decode": "json",
+     "join": ", "
+    },
+    "genres": {
+     "const": "{l.gen}",
+     "regex": "\"name\"\\s*:\\s*(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "regex_all": true,
+     "decode": "json",
+     "join": ", "
+    },
+    "status": {
+     "path": "",
+     "regex": "\"status\":\"(RELEASING|COMPLETED|CANCELED|ON_HOLD)\"",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "releasing": 1,
+    "completed": 2,
+    "canceled": 5,
+    "on_hold": 6,
+    "RELEASING": 1,
+    "COMPLETED": 2,
+    "CANCELED": 5,
+    "ON_HOLD": 6
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "block_regex": "(?s)\"mangaSlug\":\"[^\"]*\"\\s*,\\s*\"chapters\":\\[(.*?)\\](?:\\}|,\")",
+   "items": "\\{[^{}]*\"number\":\"[^\"]*\"[^{}]*\\}",
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"number\":\"([^\"]*)\"",
+     "group": 1,
+     "template": "/manga/{u.slug}/chapter/{value}"
+    },
+    "name": {
+     "path": "",
+     "regex": "\"number\":\"([^\"]*)\"",
+     "group": 1,
+     "template": "الفصل {value}"
+    },
+    "number": {
+     "path": "",
+     "regex": "\"number\":\"([^\"]*)\"",
+     "group": 1
+    },
+    "date": {
+     "path": "",
+     "regex": "\"created_at\":\"([^\"]+)\"",
+     "group": 1
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "block_regex": "(?s)\"chapter\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"pages\":\\[([^\\]]*)\\]",
+   "items": "\"([^\"]+)\"",
+   "image": {
+    "path": "",
+    "template": "https://api.rocksmanga.com{value}"
+   }
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Community liest die Next.js-Daten (self.__next_f) aus der HTML-Seite; hier wird dieselbe Seite mit Header rsc: 1 als Flight-Payload geladen (wie en.drakescans) und per Text-Regex ausgewertet. Ob die Website ohne Next-Router-Header antwortet, auf dem PC prüfen.",
+  "Details: Objekt 'manga' neben 'readHref' (Reihenfolge beider Varianten abgedeckt); verschachtelte Objekte bis 2 Ebenen. alternative_titles kann ein JSON-Array {lang,title} als Zeichenkette sein – dann werden die title-Werte gelistet (Escape-Form im String ungeprüft), sonst der Text selbst.",
+  "Kapitel: Block 'chapters' hinter 'mangaSlug'; Kapitel-URL /manga/<slug>/chapter/<number> mit Slug aus der Manga-URL. Name nur 'الفصل <Nr>' (Titelzusatz entfällt); Community sortiert nach id absteigend – hier Reihenfolge der Website.",
+  "Bilder und Cover vom API-Host api.rocksmanga.com wie in der Community. Filter (Typ, Status, Genres, Sortierung) nicht übernommen."
+ ]
 }
