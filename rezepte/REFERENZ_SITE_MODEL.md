@@ -111,3 +111,13 @@ nie umgangen.
 Keine Prüfseiten oder CAPTCHAs lösen, kein Leser-DRM, keine Bezahlschranken umgehen, keine selbst erzeugten Schlüssel
 oder Signaturen. Verschleierung, deren Schlüssel die Website selbst mitliefert (z. B. Madara-`chapter_data`), ist erlaubt.
 Muss ein Rezept dafür etwas erfinden, das in keiner Vorlage vorkommt, wird die Website zurückgestellt.
+
+## Vorsicht: Was aus den Vorlagen nicht sicher hervorgeht
+
+Die Engine-Quelle liegt nicht im Repo. Deshalb gilt: nur so verwenden, wie es in mindestens einer Vorlage vorkommt.
+- `*` in JSON-Pfaden ist nur über Listen belegt, nicht über Objekte.
+- Platzhalter in JSON-Pfaden, in `?feld=wert`-Filtern, in `items`-Regexen oder in `include` sind in keiner Vorlage belegt → vermeiden.
+- `status_map`: Schlüssel klein schreiben wie in den Vorlagen (die Vorlagen führen viele Schreibvarianten einzeln auf).
+- Bild-URLs aus `@src`/`@img` werden in den Vorlagen ohne eigenes `template` verwendet (relativ ist also offenbar erlaubt).
+- Es gibt keine Rekursion (verschachtelte Alben) und keinen Zugriff auf Felder des übergeordneten Eintrags (Band → Kapitel).
+  Solche Websites werden zurückgestellt.

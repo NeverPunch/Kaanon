@@ -1,0 +1,228 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Omega Scans",
+  "sprache": "en",
+  "base_url": "https://omegascans.org",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.omegascans",
+  "quellen": [
+   {
+    "name": "Omega Scans",
+    "sprache": "en",
+    "quell_id": 1534451209269193504,
+    "home": "https://omegascans.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/omegascans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.53",
+  "theme": "heancms"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}",
+   "Accept": "application/json, text/plain, */*"
+  },
+  "image_headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://api.omegascans.org/query?query_string=&status=All&order=desc&orderBy=total_views&series_type=Comic&page={page}&perPage=12&tags_ids=%5B%5D&adult=true",
+   "format": "json",
+   "items": "data",
+   "page_size": 12,
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.last_page"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "series_slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "thumbnail",
+     "replace": [
+      [
+       "^(?!https?://|//)/?",
+       "https://api.omegascans.org/"
+      ]
+     ]
+    }
+   }
+  },
+  "latest": {
+   "request": "https://api.omegascans.org/query?query_string=&status=All&order=desc&orderBy=latest&series_type=Comic&page={page}&perPage=12&tags_ids=%5B%5D&adult=true",
+   "format": "json",
+   "items": "data",
+   "page_size": 12,
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.last_page"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "series_slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "thumbnail",
+     "replace": [
+      [
+       "^(?!https?://|//)/?",
+       "https://api.omegascans.org/"
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": "https://api.omegascans.org/query?query_string={query}&status=All&order=desc&orderBy=total_views&series_type=Comic&page={page}&perPage=12&tags_ids=%5B%5D&adult=true",
+   "format": "json",
+   "items": "data",
+   "page_size": 12,
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.last_page"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "series_slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "thumbnail",
+     "replace": [
+      [
+       "^(?!https?://|//)/?",
+       "https://api.omegascans.org/"
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": "https://api.omegascans.org/series/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/#]+)",
+    "id": "#(\\d+)$"
+   },
+   "fields": {
+    "title": "title",
+    "cover": {
+     "path": "thumbnail",
+     "replace": [
+      [
+       "^(?!https?://|//)/?",
+       "https://api.omegascans.org/"
+      ]
+     ]
+    },
+    "description": {
+     "path": "description",
+     "decode": "html_text"
+    },
+    "genres": "tags.*.name",
+    "author": "author",
+    "artist": "studio",
+    "status": "status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "hiatus": 6,
+    "dropped": 5,
+    "completed": 2,
+    "finished": 2
+   }
+  },
+  "chapters": {
+   "request": "https://api.omegascans.org/chapter/query?page={page}&perPage=1000&series_id={u.id}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/#]+)",
+    "id": "#(\\d+)$"
+   },
+   "items": "data",
+   "skip": {
+    "any": [
+     {
+      "path": "price",
+      "default": "paid"
+     },
+     {
+      "path": "created_at",
+      "is_future": "iso"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "chapter_slug",
+     "template": "/series/{u.slug}/{value}#{f.id}"
+    },
+    "name": {
+     "path": "chapter_name",
+     "template": "{value}[[ - {f.chapter_title}]]"
+    },
+    "date": "created_at"
+   },
+   "date_format": "iso",
+   "paging": {
+    "has_next": {
+     "lt": [
+      "meta.current_page",
+      "meta.last_page"
+     ]
+    },
+    "max_pages": 30
+   }
+  },
+  "pages": {
+   "request": "https://api.omegascans.org/chapter/{u.slug}/{u.cslug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/#]+)/",
+    "cslug": "/series/[^/]+/([^/#]+)"
+   },
+   "items": "chapter.chapter_data.images",
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "^(?!https?://|//)/?",
+      "https://api.omegascans.org/"
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "Ausgangspunkt: Vorlage en.luascans (HeanCms, API api.<host>). Abweichung laut Community-Code: Neueste mit order=desc (Theme-Standard; Lua Scans nutzt asc).",
+  "Community drosselt nur den API-Host auf 1 Anfrage/s; hier gilt rate_limit für alle Anfragen (auch Bilder) – auf dem PC prüfen, ob das zu langsam ist.",
+  "Kostenpflichtige Kapitel (price != 0) werden übersprungen; Community kann sie nur mit Login (Bearer-Token) lesen – Login wird bewusst nicht nachgebaut.",
+  "Kapitel mit created_at in der Zukunft werden wie im Theme ausgelassen (skip is_future).",
+  "Kapitelname wie im Theme: chapter_name + ' - ' + chapter_title, falls vorhanden.",
+  "fetchBadge (Doujinshi/Manga/Manhwa als Genre) nicht nachgebaut – nur Kosmetik."
+ ]
+}

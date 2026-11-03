@@ -808,7 +808,7 @@
  },
  {
   "modul": "src/en/omegascans",
-  "status": "offen",
+  "status": "fertig",
   "name": "Omega Scans",
   "stufe": 1,
   "theme": "heancms",
@@ -816,7 +816,11 @@
    "en"
   ],
   "host": "omegascans.org",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-s1",
+  "seit": "2026-11-03T10:02:23",
+  "datei": "rezepte/modelle/en.omegascans.json",
+  "geaendert": "2026-11-03T10:02:56"
  },
  {
   "modul": "src/ar/azora",
@@ -4349,7 +4353,7 @@
  },
  {
   "modul": "src/en/toonilyme",
-  "status": "offen",
+  "status": "fertig",
   "name": "Toonily.me",
   "stufe": 1,
   "theme": "mangak",
@@ -4357,11 +4361,15 @@
    "en"
   ],
   "host": "toontop.io",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-s1",
+  "seit": "2026-11-03T10:02:56",
+  "datei": "rezepte/modelle/en.toonilyme.json",
+  "geaendert": "2026-11-03T10:03:11"
  },
  {
   "modul": "src/en/mangataro",
-  "status": "offen",
+  "status": "fertig",
   "name": "MangaTaro",
   "stufe": 1,
   "theme": "mangataro",
@@ -4369,7 +4377,11 @@
    "en"
   ],
   "host": "mangataro.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-s1",
+  "seit": "2026-11-03T10:03:11",
+  "datei": "rezepte/modelle/en.mangataro.json",
+  "geaendert": "2026-11-03T10:03:47"
  },
  {
   "modul": "src/all/miauscan",
@@ -6279,7 +6291,7 @@
  },
  {
   "modul": "src/all/manga18fx",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Manga18fx",
   "stufe": 1,
   "theme": "yiimadara",
@@ -6288,7 +6300,9 @@
    "en"
   ],
   "host": "manga18fx.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-s1",
+  "seit": "2026-11-03T10:03:47"
  },
  {
   "modul": "src/all/manga18me",
@@ -6747,7 +6761,7 @@
  },
  {
   "modul": "src/en/bakkin",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "Bakkin",
   "stufe": 2,
   "theme": "bakkin",
@@ -6757,11 +6771,13 @@
   "host": "bakkin.moe",
   "nsfw": false,
   "wer": "agent-s2a",
-  "seit": "2026-11-03T10:01:49"
+  "seit": "2026-11-03T10:01:49",
+  "grund": "Ein einziger JSON-Katalog (main.php, Objekt-Map aller Serien); Serie und Kapitel müssen per dir aus dem Katalog gefiltert und Kapitel über Bände mit Elternfeldern (Band-dir/-name) verflacht werden – JSON-Filter mit Platzhalter und Zugriff auf Elternfelder gibt es in keiner Vorlage",
+  "geaendert": "2026-11-03T10:02:51"
  },
  {
   "modul": "src/id/komikzoid",
-  "status": "offen",
+  "status": "fertig",
   "name": "Komikzoid",
   "stufe": 2,
   "theme": "colorlibanime",
@@ -6769,11 +6785,15 @@
    "id"
   ],
   "host": "01.komikzoid.id",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-s2a",
+  "seit": "2026-11-03T10:02:51",
+  "datei": "rezepte/modelle/id.komikzoid.json",
+  "geaendert": "2026-11-03T10:03:22"
  },
  {
   "modul": "src/id/sektekomik",
-  "status": "offen",
+  "status": "fertig",
   "name": "Sekte Komik",
   "stufe": 2,
   "theme": "colorlibanime",
@@ -6781,11 +6801,15 @@
    "id"
   ],
   "host": "01.sektekomik.id",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-s2a",
+  "seit": "2026-11-03T10:03:22",
+  "datei": "rezepte/modelle/id.sektekomik.json",
+  "geaendert": "2026-11-03T10:03:31"
  },
  {
   "modul": "src/en/eightmuses",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "8Muses",
   "stufe": 2,
   "theme": "eromuse",
@@ -6793,11 +6817,15 @@
    "en"
   ],
   "host": "comics.8muses.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-s2a",
+  "seit": "2026-11-03T10:03:31",
+  "grund": "Theme eromuse: Listen, Kapitel und Seiten laufen über einen Stapel rekursiv durch verschachtelte Alben (Autoren-Ordner → Album → Unterordner, je nach Album-Typ/Tiefe), Seiten sammeln Bilder aus allen Unterordnern samt Pagination – rekursive Navigation ist im Site-Model nicht ausdrückbar",
+  "geaendert": "2026-11-03T10:03:47"
  },
  {
   "modul": "src/en/erofus",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Erofus",
   "stufe": 2,
   "theme": "eromuse",
@@ -6805,7 +6833,11 @@
    "en"
   ],
   "host": "erofus.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-s2a",
+  "seit": "2026-11-03T10:03:47",
+  "grund": "Theme eromuse (wie 8Muses): Listen, Kapitel und Seiten laufen über einen Stapel rekursiv durch verschachtelte Alben (various-authors → Autor → Album → Unterordner, je nach Album-Typ/Tiefe), Seiten sammeln Bilder aus allen Unterordnern samt Pagination – rekursive Navigation ist im Site-Model nicht ausdrückbar",
+  "geaendert": "2026-11-03T10:03:55"
  },
  {
   "modul": "src/en/ezmanga",

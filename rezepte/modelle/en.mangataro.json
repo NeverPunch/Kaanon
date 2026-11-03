@@ -1,0 +1,233 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaTaro",
+  "sprache": "en",
+  "base_url": "https://mangataro.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mangataro",
+  "quellen": [
+   {
+    "name": "MangaTaro",
+    "sprache": "en",
+    "quell_id": 8358097306709528603,
+    "home": "https://mangataro.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/mangataro",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangataro"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "vars": {
+   "ts": {
+    "value": {
+     "const": "{now_s}"
+    },
+    "ttl_s": 30
+   },
+   "t": {
+    "value": {
+     "const": "{v.ts}mng_ch_{nowf:yyyyMMddHH}",
+     "hash": "md5",
+     "max_len": 16
+    },
+    "ttl_s": 30
+   }
+  },
+  "popular": {
+   "request": {
+    "url": "https://mangataro.org/wp-json/manga/v1/load",
+    "method": "POST",
+    "body": "{\"page\": {page}, \"search\": \"\", \"years\": \"[]\", \"genres\": \"[]\", \"types\": \"[]\", \"statuses\": \"[]\", \"sort\": \"popular_desc\", \"genreMatchMode\": \"any\"}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "$",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "skip": {
+    "any": [
+     {
+      "path": "type",
+      "regex": "(?i)(novel)"
+     },
+     {
+      "path": "url",
+      "empty": true
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "url",
+     "regex": "/(?:manga|read)/([^/]+)",
+     "template": "/manga/{value}#{f.id}"
+    },
+    "title": {
+     "path": "title",
+     "decode": "html"
+    },
+    "cover": "cover"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "https://mangataro.org/wp-json/manga/v1/load",
+    "method": "POST",
+    "body": "{\"page\": {page}, \"search\": \"\", \"years\": \"[]\", \"genres\": \"[]\", \"types\": \"[]\", \"statuses\": \"[]\", \"sort\": \"post_desc\", \"genreMatchMode\": \"any\"}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "$",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "skip": {
+    "any": [
+     {
+      "path": "type",
+      "regex": "(?i)(novel)"
+     },
+     {
+      "path": "url",
+      "empty": true
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "url",
+     "regex": "/(?:manga|read)/([^/]+)",
+     "template": "/manga/{value}#{f.id}"
+    },
+    "title": {
+     "path": "title",
+     "decode": "html"
+    },
+    "cover": "cover"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "https://mangataro.org/wp-json/manga/v1/load",
+    "method": "POST",
+    "body": "{\"page\": {page}, \"search\": \"{query_raw}\", \"years\": \"[]\", \"genres\": \"[]\", \"types\": \"[]\", \"statuses\": \"[]\", \"sort\": \"popular_desc\", \"genreMatchMode\": \"any\"}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "$",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "skip": {
+    "any": [
+     {
+      "path": "type",
+      "regex": "(?i)(novel)"
+     },
+     {
+      "path": "url",
+      "empty": true
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "url",
+     "regex": "/(?:manga|read)/([^/]+)",
+     "template": "/manga/{value}#{f.id}"
+    },
+    "title": {
+     "path": "title",
+     "decode": "html"
+    },
+    "cover": "cover"
+   }
+  },
+  "details": {
+   "request": "https://mangataro.org/wp-json/wp/v2/manga/{u.id}?_embed",
+   "format": "json",
+   "url_vars": {
+    "id": "#(\\d+)$",
+    "slug": "/manga/([^/#]+)"
+   },
+   "fields": {
+    "title": {
+     "path": "title.rendered",
+     "decode": "html"
+    },
+    "cover": "_embedded.wp:featuredmedia.0.source_url",
+    "description": {
+     "path": "content.rendered",
+     "decode": "html_text"
+    },
+    "genres": "_embedded.wp:term.*.?taxonomy=post_tag.name",
+    "author": "_embedded.wp:term.*.?taxonomy=manga_author.name"
+   }
+  },
+  "chapters": {
+   "request": "https://mangataro.org/auth/manga-chapters?manga_id={u.id}&offset={offset}&limit=500&order=DESC&_t={v.t}&_ts={v.ts}",
+   "format": "json",
+   "items": "chapters",
+   "page_size": 500,
+   "paging": {
+    "has_next": {
+     "exists": "has_more"
+    },
+    "max_pages": 20
+   },
+   "skip": {
+    "path": "language",
+    "regex": "(?i)^(?!en$)(.+)$"
+   },
+   "fields": {
+    "url": {
+     "path": "url",
+     "replace": [
+      [
+       "/$",
+       ""
+      ]
+     ]
+    },
+    "name": {
+     "path": "chapter",
+     "template": "Chapter {value}[[: {f.title}]]"
+    },
+    "date": "date",
+    "scanlator": "group_name"
+   },
+   "date_format": "relative"
+  },
+  "pages": {
+   "request": "https://mangataro.org/auth/chapter-content?chapter_id={u.cid}",
+   "format": "json",
+   "url_vars": {
+    "cid": "-(\\d+)/?$"
+   },
+   "items": "images",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "Ausgangspunkt: Vorlage en.roliascan (gleiches Theme MangaTaro, gleiche Endpunkte /wp-json/manga/v1/load, /wp-json/wp/v2/manga/{id}, /auth/manga-chapters, /auth/chapter-content). Nur der Host ist mangataro.org.",
+  "Abweichung zu Rolia Scan: MangaTaro nutzt das Theme ohne Overrides – eine API-Seite je Listenseite, nächste Seite solange 24 Einträge kommen (has_next full). Einträge ohne URL und Novels werden wie im Theme übersprungen.",
+  "Kapitelliste braucht wie bei Rolia Scan das Token _t = md5('<epoch>mng_ch_<yyyyMMddHH UTC>')[:16] + _ts; übernommen aus der Vorlage (vars mit hash md5). Bei falscher Geräteuhr antwortet die Seite 403 – die Community korrigiert per Date-Header, das Rezept nicht. Zeitzone von {nowf:yyyyMMddHH} muss UTC sein – auf dem PC prüfen.",
+  "Kapitelname wie im Theme: 'Chapter X: Titel' (Titel optional); Platzhalter-Titel wie 'N/A' filtert das Rezept nicht heraus.",
+  "Suche wie in der Vorlage über /wp-json/manga/v1/load mit search; Community nutzt ohne Filter standardmäßig POST /auth/search (limit 25, keine Seiten).",
+  "Status steht bei MangaTaro nur in der Liste, nicht in /wp-json/wp/v2/manga – Details ohne Status (wie Vorlage)."
+ ]
+}

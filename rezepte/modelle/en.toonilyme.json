@@ -1,0 +1,137 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Toonily.me",
+  "sprache": "en",
+  "base_url": "https://toontop.io",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.toonilyme",
+  "quellen": [
+   {
+    "name": "Toonily.me",
+    "sprache": "en",
+    "quell_id": 1581110056159285576,
+    "home": "https://toontop.io"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/toonilyme",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.6",
+  "theme": "mangak"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "image_headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "popular": {
+   "request": "https://api.toontop.io/titles/search?sort=popular&window=week&page={page}&limit=24",
+   "format": "json",
+   "items": "data.items",
+   "page_size": 24,
+   "has_next": {
+    "exists": "data.pagination.has_next"
+   },
+   "fields": {
+    "url": {
+     "path": "url",
+     "template": "{value}#{f.id}"
+    },
+    "title": "name",
+    "cover": "cover"
+   }
+  },
+  "latest": {
+   "request": "https://api.toontop.io/titles/search?sort=latest&page={page}&limit=24",
+   "format": "json",
+   "items": "data.items",
+   "page_size": 24,
+   "has_next": {
+    "exists": "data.pagination.has_next"
+   },
+   "fields": {
+    "url": {
+     "path": "url",
+     "template": "{value}#{f.id}"
+    },
+    "title": "name",
+    "cover": "cover"
+   }
+  },
+  "search": {
+   "request": "https://api.toontop.io/titles/search?page={page}&limit=24&q={query}",
+   "format": "json",
+   "items": "data.items",
+   "page_size": 24,
+   "has_next": {
+    "exists": "data.pagination.has_next"
+   },
+   "fields": {
+    "url": {
+     "path": "url",
+     "template": "{value}#{f.id}"
+    },
+    "title": "name",
+    "cover": "cover"
+   }
+  },
+  "details": {
+   "request": "https://api.toontop.io/titles/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "#([^#]+)$"
+   },
+   "fields": {
+    "title": "data.title.name",
+    "cover": "data.title.cover",
+    "description": "data.title.summary",
+    "genres": "data.title.genres.*.name",
+    "author": {
+     "path": "data.title.authors.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "data.title.artists.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "data.title.status"
+   }
+  },
+  "chapters": {
+   "request": "https://api.toontop.io/titles/{u.id}/chapters",
+   "format": "json",
+   "url_vars": {
+    "id": "#([^#]+)$"
+   },
+   "items": "data.chapters",
+   "fields": {
+    "url": "url",
+    "name": "name",
+    "number": "number",
+    "date": "updated_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "next_data",
+   "items": "props.pageProps.initialChapter.images"
+  }
+ },
+ "hinweise": [
+  "Ausgangspunkt: Vorlage en.mangak (MangaK-Theme). Community-Modul überschreibt nichts; nur der API-Host ist api.toontop.io (Theme: api.<host der base_url>).",
+  "Details/Kapitel wie in der Vorlage über die API (/titles/{id}); Community liest Details aus __NEXT_DATA__ der Seite – auf dem PC gegenprüfen, ob die API-Felder (data.title.*) hier gleich heißen.",
+  "Community ersetzt bei 5xx-Fehlern den Bildhost rx.qvzr?.org durch rx.rzyn.net (Interceptor); das kann das Rezept nicht – fallen Bilder aus, Hinweis auf dem PC prüfen.",
+  "Community filtert den Suchtext auf Buchstaben/Ziffern/Leerzeichen (max. 50 Zeichen); hier wird er unverändert übergeben."
+ ]
+}

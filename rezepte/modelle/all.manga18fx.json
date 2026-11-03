@@ -1,0 +1,35 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga18fx",
+  "sprache": "all",
+  "base_url": "https://manga18fx.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.manga18fx",
+  "quellen": [
+   {
+    "name": "Manga18fx",
+    "sprache": "all",
+    "quell_id": 5575864808495704378,
+    "home": "https://manga18fx.com"
+   },
+   {
+    "name": "Manga18fx",
+    "sprache": "en",
+    "quell_id": 3157287889751723714,
+    "home": "https://manga18fx.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/manga18fx",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.61",
+  "theme": "yiimadara"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

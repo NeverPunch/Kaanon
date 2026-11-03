@@ -1,0 +1,146 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Sekte Komik",
+  "sprache": "id",
+  "base_url": "https://01.sektekomik.id",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.sektekomik",
+  "quellen": [
+   {
+    "name": "Sekte Komik",
+    "sprache": "id",
+    "quell_id": 7081372932062301579,
+    "home": "https://01.sektekomik.id"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/sektekomik",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "colorlibanime"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/manga?page={page}&sort=default&search=",
+   "format": "html",
+   "items": "div.product__page__content > [style]:has(.col-6) .product__item",
+   "has_next": {
+    "exists": ".fa-angle-right"
+   },
+   "fields": {
+    "url": "a.img-link@href",
+    "title": "h5",
+    "cover": {
+     "path": ".set-bg@data-setbg",
+     "replace": [
+      [
+       "\\?[^?]*$",
+       ""
+      ]
+     ]
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}/manga?page={page}&sort=updated&search=",
+   "format": "html",
+   "items": "div.product__page__content > [style]:has(.col-6) .product__item",
+   "has_next": {
+    "exists": ".fa-angle-right"
+   },
+   "fields": {
+    "url": "a.img-link@href",
+    "title": "h5",
+    "cover": {
+     "path": ".set-bg@data-setbg",
+     "replace": [
+      [
+       "\\?[^?]*$",
+       ""
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/manga?page={page}&sort=default&search={query}",
+   "format": "html",
+   "items": "div.product__page__content > [style]:has(.col-6) .product__item",
+   "has_next": {
+    "exists": ".fa-angle-right"
+   },
+   "fields": {
+    "url": "a.img-link@href",
+    "title": "h5",
+    "cover": {
+     "path": ".set-bg@data-setbg",
+     "replace": [
+      [
+       "\\?[^?]*$",
+       ""
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": ".anime__details__content h3",
+    "author": ".anime__details__content h3 + span",
+    "description": ".anime__details__content p",
+    "cover": {
+     "path": ".anime__details__content .set-bg@data-setbg",
+     "replace": [
+      [
+       "\\?[^?]*$",
+       ""
+      ]
+     ]
+    },
+    "status": {
+     "path": ".anime__details__content li:contains(status)",
+     "regex": "^\\S+\\s+(.+)$",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "complete": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "html",
+   "items": ".anime__details__episodes a",
+   "fields": {
+    "url": "@href",
+    "name": ""
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "html",
+   "items": ".container .read-img > img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Beliebt nutzt wie der Community-Code sort=default (A–Z); sort=view wäre die eigentliche Beliebtheitssortierung.",
+  "Kapiteldatum: Der Community-Code setzt nur für das neueste Kapitel ein Datum (lastUpdated aus Skript); hier ohne Datum.",
+  "Status-Text wird wie im Code nach dem ersten Leerzeichen genommen (z. B. 'Status: Ongoing' → 'Ongoing').",
+  "Gleiches Theme (colorlibanime) wie id.komikzoid, Modell übernommen."
+ ]
+}
