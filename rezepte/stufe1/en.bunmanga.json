@@ -1,0 +1,43 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Bun Manga",
+  "sprache": "en",
+  "base_url": "https://bunmanga.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.bunmanga",
+  "quellen": [
+   {
+    "name": "Bun Manga",
+    "sprache": "en",
+    "quell_id": 5944672760629857205,
+    "home": "https://bunmanga.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/bunmanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "bunmanga.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

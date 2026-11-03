@@ -1,0 +1,36 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Pzykosis666HFansub",
+  "sprache": "es",
+  "base_url": "https://lector.pzykosis666hfansub.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.pzykosis666hfansub",
+  "quellen": [
+   {
+    "name": "Pzykosis666HFansub",
+    "sprache": "es",
+    "quell_id": 6241339222563280170,
+    "home": "https://lector.pzykosis666hfansub.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/pzykosis666hfansub",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.7",
+  "theme": "foolslide"
+ },
+ "baukasten": "foolslide",
+ "parameter": {
+  "apex": "lector.pzykosis666hfansub.com",
+  "popular_path": "directory",
+  "skip_numeric_names": "0",
+  "url_modifier": ""
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

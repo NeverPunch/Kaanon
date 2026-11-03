@@ -1,0 +1,38 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Zenon",
+  "sprache": "ja",
+  "base_url": "https://comic-zenon.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.zenon",
+  "quellen": [
+   {
+    "name": "Zenon",
+    "sprache": "ja",
+    "quell_id": 5353704886651317926,
+    "home": "https://comic-zenon.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/zenon",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "gigaviewer"
+ },
+ "baukasten": "gigaviewer",
+ "parameter": {
+  "apex": "comic-zenon.com",
+  "list_keyword": "の",
+  "list_mode": "graphql"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "seriesListIds": "listOf(",
+   "getFilterOptions": "listOf("
+  },
+  "hinweise": []
+ }
+}

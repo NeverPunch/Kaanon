@@ -1,0 +1,66 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "NHentai.xxx",
+  "sprache": "all",
+  "base_url": "https://nhentai.xxx",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.nhentaixxx",
+  "quellen": [
+   {
+    "name": "NHentai.xxx",
+    "sprache": "en",
+    "quell_id": 1759845183972082995,
+    "home": "https://nhentai.xxx"
+   },
+   {
+    "name": "NHentai.xxx",
+    "sprache": "ja",
+    "quell_id": 5939253174175011564,
+    "home": "https://nhentai.xxx"
+   },
+   {
+    "name": "NHentai.xxx",
+    "sprache": "zh",
+    "quell_id": 560822675588930101,
+    "home": "https://nhentai.xxx"
+   },
+   {
+    "name": "NHentai.xxx",
+    "sprache": "all",
+    "quell_id": 2384499981488817067,
+    "home": "https://nhentai.xxx"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/nhentaixxx",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.12",
+  "theme": "galleryadults"
+ },
+ "baukasten": "galleryadults",
+ "parameter": {
+  "apex": "nhentai.xxx",
+  "page_style": "query",
+  "popular_path": "language/english/popular/",
+  "reader": "json",
+  "search_key": "key"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaLang": "when (lang) {",
+   "supportSpeechless": "mangaLang == LANGUAGE_ENGLISH",
+   "popularMangaUrl": "if (mangaLang.isBlank()) { // LANGUAGE_MULTI",
+   "popularMangaSelector": "\".galleries_box .gallery_item, .fav_item\"",
+   "basicSearchKey": "\"key\"",
+   "favoritePath": "\"favorites\"",
+   "idPrefixUri": "\"g\"",
+   "serverPrefix": "\"i\""
+  },
+  "hinweise": [
+   "galleryadults: Leser-Art (reader) und Seitenstil per Erkundung prüfen"
+  ]
+ }
+}

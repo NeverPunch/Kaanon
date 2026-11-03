@@ -1,6 +1,6 @@
 # Kaanon-Abdeckungskarte
 
-Automatisch erzeugt am 2026-11-02 von `werkzeuge/abdeckung/erzeuge_karte.py`. Community-Stand `efa93f5a 2026-11-02`, Store-Stand `b5db5d2 2026-11-02`. 1448 Community-Module, 67 Themes, 106 Kaanon-Extensions.
+Automatisch erzeugt am 2026-11-03 von `werkzeuge/abdeckung/erzeuge_karte.py`. Community-Stand `efa93f5a 2026-11-02`, Store-Stand `dd31555 2026-11-02`. 1448 Community-Module, 67 Themes, 106 Kaanon-Extensions.
 
 Dateien: `karte.json` (alle Daten), `karte.html` (filterbare Übersicht, im Browser öffnen), diese Zusammenfassung.
 
@@ -12,26 +12,19 @@ Dateien: `karte.json` (alle Daten), `karte.html` (filterbare Übersicht, im Brow
 | Kaanon · Ausweg | 10 | schon im Store, Community-Code unverändert |
 | Kandidat · Stufe 1 | 449 | keine Regel-Klasse, Theme schon bei uns gebaut |
 | Kandidat · Stufe 2 | 667 | keine Regel-Klasse, eigenständiges Modul oder neues Theme |
-| Kandidat · Stufe 3 | 58 | keine Regel-Klasse, braucht neue Engine-Technik |
-| Nur Ausweg möglich | 162 | Code löst Prüfseiten/CAPTCHAs, entschlüsselt oder signiert |
+| Kandidat · Stufe 3 | 143 | keine Regel-Klasse, braucht neue Engine-Technik oder Entschleierung |
+| Nur Ausweg möglich | 77 | Code löst Prüfseiten/CAPTCHAs, nutzt Leser-DRM oder Schlüsseltausch/Signaturen |
 | Eigener Server | 7 | selbst gehostet (Komga, LANraragi …), kein Ziel für den Store |
 
 ## Zuerst testen
 
-**7 eigene Extensions, deren Website im aktuellen Community-Code eine Regel-Klasse braucht.** Unsere Engine baut sie ohne diese Technik. Vermutlich liefern sie keine lesbaren Seiten mehr. Beim Handy-Test je ein Kapitel öffnen. Geht es nicht, sind sie Ausweg-Kandidaten.
+**1 eigene Extensions, deren Website im aktuellen Community-Code eine Regel-Klasse braucht.** Beim Handy-Test je ein Kapitel öffnen. Geht es nicht, sind sie Ausweg-Kandidaten.
 
-- Asura Scans 1.6.11 (asurascans.com): DRM: Bild-Entwürfelung
-- Doodmanga 1.6.12 (doodmanga.com): DRM: Bild-Entwürfelung
-- MangaIsekaiThai 1.6.12 (mangaisekaithai.net): DRM: Bild-Entwürfelung
-- ManhuaBug.com 1.6.12 (manhuabug.com): DRM: Bild-Entwürfelung
-- ManhuaThai 1.6.12 (manhuathai.com): DRM: Bild-Entwürfelung
-- ManhwaBreakup 1.6.12 (manhwabreakup.com): DRM: Bild-Entwürfelung
 - Temple Scan 1.6.11 (templetoons.com): CAPTCHA: CAPTCHA im Code
 
-**8 eigene Extensions auf GigaViewer/ComiciViewer.** Diese Theme-Familien verwürfeln die Bilder je Seite (Kennung `#scramble` in der Bild-Adresse). Die Community entwürfelt sie, das wäre für uns DRM. Prüfen: Kommen die Bilder in unserer Version lesbar an?
+**1 eigene Extensions, deren Website inzwischen verschleiert, unser Rezept aber nicht entschlüsselt oder entwürfelt.** Das ist keine Regel-Frage, sondern eine Technik-Frage: Das Rezept braucht einen passenden `transform`/`decode`-Schritt. Beim Handy-Test zuerst prüfen.
 
-- comiciviewer: -Mangalt- 1.6.11, Source 1.6.11, Source 1.6.11, Web 1.6.11
-- gigaviewer: DAYS 1.6.11, Ourfeel 1.6.11, Source 1.6.11, Source 1.6.11
+- Asura Scans 1.6.11 (asurascans.com): Bild-Entwürfelung
 
 ## Abgleich mit den Ausweg-Extensions
 
@@ -41,13 +34,13 @@ So stuft die Karte die zehn Websites ein, für die bereits der Community-Code im
 |---|---|---|
 | BatCave | PRUEFSEITE: Löser-Funktion/Löser-Klasse/WebView-Automatik/bekannter Schutz | – |
 | Comikey | DRM: DRM-Format | – |
-| Comix | PRUEFSEITE: WebView-Automatik, CAPTCHA: CAPTCHA per WebView/WebView mit CAPTCHA-Bezug, DRM: Bild-Entwürfelung | – |
-| Lunar Manga | PRUEFSEITE: Löser-Funktion/Löser-Klasse, CAPTCHA: CAPTCHA im Code, DRM: Entschlüsselung, SCHLUESSEL: Signatur/HMAC/Schlüsseltausch | – |
-| MANGA Plus by SHUEISHA | DRM: XOR-Verschleierung | – |
+| Comix | PRUEFSEITE: WebView-Automatik, CAPTCHA: CAPTCHA per WebView/WebView mit CAPTCHA-Bezug | – |
+| Lunar Manga | PRUEFSEITE: Löser-Funktion/Löser-Klasse, CAPTCHA: CAPTCHA im Code, SCHLUESSEL: Signatur/HMAC/Schlüsseltausch | – |
+| MANGA Plus by SHUEISHA | – | – |
 | Manga Tube | PRUEFSEITE: Löser-Funktion/Löser-Klasse/bekannter Schutz | – |
 | MangaDot | – | – |
 | MangaFire | PRUEFSEITE: Löser-Klasse/WebView-Automatik, CAPTCHA: CAPTCHA per WebView/WebView mit CAPTCHA-Bezug | – |
-| MangaHub | –; DRM (Theme) | – |
+| MangaHub | –; VERSCHLEIERUNG (Theme) | – |
 | ManhwaRead | – | – |
 
 Wo die Spalte „Regel-Klassen“ leer ist, kommt der Grund für den Ausweg von der Website selbst, z. B. eine Prüfseite, die man im WebView von Hand löst und die im Code nicht zu sehen ist. Das findet nur der Prüfstand.
@@ -59,7 +52,7 @@ Kandidaten je Theme (gemeinsame Bauweise). Ein Theme im Rezept-Baukasten öffnet
 | Theme | Kandidaten | bei uns schon gebaut |
 |---|---:|---|
 | madara | 207 | ja |
-| mangathemesia | 102 | ja |
+| mangathemesia | 105 | ja |
 | zeistmanga | 27 | ja |
 | comiciviewer | 25 | ja |
 | gigaviewer | 15 | ja |
@@ -73,25 +66,25 @@ Kandidaten je Theme (gemeinsame Bauweise). Ein Theme im Rezept-Baukasten öffnet
 | uzaymanga | 7 | nein |
 | galleryadults | 6 | ja |
 | iken | 6 | ja |
-| (ohne Theme, Einzelmodule) | 569 | |
+| (ohne Theme, Einzelmodule) | 648 | |
 
 ## Nach Sprache
 
 | Sprache | Module | Kaanon | Stufe 1 | Stufe 2–3 | Nur Ausweg | Eigener Server |
 |---|---:|---:|---:|---:|---:|---:|
-| en | 420 | 54 | 130 | 208 | 26 | 2 |
-| ja | 139 | 7 | 42 | 37 | 53 | 0 |
-| pt-BR | 111 | 2 | 36 | 68 | 5 | 0 |
-| es | 104 | 8 | 36 | 49 | 11 | 0 |
-| id | 87 | 3 | 42 | 36 | 6 | 0 |
-| vi | 84 | 1 | 13 | 51 | 19 | 0 |
-| mehrsprachig | 78 | 15 | 13 | 43 | 7 | 0 |
-| tr | 78 | 2 | 44 | 26 | 6 | 0 |
-| ar | 59 | 1 | 29 | 24 | 5 | 0 |
+| en | 420 | 54 | 130 | 220 | 14 | 2 |
+| ja | 139 | 7 | 42 | 65 | 25 | 0 |
+| pt-BR | 111 | 2 | 36 | 71 | 2 | 0 |
+| es | 104 | 8 | 36 | 53 | 7 | 0 |
+| id | 87 | 3 | 42 | 39 | 3 | 0 |
+| vi | 84 | 1 | 13 | 63 | 7 | 0 |
+| mehrsprachig | 78 | 15 | 13 | 46 | 4 | 0 |
+| tr | 78 | 2 | 44 | 29 | 3 | 0 |
+| ar | 59 | 1 | 29 | 28 | 1 | 0 |
 | all | 56 | 1 | 6 | 45 | 0 | 4 |
 | fr | 54 | 4 | 14 | 31 | 5 | 0 |
-| zh | 53 | 0 | 1 | 39 | 13 | 0 |
-| th | 44 | 5 | 29 | 8 | 2 | 0 |
+| zh | 53 | 0 | 1 | 49 | 3 | 0 |
+| th | 44 | 5 | 29 | 10 | 0 | 0 |
 | ru | 31 | 0 | 0 | 30 | 1 | 0 |
 | it | 17 | 0 | 11 | 6 | 0 | 0 |
 | ko | 9 | 0 | 1 | 7 | 1 | 0 |
@@ -99,7 +92,7 @@ Kandidaten je Theme (gemeinsame Bauweise). Ein Theme im Rezept-Baukasten öffnet
 | pt | 5 | 0 | 0 | 5 | 0 | 0 |
 | zh-Hans | 4 | 0 | 0 | 4 | 0 | 0 |
 | ca | 2 | 0 | 0 | 2 | 0 | 0 |
-| zh-Hant | 2 | 0 | 0 | 1 | 1 | 0 |
+| zh-Hant | 2 | 0 | 0 | 2 | 0 | 0 |
 | other | 1 | 0 | 0 | 0 | 0 | 1 |
 | bg | 1 | 0 | 1 | 0 | 0 | 0 |
 | cs | 1 | 0 | 1 | 0 | 0 | 0 |
@@ -109,8 +102,9 @@ Kandidaten je Theme (gemeinsame Bauweise). Ein Theme im Rezept-Baukasten öffnet
 
 | Regel-Klasse | Module |
 |---|---:|
-| DRM | 134 |
+| DRM | 37 |
 | PRUEFSEITE | 23 |
+| VERSCHLEIERUNG | 23 |
 | SCHLUESSEL | 20 |
 | CAPTCHA | 13 |
 
@@ -125,7 +119,8 @@ Kandidaten je Theme (gemeinsame Bauweise). Ein Theme im Rezept-Baukasten öffnet
 - Ausgewertet wird der Kotlin-Code jedes Moduls, seines Themes und seiner Bibliotheken. Kommentare werden entfernt. Texte in Meldungen („bitte im WebView lösen“) zählen nicht als Automatik, sondern als *Prüfseite von Hand*.
 - **PRUEFSEITE**: Löser-Klassen/-Funktionen, bekannte Schutz-Namen (DDoS-Guard, Anubis, x-challange …), WebView-Automatik zusammen mit Schutz-Signalen, `cf_clearance` per WebView.
 - **CAPTCHA**: `getTurnstileToken` (core), reCAPTCHA/hCaptcha/Turnstile im Code oder als Schlüssel.
-- **DRM**: Bild-Entwürfelung (scramble, SeedRandom), Entschlüsselung (Cipher, AES-Helfer aus core, decrypt…), XOR-Verschleierung, Bibliotheken speedbinb, publus, clipstudioreader, e4p, ece, aessiv, secretstream.
+- **DRM**: DRM-Formate (e4p, Widevine …) und die Leser-DRM-Bibliotheken speedbinb, publus, clipstudioreader, e4p, ece, aessiv, secretstream.
+- **Verschleierung** (keine Regel-Klasse, Technik → Stufe 3): Bild-Entwürfelung, Entschlüsselung mit einem Schlüssel, den die Website selbst ausliefert, XOR. Unsere Engine kann davon schon `aes_cryptojs`, `packer`, `base64` sowie Raster- und Rechteck-Entwürfelung (GigaViewer, ComiciViewer, Madara).
 - **SCHLUESSEL**: HMAC/Signaturen, Schlüsseltausch (KeyAgreement, secretstream).
 - Regel-Treffer im *Theme* gelten nur als „kann“ (gestrichelt in `karte.html`). Ob eine Website den Pfad nutzt, zeigt erst der Prüfstand. Bei Themes, die wir schon bauen, entscheidet das die Regel-Prüfung je Website.
 - **Stufe 1**: Theme bei uns schon gebaut. **Stufe 2**: Einzelmodul oder neues Theme. **Stufe 3**: neue Technik (Protobuf, ZIP, JS-Engine, WebView, JS-Entschleierung) oder neues Theme mit möglicher Regel-Klasse.

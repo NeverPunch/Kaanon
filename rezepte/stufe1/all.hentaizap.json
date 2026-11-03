@@ -1,0 +1,91 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiZap",
+  "sprache": "all",
+  "base_url": "https://hentaizap.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.hentaizap",
+  "quellen": [
+   {
+    "name": "HentaiZap",
+    "sprache": "en",
+    "quell_id": 3055889891446984546,
+    "home": "https://hentaizap.com"
+   },
+   {
+    "name": "HentaiZap",
+    "sprache": "ja",
+    "quell_id": 6555947477839387123,
+    "home": "https://hentaizap.com"
+   },
+   {
+    "name": "HentaiZap",
+    "sprache": "es",
+    "quell_id": 4825793506555725623,
+    "home": "https://hentaizap.com"
+   },
+   {
+    "name": "HentaiZap",
+    "sprache": "fr",
+    "quell_id": 7896453910191786163,
+    "home": "https://hentaizap.com"
+   },
+   {
+    "name": "HentaiZap",
+    "sprache": "ko",
+    "quell_id": 9190914504602528025,
+    "home": "https://hentaizap.com"
+   },
+   {
+    "name": "HentaiZap",
+    "sprache": "de",
+    "quell_id": 1397842818609440667,
+    "home": "https://hentaizap.com"
+   },
+   {
+    "name": "HentaiZap",
+    "sprache": "ru",
+    "quell_id": 6614026304171193007,
+    "home": "https://hentaizap.com"
+   },
+   {
+    "name": "HentaiZap",
+    "sprache": "all",
+    "quell_id": 279262715881564190,
+    "home": "https://hentaizap.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/hentaizap",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.13",
+  "theme": "galleryadults"
+ },
+ "baukasten": "galleryadults",
+ "parameter": {
+  "apex": "hentaizap.com",
+  "page_style": "query",
+  "popular_path": "language/english/popular/",
+  "reader": "json",
+  "search_key": "key"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaLang": "when (lang) {",
+   "supportSpeechless": "true",
+   "useIntermediateSearch": "true",
+   "popularMangaSelector": "\".hz-gallery-card\"",
+   "mangaTitleSelector": "\".hz-gallery-card__title a\"",
+   "basicSearchKey": "\"key\"",
+   "mangaDetailInfoSelector": "\".hz-gallery-details\"",
+   "parsingImagePageByPage": "true",
+   "supportRelatedMangasBySearch": "true"
+  },
+  "hinweise": [
+   "galleryadults: Leser-Art (reader) und Seitenstil per Erkundung prüfen"
+  ]
+ }
+}

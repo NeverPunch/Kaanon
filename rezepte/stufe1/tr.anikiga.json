@@ -1,0 +1,46 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Anikiga",
+  "sprache": "tr",
+  "base_url": "https://anikiga.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.anikiga",
+  "quellen": [
+   {
+    "name": "Anikiga",
+    "sprache": "tr",
+    "quell_id": 8011699941614610362,
+    "home": "https://anikiga.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/anikiga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "anikiga.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "dd MMMM yyyy",
+  "date_locale": "tr",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd MMMM yyyy\", Locale.forLanguageTag(\"tr\"))",
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

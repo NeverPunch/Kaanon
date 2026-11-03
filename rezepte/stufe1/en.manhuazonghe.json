@@ -1,0 +1,48 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manhua Zonghe",
+  "sprache": "en",
+  "base_url": "https://www.manhuazonghe.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.manhuazonghe",
+  "quellen": [
+   {
+    "name": "Manhua Zonghe",
+    "sprache": "en",
+    "quell_id": 6077132944162952766,
+    "home": "https://www.manhuazonghe.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/manhuazonghe",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "manhuazonghe.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manhua",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "filterNonMangaItems": "false",
+   "mangaSubString": "\"manhua\""
+  },
+  "hinweise": [
+   "filterNonMangaItems = false"
+  ]
+ }
+}

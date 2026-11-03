@@ -1,0 +1,42 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Doujin69",
+  "sprache": "th",
+  "base_url": "https://doujin69.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.th.kaanon.doujin69",
+  "quellen": [
+   {
+    "name": "Doujin69",
+    "sprache": "th",
+    "quell_id": 216615711286665281,
+    "home": "https://doujin69.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/th/doujin69",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "doujin69.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "doujin",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaUrlDirectory": "\"/doujin\""
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

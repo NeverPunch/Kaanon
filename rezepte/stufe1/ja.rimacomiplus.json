@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "RimacomiPlus",
+  "sprache": "ja",
+  "base_url": "https://rimacomiplus.jp",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.rimacomiplus",
+  "quellen": [
+   {
+    "name": "RimacomiPlus",
+    "sprache": "ja",
+    "quell_id": 8784054084293367959,
+    "home": "https://rimacomiplus.jp"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/rimacomiplus",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "comiciviewer"
+ },
+ "baukasten": "comiciviewer",
+ "parameter": {
+  "apex": "rimacomiplus.jp"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

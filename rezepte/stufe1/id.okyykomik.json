@@ -1,0 +1,42 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "OkyyKomik",
+  "sprache": "id",
+  "base_url": "https://www.okyykomik.my.id",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.okyykomik",
+  "quellen": [
+   {
+    "name": "OkyyKomik",
+    "sprache": "id",
+    "quell_id": 8361715798247396418,
+    "home": "https://www.okyykomik.my.id"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/okyykomik",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.17",
+  "theme": "zeistmanga"
+ },
+ "baukasten": "zeistmanga",
+ "parameter": {
+  "apex": "okyykomik.my.id",
+  "chapter_cat": "Chapter",
+  "page_sel": "auto",
+  "series_label": "Series"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaDetailsSelector": "\"#Blog1\"",
+   "mangaDetailsSelectorAuthor": "\"#extra-info > dl:nth-child(2) dd\"",
+   "mangaDetailsSelectorArtist": "\"#extra-info > dl:nth-child(3) dd\"",
+   "pageListSelector": "\"article div.separator\"",
+   "supportsLatest": "false"
+  },
+  "hinweise": []
+ }
+}

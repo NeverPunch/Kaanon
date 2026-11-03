@@ -1,0 +1,50 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Rizz Comic",
+  "sprache": "en",
+  "base_url": "https://rizzfables.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.rizzcomic",
+  "quellen": [
+   {
+    "name": "Rizz Comic",
+    "sprache": "en",
+    "quell_id": 3062320139670175675,
+    "home": "https://rizzfables.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/rizzcomic",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.17",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "rizzfables.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "series",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "formParameter": "\"OrderValue\"",
+   "mangaUrlDirectory": "\"/series\"",
+   "datePattern": "\"dd MMM yyyy\"",
+   "pageSelector": "\"div#readerarea > img\"",
+   "slugRegex": "Regex(\"\"\"^(r\\d+-)\"\"\")",
+   "listUrl": "mangaUrlDirectory",
+   "listSelector": "\"div.bsx a\"",
+   "supportsFilterFetching": "false"
+  },
+  "hinweise": [
+   "Seiten-Selektor der Community: \"div#readerarea > img\"",
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

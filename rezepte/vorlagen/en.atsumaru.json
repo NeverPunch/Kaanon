@@ -1,0 +1,210 @@
+{
+ "extension": {
+  "name": "Atsumaru",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.atsumaru",
+  "version": "1.6.12",
+  "inhalt": "MIXED",
+  "quellen": [
+   {
+    "id": 6354986011843597399,
+    "name": "Atsumaru",
+    "language": "en",
+    "homeUrl": "https://atsu.moe",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}",
+   "Accept": "*/*",
+   "Content-Type": "application/json"
+  },
+  "image_headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}",
+   "Accept": "image/avif,image/webp,*/*"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/home2/popular?offset={offset}&limit=40&types=Manga,Manwha,Manhua,OEL&mediums=Comic&timeframe=daily",
+   "format": "json",
+   "items": "items",
+   "page_size": 40,
+   "fields": {
+    "url": "id",
+    "title": "title",
+    "cover": {
+     "path": [
+      "largeImage",
+      "poster",
+      "image"
+     ],
+     "replace": [
+      [
+       "^/",
+       ""
+      ],
+      [
+       "^static/",
+       ""
+      ]
+     ],
+     "template": "https://cdn.atsu.moe/static/{value}"
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}/api/home2/recentlyUpdated?offset={offset}&limit=40&types=Manga,Manwha,Manhua,OEL&mediums=Comic",
+   "format": "json",
+   "items": "items",
+   "page_size": 40,
+   "fields": {
+    "url": "id",
+    "title": "title",
+    "cover": {
+     "path": [
+      "largeImage",
+      "poster",
+      "image"
+     ],
+     "replace": [
+      [
+       "^/",
+       ""
+      ],
+      [
+       "^static/",
+       ""
+      ]
+     ],
+     "template": "https://cdn.atsu.moe/static/{value}"
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/collections/manga/documents/search?q={query}&filter_by=hidden%3A!%3Dtrue%20%26%26%20(mbContentRating%3A%3D%5B%60Safe%60%2C%60Suggestive%60%2C%60Erotica%60%5D%20%7C%7C%20mbContentRating%3A!%3D*)%20%26%26%20medium%3A!%3D%5B%60Novel%60%5D%20%26%26%20views%3A%3E0%20%26%26%20isAdult%3A%3Dfalse&query_by=title,englishTitle,otherNames,authors&query_by_weights=4,3,2,1&num_typos=4,3,2,1&page={page}&per_page=40",
+   "format": "json",
+   "items": "hits.*.document",
+   "page_size": 40,
+   "fields": {
+    "url": "id",
+    "title": "title",
+    "cover": {
+     "path": [
+      "largeImage",
+      "poster",
+      "image"
+     ],
+     "replace": [
+      [
+       "^/",
+       ""
+      ],
+      [
+       "^static/",
+       ""
+      ]
+     ],
+     "template": "https://cdn.atsu.moe/static/{value}"
+    }
+   },
+   "has_next": {
+    "total": "found"
+   }
+  },
+  "details": {
+   "request": "{base}/api/manga/page?id={u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "^/([^/]+)"
+   },
+   "fields": {
+    "title": "mangaPage.title",
+    "cover": {
+     "path": [
+      "mangaPage.poster.largeImage",
+      "mangaPage.poster.image"
+     ],
+     "replace": [
+      [
+       "^/",
+       ""
+      ],
+      [
+       "^static/",
+       ""
+      ]
+     ],
+     "template": "https://cdn.atsu.moe/static/{value}"
+    },
+    "description": "mangaPage.synopsis",
+    "genres": {
+     "path": [
+      "mangaPage.type",
+      "mangaPage.genres.*.name",
+      "mangaPage.tags.*.name"
+     ],
+     "union": true
+    },
+    "author": {
+     "path": "mangaPage.authors.?type=Author.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "mangaPage.authors.?type=Artist.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "mangaPage.status"
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/manga/allChapters?mangaId={u.id}",
+   "format": "json",
+   "items": "chapters",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "{u.id}/{value}"
+    },
+    "name": "title",
+    "number": "number",
+    "date": "createdAt"
+   },
+   "date_format": "epoch_ms"
+  },
+  "pages": {
+   "request": "{base}/api/read/chapter?mangaId={u.mid}&chapterId={u.cid}",
+   "format": "json",
+   "url_vars": {
+    "mid": "^/([^/]+)/",
+    "cid": "/([^/]+)$"
+   },
+   "items": "readChapter.pages",
+   "sort": "number",
+   "image": {
+    "path": "image",
+    "replace": [
+     [
+      "^/",
+      ""
+     ],
+     [
+      "^static/",
+      ""
+     ]
+    ],
+    "template": "https://cdn.atsu.moe/static/{value}"
+   }
+  }
+ }
+}

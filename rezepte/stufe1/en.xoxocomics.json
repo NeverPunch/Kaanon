@@ -1,0 +1,49 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "XOXO Comics",
+  "sprache": "en",
+  "base_url": "https://xoxocomic.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.xoxocomics",
+  "quellen": [
+   {
+    "name": "XOXO Comics",
+    "sprache": "en",
+    "quell_id": 2385956107618754468,
+    "home": "https://xoxocomic.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/xoxocomics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.16",
+  "theme": "wpcomics"
+ },
+ "baukasten": "wpcomics",
+ "parameter": {
+  "apex": "xoxocomic.com",
+  "chapter_mode": "json_id",
+  "description_mode": "full",
+  "latest_path": "",
+  "pages_suffix": "",
+  "popular_path": "hot-comic",
+  "search_path": "search-comic",
+  "ui_lang": "en"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "dateFormat": "DateTimeFormatter.ofPattern(\"MM/dd/yyyy\", Locale.US)",
+   "gmtOffset": "null",
+   "searchPath": "\"search-comic\"",
+   "popularPath": "\"hot-comic\"",
+   "latestUpdatesSelector": "\"li.row\"",
+   "genresSelector": "\".genres h2:contains(Genres) + ul.nav li a\""
+  },
+  "hinweise": [
+   "wpcomics: Vorgaben stammen aus NetTruyen; Pfade per Erkundung prüfen"
+  ]
+ }
+}

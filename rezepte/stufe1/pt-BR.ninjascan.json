@@ -1,0 +1,46 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Ninja Scan",
+  "sprache": "pt-BR",
+  "base_url": "https://ninjacomics.xyz",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.ninjascan",
+  "quellen": [
+   {
+    "name": "Ninja Scan",
+    "sprache": "pt-BR",
+    "quell_id": 4392067503694697213,
+    "home": "https://ninjacomics.xyz"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/ninjascan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.60",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "ninjacomics.xyz",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "dd 'de' MMMM 'de' yyyy",
+  "date_locale": "pt",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterMode": "ChapterMode.MangaAjax",
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd 'de' MMMM 'de' yyyy\", Locale(\"pt\", \"BR\"))"
+  },
+  "hinweise": []
+ }
+}

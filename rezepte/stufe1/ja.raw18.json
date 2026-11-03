@@ -1,0 +1,51 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Raw18",
+  "sprache": "ja",
+  "base_url": "https://raw18.guru",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.raw18",
+  "quellen": [
+   {
+    "name": "Raw18",
+    "sprache": "ja",
+    "quell_id": 2238636513447052332,
+    "home": "https://raw18.guru"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/raw18",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.25",
+  "theme": "wpcomics"
+ },
+ "baukasten": "wpcomics",
+ "parameter": {
+  "apex": "raw18.guru",
+  "chapter_mode": "json_id",
+  "description_mode": "full",
+  "latest_path": "",
+  "pages_suffix": "",
+  "popular_path": "truyen-tranh-hot",
+  "search_path": "search/manga",
+  "ui_lang": "vi"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "dateFormat": "DateTimeFormatter.ofPattern(\"yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'\", Locale.JAPANESE)",
+   "gmtOffset": "null",
+   "searchPath": "\"search/manga\"",
+   "genresUrlDelimiter": "\"=\"",
+   "popularMangaSelector": "\"div.items .item\"",
+   "popularMangaNextPageSelector": "\"li:nth-last-child(2) a.page-link\"",
+   "searchMangaSelector": "popularMangaSelector()",
+   "getStatusList": "listOf("
+  },
+  "hinweise": [
+   "wpcomics: Vorgaben stammen aus NetTruyen; Pfade per Erkundung prüfen"
+  ]
+ }
+}

@@ -1,0 +1,138 @@
+{
+ "extension": {
+  "name": "Asura Scans",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.asurascans",
+  "version": "1.6.11",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 6247824327199706550,
+    "name": "Asura Scans",
+    "language": "en",
+    "homeUrl": "https://asurascans.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 2000
+  },
+  "popular": {
+   "request": "https://api.asurascans.com/api/series?offset={offset}&limit=20&sort=popular&order=desc",
+   "format": "json",
+   "items": "data",
+   "page_size": 20,
+   "has_next": {
+    "exists": "meta.has_more"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   }
+  },
+  "latest": {
+   "request": "https://api.asurascans.com/api/series?offset={offset}&limit=20&sort=latest&order=desc",
+   "format": "json",
+   "items": "data",
+   "page_size": 20,
+   "has_next": {
+    "exists": "meta.has_more"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   }
+  },
+  "search": {
+   "request": "https://api.asurascans.com/api/series?offset={offset}&limit=20&search={query}",
+   "format": "json",
+   "items": "data",
+   "page_size": 20,
+   "has_next": {
+    "exists": "meta.has_more"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   }
+  },
+  "details": {
+   "request": "https://api.asurascans.com/api/series/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/#?]+)"
+   },
+   "fields": {
+    "title": "series.title",
+    "cover": "series.cover",
+    "description": {
+     "path": "series.description",
+     "decode": "html_text"
+    },
+    "genres": "series.genres.*.name",
+    "author": "series.author",
+    "artist": "series.artist",
+    "status": "series.status"
+   }
+  },
+  "chapters": {
+   "request": "https://api.asurascans.com/api/series/{u.slug}/chapters",
+   "format": "json",
+   "items": "data",
+   "skip": {
+    "any": [
+     "is_premium",
+     "is_locked",
+     {
+      "path": "early_access_until",
+      "is_future": "iso"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "number",
+     "template": "/series/{u.slug}/chapter/{value}"
+    },
+    "name": {
+     "path": "number",
+     "template": "Chapter {value}"
+    },
+    "number": "number",
+    "date": "published_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://api.asurascans.com/api/series/{u.slug}/chapters/{u.num}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/]+)/chapter",
+    "num": "/chapter/([^/?#]+)"
+   },
+   "items": "data.chapter.pages",
+   "image": "url"
+  }
+ }
+}

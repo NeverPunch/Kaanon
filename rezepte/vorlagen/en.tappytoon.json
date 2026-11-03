@@ -1,0 +1,207 @@
+{
+ "extension": {
+  "name": "Tappytoon",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.tappytoon",
+  "version": "1.6.11",
+  "inhalt": "MIXED",
+  "quellen": [
+   {
+    "id": 7049142072741547166,
+    "name": "Tappytoon",
+    "language": "en",
+    "homeUrl": "https://www.tappytoon.com/en",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "https://www.tappytoon.com/",
+   "Origin": "https://www.tappytoon.com"
+  },
+  "vars": {
+   "auth": {
+    "request": "https://www.tappytoon.com/en/home",
+    "format": "next_data",
+    "value": "props.initialState.axios.headers.Authorization",
+    "ttl_s": 3600
+   },
+   "uuid": {
+    "request": "https://www.tappytoon.com/en/home",
+    "format": "next_data",
+    "value": "props.initialState.axios.headers.X-Device-Uuid",
+    "ttl_s": 3600
+   }
+  },
+  "popular": {
+   "request": {
+    "url": "https://api-global.tappytoon.com/comics?sort_by=trending&filter=completed&locale=en",
+    "headers": {
+     "Authorization": "{v.auth}",
+     "X-Device-Uuid": "{v.uuid}",
+     "Accept-Language": "en"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "has_next": {
+    "const": false
+   },
+   "skip": {
+    "path": "isAccessible",
+    "regex": "^(false)$",
+    "template": "x"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comics/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": "posterThumbnailUrl"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "https://api-global.tappytoon.com/comics?locale=en",
+    "headers": {
+     "Authorization": "{v.auth}",
+     "X-Device-Uuid": "{v.uuid}",
+     "Accept-Language": "en"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "has_next": {
+    "const": false
+   },
+   "skip": {
+    "path": "isAccessible",
+    "regex": "^(false)$",
+    "template": "x"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comics/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": "posterThumbnailUrl"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "https://api-global.tappytoon.com/comics?locale=en&keyword={query}",
+    "headers": {
+     "Authorization": "{v.auth}",
+     "X-Device-Uuid": "{v.uuid}",
+     "Accept-Language": "en"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "has_next": {
+    "const": false
+   },
+   "skip": {
+    "path": "isAccessible",
+    "regex": "^(false)$",
+    "template": "x"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comics/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": "posterThumbnailUrl"
+   }
+  },
+  "details": {
+   "request": {
+    "url": "https://api-global.tappytoon.com/comics/{u.id}?locale=en",
+    "headers": {
+     "Authorization": "{v.auth}",
+     "X-Device-Uuid": "{v.uuid}",
+     "Accept-Language": "en"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "#(\\d+)$"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "posterThumbnailUrl",
+    "description": "longDescription",
+    "genres": "genres.*.name",
+    "author": "authors.*.name",
+    "status": {
+     "path": "isCompleted",
+     "regex": "^(true)$",
+     "template": "completed"
+    }
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "https://api-global.tappytoon.com/comics/{u.id}/chapters?locale=en",
+    "headers": {
+     "Authorization": "{v.auth}",
+     "X-Device-Uuid": "{v.uuid}",
+     "Accept-Language": "en"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "skip": {
+    "any": [
+     {
+      "path": "isAccessible",
+      "regex": "^(false)$",
+      "template": "x"
+     },
+     {
+      "path": "isFree",
+      "regex": "^(false)$",
+      "template": "x"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/{value}"
+    },
+    "name": {
+     "path": "title"
+    },
+    "date": "willAccessibleAt"
+   },
+   "date_format": "iso",
+   "reverse": true
+  },
+  "pages": {
+   "request": {
+    "url": "https://api-global.tappytoon.com/content-delivery/contents?chapterId={u.cid}&variant=high&locale=en",
+    "headers": {
+     "Authorization": "{v.auth}",
+     "X-Device-Uuid": "{v.uuid}",
+     "Accept-Language": "en"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "cid": "(\\d+)/?$"
+   },
+   "items": "media",
+   "image": "path"
+  },
+  "image_headers": {
+   "Referer": "https://www.tappytoon.com/"
+  }
+ }
+}

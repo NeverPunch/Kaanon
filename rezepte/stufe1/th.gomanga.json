@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Go Manga",
+  "sprache": "th",
+  "base_url": "https://www.go-manga.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.th.kaanon.gomanga",
+  "quellen": [
+   {
+    "name": "Go Manga",
+    "sprache": "th",
+    "quell_id": 748167751985747523,
+    "home": "https://www.go-manga.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/th/gomanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "go-manga.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

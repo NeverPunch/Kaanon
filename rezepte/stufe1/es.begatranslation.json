@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Bega Translation",
+  "sprache": "es",
+  "base_url": "https://begatranslation.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.begatranslation",
+  "quellen": [
+   {
+    "name": "Bega Translation",
+    "sprache": "es",
+    "quell_id": 6757330205319558057,
+    "home": "https://begatranslation.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/begatranslation",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.60",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "begatranslation.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "series",
+  "date_format": "dd MMMM, yyyy",
+  "date_locale": "es",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd MMMM, yyyy\", Locale.forLanguageTag(\"es\"))",
+   "chapterMode": "ChapterMode.MangaAjax",
+   "mangaSubString": "\"series\""
+  },
+  "hinweise": []
+ }
+}

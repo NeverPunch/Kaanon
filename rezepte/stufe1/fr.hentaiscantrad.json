@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hentai-Scantrad",
+  "sprache": "fr",
+  "base_url": "https://hentai-scantrad.org",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.hentaiscantrad",
+  "quellen": [
+   {
+    "name": "Hentai-Scantrad",
+    "sprache": "fr",
+    "quell_id": 6747208512135394944,
+    "home": "https://hentai-scantrad.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/hentaiscantrad",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.59",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "hentai-scantrad.org",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "d MMMM, yyyy",
+  "date_locale": "fr",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"d MMMM, yyyy\", Locale.FRENCH)",
+   "mangaDetailsSelectorStatus": "\"div.summary-heading:contains(État) + .summary-content\"",
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

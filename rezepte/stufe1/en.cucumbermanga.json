@@ -1,0 +1,45 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Cucumber Manga",
+  "sprache": "en",
+  "base_url": "https://cucumbermanga.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.cucumbermanga",
+  "quellen": [
+   {
+    "name": "Cucumber Manga",
+    "sprache": "en",
+    "quell_id": 3890119680043332770,
+    "home": "https://cucumbermanga.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/cucumbermanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "cucumbermanga.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

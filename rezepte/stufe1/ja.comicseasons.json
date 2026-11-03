@@ -1,0 +1,38 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Comic Seasons",
+  "sprache": "ja",
+  "base_url": "https://comic-seasons.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.comicseasons",
+  "quellen": [
+   {
+    "name": "Comic Seasons",
+    "sprache": "ja",
+    "quell_id": 5198063407173750376,
+    "home": "https://comic-seasons.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/comicseasons",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "gigaviewer"
+ },
+ "baukasten": "gigaviewer",
+ "parameter": {
+  "apex": "comic-seasons.com",
+  "list_keyword": "の",
+  "list_mode": "graphql"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "seriesListIds": "listOf(\"2550912964592144518\")",
+   "getFilterOptions": "listOf("
+  },
+  "hinweise": []
+ }
+}

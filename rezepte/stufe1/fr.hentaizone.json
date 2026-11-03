@@ -1,0 +1,46 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiZone",
+  "sprache": "fr",
+  "base_url": "https://hentaizone.xyz",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.hentaizone",
+  "quellen": [
+   {
+    "name": "HentaiZone",
+    "sprache": "fr",
+    "quell_id": 4897336575284771091,
+    "home": "https://hentaizone.xyz"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/hentaizone",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "hentaizone.xyz",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "tous-les-mangas",
+  "date_format": "MMM d, yyyy",
+  "date_locale": "fr",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"MMM d, yyyy\", Locale.FRENCH)",
+   "mangaSubString": "\"tous-les-mangas\""
+  },
+  "hinweise": []
+ }
+}

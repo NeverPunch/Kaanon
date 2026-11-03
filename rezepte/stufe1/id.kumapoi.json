@@ -1,0 +1,42 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "KumaPoi",
+  "sprache": "id",
+  "base_url": "https://kumapoi.info",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.kumapoi",
+  "quellen": [
+   {
+    "name": "KumaPoi",
+    "sprache": "id",
+    "quell_id": 5075847076783200426,
+    "home": "https://kumapoi.info"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/kumapoi",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.6",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "kumapoi.info",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "hasProjectPage": "true"
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

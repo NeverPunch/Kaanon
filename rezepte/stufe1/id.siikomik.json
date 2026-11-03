@@ -1,0 +1,48 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Siikomik",
+  "sprache": "id",
+  "base_url": "https://siikomik.id",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.siikomik",
+  "quellen": [
+   {
+    "name": "Siikomik",
+    "sprache": "id",
+    "quell_id": 4762501899936439936,
+    "home": "https://siikomik.id"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/siimanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.59",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "siikomik.id",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "komik",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "supportsPostId": "false",
+   "mangaSubString": "\"komik\"",
+   "archiveSelector": "\".slider__item\"",
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

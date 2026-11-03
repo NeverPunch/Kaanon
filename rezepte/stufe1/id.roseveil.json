@@ -1,0 +1,37 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Roseveil",
+  "sprache": "id",
+  "base_url": "https://roseveil.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.roseveil",
+  "quellen": [
+   {
+    "name": "Roseveil",
+    "sprache": "id",
+    "quell_id": 5328028029485519937,
+    "home": "https://roseveil.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/roseveil",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "loneseal"
+ },
+ "baukasten": "loneseal",
+ "parameter": {
+  "apex": "roseveil.org",
+  "api_base": "",
+  "chapter_title": "yes"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": [
+   "api_base unbekannt: im Builder per Erkundung ermitteln"
+  ]
+ }
+}

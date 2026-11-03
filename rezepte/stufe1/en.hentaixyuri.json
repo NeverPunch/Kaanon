@@ -1,0 +1,46 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiXYuri",
+  "sprache": "en",
+  "base_url": "https://hentaixyuri.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.hentaixyuri",
+  "quellen": [
+   {
+    "name": "HentaiXYuri",
+    "sprache": "en",
+    "quell_id": 1089473637776666044,
+    "home": "https://hentaixyuri.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/hentaixyuri",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "hentaixyuri.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMM d, uuuu",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"MMM d, uuuu\", Locale.US)",
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

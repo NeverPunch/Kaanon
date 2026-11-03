@@ -1,0 +1,129 @@
+{
+ "extension": {
+  "name": "Temple Scan",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.templescan",
+  "version": "1.6.11",
+  "inhalt": "NSFW",
+  "quellen": [
+   {
+    "id": 7025852861608073094,
+    "name": "Temple Scan",
+    "language": "en",
+    "homeUrl": "https://templetoons.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+   "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+   "Accept-Language": "en-US,en;q=0.9",
+   "Sec-Fetch-Dest": "document",
+   "Sec-Fetch-Mode": "navigate",
+   "Sec-Fetch-Site": "none",
+   "Upgrade-Insecure-Requests": "1"
+  },
+  "image_headers": {
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+   "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+   "Accept-Language": "en-US,en;q=0.9",
+   "Sec-Fetch-Dest": "document",
+   "Sec-Fetch-Mode": "navigate",
+   "Sec-Fetch-Site": "none",
+   "Upgrade-Insecure-Requests": "1",
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/comics?page={page}",
+   "format": "html",
+   "items": "div.grid > div",
+   "has_next": {
+    "exists": "a:containsOwn(Next)"
+   },
+   "fields": {
+    "url": "a[href^=\"/comic/\"]@href",
+    "title": "h2",
+    "cover": "img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/comics?page={page}",
+   "format": "html",
+   "items": "div.grid > div",
+   "has_next": {
+    "exists": "a:containsOwn(Next)"
+   },
+   "fields": {
+    "url": "a[href^=\"/comic/\"]@href",
+    "title": "h2",
+    "cover": "img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": "h1",
+    "cover": "img[src*=\"/covers/\"]@img",
+    "description": "#series-synopsis-text",
+    "genres": {
+     "path": "script[type=\"application/ld+json\"]:containsData(ComicSeries)@html",
+     "regex": "\"genre\":\\[([^\\]]*)\\]",
+     "replace": [
+      [
+       "\",\"",
+       ", "
+      ],
+      [
+       "\"",
+       ""
+      ]
+     ]
+    },
+    "author": {
+     "path": "script[type=\"application/ld+json\"]:containsData(ComicSeries)@html",
+     "regex": "\"author\":\\{[^}]*\"name\":\"([^\"]*)\""
+    },
+    "status": "li > span:matchesOwn(^(Ongoing|Hiatus|Completed|Canceled|Dropped)$)"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "canceled": 5,
+    "cancelled": 5,
+    "dropped": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "html",
+   "items": "a[id^=chapter-link-]",
+   "fields": {
+    "url": "@href",
+    "name": "span",
+    "date": "time@datetime",
+    "number": {
+     "path": "span",
+     "regex": "(\\d+(?:\\.\\d+)?)"
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "items": "https://media\\.templetoons\\.com/file/[^\"\\\\\\s]+/uploads/[^\"\\\\\\s]+",
+   "image": ""
+  }
+ }
+}

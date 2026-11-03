@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Asacomi",
+  "sprache": "ja",
+  "base_url": "https://asacomi.jp",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.asacomi",
+  "quellen": [
+   {
+    "name": "Asacomi",
+    "sprache": "ja",
+    "quell_id": 6455606609436338494,
+    "home": "https://asacomi.jp"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/asacomi",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "comiciviewer"
+ },
+ "baukasten": "comiciviewer",
+ "parameter": {
+  "apex": "asacomi.jp"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

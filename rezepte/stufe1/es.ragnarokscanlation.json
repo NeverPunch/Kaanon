@@ -1,0 +1,46 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Ragnarok Scanlation",
+  "sprache": "es",
+  "base_url": "https://ragnarokscanlation.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.ragnarokscanlation",
+  "quellen": [
+   {
+    "name": "Ragnarok Scanlation",
+    "sprache": "es",
+    "quell_id": 1348827658894665970,
+    "home": "https://ragnarokscanlation.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/ragnarokscanlation",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.60",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "ragnarokscanlation.org",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "series",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaSubString": "\"series\"",
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

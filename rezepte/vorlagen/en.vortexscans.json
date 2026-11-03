@@ -1,0 +1,177 @@
+{
+ "extension": {
+  "name": "Vortex Scans",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.vortexscans",
+  "version": "1.6.11",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 2559570015828016575,
+    "name": "Vortex Scans",
+    "language": "en",
+    "homeUrl": "https://vortexscans.org",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "popular": {
+   "request": "https://api.vortexscans.org/api/query?page={page}&perPage=18&searchTerm=&orderBy=totalViews",
+   "format": "json",
+   "items": "posts",
+   "page_size": 18,
+   "has_next": {
+    "total": "totalCount"
+   },
+   "skip": {
+    "any": [
+     "isNovel",
+     {
+      "path": "seriesType",
+      "regex": "(?i)^novel$"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "postTitle",
+    "cover": "featuredImage"
+   }
+  },
+  "latest": {
+   "request": "https://api.vortexscans.org/api/query?page={page}&perPage=18&searchTerm=&orderBy=lastChapterAddedAt",
+   "format": "json",
+   "items": "posts",
+   "page_size": 18,
+   "has_next": {
+    "total": "totalCount"
+   },
+   "skip": {
+    "any": [
+     "isNovel",
+     {
+      "path": "seriesType",
+      "regex": "(?i)^novel$"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "postTitle",
+    "cover": "featuredImage"
+   }
+  },
+  "search": {
+   "request": "https://api.vortexscans.org/api/query?page={page}&perPage=18&searchTerm={query}&orderBy=lastChapterAddedAt",
+   "format": "json",
+   "items": "posts",
+   "page_size": 18,
+   "has_next": {
+    "total": "totalCount"
+   },
+   "skip": {
+    "any": [
+     "isNovel",
+     {
+      "path": "seriesType",
+      "regex": "(?i)^novel$"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "postTitle",
+    "cover": "featuredImage"
+   }
+  },
+  "details": {
+   "request": "https://api.vortexscans.org/api/post?postSlug={u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/#]+)",
+    "id": "#(\\d+)$"
+   },
+   "fields": {
+    "title": "post.postTitle",
+    "cover": "post.featuredImage",
+    "description": {
+     "path": "post.postContent",
+     "decode": "html_text"
+    },
+    "genres": "post.genres.*.name",
+    "author": "post.author",
+    "artist": "post.artist",
+    "status": "post.seriesStatus"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "coming_soon": 1,
+    "mass_released": 1,
+    "completed": 2,
+    "cancelled": 5,
+    "dropped": 5
+   }
+  },
+  "chapters": {
+   "request": "https://api.vortexscans.org/api/chapters?postId={u.id}",
+   "format": "json",
+   "items": "post.chapters",
+   "skip": {
+    "any": [
+     "isLocked",
+     "isTimeLocked",
+     "isPermanentlyLocked",
+     "isShortLinkLocked",
+     "isLockedByCoins",
+     "price"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{u.slug}/{value}#{f.id}"
+    },
+    "name": {
+     "path": "number",
+     "template": "Chapter {value}"
+    },
+    "date": "createdAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://api.vortexscans.org/api/chapter?chapterId={u.cid}",
+   "format": "json",
+   "url_vars": {
+    "cid": "#(\\d+)$"
+   },
+   "items": "chapter.images",
+   "sort": "order",
+   "image": {
+    "path": "url",
+    "replace": [
+     [
+      " ",
+      "%20"
+     ]
+    ]
+   }
+  }
+ }
+}

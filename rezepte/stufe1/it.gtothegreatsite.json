@@ -1,0 +1,34 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "GTO The Great Site",
+  "sprache": "it",
+  "base_url": "https://reader.gtothegreatsite.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.it.kaanon.gtothegreatsite",
+  "quellen": [
+   {
+    "name": "GTO The Great Site",
+    "sprache": "it",
+    "quell_id": 2773063800266255222,
+    "home": "https://reader.gtothegreatsite.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/it/gto",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.9",
+  "theme": "pizzareader"
+ },
+ "baukasten": "pizzareader",
+ "parameter": {
+  "apex": "reader.gtothegreatsite.net",
+  "api_path": "/api"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

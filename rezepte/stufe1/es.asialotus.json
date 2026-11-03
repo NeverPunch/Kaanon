@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Asia Lotus",
+  "sprache": "es",
+  "base_url": "https://asialotuss.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.asialotus",
+  "quellen": [
+   {
+    "name": "Asia Lotus",
+    "sprache": "es",
+    "quell_id": 3655128076360662290,
+    "home": "https://asialotuss.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/asialotus",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "asialotuss.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

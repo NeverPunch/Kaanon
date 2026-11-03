@@ -1,0 +1,43 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Madara Scans",
+  "sprache": "en",
+  "base_url": "https://madarascans.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.madarascans",
+  "quellen": [
+   {
+    "name": "Madara Scans",
+    "sprache": "en",
+    "quell_id": 9025563662441338944,
+    "home": "https://madarascans.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/madarascans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.6",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "madarascans.net",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "series",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaUrlDirectory": "\"/series\"",
+   "chapterListSelector": "paidChapterHelper.getChapterListSelectorBasedOnHidePaidChaptersPref("
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

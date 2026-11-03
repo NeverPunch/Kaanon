@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Booklista Studio",
+  "sprache": "ja",
+  "base_url": "https://studio.booklista.co.jp",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.booklistastudio",
+  "quellen": [
+   {
+    "name": "Booklista Studio",
+    "sprache": "ja",
+    "quell_id": 4993360009034397146,
+    "home": "https://studio.booklista.co.jp"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/booklistastudio",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "comiciviewer"
+ },
+ "baukasten": "comiciviewer",
+ "parameter": {
+  "apex": "studio.booklista.co.jp"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

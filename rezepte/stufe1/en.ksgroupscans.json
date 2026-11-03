@@ -1,0 +1,45 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "KSGroupScans",
+  "sprache": "en",
+  "base_url": "https://ksgroupscans.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.ksgroupscans",
+  "quellen": [
+   {
+    "name": "KSGroupScans",
+    "sprache": "en",
+    "quell_id": 4307007494151154546,
+    "home": "https://ksgroupscans.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/ksgroupscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "ksgroupscans.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

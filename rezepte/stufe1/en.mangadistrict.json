@@ -1,0 +1,49 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga District",
+  "sprache": "en",
+  "base_url": "https://mangadistrict.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mangadistrict",
+  "quellen": [
+   {
+    "name": "Manga District",
+    "sprache": "en",
+    "quell_id": 2964723819258267786,
+    "home": "https://mangadistrict.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/mangadistrict",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.75",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "mangadistrict.com",
+  "list_mode": "html",
+  "chapter_mode": "ajax",
+  "manga_dir": "series",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": ".chapter-release-date .timediff",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaSubString": "\"series\"",
+   "genreDirectory": "\"publication-genre\"",
+   "nextPageSelector": "\".wp-pagenavi a.last\"",
+   "chapterDateSelector": "\".chapter-release-date .timediff\"",
+   "pageListParseSelector": "\"div.page-break img:not(noscript img):not(#image-99999)\""
+  },
+  "hinweise": []
+ }
+}

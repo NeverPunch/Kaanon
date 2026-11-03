@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Türkçe Manga Oku",
+  "sprache": "tr",
+  "base_url": "https://trmangaoku.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.trkemangaoku",
+  "quellen": [
+   {
+    "name": "Türkçe Manga Oku",
+    "sprache": "tr",
+    "quell_id": 1213201447439140959,
+    "home": "https://trmangaoku.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/turkcemangaoku",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "trmangaoku.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "d MMMM yyyy",
+  "date_locale": "tr",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"d MMMM yyyy\", Locale.forLanguageTag(\"tr\"))",
+   "mangaDetailsSelectorStatus": "\"div.summary-heading:contains(Durumu) + div.summary-content\"",
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

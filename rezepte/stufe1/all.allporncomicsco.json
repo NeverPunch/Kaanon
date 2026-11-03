@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "AllPornComics.co",
+  "sprache": "all",
+  "base_url": "https://allporncomics.co",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.allporncomicsco",
+  "quellen": [
+   {
+    "name": "AllPornComics.co",
+    "sprache": "all",
+    "quell_id": 6353068724409812158,
+    "home": "https://allporncomics.co"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/allporncomicsco",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "allporncomics.co",
+  "list_mode": "html",
+  "chapter_mode": "ajax",
+  "manga_dir": "comic",
+  "date_format": "dd/MM/yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd/MM/yyyy\", Locale.ROOT)",
+   "mangaSubString": "\"comic\"",
+   "archiveUrlSelector": "\"h3 > a:not([target=_self]):last-of-type\""
+  },
+  "hinweise": []
+ }
+}

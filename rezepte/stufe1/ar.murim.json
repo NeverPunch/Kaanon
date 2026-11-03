@@ -1,0 +1,38 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Murim",
+  "sprache": "ar",
+  "base_url": "https://www.murim.site",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.murim",
+  "quellen": [
+   {
+    "name": "Murim",
+    "sprache": "ar",
+    "quell_id": 4966914277555229831,
+    "home": "https://www.murim.site"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/murim",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.16",
+  "theme": "zeistmanga"
+ },
+ "baukasten": "zeistmanga",
+ "parameter": {
+  "apex": "murim.site",
+  "chapter_cat": "Chapter",
+  "page_sel": "auto",
+  "series_label": "Series"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "supportsLatest": "false"
+  },
+  "hinweise": []
+ }
+}

@@ -1,0 +1,44 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ToomTam-Manga",
+  "sprache": "th",
+  "base_url": "https://toomtam-manga.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.th.kaanon.toomtammanga",
+  "quellen": [
+   {
+    "name": "ToomTam-Manga",
+    "sprache": "th",
+    "quell_id": 5640783863041818405,
+    "home": "https://toomtam-manga.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/th/toomtammanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "toomtam-manga.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "seriesAuthorSelector": "\".imptdt:contains(ผู้เขียน) i\"",
+   "seriesArtistSelector": "\".imptdt:contains(ศิลปิน) i\"",
+   "seriesTypeSelector": "\".imptdt:contains(พิมพ์) a\""
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

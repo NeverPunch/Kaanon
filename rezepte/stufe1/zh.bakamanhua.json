@@ -1,0 +1,48 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Baka Manhua",
+  "sprache": "zh",
+  "base_url": "https://bakamh.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.bakamanhua",
+  "quellen": [
+   {
+    "name": "巴卡漫画",
+    "sprache": "zh",
+    "quell_id": 3712194609356981776,
+    "home": "https://bakamh.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/bakamh",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.71",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "bakamh.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "yyyy 年 M 月 d 日",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date i",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"yyyy 年 M 月 d 日\", Locale.CHINESE)",
+   "mangaDetailsSelectorStatus": "\".post-content_item:contains(状态) .summary-content\"",
+   "chapterListSelector": "\"ul.version-chap > li\"",
+   "chapterDateSelector": "\"span.chapter-release-date i\""
+  },
+  "hinweise": []
+ }
+}

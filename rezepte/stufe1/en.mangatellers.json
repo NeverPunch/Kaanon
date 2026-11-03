@@ -1,0 +1,36 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Mangatellers",
+  "sprache": "en",
+  "base_url": "https://reader.mangatellers.gr",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mangatellers",
+  "quellen": [
+   {
+    "name": "Mangatellers",
+    "sprache": "en",
+    "quell_id": 3478835885302345699,
+    "home": "https://reader.mangatellers.gr"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/mangatellers",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.7",
+  "theme": "foolslide"
+ },
+ "baukasten": "foolslide",
+ "parameter": {
+  "apex": "reader.mangatellers.gr",
+  "popular_path": "directory",
+  "skip_numeric_names": "0",
+  "url_modifier": ""
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

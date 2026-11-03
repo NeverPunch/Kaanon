@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Sekte Doujin",
+  "sprache": "id",
+  "base_url": "https://sektedoujin.cc",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.sektedoujin",
+  "quellen": [
+   {
+    "name": "Sekte Doujin",
+    "sprache": "id",
+    "quell_id": 7949854430526190429,
+    "home": "https://sektedoujin.cc"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/sektedoujin",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.7",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "sektedoujin.cc",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

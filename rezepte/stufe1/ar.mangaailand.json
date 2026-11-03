@@ -1,0 +1,41 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga Ai Land",
+  "sprache": "ar",
+  "base_url": "https://manga-ai-land.blogspot.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.mangaailand",
+  "quellen": [
+   {
+    "name": "Manga Ai Land",
+    "sprache": "ar",
+    "quell_id": 7109397520501699498,
+    "home": "https://manga-ai-land.blogspot.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/mangaailand",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.15",
+  "theme": "zeistmanga"
+ },
+ "baukasten": "zeistmanga",
+ "parameter": {
+  "apex": "manga-ai-land.blogspot.com",
+  "chapter_cat": "فصل",
+  "page_sel": "auto",
+  "series_label": "Series"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "hasFilters": "true",
+   "hasLanguageFilter": "false",
+   "chapterCategory": "\"فصل\"",
+   "getGenreList": "listOf("
+  },
+  "hinweise": []
+ }
+}

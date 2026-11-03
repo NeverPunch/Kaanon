@@ -1,0 +1,111 @@
+{
+ "extension": {
+  "name": "Niadd",
+  "paket": "eu.kanade.tachiyomi.extension.de.kaanon.niadd",
+  "version": "1.6.11",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 3358885026101433827,
+    "name": "Niadd",
+    "language": "de",
+    "homeUrl": "https://de.niadd.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "image_headers": {
+   "Referer": "{base}/"
+  },
+  "popular": {
+   "request": "{base}/list/Hot-Manga.html",
+   "format": "html",
+   "items": "div.manga-item",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "div.manga-name",
+    "cover": "div.manga-img img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/list/New-Update.html",
+   "format": "html",
+   "items": "div.manga-item",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "div.manga-name",
+    "cover": "div.manga-img img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/search/?name={query}",
+   "format": "html",
+   "items": "div.manga-item",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "div.manga-name",
+    "cover": "div.manga-img img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": "h1",
+    "cover": "div.bookside-img img@src",
+    "description": "section.detail-synopsis:not(:has([itemprop=genre]))",
+    "genres": "div.detail-general [itemprop=genre]",
+    "author": "div.detail-general a[href*='author='] span",
+    "artist": "div.detail-general a[href*='artist='] span",
+    "status": {
+     "const": "ongoing"
+    }
+   }
+  },
+  "chapters": {
+   "request": "{base}{u.path}/chapters.html",
+   "format": "html",
+   "url_vars": {
+    "path": "^(/manga/[^/]+?)(?:\\.html)?$"
+   },
+   "items": "ul.chapter-list a.hover-underline",
+   "fields": {
+    "url": "@href",
+    "name": [
+     "span.chp-title",
+     "span.chapter-name",
+     "span.name"
+    ],
+    "date": "span.chp-time"
+   },
+   "date_format": "MMM d, yyyy",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "html",
+   "items": "select.sl-page option",
+   "image": "@value",
+   "subpage": {
+    "request": {
+     "url": "{url}"
+    },
+    "format": "html",
+    "image": "div.pic_box img.manga_pic@src"
+   }
+  }
+ }
+}

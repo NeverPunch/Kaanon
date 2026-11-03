@@ -1,0 +1,43 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Sasangeyou",
+  "sprache": "id",
+  "base_url": "https://sasangeyou.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.sasangeyou",
+  "quellen": [
+   {
+    "name": "Sasangeyou",
+    "sprache": "id",
+    "quell_id": 1153502662292268302,
+    "home": "https://sasangeyou.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/sasangeyou",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "sasangeyou.net",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "datePattern": "\"MM/dd/yyyy\"",
+   "hasProjectPage": "false"
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

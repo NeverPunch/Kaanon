@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "NhatTruyen",
+  "sprache": "vi",
+  "base_url": "https://nhattruyenqq.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.nhattruyen",
+  "quellen": [
+   {
+    "name": "NhatTruyen",
+    "sprache": "vi",
+    "quell_id": 6861496002170366525,
+    "home": "https://nhattruyenqq.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/nhattruyen",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.32",
+  "theme": "wpcomics"
+ },
+ "baukasten": "wpcomics",
+ "parameter": {
+  "apex": "nhattruyenqq.com",
+  "chapter_mode": "json_id",
+  "description_mode": "full",
+  "latest_path": "",
+  "pages_suffix": "",
+  "popular_path": "truyen-tranh-hot",
+  "search_path": "tim-truyen",
+  "ui_lang": "vi"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "dateFormat": "DateTimeFormatter.ofPattern(\"dd/MM/yy\", Locale.getDefault())",
+   "gmtOffset": "null",
+   "searchPath": "\"tim-truyen\"",
+   "popularPath": "\"truyen-tranh-hot\""
+  },
+  "hinweise": [
+   "wpcomics: Vorgaben stammen aus NetTruyen; Pfade per Erkundung prüfen"
+  ]
+ }
+}

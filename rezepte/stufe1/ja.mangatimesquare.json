@@ -1,0 +1,38 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga Time Square",
+  "sprache": "ja",
+  "base_url": "https://mangatime-square.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.mangatimesquare",
+  "quellen": [
+   {
+    "name": "Manga Time Square",
+    "sprache": "ja",
+    "quell_id": 5972758064357912813,
+    "home": "https://mangatime-square.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/mangatimesquare",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "gigaviewer"
+ },
+ "baukasten": "gigaviewer",
+ "parameter": {
+  "apex": "mangatime-square.com",
+  "list_keyword": "の",
+  "list_mode": "graphql"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "seriesListIds": "listOf(",
+   "getFilterOptions": "listOf("
+  },
+  "hinweise": []
+ }
+}

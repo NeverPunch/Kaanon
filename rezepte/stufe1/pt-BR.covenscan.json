@@ -1,0 +1,48 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Coven Scan",
+  "sprache": "pt-BR",
+  "base_url": "https://covendasbruxonas.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.covenscan",
+  "quellen": [
+   {
+    "name": "Coven Scan",
+    "sprache": "pt-BR",
+    "quell_id": 5558728935088189480,
+    "home": "https://covendasbruxonas.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/covenscan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.60",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "covendasbruxonas.com",
+  "list_mode": "html",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "supportsPostId": "false",
+   "chapterMode": "ChapterMode.MangaAjax",
+   "mangaDetailsSelectorAuthor": "\"div.post-content_item:contains(Author) > div.summary-content\"",
+   "supportsFilterFetching": "false"
+  },
+  "hinweise": []
+ }
+}

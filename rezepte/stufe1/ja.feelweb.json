@@ -1,0 +1,38 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Feel Web",
+  "sprache": "ja",
+  "base_url": "https://feelweb.jp",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.feelweb",
+  "quellen": [
+   {
+    "name": "Feel Web",
+    "sprache": "ja",
+    "quell_id": 96841390298894778,
+    "home": "https://feelweb.jp"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/feelweb",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "gigaviewer"
+ },
+ "baukasten": "gigaviewer",
+ "parameter": {
+  "apex": "feelweb.jp",
+  "list_keyword": "の",
+  "list_mode": "graphql"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "seriesListIds": "listOf(",
+   "getFilterOptions": "listOf("
+  },
+  "hinweise": []
+ }
+}

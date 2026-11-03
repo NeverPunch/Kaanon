@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Yaoi Fan Club",
+  "sprache": "pt-BR",
+  "base_url": "https://yaoifanclub.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.yaoifanclub",
+  "quellen": [
+   {
+    "name": "Yaoi Fan Club",
+    "sprache": "pt-BR",
+    "quell_id": 1639406669358106687,
+    "home": "https://yaoifanclub.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/yaoifanclub",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.60",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "yaoifanclub.com",
+  "list_mode": "html",
+  "chapter_mode": "ajax",
+  "manga_dir": "obra",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaSubString": "\"obra\"",
+   "genreDirectory": "\"obra-genre\"",
+   "archiveSelector": "\"div.page-item-detail.manga\""
+  },
+  "hinweise": []
+ }
+}

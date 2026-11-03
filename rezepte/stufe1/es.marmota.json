@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Marmota",
+  "sprache": "es",
+  "base_url": "https://marmota.me",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.marmota",
+  "quellen": [
+   {
+    "name": "Marmota",
+    "sprache": "es",
+    "quell_id": 5937472249278743372,
+    "home": "https://marmota.me"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/marmota",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "marmota.me",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "comic",
+  "date_format": "d 'de' MMM 'de' yyyy",
+  "date_locale": "es",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"d 'de' MMM 'de' yyyy\", Locale(\"es\"))",
+   "mangaSubString": "\"comic\"",
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

@@ -1,0 +1,46 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "WuxiaWorld",
+  "sprache": "en",
+  "base_url": "https://wuxiaworld.site",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.wuxiaworld",
+  "quellen": [
+   {
+    "name": "WuxiaWorld",
+    "sprache": "en",
+    "quell_id": 6540843430852844328,
+    "home": "https://wuxiaworld.site"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/wuxiaworld",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "wuxiaworld.site",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "novel",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaSubString": "\"novel\"",
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

@@ -1,0 +1,118 @@
+{
+ "extension": {
+  "name": "Weeb Central",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.weebcentral",
+  "version": "1.6.11",
+  "inhalt": "MIXED",
+  "quellen": [
+   {
+    "id": 2131019126180322627,
+    "name": "Weeb Central",
+    "language": "en",
+    "homeUrl": "https://weebcentral.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "HX-Request": "true"
+  },
+  "image_headers": {
+   "Referer": "{base}/",
+   "Accept": "image/avif,image/webp,*/*"
+  },
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 2000
+  },
+  "popular": {
+   "request": "{base}/search/data?text=&sort=Popularity&order=Descending&official=Any&anime=Any&adult=Any&limit=32&offset={offset}&display_mode=Full+Display",
+   "format": "html",
+   "items": "article > section > a",
+   "page_size": 32,
+   "has_next": {
+    "exists": "button"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "div.truncate",
+    "cover": "source@srcset"
+   }
+  },
+  "latest": {
+   "request": "{base}/search/data?text=&sort=Latest+Updates&order=Descending&official=Any&anime=Any&adult=Any&limit=32&offset={offset}&display_mode=Full+Display",
+   "format": "html",
+   "items": "article > section > a",
+   "page_size": 32,
+   "has_next": {
+    "exists": "button"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "div.truncate",
+    "cover": "source@srcset"
+   }
+  },
+  "search": {
+   "request": "{base}/search/data?text={query}&sort=Best+Match&order=Descending&official=Any&anime=Any&adult=Any&limit=32&offset={offset}&display_mode=Full+Display",
+   "format": "html",
+   "items": "article > section > a",
+   "page_size": 32,
+   "has_next": {
+    "exists": "button"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "div.truncate",
+    "cover": "source@srcset"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": "h1",
+    "cover": "section[x-data] > section picture source@srcset",
+    "description": "li:has(strong:contains(Description)) > p",
+    "genres": "li:has(strong:contains(Tag)) a, li:has(strong:contains(Type)) a",
+    "author": {
+     "path": "li:has(strong:contains(Author)) a",
+     "all": true,
+     "join": ", "
+    },
+    "status": "li:has(strong:contains(Status)) > a"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "complete": 2,
+    "hiatus": 6,
+    "canceled": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}/series/{u.id}/full-chapter-list",
+   "format": "html",
+   "url_vars": {
+    "id": "/series/([^/]+)"
+   },
+   "items": "div[x-data] > a",
+   "fields": {
+    "url": "@href",
+    "name": "span.flex > span",
+    "date": "time[datetime]@datetime"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}/images?is_prev=False&reading_style=long_strip",
+   "format": "html",
+   "items": "section#chapter-images > img",
+   "image": "@src"
+  }
+ }
+}

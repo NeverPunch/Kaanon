@@ -1,0 +1,184 @@
+{
+ "extension": {
+  "name": "Deathtollscans",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.deathtollscans",
+  "version": "1.6.12",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 5471979282865267581,
+    "name": "Deathtollscans",
+    "language": "en",
+    "homeUrl": "https://reader.deathtollscans.net",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": "foolslide",
+ "parameter": {
+  "apex": "deathtollscans.net",
+  "popular_path": "directory",
+  "skip_numeric_names": "0",
+  "url_modifier": ""
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/directory/{page}/",
+   "items": "div.group",
+   "has_next": {
+    "exists": "div.next a"
+   },
+   "fields": {
+    "url": "a[title]@href",
+    "title": "a[title]",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "/thumb_",
+       "/"
+      ]
+     ]
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}/latest/{page}/",
+   "items": "div.group",
+   "has_next": {
+    "exists": "div.next a"
+   },
+   "fields": {
+    "url": "a[title]@href",
+    "title": "a[title]",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "/thumb_",
+       "/"
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/search/",
+    "method": "POST",
+    "form": {
+     "search": "{query_raw}"
+    }
+   },
+   "items": "div.group",
+   "has_next": {
+    "exists": "a:has(span.next)"
+   },
+   "fields": {
+    "url": "a[title]@href",
+    "title": "a[title]",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "/thumb_",
+       "/"
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{abs_url}",
+    "method": "POST",
+    "form": {
+     "adult": "true"
+    }
+   },
+   "fields": {
+    "title": [
+     "h1.title",
+     ".comic .title",
+     {
+      "path": "title",
+      "replace": [
+       [
+        "\\s+::.*$",
+        ""
+       ]
+      ]
+     }
+    ],
+    "cover": [
+     "div.thumbnail img@src",
+     "table.thumb img@src"
+    ],
+    "description": [
+     {
+      "path": "div.info@html",
+      "regex": "(?is)<b>\\s*(?:synopsis|description|descripci[oó]n|sinopsis|trama)[^<]*</b>\\s*:?\\s*(.*?)\\s*(?:<b>|$)",
+      "decode": "html_text"
+     },
+     "div.info div.info:not(:has(b))"
+    ],
+    "author": {
+     "path": "div.info@html",
+     "regex": "(?is)<b>\\s*(?:author|autor|autore)[^<]*</b>\\s*:?\\s*([^<]+)",
+     "decode": "html_text"
+    },
+    "artist": {
+     "path": "div.info@html",
+     "regex": "(?is)<b>\\s*(?:artist|artista)[^<]*</b>\\s*:?\\s*([^<]+)",
+     "decode": "html_text"
+    }
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.group div.element, div.list div.element, div.group_comic div.element",
+   "fields": {
+    "url": "a[title]@href",
+    "name": "a[title]",
+    "date": [
+     {
+      "path": "div.meta_r",
+      "regex": "(?i),\\s*(\\d.*|yesterday.*|today.*|tomorrow.*)$"
+     },
+     "div.meta_r"
+    ]
+   },
+   "date_format": [
+    "yyyy.MM.dd",
+    "dd'st' MMMM, yyyy",
+    "dd'nd' MMMM, yyyy",
+    "dd'rd' MMMM, yyyy",
+    "dd'th' MMMM, yyyy",
+    "relative"
+   ],
+   "date_locale": "en",
+   "skip": {
+    "const": ""
+   }
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}",
+    "method": "POST",
+    "form": {
+     "adult": "true"
+    }
+   },
+   "format": "script_json",
+   "script_regex": "(?s)var pages = (\\[.*?\\]);",
+   "items": "$",
+   "image": "url"
+  },
+  "origin": "baukasten:foolslide {\"apex\": \"deathtollscans.net\", \"popular_path\": \"directory\", \"skip_numeric_names\": \"0\", \"url_modifier\": \"\"}"
+ }
+}

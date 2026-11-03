@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Valir Scans",
+  "sprache": "en",
+  "base_url": "https://valirscans.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.valirscans",
+  "quellen": [
+   {
+    "name": "Valir Scans",
+    "sprache": "en",
+    "quell_id": 9114028255622294379,
+    "home": "https://valirscans.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/valirscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.31",
+  "theme": "vinetheme"
+ },
+ "baukasten": "vinetheme",
+ "parameter": {
+  "apex": "valirscans.org"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

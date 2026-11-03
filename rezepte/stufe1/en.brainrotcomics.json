@@ -1,0 +1,46 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "BrainRotComics",
+  "sprache": "en",
+  "base_url": "https://brainrotcomics.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.brainrotcomics",
+  "quellen": [
+   {
+    "name": "BrainRotComics",
+    "sprache": "en",
+    "quell_id": 7621724834621233483,
+    "home": "https://brainrotcomics.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/brainrotcomics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.60",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "brainrotcomics.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterMode": "ChapterMode.MangaAjax",
+   "altNameSelector": "\"noSelector\""
+  },
+  "hinweise": []
+ }
+}

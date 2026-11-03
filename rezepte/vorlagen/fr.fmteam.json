@@ -1,0 +1,159 @@
+{
+ "extension": {
+  "name": "Fmteam",
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.fmteam",
+  "version": "1.6.12",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 3999514012368634446,
+    "name": "Fmteam",
+    "language": "fr",
+    "homeUrl": "https://fmteam.fr",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": "pizzareader",
+ "parameter": {
+  "apex": "fmteam.fr",
+  "api_path": "/api"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/api/comics",
+   "format": "json",
+   "items": "comics",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "url",
+    "title": "title",
+    "cover": [
+     "thumbnail",
+     "thumbnail_small"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/api/comics",
+   "format": "json",
+   "items": "comics",
+   "has_next": {
+    "const": false
+   },
+   "skip": {
+    "path": "last_chapter.published_on",
+    "empty": true
+   },
+   "sort": {
+    "path": "last_chapter.published_on",
+    "order": "desc",
+    "limit": 10
+   },
+   "fields": {
+    "url": "url",
+    "title": "title",
+    "cover": [
+     "thumbnail",
+     "thumbnail_small"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/api/search/{query}",
+   "format": "json",
+   "items": "comics",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "url",
+    "title": "title",
+    "cover": [
+     "thumbnail",
+     "thumbnail_small"
+    ]
+   }
+  },
+  "details": {
+   "request": "{base}/api{url}",
+   "format": "json",
+   "fields": {
+    "title": "comic.title",
+    "cover": [
+     "comic.thumbnail",
+     "comic.thumbnail_small"
+    ],
+    "description": "comic.description",
+    "genres": {
+     "path": "comic.genres.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "author": "comic.author",
+    "artist": "comic.artist",
+    "status": "comic.status"
+   },
+   "status_map": {
+    "in corso": 1,
+    "on going": 1,
+    "ongoing": 1,
+    "en cours": 1,
+    "in corso d'opera": 1,
+    "completo": 2,
+    "concluso": 2,
+    "concluded": 2,
+    "complete": 2,
+    "completed": 2,
+    "terminé": 2,
+    "finito": 2,
+    "licenziato": 3,
+    "licensed": 3,
+    "sous licence": 3,
+    "sospeso": 6,
+    "in pausa": 6,
+    "hiatus": 6,
+    "annulé": 5,
+    "cancellato": 5,
+    "droppato": 5,
+    "in cors": 1,
+    "on goin": 1,
+    "complet": 2,
+    "conclus": 2,
+    "conclud": 2,
+    "licenzi": 3,
+    "license": 3,
+    "fini": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "comic.chapters",
+   "fields": {
+    "url": "url",
+    "name": "full_title",
+    "date": "published_on",
+    "scanlator": {
+     "path": "teams.*.name",
+     "all": true,
+     "join": " & "
+    },
+    "number": {
+     "const": "{f.chapter}[[.{f.subchapter}]]"
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api{url}",
+   "format": "json",
+   "items": "chapter.pages",
+   "image": ""
+  },
+  "origin": "baukasten:pizzareader {\"apex\": \"fmteam.fr\", \"api_path\": \"/api\"}"
+ }
+}

@@ -1,0 +1,46 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ManhwaOnline",
+  "sprache": "es",
+  "base_url": "https://manhwa-online.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.manhwaonline",
+  "quellen": [
+   {
+    "name": "ManhwaOnline",
+    "sprache": "es",
+    "quell_id": 5414998368888208528,
+    "home": "https://manhwa-online.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/manhwaonline",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.59",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "manhwa-online.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM dd, yyyy",
+  "date_locale": "es",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterMode": "ChapterMode.MangaAjax",
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"MMMM dd, yyyy\", Locale(\"es\"))"
+  },
+  "hinweise": []
+ }
+}

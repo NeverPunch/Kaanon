@@ -1,0 +1,50 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "DocTruyen3Q",
+  "sprache": "vi",
+  "base_url": "https://doctruyen3qhub.fit",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.doctruyen3q",
+  "quellen": [
+   {
+    "name": "DocTruyen3Q",
+    "sprache": "vi",
+    "quell_id": 6168143505244976507,
+    "home": "https://doctruyen3qhub.fit"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/doctruyen3q",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.42",
+  "theme": "wpcomics"
+ },
+ "baukasten": "wpcomics",
+ "parameter": {
+  "apex": "doctruyen3qhub.fit",
+  "chapter_mode": "json_id",
+  "description_mode": "full",
+  "latest_path": "",
+  "pages_suffix": "",
+  "popular_path": "truyen-tranh-hot",
+  "search_path": "tim-truyen",
+  "ui_lang": "vi"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "dateFormat": "DateTimeFormatter.ofPattern(\"dd-MM-yyyy\", Locale.ROOT)",
+   "dateZone": "ZoneId.of(\"Asia/Ho_Chi_Minh\")",
+   "gmtOffset": "null",
+   "popularMangaSelector": "\"div.item-manga div.item\"",
+   "searchMangaSelector": "popularMangaSelector()",
+   "chapterListSelector": "\"div.list-chapter li.row:not(.heading):not([style])\"",
+   "genresSelector": "\".categories-detail ul.nav li:not(.active) a\""
+  },
+  "hinweise": [
+   "wpcomics: Vorgaben stammen aus NetTruyen; Pfade per Erkundung prüfen"
+  ]
+ }
+}

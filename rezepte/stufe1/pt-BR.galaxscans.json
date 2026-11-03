@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "GALAX Scans",
+  "sprache": "pt-BR",
+  "base_url": "https://galaxscanlator.blogspot.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.galaxscans",
+  "quellen": [
+   {
+    "name": "GALAX Scans",
+    "sprache": "pt-BR",
+    "quell_id": 5553519415877811746,
+    "home": "https://galaxscanlator.blogspot.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/galaxscanlator",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.17",
+  "theme": "zeistmanga"
+ },
+ "baukasten": "zeistmanga",
+ "parameter": {
+  "apex": "galaxscanlator.blogspot.com",
+  "chapter_cat": "Chapter",
+  "page_sel": "auto",
+  "series_label": "Series"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "popularMangaSelector": "\"#PopularPosts2 article\"",
+   "popularMangaSelectorTitle": "\"h4\"",
+   "popularMangaSelectorUrl": "\"a\"",
+   "mangaDetailsSelector": "\".grid.gta-series\"",
+   "mangaDetailsSelectorGenres": "\"dt:contains(Genre) + dd a[rel=tag]\"",
+   "useNewChapterFeed": "true",
+   "chapterCategory": "\"Chapter\"",
+   "pageListSelector": "\".separator\"",
+   "hasFilters": "true",
+   "hasLanguageFilter": "false"
+  },
+  "hinweise": []
+ }
+}

@@ -1,0 +1,51 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Kaguya",
+  "sprache": "id",
+  "base_url": "https://02.kaguya.pro",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.kaguya",
+  "quellen": [
+   {
+    "name": "Kaguya",
+    "sprache": "id",
+    "quell_id": 1557304490417397104,
+    "home": "https://02.kaguya.pro"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/kaguya",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.62",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "02.kaguya.pro",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax_paged",
+  "manga_dir": "series",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "supportsPostId": "false",
+   "mangaSubString": "\"series\"",
+   "genreDirectory": "\"series-genre\"",
+   "mangaDetailsSelectorTitle": "\"h1.post-title\"",
+   "mangaDetailsSelectorStatus": "\"div.summary-heading:contains(Status) + div\"",
+   "mangaDetailsSelectorThumbnail": "\"head meta[property='og:image']\"",
+   "chapterMode": "ChapterMode.MangaAjaxPaginated"
+  },
+  "hinweise": []
+ }
+}

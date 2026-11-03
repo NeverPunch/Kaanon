@@ -1,0 +1,38 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Comic Earth Star",
+  "sprache": "ja",
+  "base_url": "https://comic-earthstar.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.comicearthstar",
+  "quellen": [
+   {
+    "name": "Comic Earth Star",
+    "sprache": "ja",
+    "quell_id": 3574188328700228273,
+    "home": "https://comic-earthstar.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/comicearthstar",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "gigaviewer"
+ },
+ "baukasten": "gigaviewer",
+ "parameter": {
+  "apex": "comic-earthstar.com",
+  "list_keyword": "の",
+  "list_mode": "graphql"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "seriesListIds": "listOf(\"14079602755185553136\", \"14079602755185553138\", \"14079602755185553142\")",
+   "getFilterOptions": "listOf("
+  },
+  "hinweise": []
+ }
+}

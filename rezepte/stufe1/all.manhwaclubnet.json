@@ -1,0 +1,51 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ManhwaClub.net",
+  "sprache": "all",
+  "base_url": "https://manhwaclub.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.manhwaclubnet",
+  "quellen": [
+   {
+    "name": "ManhwaClub.net",
+    "sprache": "en",
+    "quell_id": 6720687475375335817,
+    "home": "https://manhwaclub.net"
+   },
+   {
+    "name": "ManhwaClub.net",
+    "sprache": "ko",
+    "quell_id": 3482736208073357647,
+    "home": "https://manhwaclub.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/manhwaclubnet",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "manhwaclub.net",
+  "list_mode": "ajax",
+  "chapter_mode": "api",
+  "manga_dir": "manga",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterMode": "ChapterMode.AdminAjax"
+  },
+  "hinweise": []
+ }
+}

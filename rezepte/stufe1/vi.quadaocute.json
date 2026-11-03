@@ -1,0 +1,65 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "QuaDaoCute",
+  "sprache": "vi",
+  "base_url": "https://qadcuteo.cc",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.quadaocute",
+  "quellen": [
+   {
+    "name": "QuaDaoCute",
+    "sprache": "vi",
+    "quell_id": 8445264442348647171,
+    "home": "https://qadcuteo.cc"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/quadaocute",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "qadcuteo.cc",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "dd/MM/uuuu",
+  "date_locale": "en",
+  "date_selector": ".chapter-release-date a[title], .chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaSubString": "\"manga\"",
+   "genreDirectory": "\"manga-genre\"",
+   "filterNonMangaItems": "false",
+   "archiveSelector": "\".page-item-detail\"",
+   "mangaDetailsSelectorTitle": "\"div.post-title h1, div.post-title h3, #manga-title > h1\"",
+   "mangaDetailsSelectorAuthor": "\".post-content_item:contains(Tác giả) .author-content a\"",
+   "mangaDetailsSelectorArtist": "\".post-content_item:contains(Họa sĩ) .artist-content a\"",
+   "mangaDetailsSelectorStatus": "\".post-content_item:contains(Trạng thái) .summary-content\"",
+   "mangaDetailsSelectorDescription": "\".summary_content .manga-excerpt, .description-summary\"",
+   "mangaDetailsSelectorThumbnail": "\".summary_image img\"",
+   "mangaDetailsSelectorGenre": "\".genres-content a\"",
+   "mangaDetailsSelectorTag": "\".tags-content a\"",
+   "seriesTypeSelector": "\".post-content_item:contains(Type) .summary-content\"",
+   "altNameSelector": "\".post-content_item:contains(Tên khác) .summary-content\"",
+   "filterGenresSelector": "\".genres-content\"",
+   "pageListParseSelector": "\".reading-content .text-left:not(:has(.blocks-gallery-item))\"",
+   "chapterUrlSelector": "\"> a\"",
+   "chapterDateSelector": "\".chapter-release-date a[title], .chapter-release-date\"",
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd/MM/uuuu\", Locale.ROOT)"
+  },
+  "hinweise": [
+   "filterNonMangaItems = false"
+  ]
+ }
+}

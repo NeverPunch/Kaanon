@@ -1,0 +1,49 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "TruyenTuoiTho",
+  "sprache": "vi",
+  "base_url": "https://truyentuoitho.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.truyentuoitho",
+  "quellen": [
+   {
+    "name": "TruyenTuoiTho",
+    "sprache": "vi",
+    "quell_id": 401563321854321005,
+    "home": "https://truyentuoitho.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/truyentuoitho",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.63",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "truyentuoitho.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax_paged",
+  "manga_dir": "manga",
+  "date_format": "dd/MM/yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd/MM/yyyy\", Locale.ROOT)",
+   "filterNonMangaItems": "false",
+   "chapterMode": "ChapterMode.MangaAjaxPaginated"
+  },
+  "hinweise": [
+   "filterNonMangaItems = false"
+  ]
+ }
+}

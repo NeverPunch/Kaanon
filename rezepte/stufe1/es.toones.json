@@ -1,0 +1,45 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Toon-es",
+  "sprache": "es",
+  "base_url": "https://toon-es.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.toones",
+  "quellen": [
+   {
+    "name": "Toon-es",
+    "sprache": "es",
+    "quell_id": 5035285034268559598,
+    "home": "https://toon-es.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/toones",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "toon-es.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMM dd, yyyy",
+  "date_locale": "es",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"MMM dd, yyyy\", Locale(\"es\"))"
+  },
+  "hinweise": []
+ }
+}

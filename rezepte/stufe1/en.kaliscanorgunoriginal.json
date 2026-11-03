@@ -1,0 +1,45 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "KaliScan.org (unoriginal)",
+  "sprache": "en",
+  "base_url": "https://kaliscan.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.kaliscanorgunoriginal",
+  "quellen": [
+   {
+    "name": "KaliScan.org (unoriginal)",
+    "sprache": "en",
+    "quell_id": 5815628626283130746,
+    "home": "https://kaliscan.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/kaliscanorg",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "kaliscan.org",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

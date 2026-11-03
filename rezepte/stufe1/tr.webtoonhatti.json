@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Webtoon Hatti",
+  "sprache": "tr",
+  "base_url": "https://webtoonhatti.club",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.webtoonhatti",
+  "quellen": [
+   {
+    "name": "Webtoon Hatti",
+    "sprache": "tr",
+    "quell_id": 8902732421830627437,
+    "home": "https://webtoonhatti.club"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/webtoonhatti",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.64",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "webtoonhatti.club",
+  "list_mode": "html",
+  "chapter_mode": "ajax",
+  "manga_dir": "webtoon",
+  "date_format": "dd/MM/yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd/MM/yyyy\", Locale.ROOT)",
+   "mangaSubString": "\"webtoon\"",
+   "pageListParseSelector": "\"div.page-break:not([style*=display:]):not([style*=visibility:])\""
+  },
+  "hinweise": []
+ }
+}

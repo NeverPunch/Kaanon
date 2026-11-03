@@ -1,0 +1,185 @@
+{
+ "extension": {
+  "name": "NetTruyen",
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.nettruyen",
+  "version": "1.6.12",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 5198966899163361086,
+    "name": "NetTruyen",
+    "language": "vi",
+    "homeUrl": "https://nettruyenar.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": "wpcomics",
+ "parameter": {
+  "apex": "nettruyenar.com",
+  "chapter_mode": "json_id",
+  "description_mode": "full",
+  "latest_path": "",
+  "pages_suffix": "",
+  "popular_path": "truyen-tranh-hot",
+  "search_path": "tim-truyen",
+  "ui_lang": "vi"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Origin": null
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/truyen-tranh-hot?page={page}",
+   "items": "div.items .item, div.item-manga div.item",
+   "has_next": {
+    "exists": "a.next-page, a[rel=next], a.page-link:contains(›)"
+   },
+   "fields": {
+    "url": [
+     "h3 a@href"
+    ],
+    "title": "h3 a",
+    "cover": [
+     "div.image a img@img",
+     "div.image img@img",
+     "img@img"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/?page={page}",
+   "items": "div.items .item, div.item-manga div.item",
+   "has_next": {
+    "exists": "a.next-page, a[rel=next], a.page-link:contains(›)"
+   },
+   "fields": {
+    "url": [
+     "h3 a@href"
+    ],
+    "title": "h3 a",
+    "cover": [
+     "div.image a img@img",
+     "div.image img@img",
+     "img@img"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/tim-truyen?keyword={query}&page={page}&sort=0",
+   "items": "div.items .item, div.item-manga div.item",
+   "has_next": {
+    "exists": "a.next-page, a[rel=next], a.page-link:contains(›)"
+   },
+   "fields": {
+    "url": [
+     "h3 a@href"
+    ],
+    "title": "h3 a",
+    "cover": [
+     "div.image a img@img",
+     "div.image img@img",
+     "img@img"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     {
+      "path": "h1.title-detail",
+      "replace": [
+       [
+        "\\s+Comic$",
+        ""
+       ]
+      ]
+     },
+     "h1.title-manga"
+    ],
+    "cover": [
+     "article#item-detail div.col-image img@img",
+     "div.col-image img@img",
+     "img.image-comic@img"
+    ],
+    "description": [
+     {
+      "path": "div.detail-content div.shortened",
+      "template": "{value}\n\n[[Tên khác: {f.h2.other-name}]]"
+     },
+     {
+      "path": "div.detail-content p",
+      "all": true,
+      "join": "\n"
+     },
+     {
+      "path": "p.detail-summary",
+      "all": true,
+      "join": "\n"
+     },
+     {
+      "path": "div.detail-content",
+      "template": "{value}\n\n[[Tên khác: {f.h2.other-name}]]"
+     }
+    ],
+    "genres": [
+     "li.kind p.col-xs-8 a",
+     "li.category p.detail-info a"
+    ],
+    "author": [
+     "li.author p.col-xs-8",
+     "li.author p.col-sm-8"
+    ],
+    "status": [
+     "li.status p.col-xs-8",
+     "li.status p.detail-info span"
+    ]
+   },
+   "status_map": {
+    "Đang tiến hành": 1,
+    "Đang cập nhật": 1,
+    "Đang thực hiện": 1,
+    "Đang ra": 1,
+    "Tạm Ngưng": 6,
+    "Tạm Hoãn": 6,
+    "Hoàn thành": 2,
+    "Đã hoàn thành": 2,
+    "Truyện Full": 2,
+    "連載中": 1,
+    "完結済み": 2
+   }
+  },
+  "chapters": {
+   "request": "{base}/Comic/Services/ComicService.asmx/ChapterList?slug={u.slug}&comicId={u.id}",
+   "format": "json",
+   "items": "data",
+   "url_vars": {
+    "dir": "^(.*)/[^/]+/?$",
+    "slug": "([^/]+)-\\d+/?$",
+    "id": "-(\\d+)/?$"
+   },
+   "fields": {
+    "url": {
+     "path": "chapter_slug",
+     "template": "{u.dir}/{u.slug}/{value}/{f.chapter_id}"
+    },
+    "name": "chapter_name",
+    "date": "updated_at",
+    "number": "chapter_num"
+   },
+   "date_format": "yyyy-MM-dd HH:mm:ss"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.page-chapter > img, div.page-chapter[id] img, li.blocks-gallery-item img",
+   "image": "@img"
+  },
+  "origin": "baukasten:wpcomics {\"apex\": \"nettruyenar.com\", \"chapter_mode\": \"json_id\", \"description_mode\": \"full\", \"latest_path\": \"\", \"pages_suffix\": \"\", \"popular_path\": \"truyen-tranh-hot\", \"search_path\": \"tim-truyen\", \"ui_lang\": \"vi\"}"
+ }
+}

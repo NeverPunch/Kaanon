@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "WitchScans",
+  "sprache": "en",
+  "base_url": "https://witchtoons.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.witchscans",
+  "quellen": [
+   {
+    "name": "WitchScans",
+    "sprache": "en",
+    "quell_id": 3119719730967642939,
+    "home": "https://witchtoons.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/witchscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.41",
+  "theme": "vinetheme"
+ },
+ "baukasten": "vinetheme",
+ "parameter": {
+  "apex": "witchtoons.net"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

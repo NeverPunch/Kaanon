@@ -1,0 +1,38 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Menudo-Fansub",
+  "sprache": "es",
+  "base_url": "https://www.menudo-fansub.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.menudofansub",
+  "quellen": [
+   {
+    "name": "Menudo-Fansub",
+    "sprache": "es",
+    "quell_id": 3505996597464989970,
+    "home": "https://www.menudo-fansub.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/menudofansub",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.8",
+  "theme": "foolslide"
+ },
+ "baukasten": "foolslide",
+ "parameter": {
+  "apex": "menudo-fansub.com",
+  "popular_path": "directory",
+  "skip_numeric_names": "0",
+  "url_modifier": "/slide"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "urlModifier": "\"/slide\""
+  },
+  "hinweise": []
+ }
+}

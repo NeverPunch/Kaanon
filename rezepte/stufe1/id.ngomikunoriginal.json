@@ -1,0 +1,43 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Ngomik (unoriginal)",
+  "sprache": "id",
+  "base_url": "https://02.ngomik.cc",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.ngomikunoriginal",
+  "quellen": [
+   {
+    "name": "Ngomik (unoriginal)",
+    "sprache": "id",
+    "quell_id": 5360960267485387879,
+    "home": "https://02.ngomik.cc"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/ngomik",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.7",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "02.ngomik.cc",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "projectPageString": "\"/pj\"",
+   "hasProjectPage": "true"
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

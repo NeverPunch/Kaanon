@@ -1,0 +1,89 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "IMHentai",
+  "sprache": "all",
+  "base_url": "https://imhentai.xxx",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.imhentai",
+  "quellen": [
+   {
+    "name": "IMHentai",
+    "sprache": "en",
+    "quell_id": 1797754663718263026,
+    "home": "https://imhentai.xxx"
+   },
+   {
+    "name": "IMHentai",
+    "sprache": "ja",
+    "quell_id": 2843704102372436364,
+    "home": "https://imhentai.xxx"
+   },
+   {
+    "name": "IMHentai",
+    "sprache": "es",
+    "quell_id": 1600533831542201953,
+    "home": "https://imhentai.xxx"
+   },
+   {
+    "name": "IMHentai",
+    "sprache": "fr",
+    "quell_id": 6518732459102419415,
+    "home": "https://imhentai.xxx"
+   },
+   {
+    "name": "IMHentai",
+    "sprache": "ko",
+    "quell_id": 520535890722709208,
+    "home": "https://imhentai.xxx"
+   },
+   {
+    "name": "IMHentai",
+    "sprache": "de",
+    "quell_id": 341676138799608238,
+    "home": "https://imhentai.xxx"
+   },
+   {
+    "name": "IMHentai",
+    "sprache": "ru",
+    "quell_id": 7505608677115153818,
+    "home": "https://imhentai.xxx"
+   },
+   {
+    "name": "IMHentai",
+    "sprache": "all",
+    "quell_id": 3395462671769287908,
+    "home": "https://imhentai.xxx"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/imhentai",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.26",
+  "theme": "galleryadults"
+ },
+ "baukasten": "galleryadults",
+ "parameter": {
+  "apex": "imhentai.xxx",
+  "page_style": "query",
+  "popular_path": "language/english/popular/",
+  "reader": "json",
+  "search_key": "q"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaLang": "when (lang) {",
+   "useIntermediateSearch": "true",
+   "supportAdvancedSearch": "true",
+   "supportSpeechless": "true",
+   "mangaDetailInfoSelector": "\".gallery_first\"",
+   "thumbnailSelector": "\".gthumb\"",
+   "pageUri": "\"view\""
+  },
+  "hinweise": [
+   "galleryadults: Leser-Art (reader) und Seitenstil per Erkundung prüfen"
+  ]
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Komik Station",
+  "sprache": "id",
+  "base_url": "https://komikstation.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.komikstation",
+  "quellen": [
+   {
+    "name": "Komik Station",
+    "sprache": "id",
+    "quell_id": 6148605743576635261,
+    "home": "https://komikstation.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/komikstation",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.9",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "komikstation.org",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "projectPageString": "\"/project-list\"",
+   "hasProjectPage": "true",
+   "pageSelector": "\"div#readerarea img:not(noscript img)\""
+  },
+  "hinweise": [
+   "Seiten-Selektor der Community: \"div#readerarea img:not(noscript img)\"",
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "IsekaiKomik",
+  "sprache": "id",
+  "base_url": "https://ch1.isekaikomik.site",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.isekaikomik",
+  "quellen": [
+   {
+    "name": "IsekaiKomik",
+    "sprache": "id",
+    "quell_id": 1031213229391436059,
+    "home": "https://ch1.isekaikomik.site"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/manhwalistorg",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "ch1.isekaikomik.site",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

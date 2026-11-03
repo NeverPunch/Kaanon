@@ -1,0 +1,38 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Comic Ogyaaa",
+  "sprache": "ja",
+  "base_url": "https://comic-ogyaaa.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.comicogyaaa",
+  "quellen": [
+   {
+    "name": "Comic Ogyaaa",
+    "sprache": "ja",
+    "quell_id": 3754263546482783493,
+    "home": "https://comic-ogyaaa.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/comicogyaaa",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "gigaviewer"
+ },
+ "baukasten": "gigaviewer",
+ "parameter": {
+  "apex": "comic-ogyaaa.com",
+  "list_keyword": "の",
+  "list_mode": "graphql"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "seriesListIds": "listOf(",
+   "getFilterOptions": "listOf("
+  },
+  "hinweise": []
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "AP Comics",
+  "sprache": "en",
+  "base_url": "https://apcomics.org",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.apcomics",
+  "quellen": [
+   {
+    "name": "AP Comics",
+    "sprache": "en",
+    "quell_id": 7848750588298461115,
+    "home": "https://apcomics.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/apcomics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "apcomics.org",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

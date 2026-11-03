@@ -1,0 +1,53 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Little Tyrant",
+  "sprache": "pt-BR",
+  "base_url": "https://tiraninha.world",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.littletyrant",
+  "quellen": [
+   {
+    "name": "Little Tyrant",
+    "sprache": "pt-BR",
+    "quell_id": 4886334142812146511,
+    "home": "https://tiraninha.world"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/littletyrant",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.71",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "tiraninha.world",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "pt-BR",
+  "date_selector": "[class*=-chapter-date]",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"MMMM d, yyyy\", Locale.forLanguageTag(\"pt-BR\"))",
+   "archiveSelector": "\"[id*=-entry-]\"",
+   "archiveUrlSelector": "\".card-info a\"",
+   "mangaDetailsSelectorDescription": "\".summary-text-scroll\"",
+   "mangaDetailsSelectorAuthor": "\".attr-label:contains(AUTOR) + .attr-value\"",
+   "mangaDetailsSelectorArtist": "\".attr-label:contains(ARTISTA) + .attr-value\"",
+   "mangaDetailsSelectorStatus": "\".attr-label:contains(STATUS) + .attr-value\"",
+   "chapterNameSelector": "\"[class*=-chapter-name]\"",
+   "chapterDateSelector": "\"[class*=-chapter-date]\""
+  },
+  "hinweise": []
+ }
+}

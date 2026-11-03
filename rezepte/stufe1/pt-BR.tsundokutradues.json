@@ -1,0 +1,43 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Tsundoku Traduções",
+  "sprache": "pt-BR",
+  "base_url": "https://tsundoku.com.br",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.tsundokutradues",
+  "quellen": [
+   {
+    "name": "Tsundoku Traduções",
+    "sprache": "pt-BR",
+    "quell_id": 2091088265283814173,
+    "home": "https://tsundoku.com.br"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/tsundokutraducoes",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.11",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "tsundoku.com.br",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "altNamePrefix": "\"Nome alternativo: \"",
+   "searchMangaSelector": "\".utao .uta .imgu, .listupd .bs .bsx:not(:has(span.novelabel)), .listo .bs .bsx:not(:has(span.novelabel))\""
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

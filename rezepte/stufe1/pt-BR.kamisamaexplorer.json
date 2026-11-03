@@ -1,0 +1,46 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Kami Sama Explorer",
+  "sprache": "pt-BR",
+  "base_url": "https://leitor.kamisama.com.br",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.kamisamaexplorer",
+  "quellen": [
+   {
+    "name": "Kami Sama Explorer",
+    "sprache": "pt-BR",
+    "quell_id": 5221484950287110636,
+    "home": "https://leitor.kamisama.com.br"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/kamisamaexplorer",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.60",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "leitor.kamisama.com.br",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "dd 'de' MMMM 'de' yyyy",
+  "date_locale": "pt-BR",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd 'de' MMMM 'de' yyyy\", Locale.forLanguageTag(\"pt-BR\"))",
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

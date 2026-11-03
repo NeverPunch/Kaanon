@@ -1,0 +1,50 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "TruyenTini",
+  "sprache": "vi",
+  "base_url": "https://truyentini.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.truyentini",
+  "quellen": [
+   {
+    "name": "TruyenTini",
+    "sprache": "vi",
+    "quell_id": 7837268511554362907,
+    "home": "https://truyentini.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/truyentini",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "truyentini.net",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "truyen",
+  "date_format": "dd/MM/yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaSubString": "\"truyen\"",
+   "genreDirectory": "\"the-loai\"",
+   "altNameSelector": "\".post-content_item:contains(Tên Khác) .summary-content\"",
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd/MM/yyyy\", Locale.forLanguageTag(\"vi\"))",
+   "chapterMode": "ChapterMode.MangaAjax",
+   "ongoingStatus": "super.ongoingStatus + \"đang dịch\""
+  },
+  "hinweise": []
+ }
+}

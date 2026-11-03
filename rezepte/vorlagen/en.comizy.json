@@ -1,0 +1,125 @@
+{
+ "extension": {
+  "name": "Comizy",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.comizy",
+  "version": "1.6.11",
+  "inhalt": "MIXED",
+  "quellen": [
+   {
+    "id": 7716662751992549719,
+    "name": "Comizy",
+    "language": "en",
+    "homeUrl": "https://comizy.io",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "image_headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "popular": {
+   "request": "https://api.comizy.io/titles/search?sort=popular&window=week&page={page}&limit=24",
+   "format": "json",
+   "items": "data.items",
+   "page_size": 24,
+   "has_next": {
+    "exists": "data.pagination.has_next"
+   },
+   "fields": {
+    "url": {
+     "path": "url",
+     "template": "{value}#{f.id}"
+    },
+    "title": "name",
+    "cover": "cover"
+   }
+  },
+  "latest": {
+   "request": "https://api.comizy.io/titles/search?sort=latest&page={page}&limit=24",
+   "format": "json",
+   "items": "data.items",
+   "page_size": 24,
+   "has_next": {
+    "exists": "data.pagination.has_next"
+   },
+   "fields": {
+    "url": {
+     "path": "url",
+     "template": "{value}#{f.id}"
+    },
+    "title": "name",
+    "cover": "cover"
+   }
+  },
+  "search": {
+   "request": "https://api.comizy.io/titles/search?page={page}&limit=24&q={query}",
+   "format": "json",
+   "items": "data.items",
+   "page_size": 24,
+   "has_next": {
+    "exists": "data.pagination.has_next"
+   },
+   "fields": {
+    "url": {
+     "path": "url",
+     "template": "{value}#{f.id}"
+    },
+    "title": "name",
+    "cover": "cover"
+   }
+  },
+  "details": {
+   "request": "https://api.comizy.io/titles/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "#([^#]+)$"
+   },
+   "fields": {
+    "title": "data.title.name",
+    "cover": "data.title.cover",
+    "description": "data.title.summary",
+    "genres": "data.title.genres.*.name",
+    "author": {
+     "path": "data.title.authors.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "data.title.artists.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "data.title.status"
+   }
+  },
+  "chapters": {
+   "request": "https://api.comizy.io/titles/{u.id}/chapters",
+   "format": "json",
+   "url_vars": {
+    "id": "#([^#]+)$"
+   },
+   "items": "data.chapters",
+   "fields": {
+    "url": "url",
+    "name": "name",
+    "number": "number",
+    "date": "updated_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "next_data",
+   "items": "props.pageProps.initialChapter.images"
+  }
+ }
+}

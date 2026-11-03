@@ -1,0 +1,155 @@
+{
+ "extension": {
+  "name": "Tapas",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.tapas",
+  "version": "1.6.11",
+  "inhalt": "MIXED",
+  "quellen": [
+   {
+    "id": 4168255261046510579,
+    "name": "Tapas",
+    "language": "en",
+    "homeUrl": "https://tapas.io",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "https://m.tapas.io",
+   "Origin": "{base}",
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0"
+  },
+  "image_headers": {
+   "Referer": "https://m.tapas.io",
+   "Origin": "{base}"
+  },
+  "cookies": {
+   "birthDate": "1990-01-01",
+   "adjustedBirthDate": "1990-01-01"
+  },
+  "popular": {
+   "request": "https://story-api.tapas.io/cosmos/api/v1/landing/ranking?category_type=COMIC&subtab_id=17&size=25&page={page0}",
+   "format": "json",
+   "items": "data.items",
+   "page_size": 25,
+   "has_next": {
+    "total": "meta.pagination.totalCount"
+   },
+   "fields": {
+    "url": {
+     "path": "seriesId",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "assetProperty.bookCoverImage.path",
+     "template": "{value}.png"
+    }
+   }
+  },
+  "latest": {
+   "request": "https://story-api.tapas.io/cosmos/api/v1/landing/genre?category_type=COMIC&sort_option=NEWEST_EPISODE&subtab_id=17&pageSize=25&page={page0}",
+   "format": "json",
+   "items": "data.items",
+   "page_size": 25,
+   "has_next": {
+    "total": "meta.pagination.totalCount"
+   },
+   "fields": {
+    "url": {
+     "path": "seriesId",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "assetProperty.bookCoverImage.path",
+     "template": "{value}.png"
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/search?pageNumber={page}&q={query}&t=COMICS",
+   "format": "html",
+   "items": ".search-item-wrap",
+   "has_next": {
+    "exists": "a[class*=paging__button--next]"
+   },
+   "fields": {
+    "url": {
+     "path": [
+      ".item__thumb a@data-series-id",
+      ".title-section .title a@data-series-id"
+     ],
+     "template": "/series/{value}"
+    },
+    "title": [
+     ".item__thumb img@alt",
+     ".title-section .title a"
+    ],
+    "cover": [
+     ".item__thumb img@src",
+     ".thumb-wrap img@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}/info",
+   "format": "html",
+   "fields": {
+    "title": ".info__right .title",
+    "cover": ".thumb.js-thumbnail img@src",
+    "description": ".description__body",
+    "genres": ".genre-btn",
+    "author": {
+     "path": ".creator-section .name",
+     "all": true,
+     "join": ", "
+    },
+    "status": ".schedule-label"
+   },
+   "status_map": {
+    "updates": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "{base}/series/{u.id}/episodes?page={page}&sort=NEWEST&large=true",
+   "format": "json",
+   "url_vars": {
+    "id": "^/series/(\\d+)"
+   },
+   "items": "data.episodes",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/episode/{value}"
+    },
+    "name": "title",
+    "number": "scene",
+    "date": "publish_date"
+   },
+   "date_format": "iso",
+   "paging": {
+    "has_next": {
+     "exists": "data.pagination.has_next"
+    },
+    "max_pages": 60
+   },
+   "skip": {
+    "path": "free",
+    "regex": "^(false)$",
+    "template": "gesperrt"
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "html",
+   "items": "img.content__img",
+   "image": "@img"
+  }
+ }
+}

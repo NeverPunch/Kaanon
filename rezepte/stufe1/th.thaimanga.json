@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ThaiManga",
+  "sprache": "th",
+  "base_url": "https://www.thaimanga.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.th.kaanon.thaimanga",
+  "quellen": [
+   {
+    "name": "ThaiManga",
+    "sprache": "th",
+    "quell_id": 6145049378633382077,
+    "home": "https://www.thaimanga.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/th/thaimanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "thaimanga.net",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

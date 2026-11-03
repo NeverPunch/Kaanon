@@ -1,0 +1,46 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Detective Conan Ar",
+  "sprache": "ar",
+  "base_url": "https://manga.detectiveconanar.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.detectiveconanar",
+  "quellen": [
+   {
+    "name": "شبكة كونان العربية",
+    "sprache": "ar",
+    "quell_id": 5702082694566979718,
+    "home": "https://manga.detectiveconanar.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/detectiveconanar",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.60",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "manga.detectiveconanar.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM dd, yyyy",
+  "date_locale": "ar",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"MMMM dd, yyyy\", Locale(\"ar\"))",
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

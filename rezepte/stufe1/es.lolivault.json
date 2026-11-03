@@ -1,0 +1,36 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Lolivault",
+  "sprache": "es",
+  "base_url": "https://lector.lolivault.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.lolivault",
+  "quellen": [
+   {
+    "name": "Lolivault",
+    "sprache": "es",
+    "quell_id": 1420213267345607410,
+    "home": "https://lector.lolivault.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/lolivault",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.7",
+  "theme": "foolslide"
+ },
+ "baukasten": "foolslide",
+ "parameter": {
+  "apex": "lector.lolivault.net",
+  "popular_path": "directory",
+  "skip_numeric_names": "0",
+  "url_modifier": ""
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaPark.tv (unoriginal)",
+  "sprache": "en",
+  "base_url": "https://mangapark.tv",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mangaparktvunoriginal",
+  "quellen": [
+   {
+    "name": "MangaPark.tv (unoriginal)",
+    "sprache": "en",
+    "quell_id": 4265503553734005106,
+    "home": "https://mangapark.tv"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/mangaparktv",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "mangapark.tv",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

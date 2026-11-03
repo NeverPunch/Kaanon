@@ -1,0 +1,218 @@
+{
+ "extension": {
+  "name": "Manhwa18",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.manhwa18",
+  "version": "1.6.12",
+  "inhalt": "NSFW",
+  "quellen": [
+   {
+    "id": 28198508135984457,
+    "name": "Manhwa18",
+    "language": "en",
+    "homeUrl": "https://manhwa18.cc",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/webtoons/{page}?orderby=trending",
+   "items": "div.manga-item:not(:has(h3 a[title$='Raw']))",
+   "has_next": {
+    "exists": "ul.pagination li.next a"
+   },
+   "fields": {
+    "url": "div.data h3 a@href",
+    "title": [
+     "div.data h3 a@title",
+     "div.data h3 a"
+    ],
+    "cover": "div.thumb img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/webtoons/{page}",
+   "items": "div.manga-item:not(:has(h3 a[title$='Raw']))",
+   "has_next": {
+    "exists": "ul.pagination li.next a"
+   },
+   "fields": {
+    "url": "div.data h3 a@href",
+    "title": [
+     "div.data h3 a@title",
+     "div.data h3 a"
+    ],
+    "cover": "div.thumb img@img"
+   }
+  },
+  "search": {
+   "request": "{base}/search?q={query}&page={page}",
+   "items": "div.manga-item:not(:has(h3 a[title$='Raw']))",
+   "has_next": {
+    "exists": "ul.pagination li.next a"
+   },
+   "fields": {
+    "url": "div.data h3 a@href",
+    "title": [
+     "div.data h3 a@title",
+     "div.data h3 a"
+    ],
+    "cover": "div.thumb img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     "div.post-title h1@ownText",
+     "div.post-title h1"
+    ],
+    "cover": [
+     "div.summary_image img@img",
+     "meta[property=og:image]@content"
+    ],
+    "description": [
+     "div.panel-story-description div.dsct",
+     "div.description-summary div.summary__content"
+    ],
+    "genres": {
+     "const": "{l.genres}[[, {l.tags}]][[, {l.type}]]"
+    },
+    "author": {
+     "path": [
+      "div.author-content > a",
+      ".post-content_item:has(h5:contains(Author)) .summary-content a"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": [
+      "div.artist-content > a",
+      ".post-content_item:has(h5:contains(Artist)) .summary-content a"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": [
+      ".post-content_item:has(h5:contains(Status)) .summary-content",
+      "div.post-status div.summary-content"
+     ],
+     "all": true,
+     "join": " "
+    }
+   },
+   "status_map": {
+    "completed": 2,
+    "completo": 2,
+    "completado": 2,
+    "concluído": 2,
+    "concluido": 2,
+    "finalizado": 2,
+    "achevé": 2,
+    "terminé": 2,
+    "hoàn thành": 2,
+    "مكتملة": 2,
+    "مكتمل": 2,
+    "已完结": 2,
+    "tamamlandı": 2,
+    "đã hoàn thành": 2,
+    "завершено": 2,
+    "tamamlanan": 2,
+    "complété": 2,
+    "ongoing": 1,
+    "on going": 1,
+    "updating": 1,
+    "продолжается": 1,
+    "em lançamento": 1,
+    "em andamento": 1,
+    "en cours": 1,
+    "inativo": 6,
+    "ativo": 1,
+    "lançando": 1,
+    "đang tiến hành": 1,
+    "còn nữa": 1,
+    "devam ediyor": 1,
+    "in corso": 1,
+    "in arrivo": 1,
+    "مستمرة": 1,
+    "مستمر": 1,
+    "en curso": 1,
+    "emision": 1,
+    "curso": 1,
+    "en marcha": 1,
+    "publicandose": 1,
+    "publicándose": 1,
+    "en emision": 1,
+    "连载中": 1,
+    "đang làm": 1,
+    "em postagem": 1,
+    "devam eden": 1,
+    "em progresso": 1,
+    "atualizações semanais": 1,
+    "виходить": 1,
+    "đang ra": 1,
+    "on hold": 6,
+    "hiatus": 6,
+    "pausado": 6,
+    "en espera": 6,
+    "durduruldu": 6,
+    "beklemede": 6,
+    "đang chờ": 6,
+    "متوقف": 6,
+    "en pause": 6,
+    "заморожено": 6,
+    "en attente": 6,
+    "tạm dừng": 6,
+    "canceled": 5,
+    "cancelled": 5,
+    "cancelado": 5,
+    "iptal edildi": 5,
+    "đã hủy": 5,
+    "ملغي": 5,
+    "abandonné": 5,
+    "заброшено": 5,
+    "annulé": 5
+   },
+   "let": {
+    "genres": {
+     "path": [
+      "div.genres-content a",
+      ".post-content_item:has(h5:contains(Genre)) .summary-content a"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "tags": {
+     "path": "div.tags-content a",
+     "all": true,
+     "join": ", "
+    },
+    "type": ".post-content_item:has(h5:contains(Type)) .summary-content"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "li.a-h",
+   "fields": {
+    "url": "a.chapter-name@href",
+    "name": "a.chapter-name",
+    "date": "span.chapter-time"
+   },
+   "date_format": [
+    "dd MMM yyyy",
+    "relative"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.read-content img",
+   "image": "@img"
+  }
+ }
+}

@@ -1,0 +1,46 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "AR Hentai",
+  "sprache": "ar",
+  "base_url": "https://arhentai.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.arhentai",
+  "quellen": [
+   {
+    "name": "آر هنتاي",
+    "sprache": "ar",
+    "quell_id": 7652862112029693411,
+    "home": "https://arhentai.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/arhentai",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "arhentai.net",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "title",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaSubString": "\"title\"",
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

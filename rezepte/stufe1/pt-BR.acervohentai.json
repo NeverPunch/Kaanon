@@ -1,0 +1,49 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Acervo Hentai",
+  "sprache": "pt-BR",
+  "base_url": "https://acervohentai.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.acervohentai",
+  "quellen": [
+   {
+    "name": "Acervo Hentai",
+    "sprache": "pt-BR",
+    "quell_id": 381670977542268077,
+    "home": "https://acervohentai.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/acervohentai",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "acervohentai.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manhwa",
+  "date_format": "dd/MM/yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd/MM/yyyy\", Locale.ROOT)",
+   "mangaSubString": "\"manhwa\"",
+   "genreDirectory": "\"tag-manhwa\"",
+   "chapterMode": "ChapterMode.MangaAjax",
+   "mangaDetailsSelectorStatus": "\"div.post-status .summary-heading:contains(Status) + .summary-content\""
+  },
+  "hinweise": []
+ }
+}

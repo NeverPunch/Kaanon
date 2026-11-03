@@ -1,0 +1,66 @@
+{
+ "extension": {
+  "name": "TCB Scans",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.tcbscans",
+  "version": "1.6.11",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 1435116756378369709,
+    "name": "TCB Scans",
+    "language": "en",
+    "homeUrl": "https://tcbonepiecechapters.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "image_headers": {
+   "Referer": "{base}/"
+  },
+  "popular": {
+   "request": "{base}/projects",
+   "format": "html",
+   "items": "div.bg-card",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a[href].text-white@href",
+    "title": "a[href].text-white",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": "div.order-1 h1",
+    "cover": "div.order-1 img@src",
+    "description": "div.order-1 p"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "html",
+   "items": "a[href^=\"/chapters/\"]",
+   "fields": {
+    "url": "@href",
+    "name": "div.font-bold:not(.flex)"
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "html",
+   "items": "picture img, .image-container img",
+   "image": "@img"
+  }
+ }
+}

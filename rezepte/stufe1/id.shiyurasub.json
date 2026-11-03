@@ -1,0 +1,41 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ShiyuraSub",
+  "sprache": "id",
+  "base_url": "https://shiyurasub.blogspot.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.shiyurasub",
+  "quellen": [
+   {
+    "name": "ShiyuraSub",
+    "sprache": "id",
+    "quell_id": 7106013231844823613,
+    "home": "https://shiyurasub.blogspot.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/shiyurasub",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.16",
+  "theme": "zeistmanga"
+ },
+ "baukasten": "zeistmanga",
+ "parameter": {
+  "apex": "shiyurasub.blogspot.com",
+  "chapter_cat": "Chapter",
+  "page_sel": "auto",
+  "series_label": "Series"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "hasFilters": "true",
+   "hasLanguageFilter": "false",
+   "supportsLatest": "false",
+   "mangaDetailsSelectorDescription": "\"#synopsis ~ p\""
+  },
+  "hinweise": []
+ }
+}

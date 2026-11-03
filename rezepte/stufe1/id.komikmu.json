@@ -1,0 +1,43 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Komikmu",
+  "sprache": "id",
+  "base_url": "https://komikmu.top",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.komikmu",
+  "quellen": [
+   {
+    "name": "Komikmu",
+    "sprache": "id",
+    "quell_id": 3003360347791538503,
+    "home": "https://komikmu.top"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/komikmu",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "komikmu.top",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "komik",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaUrlDirectory": "\"/komik\"",
+   "datePattern": "\"dd/MM/yyyy\""
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

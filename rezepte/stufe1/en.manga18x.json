@@ -1,0 +1,45 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga 18x",
+  "sprache": "en",
+  "base_url": "https://manga18x.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.manga18x",
+  "quellen": [
+   {
+    "name": "Manga 18x",
+    "sprache": "en",
+    "quell_id": 6802623574377987877,
+    "home": "https://manga18x.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/manga18x",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "manga18x.net",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

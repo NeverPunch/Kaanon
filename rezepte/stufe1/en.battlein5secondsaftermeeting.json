@@ -1,0 +1,56 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Battle In 5 Seconds After Meeting",
+  "sprache": "en",
+  "base_url": "https://www.deatte5.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.battlein5secondsaftermeeting",
+  "quellen": [
+   {
+    "name": "Battle In 5 Seconds After Meeting",
+    "sprache": "en",
+    "quell_id": 2529980242070778875,
+    "home": "https://www.deatte5.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/battleinfivesecondsaftermeeting",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "deatte5.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "supportsLatest": "false",
+   "mangaDetailsSelectorTitle": "\"h1\"",
+   "mangaDetailsSelectorAuthor": "\"h5:contains(Author) + h4 a\"",
+   "mangaDetailsSelectorArtist": "\"h5:contains(Artist) + h4 a\"",
+   "mangaDetailsSelectorDescription": "\".synopsis p\"",
+   "mangaDetailsSelectorThumbnail": "\".cover_managa img\"",
+   "mangaDetailsSelectorStatus": "\"h5:contains(Status) + h4\"",
+   "mangaDetailsSelectorTag": "\"h5:contains(Tag) + h4 a\"",
+   "seriesTypeSelector": "\"h5:contains(Type) + h4\"",
+   "altNameSelector": "\"h5:contains(Alternative) + h4\""
+  },
+  "hinweise": [
+   "Community: keine „Neueste“-Liste"
+  ]
+ }
+}

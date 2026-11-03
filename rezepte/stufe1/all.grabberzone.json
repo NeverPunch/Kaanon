@@ -1,0 +1,46 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Grabber Zone",
+  "sprache": "all",
+  "base_url": "https://grabber.zone",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.grabberzone",
+  "quellen": [
+   {
+    "name": "Grabber Zone",
+    "sprache": "all",
+    "quell_id": 7008887237419113673,
+    "home": "https://grabber.zone"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/grabberzone",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "grabber.zone",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "comics",
+  "date_format": "dd.MM.yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd.MM.yyyy\", Locale.ENGLISH)",
+   "mangaSubString": "\"comics\""
+  },
+  "hinweise": []
+ }
+}

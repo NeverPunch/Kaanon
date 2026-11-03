@@ -1,0 +1,56 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Ma Brute",
+  "sprache": "fr",
+  "base_url": "https://mabrute.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.mabrute",
+  "quellen": [
+   {
+    "name": "Ma Brute",
+    "sprache": "fr",
+    "quell_id": 597251646967446227,
+    "home": "https://mabrute.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/mabrute",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "mabrute.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "d MMMM, yyyy",
+  "date_locale": "fr",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "supportsPostId": "false",
+   "archiveSelector": "\".mo2-archive-card\"",
+   "searchCardSelector": "\".mo2-archive-card\"",
+   "archiveUrlSelector": "\".mo2-release-title\"",
+   "mangaDetailsSelectorAuthor": "\".mo2-hd-chip:has(.mo2-hd-chip-label:contains(Auteur)) strong\"",
+   "mangaDetailsSelectorArtist": "\".mo2-hd-chip:has(.mo2-hd-chip-label:contains(Artiste)) strong\"",
+   "mangaDetailsSelectorStatus": "\".mo2-hd-status\"",
+   "mangaDetailsSelectorThumbnail": "\".mo2-hd-cover img\"",
+   "mangaDetailsSelectorGenre": "\".mo2-hd-genres a\"",
+   "seriesTypeSelector": "\".mo2-hd-type\"",
+   "altNameSelector": "\".mo2-hd-chip.mo2-hd-alt em\"",
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"d MMMM, yyyy\", Locale.FRENCH)"
+  },
+  "hinweise": []
+ }
+}

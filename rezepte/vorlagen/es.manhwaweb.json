@@ -1,0 +1,151 @@
+{
+ "extension": {
+  "name": "ManhwaWeb",
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.manhwaweb",
+  "version": "1.6.12",
+  "inhalt": "MIXED",
+  "quellen": [
+   {
+    "id": 5943212552955476721,
+    "name": "ManhwaWeb",
+    "language": "es",
+    "homeUrl": "https://manhwaweb.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "image_headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "popular": {
+   "request": "https://api.manhwaweb.com/manhwa/nuevos",
+   "format": "json",
+   "items": "top.*.*",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "link",
+     "replace": [
+      [
+       "^/?manga/",
+       "manhwa/"
+      ]
+     ]
+    },
+    "title": "name",
+    "cover": "imagen"
+   }
+  },
+  "latest": {
+   "request": "https://api.manhwaweb.com/latest/new-manhwa",
+   "format": "json",
+   "items": "manhwas.manhwas_esp",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "id_rel",
+     "template": "manhwa/{value}"
+    },
+    "title": "name_manhwa",
+    "cover": "img"
+   }
+  },
+  "search": {
+   "request": "https://api.manhwaweb.com/manhwa/library?buscar={query}&tipo=&demografia=&estado=&erotico=&generes=&order_dir=desc&order_item=alfabetico&page={page0}",
+   "format": "json",
+   "items": "data",
+   "page_size": 30,
+   "has_next": {
+    "exists": "next"
+   },
+   "fields": {
+    "url": {
+     "path": "real_id",
+     "template": "manhwa/{value}"
+    },
+    "title": [
+     "the_real_name",
+     "name_esp"
+    ],
+    "cover": "_imagen"
+   }
+  },
+  "details": {
+   "request": "https://api.manhwaweb.com/manhwa/see/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/([^/]+)$"
+   },
+   "fields": {
+    "title": [
+     "name_esp",
+     "the_real_name"
+    ],
+    "cover": "_imagen",
+    "description": "_sinopsis",
+    "genres": "_categoris.*.*",
+    "author": {
+     "path": "_extras.autores",
+     "all": true,
+     "join": ", "
+    },
+    "status": "_status"
+   },
+   "status_map": {
+    "publicandose": 1,
+    "finalizado": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "chapters",
+   "fields": {
+    "url": [
+     "link",
+     "versions.0.link",
+     "link_raw"
+    ],
+    "name": {
+     "path": "chapter",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "Capítulo {value}"
+    },
+    "number": "chapter",
+    "date": [
+     "create",
+     "versions.0.create"
+    ]
+   },
+   "date_format": "epoch_ms",
+   "reverse": true
+  },
+  "pages": {
+   "request": "https://api.manhwaweb.com/chapters/see/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/([^/]+)$"
+   },
+   "items": "chapter.img",
+   "include": "^https?://"
+  }
+ }
+}

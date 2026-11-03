@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "KimiComi",
+  "sprache": "ja",
+  "base_url": "https://kimicomi.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.kimicomi",
+  "quellen": [
+   {
+    "name": "KimiComi",
+    "sprache": "ja",
+    "quell_id": 645302785022492537,
+    "home": "https://kimicomi.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/kimicomi",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "comiciviewer"
+ },
+ "baukasten": "comiciviewer",
+ "parameter": {
+  "apex": "kimicomi.com"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

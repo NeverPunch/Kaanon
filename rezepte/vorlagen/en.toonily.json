@@ -1,0 +1,190 @@
+{
+ "extension": {
+  "name": "Toonily",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.toonily",
+  "version": "1.6.12",
+  "inhalt": "MIXED",
+  "quellen": [
+   {
+    "id": 5190569675461947007,
+    "name": "Toonily",
+    "language": "en",
+    "homeUrl": "https://toonily.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "cookies": {
+   "toonily-mature": "1"
+  },
+  "image_headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    },
+    "form": {
+     "action": "madara_load_more",
+     "page": "{page0}",
+     "template": "madara-core/content/content-archive",
+     "vars[paged]": "1",
+     "vars[template]": "archive",
+     "vars[posts_per_page]": "25",
+     "vars[post_type]": "wp-manga",
+     "vars[post_status]": "publish",
+     "vars[manga_archives_item_layout]": "big_thumbnail",
+     "vars[orderby]": "meta_value_num",
+     "vars[meta_key]": "_wp_manga_views",
+     "vars[order]": "DESC"
+    }
+   },
+   "format": "html",
+   "items": "div.page-item-detail, .manga__item, .c-tabs-item__content",
+   "page_size": 25,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": ".post-title a@href",
+    "title": ".post-title a",
+    "cover": "img@img"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    },
+    "form": {
+     "action": "madara_load_more",
+     "page": "{page0}",
+     "template": "madara-core/content/content-archive",
+     "vars[paged]": "1",
+     "vars[template]": "archive",
+     "vars[posts_per_page]": "25",
+     "vars[post_type]": "wp-manga",
+     "vars[post_status]": "publish",
+     "vars[manga_archives_item_layout]": "big_thumbnail",
+     "vars[orderby]": "meta_value_num",
+     "vars[meta_key]": "_latest_update",
+     "vars[order]": "DESC"
+    }
+   },
+   "format": "html",
+   "items": "div.page-item-detail, .manga__item, .c-tabs-item__content",
+   "page_size": 25,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": ".post-title a@href",
+    "title": ".post-title a",
+    "cover": "img@img"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    },
+    "form": {
+     "action": "madara_load_more",
+     "page": "{page0}",
+     "template": "madara-core/content/content-archive",
+     "vars[paged]": "1",
+     "vars[template]": "archive",
+     "vars[posts_per_page]": "25",
+     "vars[post_type]": "wp-manga",
+     "vars[post_status]": "publish",
+     "vars[manga_archives_item_layout]": "big_thumbnail",
+     "vars[s]": "{query_raw}"
+    }
+   },
+   "format": "html",
+   "items": "div.page-item-detail, .manga__item, .c-tabs-item__content",
+   "page_size": 25,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": ".post-title a@href",
+    "title": ".post-title a",
+    "cover": "img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": [
+     "div.post-title h3@ownText",
+     "div.post-title h1@ownText",
+     "#manga-title > h1@ownText"
+    ],
+    "cover": "div.summary_image img@img",
+    "description": "div.content-area div.summary__content",
+    "genres": "div.genres-content a",
+    "author": {
+     "path": "div.author-content > a, div.manga-authors > a",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "div.artist-content > a",
+     "all": true,
+     "join": ", "
+    },
+    "status": "div.post-status div.summary-content"
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}{u.path}/ajax/chapters/",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    },
+    "body": ""
+   },
+   "format": "html",
+   "url_vars": {
+    "path": "^(/(?:serie|webtoon|manga)/[^/?#]+)"
+   },
+   "items": "li.wp-manga-chapter",
+   "fields": {
+    "url": "a@href",
+    "name": "a",
+    "date": [
+     "img:not(.thumb)@alt",
+     "span a@title",
+     "span.chapter-release-date"
+    ]
+   },
+   "date_format": "MMM d, yy",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}?style=list",
+   "format": "html",
+   "items": "div.page-break > img, li.blocks-gallery-item img, .reading-content .text-left img",
+   "image": "@img"
+  }
+ }
+}

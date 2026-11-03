@@ -1,0 +1,49 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga-Lc",
+  "sprache": "th",
+  "base_url": "https://manga-lc.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.th.kaanon.mangalc",
+  "quellen": [
+   {
+    "name": "Manga-Lc",
+    "sprache": "th",
+    "quell_id": 5607835948857138011,
+    "home": "https://manga-lc.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/th/mangalc",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "manga-lc.net",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "d MMMM yyyy",
+  "date_locale": "th",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"d MMMM yyyy\", Locale(\"th\"))",
+   "pageListParseSelector": "\".reading-content img\"",
+   "filterNonMangaItems": "false"
+  },
+  "hinweise": [
+   "filterNonMangaItems = false"
+  ]
+ }
+}

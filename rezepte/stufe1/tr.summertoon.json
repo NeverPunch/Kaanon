@@ -1,0 +1,42 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "SummerToon",
+  "sprache": "tr",
+  "base_url": "https://summertoons.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.summertoon",
+  "quellen": [
+   {
+    "name": "SummerToon",
+    "sprache": "tr",
+    "quell_id": 1346985078461508977,
+    "home": "https://summertoons.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/summertoon",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.60",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "summertoons.net",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "statusOptions": "arrayOf("
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

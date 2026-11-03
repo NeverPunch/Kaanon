@@ -1,0 +1,62 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Aqua Manga",
+  "sprache": "en",
+  "base_url": "https://aquareader.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.aquamanga",
+  "quellen": [
+   {
+    "name": "Aqua Manga",
+    "sprache": "en",
+    "quell_id": 626267698662819838,
+    "home": "https://aquareader.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/aquamanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.73",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "aquareader.org",
+  "list_mode": "html",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": ".aqua-ch-item__time",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "supportsPostId": "false",
+   "archiveSelector": "\".aqua-archive-card\"",
+   "archiveUrlSelector": "\".aqua-archive-card__title a\"",
+   "nextPageSelector": "\"a.next\"",
+   "searchQueryParameter": "\"search\"",
+   "filterGenresSelector": "\"div.aqua-genre-pills\"",
+   "orderByFilterOptions": "listOf(",
+   "mangaDetailsSelectorTitle": "\".aqua-series-info__title\"",
+   "mangaDetailsSelectorThumbnail": "\".aqua-series-cover__img\"",
+   "mangaDetailsSelectorDescription": "\".aqua-series-synopsis\"",
+   "mangaDetailsSelectorStatus": "\".aqua-series-meta__status\"",
+   "mangaDetailsSelectorGenre": "\".aqua-series-genre-pill\"",
+   "mangaDetailsSelectorAuthor": "\".aqua-series-info__creator-value a\"",
+   "mangaDetailsSelectorArtist": "\".aqua-series-info__creator-value a\"",
+   "chapterListSelector": "\".aqua-ch-item\"",
+   "chapterUrlSelector": "\"a\"",
+   "chapterNameSelector": "\".aqua-ch-item__name\"",
+   "chapterDateSelector": "\".aqua-ch-item__time\""
+  },
+  "hinweise": []
+ }
+}

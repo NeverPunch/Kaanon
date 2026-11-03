@@ -1,0 +1,45 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaLionz",
+  "sprache": "ar",
+  "base_url": "https://manga-lionz.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.mangalionz",
+  "quellen": [
+   {
+    "name": "MangaLionz",
+    "sprache": "ar",
+    "quell_id": 2589550143244611118,
+    "home": "https://manga-lionz.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/mangalionz",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.62",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "manga-lionz.org",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "ar",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"MMMM d, yyyy\", Locale.forLanguageTag(\"ar\"))"
+  },
+  "hinweise": []
+ }
+}

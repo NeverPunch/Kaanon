@@ -1,0 +1,130 @@
+{
+ "extension": {
+  "name": "Mangafreak",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mangafreak",
+  "version": "1.6.13",
+  "inhalt": "MIXED",
+  "quellen": [
+   {
+    "id": 1201694572804778862,
+    "name": "Mangafreak",
+    "language": "en",
+    "homeUrl": "https://ww3.mangafreak.me",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "image_headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "popular": {
+   "request": "{base}/Genre/All/{page}",
+   "format": "html",
+   "items": "div.ranking_item",
+   "has_next": {
+    "exists": "a.next_p[href^=\"/\"]"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "a",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/Latest_Releases/{page}",
+   "format": "html",
+   "items": "div.latest_releases_item",
+   "has_next": {
+    "exists": "a.next_p[href^=\"/\"]"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "a",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "^(https?://[^/]+)/mini_images/([^/]+).*$",
+       "$1/manga_images/$2.jpg"
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/Find/{query}/Genre/000000000000000000000000000000000000000/Type/0/Status/0",
+   "format": "html",
+   "items": "div.manga_search_item",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "h3 a@href",
+    "title": "h3 a",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": [
+     "div.manga_series_data h1",
+     "div.manga_series_data h5"
+    ],
+    "cover": "div.manga_series_image img@src",
+    "description": "div.manga_series_description p",
+    "genres": "div.series_sub_genre_list a",
+    "author": {
+     "path": "div.manga_series_data",
+     "regex": "(?s)Written By:\\s*(.+?)(?:\\s+(?:Illustrated By|Year Published|Type):|$)"
+    },
+    "artist": {
+     "path": "div.manga_series_data",
+     "regex": "(?s)Illustrated By:\\s*(.+?)(?:\\s+(?:Written By|Year Published|Type):|$)"
+    },
+    "status": {
+     "path": "div.manga_series_data",
+     "regex": "(?i)This is ([\\w-]+) series"
+    }
+   },
+   "status_map": {
+    "on-going": 1,
+    "ongoing": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "html",
+   "items": "div.manga_series_list tr",
+   "fields": {
+    "url": "td:first-child a@href",
+    "name": "td:first-child a",
+    "number": {
+     "path": "td:first-child a",
+     "regex": "Chapter\\s+(\\d+(?:\\.\\d+)?)"
+    },
+    "date": "td:nth-child(2)"
+   },
+   "date_format": "yyyy/M/d",
+   "date_locale": "en",
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "html",
+   "items": "img#gohere[src]",
+   "image": "@src"
+  }
+ }
+}

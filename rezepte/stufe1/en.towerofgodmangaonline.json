@@ -1,0 +1,39 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Tower Of God Manga Online",
+  "sprache": "en",
+  "base_url": "https://w82.thetowerofgod.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.towerofgodmangaonline",
+  "quellen": [
+   {
+    "name": "Tower Of God Manga Online",
+    "sprache": "en",
+    "quell_id": 7174981474350393136,
+    "home": "https://w82.thetowerofgod.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/towerofgodmangaonline",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangacatalog"
+ },
+ "baukasten": "mangacatalog",
+ "parameter": {
+  "apex": "w82.thetowerofgod.com",
+  "layout": "tailwind"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "sourceList": "listOf(",
+   "chapterListSelector": "\"a[href*='/manga/tower-of-god-chapter-']\""
+  },
+  "hinweise": [
+   "mangacatalog: Seite listet feste Reihen (sourceList der Community), layout per Erkundung prüfen"
+  ]
+ }
+}

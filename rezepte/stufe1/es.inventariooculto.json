@@ -1,0 +1,46 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Inventario Oculto",
+  "sprache": "es",
+  "base_url": "https://inventariooculto.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.inventariooculto",
+  "quellen": [
+   {
+    "name": "Inventario Oculto",
+    "sprache": "es",
+    "quell_id": 609477585841458199,
+    "home": "https://inventariooculto.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/inventariooculto",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "inventariooculto.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "dd MMMM, yyyy",
+  "date_locale": "es",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterMode": "ChapterMode.MangaAjax",
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd MMMM, yyyy\", Locale(\"es\"))"
+  },
+  "hinweise": []
+ }
+}

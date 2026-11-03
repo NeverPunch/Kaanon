@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "DragonTea",
+  "sprache": "en",
+  "base_url": "https://dragontea.ink",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.dragontea",
+  "quellen": [
+   {
+    "name": "DragonTea",
+    "sprache": "en",
+    "quell_id": 6573506892686767219,
+    "home": "https://dragontea.ink"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/dragontea",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.62",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "dragontea.ink",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "novel",
+  "date_format": "MM/dd/yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"MM/dd/yyyy\", Locale.US)",
+   "mangaSubString": "\"novel\"",
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

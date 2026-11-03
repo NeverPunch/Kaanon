@@ -1,0 +1,112 @@
+{
+ "extension": {
+  "name": "Readonepiece",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.readonepiece",
+  "version": "1.6.12",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 1610445048747861154,
+    "name": "Readonepiece",
+    "language": "en",
+    "homeUrl": "https://ww13.readonepiece.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": "mangacatalog",
+ "parameter": {
+  "apex": "readonepiece.com",
+  "layout": "tailwind"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": "a[href~=(?i)^/manga/], a[href~=(?i)readonepiece.com/manga/]",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "@href",
+     "regex": "(/manga/[^/?#]+)"
+    },
+    "title": [
+     {
+      "path": "",
+      "regex": "^(?!\\s*View)\\s*(\\S.*?)\\s*$"
+     },
+     {
+      "path": "@href",
+      "regex": "/manga/([^/?#]+)",
+      "replace": [
+       [
+        "-",
+        " "
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/",
+   "items": "a[href~=(?i)^/manga/], a[href~=(?i)readonepiece.com/manga/]",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "@href",
+     "regex": "(/manga/[^/?#]+)"
+    },
+    "title": [
+     {
+      "path": "",
+      "regex": "^(?!\\s*View)\\s*(\\S.*?)\\s*$"
+     },
+     {
+      "path": "@href",
+      "regex": "/manga/([^/?#]+)",
+      "replace": [
+       [
+        "-",
+        " "
+       ]
+      ]
+     }
+    ]
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.container > h1",
+    "description": {
+     "path": "div.bg-bg-secondary > div.px-6 > div.flex-col",
+     "regex": "(?s)^(?:.*?Description)?\\s*(.*)$"
+    },
+    "cover": "div.flex > img@src"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.w-full > div.bg-bg-secondary > div.grid",
+   "fields": {
+    "url": ".col-span-4 > a@href",
+    "name": {
+     "path": ".col-span-4 > a",
+     "template": "{value}[[ - {f..text-xs:not(a)}]]"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.pages img.pages__img, img[data-src]",
+   "image": "@img"
+  },
+  "origin": "baukasten:mangacatalog {\"apex\": \"readonepiece.com\", \"layout\": \"tailwind\"}"
+ }
+}

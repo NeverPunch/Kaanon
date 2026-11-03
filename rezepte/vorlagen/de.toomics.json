@@ -1,0 +1,131 @@
+{
+ "extension": {
+  "name": "Toomics",
+  "paket": "eu.kanade.tachiyomi.extension.de.kaanon.toomics",
+  "version": "1.6.11",
+  "inhalt": "NSFW",
+  "quellen": [
+   {
+    "id": 4207600240717263542,
+    "name": "Toomics",
+    "language": "de",
+    "homeUrl": "https://global.toomics.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/de",
+   "Origin": "{base}",
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
+  },
+  "image_headers": {
+   "Referer": "{base}/de"
+  },
+  "popular": {
+   "request": "{base}/de/webtoon/ranking",
+   "format": "html",
+   "items": "li > div.visual a:has(img)",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "@href",
+     "template": "{value}/search/Y"
+    },
+    "title": "h4[class$=title]@ownText",
+    "cover": "img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/de/webtoon/new_comics",
+   "format": "html",
+   "items": "li > div.visual a:has(img)",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "@href",
+     "template": "{value}/search/Y"
+    },
+    "title": "h4[class$=title]@ownText",
+    "cover": "img@img"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/de/webtoon/ajax_search",
+    "method": "POST",
+    "form": {
+     "toonData": "{query_raw}"
+    }
+   },
+   "format": "json_html",
+   "html_path": "webtoon.sHtml",
+   "items": "#search-list-items li",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "a@href",
+     "regex": "toon=(\\d+)",
+     "template": "/de/webtoon/episode/toon/{value}/search/Y"
+    },
+    "title": "a img@alt",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": "#glo_contents section.relative h2",
+    "cover": "head meta[property=\"og:image\"]@content",
+    "description": ".break-noraml.text-xs",
+    "genres": {
+     "path": "a[data-tag-name]",
+     "replace": [
+      [
+       "^#",
+       ""
+      ]
+     ]
+    },
+    "author": "a[href*='searchtype=author']"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "html",
+   "items": "li.normal_ep:has(.coin-type1, .coin-type6)",
+   "fields": {
+    "url": {
+     "path": "a@onclick",
+     "regex": "href='([^']+)'"
+    },
+    "name": {
+     "path": "div.cell-title strong@ownText",
+     "template": "{f.div.cell-num} - {value}"
+    },
+    "number": "div.cell-num",
+    "date": "div.cell-time time"
+   },
+   "date_format": "d. MMM yyyy",
+   "date_locale": "de",
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "html",
+   "items": "div[id^=load_image_] img",
+   "image": "@data-src"
+  }
+ }
+}

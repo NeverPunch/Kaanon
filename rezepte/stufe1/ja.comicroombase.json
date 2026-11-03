@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Comic Room Base",
+  "sprache": "ja",
+  "base_url": "https://comic-room-base.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.comicroombase",
+  "quellen": [
+   {
+    "name": "Comic Room Base",
+    "sprache": "ja",
+    "quell_id": 1887776535756811938,
+    "home": "https://comic-room-base.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/comicroombase",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "comiciviewer"
+ },
+ "baukasten": "comiciviewer",
+ "parameter": {
+  "apex": "comic-room-base.com"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

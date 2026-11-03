@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Champion Cross",
+  "sprache": "ja",
+  "base_url": "https://championcross.jp",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.championcross",
+  "quellen": [
+   {
+    "name": "Champion Cross",
+    "sprache": "ja",
+    "quell_id": 4711824862797870329,
+    "home": "https://championcross.jp"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/championcross",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "comiciviewer"
+ },
+ "baukasten": "comiciviewer",
+ "parameter": {
+  "apex": "championcross.jp"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

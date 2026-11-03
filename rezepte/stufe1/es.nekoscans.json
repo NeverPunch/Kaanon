@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "NekoScans",
+  "sprache": "es",
+  "base_url": "https://nekoproject.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.nekoscans",
+  "quellen": [
+   {
+    "name": "NekoScans",
+    "sprache": "es",
+    "quell_id": 8396340084333456288,
+    "home": "https://nekoproject.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/nekoscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.9",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "nekoproject.org",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

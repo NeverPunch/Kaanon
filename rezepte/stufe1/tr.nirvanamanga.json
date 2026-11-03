@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Nirvana Manga",
+  "sprache": "tr",
+  "base_url": "https://nirvanamanga.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.nirvanamanga",
+  "quellen": [
+   {
+    "name": "Nirvana Manga",
+    "sprache": "tr",
+    "quell_id": 2783611133798677654,
+    "home": "https://nirvanamanga.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/nirvanamanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "nirvanamanga.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

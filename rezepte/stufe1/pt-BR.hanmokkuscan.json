@@ -1,0 +1,45 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hanmokku Scan",
+  "sprache": "pt-BR",
+  "base_url": "https://hanmokkuscan.blogspot.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.hanmokkuscan",
+  "quellen": [
+   {
+    "name": "Hanmokku Scan",
+    "sprache": "pt-BR",
+    "quell_id": 2374282752350973310,
+    "home": "https://hanmokkuscan.blogspot.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/hanmokkuscan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.15",
+  "theme": "zeistmanga"
+ },
+ "baukasten": "zeistmanga",
+ "parameter": {
+  "apex": "hanmokkuscan.blogspot.com",
+  "chapter_cat": "Capítulo",
+  "page_sel": "auto",
+  "series_label": "Todos os Projetos"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaCategory": "\"Todos os Projetos\"",
+   "chapterCategory": "\"Capítulo\"",
+   "hasFilters": "true",
+   "hasStatusFilter": "false",
+   "hasTypeFilter": "false",
+   "hasLanguageFilter": "false",
+   "hasGenreFilter": "true",
+   "getGenreList": "listOf("
+  },
+  "hinweise": []
+ }
+}

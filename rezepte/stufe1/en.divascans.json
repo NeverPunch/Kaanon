@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Diva Scans",
+  "sprache": "en",
+  "base_url": "https://divascans.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.divascans",
+  "quellen": [
+   {
+    "name": "Diva Scans",
+    "sprache": "en",
+    "quell_id": 3513996752712952755,
+    "home": "https://divascans.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/divascans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.34",
+  "theme": "vinetheme"
+ },
+ "baukasten": "vinetheme",
+ "parameter": {
+  "apex": "divascans.org"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

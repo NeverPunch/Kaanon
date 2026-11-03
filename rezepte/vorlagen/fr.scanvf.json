@@ -1,0 +1,271 @@
+{
+ "extension": {
+  "name": "Scan-vf",
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.scanvf",
+  "version": "1.6.12",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 336287573260213514,
+    "name": "Scan-vf",
+    "language": "fr",
+    "homeUrl": "https://www.scan-vf.net",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": "mmrcms",
+ "parameter": {
+  "apex": "scan-vf.net",
+  "item_path": "",
+  "lang": "fr",
+  "popular_mode": "filter"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/filterList?page={page}&sortBy=views&asc=false",
+   "items": "div.media, div.chapter-container",
+   "has_next": {
+    "exists": ".pagination a[rel=next]"
+   },
+   "fields": {
+    "url": [
+     ".media-heading a@href",
+     ".manga-heading a@href"
+    ],
+    "title": [
+     ".media-heading a",
+     ".manga-heading a"
+    ],
+    "cover": [
+     {
+      "path": "img@img",
+      "regex": "^(?!.*no-image\\.png).+$"
+     },
+     {
+      "path": ".media-heading a@href",
+      "regex": "([^/]+)/?$",
+      "template": "{base}/uploads/manga/{value}/cover/cover_250x350.jpg"
+     },
+     {
+      "path": ".manga-heading a@href",
+      "regex": "([^/]+)/?$",
+      "template": "{base}/uploads/manga/{value}/cover/cover_250x350.jpg"
+     }
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/latest-release?page={page}",
+   "items": "div.mangalist div.manga-item",
+   "has_next": {
+    "exists": ".pagination a[rel=next]"
+   },
+   "fields": {
+    "url": [
+     ".media-heading a@href",
+     ".manga-heading a@href"
+    ],
+    "title": [
+     ".media-heading a",
+     ".manga-heading a"
+    ],
+    "cover": [
+     {
+      "path": "img@img",
+      "regex": "^(?!.*no-image\\.png).+$"
+     },
+     {
+      "path": ".media-heading a@href",
+      "regex": "([^/]+)/?$",
+      "template": "{base}/uploads/manga/{value}/cover/cover_250x350.jpg"
+     },
+     {
+      "path": ".manga-heading a@href",
+      "regex": "([^/]+)/?$",
+      "template": "{base}/uploads/manga/{value}/cover/cover_250x350.jpg"
+     }
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/search?query={query}",
+   "format": "json",
+   "items": "suggestions",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "data",
+     "template": "/{value}"
+    },
+    "title": "value",
+    "cover": {
+     "path": "data",
+     "template": "{base}/uploads/manga/{value}/cover/cover_250x350.jpg"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "url_vars": {
+    "slug": "([^/]+)/?$"
+   },
+   "fields": {
+    "title": [
+     ".listmanga-header",
+     ".widget-title",
+     ".panel-heading"
+    ],
+    "cover": [
+     {
+      "path": ".row img.img-responsive@img",
+      "regex": "^(?!.*no-image\\.png).+$"
+     },
+     {
+      "const": "{base}/uploads/manga/{u.slug}/cover/cover_250x350.jpg"
+     }
+    ],
+    "description": [
+     {
+      "path": ".row .well p",
+      "all": true,
+      "join": "\n"
+     },
+     ".row .well"
+    ],
+    "author": [
+     ".row .dl-horizontal dt:contains(Author) + dd",
+     ".row .dl-horizontal dt:contains(Autor) + dd",
+     ".row .dl-horizontal dt:contains(Auteur) + dd",
+     ".row .dl-horizontal dt:contains(著作) + dd",
+     ".row .dl-horizontal dt:contains(Yazar) + dd",
+     ".row .dl-horizontal dt:contains(Mangaka) + dd",
+     ".row .dl-horizontal dt:contains(Pengarang) + dd",
+     ".row .dl-horizontal dt:contains(Penulis) + dd",
+     ".row .dl-horizontal dt:contains(المؤلف) + dd",
+     ".row .dl-horizontal dt:contains(перевод) + dd",
+     ".row .dl-horizontal dt:contains(Автор) + dd",
+     ".panel-body h3:containsOwn(المؤلف) div.text"
+    ],
+    "artist": [
+     ".row .dl-horizontal dt:contains(Artist) + dd",
+     ".row .dl-horizontal dt:contains(Artiste) + dd",
+     ".row .dl-horizontal dt:contains(Sanatçı) + dd",
+     ".row .dl-horizontal dt:contains(Artista) + dd",
+     ".row .dl-horizontal dt:contains(Ilustrator) + dd",
+     ".row .dl-horizontal dt:contains(الرسام) + dd",
+     ".row .dl-horizontal dt:contains(Seniman) + dd",
+     ".row .dl-horizontal dt:contains(Rysownik) + dd",
+     ".panel-body h3:containsOwn(الرسام) div.text"
+    ],
+    "genres": [
+     ".row .dl-horizontal dt:contains(Categories) + dd a",
+     ".row .dl-horizontal dt:contains(Categorías) + dd a",
+     ".row .dl-horizontal dt:contains(Catégories) + dd a",
+     ".row .dl-horizontal dt:contains(ジャンル) + dd a",
+     ".row .dl-horizontal dt:contains(Kategoriler) + dd a",
+     ".row .dl-horizontal dt:contains(Categorias) + dd a",
+     ".row .dl-horizontal dt:contains(Kategorie) + dd a",
+     ".row .dl-horizontal dt:contains(التصنيفات) + dd a",
+     ".row .dl-horizontal dt:contains(Жанр) + dd a",
+     ".row .dl-horizontal dt:contains(Kategori) + dd a",
+     ".row .dl-horizontal dt:contains(Tagi) + dd a",
+     ".row .dl-horizontal dt:contains(Género) + dd a",
+     ".panel-body h3:containsOwn(التصنيفات) div.text a"
+    ],
+    "status": [
+     ".row .dl-horizontal dt:contains(Status) + dd",
+     ".row .dl-horizontal dt:contains(Statut) + dd",
+     ".row .dl-horizontal dt:contains(Estado) + dd",
+     ".row .dl-horizontal dt:contains(状態) + dd",
+     ".row .dl-horizontal dt:contains(Durum) + dd",
+     ".row .dl-horizontal dt:contains(الحالة) + dd",
+     ".row .dl-horizontal dt:contains(Статус) + dd",
+     ".panel-body h3:containsOwn(الحالة) div.text"
+    ]
+   },
+   "status_map": {
+    "Ongoing": 1,
+    "مستمرة": 1,
+    "En cours": 1,
+    "Em lançamento": 1,
+    "Prace w toku": 1,
+    "Ativo": 1,
+    "Em andamento": 1,
+    "Activo": 1,
+    "Publicándose": 1,
+    "Publicandose": 1,
+    "Complete": 2,
+    "مكتملة": 2,
+    "Complet": 2,
+    "Completo": 2,
+    "Zakończone": 2,
+    "Concluído": 2,
+    "Finalizado": 2,
+    "Dropped": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "ul.chapters > li:not(.btn)",
+   "fields": {
+    "url": ".chapter-title-rtl a@href",
+    "name": {
+     "path": ".chapter-title-rtl",
+     "replace": [
+      [
+       "\\s*:\\s*$",
+       ""
+      ],
+      [
+       "^{l.title_rx}\\s+(?=\\S)",
+       "Chapitre "
+      ],
+      [
+       "^(.+?)\\s*:\\s*\\1$",
+       "$1"
+      ],
+      [
+       "^([^:]*?)\\s*:\\s*(.*)$",
+       "$1: $2"
+      ]
+     ]
+    },
+    "date": ".date-chapter-title-rtl"
+   },
+   "date_format": [
+    "d MMM. yyyy",
+    "d MMM yyyy"
+   ],
+   "date_locale": "en",
+   "let": {
+    "title_rx": {
+     "path": [
+      ".listmanga-header",
+      ".widget-title",
+      ".panel-heading"
+     ],
+     "replace": [
+      [
+       "[^A-Za-z0-9 ]",
+       "."
+      ]
+     ]
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#all > img.img-responsive",
+   "image": "@img"
+  },
+  "origin": "baukasten:mmrcms {\"apex\": \"scan-vf.net\", \"item_path\": \"\", \"lang\": \"fr\", \"popular_mode\": \"filter\"}"
+ }
+}

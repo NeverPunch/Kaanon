@@ -1,0 +1,39 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Soul Scans",
+  "sprache": "id",
+  "base_url": "https://v1.soulscans.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.soulscans",
+  "quellen": [
+   {
+    "name": "Soul Scans",
+    "sprache": "id",
+    "quell_id": 8061354444776372735,
+    "home": "https://v1.soulscans.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/soulscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": "loneseal"
+ },
+ "baukasten": "loneseal",
+ "parameter": {
+  "apex": "v1.soulscans.org",
+  "api_base": "$baseUrl/api",
+  "chapter_title": "yes"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "urlLayout": "UrlLayout.LEGACY_COMIC",
+   "includeProjectOnlyFilter": "true",
+   "apiUrl": "\"$baseUrl/api\""
+  },
+  "hinweise": []
+ }
+}

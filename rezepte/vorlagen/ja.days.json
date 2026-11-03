@@ -1,0 +1,224 @@
+{
+ "extension": {
+  "name": "DAYS",
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.days",
+  "version": "1.6.11",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 1788611085591117520,
+    "name": "DAYS",
+    "language": "ja",
+    "homeUrl": "https://comic-days.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": "gigaviewer",
+ "parameter": {
+  "apex": "comic-days.com",
+  "list_keyword": "の",
+  "list_mode": "graphql"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/graphql",
+    "method": "POST",
+    "json": {
+     "query": "query($k:String!,$n:Int,$a:String){ searchSeries(keyword:$k, first:$n, after:$a){ edges{ node{ databaseId title thumbnailUri latestVolume{ thumbnailUri } firstEpisode{ permalink } firstVolume{ permalink } } } } }",
+     "variables": {
+      "k": "の",
+      "n": 50,
+      "a": "{page_key}"
+     }
+    }
+   },
+   "format": "json",
+   "items": "data.searchSeries.edges",
+   "page_size": 50,
+   "fields": {
+    "url": [
+     {
+      "path": "node.firstEpisode.permalink",
+      "regex": "https?://[^/]+(/[^#]*)",
+      "template": "{value}#sid={f.node.databaseId}"
+     },
+     {
+      "path": "node.firstVolume.permalink",
+      "regex": "https?://[^/]+(/[^#]*)",
+      "template": "{value}#sid={f.node.databaseId}"
+     }
+    ],
+    "title": "node.title",
+    "cover": [
+     "node.thumbnailUri",
+     "node.latestVolume.thumbnailUri"
+    ]
+   },
+   "page_map": [
+    "MA",
+    "NTA",
+    "MTAw",
+    "MTUw",
+    "MjAw",
+    "MjUw",
+    "MzAw",
+    "MzUw",
+    "NDAw",
+    "NDUw",
+    "NTAw",
+    "NTUw",
+    "NjAw",
+    "NjUw",
+    "NzAw",
+    "NzUw",
+    "ODAw",
+    "ODUw",
+    "OTAw",
+    "OTUw",
+    "MTAwMA",
+    "MTA1MA",
+    "MTEwMA",
+    "MTE1MA",
+    "MTIwMA",
+    "MTI1MA",
+    "MTMwMA",
+    "MTM1MA",
+    "MTQwMA",
+    "MTQ1MA",
+    "MTUwMA",
+    "MTU1MA",
+    "MTYwMA",
+    "MTY1MA",
+    "MTcwMA",
+    "MTc1MA",
+    "MTgwMA",
+    "MTg1MA",
+    "MTkwMA",
+    "MTk1MA"
+   ],
+   "has_next": {
+    "full": true
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/graphql",
+    "method": "POST",
+    "json": {
+     "query": "query($k:String!,$n:Int,$a:String){ searchSeries(keyword:$k, first:$n, after:$a){ edges{ node{ databaseId title thumbnailUri latestVolume{ thumbnailUri } firstEpisode{ permalink } firstVolume{ permalink } } } } }",
+     "variables": {
+      "k": "{query_raw}",
+      "n": 50,
+      "a": null
+     }
+    }
+   },
+   "format": "json",
+   "items": "data.searchSeries.edges",
+   "page_size": 50,
+   "fields": {
+    "url": [
+     {
+      "path": "node.firstEpisode.permalink",
+      "regex": "https?://[^/]+(/[^#]*)",
+      "template": "{value}#sid={f.node.databaseId}"
+     },
+     {
+      "path": "node.firstVolume.permalink",
+      "regex": "https?://[^/]+(/[^#]*)",
+      "template": "{value}#sid={f.node.databaseId}"
+     }
+    ],
+    "title": "node.title",
+    "cover": [
+     "node.thumbnailUri",
+     "node.latestVolume.thumbnailUri"
+    ]
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{base}/graphql",
+    "method": "POST",
+    "json": {
+     "query": "query($id:String!){ series(databaseId:$id){ databaseId title author{ name } description thumbnailUri latestVolume{ thumbnailUri } } }",
+     "variables": {
+      "id": "{u.sid}"
+     }
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "sid": "#sid=([^&]+)"
+   },
+   "fields": {
+    "title": "data.series.title",
+    "cover": [
+     "data.series.thumbnailUri",
+     "data.series.latestVolume.thumbnailUri"
+    ],
+    "description": "data.series.description",
+    "author": "data.series.author.name",
+    "artist": "data.series.author.name"
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/viewer/pagination_readable_products?type=episode&aggregate_id={u.sid}&sort_order=desc&offset={offset}",
+   "format": "json",
+   "url_vars": {
+    "sid": "#sid=([^&]+)"
+   },
+   "items": "$",
+   "page_size": 50,
+   "paging": {
+    "has_next": {
+     "full": true
+    },
+    "max_pages": 40
+   },
+   "fields": {
+    "url": {
+     "path": "viewer_uri",
+     "regex": "https?://[^/]+(/[^#]*)"
+    },
+    "name": "title",
+    "date": "display_open_at"
+   },
+   "date_format": "iso",
+   "locked": {
+    "path": "purchase_info.can_read",
+    "equals": "false"
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "html",
+   "items": "script#episode-json",
+   "image": "@src",
+   "inner": {
+    "value": {
+     "path": "script#episode-json@data-value"
+    },
+    "format": "json",
+    "items": "readableProduct.pageStructure.pages.*.?type=main",
+    "image": "src",
+    "transform": {
+     "path": "^readableProduct.pageStructure.choJuGiga",
+     "regex": "^baku$",
+     "template": "{\"type\":\"grid\",\"n\":4,\"multiple\":8,\"order\":\"transpose\"}"
+    }
+   }
+  },
+  "origin": "baukasten:gigaviewer {\"apex\": \"comic-days.com\", \"list_keyword\": \"の\", \"list_mode\": \"graphql\"}"
+ }
+}

@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Rose Squad Scans",
+  "sprache": "en",
+  "base_url": "https://rosesquadscans.aishiteru.org",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.rosesquadscans",
+  "quellen": [
+   {
+    "name": "Rose Squad Scans",
+    "sprache": "en",
+    "quell_id": 5475936177780301452,
+    "home": "https://rosesquadscans.aishiteru.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/rosesquadscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "rosesquadscans.aishiteru.org",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MM.dd.yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"MM.dd.yyyy\", Locale.US)",
+   "chapterMode": "ChapterMode.MangaAjax",
+   "supportsFilterFetching": "false"
+  },
+  "hinweise": []
+ }
+}

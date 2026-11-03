@@ -1,0 +1,37 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Azora",
+  "sprache": "ar",
+  "base_url": "https://azorafly.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.azora",
+  "quellen": [
+   {
+    "name": "Azora",
+    "sprache": "ar",
+    "quell_id": 2482399499047903203,
+    "home": "https://azorafly.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/azora",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.75",
+  "theme": "iken"
+ },
+ "baukasten": "iken",
+ "parameter": {
+  "apex": "azorafly.com",
+  "api_prefix": "api.",
+  "chapter_mode": "api",
+  "per_page": "18",
+  "sort_mode": "order"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

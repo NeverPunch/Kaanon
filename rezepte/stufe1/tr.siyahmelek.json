@@ -1,0 +1,41 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Siyah Melek",
+  "sprache": "tr",
+  "base_url": "https://siyahmelek.my",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.siyahmelek",
+  "quellen": [
+   {
+    "name": "Siyah Melek",
+    "sprache": "tr",
+    "quell_id": 3737240362254347902,
+    "home": "https://siyahmelek.my"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/siyahmelek",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.7",
+  "theme": "initmanga"
+ },
+ "baukasten": "initmanga",
+ "parameter": {
+  "apex": "siyahmelek.my",
+  "latest_slug": "recently-updated",
+  "popular_slug": "manga-ranking"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaUrlDirectory": "\"manga\"",
+   "latestUrlSlug": "\"recently-updated\"",
+   "popularUrlSlug": "\"manga-ranking\""
+  },
+  "hinweise": [
+   "Manga-Verzeichnis der Community: manga"
+  ]
+ }
+}

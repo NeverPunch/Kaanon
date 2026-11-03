@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Komiktap",
+  "sprache": "id",
+  "base_url": "https://komiktap.info",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.komiktap",
+  "quellen": [
+   {
+    "name": "Komiktap",
+    "sprache": "id",
+    "quell_id": 8162933120097302217,
+    "home": "https://komiktap.info"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/komiktap",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.5",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "komiktap.info",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

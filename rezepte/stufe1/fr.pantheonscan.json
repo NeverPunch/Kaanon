@@ -1,0 +1,46 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Pantheon Scan",
+  "sprache": "fr",
+  "base_url": "https://pantheon-scan.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.pantheonscan",
+  "quellen": [
+   {
+    "name": "Pantheon Scan",
+    "sprache": "fr",
+    "quell_id": 1615599506055429686,
+    "home": "https://pantheon-scan.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/pantheonscan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "pantheon-scan.com",
+  "list_mode": "html",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "d MMMM yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"d MMMM yyyy\", Locale.FRANCE)",
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

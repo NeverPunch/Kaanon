@@ -1,0 +1,38 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Read Kingdom Manga Online",
+  "sprache": "en",
+  "base_url": "https://ww6.readkingdom.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.readkingdommangaonline",
+  "quellen": [
+   {
+    "name": "Read Kingdom Manga Online",
+    "sprache": "en",
+    "quell_id": 7952360835727640966,
+    "home": "https://ww6.readkingdom.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/readkingdommangaonline",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangacatalog"
+ },
+ "baukasten": "mangacatalog",
+ "parameter": {
+  "apex": "ww6.readkingdom.com",
+  "layout": "tailwind"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "sourceList": "listOf("
+  },
+  "hinweise": [
+   "mangacatalog: Seite listet feste Reihen (sourceList der Community), layout per Erkundung prüfen"
+  ]
+ }
+}

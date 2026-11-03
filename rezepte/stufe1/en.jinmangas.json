@@ -1,0 +1,45 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Jinmangas",
+  "sprache": "en",
+  "base_url": "https://mangafree.info",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.jinmangas",
+  "quellen": [
+   {
+    "name": "Jinmangas",
+    "sprache": "en",
+    "quell_id": 5727368826344311935,
+    "home": "https://mangafree.info"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/jinmangas",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "mangafree.info",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

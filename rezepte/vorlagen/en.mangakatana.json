@@ -1,0 +1,117 @@
+{
+ "extension": {
+  "name": "MangaKatana",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mangakatana",
+  "version": "1.6.12",
+  "inhalt": "MIXED",
+  "quellen": [
+   {
+    "id": 3170561626848540385,
+    "name": "MangaKatana",
+    "language": "en",
+    "homeUrl": "https://mangakatana.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "image_headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "popular": {
+   "request": "{base}/manga/page/{page}",
+   "format": "html",
+   "items": "div#book_list > div.item",
+   "has_next": {
+    "exists": "a.next.page-numbers"
+   },
+   "fields": {
+    "url": "div.text > h3 > a@href",
+    "title": "div.text > h3 > a",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/page/{page}",
+   "format": "html",
+   "items": "div#book_list > div.item",
+   "has_next": {
+    "exists": "a.next.page-numbers"
+   },
+   "fields": {
+    "url": "div.text > h3 > a@href",
+    "title": "div.text > h3 > a",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}?search={query}&search_by=book_name",
+   "format": "html",
+   "items": "div#book_list > div.item, div#single_book",
+   "has_next": {
+    "exists": "a.next.page-numbers"
+   },
+   "fields": {
+    "url": [
+     "div.text > h3 > a@href",
+     "^link[rel=canonical]@href"
+    ],
+    "title": [
+     "div.text > h3 > a",
+     "h1.heading"
+    ],
+    "cover": [
+     "div.cover img@src",
+     "img@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": "h1.heading",
+    "cover": "div.media div.cover img@src",
+    "description": ".summary > p",
+    "genres": ".genres > a",
+    "author": {
+     "path": ".author",
+     "all": true,
+     "join": ", "
+    },
+    "status": ".value.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "html",
+   "items": "div.chapters tr",
+   "fields": {
+    "url": "a@href",
+    "name": "a",
+    "date": ".update_time"
+   },
+   "date_format": "MMM-dd-yyyy",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "scripts",
+   "block_regex": "(?s)var\\s+(?=\\w+\\s*=\\s*\\[([^\\[]*)\\])(\\w+)\\s*=\\s*\\[[^\\[]*\\].*?data-src['\"],\\s*\\2\\b",
+   "items": "'([^']*)'"
+  }
+ }
+}

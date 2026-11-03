@@ -1,0 +1,71 @@
+{
+ "extension": {
+  "name": "Mangapill",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mangapill",
+  "version": "1.6.15",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 8448310129093543312,
+    "name": "Mangapill",
+    "language": "en",
+    "homeUrl": "https://mangapill.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "origin": "erkundung (Site-Model 1, automatisch umgewandelt)",
+  "popular": {
+   "request": "{base}/mangas/new",
+   "items": "div.grid.justify-end > div",
+   "fields": {
+    "url": "a.relative.block@href",
+    "title": [
+     "div.font-black.leading-tight",
+     "a.relative.block@title",
+     "a.relative.block"
+    ],
+    "cover": "img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "cover": "meta[property=\"og:image\"]@content",
+    "description": "meta[name=\"description\"]@content",
+    "genres": "a[href*=\"genre=\"]"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a.border.border-border",
+   "fields": {
+    "url": "@href",
+    "name": ""
+   }
+  },
+  "search": {
+   "request": "{base}/search?q={query}",
+   "items": "div.grid.justify-end > div",
+   "fields": {
+    "url": "a.relative.block@href",
+    "title": [
+     "div.font-black.leading-tight",
+     "a.relative.block@title",
+     "a.relative.block"
+    ],
+    "cover": "img@img"
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.relative.bg-card img",
+   "image": "@img"
+  }
+ }
+}

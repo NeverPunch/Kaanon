@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Kanzenin",
+  "sprache": "id",
+  "base_url": "https://kanzenin.info",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.kanzenin",
+  "quellen": [
+   {
+    "name": "Kanzenin",
+    "sprache": "id",
+    "quell_id": 8834320474567176246,
+    "home": "https://kanzenin.info"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/kanzenin",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "kanzenin.info",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

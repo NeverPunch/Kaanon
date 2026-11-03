@@ -1,0 +1,38 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MAGCOMI",
+  "sprache": "ja",
+  "base_url": "https://magcomi.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.magcomi",
+  "quellen": [
+   {
+    "name": "MAGCOMI",
+    "sprache": "ja",
+    "quell_id": 8643773902904736600,
+    "home": "https://magcomi.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/magcomi",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "gigaviewer"
+ },
+ "baukasten": "gigaviewer",
+ "parameter": {
+  "apex": "magcomi.com",
+  "list_keyword": "の",
+  "list_mode": "graphql"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "seriesListIds": "listOf(\"2550689798442777403\", \"2550689798442777409\")",
+   "getFilterOptions": "listOf("
+  },
+  "hinweise": []
+ }
+}

@@ -1,0 +1,52 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Goon Scans",
+  "sprache": "ar",
+  "base_url": "https://goonscans.org",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.goonscans",
+  "quellen": [
+   {
+    "name": "Goon Scans",
+    "sprache": "ar",
+    "quell_id": 2899371341317171497,
+    "home": "https://goonscans.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/goonscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "goonscans.org",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "datePattern": "\"yyyy.dd.MM\"",
+   "searchMangaNextPageSelector": "\".next-btn\"",
+   "searchMangaSelector": "\".cover-wrapper\"",
+   "seriesDetailsSelector": "\".webtoon-container\"",
+   "seriesTitleSelector": "\".webtoon-title\"",
+   "seriesThumbnailSelector": "\".webtoon-cover\"",
+   "seriesDescriptionSelector": "\".description-content\"",
+   "seriesGenreSelector": "\".genre-tags a\"",
+   "seriesStatusSelector": "\".cover-status-badge\"",
+   "chapterListSelector": "\"ul.chapter-list li\"",
+   "supportsFilterFetching": "false"
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

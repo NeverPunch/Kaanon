@@ -1,0 +1,49 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Lava Scans",
+  "sprache": "ar",
+  "base_url": "https://lavascans.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.lavascans",
+  "quellen": [
+   {
+    "name": "Lava Scans",
+    "sprache": "ar",
+    "quell_id": 3209001028102012989,
+    "home": "https://lavascans.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/lavascans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "lavascans.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "datePattern": "\"yyyy/MM/dd\"",
+   "searchMangaSelector": "\".listupd .manga-card-v\"",
+   "seriesDetailsSelector": "\"div.lh-container\"",
+   "seriesTitleSelector": "\".lh-title\"",
+   "seriesDescriptionSelector": "\"#manga-story\"",
+   "seriesGenreSelector": "\".lh-genres a\"",
+   "seriesStatusSelector": "\".status-badge-lux\"",
+   "seriesThumbnailSelector": "\".lh-poster img\""
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

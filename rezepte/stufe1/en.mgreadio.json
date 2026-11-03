@@ -1,0 +1,44 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Mgread.io",
+  "sprache": "en",
+  "base_url": "https://mgread.io",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mgreadio",
+  "quellen": [
+   {
+    "name": "Mgread.io",
+    "sprache": "en",
+    "quell_id": 15083818169656208,
+    "home": "https://mgread.io"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/mgreadio",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.7",
+  "theme": "initmanga"
+ },
+ "baukasten": "initmanga",
+ "parameter": {
+  "apex": "mgread.io",
+  "latest_slug": "recently-updated",
+  "popular_slug": "manga-ranking"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaUrlDirectory": "\"manga\"",
+   "popularUrlSlug": "\"manga-ranking\"",
+   "latestUrlSlug": "\"recently-updated\"",
+   "chapterPrefix": "\"Chapter\"",
+   "altTitleLabel": "\"Alternative title\"",
+   "siteZone": "ZoneOffset.ofHours(7)"
+  },
+  "hinweise": [
+   "Manga-Verzeichnis der Community: manga"
+  ]
+ }
+}

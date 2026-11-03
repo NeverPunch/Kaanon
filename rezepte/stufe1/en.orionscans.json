@@ -1,0 +1,37 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Orion Scans",
+  "sprache": "en",
+  "base_url": "https://orion-scans.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.orionscans",
+  "quellen": [
+   {
+    "name": "Orion Scans",
+    "sprache": "en",
+    "quell_id": 7776050777496310004,
+    "home": "https://orion-scans.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/orionscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.29",
+  "theme": "iken"
+ },
+ "baukasten": "iken",
+ "parameter": {
+  "apex": "orion-scans.com",
+  "api_prefix": "api.",
+  "chapter_mode": "api",
+  "per_page": "18",
+  "sort_mode": "order"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

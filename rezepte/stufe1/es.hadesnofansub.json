@@ -1,0 +1,49 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hades no Fansub",
+  "sprache": "es",
+  "base_url": "https://lectorhades.latamtoon.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.hadesnofansub",
+  "quellen": [
+   {
+    "name": "Hades no Fansub",
+    "sprache": "es",
+    "quell_id": 8311505150576608267,
+    "home": "https://lectorhades.latamtoon.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/hadesnofansub",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.62",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "lectorhades.latamtoon.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "tmo",
+  "date_format": "MM/dd/yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"MM/dd/yyyy\", Locale(\"es\"))",
+   "chapterMode": "ChapterMode.MangaAjax",
+   "mangaSubString": "\"tmo\"",
+   "mangaDetailsSelectorStatus": "\"div.summary_content > div.post-content div.post-content_item:has(div.summary-heading:contains(Status)) div.summary-content\"",
+   "mangaDetailsSelectorTag": "\"div.tags-content a.notUsed\" // Site uses this for the scanlator"
+  },
+  "hinweise": []
+ }
+}

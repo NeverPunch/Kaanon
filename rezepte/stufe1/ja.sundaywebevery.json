@@ -1,0 +1,38 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Sunday Web Every",
+  "sprache": "ja",
+  "base_url": "https://www.sunday-webry.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.sundaywebevery",
+  "quellen": [
+   {
+    "name": "Sunday Web Every",
+    "sprache": "ja",
+    "quell_id": 8083066303045184316,
+    "home": "https://www.sunday-webry.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/sundaywebevery",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "gigaviewer"
+ },
+ "baukasten": "gigaviewer",
+ "parameter": {
+  "apex": "sunday-webry.com",
+  "list_keyword": "の",
+  "list_mode": "graphql"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "seriesListIds": "listOf(",
+   "getFilterOptions": "listOf("
+  },
+  "hinweise": []
+ }
+}

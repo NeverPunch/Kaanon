@@ -1,0 +1,52 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Miau Scan",
+  "sprache": "all",
+  "base_url": "https://leemiau.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.miauscan",
+  "quellen": [
+   {
+    "name": "Miau Scan",
+    "sprache": "es",
+    "quell_id": 2886862669347225416,
+    "home": "https://leemiau.com"
+   },
+   {
+    "name": "Miau Scan",
+    "sprache": "pt-BR",
+    "quell_id": 6705370418823255358,
+    "home": "https://leemiau.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/miauscan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.8",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "leemiau.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "datePattern": "\"dd/MM/yyyy\"",
+   "seriesGenreSelector": "\".mgen a:not(:contains(Português))\"",
+   "seriesStatusSelector": "\".lm4-poster-status\"",
+   "seriesThumbnailSelector": "\"img.lm4-poster-image\"",
+   "seriesDescriptionSelector": "\".lm4-summary-full\""
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

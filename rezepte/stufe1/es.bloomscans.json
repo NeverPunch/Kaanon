@@ -1,0 +1,48 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Bloom Scans",
+  "sprache": "es",
+  "base_url": "https://bloomscans.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.bloomscans",
+  "quellen": [
+   {
+    "name": "Bloom Scans",
+    "sprache": "es",
+    "quell_id": 2598725055968738551,
+    "home": "https://bloomscans.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/bloomscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "bloomscans.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "series",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaUrlDirectory": "\"/series\"",
+   "seriesTitleSelector": "\".lrs-title\"",
+   "seriesThumbnailSelector": "\"img.lrs-cover\"",
+   "seriesDescriptionSelector": "\".lrs-syn-wrap\"",
+   "seriesStatusSelector": "\".lrs-infotable tr:contains(Status) td:last-child\"",
+   "seriesGenreSelector": "\".lrs-genre\"",
+   "chapterListSelector": "\"#lrs-native-chapterlist li\""
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

@@ -1,0 +1,46 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Empire Webtoon",
+  "sprache": "ar",
+  "base_url": "https://webtoonempire-bl.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.empirewebtoon",
+  "quellen": [
+   {
+    "name": "Empire Webtoon",
+    "sprache": "ar",
+    "quell_id": 2655166136445570124,
+    "home": "https://webtoonempire-bl.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/empirewebtoon",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.63",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "webtoonempire-bl.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "webtoon",
+  "date_format": "d MMMM، yyyy",
+  "date_locale": "ar",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"d MMMM، yyyy\", Locale.forLanguageTag(\"ar\"))",
+   "mangaSubString": "\"webtoon\""
+  },
+  "hinweise": []
+ }
+}

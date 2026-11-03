@@ -1,0 +1,49 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Toon FR",
+  "sprache": "fr",
+  "base_url": "https://toonfr.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.toonfr",
+  "quellen": [
+   {
+    "name": "Toon FR",
+    "sprache": "fr",
+    "quell_id": 3235818654344600611,
+    "home": "https://toonfr.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/toonfr",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "toonfr.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "webtoon",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterMode": "ChapterMode.MangaAjax",
+   "mangaSubString": "\"webtoon\"",
+   "mangaDetailsSelectorTitle": "\".post-content h3\"",
+   "mangaDetailsSelectorStatus": "\"div.summary-heading:contains(Statut) + div.summary-content\"",
+   "altNameSelector": "\".post-content_item:contains(Autre nom) .summary-content\""
+  },
+  "hinweise": []
+ }
+}

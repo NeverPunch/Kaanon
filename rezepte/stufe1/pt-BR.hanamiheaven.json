@@ -1,0 +1,64 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hanami Heaven",
+  "sprache": "pt-BR",
+  "base_url": "https://hanamiheaven.org",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.hanamiheaven",
+  "quellen": [
+   {
+    "name": "Hanami Heaven",
+    "sprache": "pt-BR",
+    "quell_id": 987786689720213769,
+    "home": "https://hanamiheaven.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/noindexscan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.63",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "hanamiheaven.org",
+  "list_mode": "html",
+  "chapter_mode": "ajax",
+  "manga_dir": "todas-as-obras",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaSubString": "\"todas-as-obras\"",
+   "orderQueryParameter": "\"ordem\"",
+   "searchQueryParameter": "\"busca\"",
+   "nextPageSelector": "\".mch-catalogue__pages a.next\"",
+   "completedStatus": "super.completedStatus + \"completa\"",
+   "hiatusStatus": "super.hiatusStatus + \"em espera\"",
+   "cancelledStatus": "super.cancelledStatus + \"cancelada\"",
+   "archiveSelector": "\"li.mch-catalogue-card:not(:has(.mch-catalogue-card__meta span:contains(Novel)))\"",
+   "archiveUrlSelector": "\".mch-catalogue-card__title a\"",
+   "mangaDetailsSelectorTitle": "\"#mch-work-title\"",
+   "mangaDetailsSelectorAuthor": "metadataSelector(\"Autor\", \"a\")",
+   "mangaDetailsSelectorArtist": "metadataSelector(\"Artista\", \"a\")",
+   "mangaDetailsSelectorStatus": "\".mch-work__status\"",
+   "mangaDetailsSelectorDescription": "\"#mch-work-synopsis\"",
+   "mangaDetailsSelectorThumbnail": "\".mch-work__cover img\"",
+   "mangaDetailsSelectorGenre": "metadataSelector(\"Gêneros\", \"a\")",
+   "mangaDetailsSelectorTag": "metadataSelector(\"Tags\", \"a\")",
+   "seriesTypeSelector": "metadataSelector(\"Tipo\", \"dd\")",
+   "altNameSelector": "metadataSelector(\"Nome alternativo\", \"dd\")",
+   "getHomeUrl": "\"$baseUrl/$mangaSubString/\""
+  },
+  "hinweise": []
+ }
+}

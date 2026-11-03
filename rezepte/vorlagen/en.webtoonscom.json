@@ -1,0 +1,133 @@
+{
+ "extension": {
+  "name": "Webtoons.com",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.webtoonscom",
+  "version": "1.6.11",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 2522335540328470744,
+    "name": "Webtoons.com",
+    "language": "en",
+    "homeUrl": "https://www.webtoons.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "cookies": {
+   "ageGatePass": "true",
+   "locale": "en",
+   "needGDPR": "false"
+  },
+  "image_headers": {
+   "Referer": "{base}/"
+  },
+  "popular": {
+   "request": "{base}/en/ranking/{page_key}",
+   "format": "html",
+   "items": ".webtoon_list li a",
+   "fields": {
+    "url": "@href",
+    "title": ".title",
+    "cover": "img@src"
+   },
+   "page_map": [
+    "trending",
+    "popular",
+    "originals",
+    "canvas"
+   ]
+  },
+  "latest": {
+   "request": "{base}/en/originals?sortOrder=UPDATE",
+   "format": "html",
+   "items": ".webtoon_list li a",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "@href",
+    "title": ".title",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/en/search/originals?keyword={query}&page={page}",
+   "format": "html",
+   "items": ".webtoon_list li a",
+   "has_next": {
+    "exists": "a.pagination[aria-current=true] + a"
+   },
+   "fields": {
+    "url": "@href",
+    "title": ".title",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": "h1.subj",
+    "cover": "head meta[property=\"og:image\"]@content",
+    "description": "#_asideDetail p.summary",
+    "genres": ".detail_header .info .genre",
+    "author": {
+     "path": ".detail_header .info .author",
+     "all": true,
+     "join": ", "
+    },
+    "status": "#_asideDetail p.day_info",
+    "artist": {
+     "path": ".detail_header .info .author",
+     "all": true,
+     "join": ", "
+    }
+   },
+   "status_map": {
+    "completed": 2,
+    "end": 2,
+    "up": 1,
+    "every": 1,
+    "nouveau": 1
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "https://m.webtoons.com/api/v1/webtoon/{u.id}/episodes?pageSize=99999",
+    "headers": {
+     "Referer": "https://m.webtoons.com/"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "title_no=(\\d+)"
+   },
+   "items": "result.episodeList",
+   "fields": {
+    "url": "viewerLink",
+    "name": {
+     "path": "episodeTitle",
+     "decode": "html"
+    },
+    "date": "exposureDateMillis",
+    "number": "episodeNo"
+   },
+   "date_format": "epoch_ms",
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "html",
+   "items": "div#_imageList > img",
+   "image": "@data-url"
+  }
+ }
+}

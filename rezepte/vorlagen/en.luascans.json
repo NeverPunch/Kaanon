@@ -1,0 +1,199 @@
+{
+ "extension": {
+  "name": "Lua Scans",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.luascans",
+  "version": "1.6.11",
+  "inhalt": "MIXED",
+  "quellen": [
+   {
+    "id": 7741623582242119453,
+    "name": "Lua Scans",
+    "language": "en",
+    "homeUrl": "https://luacomic.org",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}",
+   "Accept": "application/json, text/plain, */*"
+  },
+  "image_headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "popular": {
+   "request": "https://api.luacomic.org/query?query_string=&status=All&order=desc&orderBy=total_views&series_type=Comic&page={page}&perPage=12&tags_ids=%5B%5D&adult=true",
+   "format": "json",
+   "items": "data",
+   "page_size": 12,
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.last_page"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "series_slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "thumbnail",
+     "replace": [
+      [
+       "^(?!https?://|//)/?",
+       "https://api.luacomic.org/"
+      ]
+     ]
+    }
+   }
+  },
+  "latest": {
+   "request": "https://api.luacomic.org/query?query_string=&status=All&order=asc&orderBy=latest&series_type=Comic&page={page}&perPage=12&tags_ids=%5B%5D&adult=true",
+   "format": "json",
+   "items": "data",
+   "page_size": 12,
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.last_page"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "series_slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "thumbnail",
+     "replace": [
+      [
+       "^(?!https?://|//)/?",
+       "https://api.luacomic.org/"
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": "https://api.luacomic.org/query?query_string={query}&status=All&order=desc&orderBy=total_views&series_type=Comic&page={page}&perPage=12&tags_ids=%5B%5D&adult=true",
+   "format": "json",
+   "items": "data",
+   "page_size": 12,
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.last_page"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "series_slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "thumbnail",
+     "replace": [
+      [
+       "^(?!https?://|//)/?",
+       "https://api.luacomic.org/"
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": "https://api.luacomic.org/series/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/#]+)",
+    "id": "#(\\d+)$"
+   },
+   "fields": {
+    "title": "title",
+    "cover": {
+     "path": "thumbnail",
+     "replace": [
+      [
+       "^(?!https?://|//)/?",
+       "https://api.luacomic.org/"
+      ]
+     ]
+    },
+    "description": {
+     "path": "description",
+     "decode": "html_text"
+    },
+    "genres": "tags.*.name",
+    "author": "author",
+    "artist": "studio",
+    "status": "status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "hiatus": 6,
+    "dropped": 5,
+    "completed": 2,
+    "finished": 2
+   }
+  },
+  "chapters": {
+   "request": "https://api.luacomic.org/chapter/query?page={page}&perPage=1000&series_id={u.id}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/#]+)",
+    "id": "#(\\d+)$"
+   },
+   "items": "data",
+   "skip": {
+    "path": "price",
+    "default": "paid"
+   },
+   "fields": {
+    "url": {
+     "path": "chapter_slug",
+     "template": "/series/{u.slug}/{value}#{f.id}"
+    },
+    "name": "chapter_name",
+    "date": "created_at"
+   },
+   "date_format": "iso",
+   "paging": {
+    "has_next": {
+     "lt": [
+      "meta.current_page",
+      "meta.last_page"
+     ]
+    },
+    "max_pages": 30
+   }
+  },
+  "pages": {
+   "request": "https://api.luacomic.org/chapter/{u.slug}/{u.cslug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/#]+)/",
+    "cslug": "/series/[^/]+/([^/#]+)"
+   },
+   "items": "chapter.chapter_data.images",
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "^(?!https?://|//)/?",
+      "https://api.luacomic.org/"
+     ]
+    ]
+   }
+  }
+ }
+}

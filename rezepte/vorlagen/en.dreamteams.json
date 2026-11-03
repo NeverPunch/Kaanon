@@ -1,0 +1,167 @@
+{
+ "extension": {
+  "name": "Dreamteams",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.dreamteams",
+  "version": "1.6.12",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 3781137320869440824,
+    "name": "Dreamteams",
+    "language": "en",
+    "homeUrl": "https://dreamteams.space",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": "loneseal",
+ "parameter": {
+  "apex": "dreamteams.space",
+  "api_base": "https://api.dreamteams.space/api",
+  "chapter_title": "yes"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://api.dreamteams.space/api/search?type=COMIC&limit=20&page={page}&sort=views&order=desc",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "lt": [
+     "page",
+     "total_pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}"
+    },
+    "title": "title",
+    "cover": "poster_image_url"
+   }
+  },
+  "latest": {
+   "request": "https://api.dreamteams.space/api/comic/home-sections?sections=latest_comic_updates&updateLimit=240",
+   "format": "json",
+   "items": "latest_comic_updates",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "series_slug",
+     "template": "/comic/{value}"
+    },
+    "title": "series_title",
+    "cover": "poster_image_url"
+   }
+  },
+  "search": {
+   "request": "https://api.dreamteams.space/api/search?type=COMIC&limit=20&page={page}&q={query}&sort=views&order=desc",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "lt": [
+     "page",
+     "total_pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}"
+    },
+    "title": "title",
+    "cover": "poster_image_url"
+   }
+  },
+  "details": {
+   "request": "https://api.dreamteams.space/api/series/comic/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "([^/]+)/?$"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "poster_image_url",
+    "description": {
+     "path": "synopsis",
+     "decode": "html_text"
+    },
+    "genres": "genres.*.name",
+    "author": "author_name",
+    "artist": "artist_name",
+    "status": "comic_status"
+   },
+   "status_map": {
+    "ONGOING": 1,
+    "COMPLETED": 2,
+    "HIATUS": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "units",
+   "skip": "is_locked",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{u.slug}/chapter/{value}"
+    },
+    "name": [
+     {
+      "path": "title",
+      "regex": "(?iu)^(chapter\\s+\\d.*)$",
+      "group": 1
+     },
+     {
+      "path": "number",
+      "replace": [
+       [
+        "\\.00$",
+        ""
+       ]
+      ],
+      "template": "Chapter {value}[[ - {f.title}]]"
+     }
+    ],
+    "number": "number",
+    "date": "created_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://api.dreamteams.space/api/series/comic/{u.series}/chapter/{u.chapter}",
+   "format": "json",
+   "url_vars": {
+    "series": "/comic/([^/]+)/chapter/",
+    "chapter": "/chapter/([^/]+)/?$"
+   },
+   "items": "chapter.pages",
+   "image": {
+    "path": "image_url",
+    "replace": [
+     [
+      "^/(?!/)",
+      "https://api.dreamteams.space/"
+     ],
+     [
+      "(?i)^(https?://[^/]*(?:googleusercontent\\.com|bp\\.blogspot\\.com)/.*?)=[swh]\\d+[^/?]*($|\\?)",
+      "$1=s0$2"
+     ],
+     [
+      "(?i)^(https?://[^/]*(?:googleusercontent\\.com|bp\\.blogspot\\.com)/.*?)/[swh]\\d+[^/]*/",
+      "$1/s0/"
+     ]
+    ]
+   },
+   "exclude": "/(?:999(?:-\\d+)?|997(?:-\\d+)?|995|00\\.0|00\\.1)\\.jpe?g(?:\\?.*)?$"
+  },
+  "origin": "baukasten:loneseal {\"apex\": \"dreamteams.space\", \"api_base\": \"https://api.dreamteams.space/api\", \"chapter_title\": \"yes\"}"
+ }
+}

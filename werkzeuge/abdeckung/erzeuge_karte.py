@@ -90,7 +90,7 @@ TECHNIK = {
     'zip': re.compile(r'(?i)zipinputstream|keiyoushi\.zip'),
     'lzstring': re.compile(r'LZString'),
 }
-EXOTISCH = {'protobuf', 'zip', 'js_engine', 'webview', 'deobfuskation'}
+EXOTISCH = {'protobuf', 'zip', 'js_engine', 'webview', 'deobfuskation', 'verschleierung'}
 REGELN = ('PRUEFSEITE', 'CAPTCHA', 'DRM', 'SCHLUESSEL')
 
 
@@ -115,9 +115,11 @@ def pruefe(texte, libs):
     # WebView läuft und Meldungen/Selektoren beziehen sich auf einen Schutz: automatischer Versuch wahrscheinlich
     if wv and re.search(r'(?i)cloudflare|challenge|challange|ddos|cf-turnstile', msg): r['PRUEFSEITE'].add('WebView mit Schutz-Bezug')
     if wv and re.search(r'(?i)captcha|turnstile|recaptcha', msg): r['CAPTCHA'].add('WebView mit CAPTCHA-Bezug')
-    if BILD.search(C): r['DRM'].add('Bild-Entwürfelung')
-    if ENTSCHL.search(C): r['DRM'].add('Entschlüsselung')
-    if XOR.search(C): r['DRM'].add('XOR-Verschleierung')
+    # Verschleierung mit Schlüssel/Anordnung von der Website selbst: keine Regel-Klasse, sondern Technik.
+    # (Unsere Engine kann z. B. aes_cryptojs, packer, Raster- und Rechteck-Entwürfelung.)
+    if BILD.search(C): r['VERSCHLEIERUNG'].add('Bild-Entwürfelung')
+    if ENTSCHL.search(C): r['VERSCHLEIERUNG'].add('Entschlüsselung')
+    if XOR.search(C): r['VERSCHLEIERUNG'].add('XOR')
     if DRM_KENNUNG.search(C) or DRM_KENNUNG.search(tok): r['DRM'].add('DRM-Format')
     if SIGNATUR.search(C): r['SCHLUESSEL'].add('Signatur/HMAC/Schlüsseltausch')
     for l in libs:
@@ -129,6 +131,7 @@ def pruefe(texte, libs):
     if wv and not (r['PRUEFSEITE'] or r['CAPTCHA']): technik.append('webview')
     if 'synchrony' in libs: technik.append('deobfuskation')
     if 'textinterceptor' in libs: technik.append('text')
+    if r['VERSCHLEIERUNG']: technik.append('verschleierung')
     return {k: sorted(v) for k, v in r.items() if v}, manuell, konto, sorted(set(technik))
 
 # ----------------------------------------------------------------------------------------------
@@ -207,7 +210,7 @@ def main():
             libs = set(libs_aus(b)) | set(themes.get(theme, {}).get('libs', []))
             regel, manuell, konto, technik = pruefe(kt_texte(d), libs)
             if theme in themes:  # Technik des Themes gehört dazu, Regel-Treffer des Themes nur als "kann"
-                technik = sorted(set(technik) | set(themes[theme]['technik']))
+                technik = sorted(set(technik) | (set(themes[theme]['technik']) - {'verschleierung'}))
             ke = kei.get(pkg); srcs = ke['sources'] if ke else []
             hosts = sorted({host(s['homeUrl']) for s in srcs} | {host(u) for u in re.findall(r'baseUrl\s*=\s*"([^"]+)"', b)})
             kz = next((k_id[int(s['id'])] for s in srcs if int(s['id']) in k_id), None) \
@@ -226,6 +229,14 @@ def main():
                 regel=regel, theme_kann=themes.get(theme, {}).get('kann', {}) if theme else {},
                 manuell=manuell, konto=konto, technik=technik, kaanon=kz, kategorie=kat))
 
+    vorlagen = os.path.join(a.store, 'rezepte', 'vorlagen')
+    for r in rows:
+        if r['kaanon'] and r['kaanon']['art'] == 'eigen':
+            kurz = r['kaanon']['pkg'].split('extension.', 1)[1].replace('kaanon.', '')
+            f = os.path.join(vorlagen, kurz + '.json')
+            if os.path.exists(f):
+                t = open(f, encoding='utf-8').read()
+                r['vorlage_entwuerfelt'] = any(x in t for x in ('"transform"', 'aes_cryptojs', '"pre_decode"'))
     eigene_themes = {r['theme'] for r in rows if r['kategorie'] == 'kaanon_eigen' and r['theme']}
     for r in rows:
         r['familie_bekannt'] = bool(r['theme']) and r['theme'] in eigene_themes
@@ -272,10 +283,7 @@ def schreibe_readme(rows, meta, nur_kaanon, ziel):
     c = collections.Counter(r['kategorie'] if r['kategorie'] != 'kandidat' else f"k{r['stufe']}" for r in rows)
     eig = [r for r in rows if r['kategorie'] == 'kaanon_eigen']
     warn = [r for r in eig if any(k in r['regel'] for k in REGELN)]
-    theme_warn = collections.defaultdict(list)
-    for r in eig:
-        if not r['regel'] and 'DRM' in r['theme_kann'] and r['theme'] in ('gigaviewer', 'comiciviewer'):
-            theme_warn[r['theme']].append(r)
+    vwarn = [r for r in eig if r not in warn and 'VERSCHLEIERUNG' in r['regel'] and not r.get('vorlage_entwuerfelt')]
     K = [r for r in rows if r['kategorie'] == 'kandidat']
     th = collections.Counter(r['theme'] for r in K if r['theme'])
     L = lambda r: r['sprachen'][0] if len(r['sprachen']) == 1 else 'mehrsprachig'
@@ -297,25 +305,24 @@ def schreibe_readme(rows, meta, nur_kaanon, ziel):
                     ('kaanon_ausweg', 'Kaanon · Ausweg', 'schon im Store, Community-Code unverändert'),
                     ('k1', 'Kandidat · Stufe 1', 'keine Regel-Klasse, Theme schon bei uns gebaut'),
                     ('k2', 'Kandidat · Stufe 2', 'keine Regel-Klasse, eigenständiges Modul oder neues Theme'),
-                    ('k3', 'Kandidat · Stufe 3', 'keine Regel-Klasse, braucht neue Engine-Technik'),
-                    ('nur_ausweg', 'Nur Ausweg möglich', 'Code löst Prüfseiten/CAPTCHAs, entschlüsselt oder signiert'),
+                    ('k3', 'Kandidat · Stufe 3', 'keine Regel-Klasse, braucht neue Engine-Technik oder Entschleierung'),
+                    ('nur_ausweg', 'Nur Ausweg möglich', 'Code löst Prüfseiten/CAPTCHAs, nutzt Leser-DRM oder Schlüsseltausch/Signaturen'),
                     ('server', 'Eigener Server', 'selbst gehostet (Komga, LANraragi …), kein Ziel für den Store')]:
         w(f'| {t} | {c[k]} | {d} |')
     w('')
     w('## Zuerst testen\n')
-    w(f'**{len(warn)} eigene Extensions, deren Website im aktuellen Community-Code eine Regel-Klasse braucht.** '
-      'Unsere Engine baut sie ohne diese Technik. Vermutlich liefern sie keine lesbaren Seiten mehr. '
-      'Beim Handy-Test je ein Kapitel öffnen. Geht es nicht, sind sie Ausweg-Kandidaten.\n')
-    for r in sorted(warn, key=lambda r: r['kaanon']['name']):
-        w(f"- {r['kaanon']['name']} {r['kaanon']['version']} ({', '.join(r['hosts'][:2])}): {fmt(r)}")
-    w('')
-    if theme_warn:
-        n = sum(len(v) for v in theme_warn.values())
-        w(f'**{n} eigene Extensions auf GigaViewer/ComiciViewer.** Diese Theme-Familien verwürfeln die Bilder je Seite '
-          '(Kennung `#scramble` in der Bild-Adresse). Die Community entwürfelt sie, das wäre für uns DRM. '
-          'Prüfen: Kommen die Bilder in unserer Version lesbar an?\n')
-        for t, lst in sorted(theme_warn.items()):
-            w(f"- {t}: " + ', '.join(f"{r['kaanon']['name']} {r['kaanon']['version']}" for r in sorted(lst, key=lambda r: r['kaanon']['name'])))
+    if warn:
+        w(f'**{len(warn)} eigene Extensions, deren Website im aktuellen Community-Code eine Regel-Klasse braucht.** '
+          'Beim Handy-Test je ein Kapitel öffnen. Geht es nicht, sind sie Ausweg-Kandidaten.\n')
+        for r in sorted(warn, key=lambda r: r['kaanon']['name']):
+            w(f"- {r['kaanon']['name']} {r['kaanon']['version']} ({', '.join(r['hosts'][:2])}): {fmt(r)}")
+        w('')
+    if vwarn:
+        w(f'**{len(vwarn)} eigene Extensions, deren Website inzwischen verschleiert, unser Rezept aber nicht entschlüsselt '
+          'oder entwürfelt.** Das ist keine Regel-Frage, sondern eine Technik-Frage: Das Rezept braucht einen passenden '
+          '`transform`/`decode`-Schritt. Beim Handy-Test zuerst prüfen.\n')
+        for r in sorted(vwarn, key=lambda r: r['kaanon']['name']):
+            w(f"- {r['kaanon']['name']} {r['kaanon']['version']} ({', '.join(r['hosts'][:2])}): {', '.join(r['regel']['VERSCHLEIERUNG'])}")
         w('')
     w('## Abgleich mit den Ausweg-Extensions\n')
     w('So stuft die Karte die zehn Websites ein, für die bereits der Community-Code im Store liegt (Kontrolle der Muster):\n')
@@ -351,8 +358,10 @@ def schreibe_readme(rows, meta, nur_kaanon, ziel):
     w('- **PRUEFSEITE**: Löser-Klassen/-Funktionen, bekannte Schutz-Namen (DDoS-Guard, Anubis, x-challange …), '
       'WebView-Automatik zusammen mit Schutz-Signalen, `cf_clearance` per WebView.')
     w('- **CAPTCHA**: `getTurnstileToken` (core), reCAPTCHA/hCaptcha/Turnstile im Code oder als Schlüssel.')
-    w('- **DRM**: Bild-Entwürfelung (scramble, SeedRandom), Entschlüsselung (Cipher, AES-Helfer aus core, decrypt…), '
-      'XOR-Verschleierung, Bibliotheken speedbinb, publus, clipstudioreader, e4p, ece, aessiv, secretstream.')
+    w('- **DRM**: DRM-Formate (e4p, Widevine …) und die Leser-DRM-Bibliotheken speedbinb, publus, clipstudioreader, e4p, ece, aessiv, secretstream.')
+    w('- **Verschleierung** (keine Regel-Klasse, Technik → Stufe 3): Bild-Entwürfelung, Entschlüsselung mit einem Schlüssel, den die '
+      'Website selbst ausliefert, XOR. Unsere Engine kann davon schon `aes_cryptojs`, `packer`, `base64` sowie Raster- und Rechteck-Entwürfelung '
+      '(GigaViewer, ComiciViewer, Madara).')
     w('- **SCHLUESSEL**: HMAC/Signaturen, Schlüsseltausch (KeyAgreement, secretstream).')
     w('- Regel-Treffer im *Theme* gelten nur als „kann“ (gestrichelt in `karte.html`). Ob eine Website den Pfad nutzt, '
       'zeigt erst der Prüfstand. Bei Themes, die wir schon bauen, entscheidet das die Regel-Prüfung je Website.')

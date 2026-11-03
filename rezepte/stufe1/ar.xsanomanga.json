@@ -1,0 +1,44 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "XSano Manga",
+  "sprache": "ar",
+  "base_url": "https://www.xsano-manga.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.xsanomanga",
+  "quellen": [
+   {
+    "name": "XSano Manga",
+    "sprache": "ar",
+    "quell_id": 6170348197605244575,
+    "home": "https://www.xsano-manga.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/xsanomanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.15",
+  "theme": "zeistmanga"
+ },
+ "baukasten": "zeistmanga",
+ "parameter": {
+  "apex": "xsano-manga.com",
+  "chapter_cat": "Chapter",
+  "page_sel": "auto",
+  "series_label": "Series"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "supportsLatest": "false",
+   "mangaDetailsSelector": "\"main\"",
+   "mangaDetailsSelectorGenres": "\"dl a[rel=tag]\"",
+   "mangaDetailsSelectorInfo": "\"#extra-info dl\"",
+   "mangaDetailsSelectorInfoTitle": "\"dt\"",
+   "mangaDetailsSelectorInfoDescription": "\"dd\"",
+   "pageListSelector": "\"#reader div.separator\""
+  },
+  "hinweise": []
+ }
+}

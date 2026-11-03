@@ -1,0 +1,42 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Doujinku",
+  "sprache": "id",
+  "base_url": "https://doujinku.org",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.doujinku",
+  "quellen": [
+   {
+    "name": "Doujinku",
+    "sprache": "id",
+    "quell_id": 4688509366795716377,
+    "home": "https://doujinku.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/doujinku",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "doujinku.org",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "datePattern": "\"d MMMM yyyy\""
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

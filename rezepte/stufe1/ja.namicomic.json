@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Nami Comic",
+  "sprache": "ja",
+  "base_url": "https://namicomic.jp",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.namicomic",
+  "quellen": [
+   {
+    "name": "Nami Comic",
+    "sprache": "ja",
+    "quell_id": 1860491637286237325,
+    "home": "https://namicomic.jp"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/namicomic",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "comiciviewer"
+ },
+ "baukasten": "comiciviewer",
+ "parameter": {
+  "apex": "namicomic.jp"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

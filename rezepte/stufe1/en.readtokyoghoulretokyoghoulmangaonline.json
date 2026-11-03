@@ -1,0 +1,38 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Read Tokyo Ghoul Re & Tokyo Ghoul Manga Online",
+  "sprache": "en",
+  "base_url": "https://ww12.tokyoghoulre.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.readtokyoghoulretokyoghoulmangaonline",
+  "quellen": [
+   {
+    "name": "Read Tokyo Ghoul Re & Tokyo Ghoul Manga Online",
+    "sprache": "en",
+    "quell_id": 6468833665354206027,
+    "home": "https://ww12.tokyoghoulre.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/readtokyoghoulretokyoghoulmangaonline",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangacatalog"
+ },
+ "baukasten": "mangacatalog",
+ "parameter": {
+  "apex": "ww12.tokyoghoulre.com",
+  "layout": "tailwind"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "sourceList": "listOf("
+  },
+  "hinweise": [
+   "mangacatalog: Seite listet feste Reihen (sourceList der Community), layout per Erkundung prüfen"
+  ]
+ }
+}

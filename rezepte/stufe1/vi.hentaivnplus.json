@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiVN.plus",
+  "sprache": "vi",
+  "base_url": "https://hentaivn.show",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.hentaivnplus",
+  "quellen": [
+   {
+    "name": "HentaiVN.plus",
+    "sprache": "vi",
+    "quell_id": 7015430763374257867,
+    "home": "https://hentaivn.show"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/hentaivnplus",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.75",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "hentaivn.show",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "truyen-hentai",
+  "date_format": "dd/MM/yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd/MM/yyyy\", Locale.ROOT)",
+   "mangaSubString": "\"truyen-hentai\"",
+   "pageListParseSelector": "\".reading-content img\""
+  },
+  "hinweise": []
+ }
+}

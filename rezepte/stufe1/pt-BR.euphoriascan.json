@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Euphoria Scan",
+  "sprache": "pt-BR",
+  "base_url": "https://euphoriascan.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.euphoriascan",
+  "quellen": [
+   {
+    "name": "Euphoria Scan",
+    "sprache": "pt-BR",
+    "quell_id": 6045078216682014867,
+    "home": "https://euphoriascan.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/euphoriascan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "euphoriascan.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "dd 'de' MMMM 'de' yyyy",
+  "date_locale": "pt",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd 'de' MMMM 'de' yyyy\", Locale(\"pt\", \"BR\"))",
+   "mangaDetailsSelectorStatus": "\"div.summary-heading:contains(Status) + div.summary-content\"",
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

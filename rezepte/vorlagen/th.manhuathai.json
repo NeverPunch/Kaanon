@@ -1,0 +1,446 @@
+{
+ "extension": {
+  "name": "ManhuaThai",
+  "paket": "eu.kanade.tachiyomi.extension.th.kaanon.manhuathai",
+  "version": "1.6.12",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 7916744898099174736,
+    "name": "ManhuaThai",
+    "language": "th",
+    "homeUrl": "https://www.manhuathai.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "manhuathai.com",
+  "chapter_mode": "ajax",
+  "date_format": "d MMMM yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "list_mode": "html",
+  "manga_dir": "manga",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/manga/page/{page}/?m_orderby=views",
+   "items": [
+    "div.page-item-detail, .manga__item, .c-tabs-item__content",
+    ".page-item-detail",
+    "div.manga-item",
+    "[id*=manga-entry-]",
+    "a:has(img.ac-cover)"
+   ],
+   "has_next": {
+    "exists": "a.nextpostslink, .wp-pagenavi a.next, .nav-previous a, a.next.page-numbers, a[aria-label=Next]"
+   },
+   "fields": {
+    "url": [
+     ".post-title a:not([href=\"#\"])@href",
+     ".card-title a@href",
+     "div.manga > div a@href",
+     "a@href"
+    ],
+    "title": [
+     ".post-title a:not([href=\"#\"])",
+     ".card-title a",
+     "div.title a",
+     "h3",
+     "@title",
+     "a@title",
+     "img@alt"
+    ],
+    "cover": [
+     "img@img",
+     {
+      "path": "[style*='background-image']@style",
+      "regex": "url\\(['\"]?([^)'\"]+)"
+     }
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/manga/page/{page}/?m_orderby=latest",
+   "items": [
+    "div.page-item-detail, .manga__item, .c-tabs-item__content",
+    ".page-item-detail",
+    "div.manga-item",
+    "[id*=manga-entry-]",
+    "a:has(img.ac-cover)"
+   ],
+   "has_next": {
+    "exists": "a.nextpostslink, .wp-pagenavi a.next, .nav-previous a, a.next.page-numbers, a[aria-label=Next]"
+   },
+   "fields": {
+    "url": [
+     ".post-title a:not([href=\"#\"])@href",
+     ".card-title a@href",
+     "div.manga > div a@href",
+     "a@href"
+    ],
+    "title": [
+     ".post-title a:not([href=\"#\"])",
+     ".card-title a",
+     "div.title a",
+     "h3",
+     "@title",
+     "a@title",
+     "img@alt"
+    ],
+    "cover": [
+     "img@img",
+     {
+      "path": "[style*='background-image']@style",
+      "regex": "url\\(['\"]?([^)'\"]+)"
+     }
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}&post_type=wp-manga",
+   "items": [
+    "div.page-item-detail, .manga__item, .c-tabs-item__content",
+    ".page-item-detail",
+    "div.manga-item",
+    "[id*=manga-entry-]",
+    "a:has(img.ac-cover)"
+   ],
+   "has_next": {
+    "exists": "a.nextpostslink, .wp-pagenavi a.next, .nav-previous a, a.next.page-numbers, a[aria-label=Next]"
+   },
+   "fields": {
+    "url": [
+     ".post-title a:not([href=\"#\"])@href",
+     ".card-title a@href",
+     "div.manga > div a@href",
+     "a@href"
+    ],
+    "title": [
+     ".post-title a:not([href=\"#\"])",
+     ".card-title a",
+     "div.title a",
+     "h3",
+     "@title",
+     "a@title",
+     "img@alt"
+    ],
+    "cover": [
+     "img@img",
+     {
+      "path": "[style*='background-image']@style",
+      "regex": "url\\(['\"]?([^)'\"]+)"
+     }
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "url_vars": {
+    "path": "^(/[^?#]*?)/?$",
+    "slug": "/([^/?#]+)/?$"
+   },
+   "let": {
+    "mid": [
+     "[id^=manga-chapters-holder]@data-id",
+     "input.rating-post-id@value",
+     "a[data-post]@data-post",
+     "[data-post-id]@data-post-id"
+    ]
+   },
+   "fields": {
+    "title": [
+     "div.post-title h1@ownText",
+     "div.post-title h3@ownText",
+     "#manga-title > h1@ownText",
+     "div.post-title h1",
+     "div.post-title h3",
+     "h1.post-title@ownText",
+     "h1.post-title",
+     ".ink-det-title@ownText",
+     ".ink-det-title",
+     "div.hero h1@ownText",
+     "div.hero h1",
+     "h1.series-title@ownText",
+     "h1.series-title",
+     "h1#mgcr-series-title@ownText",
+     "h1#mgcr-series-title",
+     ".about h1@ownText",
+     "div.summary_content div.post-content > h3@ownText",
+     ".manga-title h2",
+     ".scanim-series-intro h1@ownText",
+     "div.wp-manga div.grid > h1"
+    ],
+    "cover": [
+     "div.summary_image img@img",
+     ".cover_managa img@img",
+     ".scanim-series-cover img@img",
+     "div.hposter img@img",
+     "aside.sidebar img.series-cover@img",
+     "div.mgcr-modern-card__cover img@img",
+     ".ink-det-cover img@img",
+     "meta[property=og:image]@content"
+    ],
+    "description": [
+     "div.description-summary div.summary__content",
+     "div.summary_content div.post-content_item > h5 + div",
+     "div.summary_content div.manga-excerpt",
+     ".synopsis p",
+     ".manga-excerpt .excerpt-content",
+     "div.scanim-series-description p:not(.scanim-seo-info p)",
+     "div.syn",
+     "div.summary-text",
+     ".ink-det-desc",
+     "div.wp-manga div#expand_content",
+     "div.panel-story-description div.dsct",
+     "div.panel-story-description div.ss-manga"
+    ],
+    "genres": [
+     "div.genres-content a",
+     "div.tags a[href*=/manga-genre/]",
+     "div.scanim-series-genres a",
+     "div.hchips a.chip",
+     "div.genres a.genre-tag",
+     "div.mgcr-modern-card__genres a",
+     ".ink-det-genres .ink-genre-pill",
+     "div.wp-manga div[alt=type]:gt(0) > span"
+    ],
+    "author": {
+     "path": [
+      "div.author-content > a, div.manga-authors > a",
+      "h5:contains(Author) + h4 a",
+      "h5:contains(Author) + h4",
+      "div.series-details div.detail-item:contains(Autor) span.detail-value",
+      ".lbl:contains(Autor) + span"
+     ],
+     "all": true
+    },
+    "artist": {
+     "path": [
+      "div.artist-content > a",
+      "h5:contains(Artist) + h4 a",
+      "h5:contains(Artist) + h4",
+      "div.series-details div.detail-item:contains(Artista) span.detail-value",
+      ".lbl:contains(Arte) + span"
+     ],
+     "all": true
+    },
+    "status": {
+     "path": [
+      "div.post-status div.summary-content, div.summary-heading:contains(Status) + div",
+      "h5:contains(Status) + h4",
+      "div.htags > span.htag",
+      "div.series-details div.detail-item:contains(Estado) span.detail-value",
+      "div.mgcr-modern-card__fact:contains(Durum) strong",
+      ".lbl:contains(Status) + span",
+      "div.manga-status span:last-child",
+      ".manga-status",
+      "span.scanim-series-status",
+      "div.wp-manga div[alt=type]:eq(0) > span"
+     ],
+     "all": true,
+     "join": " "
+    }
+   },
+   "status_map": {
+    "completed": 2,
+    "completo": 2,
+    "completado": 2,
+    "concluído": 2,
+    "concluido": 2,
+    "finalizado": 2,
+    "achevé": 2,
+    "terminé": 2,
+    "hoàn thành": 2,
+    "مكتملة": 2,
+    "مكتمل": 2,
+    "已完结": 2,
+    "tamamlandı": 2,
+    "đã hoàn thành": 2,
+    "завершено": 2,
+    "tamamlanan": 2,
+    "complété": 2,
+    "ongoing": 1,
+    "on going": 1,
+    "updating": 1,
+    "продолжается": 1,
+    "em lançamento": 1,
+    "em andamento": 1,
+    "en cours": 1,
+    "inativo": 6,
+    "ativo": 1,
+    "lançando": 1,
+    "đang tiến hành": 1,
+    "còn nữa": 1,
+    "devam ediyor": 1,
+    "in corso": 1,
+    "in arrivo": 1,
+    "مستمرة": 1,
+    "مستمر": 1,
+    "en curso": 1,
+    "emision": 1,
+    "curso": 1,
+    "en marcha": 1,
+    "publicandose": 1,
+    "publicándose": 1,
+    "en emision": 1,
+    "连载中": 1,
+    "đang làm": 1,
+    "em postagem": 1,
+    "devam eden": 1,
+    "em progresso": 1,
+    "atualizações semanais": 1,
+    "виходить": 1,
+    "đang ra": 1,
+    "on hold": 6,
+    "hiatus": 6,
+    "pausado": 6,
+    "en espera": 6,
+    "durduruldu": 6,
+    "beklemede": 6,
+    "đang chờ": 6,
+    "متوقف": 6,
+    "en pause": 6,
+    "заморожено": 6,
+    "en attente": 6,
+    "tạm dừng": 6,
+    "canceled": 5,
+    "cancelled": 5,
+    "cancelado": 5,
+    "iptal edildi": 5,
+    "đã hủy": 5,
+    "ملغي": 5,
+    "abandonné": 5,
+    "заброшено": 5,
+    "annulé": 5
+   }
+  },
+  "chapters": {
+   "items": [
+    "li.m-chapter",
+    "li.wp-manga-chapter",
+    "div.wp-manga-chapter",
+    "li.a-h",
+    "#tuhaf-chapter-grid a.tuhaf-ch-item",
+    "ul#list-chapters li > a"
+   ],
+   "fields": {
+    "url": [
+     "a:not(.chapter-thumbnail):not(.chapter-thumbnail a)@href",
+     "a@href"
+    ],
+    "name": [
+     ".tuhaf-ch-name",
+     "div.grid > span",
+     "a:not(.chapter-thumbnail):not(.chapter-thumbnail a)",
+     "a"
+    ],
+    "date": [
+     "img:not(.thumb)@alt",
+     "span a@title",
+     "span.chapter-release-date",
+     "span.chapter-release-date"
+    ]
+   },
+   "date_format": [
+    "d MMMM yyyy",
+    "relative"
+   ],
+   "date_locale": "en",
+   "request": {
+    "url": "{base}{u.path}/ajax/chapters/?t={page}",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    },
+    "form": {}
+   },
+   "request_by_page": {
+    "1": {
+     "url": "{base}{u.path}/ajax/chapters/",
+     "method": "POST",
+     "headers": {
+      "X-Requested-With": "XMLHttpRequest"
+     },
+     "form": {}
+    }
+   },
+   "paging": {
+    "has_next": {
+     "exists": "div.pagination span.current ~ span.page a[data-page]"
+    },
+    "max_pages": 200
+   }
+  },
+  "pages": {
+   "request": "{abs_url}?style=list",
+   "let": {
+    "kscript": [
+     {
+      "path": "*:has(> script#chapter-protector-data)@html",
+      "regex": "<script(?=[^>]*\\bid=[\"']chapter-protector-data[\"'])[^>]*\\bsrc=[\"']data:[^,\"']*;base64,([^\"']+)[\"']",
+      "decode": "base64"
+     },
+     {
+      "path": "script#chapter-protector-data@html"
+     }
+    ],
+    "kpw": {
+     "const": "{l.kscript}",
+     "regex": "wpmangaprotectornonce='([^']*)'"
+    }
+   },
+   "inner": {
+    "value": {
+     "const": "{l.kscript}",
+     "regex": "chapter_data='(.*?)';",
+     "replace": [
+      [
+       "\\\\/",
+       "/"
+      ]
+     ],
+     "decode": "aes_cryptojs",
+     "key": "{l.kpw}"
+    },
+    "format": "json",
+    "items": "$",
+    "image": ""
+   },
+   "items": [
+    "div.page-break, li.blocks-gallery-item",
+    "div.page-break img, li.blocks-gallery-item img, .reading-content .text-left img, div.read-content img",
+    "div.reading-content img.wp-manga-chapter-img",
+    ".reading-content div.text-center > p > img, .reading-content div.text-center > center > img",
+    "canvas[data-page-url]",
+    ".reading-content p img:not(.aligncenter):not(.content-blocked img):not(.login-required img)",
+    ".reading-content div.text-center > img, .reading-content div.text-center > script"
+   ],
+   "image": [
+    "img@img",
+    "@img",
+    "@data-page-url",
+    {
+     "path": "@html",
+     "pre_decode": "packer",
+     "regex": "<img src='([^']+)'"
+    }
+   ],
+   "referer": "chapter",
+   "transform": {
+    "path": "@html",
+    "pre_decode": "packer",
+    "regex": "(?s)sovleImage=(\\[\\[.*?\\]\\]);.*?width:\\s*\"?\\s*\\+?\\s*(\\d+)\\s*\\+?\\s*\"?px;.*?height:\\s*\"?\\s*\\+?\\s*(\\d+)\\s*\\+?\\s*\"?px;",
+    "template": "{\"type\":\"rects\",\"w\":{g2},\"h\":{g3},\"moves\":{g1}}"
+   }
+  },
+  "origin": "baukasten:madara {\"apex\": \"manhuathai.com\", \"chapter_mode\": \"ajax\", \"date_format\": \"d MMMM yyyy\", \"date_locale\": \"en\", \"date_selector\": \"span.chapter-release-date\", \"image_origin\": \"keep\", \"image_retry\": \"no\", \"list_mode\": \"html\", \"manga_dir\": \"manga\", \"page_mode\": \"style_list\", \"skip_premium\": \"no\"}"
+ }
+}

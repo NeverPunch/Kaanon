@@ -1,0 +1,42 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Ecchi-Doujin",
+  "sprache": "th",
+  "base_url": "https://ecchi-doujin.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.th.kaanon.ecchidoujin",
+  "quellen": [
+   {
+    "name": "Ecchi-Doujin",
+    "sprache": "th",
+    "quell_id": 7257262636858275074,
+    "home": "https://ecchi-doujin.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/th/ecchidoujin",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "ecchi-doujin.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "doujin",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaUrlDirectory": "\"/doujin\""
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

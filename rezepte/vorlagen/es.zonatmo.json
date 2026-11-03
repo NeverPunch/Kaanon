@@ -1,0 +1,182 @@
+{
+ "extension": {
+  "name": "ZonaTMO",
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.zonatmo",
+  "version": "1.6.11",
+  "inhalt": "MIXED",
+  "quellen": [
+   {
+    "id": 8492615695108145656,
+    "name": "ZonaTMO",
+    "language": "es",
+    "homeUrl": "https://zonatmo.org",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "image_headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/biblioteca?title=&filter_by=title&order_item=likes_count&order_dir=desc&_pg=1&page={page}",
+    "headers": {
+     "Referer": "{base}/biblioteca",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json_html",
+   "html_path": "html",
+   "items": "#library-grid .element",
+   "has_next": {
+    "exists": "a[rel=next], .pagination a:contains(Siguiente), .pagination a:contains(›)"
+   },
+   "fields": {
+    "url": "a[href*=\"/library/\"]@href",
+    "title": [
+     "a[href*=\"/library/\"] .thumbnail-title h4@title",
+     "a[href*=\"/library/\"] .thumbnail-title h4"
+    ],
+    "cover": [
+     "img.cover-bg-img@src",
+     ".thumbnail.book@data-bg"
+    ]
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/biblioteca?title=&filter_by=title&order_item=creation&order_dir=desc&_pg=1&page={page}",
+    "headers": {
+     "Referer": "{base}/biblioteca",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json_html",
+   "html_path": "html",
+   "items": "#library-grid .element",
+   "has_next": {
+    "exists": "a[rel=next], .pagination a:contains(Siguiente), .pagination a:contains(›)"
+   },
+   "fields": {
+    "url": "a[href*=\"/library/\"]@href",
+    "title": [
+     "a[href*=\"/library/\"] .thumbnail-title h4@title",
+     "a[href*=\"/library/\"] .thumbnail-title h4"
+    ],
+    "cover": [
+     "img.cover-bg-img@src",
+     ".thumbnail.book@data-bg"
+    ]
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/biblioteca?title={query}&filter_by=title&order_item=likes_count&order_dir=desc&_pg=1&page={page}",
+    "headers": {
+     "Referer": "{base}/biblioteca",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json_html",
+   "html_path": "html",
+   "items": "#library-grid .element",
+   "has_next": {
+    "exists": "a[rel=next], .pagination a:contains(Siguiente), .pagination a:contains(›)"
+   },
+   "fields": {
+    "url": "a[href*=\"/library/\"]@href",
+    "title": [
+     "a[href*=\"/library/\"] .thumbnail-title h4@title",
+     "a[href*=\"/library/\"] .thumbnail-title h4"
+    ],
+    "cover": [
+     "img.cover-bg-img@src",
+     ".thumbnail.book@data-bg"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": "h1.element-title@ownText",
+    "cover": "img.book-thumbnail@src",
+    "description": "#manga-synopsis",
+    "genres": ".element-header-content-text a[href*=\"/tag/\"]",
+    "author": {
+     "path": [
+      "h5.element-subtitle:contains(Autor) + * a",
+      "h5.element-subtitle:contains(Autor) + a"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": [
+      "h5.element-subtitle:contains(Arte) + * a",
+      "h5.element-subtitle:contains(Arte) + a",
+      "h5.element-subtitle:contains(Artista) + * a"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "status": "h5.element-subtitle:contains(Estado) + *"
+   },
+   "status_map": {
+    "emisi": 1,
+    "publicándose": 1,
+    "publicandose": 1,
+    "completado": 2,
+    "finalizado": 2,
+    "pausa": 6,
+    "hiatus": 6,
+    "cancelado": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "html",
+   "items": "li.upload-link",
+   "fields": {
+    "url": ".chapter-detail a[href*=\"/view_uploads/\"]@href",
+    "name": {
+     "const": "Capítulo {f.@data-chapter-number}",
+     "replace": [
+      [
+       "(?<=Capítulo )https?://[^/]+(?:/[^/]+)*/",
+       ""
+      ]
+     ]
+    },
+    "number": {
+     "path": "@data-chapter-number"
+    },
+    "date": {
+     "path": ".text-muted.small",
+     "regex": "(\\d{1,2}/\\d{1,2}/\\d{4})\\s*$"
+    }
+   },
+   "date_format": "dd/MM/yyyy",
+   "date_locale": "es"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "html",
+   "items": "#reader-wrap img.reader-image",
+   "image": "@src"
+  }
+ }
+}

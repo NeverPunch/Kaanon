@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "NTR-Manga",
+  "sprache": "th",
+  "base_url": "https://www.ntr-manga.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.th.kaanon.ntrmanga",
+  "quellen": [
+   {
+    "name": "NTR-Manga",
+    "sprache": "th",
+    "quell_id": 2123874844305574539,
+    "home": "https://www.ntr-manga.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/th/ntrmanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "ntr-manga.net",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

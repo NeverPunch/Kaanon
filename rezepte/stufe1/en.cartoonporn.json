@@ -1,0 +1,54 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "CartoonPorn",
+  "sprache": "en",
+  "base_url": "https://cartoonporn.to",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.cartoonporn",
+  "quellen": [
+   {
+    "name": "CartoonPorn",
+    "sprache": "en",
+    "quell_id": 7034264791241222160,
+    "home": "https://cartoonporn.to"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/cartoonporn",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "cartoonporn.to",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "porncomic",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaSubString": "\"porncomic\"",
+   "supportsPostId": "false",
+   "supportsLatest": "false",
+   "archiveSelector": "\"div.item_content, div.item-thumb\"",
+   "mangaDetailsSelectorTitle": "\"h1.comic-hero__title\"",
+   "mangaDetailsSelectorThumbnail": "\".comic-hero__image-wrap img\"",
+   "mangaDetailsSelectorArtist": "\".meta-tag--artist\"",
+   "mangaDetailsSelectorGenre": "\".meta-tag--genre\""
+  },
+  "hinweise": [
+   "Community: keine „Neueste“-Liste"
+  ]
+ }
+}

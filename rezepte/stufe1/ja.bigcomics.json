@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Big Comics",
+  "sprache": "ja",
+  "base_url": "https://bigcomics.jp",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.bigcomics",
+  "quellen": [
+   {
+    "name": "Big Comics",
+    "sprache": "ja",
+    "quell_id": 2944603286439592172,
+    "home": "https://bigcomics.jp"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/bigcomics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "comiciviewer"
+ },
+ "baukasten": "comiciviewer",
+ "parameter": {
+  "apex": "bigcomics.jp"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

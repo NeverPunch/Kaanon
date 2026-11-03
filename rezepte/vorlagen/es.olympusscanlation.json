@@ -1,0 +1,148 @@
+{
+ "extension": {
+  "name": "Olympus Scanlation",
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.olympusscanlation",
+  "version": "1.6.12",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 4384315126107049412,
+    "name": "Olympus Scanlation",
+    "language": "es",
+    "homeUrl": "https://olympusxyz.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "image_headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 2000
+  },
+  "popular": {
+   "request": "{base}/api/rankings?page={page}&period=total_ranking",
+   "format": "json",
+   "items": "data.*.?type=comic",
+   "has_next": {
+    "lt": [
+     "^current_page",
+     "^last_page"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/comic-{value}"
+    },
+    "title": "name",
+    "cover": "cover"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/new-chapters?page={page}",
+   "format": "json",
+   "items": "data",
+   "page_size": 15,
+   "has_next": {
+    "lt": [
+     "^current_page",
+     "^last_page"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/comic-{value}"
+    },
+    "title": "name",
+    "cover": "cover"
+   }
+  },
+  "details": {
+   "request": "{base}/api/series/{u.slug}?type=comic",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/comic-([^/#]+)"
+   },
+   "fields": {
+    "title": "data.name",
+    "cover": "data.cover",
+    "description": "data.summary",
+    "genres": "data.genres.*.name",
+    "status": "data.status.id"
+   },
+   "status_map": {
+    "1": 1,
+    "3": 6,
+    "4": 2,
+    "5": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/series/{u.slug}/chapters?page={page}&direction=desc&type=comic",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/comic-([^/#]+)"
+   },
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "name",
+     "template": "/series/comic-{u.slug}/capitulo/{value}"
+    },
+    "name": {
+     "path": "name",
+     "template": "Capitulo {value}"
+    },
+    "date": "published_at"
+   },
+   "date_format": "iso",
+   "paging": {
+    "has_next": {
+     "lt": [
+      "^meta.current_page",
+      "^meta.last_page"
+     ]
+    },
+    "max_pages": 60
+   }
+  },
+  "pages": {
+   "request": "{base}/api/capitulo/{u.slug}/{u.ch}?type=comic",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/comic-([^/]+)/capitulo/",
+    "ch": "/capitulo/([^/?#]+)$"
+   },
+   "items": "chapter.pages"
+  },
+  "search": {
+   "request": "{base}/api/series/list",
+   "format": "json",
+   "items": "data.*.?type=comic",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/comic-{value}"
+    },
+    "title": "name",
+    "cover": "cover"
+   },
+   "client_filter": true
+  }
+ }
+}

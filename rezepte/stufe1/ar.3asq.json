@@ -1,0 +1,48 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "3asq",
+  "sprache": "ar",
+  "base_url": "https://3asq.online",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.3asq",
+  "quellen": [
+   {
+    "name": "مانجا العاشق",
+    "sprache": "ar",
+    "quell_id": 1073624495230267708,
+    "home": "https://3asq.online"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/manga3asq",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.62",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "3asq.online",
+  "list_mode": "html",
+  "chapter_mode": "ajax_paged",
+  "manga_dir": "manga",
+  "date_format": "d MMM\\u060c yyyy",
+  "date_locale": "ar",
+  "date_selector": "span.chapter-release-date .timediff",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"d MMM\\u060c yyy\", Locale(\"ar\"))",
+   "chapterDateSelector": "\"span.chapter-release-date .timediff\"",
+   "chapterMode": "ChapterMode.MangaAjaxPaginated",
+   "archiveUrlSelector": "\"div.post-title a:not([target])\""
+  },
+  "hinweise": []
+ }
+}

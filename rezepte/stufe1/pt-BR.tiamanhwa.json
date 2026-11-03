@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Tia Manhwa",
+  "sprache": "pt-BR",
+  "base_url": "https://tiamanhwa.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.tiamanhwa",
+  "quellen": [
+   {
+    "name": "Tia Manhwa",
+    "sprache": "pt-BR",
+    "quell_id": 8823653003339002799,
+    "home": "https://tiamanhwa.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/tiamanhwa",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.60",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "tiamanhwa.com",
+  "list_mode": "html",
+  "chapter_mode": "ajax",
+  "manga_dir": "manhwa",
+  "date_format": "dd/MM/yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd/MM/yyyy\", Locale.forLanguageTag(\"pt-BR\"))",
+   "mangaSubString": "\"manhwa\"",
+   "genreDirectory": "\"tag-manhwa\""
+  },
+  "hinweise": []
+ }
+}

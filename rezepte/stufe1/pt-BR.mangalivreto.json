@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga Livre.to",
+  "sprache": "pt-BR",
+  "base_url": "https://mangalivre.to",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.mangalivreto",
+  "quellen": [
+   {
+    "name": "Manga Livre.to",
+    "sprache": "pt-BR",
+    "quell_id": 1281902081932329042,
+    "home": "https://mangalivre.to"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/mangalivreto",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.59",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "mangalivre.to",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "dd 'de' MMMM 'de' yyyy",
+  "date_locale": "pt",
+  "date_selector": ".chapter-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd 'de' MMMM 'de' yyyy\", Locale(\"pt\"))",
+   "chapterListSelector": "\".listing-chapters-wrap .chapter-box\"",
+   "chapterDateSelector": "\".chapter-date\""
+  },
+  "hinweise": []
+ }
+}

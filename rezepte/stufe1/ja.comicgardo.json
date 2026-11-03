@@ -1,0 +1,38 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Comic Gardo",
+  "sprache": "ja",
+  "base_url": "https://comic-gardo.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.comicgardo",
+  "quellen": [
+   {
+    "name": "Comic Gardo",
+    "sprache": "ja",
+    "quell_id": 3118962894631295374,
+    "home": "https://comic-gardo.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/comicgardo",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "gigaviewer"
+ },
+ "baukasten": "gigaviewer",
+ "parameter": {
+  "apex": "comic-gardo.com",
+  "list_keyword": "の",
+  "list_mode": "graphql"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "seriesListIds": "listOf(\"10834108156664921090\")",
+   "getFilterOptions": "listOf("
+  },
+  "hinweise": []
+ }
+}

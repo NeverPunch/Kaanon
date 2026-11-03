@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Stray Fansub",
+  "sprache": "tr",
+  "base_url": "https://strayfansub.buzz",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.strayfansub",
+  "quellen": [
+   {
+    "name": "Stray Fansub",
+    "sprache": "tr",
+    "quell_id": 7536061906713738443,
+    "home": "https://strayfansub.buzz"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/strayfansub",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "strayfansub.buzz",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

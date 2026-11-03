@@ -1,0 +1,39 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Ainz Scans ID",
+  "sprache": "id",
+  "base_url": "https://v3.ainzscans01.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.ainzscansid",
+  "quellen": [
+   {
+    "name": "Ainz Scans ID",
+    "sprache": "id",
+    "quell_id": 6828652413569586396,
+    "home": "https://v3.ainzscans01.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/ainzscansid",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": "loneseal"
+ },
+ "baukasten": "loneseal",
+ "parameter": {
+  "apex": "v3.ainzscans01.com",
+  "api_base": "https://api.ainzscans01.com$this",
+  "chapter_title": "yes"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "urlLayout": "UrlLayout.LEGACY_COMIC",
+   "includeProjectOnlyFilter": "true",
+   "overloadedGenres": "super.overloadedGenres + setOf(\"adventure\")"
+  },
+  "hinweise": []
+ }
+}

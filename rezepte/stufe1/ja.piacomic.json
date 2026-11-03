@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "PiaComic",
+  "sprache": "ja",
+  "base_url": "https://piacomic.jp",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.piacomic",
+  "quellen": [
+   {
+    "name": "PiaComic",
+    "sprache": "ja",
+    "quell_id": 2932724617903419016,
+    "home": "https://piacomic.jp"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/piacomic",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "comiciviewer"
+ },
+ "baukasten": "comiciviewer",
+ "parameter": {
+  "apex": "piacomic.jp"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

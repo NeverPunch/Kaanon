@@ -1,0 +1,43 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Makimaaaaa",
+  "sprache": "th",
+  "base_url": "https://makimaaaaa.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.th.kaanon.makimaaaaa",
+  "quellen": [
+   {
+    "name": "Makimaaaaa",
+    "sprache": "th",
+    "quell_id": 6102454165244031412,
+    "home": "https://makimaaaaa.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/th/makimaaaaa",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "makimaaaaa.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "seriesTypeSelector": "\".tsinfo .imptdt:contains(ประเภท) a\"",
+   "seriesStatusSelector": "\".tsinfo .imptdt:contains(สถานะ) i\""
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "KeroScans",
+  "sprache": "en",
+  "base_url": "https://keroscans.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.keroscans",
+  "quellen": [
+   {
+    "name": "KeroScans",
+    "sprache": "en",
+    "quell_id": 7842256049285233541,
+    "home": "https://keroscans.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/keroscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.9",
+  "theme": "vinetheme"
+ },
+ "baukasten": "vinetheme",
+ "parameter": {
+  "apex": "keroscans.net"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

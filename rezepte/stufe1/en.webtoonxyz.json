@@ -1,0 +1,48 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "WebtoonXYZ",
+  "sprache": "en",
+  "base_url": "https://www.webtoon.xyz",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.webtoonxyz",
+  "quellen": [
+   {
+    "name": "WebtoonXYZ",
+    "sprache": "en",
+    "quell_id": 6750082404202711318,
+    "home": "https://www.webtoon.xyz"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/webtoonxyz",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.61",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "webtoon.xyz",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "read",
+  "date_format": "d MMM yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"d MMM yyyy\", Locale.US)",
+   "mangaSubString": "\"read\"",
+   "genreDirectory": "\"webtoon-genre\"",
+   "sendViewCount": "false"
+  },
+  "hinweise": []
+ }
+}

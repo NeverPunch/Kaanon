@@ -1,0 +1,148 @@
+{
+ "extension": {
+  "name": "Manganato",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.manganato",
+  "version": "1.6.13",
+  "inhalt": "MIXED",
+  "quellen": [
+   {
+    "id": 6978911398642923430,
+    "name": "Manganato",
+    "language": "en",
+    "homeUrl": "https://www.natomanga.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": null
+  },
+  "image_headers": {
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/manga-list/hot-manga?page={page}",
+   "format": "html",
+   "items": "div.comic-list > .list-comic-item-wrap, div.truyen-list > div.list-truyen-item-wrap",
+   "has_next": {
+    "exists": "a.page_select + a:not(.page_last), a.page-select + a:not(.page-last)"
+   },
+   "fields": {
+    "url": "h3 a@href",
+    "title": "h3 a",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/manga-list/latest-manga?page={page}",
+   "format": "html",
+   "items": "div.comic-list > .list-comic-item-wrap, div.truyen-list > div.list-truyen-item-wrap",
+   "has_next": {
+    "exists": "a.page_select + a:not(.page_last), a.page-select + a:not(.page-last)"
+   },
+   "fields": {
+    "url": "h3 a@href",
+    "title": "h3 a",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/search/story/{query}?page={page}",
+   "format": "html",
+   "items": ".panel_story_list .story_item, div.list-truyen-item-wrap, div.list-comic-item-wrap",
+   "has_next": {
+    "exists": "a.page_select + a:not(.page_last), a.page-select + a:not(.page-last)"
+   },
+   "fields": {
+    "url": "h3 a@href",
+    "title": "h3 a",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": "div.manga-info-top h1",
+    "cover": "div.manga-info-pic img@src",
+    "description": {
+     "path": "#contentBox@ownText",
+     "replace": [
+      [
+       "^You are reading .*? to your bookmark\\.\\s*",
+       ""
+      ]
+     ]
+    },
+    "genres": "li.genres a",
+    "author": {
+     "path": "ul.manga-info-text li:contains(Author)",
+     "regex": "Author\\(?s?\\)?\\s*:\\s*(.+)$"
+    },
+    "status": {
+     "path": "ul.manga-info-text li:contains(Status)",
+     "regex": "Status\\s*:\\s*(\\w+)"
+    }
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/manga/{u.slug}/chapters?limit=-1",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "items": "data.chapters",
+   "fields": {
+    "url": {
+     "path": "chapter_slug",
+     "template": "/manga/{u.slug}/{value}"
+    },
+    "name": "chapter_name",
+    "number": "chapter_num",
+    "date": "updated_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "scripts",
+   "let": {
+    "cdn": {
+     "path": "",
+     "regex": "cdns\\s*=\\s*\\[\\s*\"([^\"]+?)(?:\\\\/)?\"",
+     "replace": [
+      [
+       "\\\\/",
+       "/"
+      ]
+     ]
+    }
+   },
+   "block_regex": "chapterImages\\s*=\\s*\\[([^\\]]*)\\]",
+   "items": "\"([^\"]+)\"",
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "\\\\/",
+      "/"
+     ],
+     [
+      "^/+",
+      ""
+     ]
+    ],
+    "template": "{l.cdn}/{value}"
+   }
+  }
+ }
+}

@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Mangakuri",
+  "sprache": "id",
+  "base_url": "https://lc2.mangakuri.online",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.mangakuri",
+  "quellen": [
+   {
+    "name": "Mangakuri",
+    "sprache": "id",
+    "quell_id": 8634079728231059906,
+    "home": "https://lc2.mangakuri.online"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/mangakuri",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.38",
+  "theme": "loneseal"
+ },
+ "baukasten": "loneseal",
+ "parameter": {
+  "apex": "lc2.mangakuri.online",
+  "api_base": "",
+  "chapter_title": "yes"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "urlLayout": "UrlLayout.LEGACY_COMIC",
+   "overloadedGenres": "super.overloadedGenres + setOf(\"yaoi\")"
+  },
+  "hinweise": [
+   "api_base unbekannt: im Builder per Erkundung ermitteln"
+  ]
+ }
+}

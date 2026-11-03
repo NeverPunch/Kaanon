@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "DoujinZa",
+  "sprache": "th",
+  "base_url": "https://doujinza.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.th.kaanon.doujinza",
+  "quellen": [
+   {
+    "name": "DoujinZa",
+    "sprache": "th",
+    "quell_id": 3715220935638762635,
+    "home": "https://doujinza.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/th/doujinza",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "doujinza.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "doujin",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "th",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"MMMM d, yyyy\", Locale.forLanguageTag(\"th\"))",
+   "mangaSubString": "\"doujin\"",
+   "genreDirectory": "\"doujin-genre\""
+  },
+  "hinweise": []
+ }
+}

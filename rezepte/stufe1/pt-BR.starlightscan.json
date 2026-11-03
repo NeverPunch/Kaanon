@@ -1,0 +1,56 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Starlight Scan",
+  "sprache": "pt-BR",
+  "base_url": "https://starligthscan.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.starlightscan",
+  "quellen": [
+   {
+    "name": "Starlight Scan",
+    "sprache": "pt-BR",
+    "quell_id": 7977736050206547443,
+    "home": "https://starligthscan.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/starlightscan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "starligthscan.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "mangas",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaUrlDirectory": "\"/mangas\"",
+   "datePattern": "\"dd/MM/yyyy\"",
+   "sendViewCount": "false",
+   "searchMangaSelector": "\"div.bulkMangaList article.bulkMangaCard\"",
+   "searchMangaNextPageSelector": "\"footer.base__horizontalList a:contains(Próxima):not([disabled])\"",
+   "seriesDetailsSelector": "\"section.mangaDetails\"",
+   "seriesTitleSelector": "\"h1.mangaDetails__title\"",
+   "seriesAuthorSelector": "\"span.mangaDetails__author\"",
+   "seriesDescriptionSelector": "\"span.mangaDetails__description\"",
+   "seriesGenreSelector": "\"li.mangaTags__item\"",
+   "seriesStatusSelector": "\"span.base__horizontalList[title^=Status]\"",
+   "seriesThumbnailSelector": "\"img.mangaDetails__cover\"",
+   "chapterListSelector": "\"div.mangaDetails__episodesContainer div.mangaDetails__episode\"",
+   "pageSelector": "\"div.scanImagesContainer img.scanImage\""
+  },
+  "hinweise": [
+   "Seiten-Selektor der Community: \"div.scanImagesContainer img.scanImage\"",
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

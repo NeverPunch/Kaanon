@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Scythe Scans",
+  "sprache": "en",
+  "base_url": "https://scythescans.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.scythescans",
+  "quellen": [
+   {
+    "name": "Scythe Scans",
+    "sprache": "en",
+    "quell_id": 1124131000360667434,
+    "home": "https://scythescans.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/erosscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.11",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "scythescans.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

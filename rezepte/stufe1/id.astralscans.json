@@ -1,0 +1,42 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Astral Scans",
+  "sprache": "id",
+  "base_url": "https://astralscans.site",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.astralscans",
+  "quellen": [
+   {
+    "name": "Astral Scans",
+    "sprache": "id",
+    "quell_id": 829250309114015686,
+    "home": "https://astralscans.site"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/astralscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.11",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "astralscans.site",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "hasProjectPage": "true"
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

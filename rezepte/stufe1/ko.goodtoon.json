@@ -1,0 +1,57 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "GoodToon",
+  "sprache": "ko",
+  "base_url": "https://www.goodtoon008.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ko.kaanon.goodtoon",
+  "quellen": [
+   {
+    "name": "GoodToon",
+    "sprache": "ko",
+    "quell_id": 2738031143723682744,
+    "home": "https://www.goodtoon008.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ko/goodtoon",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.60",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "goodtoon008.com",
+  "list_mode": "html",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "yy.MM.dd",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "supportsPostId": "false",
+   "chapterMode": "ChapterMode.MangaAjax",
+   "sendViewCount": "false",
+   "searchQueryParameter": "\"q\"",
+   "mangaDetailsSelectorTitle": "\"h1.summary-title, div.post-title h3, div.post-title h1, #manga-title > h1\"",
+   "mangaDetailsSelectorAuthor": "\"div.manga-summary-author .author-text, div.manga-summary-author\"",
+   "mangaDetailsSelectorStatus": "\"div.summary-meta-row .meta-value\"",
+   "mangaDetailsSelectorDescription": "\"div.manga-summary-desc\"",
+   "mangaDetailsSelectorThumbnail": "\"div.manga-summary-cover img\"",
+   "completedStatus": "arrayOf(\"completed\", \"완결\")",
+   "ongoingStatus": "arrayOf(\"ongoing\", \"on going\", \"updating\", \"연재중\")",
+   "nextPageSelector": "\"div.pagination a.page-numbers:containsOwn(다음)\"",
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"yy.MM.dd\", Locale.KOREA)"
+  },
+  "hinweise": []
+ }
+}

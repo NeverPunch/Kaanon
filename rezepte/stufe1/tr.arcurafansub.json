@@ -1,0 +1,42 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Arcura Fansub",
+  "sprache": "tr",
+  "base_url": "https://arcurafansub.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.arcurafansub",
+  "quellen": [
+   {
+    "name": "Arcura Fansub",
+    "sprache": "tr",
+    "quell_id": 4787423248001527550,
+    "home": "https://arcurafansub.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/arcurafansub",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "arcurafansub.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "seri",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaUrlDirectory": "\"/seri\""
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

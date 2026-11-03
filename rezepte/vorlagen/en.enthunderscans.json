@@ -1,0 +1,318 @@
+{
+ "extension": {
+  "name": "En-thunderscans",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.enthunderscans",
+  "version": "1.6.13",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 5991169836276645314,
+    "name": "En-thunderscans",
+    "language": "en",
+    "homeUrl": "https://en-thunderscans.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "en-thunderscans.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "comics",
+  "page_mode": "script",
+  "search_mode": "title"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/comics/?page={page}&order=popular",
+   "items": ".utao .uta .imgu, .listupd .bs .bsx:not(:has(.novelabel)), .listo .bs .bsx:not(:has(.novelabel))",
+   "has_next": {
+    "exists": "div.pagination .next, div.hpage .r"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": [
+     "a@title",
+     ".bigor .tt",
+     "h3 a",
+     "img@alt"
+    ],
+    "cover": "img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/comics/?page={page}&order=update",
+   "items": ".utao .uta .imgu, .listupd .bs .bsx:not(:has(.novelabel)), .listo .bs .bsx:not(:has(.novelabel))",
+   "has_next": {
+    "exists": "div.pagination .next, div.hpage .r"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": [
+     "a@title",
+     ".bigor .tt",
+     "h3 a",
+     "img@alt"
+    ],
+    "cover": "img@img"
+   }
+  },
+  "search": {
+   "request": "{base}/comics/?title={query}&page={page}",
+   "items": ".utao .uta .imgu, .listupd .bs .bsx:not(:has(.novelabel)), .listo .bs .bsx:not(:has(.novelabel))",
+   "has_next": {
+    "exists": "div.pagination .next, div.hpage .r"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": [
+     "a@title",
+     ".bigor .tt",
+     "h3 a",
+     "img@alt"
+    ],
+    "cover": "img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     ".entry-title",
+     ".ts-breadcrumb li:last-child span"
+    ],
+    "cover": [
+     ".infomanga > div[itemprop=image] img@img",
+     ".thumb img@img"
+    ],
+    "description": [
+     ".desc",
+     ".entry-content[itemprop=description]"
+    ],
+    "genres": "div.gnr a, .mgen a, .seriestugenre a",
+    "author": {
+     "path": [
+      ".infotable tr:contains(Author) td:last-child@ownText",
+      ".infotable tr:contains(Auteur) td:last-child@ownText",
+      ".infotable tr:contains(Autor) td:last-child@ownText",
+      ".infotable tr:contains(Mangaka) td:last-child@ownText",
+      ".infotable tr:contains(Pengarang) td:last-child@ownText",
+      ".infotable tr:contains(Yazar) td:last-child@ownText",
+      ".infotable tr:contains(المؤلف) td:last-child@ownText",
+      ".infotable tr:contains(ผู้แต่ง) td:last-child@ownText",
+      ".infotable tr:contains(นักเขียน) td:last-child@ownText",
+      ".tsinfo .imptdt:contains(Author) i@ownText",
+      ".tsinfo .imptdt:contains(Auteur) i@ownText",
+      ".tsinfo .imptdt:contains(Autor) i@ownText",
+      ".tsinfo .imptdt:contains(Mangaka) i@ownText",
+      ".tsinfo .imptdt:contains(Pengarang) i@ownText",
+      ".tsinfo .imptdt:contains(Yazar) i@ownText",
+      ".tsinfo .imptdt:contains(المؤلف) i@ownText",
+      ".tsinfo .imptdt:contains(ผู้แต่ง) i@ownText",
+      ".tsinfo .imptdt:contains(นักเขียน) i@ownText",
+      ".fmed b:contains(Author)+span@ownText",
+      ".fmed b:contains(Auteur)+span@ownText",
+      ".fmed b:contains(Autor)+span@ownText",
+      ".fmed b:contains(Mangaka)+span@ownText",
+      ".fmed b:contains(Pengarang)+span@ownText",
+      ".fmed b:contains(Yazar)+span@ownText",
+      ".fmed b:contains(المؤلف)+span@ownText",
+      ".fmed b:contains(ผู้แต่ง)+span@ownText",
+      ".fmed b:contains(นักเขียน)+span@ownText"
+     ],
+     "replace": [
+      [
+       "(?i)^(-|n/a|unknown|desconocido|inconnu)$",
+       ""
+      ]
+     ]
+    },
+    "artist": {
+     "path": [
+      ".infotable tr:contains(Artist) td:last-child@ownText",
+      ".infotable tr:contains(Artiste) td:last-child@ownText",
+      ".infotable tr:contains(Artista) td:last-child@ownText",
+      ".infotable tr:contains(Seniman) td:last-child@ownText",
+      ".infotable tr:contains(Çizer) td:last-child@ownText",
+      ".infotable tr:contains(İllüstratör) td:last-child@ownText",
+      ".infotable tr:contains(Sanatçı) td:last-child@ownText",
+      ".infotable tr:contains(الرسام) td:last-child@ownText",
+      ".infotable tr:contains(الناشر) td:last-child@ownText",
+      ".infotable tr:contains(นักวาด) td:last-child@ownText",
+      ".tsinfo .imptdt:contains(Artist) i@ownText",
+      ".tsinfo .imptdt:contains(Artiste) i@ownText",
+      ".tsinfo .imptdt:contains(Artista) i@ownText",
+      ".tsinfo .imptdt:contains(Seniman) i@ownText",
+      ".tsinfo .imptdt:contains(Çizer) i@ownText",
+      ".tsinfo .imptdt:contains(İllüstratör) i@ownText",
+      ".tsinfo .imptdt:contains(Sanatçı) i@ownText",
+      ".tsinfo .imptdt:contains(الرسام) i@ownText",
+      ".tsinfo .imptdt:contains(الناشر) i@ownText",
+      ".tsinfo .imptdt:contains(นักวาด) i@ownText",
+      ".fmed b:contains(Artist)+span@ownText",
+      ".fmed b:contains(Artiste)+span@ownText",
+      ".fmed b:contains(Artista)+span@ownText",
+      ".fmed b:contains(Seniman)+span@ownText",
+      ".fmed b:contains(Çizer)+span@ownText",
+      ".fmed b:contains(İllüstratör)+span@ownText",
+      ".fmed b:contains(Sanatçı)+span@ownText",
+      ".fmed b:contains(الرسام)+span@ownText",
+      ".fmed b:contains(الناشر)+span@ownText",
+      ".fmed b:contains(นักวาด)+span@ownText"
+     ],
+     "replace": [
+      [
+       "(?i)^(-|n/a|unknown|desconocido|inconnu)$",
+       ""
+      ]
+     ]
+    },
+    "status": [
+     ".infotable tr:contains(Status) td:last-child",
+     ".infotable tr:contains(Statut) td:last-child",
+     ".infotable tr:contains(Estado) td:last-child",
+     ".infotable tr:contains(Durum) td:last-child",
+     ".infotable tr:contains(Statüsü) td:last-child",
+     ".infotable tr:contains(Stato) td:last-child",
+     ".infotable tr:contains(الحالة) td:last-child",
+     ".infotable tr:contains(حالة العمل) td:last-child",
+     ".infotable tr:contains(連載状況) td:last-child",
+     ".infotable tr:contains(สถานะ) td:last-child",
+     ".tsinfo .imptdt:contains(Status) i",
+     ".tsinfo .imptdt:contains(Statut) i",
+     ".tsinfo .imptdt:contains(Estado) i",
+     ".tsinfo .imptdt:contains(Durum) i",
+     ".tsinfo .imptdt:contains(Statüsü) i",
+     ".tsinfo .imptdt:contains(Stato) i",
+     ".tsinfo .imptdt:contains(الحالة) i",
+     ".tsinfo .imptdt:contains(حالة العمل) i",
+     ".tsinfo .imptdt:contains(連載状況) i",
+     ".tsinfo .imptdt:contains(สถานะ) i"
+    ]
+   },
+   "status_map": {
+    "مستمرة": 1,
+    "en curso": 1,
+    "ongoing": 1,
+    "on going": 1,
+    "new season": 1,
+    "mass released": 1,
+    "ativo": 1,
+    "en cours": 1,
+    "en cours de publication": 1,
+    "đang tiến hành": 1,
+    "em lançamento": 1,
+    "онгоінг": 1,
+    "publishing": 1,
+    "devam ediyor": 1,
+    "em andamento": 1,
+    "in corso": 1,
+    "güncel": 1,
+    "berjalan": 1,
+    "продолжается": 1,
+    "updating": 1,
+    "lançando": 1,
+    "in arrivo": 1,
+    "emision": 1,
+    "en emision": 1,
+    "مستمر": 1,
+    "curso": 1,
+    "en marcha": 1,
+    "publicandose": 1,
+    "publicando": 1,
+    "连载中": 1,
+    "devam etmekte": 1,
+    "連載中": 1,
+    "completed": 2,
+    "completo": 2,
+    "complété": 2,
+    "fini": 2,
+    "achevé": 2,
+    "terminé": 2,
+    "tamamlandı": 2,
+    "đã hoàn thành": 2,
+    "hoàn thành": 2,
+    "مكتملة": 2,
+    "завершено": 2,
+    "finished": 2,
+    "finalizad": 2,
+    "completata": 2,
+    "one-shot": 2,
+    "bitti": 2,
+    "tamat": 2,
+    "completado": 2,
+    "concluído": 2,
+    "完結": 2,
+    "concluido": 2,
+    "已完结": 2,
+    "bitmiş": 2,
+    "canceled": 5,
+    "cancelled": 5,
+    "cancelado": 5,
+    "cancellato": 5,
+    "cancelados": 5,
+    "dropped": 5,
+    "discontinued": 5,
+    "abandonné": 5,
+    "hiatus": 6,
+    "on hold": 6,
+    "season end": 6,
+    "pausado": 6,
+    "en espera": 6,
+    "en pause": 6,
+    "en attente": 6,
+    "hiato": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.bxcl li, div.cl li, #chapterlist li, ul li:has(div.chbox):has(div.eph-num)",
+   "skip": "a[data-bs-target='#lockedChapterModal']@data-bs-target",
+   "fields": {
+    "url": "a@href",
+    "name": [
+     ".lch a",
+     ".chapternum",
+     "a"
+    ],
+    "date": {
+     "path": ".chapterdate",
+     "replace": [
+      [
+       "^(\\d{4})[./-](\\d{1,2})[./-](\\d{1,2})$",
+       "$3/$2/$1"
+      ],
+      [
+       "^(\\d{1,2})[.-](\\d{1,2})[.-](\\d{4})$",
+       "$1/$2/$3"
+      ]
+     ]
+    }
+   },
+   "date_format": [
+    "MMMM d, yyyy",
+    "MMMM d yyyy",
+    "d MMMM yyyy",
+    "d MMMM, yyyy",
+    "d. MMMM yyyy",
+    "d 'de' MMMM 'de' yyyy",
+    "dd/MM/yyyy",
+    "relative"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "script_json",
+   "script_regex": "(?s)[\"']?(?:images|imageUrls)[\"']?\\s*[:=]\\s*(\\[.*?\\])",
+   "items": "$"
+  },
+  "origin": "baukasten:mangathemesia {\"apex\": \"en-thunderscans.com\", \"date_locale\": \"en\", \"date_order\": \"dmy\", \"manga_dir\": \"comics\", \"page_mode\": \"script\", \"search_mode\": \"title\"}"
+ }
+}

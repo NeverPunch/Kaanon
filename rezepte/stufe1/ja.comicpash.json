@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Comic Pash",
+  "sprache": "ja",
+  "base_url": "https://comicpash.jp",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.comicpash",
+  "quellen": [
+   {
+    "name": "Comic Pash",
+    "sprache": "ja",
+    "quell_id": 6626616605316433619,
+    "home": "https://comicpash.jp"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/comicpash",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "comiciviewer"
+ },
+ "baukasten": "comiciviewer",
+ "parameter": {
+  "apex": "comicpash.jp"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

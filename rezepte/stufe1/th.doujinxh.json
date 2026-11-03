@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Doujinx-H",
+  "sprache": "th",
+  "base_url": "https://doujinx-h.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.th.kaanon.doujinxh",
+  "quellen": [
+   {
+    "name": "Doujinx-H",
+    "sprache": "th",
+    "quell_id": 3749607867432167357,
+    "home": "https://doujinx-h.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/th/doujinxh",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "doujinx-h.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "doujin",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaSubString": "\"doujin\"",
+   "genreDirectory": "\"doujin-genre\"",
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

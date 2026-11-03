@@ -1,0 +1,36 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Utsukushii",
+  "sprache": "bg",
+  "base_url": "https://utsukushii-bg.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.bg.kaanon.utsukushii",
+  "quellen": [
+   {
+    "name": "Utsukushii",
+    "sprache": "bg",
+    "quell_id": 4406556873729219957,
+    "home": "https://utsukushii-bg.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/bg/utsukushii",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mmrcms"
+ },
+ "baukasten": "mmrcms",
+ "parameter": {
+  "apex": "utsukushii-bg.com",
+  "item_path": "",
+  "lang": "bg",
+  "popular_mode": "filter"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

@@ -1,0 +1,42 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Rage Scans",
+  "sprache": "en",
+  "base_url": "https://ragescans.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.ragescans",
+  "quellen": [
+   {
+    "name": "Rage Scans",
+    "sprache": "en",
+    "quell_id": 8692263513374836785,
+    "home": "https://ragescans.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/ragescans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "ragescans.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterListSelector": "\"li:has(.chbox .eph-num):not(:has([data-bs-target='#lockedChapterModal']))\""
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga-Neko",
+  "sprache": "th",
+  "base_url": "https://manga-neko.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.th.kaanon.manganeko",
+  "quellen": [
+   {
+    "name": "Manga-Neko",
+    "sprache": "th",
+    "quell_id": 5623426415743614214,
+    "home": "https://manga-neko.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/th/manganeko",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "manga-neko.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

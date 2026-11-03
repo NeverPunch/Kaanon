@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Cerberus Series",
+  "sprache": "es",
+  "base_url": "https://legionscans.com/wp",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.cerberusseries",
+  "quellen": [
+   {
+    "name": "Cerberus Series",
+    "sprache": "es",
+    "quell_id": 1814471239661920836,
+    "home": "https://legionscans.com/wp"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/cerberusseries",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "legionscans.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

@@ -1,0 +1,51 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Traduções do Lipe",
+  "sprache": "pt-BR",
+  "base_url": "https://traducoesdolipe.blogspot.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.traduesdolipe",
+  "quellen": [
+   {
+    "name": "Traduções do Lipe",
+    "sprache": "pt-BR",
+    "quell_id": 3650511144741653873,
+    "home": "https://traducoesdolipe.blogspot.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/traducoesdolipe",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.16",
+  "theme": "zeistmanga"
+ },
+ "baukasten": "zeistmanga",
+ "parameter": {
+  "apex": "traducoesdolipe.blogspot.com",
+  "chapter_cat": "Capítulo",
+  "page_sel": "auto",
+  "series_label": "Projeto"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "supportsLatest": "false",
+   "mangaCategory": "\"Projeto\"",
+   "chapterCategory": "\"Capítulo\"",
+   "hasFilters": "true",
+   "hasStatusFilter": "false",
+   "hasTypeFilter": "false",
+   "hasLanguageFilter": "false",
+   "hasGenreFilter": "true",
+   "mangaDetailsSelector": "\".main-content\"",
+   "mangaDetailsSelectorAuthor": "\"li:contains(Autor) > span\"",
+   "mangaDetailsSelectorArtist": "\"li:contains(Ilustração) > span\"",
+   "mangaDetailsSelectorDescription": "\".synopsis\"",
+   "mangaDetailsSelectorGenres": "\".genres a\"",
+   "mangaDetailsSelectorStatus": "\".status\""
+  },
+  "hinweise": []
+ }
+}

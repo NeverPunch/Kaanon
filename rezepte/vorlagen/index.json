@@ -1,0 +1,578 @@
+[
+ {
+  "datei": "ar.hizomanga.json",
+  "name": "Hizo Manga",
+  "baukasten": "madara",
+  "home": "https://hizomanga.net"
+ },
+ {
+  "datei": "de.niadd.json",
+  "name": "Niadd",
+  "baukasten": null,
+  "home": "https://de.niadd.com"
+ },
+ {
+  "datei": "de.novelcool.json",
+  "name": "NovelCool",
+  "baukasten": null,
+  "home": "https://de.novelcool.com"
+ },
+ {
+  "datei": "de.toomics.json",
+  "name": "Toomics",
+  "baukasten": null,
+  "home": "https://global.toomics.com"
+ },
+ {
+  "datei": "en.asmhentai.json",
+  "name": "Asmhentai",
+  "baukasten": "galleryadults",
+  "home": "https://asmhentai.com"
+ },
+ {
+  "datei": "en.asterscans.json",
+  "name": "aster scans",
+  "baukasten": "mangathemesia",
+  "home": "https://asterscans.com"
+ },
+ {
+  "datei": "en.asurascans.json",
+  "name": "Asura Scans",
+  "baukasten": null,
+  "home": "https://asurascans.com"
+ },
+ {
+  "datei": "en.atsumaru.json",
+  "name": "Atsumaru",
+  "baukasten": null,
+  "home": "https://atsu.moe"
+ },
+ {
+  "datei": "en.comizy.json",
+  "name": "Comizy",
+  "baukasten": null,
+  "home": "https://comizy.io"
+ },
+ {
+  "datei": "en.deathtollscans.json",
+  "name": "Deathtollscans",
+  "baukasten": "foolslide",
+  "home": "https://reader.deathtollscans.net"
+ },
+ {
+  "datei": "en.drakescans.json",
+  "name": "Drake Scans",
+  "baukasten": "vinetheme",
+  "home": "https://drakecomic.net"
+ },
+ {
+  "datei": "en.dreamteams.json",
+  "name": "Dreamteams",
+  "baukasten": "loneseal",
+  "home": "https://dreamteams.space"
+ },
+ {
+  "datei": "en.dynastyscans.json",
+  "name": "Dynasty Scans",
+  "baukasten": null,
+  "home": "https://dynasty-scans.com"
+ },
+ {
+  "datei": "en.enthunderscans.json",
+  "name": "En-thunderscans",
+  "baukasten": "mangathemesia",
+  "home": "https://en-thunderscans.com"
+ },
+ {
+  "datei": "en.gdscans.json",
+  "name": "GD Scans",
+  "baukasten": "madara",
+  "home": "https://gdscans.com"
+ },
+ {
+  "datei": "en.genztoon.json",
+  "name": "Genz Toon",
+  "baukasten": "keyoapp",
+  "home": "https://genztoons.org"
+ },
+ {
+  "datei": "en.grimscans.json",
+  "name": "Grim Scans",
+  "baukasten": "keyoapp",
+  "home": "https://grimscans.com"
+ },
+ {
+  "datei": "en.hentai4freenet.json",
+  "name": "Hentai4free.net",
+  "baukasten": null,
+  "home": "https://hentai4free.net"
+ },
+ {
+  "datei": "en.hentaifox.json",
+  "name": "Hentaifox",
+  "baukasten": "galleryadults",
+  "home": "https://hentaifox.com"
+ },
+ {
+  "datei": "en.hentairox.json",
+  "name": "Hentairox",
+  "baukasten": "galleryadults",
+  "home": "https://hentairox.com"
+ },
+ {
+  "datei": "en.hivescans.json",
+  "name": "Hive Scans",
+  "baukasten": null,
+  "home": "https://hivetoons.org"
+ },
+ {
+  "datei": "en.kencomics.json",
+  "name": "Kencomics",
+  "baukasten": "iken",
+  "home": "https://kencomics.com"
+ },
+ {
+  "datei": "en.kingofshojo.json",
+  "name": "Kingofshojo",
+  "baukasten": "mangathemesia",
+  "home": "https://kingofshojo.com"
+ },
+ {
+  "datei": "en.kunmanga.json",
+  "name": "KunManga",
+  "baukasten": "madara",
+  "home": "https://www.kunmanga.online"
+ },
+ {
+  "datei": "en.lagoonscans.json",
+  "name": "Lagoon Scans",
+  "baukasten": "mangathemesia",
+  "home": "https://lagoonscans.com"
+ },
+ {
+  "datei": "en.luascans.json",
+  "name": "Lua Scans",
+  "baukasten": null,
+  "home": "https://luacomic.org"
+ },
+ {
+  "datei": "en.magusmanga.json",
+  "name": "Magus Manga",
+  "baukasten": "iken",
+  "home": "https://magustoon.org"
+ },
+ {
+  "datei": "en.mangabat.json",
+  "name": "Mangabat",
+  "baukasten": "mangabox",
+  "home": "https://www.mangabats.com"
+ },
+ {
+  "datei": "en.mangadass.json",
+  "name": "MangaDass",
+  "baukasten": "madara",
+  "home": "https://mangadass.com"
+ },
+ {
+  "datei": "en.mangademon.json",
+  "name": "Manga Demon",
+  "baukasten": null,
+  "home": "https://demonicscans.org"
+ },
+ {
+  "datei": "en.mangadex.json",
+  "name": "MangaDex",
+  "baukasten": null,
+  "home": "https://mangadex.org"
+ },
+ {
+  "datei": "en.mangaeclipse.json",
+  "name": "Manga Eclipse",
+  "baukasten": "madara",
+  "home": "https://mangaeclipse.com"
+ },
+ {
+  "datei": "en.mangafreak.json",
+  "name": "Mangafreak",
+  "baukasten": null,
+  "home": "https://ww3.mangafreak.me"
+ },
+ {
+  "datei": "en.mangageko.json",
+  "name": "MangaGeko",
+  "baukasten": null,
+  "home": "https://www.mgeko.cc"
+ },
+ {
+  "datei": "en.mangak.json",
+  "name": "MangaK",
+  "baukasten": null,
+  "home": "https://mangak.io"
+ },
+ {
+  "datei": "en.mangakakalot.json",
+  "name": "Mangakakalot",
+  "baukasten": null,
+  "home": "https://www.mangakakalot.gg"
+ },
+ {
+  "datei": "en.mangakatana.json",
+  "name": "MangaKatana",
+  "baukasten": null,
+  "home": "https://mangakatana.com"
+ },
+ {
+  "datei": "en.manganato.json",
+  "name": "Manganato",
+  "baukasten": null,
+  "home": "https://www.natomanga.com"
+ },
+ {
+  "datei": "en.manganatogg.json",
+  "name": "MangaNato",
+  "baukasten": "mangabox",
+  "home": "https://www.manganato.gg"
+ },
+ {
+  "datei": "en.mangapill.json",
+  "name": "Mangapill",
+  "baukasten": null,
+  "home": "https://mangapill.com"
+ },
+ {
+  "datei": "en.mangaread.json",
+  "name": "Mangaread",
+  "baukasten": "madara",
+  "home": "https://www.mangaread.org"
+ },
+ {
+  "datei": "en.mangatop.json",
+  "name": "MangaTop",
+  "baukasten": "madara",
+  "home": "https://mangatop.org"
+ },
+ {
+  "datei": "en.manhuabugcom.json",
+  "name": "ManhuaBug.com",
+  "baukasten": "madara",
+  "home": "https://www.manhuabug.com"
+ },
+ {
+  "datei": "en.manhwa18.json",
+  "name": "Manhwa18",
+  "baukasten": null,
+  "home": "https://manhwa18.cc"
+ },
+ {
+  "datei": "en.manhwahub.json",
+  "name": "ManhwaHub",
+  "baukasten": "madara",
+  "home": "https://manhwahub.to"
+ },
+ {
+  "datei": "en.manhwatoon.json",
+  "name": "Manhwa Toon",
+  "baukasten": "madara",
+  "home": "https://www.manhwatoon.me"
+ },
+ {
+  "datei": "en.ravenscans.json",
+  "name": "Raven Scans",
+  "baukasten": "mangathemesia",
+  "home": "https://ravenscans.org"
+ },
+ {
+  "datei": "en.readonepiece.json",
+  "name": "Readonepiece",
+  "baukasten": "mangacatalog",
+  "home": "https://ww13.readonepiece.com"
+ },
+ {
+  "datei": "en.roliascan.json",
+  "name": "Rolia Scan",
+  "baukasten": null,
+  "home": "https://roliascan.com"
+ },
+ {
+  "datei": "en.tapas.json",
+  "name": "Tapas",
+  "baukasten": null,
+  "home": "https://tapas.io"
+ },
+ {
+  "datei": "en.tappytoon.json",
+  "name": "Tappytoon",
+  "baukasten": null,
+  "home": "https://www.tappytoon.com/en"
+ },
+ {
+  "datei": "en.taurusmanga.json",
+  "name": "TaurusManga",
+  "baukasten": "madara",
+  "home": "https://lectortaurus.com"
+ },
+ {
+  "datei": "en.tcbscans.json",
+  "name": "TCB Scans",
+  "baukasten": null,
+  "home": "https://tcbonepiecechapters.com"
+ },
+ {
+  "datei": "en.templescan.json",
+  "name": "Temple Scan",
+  "baukasten": null,
+  "home": "https://templetoons.com"
+ },
+ {
+  "datei": "en.toonily.json",
+  "name": "Toonily",
+  "baukasten": null,
+  "home": "https://toonily.com"
+ },
+ {
+  "datei": "en.toonizy.json",
+  "name": "Toonizy",
+  "baukasten": "madara",
+  "home": "https://toonizy.com"
+ },
+ {
+  "datei": "en.topmanhua.json",
+  "name": "TopManhua",
+  "baukasten": "madara",
+  "home": "https://www.topmanhua.fan"
+ },
+ {
+  "datei": "en.tritiniascans.json",
+  "name": "Tritinia Scans",
+  "baukasten": "madara",
+  "home": "https://tritinia.org"
+ },
+ {
+  "datei": "en.violetscans.json",
+  "name": "Violetscans",
+  "baukasten": "mangathemesia",
+  "home": "https://violetmanga.com"
+ },
+ {
+  "datei": "en.vortexscans.json",
+  "name": "Vortex Scans",
+  "baukasten": null,
+  "home": "https://vortexscans.org"
+ },
+ {
+  "datei": "en.webtoonscom.json",
+  "name": "Webtoons.com",
+  "baukasten": null,
+  "home": "https://www.webtoons.com"
+ },
+ {
+  "datei": "en.weebcentral.json",
+  "name": "Weeb Central",
+  "baukasten": null,
+  "home": "https://weebcentral.com"
+ },
+ {
+  "datei": "en.yurilabs.json",
+  "name": "YuriLabs",
+  "baukasten": "madara",
+  "home": "https://yurilab.top"
+ },
+ {
+  "datei": "en.zazamanga.json",
+  "name": "ZazaManga",
+  "baukasten": "madara",
+  "home": "https://www.zazamanga.com"
+ },
+ {
+  "datei": "en.zinmanga.json",
+  "name": "ZinManga",
+  "baukasten": "madara",
+  "home": "https://www.zinmanga.net"
+ },
+ {
+  "datei": "es.datgarscanlation.json",
+  "name": "Datgarscanlation",
+  "baukasten": "zeistmanga",
+  "home": "https://datgarscanlation.blogspot.com"
+ },
+ {
+  "datei": "es.dragontranslation.json",
+  "name": "Dragon Translation",
+  "baukasten": "madara",
+  "home": "https://dragontranslation.org"
+ },
+ {
+  "datei": "es.infrafandub.json",
+  "name": "InfraFandub",
+  "baukasten": "madara",
+  "home": "https://infrafandub.com"
+ },
+ {
+  "datei": "es.inmortalscan.json",
+  "name": "Inmortal scan",
+  "baukasten": "madara",
+  "home": "https://scan-inmortal.com"
+ },
+ {
+  "datei": "es.kiraproject.json",
+  "name": "Kiraproject",
+  "baukasten": "madara",
+  "home": "https://kiraproject.lat"
+ },
+ {
+  "datei": "es.manhwaweb.json",
+  "name": "ManhwaWeb",
+  "baukasten": null,
+  "home": "https://manhwaweb.com"
+ },
+ {
+  "datei": "es.olympusscanlation.json",
+  "name": "Olympus Scanlation",
+  "baukasten": null,
+  "home": "https://olympusxyz.com"
+ },
+ {
+  "datei": "es.zonatmo.json",
+  "name": "ZonaTMO",
+  "baukasten": null,
+  "home": "https://zonatmo.org"
+ },
+ {
+  "datei": "fr.animesama.json",
+  "name": "AnimeSama",
+  "baukasten": null,
+  "home": "https://anime-sama.to"
+ },
+ {
+  "datei": "fr.fmteam.json",
+  "name": "Fmteam",
+  "baukasten": "pizzareader",
+  "home": "https://fmteam.fr"
+ },
+ {
+  "datei": "fr.scanvf.json",
+  "name": "Scan-vf",
+  "baukasten": "mmrcms",
+  "home": "https://www.scan-vf.net"
+ },
+ {
+  "datei": "fr.sushiscan.json",
+  "name": "Sushi-Scan",
+  "baukasten": null,
+  "home": "https://sushiscan.net"
+ },
+ {
+  "datei": "id.reyume.json",
+  "name": "Re-yume",
+  "baukasten": "zeistmanga",
+  "home": "https://www.re-yume.my.id"
+ },
+ {
+  "datei": "ja.bibibicomiccom.json",
+  "name": "Source",
+  "baukasten": "comiciviewer",
+  "home": "https://bibibi-comic.com"
+ },
+ {
+  "datei": "ja.days.json",
+  "name": "DAYS",
+  "baukasten": "gigaviewer",
+  "home": "https://comic-days.com"
+ },
+ {
+  "datei": "ja.mangalt.json",
+  "name": "-Mangalt-",
+  "baukasten": "comiciviewer",
+  "home": "https://mangalt.jp"
+ },
+ {
+  "datei": "ja.ourfeel.json",
+  "name": "Ourfeel",
+  "baukasten": "gigaviewer",
+  "home": "https://ourfeel.jp"
+ },
+ {
+  "datei": "ja.shonenjumppluscom.json",
+  "name": "Source",
+  "baukasten": "gigaviewer",
+  "home": "https://shonenjumpplus.com"
+ },
+ {
+  "datei": "ja.source.json",
+  "name": "Source",
+  "baukasten": "comiciviewer",
+  "home": "https://comic-growl.com"
+ },
+ {
+  "datei": "ja.tonarinoyjjp.json",
+  "name": "Source",
+  "baukasten": "gigaviewer",
+  "home": "https://tonarinoyj.jp"
+ },
+ {
+  "datei": "ja.web.json",
+  "name": "Web",
+  "baukasten": "comiciviewer",
+  "home": "https://younganimal.com"
+ },
+ {
+  "datei": "pt.inkapk.json",
+  "name": "Inkapk",
+  "baukasten": "madara",
+  "home": "https://inkapk.net"
+ },
+ {
+  "datei": "pt.readhunter.json",
+  "name": "ReadHunter",
+  "baukasten": "madara",
+  "home": "https://readhunters.xyz"
+ },
+ {
+  "datei": "th.doodmanga.json",
+  "name": "Doodmanga",
+  "baukasten": "madara",
+  "home": "https://www.doodmanga.com"
+ },
+ {
+  "datei": "th.mangaisekaithai.json",
+  "name": "MangaIsekaiThai",
+  "baukasten": "madara",
+  "home": "https://www.mangaisekaithai.net"
+ },
+ {
+  "datei": "th.manhuathai.json",
+  "name": "ManhuaThai",
+  "baukasten": "madara",
+  "home": "https://www.manhuathai.com"
+ },
+ {
+  "datei": "th.manhwabreakup.json",
+  "name": "ManhwaBreakup",
+  "baukasten": "madara",
+  "home": "https://www.manhwabreakup.com"
+ },
+ {
+  "datei": "tr.korelimanga.json",
+  "name": "Korelimanga",
+  "baukasten": "initmanga",
+  "home": "https://korelimanga.com"
+ },
+ {
+  "datei": "tr.tilkiscans.json",
+  "name": "Tilki Scans",
+  "baukasten": "madara",
+  "home": "https://www.tilkiscans.com"
+ },
+ {
+  "datei": "uk.mangarama.json",
+  "name": "Mangarama",
+  "baukasten": "madara",
+  "home": "https://mangarama.com.ua"
+ },
+ {
+  "datei": "vi.nettruyen.json",
+  "name": "NetTruyen",
+  "baukasten": "wpcomics",
+  "home": "https://nettruyenar.com"
+ }
+]

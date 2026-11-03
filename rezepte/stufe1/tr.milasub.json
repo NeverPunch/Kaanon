@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MilaSub",
+  "sprache": "tr",
+  "base_url": "https://millascan.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.milasub",
+  "quellen": [
+   {
+    "name": "MilaSub",
+    "sprache": "tr",
+    "quell_id": 5672794736121634742,
+    "home": "https://millascan.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/milasub",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.60",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "millascan.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "d MMMM yyyy",
+  "date_locale": "tr",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"d MMMM yyyy\", Locale.forLanguageTag(\"tr\"))",
+   "chapterMode": "ChapterMode.MangaAjax",
+   "chapterUrlSelector": "\"a:not(.chapter-thumbnail a)\""
+  },
+  "hinweise": []
+ }
+}

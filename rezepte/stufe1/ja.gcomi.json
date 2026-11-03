@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "G-Comi",
+  "sprache": "ja",
+  "base_url": "https://g-comi.jp",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.gcomi",
+  "quellen": [
+   {
+    "name": "G-Comi",
+    "sprache": "ja",
+    "quell_id": 7310112963091407823,
+    "home": "https://g-comi.jp"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/gcomi",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "comiciviewer"
+ },
+ "baukasten": "comiciviewer",
+ "parameter": {
+  "apex": "g-comi.jp"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

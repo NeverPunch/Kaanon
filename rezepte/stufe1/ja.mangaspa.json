@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga SPA",
+  "sprache": "ja",
+  "base_url": "https://mangaspa.nikkan-spa.jp",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.mangaspa",
+  "quellen": [
+   {
+    "name": "Manga SPA",
+    "sprache": "ja",
+    "quell_id": 2566686121922544500,
+    "home": "https://mangaspa.nikkan-spa.jp"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/mangaspa",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "comiciviewer"
+ },
+ "baukasten": "comiciviewer",
+ "parameter": {
+  "apex": "mangaspa.nikkan-spa.jp"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

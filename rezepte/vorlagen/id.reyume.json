@@ -1,0 +1,468 @@
+{
+ "extension": {
+  "name": "Re-yume",
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.reyume",
+  "version": "1.6.11",
+  "inhalt": "NSFW",
+  "quellen": [
+   {
+    "id": 1902017829426755325,
+    "name": "Re-yume",
+    "language": "id",
+    "homeUrl": "https://www.re-yume.my.id",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": "zeistmanga",
+ "parameter": {
+  "apex": "re-yume.my.id",
+  "chapter_cat": "Chapter",
+  "page_sel": "textarea",
+  "series_label": "Series"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/feeds/posts/default/-/Series?alt=json&orderby=published&max-results=20&start-index={page_key}",
+   "format": "json",
+   "page_map": [
+    "1",
+    "21",
+    "41",
+    "61",
+    "81",
+    "101",
+    "121",
+    "141",
+    "161",
+    "181",
+    "201",
+    "221",
+    "241",
+    "261",
+    "281",
+    "301",
+    "321",
+    "341",
+    "361",
+    "381",
+    "401",
+    "421",
+    "441",
+    "461",
+    "481",
+    "501",
+    "521",
+    "541",
+    "561",
+    "581",
+    "601",
+    "621",
+    "641",
+    "661",
+    "681",
+    "701",
+    "721",
+    "741",
+    "761",
+    "781",
+    "801",
+    "821",
+    "841",
+    "861",
+    "881",
+    "901",
+    "921",
+    "941",
+    "961",
+    "981"
+   ],
+   "page_size": 20,
+   "items": "feed.entry",
+   "skip": {
+    "any": [
+     "category.?term=Anime.term",
+     "category.?term=Novel.term",
+     "category.?term=Novela.term"
+    ]
+   },
+   "has_next": {
+    "total": "feed.openSearch$totalResults.$t"
+   },
+   "fields": {
+    "url": "link.?rel=alternate.href",
+    "title": "title.$t",
+    "cover": [
+     {
+      "path": "media$thumbnail.url",
+      "replace": [
+       [
+        "/s.+?-c/",
+        "/w600/"
+       ],
+       [
+        "=s(?!.*=s).+?-c$",
+        "=w600"
+       ]
+      ]
+     },
+     {
+      "path": "content.$t",
+      "regex": "<img[^>]+src=[\"']([^\"']+)"
+     }
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/feeds/posts/default/-/Series?alt=json&orderby=updated&max-results=20&start-index={page_key}",
+   "format": "json",
+   "page_map": [
+    "1",
+    "21",
+    "41",
+    "61",
+    "81",
+    "101",
+    "121",
+    "141",
+    "161",
+    "181",
+    "201",
+    "221",
+    "241",
+    "261",
+    "281",
+    "301",
+    "321",
+    "341",
+    "361",
+    "381",
+    "401",
+    "421",
+    "441",
+    "461",
+    "481",
+    "501",
+    "521",
+    "541",
+    "561",
+    "581",
+    "601",
+    "621",
+    "641",
+    "661",
+    "681",
+    "701",
+    "721",
+    "741",
+    "761",
+    "781",
+    "801",
+    "821",
+    "841",
+    "861",
+    "881",
+    "901",
+    "921",
+    "941",
+    "961",
+    "981"
+   ],
+   "page_size": 20,
+   "items": "feed.entry",
+   "skip": {
+    "any": [
+     "category.?term=Anime.term",
+     "category.?term=Novel.term",
+     "category.?term=Novela.term"
+    ]
+   },
+   "has_next": {
+    "total": "feed.openSearch$totalResults.$t"
+   },
+   "fields": {
+    "url": "link.?rel=alternate.href",
+    "title": "title.$t",
+    "cover": [
+     {
+      "path": "media$thumbnail.url",
+      "replace": [
+       [
+        "/s.+?-c/",
+        "/w600/"
+       ],
+       [
+        "=s(?!.*=s).+?-c$",
+        "=w600"
+       ]
+      ]
+     },
+     {
+      "path": "content.$t",
+      "regex": "<img[^>]+src=[\"']([^\"']+)"
+     }
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/feeds/posts/default/-/Series?alt=json&orderby=published&max-results=20&start-index={page_key}&q={query}",
+   "format": "json",
+   "page_map": [
+    "1",
+    "21",
+    "41",
+    "61",
+    "81",
+    "101",
+    "121",
+    "141",
+    "161",
+    "181",
+    "201",
+    "221",
+    "241",
+    "261",
+    "281",
+    "301",
+    "321",
+    "341",
+    "361",
+    "381",
+    "401",
+    "421",
+    "441",
+    "461",
+    "481",
+    "501",
+    "521",
+    "541",
+    "561",
+    "581",
+    "601",
+    "621",
+    "641",
+    "661",
+    "681",
+    "701",
+    "721",
+    "741",
+    "761",
+    "781",
+    "801",
+    "821",
+    "841",
+    "861",
+    "881",
+    "901",
+    "921",
+    "941",
+    "961",
+    "981"
+   ],
+   "page_size": 20,
+   "items": "feed.entry",
+   "skip": {
+    "any": [
+     "category.?term=Anime.term",
+     "category.?term=Novel.term",
+     "category.?term=Novela.term"
+    ]
+   },
+   "has_next": {
+    "total": "feed.openSearch$totalResults.$t"
+   },
+   "fields": {
+    "url": "link.?rel=alternate.href",
+    "title": "title.$t",
+    "cover": [
+     {
+      "path": "media$thumbnail.url",
+      "replace": [
+       [
+        "/s.+?-c/",
+        "/w600/"
+       ],
+       [
+        "=s(?!.*=s).+?-c$",
+        "=w600"
+       ]
+      ]
+     },
+     {
+      "path": "content.$t",
+      "regex": "<img[^>]+src=[\"']([^\"']+)"
+     }
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "label": [
+     {
+      "path": "#clwd > script@html",
+      "regex": "clwd\\.run\\([\"'](.*?)[\"']\\)"
+     },
+     {
+      "path": ".chapter_get@data-labelchapter"
+     },
+     {
+      "path": "#chapterlist@data-label",
+      "replace": [
+       [
+        "[',]",
+        ""
+       ]
+      ]
+     },
+     {
+      "path": "#latest > script@html",
+      "regex": "label\\s*=\\s*'([^']+)'"
+     },
+     {
+      "path": "#myUL > script@src",
+      "regex": "/-/([^?]+)\\?"
+     },
+     {
+      "path": "script:contains(catNameProject)@html",
+      "regex": "=\\s+?\\('([^']+)"
+     },
+     {
+      "path": ".manga-widget@data-label"
+     },
+     {
+      "path": "meta[property='og:title']@content",
+      "replace": [
+       [
+        "\\s+\\|.*$",
+        ""
+       ],
+       [
+        "\\s+[-–]\\s+(?!.*\\s[-–]\\s).*$",
+        ""
+       ]
+      ]
+     }
+    ]
+   },
+   "fields": {
+    "title": [
+     {
+      "path": "meta[property='og:title']@content",
+      "replace": [
+       [
+        "\\s+\\|.*$",
+        ""
+       ],
+       [
+        "\\s+[-–]\\s+(?!.*\\s[-–]\\s).*$",
+        ""
+       ]
+      ]
+     },
+     "header h1",
+     "h1"
+    ],
+    "cover": [
+     {
+      "path": "meta[property='og:image']@content",
+      "replace": [
+       [
+        "/w\\d+-h\\d+-p-k-no-nu/",
+        "/w600/"
+       ],
+       [
+        "=w\\d+-h\\d+-p-k-no-nu$",
+        "=w600"
+       ],
+       [
+        "=s\\d+(-c)?$",
+        "=w600"
+       ]
+      ]
+     },
+     ".grid.gtc-235fr img@img"
+    ],
+    "description": [
+     "#synopsis",
+     "#syn_bod",
+     ".synopsis",
+     ".wd-full p",
+     "meta[property='og:description']@content"
+    ],
+    "genres": "div.mt-15 > a[rel=tag], aside dl a[rel=tag], #extra-info dl a[rel=tag], .genres a, .mgen a, #append-info a[rel=tag]",
+    "author": [
+     "span#author",
+     "span#tauther",
+     "#tauther",
+     "#extra-info dl:has(dt:contains(Author)) dd",
+     "dt:contains(Autor) + dd"
+    ],
+    "artist": [
+     "span#artist",
+     "span#tartist",
+     "#extra-info dl:has(dt:contains(Artist)) dd",
+     "dt:contains(Artista) + dd"
+    ],
+    "status": [
+     "span[data-status]",
+     "span[data-bg]",
+     "dt:contains(Status) + dd",
+     "div.y6x11p:contains(Status) span.dt",
+     "div.y6x11p:contains(Estado) span.dt"
+    ]
+   },
+   "status_map": {
+    "en curso": 1,
+    "em lançamento": 1,
+    "lançando": 1,
+    "ativo": 1,
+    "activo": 1,
+    "em andamento": 1,
+    "devam ediyor": 1,
+    "berlangsung": 1,
+    "مستمر": 1,
+    "completo": 2,
+    "finalizado": 2,
+    "tamamlandı": 2,
+    "tamat": 2,
+    "مكتمل": 2,
+    "pausado": 6,
+    "dropado": 5,
+    "abandonado": 5,
+    "cancelado": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}/feeds/posts/default/-/Chapter/{l.label}?alt=json&orderby=published&max-results=500&start-index={count+1}",
+   "format": "json",
+   "items": "feed.entry",
+   "fields": {
+    "url": "link.?rel=alternate.href",
+    "name": "title.$t",
+    "date": "published.$t"
+   },
+   "date_format": "iso",
+   "paging": {
+    "has_next": {
+     "total_count": "feed.openSearch$totalResults.$t"
+    },
+    "max_pages": 20
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "block_regex": "(?s)<textarea[^>]*id=.zeist-raw-data.[^>]*>(.*?)</textarea>",
+   "items": "<img[^>]+src=[\"']([^\"']+)[\"']",
+   "image": "",
+   "exclude": "(?i)iconify\\.design|\\.svg(\\?|$)|/emoji/|shields\\.io"
+  },
+  "origin": "baukasten:zeistmanga {\"apex\": \"re-yume.my.id\", \"chapter_cat\": \"Chapter\", \"page_sel\": \"textarea\", \"series_label\": \"Series\"}"
+ }
+}

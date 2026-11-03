@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ManhwaLand.mom",
+  "sprache": "id",
+  "base_url": "https://02.manhwaland.land",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.manhwalandmom",
+  "quellen": [
+   {
+    "name": "ManhwaLand.mom",
+    "sprache": "id",
+    "quell_id": 4281611327457686416,
+    "home": "https://02.manhwaland.land"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/manhwalandmom",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.11",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "02.manhwaland.land",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

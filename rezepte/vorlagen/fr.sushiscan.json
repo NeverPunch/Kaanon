@@ -1,0 +1,122 @@
+{
+ "extension": {
+  "name": "Sushi-Scan",
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.sushiscan",
+  "version": "1.6.11",
+  "inhalt": "MIXED",
+  "quellen": [
+   {
+    "id": 6516188872647980679,
+    "name": "Sushi-Scan",
+    "language": "fr",
+    "homeUrl": "https://sushiscan.net",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "image_headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/catalogue/?page={page}&order=popular",
+   "format": "html",
+   "items": ".utao .uta .imgu, .listupd .bs .bsx, .listo .bs .bsx",
+   "has_next": {
+    "exists": "div.pagination .next, div.hpage .r"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "a@title",
+    "cover": "img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/catalogue/?page={page}&order=update",
+   "format": "html",
+   "items": ".utao .uta .imgu, .listupd .bs .bsx, .listo .bs .bsx",
+   "has_next": {
+    "exists": "div.pagination .next, div.hpage .r"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "a@title",
+    "cover": "img@img"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}",
+   "format": "html",
+   "items": ".utao .uta .imgu, .listupd .bs .bsx, .listo .bs .bsx",
+   "has_next": {
+    "exists": "div.pagination .next, div.hpage .r"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "a@title",
+    "cover": "img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": ".entry-title",
+    "cover": ".thumb img@img",
+    "description": ".entry-content[itemprop=description]",
+    "genres": ".seriestugenre a",
+    "author": {
+     "path": ".infotable",
+     "regex": "(?s)Auteur\\s+(.+?)(?=\\s+(?:Statut|Type|Année|Artiste|Dessinateur|Prépublication)\\b|$)",
+     "replace": [
+      [
+       "(?i)^(-|n/a|unknown)$",
+       ""
+      ]
+     ]
+    },
+    "status": {
+     "path": ".infotable",
+     "regex": "(?s)Statut\\s+(.+?)(?=\\s+(?:Type|Année|Auteur|Artiste|Prépublication)\\b|$)"
+    }
+   },
+   "status_map": {
+    "en cours": 1,
+    "termin": 2,
+    "abandonn": 5,
+    "pause": 6,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "html",
+   "items": "#chapterlist li",
+   "fields": {
+    "url": "a@href",
+    "name": ".chapternum",
+    "date": ".chapterdate"
+   },
+   "date_format": "dd MMMM yyyy",
+   "date_locale": "fr"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "script_json",
+   "script_regex": "(?s)[\"']?(?:images|imageUrls)[\"']?\\s*[:=]\\s*(\\[.*?\\])",
+   "items": "$"
+  }
+ }
+}

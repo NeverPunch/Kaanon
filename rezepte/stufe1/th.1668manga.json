@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "1668Manga",
+  "sprache": "th",
+  "base_url": "https://1668manga.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.th.kaanon.1668manga",
+  "quellen": [
+   {
+    "name": "1668Manga",
+    "sprache": "th",
+    "quell_id": 3511888750873871322,
+    "home": "https://1668manga.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/th/one668manga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "1668manga.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

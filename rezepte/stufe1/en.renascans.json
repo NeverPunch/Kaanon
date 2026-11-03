@@ -1,0 +1,37 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Renascans",
+  "sprache": "en",
+  "base_url": "https://renascans.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.renascans",
+  "quellen": [
+   {
+    "name": "Renascans",
+    "sprache": "en",
+    "quell_id": 3447464472094373275,
+    "home": "https://renascans.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/renascans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.29",
+  "theme": "iken"
+ },
+ "baukasten": "iken",
+ "parameter": {
+  "apex": "renascans.net",
+  "api_prefix": "api.",
+  "chapter_mode": "api",
+  "per_page": "18",
+  "sort_mode": "order"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

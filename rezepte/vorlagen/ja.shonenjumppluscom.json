@@ -1,0 +1,160 @@
+{
+ "extension": {
+  "name": "Source",
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.shonenjumppluscom",
+  "version": "1.6.11",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 7890969987970576735,
+    "name": "Source",
+    "language": "ja",
+    "homeUrl": "https://shonenjumpplus.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": "gigaviewer",
+ "parameter": {
+  "apex": "shonenjumpplus.com",
+  "list_keyword": "の",
+  "list_mode": "series_page"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/series",
+   "format": "html",
+   "items": "li.series-list-item:has(div.series-list-thumb img[data-src*=series-thumbnail])",
+   "fields": {
+    "url": {
+     "path": "@html",
+     "regex": "(?s)<a[^>]*href=\"https?://[^/\"]+(/episode/\\d+)\"[^>]*>.*?series-thumbnail%2F(\\d+)-",
+     "template": "{g1}#sid={g2}"
+    },
+    "title": "h2.series-list-title",
+    "cover": "div.series-list-thumb img@data-src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/graphql",
+    "method": "POST",
+    "json": {
+     "query": "query($k:String!,$n:Int,$a:String){ searchSeries(keyword:$k, first:$n, after:$a){ edges{ node{ databaseId title thumbnailUri latestVolume{ thumbnailUri } firstEpisode{ permalink } firstVolume{ permalink } } } } }",
+     "variables": {
+      "k": "{query_raw}",
+      "n": 50,
+      "a": null
+     }
+    }
+   },
+   "format": "json",
+   "items": "data.searchSeries.edges",
+   "page_size": 50,
+   "fields": {
+    "url": [
+     {
+      "path": "node.firstEpisode.permalink",
+      "regex": "https?://[^/]+(/[^#]*)",
+      "template": "{value}#sid={f.node.databaseId}"
+     },
+     {
+      "path": "node.firstVolume.permalink",
+      "regex": "https?://[^/]+(/[^#]*)",
+      "template": "{value}#sid={f.node.databaseId}"
+     }
+    ],
+    "title": "node.title",
+    "cover": [
+     "node.thumbnailUri",
+     "node.latestVolume.thumbnailUri"
+    ]
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{base}/graphql",
+    "method": "POST",
+    "json": {
+     "query": "query($id:String!){ series(databaseId:$id){ databaseId title author{ name } description thumbnailUri latestVolume{ thumbnailUri } } }",
+     "variables": {
+      "id": "{u.sid}"
+     }
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "sid": "#sid=([^&]+)"
+   },
+   "fields": {
+    "title": "data.series.title",
+    "cover": [
+     "data.series.thumbnailUri",
+     "data.series.latestVolume.thumbnailUri"
+    ],
+    "description": "data.series.description",
+    "author": "data.series.author.name",
+    "artist": "data.series.author.name"
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/viewer/pagination_readable_products?type=episode&aggregate_id={u.sid}&sort_order=desc&offset={offset}",
+   "format": "json",
+   "url_vars": {
+    "sid": "#sid=([^&]+)"
+   },
+   "items": "$",
+   "page_size": 50,
+   "paging": {
+    "has_next": {
+     "full": true
+    },
+    "max_pages": 40
+   },
+   "fields": {
+    "url": {
+     "path": "viewer_uri",
+     "regex": "https?://[^/]+(/[^#]*)"
+    },
+    "name": "title",
+    "date": "display_open_at"
+   },
+   "date_format": "iso",
+   "locked": {
+    "path": "purchase_info.can_read",
+    "equals": "false"
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "html",
+   "items": "script#episode-json",
+   "image": "@src",
+   "inner": {
+    "value": {
+     "path": "script#episode-json@data-value"
+    },
+    "format": "json",
+    "items": "readableProduct.pageStructure.pages.*.?type=main",
+    "image": "src",
+    "transform": {
+     "path": "^readableProduct.pageStructure.choJuGiga",
+     "regex": "^baku$",
+     "template": "{\"type\":\"grid\",\"n\":4,\"multiple\":8,\"order\":\"transpose\"}"
+    }
+   }
+  },
+  "origin": "baukasten:gigaviewer {\"apex\": \"shonenjumpplus.com\", \"list_keyword\": \"の\", \"list_mode\": \"series_page\"}"
+ }
+}

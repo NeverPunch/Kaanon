@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hana To Yume+",
+  "sprache": "ja",
+  "base_url": "https://hanayume.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.hanatoyume",
+  "quellen": [
+   {
+    "name": "Hana To Yume+",
+    "sprache": "ja",
+    "quell_id": 6820605856874807465,
+    "home": "https://hanayume.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/hanayume",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "comiciviewer"
+ },
+ "baukasten": "comiciviewer",
+ "parameter": {
+  "apex": "hanayume.com"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

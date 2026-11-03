@@ -1,0 +1,48 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Arthur Scan",
+  "sprache": "pt-BR",
+  "base_url": "https://arthurscan.xyz",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.arthurscan",
+  "quellen": [
+   {
+    "name": "Arthur Scan",
+    "sprache": "pt-BR",
+    "quell_id": 1641160681602874924,
+    "home": "https://arthurscan.xyz"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/arthurscan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.65",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "arthurscan.xyz",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "pt-BR",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "supportsPostId": "false",
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"MMMM d, yyyy\", Locale.forLanguageTag(\"pt-BR\"))",
+   "chapterMode": "ChapterMode.MangaAjax",
+   "filterGenresSelector": "\".genre-item\""
+  },
+  "hinweise": []
+ }
+}

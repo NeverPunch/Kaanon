@@ -1,0 +1,52 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "DoujinsHell",
+  "sprache": "es",
+  "base_url": "https://doujinshell.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.doujinshell",
+  "quellen": [
+   {
+    "name": "DoujinsHell",
+    "sprache": "es",
+    "quell_id": 7008709488397053596,
+    "home": "https://doujinshell.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/doujinshell",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "doujinshell.net",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "doujin",
+  "date_format": "d MMMM, yyyy",
+  "date_locale": "es",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"d MMMM, yyyy\", Locale.forLanguageTag(\"es\"))",
+   "chapterMode": "ChapterMode.MangaAjax",
+   "mangaSubString": "\"doujin\"",
+   "filterNonMangaItems": "false",
+   "pageListParseSelector": "\".reading-content img:not(.aligncenter)\"",
+   "chapterListSelector": "\"div.listing-chapters_wrap li.wp-manga-chapter\""
+  },
+  "hinweise": [
+   "filterNonMangaItems = false"
+  ]
+ }
+}

@@ -1,0 +1,46 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ToonGod",
+  "sprache": "en",
+  "base_url": "https://www.toongod.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.toongod",
+  "quellen": [
+   {
+    "name": "ToonGod",
+    "sprache": "en",
+    "quell_id": 2054192099319007885,
+    "home": "https://www.toongod.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/toongod",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.62",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "toongod.org",
+  "list_mode": "html",
+  "chapter_mode": "ajax",
+  "manga_dir": "webtoons",
+  "date_format": "d MMM yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"d MMM yyyy\", Locale.US)",
+   "mangaSubString": "\"webtoons\""
+  },
+  "hinweise": []
+ }
+}

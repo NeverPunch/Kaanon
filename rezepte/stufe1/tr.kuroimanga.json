@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Kuroi Manga",
+  "sprache": "tr",
+  "base_url": "https://kuroimanga.site",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.kuroimanga",
+  "quellen": [
+   {
+    "name": "Kuroi Manga",
+    "sprache": "tr",
+    "quell_id": 8755089223917220341,
+    "home": "https://kuroimanga.site"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/kuroimanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.63",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "kuroimanga.site",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "d MMMM yyyy",
+  "date_locale": "tr",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"d MMMM yyyy\", Locale.forLanguageTag(\"tr\"))",
+   "chapterMode": "ChapterMode.MangaAjax",
+   "chapterUrlSelector": "\"a:not(:has(img))\""
+  },
+  "hinweise": []
+ }
+}

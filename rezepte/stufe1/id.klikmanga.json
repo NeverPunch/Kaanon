@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "KlikManga",
+  "sprache": "id",
+  "base_url": "https://klikmanga.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.klikmanga",
+  "quellen": [
+   {
+    "name": "KlikManga",
+    "sprache": "id",
+    "quell_id": 5213948951740602020,
+    "home": "https://klikmanga.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/klikmanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.62",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "klikmanga.org",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "daftar-komik",
+  "date_format": "MMMM dd, yyyy",
+  "date_locale": "id",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"MMMM dd, yyyy\", Locale.forLanguageTag(\"id\"))",
+   "mangaSubString": "\"daftar-komik\"",
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

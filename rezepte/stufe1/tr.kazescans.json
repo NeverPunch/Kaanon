@@ -1,0 +1,46 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "KazeScans",
+  "sprache": "tr",
+  "base_url": "https://www.kazescans.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.kazescans",
+  "quellen": [
+   {
+    "name": "KazeScans",
+    "sprache": "tr",
+    "quell_id": 8948534014820087218,
+    "home": "https://www.kazescans.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/kazescans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.16",
+  "theme": "zeistmanga"
+ },
+ "baukasten": "zeistmanga",
+ "parameter": {
+  "apex": "kazescans.com",
+  "chapter_cat": "Bölüm",
+  "page_sel": "auto",
+  "series_label": "Series"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaDetailsSelector": "\".series-container\"",
+   "mangaDetailsSelectorThumbnail": "\".series-cover img\"",
+   "mangaDetailsSelectorDescription": "\".series-summary p\"",
+   "mangaDetailsSelectorGenres": "\".series-tags .series-tag\"",
+   "chapterCategory": "\"Bölüm\"",
+   "chapterFeedRegex": "\"\"\"loadChapterGrid\\([\"'](.*?)[\"']\\)\"\"\".toRegex()",
+   "scriptSelector": "\"script:containsData(loadChapterGrid)\"",
+   "statusOnGoingList": "super.statusOnGoingList + listOf(\"devam ediyor\")",
+   "statusCompletedList": "super.statusCompletedList + listOf(\"tamamlandı\", \"tamamlandi\")"
+  },
+  "hinweise": []
+ }
+}

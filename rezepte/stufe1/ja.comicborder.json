@@ -1,0 +1,37 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Comic Border",
+  "sprache": "ja",
+  "base_url": "https://comicborder.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.comicborder",
+  "quellen": [
+   {
+    "name": "Comic Border",
+    "sprache": "ja",
+    "quell_id": 1077630719925082256,
+    "home": "https://comicborder.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/comicborder",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "gigaviewer"
+ },
+ "baukasten": "gigaviewer",
+ "parameter": {
+  "apex": "comicborder.com",
+  "list_keyword": "の",
+  "list_mode": "graphql"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "supportsLatest": "false"
+  },
+  "hinweise": []
+ }
+}

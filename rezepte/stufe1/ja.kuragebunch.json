@@ -1,0 +1,38 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Kurage Bunch",
+  "sprache": "ja",
+  "base_url": "https://kuragebunch.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.kuragebunch",
+  "quellen": [
+   {
+    "name": "Kurage Bunch",
+    "sprache": "ja",
+    "quell_id": 3000787516439188863,
+    "home": "https://kuragebunch.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/kuragebunch",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "gigaviewer"
+ },
+ "baukasten": "gigaviewer",
+ "parameter": {
+  "apex": "kuragebunch.com",
+  "list_keyword": "の",
+  "list_mode": "graphql"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "seriesListIds": "listOf(",
+   "getFilterOptions": "listOf("
+  },
+  "hinweise": []
+ }
+}

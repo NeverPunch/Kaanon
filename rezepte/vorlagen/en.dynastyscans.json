@@ -1,0 +1,210 @@
+{
+ "extension": {
+  "name": "Dynasty Scans",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.dynastyscans",
+  "version": "1.6.12",
+  "inhalt": "NSFW",
+  "quellen": [
+   {
+    "id": 84819786046448577,
+    "name": "Dynasty Scans",
+    "language": "en",
+    "homeUrl": "https://dynasty-scans.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "image_headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/",
+    "headers": {
+     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+    }
+   },
+   "format": "html",
+   "items": "ul.cover-list a.thumbnail",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": [
+     {
+      "path": "@href",
+      "regex": "/chapters/(.*?)_(?:ch[0-9_]+|volume_[0-9_\\w]+)$",
+      "template": "/series/{value}"
+     },
+     "@href"
+    ],
+    "title": {
+     "path": ".caption b",
+     "replace": [
+      [
+       "\\s+(?:ch|vol(?:ume)?)\\s*[0-9.]+.*$",
+       ""
+      ]
+     ]
+    },
+    "cover": "img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/chapters/added.json?page={page0}",
+   "format": "json",
+   "items": "chapters.*.tags.?type=Series",
+   "has_next": {
+    "lt": [
+     "^current_page",
+     "^total_pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "permalink",
+     "template": "/series/{value}"
+    },
+    "title": "name"
+   }
+  },
+  "search": {
+   "request": "{base}/search?q={query}&classes%5B%5D=Series&classes%5B%5D=Chapter&classes%5B%5D=Anthology&page={page}",
+   "format": "html",
+   "items": "dl.chapter-list a.name",
+   "has_next": {
+    "exists": "a[rel=next]"
+   },
+   "fields": {
+    "url": [
+     {
+      "path": "@href",
+      "regex": "/chapters/(.*?)_(?:ch[0-9_]+|volume_[0-9_\\w]+)$",
+      "template": "/series/{value}"
+     },
+     "@href"
+    ],
+    "title": {
+     "path": "",
+     "replace": [
+      [
+       "\\s+(?:ch|vol(?:ume)?)\\s*[0-9.]+.*$",
+       ""
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": "{base}{url}.json",
+   "format": "json",
+   "fields": {
+    "title": [
+     "name",
+     "title"
+    ],
+    "cover": [
+     {
+      "path": "cover"
+     },
+     {
+      "path": "pages.0.url",
+      "template": "{base}{value}"
+     }
+    ],
+    "description": [
+     {
+      "path": "description",
+      "decode": "html_text"
+     },
+     {
+      "path": "type",
+      "template": "Type: {value}"
+     },
+     {
+      "path": "released_on",
+      "template": "Type: Chapter\n\nReleased: {value}"
+     }
+    ],
+    "genres": "tags.?type=General.name",
+    "author": {
+     "path": "tags.?type=Author.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "tags.?type=Author.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": [
+     "tags.?type=Status.name",
+     {
+      "path": "pages.0.name",
+      "template": "completed"
+     }
+    ]
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "on hiatus": 6,
+    "licensed": 3,
+    "dropped": 5,
+    "cancelled": 5,
+    "not updated": 5,
+    "abandoned": 5,
+    "removed": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}{url}.json?page={page}",
+   "format": "json",
+   "items": [
+    "taggings",
+    "$"
+   ],
+   "fields": {
+    "url": {
+     "path": "permalink",
+     "template": "/chapters/{value}"
+    },
+    "name": [
+     "title"
+    ],
+    "date": "released_on"
+   },
+   "date_format": "yyyy-MM-dd",
+   "date_locale": "en",
+   "reverse": true,
+   "paging": {
+    "has_next": {
+     "lt": [
+      "^current_page",
+      "^total_pages"
+     ]
+    },
+    "max_pages": 30
+   }
+  },
+  "pages": {
+   "request": "{base}{url}.json",
+   "format": "json",
+   "items": "pages",
+   "image": "url"
+  }
+ }
+}

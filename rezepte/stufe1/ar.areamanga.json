@@ -1,0 +1,52 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Area Manga",
+  "sprache": "ar",
+  "base_url": "https://ar.kenmanga.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.areamanga",
+  "quellen": [
+   {
+    "name": "أريا مانجا",
+    "sprache": "ar",
+    "quell_id": 8112280317896333809,
+    "home": "https://ar.kenmanga.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/areamanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "ar.kenmanga.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "datePattern": "\"yyyy/MM/dd\"",
+   "searchMangaSelector": "\".listupd .manga-card-v\"",
+   "seriesDetailsSelector": "\"div.legendary-single-page\"",
+   "seriesTitleSelector": "\".manga-title-large\"",
+   "seriesThumbnailSelector": "\".manga-poster img\"",
+   "seriesDescriptionSelector": "\"div.story-text\"",
+   "seriesGenreSelector": "\"div.filter-tags a\"",
+   "seriesStatusSelector": "\".info-label:contains(الحالة) + span\"",
+   "seriesAuthorSelector": "\".info-label:contains(المؤلف) + span\"",
+   "seriesArtistSelector": "\".info-label:contains(الرسام) + span\"",
+   "chapterListSelector": "\"#chapters-list-container .ch-item\""
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

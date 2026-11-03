@@ -1,0 +1,273 @@
+{
+ "extension": {
+  "name": "Korelimanga",
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.korelimanga",
+  "version": "1.6.12",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 8502303831195382026,
+    "name": "Korelimanga",
+    "language": "tr",
+    "homeUrl": "https://korelimanga.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": "initmanga",
+ "parameter": {
+  "apex": "korelimanga.com",
+  "latest_slug": "recently-updated",
+  "popular_slug": "manga-ranking"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/manga-ranking/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/manga-ranking/"
+   },
+   "items": "div.manga-card, div.manga-item-grid > div.uk-panel.uk-position-relative, div.manga-item-grid > div.uk-panel:not(.manga-item-ranking):not(.user-item-info), div.uk-panel.uk-position-relative, div.uk-panel:not(.manga-item-ranking):not(.user-item-info)",
+   "has_next": {
+    "exists": "link[rel=next], ul.uk-pagination li:not(.uk-disabled) a[aria-label='Sonraki sayfa'], ul.uk-pagination li:not(.uk-disabled) a[aria-label='Next page'], ul.uk-pagination li:not(.uk-disabled) a:has([uk-pagination-next]), ul.uk-pagination li#next-link:not(.uk-disabled) a, a.next, a:contains(Sonraki sayfa), a:contains(Next page)"
+   },
+   "fields": {
+    "url": [
+     "h2 a@href",
+     "h3 a@href",
+     "div.uk-overflow-hidden a@href",
+     "a.manga-card-title@href",
+     "div.manga-card-image-wrapper a@href",
+     "a@href"
+    ],
+    "title": [
+     "h2 a",
+     "h3 a",
+     "div.manga-overlay-title",
+     "h2",
+     "h3",
+     "a@ownText",
+     "a"
+    ],
+    "cover": "img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/recently-updated/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/recently-updated/"
+   },
+   "items": "div.manga-card, div.manga-item-grid > div.uk-panel.uk-position-relative, div.manga-item-grid > div.uk-panel:not(.manga-item-ranking):not(.user-item-info), div.uk-panel.uk-position-relative, div.uk-panel:not(.manga-item-ranking):not(.user-item-info)",
+   "has_next": {
+    "exists": "link[rel=next], ul.uk-pagination li:not(.uk-disabled) a[aria-label='Sonraki sayfa'], ul.uk-pagination li:not(.uk-disabled) a[aria-label='Next page'], ul.uk-pagination li:not(.uk-disabled) a:has([uk-pagination-next]), ul.uk-pagination li#next-link:not(.uk-disabled) a, a.next, a:contains(Sonraki sayfa), a:contains(Next page)"
+   },
+   "fields": {
+    "url": [
+     "h2 a@href",
+     "h3 a@href",
+     "div.uk-overflow-hidden a@href",
+     "a.manga-card-title@href",
+     "div.manga-card-image-wrapper a@href",
+     "a@href"
+    ],
+    "title": [
+     "h2 a",
+     "h3 a",
+     "div.manga-overlay-title",
+     "h2",
+     "h3",
+     "a@ownText",
+     "a"
+    ],
+    "cover": "img@img"
+   }
+  },
+  "search": {
+   "request": "{base}/wp-json/initlise/v1/search?term={query}&page={page}",
+   "format": "json",
+   "items": "$",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "url",
+    "title": {
+     "path": "title",
+     "decode": "html_text"
+    },
+    "cover": [
+     "thumb",
+     "image"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "mid": [
+     {
+      "path": "body@class",
+      "regex": "postid-(\\d+)",
+      "group": 1
+     },
+     {
+      "path": "[data-post-id]@data-post-id"
+     },
+     {
+      "path": "link[rel=shortlink]@href",
+      "regex": "p=(\\d+)",
+      "group": 1
+     },
+     {
+      "path": "html@html",
+      "regex": "(?:postid-|window\\.post_id\\s*=\\s*|post_id[\"']?\\s*:\\s*[\"']?)(\\d+)",
+      "group": 1
+     }
+    ]
+   },
+   "fields": {
+    "title": [
+     "h1",
+     "h2.uk-h3"
+    ],
+    "cover": [
+     "div.story-cover-wrap img@img",
+     "div.single-thumb img@img",
+     "a.story-cover img@img"
+    ],
+    "description": {
+     "path": "div#manga-description p",
+     "all": true,
+     "join": "\n\n"
+    },
+    "genres": {
+     "path": [
+      "div.uk-flex.uk-flex-nowrap.uk-flex-left.uk-grid-small.uk-grid span.uk-label-contest",
+      "div#genre-tags a:not(.uk-disabled)"
+     ],
+     "replace": [
+      [
+       "^#",
+       ""
+      ]
+     ]
+    },
+    "author": [
+     "div.manga-info-details:contains(Yazar) a",
+     {
+      "path": "div.manga-info-details",
+      "regex": "Yazar:\\s*(.+?)(?:\\s+(?:Çizer|Durum|Alternatif)\\b|$)",
+      "group": 1
+     },
+     "div.manga-info-details:contains(Author) a",
+     {
+      "path": "div.manga-info-details",
+      "regex": "Author:\\s*(.+?)(?:\\s+(?:Illustrator|Artist|Designer|Uploader|Country|Schedule|Status)\\b|$)",
+      "group": 1
+     }
+    ],
+    "artist": [
+     "div.manga-info-details:contains(Çizer) a",
+     {
+      "path": "div.manga-info-details",
+      "regex": "Çizer:\\s*(.+?)(?:\\s+(?:Yazar|Durum|Alternatif)\\b|$)",
+      "group": 1
+     },
+     {
+      "path": "div.manga-info-details",
+      "regex": "(?:Illustrator|Artist):\\s*(.+?)(?:\\s+(?:Designer|Author|Uploader|Country|Schedule|Status)\\b|$)",
+      "group": 1
+     }
+    ],
+    "status": [
+     "span#manga-status",
+     "div.manga-status-ribbons span.manga-status-ribbon__text"
+    ]
+   },
+   "status_map": {
+    "sezon": 6,
+    "ara ver": 6,
+    "hiatus": 6,
+    "bırakıldı": 5,
+    "iptal": 5,
+    "dropped": 5,
+    "cancel": 5,
+    "tamamland": 2,
+    "bitti": 2,
+    "completed": 2,
+    "güncel": 1,
+    "devam": 1,
+    "ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": "{base}/wp-json/initmanga/v1/chapters?manga_id={l.mid}&per_page=50&paged={page}",
+   "format": "json",
+   "items": "items",
+   "paging": {
+    "has_next": {
+     "lt": [
+      "current_page",
+      "total_pages"
+     ]
+    },
+    "max_pages": 40
+   },
+   "skip": {
+    "path": "lock_type",
+    "regex": "^(?!none$).+"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "{url}{value}/"
+    },
+    "name": [
+     {
+      "path": "title",
+      "regex": "(?iu)^((?=.*\\d)(?:bölüm|bolum|chapter|ep|episode)\\b.*)$",
+      "group": 1
+     },
+     {
+      "path": "slug",
+      "replace": [
+       [
+        "^(?:bolum|bölüm)-",
+        "Bölüm "
+       ],
+       [
+        "^chapter-",
+        "Chapter "
+       ],
+       [
+        "^(\\D*)-(\\d)",
+        "$1 $2"
+       ],
+       [
+        "(\\d)-(\\d)",
+        "$1.$2"
+       ]
+      ],
+      "template": "{value}[[: {f.title}]]"
+     }
+    ],
+    "date": "created_at",
+    "number": "number"
+   },
+   "date_format": "yyyy-MM-dd HH:mm:ss"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div#chapter-content img, div.chapter-content img, div.reader-area img, div.entry-content img, div#readerarea img",
+   "image": [
+    "@data-original-src",
+    "@img"
+   ]
+  },
+  "origin": "baukasten:initmanga {\"apex\": \"korelimanga.com\", \"latest_slug\": \"recently-updated\", \"popular_slug\": \"manga-ranking\"}"
+ }
+}

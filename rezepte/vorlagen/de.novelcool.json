@@ -1,0 +1,116 @@
+{
+ "extension": {
+  "name": "NovelCool",
+  "paket": "eu.kanade.tachiyomi.extension.de.kaanon.novelcool",
+  "version": "1.6.11",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 4806085996472938237,
+    "name": "NovelCool",
+    "language": "de",
+    "homeUrl": "https://de.novelcool.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "image_headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/category/popular.html",
+   "format": "html",
+   "items": ".book-list .book-item:not(:has(.book-type-novel))",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a@href",
+    "title": ".book-pic@title",
+    "cover": [
+     "img@lazy_url",
+     "img@src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/category/latest.html",
+   "format": "html",
+   "items": ".book-list .book-item:not(:has(.book-type-novel))",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a@href",
+    "title": ".book-pic@title",
+    "cover": [
+     "img@lazy_url",
+     "img@src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/search?name={query}&page={page}",
+   "format": "html",
+   "items": ".book-list .book-item:not(:has(.book-type-novel))",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a@href",
+    "title": ".book-pic@title",
+    "cover": [
+     "img@lazy_url",
+     "img@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": "h1.bookinfo-title",
+    "cover": ".bookinfo-pic-img@src",
+    "description": "div.bk-summary-txt",
+    "genres": ".bookinfo-category-list a:nth-child(n+2)",
+    "author": ".bookinfo-author > a@title",
+    "status": ".bookinfo-category-list a"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "html",
+   "items": ".chapter-item-list a",
+   "fields": {
+    "url": "@href",
+    "name": "@title",
+    "date": ".chapter-item-time"
+   },
+   "date_format": "MMM d, yyyy",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "html",
+   "items": "select.sl-page option",
+   "image": "@value",
+   "subpage": {
+    "request": "{url}",
+    "format": "html",
+    "image": ".mangaread-manga-pic@src"
+   }
+  }
+ }
+}

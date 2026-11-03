@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HERO'S Web",
+  "sprache": "ja",
+  "base_url": "https://heros-web.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.herosweb",
+  "quellen": [
+   {
+    "name": "HERO'S Web",
+    "sprache": "ja",
+    "quell_id": 6981500022236807277,
+    "home": "https://heros-web.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/herosweb",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "comiciviewer"
+ },
+ "baukasten": "comiciviewer",
+ "parameter": {
+  "apex": "heros-web.com"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

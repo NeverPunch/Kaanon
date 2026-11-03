@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Elf Toon",
+  "sprache": "en",
+  "base_url": "https://elftoon.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.elftoon",
+  "quellen": [
+   {
+    "name": "Elf Toon",
+    "sprache": "en",
+    "quell_id": 7881856136524765210,
+    "home": "https://elftoon.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/elftoon",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.13",
+  "theme": "vinetheme"
+ },
+ "baukasten": "vinetheme",
+ "parameter": {
+  "apex": "elftoon.net"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

@@ -1,0 +1,212 @@
+{
+ "extension": {
+  "name": "Magus Manga",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.magusmanga",
+  "version": "1.6.13",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 5502149036482508819,
+    "name": "Magus Manga",
+    "language": "en",
+    "homeUrl": "https://magustoon.org",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": "iken",
+ "parameter": {
+  "apex": "magustoon.org",
+  "api_prefix": "api.",
+  "chapter_mode": "api",
+  "per_page": "18",
+  "sort_mode": "filename"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "https://api.magustoon.org/api/query?page={page}&perPage=18&searchTerm=&orderBy=totalViews",
+   "format": "json",
+   "items": "posts",
+   "page_size": 18,
+   "has_next": {
+    "total": "totalCount"
+   },
+   "skip": {
+    "any": [
+     "isNovel",
+     {
+      "path": "seriesType",
+      "regex": "(?i)^novel$"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "postTitle",
+    "cover": "featuredImage"
+   }
+  },
+  "latest": {
+   "request": "https://api.magustoon.org/api/query?page={page}&perPage=18&searchTerm=&orderBy=lastChapterAddedAt",
+   "format": "json",
+   "items": "posts",
+   "page_size": 18,
+   "has_next": {
+    "total": "totalCount"
+   },
+   "skip": {
+    "any": [
+     "isNovel",
+     {
+      "path": "seriesType",
+      "regex": "(?i)^novel$"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "postTitle",
+    "cover": "featuredImage"
+   }
+  },
+  "search": {
+   "request": "https://api.magustoon.org/api/query?page={page}&perPage=18&searchTerm={query}&orderBy=lastChapterAddedAt",
+   "format": "json",
+   "items": "posts",
+   "page_size": 18,
+   "has_next": {
+    "total": "totalCount"
+   },
+   "skip": {
+    "any": [
+     "isNovel",
+     {
+      "path": "seriesType",
+      "regex": "(?i)^novel$"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.id}"
+    },
+    "title": "postTitle",
+    "cover": "featuredImage"
+   }
+  },
+  "details": {
+   "request": "https://api.magustoon.org/api/post?postSlug={u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/#]+)",
+    "id": "#(\\d+)$"
+   },
+   "fields": {
+    "title": "post.postTitle",
+    "cover": "post.featuredImage",
+    "description": [
+     {
+      "path": "post.postContent",
+      "decode": "html_text",
+      "template": "{value}\n\n[[Alternative Names: {f.post.alternativeTitles}]]"
+     },
+     {
+      "const": "[[Alternative Names: {f.post.alternativeTitles}]]"
+     }
+    ],
+    "genres": {
+     "path": [
+      "post.genres.*.name",
+      "post.seriesType"
+     ],
+     "replace": [
+      [
+       "^MANGA$",
+       "Manga"
+      ],
+      [
+       "^MANHWA$",
+       "Manhwa"
+      ],
+      [
+       "^MANHUA$",
+       "Manhua"
+      ],
+      [
+       "^[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+$",
+       ""
+      ]
+     ]
+    },
+    "author": "post.author",
+    "artist": "post.artist",
+    "status": "post.seriesStatus"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "coming_soon": 1,
+    "mass_released": 1,
+    "completed": 2,
+    "cancelled": 5,
+    "dropped": 5
+   }
+  },
+  "chapters": {
+   "request": "https://api.magustoon.org/api/chapters?postId={u.id}",
+   "format": "json",
+   "items": "post.chapters",
+   "skip": {
+    "any": [
+     "isLocked",
+     "isTimeLocked",
+     "isPermanentlyLocked",
+     "isShortLinkLocked",
+     "isLockedByCoins",
+     "price"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{u.slug}/{value}#{f.id}"
+    },
+    "name": {
+     "path": "number",
+     "template": "Chapter {value}[[ - {f.title}]]"
+    },
+    "date": "createdAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://api.magustoon.org/api/chapter?chapterId={u.cid}",
+   "format": "json",
+   "url_vars": {
+    "cid": "#(\\d+)$"
+   },
+   "items": "chapter.images",
+   "sort": {
+    "path": "url",
+    "regex": "/[^/\\d]*(\\d+)[^/]*$"
+   },
+   "image": {
+    "path": "url",
+    "replace": [
+     [
+      " ",
+      "%20"
+     ]
+    ]
+   }
+  },
+  "origin": "baukasten:iken {\"apex\": \"magustoon.org\", \"api_prefix\": \"api.\", \"chapter_mode\": \"api\", \"per_page\": \"18\", \"sort_mode\": \"filename\"}"
+ }
+}

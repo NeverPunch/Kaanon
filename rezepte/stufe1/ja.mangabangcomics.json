@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaBang Comics",
+  "sprache": "ja",
+  "base_url": "https://comics.manga-bang.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.mangabangcomics",
+  "quellen": [
+   {
+    "name": "MangaBang Comics",
+    "sprache": "ja",
+    "quell_id": 6323380629311776595,
+    "home": "https://comics.manga-bang.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/mangabang",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "comiciviewer"
+ },
+ "baukasten": "comiciviewer",
+ "parameter": {
+  "apex": "comics.manga-bang.com"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

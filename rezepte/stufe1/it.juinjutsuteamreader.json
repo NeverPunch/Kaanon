@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Juin Jutsu Team Reader",
+  "sprache": "it",
+  "base_url": "https://www.juinjutsureader.ovh",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.it.kaanon.juinjutsuteamreader",
+  "quellen": [
+   {
+    "name": "Juin Jutsu Team Reader",
+    "sprache": "it",
+    "quell_id": 1779918793601923139,
+    "home": "https://www.juinjutsureader.ovh"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/it/juinjutsuteamreader",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.8",
+  "theme": "foolslide"
+ },
+ "baukasten": "foolslide",
+ "parameter": {
+  "apex": "juinjutsureader.ovh",
+  "popular_path": "directory",
+  "skip_numeric_names": "0",
+  "url_modifier": ""
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "supportsLatest": "false",
+   "popularMangaNextPageSelector": "\"div.next a\"",
+   "chapterListSelector": "\"div.group_comic div.element\""
+  },
+  "hinweise": []
+ }
+}

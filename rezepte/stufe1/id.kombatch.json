@@ -1,0 +1,43 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Kombatch",
+  "sprache": "id",
+  "base_url": "https://kombatch.cc",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.kombatch",
+  "quellen": [
+   {
+    "name": "Kombatch",
+    "sprache": "id",
+    "quell_id": 911623545095065045,
+    "home": "https://kombatch.cc"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/kombatch",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "kombatch.cc",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "seriesAuthorSelector": "\".imptdt-author-sub-2 .js-button-custom\"",
+   "seriesArtistSelector": "\".imptdt-artist-sub-2 .js-button-custom\""
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

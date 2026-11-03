@@ -1,0 +1,36 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Loner Translations",
+  "sprache": "ar",
+  "base_url": "https://loner-tl.blogspot.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.lonertranslations",
+  "quellen": [
+   {
+    "name": "Loner Translations",
+    "sprache": "ar",
+    "quell_id": 323105186892383931,
+    "home": "https://loner-tl.blogspot.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/lonertranslations",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.15",
+  "theme": "zeistmanga"
+ },
+ "baukasten": "zeistmanga",
+ "parameter": {
+  "apex": "loner-tl.blogspot.com",
+  "chapter_cat": "Chapter",
+  "page_sel": "auto",
+  "series_label": "Series"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

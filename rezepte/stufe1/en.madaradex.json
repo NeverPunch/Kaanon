@@ -1,0 +1,46 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MadaraDex",
+  "sprache": "en",
+  "base_url": "https://madaradex.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.madaradex",
+  "quellen": [
+   {
+    "name": "MadaraDex",
+    "sprache": "en",
+    "quell_id": 2136088453725931591,
+    "home": "https://madaradex.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/madaradex",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.62",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "madaradex.org",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "title",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaSubString": "\"title\"",
+   "genreDirectory": "\"genre\""
+  },
+  "hinweise": []
+ }
+}

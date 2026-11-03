@@ -1,0 +1,38 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Read Solo Leveling Manga Manhwa Online",
+  "sprache": "en",
+  "base_url": "https://ww4.readsololeveling.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.readsololevelingmangamanhwaonline",
+  "quellen": [
+   {
+    "name": "Read Solo Leveling Manga Manhwa Online",
+    "sprache": "en",
+    "quell_id": 1374366734159205648,
+    "home": "https://ww4.readsololeveling.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/readsololevelingmangamanhwaonline",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangacatalog"
+ },
+ "baukasten": "mangacatalog",
+ "parameter": {
+  "apex": "ww4.readsololeveling.org",
+  "layout": "tailwind"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "sourceList": "listOf("
+  },
+  "hinweise": [
+   "mangacatalog: Seite listet feste Reihen (sourceList der Community), layout per Erkundung prüfen"
+  ]
+ }
+}

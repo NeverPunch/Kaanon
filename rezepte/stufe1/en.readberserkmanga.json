@@ -1,0 +1,39 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Read Berserk Manga",
+  "sprache": "en",
+  "base_url": "https://readberserk.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.readberserkmanga",
+  "quellen": [
+   {
+    "name": "Read Berserk Manga",
+    "sprache": "en",
+    "quell_id": 4917014756556380981,
+    "home": "https://readberserk.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/readberserkmanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangacatalog"
+ },
+ "baukasten": "mangacatalog",
+ "parameter": {
+  "apex": "readberserk.com",
+  "layout": "tailwind"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "sourceList": "listOf(",
+   "chapterListSelector": "\"tbody > tr\""
+  },
+  "hinweise": [
+   "mangacatalog: Seite listet feste Reihen (sourceList der Community), layout per Erkundung prüfen"
+  ]
+ }
+}

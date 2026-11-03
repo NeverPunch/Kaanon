@@ -1,0 +1,61 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Jelly Comics",
+  "sprache": "vi",
+  "base_url": "https://jellycomics.online",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.jellycomics",
+  "quellen": [
+   {
+    "name": "Jelly Comics",
+    "sprache": "vi",
+    "quell_id": 4660543217906056734,
+    "home": "https://jellycomics.online"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/jellycomics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "jellycomics.online",
+  "list_mode": "ajax",
+  "chapter_mode": "page",
+  "manga_dir": "truyen",
+  "date_format": "MM/dd/yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date, p.chapter-meta i:last-child",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaSubString": "\"truyen\"",
+   "genreDirectory": "\"the-loai\"",
+   "supportsPostId": "false",
+   "archiveSelector": "\".comic-list-item\"",
+   "archiveUrlSelector": "\"a.comic-block-link\"",
+   "archiveTitleSelector": "\"h3.comic-block-title\"",
+   "mangaDetailsSelectorTitle": "\"h2.comic-title\"",
+   "mangaDetailsSelectorThumbnail": "\".comic-desc-img\"",
+   "mangaDetailsSelectorStatus": "\"li:has(strong:containsOwn(Trạng thái))\"",
+   "mangaDetailsSelectorGenre": "\"li:has(strong:containsOwn(Thể loại)) a\"",
+   "mangaDetailsSelectorTag": "\"li:has(strong:containsOwn(Thẻ)) a\"",
+   "altNameSelector": "\"li:has(strong:containsOwn(Tên khác))\"",
+   "chapterListSelector": "\"li.wp-manga-chapter, div.chapter-item\"",
+   "chapterNameSelector": "\"p.chapter-title\"",
+   "chapterDateSelector": "\"span.chapter-release-date, p.chapter-meta i:last-child\"",
+   "chapterMode": "ChapterMode.MangaPage",
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"MM/dd/yyyy\", Locale.ENGLISH)"
+  },
+  "hinweise": []
+ }
+}

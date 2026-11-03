@@ -1,0 +1,48 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manhwa-Latino",
+  "sprache": "es",
+  "base_url": "https://manhwa-latino.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.manhwalatino",
+  "quellen": [
+   {
+    "name": "Manhwa-Latino",
+    "sprache": "es",
+    "quell_id": 3548601371328353875,
+    "home": "https://manhwa-latino.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/manhwalatino",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.68",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "manhwa-latino.com",
+  "list_mode": "html",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterUrlSelector": "\"div.mini-letters > a\"",
+   "mangaDetailsSelectorStatus": "\"div.post-content_item:contains(Estado del comic) > div.summary-content\"",
+   "mangaDetailsSelectorDescription": "\"div.post-content_item:contains(Resumen) div.summary-container\"",
+   "pageListParseSelector": "\"div.page-break img.wp-manga-chapter-img\""
+  },
+  "hinweise": []
+ }
+}

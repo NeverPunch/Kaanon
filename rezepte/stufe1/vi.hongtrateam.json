@@ -1,0 +1,62 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HongTraTeam",
+  "sprache": "vi",
+  "base_url": "https://hongtrateam.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.hongtrateam",
+  "quellen": [
+   {
+    "name": "HongTraTeam",
+    "sprache": "vi",
+    "quell_id": 3484418618819034374,
+    "home": "https://hongtrateam.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/hongtrateam",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "hongtrateam.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "truyen",
+  "date_format": "dd/MM/uuuu",
+  "date_locale": "en",
+  "date_selector": ".chapter-release-date .timediff [title], .chapter-release-date .timediff",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterMode": "ChapterMode.MangaAjax",
+   "mangaSubString": "\"truyen\"",
+   "genreDirectory": "\"the-loai\"",
+   "filterNonMangaItems": "false",
+   "archiveSelector": "\".page-item-detail, .c-tabs-item__content\"",
+   "mangaDetailsSelectorTitle": "\"h1\"",
+   "mangaDetailsSelectorAuthor": "\".post-content_item:contains(Tác giả) .summary-content\"",
+   "mangaDetailsSelectorArtist": "\".post-content_item:contains(Họa sĩ) .summary-content\"",
+   "mangaDetailsSelectorStatus": "\".post-content_item:contains(Tình trạng) .summary-content\"",
+   "mangaDetailsSelectorDescription": "\".description-summary\"",
+   "mangaDetailsSelectorThumbnail": "\".summary_image img\"",
+   "mangaDetailsSelectorGenre": "\".genres-content a\"",
+   "filterGenresSelector": "\".genres-content\"",
+   "pageListParseSelector": "\".reading-content img.wp-manga-chapter-img\"",
+   "chapterDateSelector": "\".chapter-release-date .timediff [title], .chapter-release-date .timediff\"",
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd/MM/uuuu\", Locale.ROOT)"
+  },
+  "hinweise": [
+   "filterNonMangaItems = false"
+  ]
+ }
+}

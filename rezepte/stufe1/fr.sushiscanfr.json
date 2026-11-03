@@ -1,0 +1,45 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Sushiscan.fr",
+  "sprache": "fr",
+  "base_url": "https://sushiscan.fr",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.sushiscanfr",
+  "quellen": [
+   {
+    "name": "Sushiscan.fr",
+    "sprache": "fr",
+    "quell_id": 3196884165456788667,
+    "home": "https://sushiscan.fr"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/sushiscanfr",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "sushiscan.fr",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "catalogue",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaUrlDirectory": "\"/catalogue\"",
+   "altNamePrefix": "\"Nom alternatif : \"",
+   "seriesAuthorSelector": "\".imptdt:contains(Auteur) i, .fmed b:contains(Auteur)+span\"",
+   "seriesStatusSelector": "\".imptdt:contains(Statut) i\""
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

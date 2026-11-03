@@ -1,0 +1,49 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "TonizuToon",
+  "sprache": "tr",
+  "base_url": "https://tonizu.top",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.tonizutoon",
+  "quellen": [
+   {
+    "name": "TonizuToon",
+    "sprache": "tr",
+    "quell_id": 5222101826721428426,
+    "home": "https://tonizu.top"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/tonizutoon",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.60",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "tonizu.top",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "dd/MM/yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd/MM/yyyy\", Locale.ROOT)",
+   "chapterMode": "ChapterMode.MangaAjax",
+   "mangaDetailsSelectorTitle": "\"#manga-title\"",
+   "mangaDetailsSelectorAuthor": "\".summary-heading:contains(Yazar) ~ .summary-content\"",
+   "mangaDetailsSelectorStatus": "\".summary-heading:contains(Durum) ~ .summary-content\""
+  },
+  "hinweise": []
+ }
+}

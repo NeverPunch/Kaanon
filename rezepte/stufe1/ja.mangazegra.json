@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga Zegra",
+  "sprache": "ja",
+  "base_url": "https://manga-zegra.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.mangazegra",
+  "quellen": [
+   {
+    "name": "Manga Zegra",
+    "sprache": "ja",
+    "quell_id": 1066937743995646358,
+    "home": "https://manga-zegra.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/mangazegra",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "comiciviewer"
+ },
+ "baukasten": "comiciviewer",
+ "parameter": {
+  "apex": "manga-zegra.com"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

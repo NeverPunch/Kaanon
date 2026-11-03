@@ -1,0 +1,38 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Comic Y-OURs",
+  "sprache": "ja",
+  "base_url": "https://comic-y-ours.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.comicyours",
+  "quellen": [
+   {
+    "name": "Comic Y-OURs",
+    "sprache": "ja",
+    "quell_id": 6785510785647577495,
+    "home": "https://comic-y-ours.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/comicyours",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "gigaviewer"
+ },
+ "baukasten": "gigaviewer",
+ "parameter": {
+  "apex": "comic-y-ours.com",
+  "list_keyword": "の",
+  "list_mode": "graphql"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "seriesListIds": "listOf(",
+   "getFilterOptions": "listOf("
+  },
+  "hinweise": []
+ }
+}

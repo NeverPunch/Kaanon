@@ -1,0 +1,48 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ManhwaDen",
+  "sprache": "en",
+  "base_url": "https://www.manhwaden.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.manhwaden",
+  "quellen": [
+   {
+    "name": "ManhwaDen",
+    "sprache": "en",
+    "quell_id": 7672439791159944710,
+    "home": "https://www.manhwaden.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/manhwaden",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "manhwaden.com",
+  "list_mode": "html",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterMode": "ChapterMode.MangaAjax",
+   "filterNonMangaItems": "false"
+  },
+  "hinweise": [
+   "filterNonMangaItems = false"
+  ]
+ }
+}

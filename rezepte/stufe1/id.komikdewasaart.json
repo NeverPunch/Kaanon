@@ -1,0 +1,43 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Komik Dewasa Art",
+  "sprache": "id",
+  "base_url": "https://komikdewasa.art",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.komikdewasaart",
+  "quellen": [
+   {
+    "name": "Komik Dewasa Art",
+    "sprache": "id",
+    "quell_id": 6053881646324024096,
+    "home": "https://komikdewasa.art"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/komikdewasaart",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "komikdewasa.art",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "komik",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaUrlDirectory": "\"/komik\"",
+   "datePattern": "\"dd/MM/yyyy\""
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

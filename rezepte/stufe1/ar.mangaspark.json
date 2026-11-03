@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaSpark",
+  "sprache": "ar",
+  "base_url": "https://sparkmanga.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.mangaspark",
+  "quellen": [
+   {
+    "name": "MangaSpark",
+    "sprache": "ar",
+    "quell_id": 2436176998646301840,
+    "home": "https://sparkmanga.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/mangaspark",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.65",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "sparkmanga.net",
+  "list_mode": "ajax",
+  "chapter_mode": "api",
+  "manga_dir": "manga",
+  "date_format": "d MMMM، yyyy",
+  "date_locale": "ar",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"d MMMM، yyyy\", Locale.forLanguageTag(\"ar\"))",
+   "chapterMode": "ChapterMode.AdminAjax",
+   "pageListParseSelector": "\"div.wp-manga-chapter-img img, div.reading-content img\""
+  },
+  "hinweise": []
+ }
+}

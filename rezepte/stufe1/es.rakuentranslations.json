@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Rakuen Translations",
+  "sprache": "es",
+  "base_url": "https://rakuentranslations.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.rakuentranslations",
+  "quellen": [
+   {
+    "name": "Rakuen Translations",
+    "sprache": "es",
+    "quell_id": 1527666187989988991,
+    "home": "https://rakuentranslations.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/rakuentranslations",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "rakuentranslations.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

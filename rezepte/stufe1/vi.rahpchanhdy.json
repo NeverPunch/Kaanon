@@ -1,0 +1,45 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Rùa Hấp Chanh Dây",
+  "sprache": "vi",
+  "base_url": "https://ruahapchanhday2.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.rahpchanhdy",
+  "quellen": [
+   {
+    "name": "Rùa Hấp Chanh Dây",
+    "sprache": "vi",
+    "quell_id": 7438489045468990067,
+    "home": "https://ruahapchanhday2.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/ruahapchanhday",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "ruahapchanhday2.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "dd/MM/yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd/MM/yyyy\", Locale.ROOT)"
+  },
+  "hinweise": []
+ }
+}

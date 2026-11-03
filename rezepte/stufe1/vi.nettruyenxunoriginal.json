@@ -1,0 +1,45 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "NetTruyenX (unoriginal)",
+  "sprache": "vi",
+  "base_url": "https://nettruyenx.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.nettruyenxunoriginal",
+  "quellen": [
+   {
+    "name": "NetTruyenX (unoriginal)",
+    "sprache": "vi",
+    "quell_id": 3129953610837449394,
+    "home": "https://nettruyenx.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/nettruyenx",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.12",
+  "theme": "wpcomics"
+ },
+ "baukasten": "wpcomics",
+ "parameter": {
+  "apex": "nettruyenx.net",
+  "chapter_mode": "json_id",
+  "description_mode": "full",
+  "latest_path": "",
+  "pages_suffix": "",
+  "popular_path": "truyen-tranh-hot",
+  "search_path": "tim-truyen",
+  "ui_lang": "vi"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "dateFormat": "DateTimeFormatter.ofPattern(\"dd/MM/yyyy\", Locale.ROOT)",
+   "popularPath": "\"truyen-tranh-hot\""
+  },
+  "hinweise": [
+   "wpcomics: Vorgaben stammen aus NetTruyen; Pfade per Erkundung prüfen"
+  ]
+ }
+}

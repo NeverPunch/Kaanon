@@ -1,0 +1,48 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Lily Manga",
+  "sprache": "en",
+  "base_url": "https://lilymanga.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.lilymanga",
+  "quellen": [
+   {
+    "name": "Lily Manga",
+    "sprache": "en",
+    "quell_id": 4480996639887718467,
+    "home": "https://lilymanga.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/lilymanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.64",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "lilymanga.net",
+  "list_mode": "html",
+  "chapter_mode": "ajax",
+  "manga_dir": "gl",
+  "date_format": "dd.MM.yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd.MM.yyyy\", Locale.US)",
+   "genreDirectory": "\"gl-genre\"",
+   "mangaSubString": "\"gl\"",
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

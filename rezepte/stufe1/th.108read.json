@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "108Read",
+  "sprache": "th",
+  "base_url": "https://www.108read.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.th.kaanon.108read",
+  "quellen": [
+   {
+    "name": "108Read",
+    "sprache": "th",
+    "quell_id": 64300093736011954,
+    "home": "https://www.108read.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/th/one08read",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "108read.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

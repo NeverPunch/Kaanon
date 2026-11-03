@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Read Comics Online",
+  "sprache": "en",
+  "base_url": "https://readcomicsonline.ru",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.readcomicsonline",
+  "quellen": [
+   {
+    "name": "Read Comics Online",
+    "sprache": "en",
+    "quell_id": 7185601298150078890,
+    "home": "https://readcomicsonline.ru"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/readcomicsonline",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "mmrcms"
+ },
+ "baukasten": "mmrcms",
+ "parameter": {
+  "apex": "readcomicsonline.ru",
+  "item_path": "comic",
+  "lang": "en",
+  "popular_mode": "filter"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "itemPath": "\"comic\"",
+   "chapterString": "\"\"",
+   "fetchFilterOptions": "false",
+   "detailsTitleSelector": "\"h1.text-2xl\"",
+   "dateFormat": "DateTimeFormatter.ofPattern(\"d MMM yyyy\", Locale.US)",
+   "popularMangaSelector": "\"div.comic-list-layout .grid > .group\"",
+   "popularMangaNextPageSelector": "\"nav a[rel=next]\"",
+   "latestUpdatesSelector": "popularMangaSelector()",
+   "searchMangaSelector": "\"div a:has(img)\"",
+   "chapterListSelector": "\".overflow-hidden.border-ink-600 > a\""
+  },
+  "hinweise": []
+ }
+}

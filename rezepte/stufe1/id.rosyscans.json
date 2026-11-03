@@ -1,0 +1,42 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Rosyscans",
+  "sprache": "id",
+  "base_url": "https://rosyscans.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.rosyscans",
+  "quellen": [
+   {
+    "name": "Rosyscans",
+    "sprache": "id",
+    "quell_id": 9147884000487951300,
+    "home": "https://rosyscans.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/rosyscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "rosyscans.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "hasProjectPage": "true"
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Lgbtics",
+  "sprache": "en",
+  "base_url": "https://lgbtics.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.lgbtics",
+  "quellen": [
+   {
+    "name": "Lgbtics",
+    "sprache": "en",
+    "quell_id": 4306337471481207984,
+    "home": "https://lgbtics.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/lgbtics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.59",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "lgbtics.com",
+  "list_mode": "html",
+  "chapter_mode": "ajax",
+  "manga_dir": "comic",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaSubString": "\"comic\"",
+   "supportsPostId": "false",
+   "orderByFilterOptions": "listOf("
+  },
+  "hinweise": []
+ }
+}

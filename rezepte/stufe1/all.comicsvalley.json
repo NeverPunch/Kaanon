@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Comics Valley",
+  "sprache": "all",
+  "base_url": "https://comicsvalley.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.comicsvalley",
+  "quellen": [
+   {
+    "name": "Comics Valley",
+    "sprache": "all",
+    "quell_id": 1103204227230640533,
+    "home": "https://comicsvalley.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/comicsvalley",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.59",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "comicsvalley.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "comics-new",
+  "date_format": "dd/MM/yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaSubString": "\"comics-new\"",
+   "chapterMode": "ChapterMode.MangaAjax",
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd/MM/yyyy\", Locale.ROOT)"
+  },
+  "hinweise": []
+ }
+}

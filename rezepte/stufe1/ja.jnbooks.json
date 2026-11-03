@@ -1,0 +1,33 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "J-N Books",
+  "sprache": "ja",
+  "base_url": "https://comic.j-nbooks.jp",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.jnbooks",
+  "quellen": [
+   {
+    "name": "J-N Books",
+    "sprache": "ja",
+    "quell_id": 2876739237900975302,
+    "home": "https://comic.j-nbooks.jp"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/jnbooks",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "comiciviewer"
+ },
+ "baukasten": "comiciviewer",
+ "parameter": {
+  "apex": "comic.j-nbooks.jp"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

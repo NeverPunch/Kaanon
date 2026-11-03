@@ -1,0 +1,37 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hijala Scans",
+  "sprache": "en",
+  "base_url": "https://en-hijala.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.hijalascans",
+  "quellen": [
+   {
+    "name": "Hijala Scans",
+    "sprache": "en",
+    "quell_id": 454381816904772144,
+    "home": "https://en-hijala.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/hijalascans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.29",
+  "theme": "iken"
+ },
+ "baukasten": "iken",
+ "parameter": {
+  "apex": "en-hijala.com",
+  "api_prefix": "api.",
+  "chapter_mode": "api",
+  "per_page": "18",
+  "sort_mode": "order"
+ },
+ "zusatz": {
+  "community_einstellungen": {},
+  "hinweise": []
+ }
+}

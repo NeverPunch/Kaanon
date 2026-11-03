@@ -1,0 +1,156 @@
+{
+ "extension": {
+  "name": "MangaGeko",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mangageko",
+  "version": "1.6.11",
+  "inhalt": "MIXED",
+  "quellen": [
+   {
+    "id": 2929885972294363085,
+    "name": "MangaGeko",
+    "language": "en",
+    "homeUrl": "https://www.mgeko.cc",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "image_headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "popular": {
+   "request": "{base}/browse-comics/data/?page={page}&sort=popular_all_time&safe_mode=0",
+   "format": "json_html",
+   "html_path": "results_html",
+   "items": "article.comic-card",
+   "has_next": {
+    "lt": [
+     "^page",
+     "^num_pages"
+    ]
+   },
+   "fields": {
+    "url": ".comic-card__title a@href",
+    "title": ".comic-card__title a",
+    "cover": ".comic-card__cover img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/browse-comics/data/?page={page}&sort=latest&safe_mode=0",
+   "format": "json_html",
+   "html_path": "results_html",
+   "items": "article.comic-card",
+   "has_next": {
+    "lt": [
+     "^page",
+     "^num_pages"
+    ]
+   },
+   "fields": {
+    "url": ".comic-card__title a@href",
+    "title": ".comic-card__title a",
+    "cover": ".comic-card__cover img@img"
+   }
+  },
+  "search": {
+   "request": "{base}/browse-comics/data/?page={page}&sort=latest&safe_mode=0&q={query}",
+   "format": "json_html",
+   "html_path": "results_html",
+   "items": "article.comic-card",
+   "has_next": {
+    "lt": [
+     "^page",
+     "^num_pages"
+    ]
+   },
+   "fields": {
+    "url": ".comic-card__title a@href",
+    "title": ".comic-card__title a",
+    "cover": ".comic-card__cover img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": "h1.novel-title",
+    "cover": "figure.cover img@img",
+    "description": {
+     "path": ".description",
+     "regex": "(?s)(?:^.*?Summary is\\s+)?(.*)$"
+    },
+    "genres": ".categories a[href*=genre]@ownText",
+    "author": {
+     "path": ".author a@title",
+     "replace": [
+      [
+       "\\s*,\\s*$",
+       ""
+      ],
+      [
+       "(?i)^updating$",
+       ""
+      ]
+     ]
+    },
+    "status": "div.header-stats strong.ongoing, div.header-stats strong.completed"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}all-chapters/",
+   "format": "html",
+   "items": "ul.chapter-list > li",
+   "fields": {
+    "url": "a@href",
+    "name": {
+     "path": ".chapter-title@ownText",
+     "replace": [
+      [
+       "-eng-li$",
+       ""
+      ]
+     ],
+     "template": "Chapter {value}"
+    },
+    "date": {
+     "path": ".chapter-update@datetime",
+     "replace": [
+      [
+       "\\.",
+       ""
+      ],
+      [
+       "Sept",
+       "Sep"
+      ],
+      [
+       "(?<![\\d:])(\\d{1,2}) (am|pm)$",
+       "$1:00 $2"
+      ]
+     ]
+    }
+   },
+   "date_format": "MMM d, yyyy, h:mm a",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "html",
+   "items": "#chapter-reader img",
+   "image": "@src",
+   "exclude": "credits-mgeko\\.png"
+  }
+ }
+}

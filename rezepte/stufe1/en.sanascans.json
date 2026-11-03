@@ -1,0 +1,40 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Sana Scans",
+  "sprache": "en",
+  "base_url": "https://sanascans.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.sanascans",
+  "quellen": [
+   {
+    "name": "Sana Scans",
+    "sprache": "en",
+    "quell_id": 1931508394363321246,
+    "home": "https://sanascans.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/sanascans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.29",
+  "theme": "iken"
+ },
+ "baukasten": "iken",
+ "parameter": {
+  "apex": "sanascans.com",
+  "api_prefix": "api.",
+  "chapter_mode": "api",
+  "per_page": "30",
+  "sort_mode": "filename"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "perPage": "30",
+   "sortPagesByFilename": "true"
+  },
+  "hinweise": []
+ }
+}

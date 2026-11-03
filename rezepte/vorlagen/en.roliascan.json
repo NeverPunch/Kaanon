@@ -1,0 +1,195 @@
+{
+ "extension": {
+  "name": "Rolia Scan",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.roliascan",
+  "version": "1.6.11",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 3390167717659783669,
+    "name": "Rolia Scan",
+    "language": "en",
+    "homeUrl": "https://roliascan.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "vars": {
+   "ts": {
+    "value": {
+     "const": "{now_s}"
+    },
+    "ttl_s": 30
+   },
+   "t": {
+    "value": {
+     "const": "{v.ts}mng_ch_{nowf:yyyyMMddHH}",
+     "hash": "md5",
+     "max_len": 16
+    },
+    "ttl_s": 30
+   }
+  },
+  "popular": {
+   "request": {
+    "url": "https://roliascan.com/wp-json/manga/v1/load",
+    "method": "POST",
+    "body": "{\"page\": {page}, \"search\": \"\", \"years\": \"[]\", \"genres\": \"[]\", \"types\": \"[]\", \"statuses\": \"[]\", \"sort\": \"popular_desc\", \"genreMatchMode\": \"any\"}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "$",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "skip": {
+    "path": "type",
+    "regex": "(?i)(novel)"
+   },
+   "fields": {
+    "url": {
+     "path": "url",
+     "regex": "/(?:manga|read)/([^/]+)",
+     "template": "/manga/{value}#{f.id}"
+    },
+    "title": {
+     "path": "title",
+     "decode": "html"
+    },
+    "cover": "cover"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "https://roliascan.com/wp-json/manga/v1/load",
+    "method": "POST",
+    "body": "{\"page\": {page}, \"search\": \"\", \"years\": \"[]\", \"genres\": \"[]\", \"types\": \"[]\", \"statuses\": \"[]\", \"sort\": \"post_desc\", \"genreMatchMode\": \"any\"}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "$",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "skip": {
+    "path": "type",
+    "regex": "(?i)(novel)"
+   },
+   "fields": {
+    "url": {
+     "path": "url",
+     "regex": "/(?:manga|read)/([^/]+)",
+     "template": "/manga/{value}#{f.id}"
+    },
+    "title": {
+     "path": "title",
+     "decode": "html"
+    },
+    "cover": "cover"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "https://roliascan.com/wp-json/manga/v1/load",
+    "method": "POST",
+    "body": "{\"page\": {page}, \"search\": \"{query_raw}\", \"years\": \"[]\", \"genres\": \"[]\", \"types\": \"[]\", \"statuses\": \"[]\", \"sort\": \"popular_desc\", \"genreMatchMode\": \"any\"}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "$",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "skip": {
+    "path": "type",
+    "regex": "(?i)(novel)"
+   },
+   "fields": {
+    "url": {
+     "path": "url",
+     "regex": "/(?:manga|read)/([^/]+)",
+     "template": "/manga/{value}#{f.id}"
+    },
+    "title": {
+     "path": "title",
+     "decode": "html"
+    },
+    "cover": "cover"
+   }
+  },
+  "details": {
+   "request": "https://roliascan.com/wp-json/wp/v2/manga/{u.id}?_embed",
+   "format": "json",
+   "url_vars": {
+    "id": "#(\\d+)$",
+    "slug": "/manga/([^/#]+)"
+   },
+   "fields": {
+    "title": {
+     "path": "title.rendered",
+     "decode": "html"
+    },
+    "cover": "_embedded.wp:featuredmedia.0.source_url",
+    "description": {
+     "path": "content.rendered",
+     "decode": "html_text"
+    },
+    "genres": "_embedded.wp:term.*.?taxonomy=post_tag.name",
+    "author": "_embedded.wp:term.*.?taxonomy=manga_author.name"
+   }
+  },
+  "chapters": {
+   "request": "https://roliascan.com/auth/manga-chapters?manga_id={u.id}&offset={offset}&limit=500&order=DESC&_t={v.t}&_ts={v.ts}",
+   "format": "json",
+   "items": "chapters",
+   "page_size": 500,
+   "paging": {
+    "has_next": {
+     "exists": "has_more"
+    },
+    "max_pages": 20
+   },
+   "skip": {
+    "path": "language",
+    "regex": "(?i)^(?!en$)(.+)$"
+   },
+   "fields": {
+    "url": {
+     "path": "url",
+     "replace": [
+      [
+       "/$",
+       ""
+      ]
+     ]
+    },
+    "name": {
+     "path": "chapter",
+     "template": "Chapter {value}"
+    },
+    "date": "date",
+    "scanlator": "group_name"
+   },
+   "date_format": "relative"
+  },
+  "pages": {
+   "request": "https://roliascan.com/auth/chapter-content?chapter_id={u.cid}",
+   "format": "json",
+   "url_vars": {
+    "cid": "-(\\d+)/?$"
+   },
+   "items": "images",
+   "image": ""
+  }
+ }
+}

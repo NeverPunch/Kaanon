@@ -1,0 +1,43 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Shadow Çeviri",
+  "sprache": "tr",
+  "base_url": "https://shadowceviri.blogspot.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.shadoweviri",
+  "quellen": [
+   {
+    "name": "Shadow Çeviri",
+    "sprache": "tr",
+    "quell_id": 3852979672050614736,
+    "home": "https://shadowceviri.blogspot.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/shadowceviri",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.16",
+  "theme": "zeistmanga"
+ },
+ "baukasten": "zeistmanga",
+ "parameter": {
+  "apex": "shadowceviri.blogspot.com",
+  "chapter_cat": "Chapter",
+  "page_sel": "auto",
+  "series_label": "Series"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "popularMangaSelector": "\".PopularPosts article\"",
+   "popularMangaSelectorTitle": "\".post-title a\"",
+   "popularMangaSelectorUrl": "\".item-thumbnail > a\"",
+   "mangaDetailsSelector": "\"#main\"",
+   "chapterCategory": "\"Chapter\"",
+   "pageListSelector": "\"div.separator\""
+  },
+  "hinweise": []
+ }
+}

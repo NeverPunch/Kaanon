@@ -1,0 +1,163 @@
+{
+ "extension": {
+  "name": "Manga Demon",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mangademon",
+  "version": "1.6.11",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 8089306398534489202,
+    "name": "Manga Demon",
+    "language": "en",
+    "homeUrl": "https://demonicscans.org",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "image_headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/advanced.php?list={page}&status=all&orderby=VIEWS%20DESC",
+   "format": "html",
+   "items": "div#advanced-content > div.advanced-element",
+   "fields": {
+    "url": "a@href",
+    "title": "h1@ownText",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       " ",
+       "%20"
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": "div.pagination > ul > a > li:contains(Next)"
+   }
+  },
+  "latest": {
+   "request": "{base}/lastupdates.php?list={page}",
+   "format": "html",
+   "items": "div#updates-container > div.updates-element",
+   "fields": {
+    "url": "div.updates-element-info a@href",
+    "title": [
+     "div.updates-element-info a@title",
+     "div.updates-element-info a"
+    ],
+    "cover": {
+     "path": "div.thumb img@src",
+     "replace": [
+      [
+       " ",
+       "%20"
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": "div.pagination > ul > a > li:contains(Next)"
+   }
+  },
+  "search": {
+   "request": "{base}/search.php?manga={query}",
+   "format": "html",
+   "items": "body > a[href]",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "@href",
+    "title": "div.seach-right > div@ownText",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       " ",
+       "%20"
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": "div#manga-info-container h1.big-fat-titles@ownText",
+    "cover": {
+     "path": "div#manga-page img@src",
+     "replace": [
+      [
+       " ",
+       "%20"
+      ]
+     ]
+    },
+    "description": "div#manga-info-rightColumn > div > div.white-font",
+    "genres": "div.genres-list > li",
+    "author": {
+     "path": "div#manga-info-stats",
+     "regex": "(?s)Author\\s+(.+?)\\s+(?:Rating|Status|Last Update|Alternatives)\\b",
+     "replace": [
+      [
+       "^Updating$",
+       ""
+      ]
+     ]
+    },
+    "status": {
+     "path": "div#manga-info-stats",
+     "regex": "(?i)Status\\s+(Ongoing|Completed|Hiatus|Cancelled|Canceled|Dropped)"
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "html",
+   "items": "div#chapters-list a.chplinks",
+   "fields": {
+    "url": "@href",
+    "name": "@ownText",
+    "date": "span"
+   },
+   "date_format": "yyyy-MM-dd",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "html",
+   "items": "div > img.imgholder",
+   "image": {
+    "path": "@src",
+    "replace": [
+     [
+      " ",
+      "%20"
+     ]
+    ]
+   },
+   "exclude": "/img/free_ads"
+  }
+ }
+}

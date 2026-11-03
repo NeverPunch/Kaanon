@@ -1,0 +1,44 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Lelmanga",
+  "sprache": "fr",
+  "base_url": "https://www.lelmanga.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.lelmanga",
+  "quellen": [
+   {
+    "name": "Lelmanga",
+    "sprache": "fr",
+    "quell_id": 8647761747185981431,
+    "home": "https://www.lelmanga.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/lelmanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "lelmanga.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "altNamePrefix": "\"Nom alternatif: \"",
+   "seriesAuthorSelector": "\".imptdt:contains(Auteur) i\"",
+   "seriesArtistSelector": "\".imptdt:contains(Artiste) i\""
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

@@ -1,0 +1,94 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiEnvy",
+  "sprache": "all",
+  "base_url": "https://hentaienvy.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.hentaienvy",
+  "quellen": [
+   {
+    "name": "HentaiEnvy",
+    "sprache": "en",
+    "quell_id": 8073115021554725655,
+    "home": "https://hentaienvy.com"
+   },
+   {
+    "name": "HentaiEnvy",
+    "sprache": "ja",
+    "quell_id": 7983253093172640758,
+    "home": "https://hentaienvy.com"
+   },
+   {
+    "name": "HentaiEnvy",
+    "sprache": "es",
+    "quell_id": 351350516671223209,
+    "home": "https://hentaienvy.com"
+   },
+   {
+    "name": "HentaiEnvy",
+    "sprache": "fr",
+    "quell_id": 1191404418837235865,
+    "home": "https://hentaienvy.com"
+   },
+   {
+    "name": "HentaiEnvy",
+    "sprache": "ko",
+    "quell_id": 2611030308394588473,
+    "home": "https://hentaienvy.com"
+   },
+   {
+    "name": "HentaiEnvy",
+    "sprache": "de",
+    "quell_id": 2455783957781415791,
+    "home": "https://hentaienvy.com"
+   },
+   {
+    "name": "HentaiEnvy",
+    "sprache": "ru",
+    "quell_id": 6651113074608915226,
+    "home": "https://hentaienvy.com"
+   },
+   {
+    "name": "HentaiEnvy",
+    "sprache": "all",
+    "quell_id": 918989295758523524,
+    "home": "https://hentaienvy.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/hentaienvy",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.12",
+  "theme": "galleryadults"
+ },
+ "baukasten": "galleryadults",
+ "parameter": {
+  "apex": "hentaienvy.com",
+  "page_style": "query",
+  "popular_path": "language/english/popular/",
+  "reader": "json",
+  "search_key": "key"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaLang": "when (lang) {",
+   "supportsLatest": "mangaLang.isNotBlank()",
+   "supportAdvancedSearch": "true",
+   "supportSpeechless": "true",
+   "popularMangaSelector": "\".hnv-gallery-card\"",
+   "mangaTitleSelector": "\".hnv-gallery-card__title\"",
+   "basicSearchKey": "\"key\"",
+   "advancedSearchUri": "\"advanced-search\"",
+   "favoritePath": "\"inc/user.php?act=favs\"",
+   "mangaDetailInfoSelector": "\".hnv-gallery-details\"",
+   "parsingImagePageByPage": "true",
+   "supportRelatedMangasBySearch": "true"
+  },
+  "hinweise": [
+   "galleryadults: Leser-Art (reader) und Seitenstil per Erkundung prüfen"
+  ]
+ }
+}

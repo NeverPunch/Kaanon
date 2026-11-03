@@ -1,0 +1,337 @@
+{
+ "extension": {
+  "name": "Hentaifox",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.hentaifox",
+  "version": "1.6.12",
+  "inhalt": "NSFW",
+  "quellen": [
+   {
+    "id": 7945033982379409892,
+    "name": "Hentaifox",
+    "language": "en",
+    "homeUrl": "https://hentaifox.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": "galleryadults",
+ "parameter": {
+  "apex": "hentaifox.com",
+  "page_style": "pag",
+  "popular_path": "language/english/popular/",
+  "reader": "json",
+  "search_key": "key"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/language/english/popular/pag/{page}/",
+   "items": "div.thumb, .preview_item, .hnv-gallery-card, .hz-gallery-card, .galleries_box .gallery_item",
+   "has_next": {
+    "exists": ".pagination li.active + li:not(.disabled), a[rel='next'], a.next"
+   },
+   "fields": {
+    "url": [
+     ".inner_thumb a@href",
+     ".image a@href",
+     "a.hnv-gallery-card__cover@href",
+     "a.hz-gallery-card__cover@href",
+     ".gallery_item a@href",
+     "a@href"
+    ],
+    "title": [
+     ".gallery_title",
+     ".caption",
+     ".hnv-gallery-card__title",
+     ".hz-gallery-card__title a",
+     ".hz-gallery-card__title"
+    ],
+    "cover": [
+     ".inner_thumb img@img",
+     ".image img@img",
+     "a.hnv-gallery-card__cover img@img",
+     ".hz-gallery-card__media.thumb img@img",
+     ".gallery_item img@img",
+     "img@img"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/pag/{page}/",
+   "items": "div.thumb, .preview_item, .hnv-gallery-card, .hz-gallery-card, .galleries_box .gallery_item",
+   "has_next": {
+    "exists": ".pagination li.active + li:not(.disabled), a[rel='next'], a.next"
+   },
+   "fields": {
+    "url": [
+     ".inner_thumb a@href",
+     ".image a@href",
+     "a.hnv-gallery-card__cover@href",
+     "a.hz-gallery-card__cover@href",
+     ".gallery_item a@href",
+     "a@href"
+    ],
+    "title": [
+     ".gallery_title",
+     ".caption",
+     ".hnv-gallery-card__title",
+     ".hz-gallery-card__title a",
+     ".hz-gallery-card__title"
+    ],
+    "cover": [
+     ".inner_thumb img@img",
+     ".image img@img",
+     "a.hnv-gallery-card__cover img@img",
+     ".hz-gallery-card__media.thumb img@img",
+     ".gallery_item img@img",
+     "img@img"
+    ]
+   },
+   "request_by_page": {
+    "1": "{base}/",
+    "2": "{base}/page/2/"
+   }
+  },
+  "search": {
+   "request": "{base}/search/?key={query}&page={page}",
+   "items": "div.thumb, .preview_item, .hnv-gallery-card, .hz-gallery-card, .galleries_box .gallery_item",
+   "has_next": {
+    "exists": ".pagination li.active + li:not(.disabled), a[rel='next'], a.next"
+   },
+   "fields": {
+    "url": [
+     ".inner_thumb a@href",
+     ".image a@href",
+     "a.hnv-gallery-card__cover@href",
+     "a.hz-gallery-card__cover@href",
+     ".gallery_item a@href",
+     "a@href"
+    ],
+    "title": [
+     ".gallery_title",
+     ".caption",
+     ".hnv-gallery-card__title",
+     ".hz-gallery-card__title a",
+     ".hz-gallery-card__title"
+    ],
+    "cover": [
+     ".inner_thumb img@img",
+     ".image img@img",
+     "a.hnv-gallery-card__cover img@img",
+     ".hz-gallery-card__media.thumb img@img",
+     ".gallery_item img@img",
+     "img@img"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "cover": [
+     ".cover img@img",
+     ".left_cover img@img",
+     ".hnv-gallery-cover img@img",
+     ".hz-gallery-cover img@img",
+     "#cover img@img"
+    ],
+    "genres": {
+     "path": [
+      "li:has(.tags_text:contains(Tags)) a.tag .item_name",
+      ".tags:contains(Tags) a.tag_btn .tag_name",
+      ".tags:contains(Tags:) .tag_list a .tag@ownText",
+      "div.hnv-gallery-entity-group:has(:contains(Tags:)) a.hnv-gallery-tag .hnv-gallery-tag__name",
+      "div.hz-gallery-entity-group:has(:contains(Tags:)) a.hz-gallery-tag .hz-gallery-tag__name",
+      "ul.tags a@ownText"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "author": {
+     "path": [
+      "li:has(.tags_text:contains(Artists)) a.tag .item_name",
+      ".tags:contains(Artists) a.tag_btn .tag_name",
+      ".tags:contains(Artists:) .tag_list a .tag@ownText",
+      "div.hnv-gallery-entity-group:has(:contains(Artists:)) a.hnv-gallery-tag .hnv-gallery-tag__name",
+      "div.hz-gallery-entity-group:has(:contains(Artists:)) a.hz-gallery-tag .hz-gallery-tag__name",
+      "ul.artists a@ownText"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": [
+      "li:has(.tags_text:contains(Artists)) a.tag .item_name",
+      ".tags:contains(Artists) a.tag_btn .tag_name",
+      ".tags:contains(Artists:) .tag_list a .tag@ownText",
+      "div.hnv-gallery-entity-group:has(:contains(Artists:)) a.hnv-gallery-tag .hnv-gallery-tag__name",
+      "div.hz-gallery-entity-group:has(:contains(Artists:)) a.hz-gallery-tag .hz-gallery-tag__name",
+      "ul.artists a@ownText"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "const": "completed"
+    },
+    "description": {
+     "const": "[[**Parodies**: {l.parodies}]]\n\n[[**Characters**: {l.characters}]]\n\n[[**Groups**: {l.groups}]]\n\n[[**Languages**: {l.languages}]]\n\n[[**Categories**: {l.categories}]]\n\n[[**Pages**: {l.pages}]]\n\n[[**Alternative title**: {l.alt_title}]]",
+     "replace": [
+      [
+       "\\n{3,}",
+       "\n\n"
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "completed": 2
+   },
+   "let": {
+    "parodies": {
+     "path": [
+      "li:has(.tags_text:contains(Parodies)) a.tag .item_name",
+      ".tags:contains(Parodies) a.tag_btn .tag_name",
+      ".tags:contains(Parodies:) .tag_list a .tag@ownText",
+      "div.hnv-gallery-entity-group:has(:contains(Parodies:)) a.hnv-gallery-tag .hnv-gallery-tag__name",
+      "div.hz-gallery-entity-group:has(:contains(Parodies:)) a.hz-gallery-tag .hz-gallery-tag__name",
+      "ul.parodies a@ownText"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "characters": {
+     "path": [
+      "li:has(.tags_text:contains(Characters)) a.tag .item_name",
+      ".tags:contains(Characters) a.tag_btn .tag_name",
+      ".tags:contains(Characters:) .tag_list a .tag@ownText",
+      "div.hnv-gallery-entity-group:has(:contains(Characters:)) a.hnv-gallery-tag .hnv-gallery-tag__name",
+      "div.hz-gallery-entity-group:has(:contains(Characters:)) a.hz-gallery-tag .hz-gallery-tag__name",
+      "ul.characters a@ownText"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "groups": {
+     "path": [
+      "li:has(.tags_text:contains(Groups)) a.tag .item_name",
+      ".tags:contains(Groups) a.tag_btn .tag_name",
+      ".tags:contains(Groups:) .tag_list a .tag@ownText",
+      "div.hnv-gallery-entity-group:has(:contains(Groups:)) a.hnv-gallery-tag .hnv-gallery-tag__name",
+      "div.hz-gallery-entity-group:has(:contains(Groups:)) a.hz-gallery-tag .hz-gallery-tag__name",
+      "ul.groups a@ownText"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "languages": {
+     "path": [
+      "li:has(.tags_text:contains(Languages)) a.tag .item_name",
+      ".tags:contains(Languages) a.tag_btn .tag_name",
+      ".tags:contains(Languages:) .tag_list a .tag@ownText",
+      "div.hnv-gallery-entity-group:has(:contains(Languages:)) a.hnv-gallery-tag .hnv-gallery-tag__name",
+      "div.hz-gallery-entity-group:has(:contains(Languages:)) a.hz-gallery-tag .hz-gallery-tag__name",
+      "ul.languages a@ownText"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "categories": {
+     "path": [
+      "li:has(.tags_text:contains(Categories)) a.tag .item_name",
+      ".tags:contains(Categories) a.tag_btn .tag_name",
+      ".tags:contains(Categories:) .tag_list a .tag@ownText",
+      "div.hnv-gallery-entity-group:has(:contains(Categories:)) a.hnv-gallery-tag .hnv-gallery-tag__name",
+      "div.hz-gallery-entity-group:has(:contains(Categories:)) a.hz-gallery-tag .hz-gallery-tag__name",
+      "ul.categories a@ownText"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "pages": [
+     {
+      "path": "input#load_pages@value"
+     },
+     {
+      "path": ".book_page .pages h3@ownText",
+      "regex": "(\\d+)"
+     },
+     {
+      "path": "input#t_pages@value"
+     }
+    ],
+    "alt_title": [
+     "h1 + h2@ownText",
+     ".subtitle@ownText"
+    ]
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Chapter"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "let": {
+    "origin": {
+     "path": "",
+     "regex": "(https?://[A-Za-z0-9.-]+)/\\d{3}/[A-Za-z0-9]+/(?:cover|thumb|\\d+t)\\."
+    },
+    "dir": {
+     "path": "",
+     "regex": "id=[\"']load_dir[\"'][^>]*value=[\"']([^\"']+)"
+    },
+    "lid": {
+     "path": "",
+     "regex": "id=[\"']load_id[\"'][^>]*value=[\"']([^\"']+)"
+    }
+   },
+   "block_regex": "(?s)parseJSON\\('(.*?)'\\)",
+   "items": "\"\\d+\":\"[a-z],\\d+,\\d+\"",
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "^\"(\\d+)\":\"j,.*$",
+      "$1.jpg"
+     ],
+     [
+      "^\"(\\d+)\":\"p,.*$",
+      "$1.png"
+     ],
+     [
+      "^\"(\\d+)\":\"b,.*$",
+      "$1.bmp"
+     ],
+     [
+      "^\"(\\d+)\":\"g,.*$",
+      "$1.gif"
+     ],
+     [
+      "^\"(\\d+)\":\"w,.*$",
+      "$1.webp"
+     ],
+     [
+      "^\"(\\d+)\":\".*$",
+      "$1.jpg"
+     ]
+    ],
+    "template": "{l.origin}/{l.dir}/{l.lid}/{value}"
+   }
+  },
+  "origin": "baukasten:galleryadults {\"apex\": \"hentaifox.com\", \"page_style\": \"pag\", \"popular_path\": \"language/english/popular/\", \"reader\": \"json\", \"search_key\": \"key\"}"
+ }
+}

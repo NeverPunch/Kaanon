@@ -1,0 +1,46 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaOwl.io (unoriginal)",
+  "sprache": "en",
+  "base_url": "https://mangaowl.io",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mangaowliounoriginal",
+  "quellen": [
+   {
+    "name": "MangaOwl.io (unoriginal)",
+    "sprache": "en",
+    "quell_id": 2031498907928923621,
+    "home": "https://mangaowl.io"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/mangaowlio",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "mangaowl.io",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "read-1",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaSubString": "\"read-1\"",
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

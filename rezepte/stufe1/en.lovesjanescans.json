@@ -1,0 +1,45 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Lovesjane Scans",
+  "sprache": "en",
+  "base_url": "https://lovesjane.site",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.lovesjanescans",
+  "quellen": [
+   {
+    "name": "Lovesjane Scans",
+    "sprache": "en",
+    "quell_id": 3971812949560196318,
+    "home": "https://lovesjane.site"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/lovesjanescans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "lovesjane.site",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax_paged",
+  "manga_dir": "manga",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterMode": "ChapterMode.MangaAjaxPaginated"
+  },
+  "hinweise": []
+ }
+}

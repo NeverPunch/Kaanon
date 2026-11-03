@@ -1,0 +1,134 @@
+{
+ "extension": {
+  "name": "AnimeSama",
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.animesama",
+  "version": "1.6.11",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 5104384223103778991,
+    "name": "AnimeSama",
+    "language": "fr",
+    "homeUrl": "https://anime-sama.to",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": null,
+ "parameter": null,
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}",
+   "Accept-Language": "fr-FR"
+  },
+  "image_headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "popular": {
+   "request": "{base}/catalogue/?type[]=Scans&page={page}",
+   "format": "html",
+   "items": "div#list_catalog > div",
+   "fields": {
+    "url": {
+     "path": "a@href",
+     "template": "{value}#{f.h2.card-title}"
+    },
+    "title": "h2.card-title",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "#list_pagination > a.bg-sky-900 + a"
+   }
+  },
+  "latest": {
+   "request": "{base}/",
+   "format": "html",
+   "items": "div#containerAjoutsScans > div",
+   "fields": {
+    "url": {
+     "path": "a@href",
+     "replace": [
+      [
+       "scan/vf/?$",
+       ""
+      ]
+     ],
+     "template": "{value}#{f.h2.card-title}"
+    },
+    "title": "h2.card-title",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/catalogue/?type[]=Scans&search={query}&page={page}",
+   "format": "html",
+   "items": "div#list_catalog > div",
+   "fields": {
+    "url": {
+     "path": "a@href",
+     "template": "{value}#{f.h2.card-title}"
+    },
+    "title": "h2.card-title",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "#list_pagination > a.bg-sky-900 + a"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": "div.my-2 h1",
+    "cover": "img#coverOeuvre@src",
+    "description": "p#synopsisText",
+    "genres": "span.genre-pill",
+    "author": "span.info-lbl:contains(Créateur) + span.info-val",
+    "status": "span.info-lbl:contains(État) + span.info-val"
+   },
+   "status_map": {
+    "en cours": 1,
+    "terminé": 2
+   }
+  },
+  "chapters": {
+   "request": "{base}/s2/scans/get_nb_chap_et_img.php?oeuvre={u.title}",
+   "format": "text",
+   "url_vars": {
+    "title": "^[^#]*#(.+)$"
+   },
+   "items": "\"([^\"]+)\"\\s*:\\s*\\d+",
+   "fields": {
+    "url": {
+     "path": "",
+     "template": "/s2/scans/get_nb_chap_et_img.php?oeuvre={u.title}&id={value}"
+    },
+    "name": {
+     "path": "",
+     "template": "Chapitre {value}"
+    },
+    "number": "$"
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": "{base}{url}",
+   "format": "json",
+   "url_vars": {
+    "id": "[?&]id=([^&]+)",
+    "title": "[?&]oeuvre=([^&]+)"
+   },
+   "items_count": "{u.id}",
+   "image": {
+    "path": "",
+    "template": "{base}/s2/scans/{u.title}/{u.id}/{value}.jpg"
+   }
+  }
+ }
+}

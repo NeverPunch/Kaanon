@@ -1,0 +1,39 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Paradox Scans",
+  "sprache": "tr",
+  "base_url": "https://paradoxscans.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.paradoxscans",
+  "quellen": [
+   {
+    "name": "Paradox Scans",
+    "sprache": "tr",
+    "quell_id": 3730980240510982131,
+    "home": "https://paradoxscans.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/paradoxscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.6",
+  "theme": "initmanga"
+ },
+ "baukasten": "initmanga",
+ "parameter": {
+  "apex": "paradoxscans.com",
+  "latest_slug": "recently-updated",
+  "popular_slug": "manga-ranking"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "popularUrlSlug": "\"manga-ranking\"",
+   "latestUrlSlug": "\"recently-updated\"",
+   "siteZone": "ZoneOffset.UTC"
+  },
+  "hinweise": []
+ }
+}

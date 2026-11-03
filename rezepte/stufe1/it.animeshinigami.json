@@ -1,0 +1,45 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "AnimeShinigami",
+  "sprache": "it",
+  "base_url": "https://www.animeshinigami.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.it.kaanon.animeshinigami",
+  "quellen": [
+   {
+    "name": "AnimeShinigami",
+    "sprache": "it",
+    "quell_id": 8234656044798917709,
+    "home": "https://www.animeshinigami.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/it/animeshinigami",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "animeshinigami.com",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM d, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterMode": "ChapterMode.MangaAjax"
+  },
+  "hinweise": []
+ }
+}

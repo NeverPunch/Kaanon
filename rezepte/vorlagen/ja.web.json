@@ -1,0 +1,227 @@
+{
+ "extension": {
+  "name": "Web",
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.web",
+  "version": "1.6.11",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 4438091288299296218,
+    "name": "Web",
+    "language": "ja",
+    "homeUrl": "https://younganimal.com",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": "comiciviewer",
+ "parameter": {
+  "apex": "younganimal.com"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/series/list/up/{page}",
+   "items": "div.series-list-item",
+   "has_next": {
+    "exists": "a.g-pager-link.mode-active + a.g-pager-link"
+   },
+   "fields": {
+    "url": {
+     "path": "a.series-list-item-link@href",
+     "regex": "/series/([0-9A-Za-z]+)",
+     "template": "/series/{value}"
+    },
+    "title": "span[data-e2e=sliTitle]",
+    "cover": "img.series-list-item-img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/series/list/up/{page}",
+   "items": "div.series-list-item",
+   "has_next": {
+    "exists": "a.g-pager-link.mode-active + a.g-pager-link"
+   },
+   "fields": {
+    "url": {
+     "path": "a.series-list-item-link@href",
+     "regex": "/series/([0-9A-Za-z]+)",
+     "template": "/series/{value}"
+    },
+    "title": "span[data-e2e=sliTitle]",
+    "cover": "img.series-list-item-img@img"
+   }
+  },
+  "search": {
+   "request": "{base}/api/search?q={query}&page={page}&size=24",
+   "format": "json",
+   "items": "searchResult.series.series",
+   "page_size": 24,
+   "has_next": {
+    "total": "searchResult.series.total"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/series/{value}"
+    },
+    "title": "name",
+    "cover": [
+     "images.0.url",
+     "thumbnailImages.0.url"
+    ]
+   }
+  },
+  "details": {
+   "request": "{base}/api/episodes?seriesHash={u.hash}&episodeFrom=1&episodeTo=9999",
+   "format": "json",
+   "url_vars": {
+    "hash": "/series/([0-9A-Za-z]+)"
+   },
+   "fields": {
+    "title": "series.summary.name",
+    "cover": [
+     "series.summary.images.0.url",
+     "series.summary.thumbnailImages.0.url"
+    ],
+    "description": {
+     "path": "series.summary.description",
+     "replace": [
+      [
+       "\\\\n",
+       "\n"
+      ],
+      [
+       "\"\\}\\]\\},\\{\"type\":\"[a-z-]+\",\"children\":\\[\\{\"text\":\"",
+       "\n"
+      ],
+      [
+       "^\\[\\{\"type\":\"[a-z-]+\",\"children\":\\[\\{\"text\":\"",
+       ""
+      ],
+      [
+       "\"\\}\\]\\}\\]$",
+       ""
+      ],
+      [
+       "\\\\\"",
+       "\""
+      ]
+     ]
+    },
+    "genres": {
+     "path": "series.summary.tag.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "author": {
+     "path": "series.summary.author.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "series.summary.author.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "series.summary.isCompleted"
+   },
+   "status_map": {
+    "true": 2,
+    "false": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "series.episodes",
+   "reverse": true,
+   "skip": {
+    "path": "datePublished",
+    "is_future": "epoch_s"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/episodes/{value}"
+    },
+    "name": "title",
+    "date": "datePublished"
+   },
+   "date_format": "epoch_s",
+   "join": {
+    "request": "{base}/api/series/access?seriesHash={u.hash}&episodeFrom=1&episodeTo=9999",
+    "format": "json",
+    "items": "seriesAccess.episodeAccesses",
+    "key": "episodeId",
+    "on": "id",
+    "as": "acc"
+   },
+   "locked": {
+    "path": "acc.hasAccess",
+    "equals": "false"
+   }
+  },
+  "pages": {
+   "request": {
+    "url": "{base}/api/episodes/{u.id}"
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "/episodes/([0-9A-Za-z]+)"
+   },
+   "let": {
+    "vid": "episode.content.?type=viewer.viewerId",
+    "cid": "episode.contentId",
+    "u1": [
+     {
+      "const": "[[{base}/api/book/contentsInfo?comici-viewer-id={l.vid}&contentId={l.cid}&page-from=0&page-to=0]]"
+     },
+     {
+      "const": "{base}/api/episodes/{u.id}"
+     }
+    ]
+   },
+   "then": [
+    {
+     "request": "{l.u1}",
+     "format": "json",
+     "let": {
+      "n": "totalPages",
+      "u2": [
+       {
+        "const": "[[{base}/api/book/contentsInfo?comici-viewer-id={l.vid}&contentId={l.cid}&page-from=0&page-to={l.n}]]"
+       },
+       {
+        "const": "{base}/api/episodes/{u.id}"
+       }
+      ]
+     }
+    },
+    {
+     "request": "{l.u2}",
+     "format": "json"
+    }
+   ],
+   "items": [
+    "result",
+    "episode.content"
+   ],
+   "image": [
+    "imageUrl",
+    "url"
+   ],
+   "transform": {
+    "path": "scramble",
+    "template": "{\"type\":\"grid\",\"n\":4,\"index\":\"col\",\"order\":{value}}"
+   },
+   "include": "^https?://",
+   "referer": "chapter"
+  },
+  "origin": "baukasten:comiciviewer {\"apex\": \"younganimal.com\"}"
+ }
+}

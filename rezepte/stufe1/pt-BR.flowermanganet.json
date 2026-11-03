@@ -1,0 +1,47 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "FlowerManga.net",
+  "sprache": "pt-BR",
+  "base_url": "https://flowermangas.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.flowermanganet",
+  "quellen": [
+   {
+    "name": "FlowerManga.net",
+    "sprache": "pt-BR",
+    "quell_id": 2421010180391442293,
+    "home": "https://flowermangas.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/flowermanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.61",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "flowermangas.net",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "dd.MM.yyyy",
+  "date_locale": "en",
+  "date_selector": ".chapter-release-date .timediff",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterMode": "ChapterMode.MangaAjax",
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"dd.MM.yyyy\", Locale.ROOT)",
+   "chapterDateSelector": "\".chapter-release-date .timediff\""
+  },
+  "hinweise": []
+ }
+}

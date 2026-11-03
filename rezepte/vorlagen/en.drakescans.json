@@ -1,0 +1,274 @@
+{
+ "extension": {
+  "name": "Drake Scans",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.drakescans",
+  "version": "1.6.12",
+  "inhalt": "SAFE",
+  "quellen": [
+   {
+    "id": 2763484419787956351,
+    "name": "Drake Scans",
+    "language": "en",
+    "homeUrl": "https://drakecomic.net",
+    "mirrorUrls": []
+   }
+  ]
+ },
+ "baukasten": "vinetheme",
+ "parameter": {
+  "apex": "drakecomic.net"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/series?sort=popular&contentMode=comics&page={page}&limit=24",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "lt": [
+     "meta.page",
+     "meta.totalPages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": [
+      "urlSlug",
+      "slug"
+     ],
+     "template": "/series/comic/{value}"
+    },
+    "title": "title",
+    "cover": "coverImage"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/series?sort=updated&contentMode=comics&page={page}&limit=24",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "lt": [
+     "meta.page",
+     "meta.totalPages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": [
+      "urlSlug",
+      "slug"
+     ],
+     "template": "/series/comic/{value}"
+    },
+    "title": "title",
+    "cover": "coverImage"
+   }
+  },
+  "search": {
+   "request": "{base}/api/series?contentMode=comics&q={query}&page={page}&limit=24",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "lt": [
+     "meta.page",
+     "meta.totalPages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": [
+      "urlSlug",
+      "slug"
+     ],
+     "template": "/series/comic/{value}"
+    },
+    "title": "title",
+    "cover": "coverImage"
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{abs_url}?sort=desc",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "fields": {
+    "title": {
+     "path": "",
+     "regex": "\"series\":\\{\"id\":\"[^\"]*\",\"title\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "cover": {
+     "path": "",
+     "regex": "\"series\":\\{\"id\":\"[^\"]*\".*?\"coverImage\":\"([^\"]*)\"",
+     "group": 1
+    },
+    "description": {
+     "const": "{l.desc}\n\n[[Rating: {l.rating}]]\n[[Type: {l.type}]]\n[[Origin: {l.origin}]]\n[[Sale: {l.sale}%]]"
+    },
+    "genres": {
+     "const": "{l.type}[[, {l.origin}]][[, {l.genre_names}]]"
+    },
+    "author": {
+     "path": "",
+     "regex": "\"team\":\\{[^{}]*?\"name\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "status": {
+     "path": "",
+     "regex": "\"series\":\\{\"id\":\"[^\"]*\".*?\"status\":\"([A-Z]+)\"",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "ONGOING": 1,
+    "COMPLETED": 2,
+    "HIATUS": 6,
+    "CANCELLED": 5
+   },
+   "let": {
+    "desc_json": {
+     "path": "",
+     "regex": "\"series\":\\{\"id\":\"[^\"]*\".*?\"description\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "desc": [
+     {
+      "const": "{l.desc_json}",
+      "regex": "^([^<]*)$",
+      "group": 1,
+      "decode": "html"
+     },
+     {
+      "const": "{l.desc_json}",
+      "decode": "html_text"
+     }
+    ],
+    "type": {
+     "path": "",
+     "regex": "\"series\":\\{\"id\":\"[^\"]*\".*?\"type\":\"([A-Za-z_]+)\",\"rating\"",
+     "group": 1
+    },
+    "origin": {
+     "path": "",
+     "regex": "\"series\":\\{\"id\":\"[^\"]*\".*?\"origin\":\"([A-Za-z_]+)\"",
+     "group": 1
+    },
+    "rating": {
+     "path": "",
+     "regex": "\"type\":\"[A-Za-z_]+\",\"rating\":((?!0(?:\\.0+)?,)[0-9]+(?:\\.[0-9]+)?),\"ratingCount\"",
+     "group": 1,
+     "replace": [
+      [
+       "^([0-9]+)$",
+       "$1.0"
+      ]
+     ]
+    },
+    "sale": {
+     "path": "",
+     "regex": "\"salePercent\":([1-9][0-9]*),\"saleEndsAt\":[^}]*\\},\"chapters\"",
+     "group": 1
+    },
+    "genre_block": {
+     "path": "",
+     "regex": "\"genres\":\\[((?:\\{\"name\":\"(?:[^\"\\\\]|\\\\.)*\",\"slug\":\"[^\"]*\",\"color\":\"[^\"]*\"\\},?)+)\\]",
+     "group": 1
+    },
+    "genre_names": {
+     "const": "{l.genre_block}",
+     "regex": "\"name\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "regex_all": true,
+     "decode": "json",
+     "join": ", ",
+     "replace": [
+      [
+       "(?:[\\u00A0\\u00A9\\u00AE\\u2000-\\u206F\\u2100-\\u2BFF\\uFE00-\\uFE0F]|[^\\u0000-\\uFFFF])+",
+       ""
+      ]
+     ]
+    }
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{abs_url}?sort=desc&page={page}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "paging": {
+    "has_next": {
+     "min": 100
+    },
+    "max_pages": 30
+   },
+   "items": "\\{\"id\":\"[^\"]+\",\"number\":[0-9.]+,\"title\":(?:\"(?:[^\"\\\\]|\\\\.)*\"|null),\"coverImage\":[^,]*,\"isLocked\":(?:true|false)[^{}]*\\}",
+   "skip": {
+    "path": "",
+    "regex": "\"isLocked\":(true|false)",
+    "group": 1,
+    "equals": "true"
+   },
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"number\":([0-9.]+)",
+     "group": 1,
+     "template": "{url}/chapter/{value}"
+    },
+    "name": [
+     {
+      "path": "",
+      "regex": "\"number\":([0-9.]+),\"title\":(?!\"\\1\")(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 2,
+      "decode": "json"
+     },
+     {
+      "path": "",
+      "regex": "\"number\":([0-9.]+)",
+      "group": 1,
+      "template": "Chapter {value}"
+     }
+    ],
+    "date": {
+     "path": "",
+     "regex": "\"publishedAt\":\"([^\"]*)\"",
+     "group": 1
+    },
+    "number": {
+     "path": "",
+     "regex": "\"number\":([0-9.]+)",
+     "group": 1
+    }
+   },
+   "date_format": "iso",
+   "request_by_page": {
+    "1": "details"
+   }
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "items": "\"imageUrl\":\"([^\"]+)\"",
+   "image": ""
+  },
+  "origin": "baukasten:vinetheme {\"apex\": \"drakecomic.net\"}"
+ }
+}

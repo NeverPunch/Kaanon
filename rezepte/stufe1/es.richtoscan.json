@@ -1,0 +1,46 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "RichtoScan",
+  "sprache": "es",
+  "base_url": "https://r1.richtoon.top",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.richtoscan",
+  "quellen": [
+   {
+    "name": "RichtoScan",
+    "sprache": "es",
+    "quell_id": 1245067583654716116,
+    "home": "https://r1.richtoon.top"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/richtoscan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.62",
+  "theme": "madara"
+ },
+ "baukasten": "madara",
+ "parameter": {
+  "apex": "r1.richtoon.top",
+  "list_mode": "ajax",
+  "chapter_mode": "ajax",
+  "manga_dir": "manga",
+  "date_format": "MMMM dd, yyyy",
+  "date_locale": "en",
+  "date_selector": "span.chapter-release-date",
+  "image_origin": "keep",
+  "image_retry": "no",
+  "page_mode": "style_list",
+  "skip_premium": "no"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "chapterDateFormat": "DateTimeFormatter.ofPattern(\"MMMM dd, yyyy\", Locale.ROOT)",
+   "chapterListSelector": "\"li.wp-manga-chapter:not(.premium-block)\""
+  },
+  "hinweise": []
+ }
+}

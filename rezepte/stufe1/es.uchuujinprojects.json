@@ -1,0 +1,43 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Uchuujin Projects",
+  "sprache": "es",
+  "base_url": "https://uchuujinmangas.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.uchuujinprojects",
+  "quellen": [
+   {
+    "name": "Uchuujin Projects",
+    "sprache": "es",
+    "quell_id": 3953107753690791431,
+    "home": "https://uchuujinmangas.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/uchuujinprojects",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "mangathemesia"
+ },
+ "baukasten": "mangathemesia",
+ "parameter": {
+  "apex": "uchuujinmangas.com",
+  "date_locale": "en",
+  "date_order": "dmy",
+  "manga_dir": "manga",
+  "page_mode": "img",
+  "search_mode": "title"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "datePattern": "\"dd 'de' MMMM 'de' yyyy\"",
+   "hasProjectPage": "true"
+  },
+  "hinweise": [
+   "page_mode: img angesetzt; liefert die Website die Bilder per ts_reader-Skript, „script“ wählen"
+  ]
+ }
+}

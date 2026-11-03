@@ -1,0 +1,91 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiEra",
+  "sprache": "all",
+  "base_url": "https://hentaiera.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.hentaiera",
+  "quellen": [
+   {
+    "name": "HentaiEra",
+    "sprache": "en",
+    "quell_id": 647637185891033517,
+    "home": "https://hentaiera.com"
+   },
+   {
+    "name": "HentaiEra",
+    "sprache": "ja",
+    "quell_id": 2492666945996599997,
+    "home": "https://hentaiera.com"
+   },
+   {
+    "name": "HentaiEra",
+    "sprache": "es",
+    "quell_id": 1720815810677381837,
+    "home": "https://hentaiera.com"
+   },
+   {
+    "name": "HentaiEra",
+    "sprache": "fr",
+    "quell_id": 6887659515539839354,
+    "home": "https://hentaiera.com"
+   },
+   {
+    "name": "HentaiEra",
+    "sprache": "ko",
+    "quell_id": 5930644847758440964,
+    "home": "https://hentaiera.com"
+   },
+   {
+    "name": "HentaiEra",
+    "sprache": "de",
+    "quell_id": 1901100795183424105,
+    "home": "https://hentaiera.com"
+   },
+   {
+    "name": "HentaiEra",
+    "sprache": "ru",
+    "quell_id": 4966955732363898584,
+    "home": "https://hentaiera.com"
+   },
+   {
+    "name": "HentaiEra",
+    "sprache": "all",
+    "quell_id": 5238899243957092391,
+    "home": "https://hentaiera.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/hentaiera",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.13",
+  "theme": "galleryadults"
+ },
+ "baukasten": "galleryadults",
+ "parameter": {
+  "apex": "hentaiera.com",
+  "page_style": "query",
+  "popular_path": "language/english/popular/",
+  "reader": "json",
+  "search_key": "q"
+ },
+ "zusatz": {
+  "community_einstellungen": {
+   "mangaLang": "when (lang) {",
+   "useIntermediateSearch": "true",
+   "supportSpeechless": "true",
+   "mangaTitleSelector": "\".gallery_title\"",
+   "popularMangaUrl": "if (mangaLang.isBlank()) { // LANGUAGE_MULTI popular",
+   "mangaDetailInfoSelector": "\".gallery_first\"",
+   "thumbnailSelector": "\".gthumb\"",
+   "pageUri": "\"view\"",
+   "getCategoryURIs": "listOf("
+  },
+  "hinweise": [
+   "galleryadults: Leser-Art (reader) und Seitenstil per Erkundung prüfen"
+  ]
+ }
+}
