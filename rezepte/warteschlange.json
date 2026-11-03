@@ -16258,7 +16258,7 @@
  },
  {
   "modul": "src/tr/mangadiyari",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Manga Diyarı",
   "stufe": 2,
   "theme": null,
@@ -16268,7 +16268,10 @@
   "host": "mangadiyari.com",
   "nsfw": false,
   "wer": "agent-w7c",
-  "seit": "2026-11-03T11:19:36"
+  "seit": "2026-11-03T11:19:36",
+  "datei": "rezepte/modelle/tr.mangadiyar.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:19:57"
  },
  {
   "modul": "src/tr/mangadusleri",
@@ -16286,7 +16289,7 @@
  },
  {
   "modul": "src/tr/mangaportali",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Manga Portalı",
   "stufe": 2,
   "theme": null,
@@ -16294,7 +16297,9 @@
    "tr"
   ],
   "host": "mangaportali.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:19:57"
  },
  {
   "modul": "src/tr/mangawt",

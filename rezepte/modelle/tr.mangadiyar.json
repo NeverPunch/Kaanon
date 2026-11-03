@@ -23,7 +23,217 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/series?sort=popular&limit=24&page={page}",
+   "format": "json",
+   "items": "series",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover_url",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://mangadiyari.com/"
+      ],
+      [
+       "^(?!https?://)",
+       "https://mangadiyari.com/"
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": "hasMore"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/series/latest-updates?limit=24&page={page}",
+   "format": "json",
+   "items": "updates",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover_url",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://mangadiyari.com/"
+      ],
+      [
+       "^(?!https?://)",
+       "https://mangadiyari.com/"
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": "hasMore"
+   }
+  },
+  "search": {
+   "request": "{base}/api/series?search={query}&sort=latest&limit=24&page={page}",
+   "format": "json",
+   "items": "series",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover_url",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://mangadiyari.com/"
+      ],
+      [
+       "^(?!https?://)",
+       "https://mangadiyari.com/"
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": "hasMore"
+   }
+  },
+  "details": {
+   "request": "{base}/api/series/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/?#]+)"
+   },
+   "let": {
+    "desc": {
+     "path": "series.description",
+     "decode": "html_text"
+    },
+    "alt": "series.alt_names"
+   },
+   "fields": {
+    "title": "series.title",
+    "cover": {
+     "path": "series.cover_url",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://mangadiyari.com/"
+      ],
+      [
+       "^(?!https?://)",
+       "https://mangadiyari.com/"
+      ]
+     ]
+    },
+    "author": "series.author",
+    "artist": "series.artist",
+    "genres": {
+     "path": [
+      "series.type",
+      "series.genres.*"
+     ],
+     "union": true
+    },
+    "status": "series.status",
+    "description": {
+     "const": "[[{l.desc}]][[\n\nAlternatif isimler: {l.alt}]]",
+     "replace": [
+      [
+       "^\\s+|\\s+$",
+       ""
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/?#]+)"
+   },
+   "items": "chapters",
+   "fields": {
+    "url": {
+     "path": "chapter_number",
+     "replace": [
+      [
+       "\\.0+$",
+       ""
+      ]
+     ],
+     "template": "/seri/{u.slug}/bolum/{value}#{f.id}"
+    },
+    "name": [
+     "title",
+     {
+      "path": "chapter_number",
+      "replace": [
+       [
+        "\\.0+$",
+        ""
+       ]
+      ],
+      "template": "Bölüm {value}"
+     }
+    ],
+    "number": "chapter_number",
+    "date": [
+     "publish_at",
+     "created_at"
+    ]
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api/chapters/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "#(\\d+)$"
+   },
+   "items": "pages",
+   "sort": "page_number",
+   "image": {
+    "path": "display_image",
+    "replace": [
+     [
+      "^/(?!/)",
+      "https://mangadiyari.com/"
+     ],
+     [
+      "^(?!https?://)",
+      "https://mangadiyari.com/"
+     ]
+    ]
+   },
+   "referer": "chapter"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "JSON-API /api/series (24 je Seite, hasMore): Beliebt sort=popular, Suche search=…&sort=latest; Neueste /api/series/latest-updates. Typ-/Status-/Genre-Filter nicht übernommen.",
+  "Details und Kapitel aus /api/series/<slug> (Kapitel in API-Reihenfolge; Community sortiert absteigend nach Nummer). Beschreibung HTML → Text.",
+  "Kapitel-URL /seri/<slug>/bolum/<nummer>#<id> (Web-URL wie Community-getChapterUrl, Kapitel-id als Anker für /api/chapters/<id>). Nicht mit Community-URLs kompatibel.",
+  "Bild-/Cover-Pfade relativ → https://mangadiyari.com/ davor (resolveImage). Seiten-Referer = Kapitel-URL (Community setzt Page.url)."
+ ]
 }
