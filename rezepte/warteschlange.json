@@ -17791,7 +17791,7 @@
  },
  {
   "modul": "src/zh/terrahistoricus",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "Terra Historicus",
   "stufe": 2,
   "theme": null,
@@ -17801,11 +17801,14 @@
   "host": "comic.hypergryph.com",
   "nsfw": false,
   "wer": "agent-w8c",
-  "seit": "2026-11-03T11:32:03"
+  "seit": "2026-11-03T11:32:03",
+  "grund": "Bilder je Seite nur über eigenen API-Aufruf /episode/<cid>/page?pageNum=N (N = 1..Anzahl pageInfos); pageInfos haben keine Seitennummer und die Rezeptsprache kennt keinen Index-Platzhalter; Bild-URLs laufen ab (403 → neu holen)",
+  "datei": null,
+  "geaendert": "2026-11-03T11:32:31"
  },
  {
   "modul": "src/zh/tongli",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "Tongli",
   "stufe": 2,
   "theme": null,
@@ -17815,11 +17818,14 @@
   "host": "ebook.tongli.com.tw",
   "nsfw": false,
   "wer": "agent-w7d",
-  "seit": "2026-11-03T11:32:05"
+  "seit": "2026-11-03T11:32:05",
+  "grund": "Kapitel- und Seiten-API (api.tongli.tw/Book/BookVol, /Comic/sas) nur mit Authorization: Bearer <Firebase-idToken>; Token entsteht durch Anmeldung bzw. anonyme Registrierung bei Google Identity Toolkit (signupNewUser, Ablauf 1 h, Refresh-Token) – Login zum Lesen, nicht ausdrückbar. Zudem kommerzieller E-Book-Shop (nur freie Bände lesbar).",
+  "datei": null,
+  "geaendert": "2026-11-03T11:32:17"
  },
  {
   "modul": "src/zh/toptoon",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Toptoon.net",
   "stufe": 2,
   "theme": null,
@@ -17827,11 +17833,13 @@
    "zh"
   ],
   "host": "toptoon.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:32:17"
  },
  {
   "modul": "src/zh/utifa",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Utifa",
   "stufe": 2,
   "theme": null,
@@ -17839,11 +17847,13 @@
    "zh"
   ],
   "host": "bx.yaimer.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8d",
+  "seit": "2026-11-03T11:32:29"
  },
  {
   "modul": "src/zh/vomic",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "vomic",
   "stufe": 2,
   "theme": null,
@@ -17851,7 +17861,9 @@
    "zh"
   ],
   "host": "vomicmh.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8c",
+  "seit": "2026-11-03T11:32:31"
  },
  {
   "modul": "src/zh/wnacg",
