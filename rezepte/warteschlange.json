@@ -6747,7 +6747,7 @@
  },
  {
   "modul": "src/en/bakkin",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Bakkin",
   "stufe": 2,
   "theme": "bakkin",
@@ -6755,7 +6755,9 @@
    "en"
   ],
   "host": "bakkin.moe",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-s2a",
+  "seit": "2026-11-03T10:01:49"
  },
  {
   "modul": "src/id/komikzoid",
