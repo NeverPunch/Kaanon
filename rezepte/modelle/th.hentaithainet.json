@@ -1,0 +1,81 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiThai.net",
+  "sprache": "th",
+  "base_url": "https://hentaithai.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.th.kaanon.hentaithainet",
+  "quellen": [
+   {
+    "name": "HentaiThai.net",
+    "sprache": "th",
+    "quell_id": 4193399775119194496,
+    "home": "https://hentaithai.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/th/hentaithainet",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/page-{page}",
+   "request_by_page": {
+    "1": "{base}"
+   },
+   "items": "a.col-6[href*=\"/t\"]",
+   "fields": {
+    "url": "@href",
+    "title": [
+     "@title",
+     "h3.font_name"
+    ]
+   },
+   "has_next": {
+    "min": 1
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "title",
+    "cover": "img[src*=\"/thai/\"]@src",
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Oneshot"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img[src*=\"/thai/\"]",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "HTML wie Community: Startseite bzw. /page-<n>, Einträge a.col-6[href*=/t]. Weiter, solange die Seite Einträge liefert (min 1; Community prüft Link auf page-<n+1>).",
+  "Listen-Cover fehlen: Die Community ordnet sie über die CSS-Klasse post_<id> einem background-image in <style> zu – solche Querbezüge sind nicht ausdrückbar. Cover kommt aus den Details (erstes Bild /thai/).",
+  "Keine Neueste-Liste (Community blättert die Seiten rückwärts ab der höchsten Seitenzahl – nicht ausdrückbar) und keine Suche (Website hat keine).",
+  "Ein Kapitel 'Oneshot' = Eintragsseite; Seiten: alle img[src*=/thai/]. Status fest abgeschlossen (Community: unbekannt, nur einmal laden)."
+ ]
+}

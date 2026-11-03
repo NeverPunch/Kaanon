@@ -1,0 +1,173 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "UniComics",
+  "sprache": "ru",
+  "base_url": "https://unicomics.ru",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ru.kaanon.unicomics",
+  "quellen": [
+   {
+    "name": "UniComics",
+    "sprache": "ru",
+    "quell_id": 6859623422196397486,
+    "home": "https://unicomics.ru"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ru/unicomics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.12",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/comics/series/page/{page}",
+   "items": ".comics-grid .comic-card",
+   "fields": {
+    "url": [
+     ".comic-title-link@href",
+     "a@href"
+    ],
+    "title": [
+     ".comic-title-ru",
+     ".comic-title-en",
+     ".comic-title-link"
+    ],
+    "cover": [
+     ".comic-image-link img@src",
+     "img@src"
+    ]
+   },
+   "has_next": {
+    "exists": "select.mobilePageSelector option[selected] ~ option"
+   }
+  },
+  "latest": {
+   "request": "{base}/comics/online/page/{page}",
+   "items": ".comics-grid .comic-card",
+   "fields": {
+    "url": [
+     ".comic-title-link@href",
+     "a@href"
+    ],
+    "title": [
+     ".comic-title-ru",
+     ".comic-title-en",
+     ".comic-title-link"
+    ],
+    "cover": [
+     ".comic-image-link img@src",
+     "img@src"
+    ]
+   },
+   "has_next": {
+    "exists": "select.mobilePageSelector option[selected] ~ option"
+   }
+  },
+  "search": {
+   "request": "{base}/map",
+   "items": "a[href^=/comics/series/]",
+   "fields": {
+    "url": "@href",
+    "title": ""
+   },
+   "client_filter": true,
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     ".series-main h1",
+     ".series-main h2",
+     ".issue-info h1"
+    ],
+    "cover": [
+     ".cover-series img@src",
+     ".cover-series-mobile img@src",
+     ".issue-cover img@src"
+    ],
+    "author": [
+     ".series-info-grid .label:matchesOwn(^\\s*Издательство) + .value",
+     ".issue-info-grid .issue-info-label:matchesOwn(^\\s*Издательство) + .issue-info-value"
+    ],
+    "description": {
+     "path": ".series-description",
+     "template": "[[{l.en}\n\n]]{value}"
+    }
+   },
+   "let": {
+    "en": ".series-main h2"
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}/page/{page}",
+   "request_by_page": {
+    "1": "details"
+   },
+   "items": ".comics-grid .comic-card, html:has(.issue-info-grid)",
+   "fields": {
+    "url": [
+     ".buttons-grid a:contains(Читать)@href",
+     ".comic-title-link@href",
+     ".btn-read-online-issues@href",
+     {
+      "const": "{url}"
+     }
+    ],
+    "name": [
+     ".comic-title-ru",
+     ".comic-title-en",
+     ".issue-info h1"
+    ],
+    "number": {
+     "path": [
+      ".comic-title-ru",
+      ".comic-title-en",
+      ".issue-info h1"
+     ],
+     "regex": "№\\s*(\\d+(?:\\.\\d+)?)",
+     "group": 1
+    }
+   },
+   "paging": {
+    "has_next": {
+     "exists": "select.mobilePageSelector option[selected] ~ option"
+    },
+    "max_pages": 50
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "select.mobilePageSelector option",
+   "image": "@value",
+   "subpage": {
+    "request": "{url}",
+    "format": "html",
+    "image": [
+     ".image_online@src",
+     "#b_image@src",
+     "#image@src"
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "Listen /comics/series/page/N (Beliebt) und /comics/online/page/N (Neueste); nächste Seite über das Seitenauswahl-Menü. Verlags-/Ereignisfilter nicht übernommen.",
+  "Suche: Community filtert /map (alle Serien mit RU- und EN-Titel) nach Wort-Token; hier client_filter auf den Linktext. Dubletten (RU/EN mit gleichem Slug) entfernt die Community – hier ggf. doppelt.",
+  "Details für Serien- und Einzelheftseiten (Ausweichketten). Verlag als Autor; Annahme: Label- und Wert-Element stehen direkt nebeneinander (Community paart sie per Index). Englischer Titel vor der Beschreibung.",
+  "Kapitel: Hefte der Serienseite (.comic-card), Folgeseiten als {abs_url}/page/N angenommen (Community folgt den option-Werten des Seitenmenüs – prüfen). Einzelheftseite → ein Kapitel (Lesen-Knopf). Reihenfolge umgekehrt wie Community. Die Community setzt bei gleichem Namen wie der Titel ein unsichtbares Zeichen davor – nicht nötig.",
+  "Seiten: jede Bildseite aus dem Seitenmenü (option@value) ist eine eigene HTML-Seite (subpage), Bild .image_online/#b_image/#image. Ausweichweg der Community über 'new Paginator(…)' (Seitenzahl + Basispfad) nicht nachgebaut."
+ ]
+}

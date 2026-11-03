@@ -166,6 +166,9 @@
     "num": "/capitulo/([^/?#]+)"
    },
    "items": "pages",
+   "sort": {
+    "path": "index"
+   },
    "image": {
     "path": "url",
     "replace": [
@@ -180,7 +183,7 @@
  "hinweise": [
   "API api.mangotoons.com/api/v1: Listen /obras (24 je Seite, ordenar populares/recentes, busca=), Details+Kapitel /obras/<id>, Seiten /leitor/obras/<id>/capitulos/<num>/manifest.",
   "Manifest antwortet ab ~12 Anfragen/Minute mit 429; Community drosselt nur diesen Pfad auf 1 je 5 s – pfadabhängiges Rate-Limit nicht ausdrückbar, hier global 2/s (bei Massen-Downloads prüfen).",
-  "Kapitel-URL /obra/<id>/capitulo/<nummer> (Nummer ohne überflüssige Nullen wie Community); Reihenfolge wie geliefert (Community sortiert absteigend). Seiten nicht nach index sortiert (Community sortiert).",
+  "Kapitel-URL /obra/<id>/capitulo/<nummer> (Nummer ohne überflüssige Nullen wie Community); Reihenfolge wie geliefert (Community sortiert absteigend). Seiten nach index sortiert (sort mit path wie in einer Vorlage, dort mit regex – Zahlensortierung prüfen).",
   "Cover/Bilder: relative Pfade bleiben relativ zur Website bzw. werden auf cdn.mangotoons.com gesetzt (wie Community)."
  ]
 }

@@ -1,0 +1,164 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaPoisk",
+  "sprache": "ru",
+  "base_url": "https://mangapoisk.me",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ru.kaanon.mangapoisk",
+  "quellen": [
+   {
+    "name": "MangaPoisk",
+    "sprache": "ru",
+    "quell_id": 4092015241327675443,
+    "home": "https://mangapoisk.me"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ru/mangapoisk",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.17",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/manga?sortBy=popular&page={page}",
+   "items": ".manga-card:has(a[title])",
+   "has_next": {
+    "exists": "ul li:contains(Вперёд) a"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": {
+     "path": "a@title",
+     "replace": [
+      [
+       "\\s*/.*$",
+       ""
+      ]
+     ]
+    },
+    "cover": [
+     "a > img@data-src",
+     "a > img@src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/manga?sortBy=-last_chapter_at&page={page}",
+   "items": ".manga-card:has(a[title])",
+   "has_next": {
+    "exists": "ul li:contains(Вперёд) a"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": {
+     "path": "a@title",
+     "replace": [
+      [
+       "\\s*/.*$",
+       ""
+      ]
+     ]
+    },
+    "cover": [
+     "a > img@data-src",
+     "a > img@src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/search?q={query}&page={page}",
+   "items": "article.card:has(a.card-about)",
+   "has_next": {
+    "exists": "ul.pagination li a[aria-label*=Вперёд]:not([aria-disabled=true])"
+   },
+   "fields": {
+    "url": "a.card-about@href",
+    "title": {
+     "path": [
+      "div.post-description p.card-title",
+      "a > h2.entry-title"
+     ],
+     "replace": [
+      [
+       "\\s*/.*$",
+       ""
+      ]
+     ]
+    },
+    "cover": [
+     "a > img@data-src",
+     "a > img@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.card:has(header) .text-base span",
+    "genres": {
+     "path": "div.card:has(header) span:contains(Жанр:) a",
+     "all": true,
+     "join": ", "
+    },
+    "description": "div.card:has(header) .manga-description",
+    "status": {
+     "path": "div.card:has(header) span:contains(Статус:)",
+     "regex": "(Завершена|Выпускается)",
+     "group": 1
+    },
+    "cover": "div.card:has(header) img.w-full@src"
+   },
+   "status_map": {
+    "завершена": 2,
+    "выпускается": 1
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}/chaptersList?page={page}",
+   "request_by_page": {
+    "1": "{abs_url}/chaptersList"
+   },
+   "items": ".chapter-item:has(span.chapter-title):has(a)",
+   "fields": {
+    "url": "a@href",
+    "name": "a",
+    "number": {
+     "path": "span.chapter-title",
+     "regex": "(?i)Глава\\s(\\d+)",
+     "group": 1
+    },
+    "date": "span.chapter-date"
+   },
+   "date_format": [
+    "dd MMMM yyyy",
+    "relative"
+   ],
+   "date_locale": "ru",
+   "paging": {
+    "has_next": {
+     "exists": "li.page-item.active + li.page-item a, li.page-item:contains(Вперёд):not(.disabled) a"
+    },
+    "max_pages": 100
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img.page-image",
+   "image": [
+    "@data-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Katalog /manga?sortBy=popular bzw. -last_chapter_at, Suche /search?q= (Website verlangt ≥ 3 Zeichen) wie Community; Genre-/Status-Filter nicht übernommen. Basis-URL wechselt (Community: einstellbar).",
+  "Kapitel aus /<manga>/chaptersList?page=N. Community liest die letzte Seitenzahl aus li.page-item; hier „nächste Seite“ über li.page-item.active + li.page-item bzw. „Вперёд“ – Markup nicht gesehen, auf dem PC prüfen.",
+  "Lizenzierte Titel/Kapitel (Hinweis „Главы удалены по требованию правообладателя“) liefern keine Kapitel/Bilder; Community meldet das als Fehler.",
+  "Datum: „N минут/часов/дней назад“ oder „dd MMMM yyyy“ (ru) – russische Relativangaben in „relative“ nicht belegt."
+ ]
+}

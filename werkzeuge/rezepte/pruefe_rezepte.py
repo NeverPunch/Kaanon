@@ -16,6 +16,8 @@ HIER = os.path.dirname(os.path.abspath(__file__))
 REZ = os.path.normpath(os.path.join(HIER, '..', '..', 'rezepte'))
 FREIE_MAPS = {'headers', 'image_headers', 'cookies', 'form', 'status_map', 'url_vars', 'let', 'vars',
               'variables', 'request_by_page', 'json', 'query'}
+# Unterhalb dieser Schlüssel ist alles frei (Anfrage-Inhalte), auch in verschachtelten Objekten
+TIEF_FREI = {'json', 'variables', 'form', 'headers', 'image_headers', 'cookies', 'query'}
 PFLICHT = ('popular', 'details', 'chapters', 'pages')
 PLATZHALTER = re.compile(r'\{([a-z_][a-z0-9_]*(?:\.[^{}\s]+)?|nowf:[^{}]+)\}')
 EINFACH = {'base', 'page', 'page0', 'offset', 'query', 'query_raw', 'abs_url', 'url', 'value', 'page_key', 'now_s'}
@@ -29,9 +31,9 @@ def vokabular():
                 if not frei: schluessel.add(k)
                 if k in ('decode', 'pre_decode') and isinstance(v, str): decode.add(v)
                 if k == 'format' and isinstance(v, str): formate.add(v)
-                walk(v, k in FREIE_MAPS)
+                walk(v, k in FREIE_MAPS or (frei == 'tief') or ('tief' if k in TIEF_FREI else False))
         elif isinstance(o, list):
-            for x in o: walk(x)
+            for x in o: walk(x, frei if frei == 'tief' else False)
         elif isinstance(o, str) and '"type"' in o:
             for t in re.findall(r'"type"\s*:\s*"(\w+)"', o): transform.add(t)
     for f in glob.glob(os.path.join(REZ, 'vorlagen', '*.json')):
@@ -58,9 +60,9 @@ def pruefe_modell(m, V, fehler, warn):
                     fehler.append(f'unbekannte decode-Art {v!r} bei {pfad}.{k}')
                 if k == 'format' and isinstance(v, str) and v not in formate:
                     fehler.append(f'unbekanntes format {v!r} bei {pfad}')
-                walk(v, f'{pfad}.{k}', k in FREIE_MAPS)
+                walk(v, f'{pfad}.{k}', 'tief' if (frei == 'tief' or k in TIEF_FREI) else (k in FREIE_MAPS))
         elif isinstance(o, list):
-            for x in o: walk(x, pfad)
+            for x in o: walk(x, pfad, frei if frei == 'tief' else False)
         elif isinstance(o, str):
             for t in re.findall(r'"type"\s*:\s*"(\w+)"', o):
                 if pfad.endswith('template') and t not in transform: fehler.append(f'unbekannter transform-Typ {t!r}')

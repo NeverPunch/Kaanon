@@ -1,0 +1,186 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Saikai Scan",
+  "sprache": "pt-BR",
+  "base_url": "https://housesaikai.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.saikaiscan",
+  "quellen": [
+   {
+    "name": "Saikai Scan",
+    "sprache": "pt-BR",
+    "quell_id": 273341846992513187,
+    "home": "https://housesaikai.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/saikaiscan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "application/json, text/plain, */*"
+  },
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 2000
+  },
+  "popular": {
+   "request": "https://api.housesaikai.net/api/stories?format=2&q=&sortProperty=pageViews&sortDirection=desc&page={page}&per_page=12&relationships=language,type,format",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comics/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "image",
+     "template": "https://s3-beta.housesaikai.net/{value}"
+    }
+   },
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.last_page"
+    ]
+   }
+  },
+  "latest": {
+   "request": "https://api.housesaikai.net/api/lancamentos?format=2&page={page}&per_page=12&relationships=language,type,format,latestReleases.separator",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comics/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "image",
+     "template": "https://s3-beta.housesaikai.net/{value}"
+    }
+   },
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.last_page"
+    ]
+   }
+  },
+  "search": {
+   "request": "https://api.housesaikai.net/api/stories?format=2&q={query}&sortProperty=pageViews&sortDirection=desc&page={page}&per_page=12&relationships=language,type,format",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comics/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "image",
+     "template": "https://s3-beta.housesaikai.net/{value}"
+    }
+   },
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.last_page"
+    ]
+   }
+  },
+  "details": {
+   "request": "https://api.housesaikai.net/api/stories?format=2&slug={u.slug}&per_page=1&relationships=releases,language,type,format,artists,status",
+   "format": "json",
+   "url_vars": {
+    "slug": "/comics/([^/?#]+)"
+   },
+   "fields": {
+    "title": "data.0.title",
+    "cover": {
+     "path": "data.0.image",
+     "template": "https://s3-beta.housesaikai.net/{value}"
+    },
+    "author": {
+     "path": "data.0.authors.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "data.0.artists.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "data.0.genres.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "description": {
+     "path": "data.0.synopsis",
+     "decode": "html_text"
+    },
+    "status": "data.0.status.name"
+   },
+   "status_map": {
+    "concluído": 2,
+    "Concluído": 2,
+    "em andamento": 1,
+    "Em Andamento": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "slug": "/comics/([^/?#]+)"
+   },
+   "items": "data.0.releases",
+   "skip": {
+    "path": "is_active",
+    "regex": "^(?!1$).+$"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/ler/comics/{u.slug}/{f.id}/{value}"
+    },
+    "name": {
+     "path": "chapter",
+     "template": "Capítulo {value}[[ - {f.title}]]"
+    },
+    "number": "chapter",
+    "date": "published_at",
+    "scanlator": {
+     "const": "Saikai Scan"
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://api.housesaikai.net/api/releases/{u.rid}?relationships=releaseImages",
+   "format": "json",
+   "url_vars": {
+    "rid": "/ler/comics/[^/]+/(\\d+)"
+   },
+   "items": "data.release_images",
+   "image": {
+    "path": "image",
+    "template": "https://s3-beta.housesaikai.net/{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "API api.housesaikai.net und Bilder/Cover von s3-beta.housesaikai.net wie in der Community (format=2 = Comics, per_page=12). Beliebt = Suche ohne Text nach pageViews absteigend. Filter (Land, Status, Sortierung, Genres) nicht übernommen.",
+  "Details und Kapitel aus /api/stories?slug=… (erstes Element 'data.0'); Kapitel mit is_active ≠ 1 ausgelassen. Community sortiert nach Kapitelnummer absteigend – hier Reihenfolge der API, prüfen.",
+  "Beschreibung: Synopsis-HTML als Text (Community: Absätze mit Leerzeile getrennt)."
+ ]
+}

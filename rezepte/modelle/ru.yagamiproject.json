@@ -1,0 +1,283 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "YagamiProject",
+  "sprache": "ru",
+  "base_url": "https://read.yagami.me",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ru.kaanon.yagamiproject",
+  "quellen": [
+   {
+    "name": "YagamiProject",
+    "sprache": "ru",
+    "quell_id": 5458965504724393093,
+    "home": "https://read.yagami.me"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ru/yagamiproject",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/list-new/{page}",
+   "items": ".list .group:has(.title a)",
+   "fields": {
+    "url": ".title a@href",
+    "title": [
+     {
+      "path": ".title a@title",
+      "regex": "(?:^|/\\s*)([A-Za-z0-9][^/]*?)\\s*(?:/|$)",
+      "group": 1
+     },
+     {
+      "path": ".title a@title",
+      "regex": "^\\s*([^/]*?[^/\\s])\\s*(?:/|$)",
+      "group": 1
+     },
+     ".title a"
+    ],
+    "cover": {
+     "path": ".cover_mini > img@src",
+     "replace": [
+      [
+       "thumb_",
+       ""
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": ".panel_nav .button > a:last-child"
+   }
+  },
+  "latest": {
+   "request": "{base}/latest/{page}",
+   "items": ".list .group:has(.title a)",
+   "fields": {
+    "url": ".title a@href",
+    "title": [
+     {
+      "path": ".title a@title",
+      "regex": "(?:^|/\\s*)([A-Za-z0-9][^/]*?)\\s*(?:/|$)",
+      "group": 1
+     },
+     {
+      "path": ".title a@title",
+      "regex": "^\\s*([^/]*?[^/\\s])\\s*(?:/|$)",
+      "group": 1
+     },
+     ".title a"
+    ],
+    "cover": {
+     "path": ".cover_mini > img@src",
+     "replace": [
+      [
+       "thumb_",
+       ""
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": ".panel_nav .button > a:last-child"
+   }
+  },
+  "search": {
+   "request": "{base}/reader/search/?s={query}&p={page}",
+   "items": ".list .group:has(.title a)",
+   "fields": {
+    "url": ".title a@href",
+    "title": [
+     {
+      "path": ".title a@title",
+      "regex": "(?:^|/\\s*)([A-Za-z0-9][^/]*?)\\s*(?:/|$)",
+      "group": 1
+     },
+     {
+      "path": ".title a@title",
+      "regex": "^\\s*([^/]*?[^/\\s])\\s*(?:/|$)",
+      "group": 1
+     },
+     ".title a"
+    ],
+    "cover": {
+     "path": ".cover_mini > img@src",
+     "replace": [
+      [
+       "thumb_",
+       ""
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": ".panel_nav .button > a:last-child"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "desc": {
+     "path": ".large.comic .info li:contains(Описание:)@ownText",
+     "replace": [
+      [
+       "^[^:]*:\\s*",
+       ""
+      ]
+     ]
+    },
+    "ru": {
+     "path": "title",
+     "replace": [
+      [
+       "\\s*::\\s*Yagami.*$",
+       ""
+      ],
+      [
+       "^.*::\\s*",
+       ""
+      ]
+     ]
+    }
+   },
+   "fields": {
+    "title": [
+     {
+      "path": "title",
+      "regex": "(?:^|::\\s*)(?!Yagami)([A-Za-z0-9][^:]*?)\\s*(?:::|$)",
+      "group": 1
+     },
+     {
+      "path": "title",
+      "replace": [
+       [
+        "\\s*::\\s*Yagami.*$",
+        ""
+       ],
+       [
+        "\\s*::.*$",
+        ""
+       ]
+      ]
+     }
+    ],
+    "cover": ".cover img@src",
+    "author": {
+     "path": ".large.comic .info li:contains(Автор(ы):)",
+     "replace": [
+      [
+       "^.*?Автор\\(ы\\):\\s*",
+       ""
+      ],
+      [
+       "N/A",
+       ""
+      ]
+     ]
+    },
+    "artist": {
+     "path": ".large.comic .info li:contains(Художник(и):)",
+     "replace": [
+      [
+       "^.*?Художник\\(и\\):\\s*",
+       ""
+      ],
+      [
+       "N/A",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": ".large.comic .info li:contains(Жанры:)",
+     "replace": [
+      [
+       "^.*?Жанры:\\s*",
+       ""
+      ]
+     ]
+    },
+    "status": ".large.comic .info li:contains(Статус перевода:) span",
+    "description": {
+     "const": "{l.ru}[[\n{l.desc}]]"
+    }
+   },
+   "status_map": {
+    "онгоинг": 1,
+    "активный": 1,
+    "завершён": 2,
+    "Онгоинг": 1,
+    "Активный": 1,
+    "Завершён": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".list .element:has(.title a)",
+   "fields": {
+    "url": ".title a@href",
+    "name": [
+     ".title a@title",
+     ".title a"
+    ],
+    "date": {
+     "path": ".meta_r",
+     "regex": ",\\s*([^,]+)$",
+     "group": 1
+    },
+    "scanlator": {
+     "path": ".meta_r a",
+     "all": true,
+     "join": " / "
+    },
+    "number": {
+     "path": ".title a@href",
+     "regex": "/(\\d+(?:\\.\\d+)?)/?$",
+     "group": 1
+    }
+   },
+   "date_format": [
+    "dd.MM.yyyy",
+    "relative"
+   ],
+   "date_locale": "ru"
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}",
+    "method": "POST",
+    "form": {
+     "adult": "true"
+    }
+   },
+   "items": ".dropdown li a",
+   "image": "@href",
+   "subpage": {
+    "request": {
+     "url": "{url}"
+    },
+    "format": "html",
+    "image": [
+     {
+      "path": "#page img@src",
+      "regex": "^((?!.*string\\(1\\)).+)$",
+      "group": 1
+     },
+     "#get_download@href"
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "FoOlSlide-Abwandlung. Listen /list-new/<n>, /latest/<n>, Suche /reader/search/?s=&p=. Kategorie-/Typfilter nicht übernommen.",
+  "Titel: Community nimmt aus 'A / B' bzw. '<title>' A :: B den alphabetisch kleinsten Teil (praktisch den lateinischen Namen); hier der erste Teil, der mit lateinischem Buchstaben/Ziffer beginnt, sonst der erste Teil. Beschreibung = russischer Titel + Beschreibung; Alternativnamen entfallen. Autor/Künstler ungeteilt (Community: kleinster Teil von 'A / B').",
+  "Seiten: Kapitelseite per POST adult=true (wie FoOlSlide-Vorlage en.deathtollscans; Community nur bei Altershinweis), je Eintrag der Seitenauswahl (.dropdown li a) eine Unterseite mit #page img (bei 'string(1)' der Download-Link). Der Webtoon-Modus der Community (.web_pictures img.web_img direkt auf der Kapitelseite) ist mit diesem Modell nicht zusätzlich abbildbar – solche Kapitel liefern keine Bilder; auf dem PC prüfen.",
+  "Kapitelnummer aus der URL statt aus dem Namen; Datum nach dem Komma in .meta_r ('dd.MM.yyyy', 'Сегодня', 'Вчера')."
+ ]
+}

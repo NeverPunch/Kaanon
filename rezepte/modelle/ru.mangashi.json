@@ -1,0 +1,207 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga-shi",
+  "sprache": "ru",
+  "base_url": "https://manga-shi.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ru.kaanon.mangashi",
+  "quellen": [
+   {
+    "name": "Manga-shi",
+    "sprache": "ru",
+    "quell_id": 735260312965788798,
+    "home": "https://manga-shi.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ru/mangashi",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.53",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/catalog/?sort=popular&status=&type=&age_rating=&year=&chapters_min=&chapters_max=&q=&page={page}",
+   "items": "#manga-grid > a[href*=/manga/]",
+   "fields": {
+    "url": "@href",
+    "title": [
+     "h3",
+     "h4",
+     ".title"
+    ],
+    "cover": [
+     "img@data-src",
+     "img@src"
+    ]
+   },
+   "has_next": {
+    "full": true
+   },
+   "page_size": 20
+  },
+  "latest": {
+   "request": "{base}/catalog/?sort=updated&status=&type=&age_rating=&year=&chapters_min=&chapters_max=&q=&page={page}",
+   "items": "#manga-grid > a[href*=/manga/]",
+   "fields": {
+    "url": "@href",
+    "title": [
+     "h3",
+     "h4",
+     ".title"
+    ],
+    "cover": [
+     "img@data-src",
+     "img@src"
+    ]
+   },
+   "has_next": {
+    "full": true
+   },
+   "page_size": 20
+  },
+  "search": {
+   "request": "{base}/catalog/?sort=popular&status=&type=&age_rating=&year=&chapters_min=&chapters_max=&q={query}&page={page}",
+   "items": "#manga-grid > a[href*=/manga/]",
+   "fields": {
+    "url": "@href",
+    "title": [
+     "h3",
+     "h4",
+     ".title"
+    ],
+    "cover": [
+     "img@data-src",
+     "img@src"
+    ]
+   },
+   "has_next": {
+    "full": true
+   },
+   "page_size": 20
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "more": "#chapters-load-more a@hx-get",
+    "mpath": {
+     "path": "#chapters-load-more a@hx-get",
+     "regex": "^([^?]*)",
+     "group": 1
+    }
+   },
+   "fields": {
+    "title": "h1",
+    "cover": "meta[property=og:image]@content",
+    "author": "a[href*=\"?author=\"]",
+    "status": {
+     "path": "span.tracking-widest:matches((?iu)(онгоинг|выпускается|продолжается|заверш|заморож|приостановл|хиатус|заброш))",
+     "regex": "(?iu)(онгоинг|выпускается|продолжается|заверш|заморож|приостановл|хиатус|заброш)",
+     "group": 1
+    },
+    "genres": {
+     "path": "a[href*=manga-genre], a[href*=\"?tag=\"]",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       "(^|, )#",
+       "$1"
+      ]
+     ]
+    },
+    "description": "div.leading-relaxed[x-ref*=descDesktop]"
+   },
+   "status_map": {
+    "онгоинг": 1,
+    "Онгоинг": 1,
+    "ОНГОИНГ": 1,
+    "выпускается": 1,
+    "Выпускается": 1,
+    "ВЫПУСКАЕТСЯ": 1,
+    "продолжается": 1,
+    "Продолжается": 1,
+    "ПРОДОЛЖАЕТСЯ": 1,
+    "заверш": 2,
+    "Заверш": 2,
+    "ЗАВЕРШ": 2,
+    "заморож": 6,
+    "Заморож": 6,
+    "ЗАМОРОЖ": 6,
+    "приостановл": 6,
+    "Приостановл": 6,
+    "ПРИОСТАНОВЛ": 6,
+    "хиатус": 6,
+    "Хиатус": 6,
+    "ХИАТУС": 6,
+    "заброш": 5,
+    "Заброш": 5,
+    "ЗАБРОШ": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}{l.mpath}?page={page}",
+   "request_by_page": {
+    "1": "details",
+    "2": "{base}{l.more}"
+   },
+   "items": "a[href*=/glava]:has(span.chapter-title)",
+   "fields": {
+    "url": "@href",
+    "name": {
+     "path": "span.chapter-title > span",
+     "all": true,
+     "join": " "
+    },
+    "date": [
+     "span span:matchesOwn(\\d{2}\\.\\d{2}\\.\\d{4})",
+     "span span:matchesOwn((?u)\\d+\\s*(сек|мин|час|дн|день|дня|недел|месяц|год|лет))"
+    ],
+    "number": {
+     "path": "@href",
+     "regex": "/glava[-_]([\\d,]+)",
+     "group": 1,
+     "replace": [
+      [
+       ",",
+       "."
+      ]
+     ]
+    }
+   },
+   "date_format": [
+    "dd.MM.yyyy",
+    "relative"
+   ],
+   "date_locale": "ru",
+   "paging": {
+    "has_next": {
+     "exists": "#chapters-load-more a[hx-get], nav.flex a:last-child:contains(Дальше)"
+    },
+    "max_pages": 100
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img.reader-image",
+   "image": [
+    "@data-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Katalog /catalog/ mit leeren Standardfiltern wie in der Community (sort=popular|updated, Suche q=); nächste Seite, solange ≥20 Einträge (wie Community). Filter nicht übernommen; doppelte Karten entfernt die Community (distinct) – hier nicht.",
+  "Kapitel: Seite 1 = Detailseite (#chapters-list), Seite 2 = hx-get-URL des 'Mehr laden'-Knopfs (#chapters-load-more), ab Seite 3 '<hx-get-Pfad>?page=<n>' – die Community folgt dem 'Дальше'-Link der Fragmente; dass dessen Query nur page=<n> ist, ist eine Annahme (auf dem PC prüfen).",
+  "Status über Teilwörter in span.tracking-widest (онгоинг/выпускается/заверш/заморож/хиатус/заброш …). Genres ohne Typ-Badge und ohne Kleinschreibung.",
+  "Kapiteldatum dd.MM.yyyy oder relativ auf Russisch ('3 дня назад') – ob die Engine russische Relativangaben versteht, prüfen."
+ ]
+}

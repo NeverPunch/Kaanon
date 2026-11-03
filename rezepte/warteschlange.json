@@ -15445,7 +15445,7 @@
  },
  {
   "modul": "src/pt/mangotoons",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Mango Toons",
   "stufe": 2,
   "theme": null,
@@ -15455,11 +15455,14 @@
   "host": "mangotoons.com",
   "nsfw": false,
   "wer": "agent-w6d",
-  "seit": "2026-11-03T11:12:42"
+  "seit": "2026-11-03T11:12:42",
+  "datei": "rezepte/modelle/pt-BR.mangotoons.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:13:09"
  },
  {
   "modul": "src/pt/manhastro",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Manhastro",
   "stufe": 2,
   "theme": null,
@@ -15469,7 +15472,10 @@
   "host": "manhastro.net",
   "nsfw": true,
   "wer": "agent-w7a",
-  "seit": "2026-11-03T11:12:45"
+  "seit": "2026-11-03T11:12:45",
+  "datei": "rezepte/modelle/pt-BR.manhastro.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:13:41"
  },
  {
   "modul": "src/pt/mediocretoons",
@@ -15490,7 +15496,7 @@
  },
  {
   "modul": "src/pt/muitohentai",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Muito Hentai",
   "stufe": 2,
   "theme": null,
@@ -15500,11 +15506,14 @@
   "host": "muitohentai.com",
   "nsfw": true,
   "wer": "agent-w7b",
-  "seit": "2026-11-03T11:13:05"
+  "seit": "2026-11-03T11:13:05",
+  "datei": "rezepte/modelle/pt-BR.muitohentai.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:13:35"
  },
  {
   "modul": "src/pt/mundohentai",
-  "status": "offen",
+  "status": "fertig",
   "name": "Mundo Hentai",
   "stufe": 2,
   "theme": null,
@@ -15512,11 +15521,16 @@
    "pt-BR"
   ],
   "host": "mundohentaioficial.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w6d",
+  "seit": "2026-11-03T11:13:09",
+  "datei": "rezepte/modelle/pt-BR.mundohentai.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:13:31"
  },
  {
   "modul": "src/pt/nexusmangas",
-  "status": "offen",
+  "status": "fertig",
   "name": "Nexus Mangás",
   "stufe": 2,
   "theme": null,
@@ -15524,11 +15538,16 @@
    "pt-BR"
   ],
   "host": "nexusmangas.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:13:11",
+  "datei": "rezepte/modelle/pt-BR.nexusmangs.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:14:33"
  },
  {
   "modul": "src/pt/plumacomics",
-  "status": "offen",
+  "status": "fertig",
   "name": "Pluma Comics",
   "stufe": 2,
   "theme": null,
@@ -15536,11 +15555,16 @@
    "pt-BR"
   ],
   "host": "plumacomics.cloud",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6d",
+  "seit": "2026-11-03T11:13:31",
+  "datei": "rezepte/modelle/pt-BR.plumacomics.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:14:07"
  },
  {
   "modul": "src/pt/pointzerotoons",
-  "status": "offen",
+  "status": "fertig",
   "name": "Point Zero Toons",
   "stufe": 2,
   "theme": null,
@@ -15548,11 +15572,16 @@
    "pt-BR"
   ],
   "host": "kitsuneyako.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7b",
+  "seit": "2026-11-03T11:13:35",
+  "datei": "rezepte/modelle/pt-BR.pointzerotoons.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:13:53"
  },
  {
   "modul": "src/pt/remangas",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "NoxManga",
   "stufe": 2,
   "theme": null,
@@ -15560,11 +15589,16 @@
    "pt-BR"
   ],
   "host": "noxmangas.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7a",
+  "seit": "2026-11-03T11:13:41",
+  "grund": "Jede API-Anfrage braucht X-Web-Signature = SHA-256 über Methode/Pfad/Slot/Token/Schlüssel, Teile aus verschleiertem /_nix/signer.js zusammengesetzt – Signatur nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-03T11:13:51"
  },
  {
   "modul": "src/pt/revistasequadrinhos",
-  "status": "offen",
+  "status": "fertig",
   "name": "Revistas e Quadrinhos",
   "stufe": 2,
   "theme": null,
@@ -15572,11 +15606,16 @@
    "pt"
   ],
   "host": "revistasequadrinhos.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w7a",
+  "seit": "2026-11-03T11:13:51",
+  "datei": "rezepte/modelle/pt.revistasequadrinhos.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:14:09"
  },
  {
   "modul": "src/pt/rfdragonscan",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "RF Dragon Scan",
   "stufe": 2,
   "theme": null,
@@ -15584,11 +15623,16 @@
    "pt-BR"
   ],
   "host": "rfdragonscan.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7b",
+  "seit": "2026-11-03T11:13:53",
+  "grund": "Jede Anfrage braucht Login-Cookie access_token (Community: 'Faça login pelo WebView'); dazu Next.js-Server-Actions mit wechselnden next-action-IDs aus den JS-Bundles (Login zum Lesen)",
+  "datei": null,
+  "geaendert": "2026-11-03T11:14:04"
  },
  {
   "modul": "src/pt/risentoons",
-  "status": "offen",
+  "status": "fertig",
   "name": "Risentoons",
   "stufe": 2,
   "theme": null,
@@ -15596,11 +15640,16 @@
    "pt-BR"
   ],
   "host": "risentoons.xyz",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7b",
+  "seit": "2026-11-03T11:14:04",
+  "datei": "rezepte/modelle/pt-BR.risentoons.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:14:25"
  },
  {
   "modul": "src/pt/roxinha",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Roxinha",
   "stufe": 2,
   "theme": null,
@@ -15608,11 +15657,16 @@
    "pt-BR"
   ],
   "host": "roxinha.online",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6d",
+  "seit": "2026-11-03T11:14:07",
+  "grund": "Login zum Lesen: Kapitelseiten nur mit Bearer-Token aus E-Mail/Passwort (/api/auth/login) und Zugangsticket x-chapter-access; ohne Konto 401",
+  "datei": null,
+  "geaendert": "2026-11-03T11:14:14"
  },
  {
   "modul": "src/pt/saikaiscan",
-  "status": "offen",
+  "status": "fertig",
   "name": "Saikai Scan",
   "stufe": 2,
   "theme": null,
@@ -15620,11 +15674,16 @@
    "pt-BR"
   ],
   "host": "housesaikai.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7a",
+  "seit": "2026-11-03T11:14:09",
+  "datei": "rezepte/modelle/pt-BR.saikaiscan.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:14:39"
  },
  {
   "modul": "src/pt/shiraiscans",
-  "status": "offen",
+  "status": "fertig",
   "name": "Shirai Scans",
   "stufe": 2,
   "theme": null,
@@ -15632,11 +15691,16 @@
    "pt-BR"
   ],
   "host": "shiraixis.space",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6d",
+  "seit": "2026-11-03T11:14:14",
+  "datei": "rezepte/modelle/pt-BR.shiraiscans.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:14:30"
  },
  {
   "modul": "src/pt/sssscanlator",
-  "status": "offen",
+  "status": "fertig",
   "name": "Yomu Comics",
   "stufe": 2,
   "theme": null,
@@ -15644,11 +15708,16 @@
    "pt-BR"
   ],
   "host": "yomu.com.br",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7b",
+  "seit": "2026-11-03T11:14:25",
+  "datei": "rezepte/modelle/pt-BR.yomucomics.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:14:42"
  },
  {
   "modul": "src/pt/superecchi",
-  "status": "offen",
+  "status": "fertig",
   "name": "Super Ecchi",
   "stufe": 2,
   "theme": null,
@@ -15656,11 +15725,16 @@
    "pt-BR"
   ],
   "host": "superecchi.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w6d",
+  "seit": "2026-11-03T11:14:30",
+  "datei": "rezepte/modelle/pt-BR.superecchi.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:14:56"
  },
  {
   "modul": "src/pt/taimumangas",
-  "status": "offen",
+  "status": "fertig",
   "name": "TaimuMangas",
   "stufe": 2,
   "theme": null,
@@ -15668,11 +15742,16 @@
    "pt-BR"
   ],
   "host": "beta.taimumangas.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:14:33",
+  "datei": "rezepte/modelle/pt-BR.taimumangas.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:15:07"
  },
  {
   "modul": "src/pt/taiyo",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Taiyō",
   "stufe": 2,
   "theme": null,
@@ -15680,11 +15759,16 @@
    "pt-BR"
   ],
   "host": "taiyo.moe",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7a",
+  "seit": "2026-11-03T11:14:39",
+  "grund": "Einzige Liste (Beliebt/Suche) über Meilisearch-POST mit Bearer-Token, das aus wechselnden Next.js-Skript-Chunks gesucht werden muss (Chunk-Liste aus HTML) – nicht ausdrückbar; Kapitel via tRPC mit JSON-Input in der URL",
+  "datei": null,
+  "geaendert": "2026-11-03T11:14:49"
  },
  {
   "modul": "src/pt/taosect",
-  "status": "offen",
+  "status": "fertig",
   "name": "Tao Sect",
   "stufe": 2,
   "theme": null,
@@ -15692,11 +15776,16 @@
    "pt-BR"
   ],
   "host": "taosect.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7b",
+  "seit": "2026-11-03T11:14:42",
+  "datei": "rezepte/modelle/pt-BR.taosect.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:15:11"
  },
  {
   "modul": "src/pt/toonbr",
-  "status": "offen",
+  "status": "fertig",
   "name": "ToonBr",
   "stufe": 2,
   "theme": null,
@@ -15704,11 +15793,16 @@
    "pt-BR"
   ],
   "host": "beta.toonbr.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7a",
+  "seit": "2026-11-03T11:14:49",
+  "datei": "rezepte/modelle/pt-BR.toonbr.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:15:09"
  },
  {
   "modul": "src/pt/yomumangas",
-  "status": "offen",
+  "status": "fertig",
   "name": "Yomu Mangás",
   "stufe": 2,
   "theme": null,
@@ -15716,11 +15810,16 @@
    "pt-BR"
   ],
   "host": "yomumangas.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6d",
+  "seit": "2026-11-03T11:14:56",
+  "datei": "rezepte/modelle/pt-BR.yomumangs.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:15:33"
  },
  {
   "modul": "src/pt/zettahq",
-  "status": "offen",
+  "status": "fertig",
   "name": "ZettaHQ",
   "stufe": 2,
   "theme": null,
@@ -15728,11 +15827,16 @@
    "pt-BR"
   ],
   "host": "zettahq.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:15:08",
+  "datei": "rezepte/modelle/pt-BR.zettahq.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:15:30"
  },
  {
   "modul": "src/ru/acomics",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "AComics",
   "stufe": 2,
   "theme": null,
@@ -15740,11 +15844,16 @@
    "ru"
   ],
   "host": "acomics.ru",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7a",
+  "seit": "2026-11-03T11:15:09",
+  "grund": "Kapitelliste wird aus der Ausgabenanzahl erzeugt (count..1 → /<comic>/<n>), es gibt keine Liste auf der Website; Zahlenbereich erzeugen nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-03T11:15:22"
  },
  {
   "modul": "src/ru/astramanga",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "AstraManga",
   "stufe": 2,
   "theme": null,
@@ -15752,11 +15861,16 @@
    "ru"
   ],
   "host": "astramanga.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7b",
+  "seit": "2026-11-03T11:15:11",
+  "grund": "Kapitel: Titel-ID aus /titles/<slug> → /titles/<id>/branches → je Übersetzer-Zweig /branches/<bid>/chapters (mehrere Zweige zusammenführen); verkettete Folgeanfragen mit Zwischenwert und Auffächern über alle Zweige in chapters nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-03T11:15:35"
  },
  {
   "modul": "src/ru/desu",
-  "status": "offen",
+  "status": "fertig",
   "name": "Desu",
   "stufe": 2,
   "theme": null,
@@ -15764,11 +15878,16 @@
    "ru"
   ],
   "host": "desu.uno",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6d",
+  "seit": "2026-11-03T11:15:22",
+  "datei": "rezepte/modelle/ru.desu.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:16:05"
  },
  {
   "modul": "src/ru/mangabuff",
-  "status": "offen",
+  "status": "fertig",
   "name": "MangaBuff",
   "stufe": 2,
   "theme": null,
@@ -15776,11 +15895,16 @@
    "ru"
   ],
   "host": "mangabuff.ru",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7a",
+  "seit": "2026-11-03T11:15:23",
+  "datei": "rezepte/modelle/ru.mangabuff.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:16:05"
  },
  {
   "modul": "src/ru/mangahub",
-  "status": "offen",
+  "status": "fertig",
   "name": "Mangahub",
   "stufe": 2,
   "theme": null,
@@ -15788,11 +15912,16 @@
    "ru"
   ],
   "host": "mangahub.ru",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:15:30",
+  "datei": "rezepte/modelle/ru.mangahub.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:16:07"
  },
  {
   "modul": "src/ru/mangamen",
-  "status": "offen",
+  "status": "fertig",
   "name": "MangaMen",
   "stufe": 2,
   "theme": null,
@@ -15800,11 +15929,16 @@
    "ru"
   ],
   "host": "mangamen.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7b",
+  "seit": "2026-11-03T11:15:35",
+  "datei": "rezepte/modelle/ru.mangamen.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:16:02"
  },
  {
   "modul": "src/ru/mangapoisk",
-  "status": "offen",
+  "status": "fertig",
   "name": "MangaPoisk",
   "stufe": 2,
   "theme": null,
@@ -15812,11 +15946,16 @@
    "ru"
   ],
   "host": "mangapoisk.me",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7b",
+  "seit": "2026-11-03T11:16:02",
+  "datei": "rezepte/modelle/ru.mangapoisk.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:16:28"
  },
  {
   "modul": "src/ru/mangashi",
-  "status": "offen",
+  "status": "fertig",
   "name": "Manga-shi",
   "stufe": 2,
   "theme": null,
@@ -15824,11 +15963,16 @@
    "ru"
   ],
   "host": "manga-shi.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7a",
+  "seit": "2026-11-03T11:16:05",
+  "datei": "rezepte/modelle/ru.mangashi.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:16:59"
  },
  {
   "modul": "src/ru/ninegrid",
-  "status": "offen",
+  "status": "fertig",
   "name": "NineGrid",
   "stufe": 2,
   "theme": null,
@@ -15836,11 +15980,16 @@
    "ru"
   ],
   "host": "9grid.cc",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6d",
+  "seit": "2026-11-03T11:16:05",
+  "datei": "rezepte/modelle/ru.ninegrid.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:16:31"
  },
  {
   "modul": "src/ru/nudemoon",
-  "status": "offen",
+  "status": "fertig",
   "name": "Nude-Moon",
   "stufe": 2,
   "theme": null,
@@ -15848,11 +15997,16 @@
    "ru"
   ],
   "host": "nude-moon.org",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:16:07",
+  "datei": "rezepte/modelle/ru.nudemoon.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:16:57"
  },
  {
   "modul": "src/ru/tomilolib",
-  "status": "offen",
+  "status": "fertig",
   "name": "Tomilo-lib",
   "stufe": 2,
   "theme": null,
@@ -15860,11 +16014,16 @@
    "ru"
   ],
   "host": "tomilo-lib.ru",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7b",
+  "seit": "2026-11-03T11:16:28",
+  "datei": "rezepte/modelle/ru.tomilolib.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:17:12"
  },
  {
   "modul": "src/ru/unicomics",
-  "status": "offen",
+  "status": "fertig",
   "name": "UniComics",
   "stufe": 2,
   "theme": null,
@@ -15872,11 +16031,16 @@
    "ru"
   ],
   "host": "unicomics.ru",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6d",
+  "seit": "2026-11-03T11:16:31",
+  "datei": "rezepte/modelle/ru.unicomics.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:17:06"
  },
  {
   "modul": "src/ru/wamanga",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "WaManga",
   "stufe": 2,
   "theme": null,
@@ -15884,11 +16048,16 @@
    "ru"
   ],
   "host": "wamanga.ru",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:16:57",
+  "grund": "Katalog, Details/Kapitel und Seiten nur aus SvelteKit __data.json im devalue-Format (Werte sind Indizes in ein flaches Array, müssen dereferenziert werden; gleiche Strings dedupliziert) – in keiner Vorlage abbildbar",
+  "datei": null,
+  "geaendert": "2026-11-03T11:17:20"
  },
  {
   "modul": "src/ru/yagamiproject",
-  "status": "offen",
+  "status": "fertig",
   "name": "YagamiProject",
   "stufe": 2,
   "theme": null,
@@ -15896,11 +16065,16 @@
    "ru"
   ],
   "host": "read.yagami.me",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7a",
+  "seit": "2026-11-03T11:16:59",
+  "datei": "rezepte/modelle/ru.yagamiproject.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:18:04"
  },
  {
   "modul": "src/th/bullymanga",
-  "status": "offen",
+  "status": "fertig",
   "name": "Bully Manga",
   "stufe": 2,
   "theme": null,
@@ -15908,11 +16082,16 @@
    "th"
   ],
   "host": "bully-manga.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6d",
+  "seit": "2026-11-03T11:17:06",
+  "datei": "rezepte/modelle/th.bullymanga.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:17:30"
  },
  {
   "modul": "src/th/hentaithaicom",
-  "status": "offen",
+  "status": "fertig",
   "name": "HentaiThai",
   "stufe": 2,
   "theme": null,
@@ -15920,11 +16099,16 @@
    "th"
   ],
   "host": "hentaithai.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w7b",
+  "seit": "2026-11-03T11:17:12",
+  "datei": "rezepte/modelle/th.hentaithai.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:17:30"
  },
  {
   "modul": "src/th/hentaithainet",
-  "status": "offen",
+  "status": "fertig",
   "name": "HentaiThai.net",
   "stufe": 2,
   "theme": null,
@@ -15932,11 +16116,16 @@
    "th"
   ],
   "host": "hentaithai.net",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:17:20",
+  "datei": "rezepte/modelle/th.hentaithainet.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:17:56"
  },
  {
   "modul": "src/th/manga168",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Manga168",
   "stufe": 2,
   "theme": null,
@@ -15944,11 +16133,16 @@
    "th"
   ],
   "host": "manga168x.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6d",
+  "seit": "2026-11-03T11:17:30",
+  "grund": "Details/Kapitel nur aus Next.js-Flight-Daten (series-Liste), Community wählt die Serie per slug aus mehreren – Platzhalter im Regex/Filter nicht belegt; Seiten-API braucht series.id + Kapitelnummer (Elternfeld); Suche filtert den Gesamtkatalog im Speicher",
+  "datei": null,
+  "geaendert": "2026-11-03T11:17:54"
  },
  {
   "modul": "src/th/mangablackcat",
-  "status": "offen",
+  "status": "fertig",
   "name": "MangaBlackCat",
   "stufe": 2,
   "theme": null,
@@ -15956,11 +16150,16 @@
    "th"
   ],
   "host": "mangablackcat.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7b",
+  "seit": "2026-11-03T11:17:30",
+  "datei": "rezepte/modelle/th.mangablackcat.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:18:21"
  },
  {
   "modul": "src/th/mikudoujin",
-  "status": "offen",
+  "status": "fertig",
   "name": "MikuDoujin",
   "stufe": 2,
   "theme": null,
@@ -15968,11 +16167,16 @@
    "th"
   ],
   "host": "miku-doujin.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:17:56",
+  "datei": "rezepte/modelle/th.mikudoujin.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:18:34"
  },
  {
   "modul": "src/th/niceoppai",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Niceoppai",
   "stufe": 2,
   "theme": null,
@@ -15980,11 +16184,13 @@
    "th"
   ],
   "host": "niceoppai.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7a",
+  "seit": "2026-11-03T11:18:04"
  },
  {
   "modul": "src/tr/hattorimanga",
-  "status": "offen",
+  "status": "fertig",
   "name": "Hattori Manga",
   "stufe": 2,
   "theme": null,
@@ -15992,11 +16198,16 @@
    "tr"
   ],
   "host": "hattorimanga.net",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w7b",
+  "seit": "2026-11-03T11:18:21",
+  "datei": "rezepte/modelle/tr.hattorimanga.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:18:47"
  },
  {
   "modul": "src/tr/hattoriscans",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Hattori Scans",
   "stufe": 2,
   "theme": null,
@@ -16004,7 +16215,9 @@
    "tr"
   ],
   "host": "hattoriscans.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:18:34"
  },
  {
   "modul": "src/tr/holyscans",

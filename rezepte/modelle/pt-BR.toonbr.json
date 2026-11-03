@@ -1,0 +1,155 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ToonBr",
+  "sprache": "pt-BR",
+  "base_url": "https://beta.toonbr.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.toonbr",
+  "quellen": [
+   {
+    "name": "ToonBr",
+    "sprache": "pt-BR",
+    "quell_id": 534693024654050396,
+    "home": "https://beta.toonbr.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/toonbr",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://api.toonbr.com/api/manga/popular?limit=150",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "coverImage",
+     "template": "https://cdn2.toonbr.com{value}"
+    }
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "https://api.toonbr.com/api/manga/latest?limit=150",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "coverImage",
+     "template": "https://cdn2.toonbr.com{value}"
+    }
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "https://api.toonbr.com/api/manga?page={page}&limit=150&search={query}",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "coverImage",
+     "template": "https://cdn2.toonbr.com{value}"
+    }
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "https://api.toonbr.com/api/manga/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "fields": {
+    "title": "title",
+    "cover": {
+     "path": "coverImage",
+     "template": "https://cdn2.toonbr.com{value}"
+    },
+    "description": "description",
+    "status": "status"
+   },
+   "status_map": {
+    "ONGOING": 1,
+    "ongoing": 1,
+    "COMPLETED": 2,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "chapters",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/chapter/{value}"
+    },
+    "name": [
+     {
+      "path": "chapterNumber",
+      "replace": [
+       [
+        "\\.0+$",
+        ""
+       ]
+      ],
+      "template": "Capítulo {value}"
+     },
+     "title"
+    ],
+    "number": "chapterNumber",
+    "date": "createdAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://api.toonbr.com/api/chapter/{u.cid}",
+   "format": "json",
+   "url_vars": {
+    "cid": "/chapter/([^/?#]+)"
+   },
+   "items": "pages",
+   "image": {
+    "path": "imageUrl",
+    "template": "https://cdn2.toonbr.com{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "API api.toonbr.com, Bilder/Cover cdn2.toonbr.com wie in der Community (limit=150, keine Folgeseiten). Kategorie-Filter nicht übernommen.",
+  "Die Community kann sich optional mit E-Mail/Passwort anmelden (Cookie 'token'); das Rezept arbeitet ohne Anmeldung – nur frei lesbare Kapitel/Seiten.",
+  "Kapitel: Community sortiert nach Nummer absteigend – hier Reihenfolge der API."
+ ]
+}

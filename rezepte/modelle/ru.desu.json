@@ -1,0 +1,170 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Desu",
+  "sprache": "ru",
+  "base_url": "https://desu.uno",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ru.kaanon.desu",
+  "quellen": [
+   {
+    "name": "Desu",
+    "sprache": "ru",
+    "quell_id": 6684416167758830305,
+    "home": "https://desu.uno"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ru/desu",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.35",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "Mihon (+https://github.com/keiyoushi/extensions-source)"
+  },
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 2000
+  },
+  "popular": {
+   "request": "{base}/api/manga/?limit=20&page={page}&order_by=popular",
+   "format": "json",
+   "items": "mangas",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{value}"
+    },
+    "title": "name",
+    "cover": "cover.preview"
+   },
+   "has_next": {
+    "lt": [
+     "pagination.current_page",
+     "pagination.last_page"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/api/manga/?limit=20&page={page}&order_by=updated",
+   "format": "json",
+   "items": "mangas",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{value}"
+    },
+    "title": "name",
+    "cover": "cover.preview"
+   },
+   "has_next": {
+    "lt": [
+     "pagination.current_page",
+     "pagination.last_page"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/api/manga/?limit=20&page={page}&search={query}",
+   "format": "json",
+   "items": "mangas",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{value}"
+    },
+    "title": "name",
+    "cover": "cover.preview"
+   },
+   "has_next": {
+    "lt": [
+     "pagination.current_page",
+     "pagination.last_page"
+    ]
+   }
+  },
+  "details": {
+   "request": "{base}/api/manga/{u.id}/",
+   "format": "json",
+   "url_vars": {
+    "id": "/manga/(\\d+)"
+   },
+   "fields": {
+    "title": "manga.name",
+    "cover": "manga.cover.preview",
+    "description": {
+     "path": "manga.description",
+     "template": "[[{l.ru}\n\n]]{value}"
+    },
+    "author": {
+     "path": "manga.authors.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": [
+      "manga.kind",
+      "manga.genres.*.name"
+     ],
+     "union": true
+    },
+    "status": [
+     "manga.trans_status",
+     "manga.status"
+    ]
+   },
+   "let": {
+    "ru": "manga.russian"
+   },
+   "status_map": {
+    "continued": 1,
+    "completed": 2,
+    "ongoing": 1,
+    "released": 2
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/manga/{u.id}/chapters",
+   "format": "json",
+   "url_vars": {
+    "id": "/manga/(\\d+)"
+   },
+   "items": "chapters",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "{f.view_url}#{u.id}~{value}"
+    },
+    "name": {
+     "path": "number",
+     "template": "{f.volume}. Глава {value}[[ {f.title}]]"
+    },
+    "number": "number",
+    "date": "publish_date"
+   },
+   "date_format": "epoch_s"
+  },
+  "pages": {
+   "request": "{base}/api/manga/{u.mid}/chapters/{u.cid}",
+   "format": "json",
+   "url_vars": {
+    "mid": "#(\\d+)~",
+    "cid": "~(\\d+)$"
+   },
+   "items": "chapter.pages",
+   "image": "url"
+  }
+ },
+ "hinweise": [
+  "API {base}/api/manga/ (20 je Seite). Basis-URL wechselt (Community: custom https://desu.uno). User-Agent und Rate-Limit (1 je 2 s) wie im Code.",
+  "Beliebt/Neueste mit order_by=popular/updated (Community schickt mangels Filterliste gar keine Sortierung – beide Listen sind dort gleich). Filter nicht übernommen.",
+  "Titel = englischer/romanisierter Name (Community-Standard 'eng'); russischer Titel vor der Beschreibung. Bewertungssterne, Altersfreigabe und Alternativtitel nicht übernommen; Typ (kind) als Rohwert in den Genres.",
+  "Status: trans_status (continued/completed) vor status (ongoing/released) wie Community – unbekannte trans_status-Werte führen hier nicht auf status zurück.",
+  "Kapitel-URL = view_url der Website + '#<mangaId>~<kapitelId>' (Community speichert die ids im memo); Seiten über /api/manga/<id>/chapters/<kapitelId>."
+ ]
+}

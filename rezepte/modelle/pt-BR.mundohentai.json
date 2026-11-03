@@ -1,0 +1,113 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Mundo Hentai",
+  "sprache": "pt-BR",
+  "base_url": "https://mundohentaioficial.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.mundohentai",
+  "quellen": [
+   {
+    "name": "Mundo Hentai",
+    "sprache": "pt-BR",
+    "quell_id": 141171756957474060,
+    "home": "https://mundohentaioficial.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/mundohentai",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 2000
+  },
+  "popular": {
+   "request": "{base}/category/doujinshi/page/{page}",
+   "request_by_page": {
+    "1": "{base}/category/doujinshi/"
+   },
+   "items": "div.lista > ul > li div.thumb-conteudo:has(a[href*=mundohentaioficial.com]):not(:contains(Tufos))",
+   "fields": {
+    "url": "a:has(span.thumb-imagem)@href",
+    "title": "span.thumb-titulo",
+    "cover": "img.attachment-post-thumbnail@src"
+   },
+   "has_next": {
+    "exists": "ul.paginacao li.next"
+   }
+  },
+  "search": {
+   "request": "{base}/?s={query}",
+   "items": "div.lista > ul > li div.thumb-conteudo:has(a[href*=mundohentaioficial.com]):not(:contains(Tufos)):not(:has(span.selo-tipo:contains(Legendado)))",
+   "fields": {
+    "url": "a:has(span.thumb-imagem)@href",
+    "title": "span.thumb-titulo",
+    "cover": "img.attachment-post-thumbnail@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     "h1.post-titulo",
+     "div.post-box h1",
+     "meta[property=og:title]@content"
+    ],
+    "author": {
+     "path": "div.post-box ul.post-itens li:contains(Artista:) a",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "div.post-box ul.post-itens li:contains(Tags:) a",
+     "all": true,
+     "join": ", "
+    },
+    "description": "div.post-box ul.post-itens li:contains(Cor:)",
+    "cover": "div.post-box div.post-capa img@src",
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Capítulo"
+    },
+    "number": {
+     "const": "1"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.listaImagens ul.post-fotos img, div.listaImagens [id^=galeria-] img",
+   "image": "@src",
+   "referer": "chapter"
+  }
+ },
+ "hinweise": [
+  "Beliebt = /category/doujinshi/ (ab Seite 2 /page/N), ohne 'Tufos'-Einträge; Community setzt zusätzlich einen Referer auf die vorige Listenseite – nicht nachgebaut. Keine Neueste (supportsLatest = false). Suche ?s= ohne Blättern, ohne 'Legendado'; Tag-Filter nicht übernommen.",
+  "Kapitel: Community teilt Galerien (div.galeriaTab, URL <seite>#<id>) in Kapitel, liest aber wegen des fehlenden Fragments in document.location() immer ul.post-fotos. Hier immer genau ein Kapitel mit allen Bildern der Seite (ul.post-fotos und Galerien #galeria-N).",
+  "Titel in den Details: Community übernimmt den Listentitel; hier h1/og:title (Selektor angenommen – prüfen). Status fest abgeschlossen. Bild-Referer = Kapitelseite. Rate-Limit 1 je 2 s."
+ ]
+}

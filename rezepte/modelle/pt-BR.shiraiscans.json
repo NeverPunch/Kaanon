@@ -1,0 +1,185 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Shirai Scans",
+  "sprache": "pt-BR",
+  "base_url": "https://shiraixis.space",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.shiraiscans",
+  "quellen": [
+   {
+    "name": "Shirai Scans",
+    "sprache": "pt-BR",
+    "quell_id": 8366859060427643716,
+    "home": "https://shiraixis.space"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/shiraiscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/biblioteca.php?ajax=true&genero=todos&q=&offset={offset}",
+   "items": ".library-card",
+   "fields": {
+    "url": {
+     "path": "@onclick",
+     "regex": "href='([^']*)'",
+     "group": 1,
+     "replace": [
+      [
+       "^/+",
+       ""
+      ]
+     ],
+     "template": "/{value}"
+    },
+    "title": ".library-title",
+    "cover": ".library-cover@src"
+   },
+   "page_size": 15,
+   "has_next": {
+    "full": true
+   }
+  },
+  "latest": {
+   "request": "{base}/",
+   "items": "section.atualizacoes .manga-card, section#secao-atualizacoes .manga-card",
+   "fields": {
+    "url": {
+     "path": "@onclick",
+     "regex": "href='([^']*)'",
+     "group": 1,
+     "replace": [
+      [
+       "^/+",
+       ""
+      ]
+     ],
+     "template": "/{value}"
+    },
+    "title": ".manga-title",
+    "cover": ".manga-cover@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/biblioteca.php?ajax=true&genero=todos&q={query}&offset={offset}",
+   "items": ".library-card",
+   "fields": {
+    "url": {
+     "path": "@onclick",
+     "regex": "href='([^']*)'",
+     "group": 1,
+     "replace": [
+      [
+       "^/+",
+       ""
+      ]
+     ],
+     "template": "/{value}"
+    },
+    "title": ".library-title",
+    "cover": ".library-cover@src"
+   },
+   "page_size": 15,
+   "has_next": {
+    "full": true
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".obra-titulo",
+    "cover": ".obra-capa-grande@src",
+    "author": {
+     "path": ".info-linha:contains(Autor) span:last-child",
+     "regex": "^(?!\\?$)(.+)$",
+     "group": 1
+    },
+    "artist": {
+     "path": ".info-linha:contains(Artista) span:last-child",
+     "regex": "^(?!\\?$)(.+)$",
+     "group": 1
+    },
+    "description": ".obra-sinopse",
+    "genres": {
+     "path": ".obra-generos .genero-badge",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       "(^|, )#",
+       "$1"
+      ]
+     ]
+    },
+    "status": {
+     "path": ".info-linha:contains(Status) span:last-child",
+     "regex": "(?i)(lançamento|completo|hiato)",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "lançamento": 1,
+    "completo": 2,
+    "hiato": 6,
+    "Lançamento": 1,
+    "Completo": 2,
+    "Hiato": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".lista-capitulos .capitulo-item",
+   "fields": {
+    "url": {
+     "path": "@href",
+     "replace": [
+      [
+       "^/+",
+       ""
+      ]
+     ],
+     "template": "/{value}"
+    },
+    "name": {
+     "path": ".capitulo-title",
+     "replace": [
+      [
+       "\\s*NOVO\\s*",
+       " "
+      ],
+      [
+       "^\\s+|\\s+$",
+       ""
+      ]
+     ]
+    },
+    "date": ".capitulo-date"
+   },
+   "date_format": "dd/MM/yyyy"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "script_json",
+   "script_regex": "(?s)const pagesData = (\\[.*?\\]);",
+   "items": "$",
+   "image": "url"
+  }
+ },
+ "hinweise": [
+  "Beliebt/Suche: /biblioteca.php?ajax=true&genero=todos&q=…&offset=(Seite-1)*15 (HTML-Fragment), nächste Seite bei vollen 15 Karten (wie Community). Genrefilter nicht übernommen.",
+  "Neueste: Startseite, Abschnitt Atualizações, eine Seite. URLs aus onclick href='…' mit '/' davor (wie Community).",
+  "Autor/Künstler '?' werden ausgelassen; Genres ohne '#'. Kapitelname ohne 'NOVO'. Datum dd/MM/yyyy.",
+  "Bilder aus 'const pagesData = [...]' (JSON mit url). Community schneidet bis zum ersten ';' – hier nicht-gierig bis '];'."
+ ]
+}

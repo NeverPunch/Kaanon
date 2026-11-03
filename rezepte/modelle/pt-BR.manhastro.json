@@ -23,7 +23,308 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://api2.manhastro.net/rank/diario",
+   "format": "text",
+   "items": "\\{[^{}]*\"manga_id\":\\d+[^{}]*\\}",
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"manga_id\":(\\d+)",
+     "group": 1,
+     "template": "/manga/{value}"
+    },
+    "title": [
+     {
+      "path": "",
+      "regex": "\"titulo_brasil\":(\"(?:[^\"\\\\]|\\\\.)+\")",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "",
+      "regex": "\"titulo\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     }
+    ],
+    "cover": [
+     {
+      "path": "",
+      "regex": "\"imagem\":(\"https?:(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "",
+      "regex": "\"imagem\":\"((?!https?:)[^\"]+)\"",
+      "group": 1,
+      "replace": [
+       [
+        "\\\\/",
+        "/"
+       ]
+      ],
+      "template": "https://{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "https://api2.manhastro.net/lancamentos",
+   "format": "text",
+   "items": "\\{[^{}]*\"manga_id\":\\d+[^{}]*\\}",
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"manga_id\":(\\d+)",
+     "group": 1,
+     "template": "/manga/{value}"
+    },
+    "title": [
+     {
+      "path": "",
+      "regex": "\"titulo_brasil\":(\"(?:[^\"\\\\]|\\\\.)+\")",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "",
+      "regex": "\"titulo\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     }
+    ],
+    "cover": [
+     {
+      "path": "",
+      "regex": "\"imagem\":(\"https?:(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "",
+      "regex": "\"imagem\":\"((?!https?:)[^\"]+)\"",
+      "group": 1,
+      "replace": [
+       [
+        "\\\\/",
+        "/"
+       ]
+      ],
+      "template": "https://{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "https://api2.manhastro.net/dados?page={page}&nome={query}&sort=views&order=desc",
+   "format": "text",
+   "items": "\\{[^{}]*\"manga_id\":\\d+[^{}]*\\}",
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"manga_id\":(\\d+)",
+     "group": 1,
+     "template": "/manga/{value}"
+    },
+    "title": [
+     {
+      "path": "",
+      "regex": "\"titulo_brasil\":(\"(?:[^\"\\\\]|\\\\.)+\")",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "",
+      "regex": "\"titulo\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     }
+    ],
+    "cover": [
+     {
+      "path": "",
+      "regex": "\"imagem\":(\"https?:(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "",
+      "regex": "\"imagem\":\"((?!https?:)[^\"]+)\"",
+      "group": 1,
+      "replace": [
+       [
+        "\\\\/",
+        "/"
+       ]
+      ],
+      "template": "https://{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "full": true
+   },
+   "page_size": 1
+  },
+  "details": {
+   "request": "https://api2.manhastro.net/dados?manga_id={u.id}",
+   "format": "text",
+   "url_vars": {
+    "id": "/manga/(\\d+)"
+   },
+   "let": {
+    "gblock": {
+     "path": "",
+     "regex": "\"generos\":\\[([^\\]]*)\\]",
+     "group": 1
+    }
+   },
+   "fields": {
+    "title": [
+     {
+      "path": "",
+      "regex": "\"titulo_brasil\":(\"(?:[^\"\\\\]|\\\\.)+\")",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "",
+      "regex": "\"titulo\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     }
+    ],
+    "cover": [
+     {
+      "path": "",
+      "regex": "\"imagem\":(\"https?:(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "",
+      "regex": "\"imagem\":\"((?!https?:)[^\"]+)\"",
+      "group": 1,
+      "replace": [
+       [
+        "\\\\/",
+        "/"
+       ]
+      ],
+      "template": "https://{value}"
+     }
+    ],
+    "description": [
+     {
+      "path": "",
+      "regex": "\"descricao_brasil\":(\"(?:[^\"\\\\]|\\\\.)+\")",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "",
+      "regex": "\"descricao\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     }
+    ],
+    "genres": {
+     "const": "{l.gblock}",
+     "regex": "(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "regex_all": true,
+     "decode": "json",
+     "join": ", "
+    },
+    "status": {
+     "path": "",
+     "regex": "\"status\":\"([^\"]*)\"",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "on-going": 1,
+    "end": 2
+   }
+  },
+  "chapters": {
+   "request": "https://api2.manhastro.net/dados/{u.id}",
+   "format": "text",
+   "url_vars": {
+    "id": "/manga/(\\d+)"
+   },
+   "items": "\\{[^{}]*\"capitulo_id\":\\d+[^{}]*\\}",
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"capitulo_id\":(\\d+)",
+     "group": 1,
+     "template": "/capitulo/{value}"
+    },
+    "name": {
+     "path": "",
+     "regex": "\"capitulo_nome\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "number": {
+     "path": "",
+     "regex": "\"capitulo_nome\":\"[^\"0-9]*(\\d+(?:\\.\\d+)?)",
+     "group": 1
+    },
+    "date": {
+     "path": "",
+     "regex": "\"capitulo_data\":\"([^\"]+)\"",
+     "group": 1
+    }
+   },
+   "date_format": "yyyy-M-d H:mm:ss"
+  },
+  "pages": {
+   "request": "https://api2.manhastro.net/paginas/{u.cid}",
+   "format": "text",
+   "url_vars": {
+    "cid": "/capitulo/(\\d+)"
+   },
+   "let": {
+    "pbase": {
+     "path": "",
+     "regex": "\"baseUrl\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "phash": {
+     "path": "",
+     "regex": "\"hash\":\"([^\"]+)\"",
+     "group": 1
+    }
+   },
+   "block_regex": "(?s)\"data\":\\[([^\\]]*)\\]",
+   "items": "\"((?:[^\"\\\\]|\\\\.)+)\"",
+   "image": {
+    "path": "",
+    "template": "{l.pbase}/{l.phash}/{value}"
+   }
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "API api2.manhastro.net wie in der Community. Die Antworten können ein Schutzpräfix tragen (BOM, \")]}'\", ',' oder '_'), das die Community vor dem JSON-Parsen abschneidet – deshalb hier format text mit Regex über die JSON-Objekte (keine verschachtelten Objekte in Manga-/Kapitel-Einträgen angenommen).",
+  "Beliebt = /rank/diario, Neueste = /lancamentos (je eine Seite; Community entfernt doppelte manga_id – hier nicht möglich). Suche /dados mit sort=views&order=desc; weiter, solange Treffer kommen (page_size 1 + full, wie pt-BR.acervoeremita) statt meta.has_more. Typ-/Genrefilter nicht übernommen.",
+  "Titel/Beschreibung: brasilianische Fassung bevorzugt (titulo_brasil/descricao_brasil), sonst Original; Community-Einstellung 'englische Titel' nicht übernommen.",
+  "Kapitel: Community sortiert nach Kapitelnummer absteigend – hier Reihenfolge der API. Datum 'yyyy-M-d H:mm:ss'.",
+  "Seiten: <baseUrl>/<hash>/<datei> aus /paginas/<capitulo_id>; Bildliste = erstes JSON-Array 'data'."
+ ]
 }

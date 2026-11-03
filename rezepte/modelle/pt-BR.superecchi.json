@@ -1,0 +1,150 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Super Ecchi",
+  "sprache": "pt-BR",
+  "base_url": "https://superecchi.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.superecchi",
+  "quellen": [
+   {
+    "name": "Super Ecchi",
+    "sprache": "pt-BR",
+    "quell_id": 3268085364816772879,
+    "home": "https://superecchi.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/superecchi",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/index.php?pageId={page}",
+   "items": ".gallery-content > div.cg, .gallery-content > div.dj, .gallery-content > div.manga, .gallery-content > div.hq, .gallery-content > div.anime, .gallery-content > div.acg:has(h2 a.titulo-linhas)",
+   "fields": {
+    "url": {
+     "path": "h2 a.titulo-linhas@href",
+     "replace": [
+      [
+       "^/+",
+       ""
+      ]
+     ],
+     "template": "/{value}"
+    },
+    "title": "h2 a.titulo-linhas",
+    "cover": ".dj-img1 img@src"
+   },
+   "has_next": {
+    "exists": ".pagination a[href*=pageId=]"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "path": "h1",
+     "replace": [
+      [
+       "^\\s*Album:\\s*",
+       ""
+      ]
+     ]
+    },
+    "author": "table.dj-desc tr:has(> td:first-child:matchesOwn((?i)^\\s*autor\\s*$)) > td:nth-child(2)",
+    "artist": "table.dj-desc tr:has(> td:first-child:matchesOwn((?i)^\\s*autor\\s*$)) > td:nth-child(2)",
+    "description": {
+     "path": ".sinopse-completa",
+     "replace": [
+      [
+       "^\\s*Sinopse:\\s*",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": "td.relatedtags a",
+     "all": true,
+     "join": ", "
+    },
+    "cover": ".dj-img1 img@src",
+    "status": [
+     {
+      "path": "table.dj-desc tr:has(> td:first-child:matchesOwn((?i)^\\s*tipo\\s*$)) > td:nth-child(2)",
+      "regex": "(?i)(one-shot)",
+      "group": 1
+     },
+     {
+      "const": "ongoing"
+     }
+    ]
+   },
+   "status_map": {
+    "one-shot": 2,
+    "One-shot": 2,
+    "One-Shot": 2,
+    "ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "let": {
+    "date": ".cg-date.date"
+   },
+   "items": "a[href^=leitor.php?t=]",
+   "skip": {
+    "path": "@href",
+    "regex": "^(?!.*-\\d+(?:\\.\\d+)?$)"
+   },
+   "fields": {
+    "url": {
+     "path": "@href",
+     "replace": [
+      [
+       "^/+",
+       ""
+      ]
+     ],
+     "template": "/{value}"
+    },
+    "name": {
+     "path": "@href",
+     "regex": "-(\\d+)(?:\\.\\d+)?$",
+     "group": 1,
+     "template": "Capítulo {value}"
+    },
+    "number": {
+     "path": "@href",
+     "regex": "-(\\d+(?:\\.\\d+)?)$",
+     "group": 1
+    },
+    "date": {
+     "const": "{l.date}"
+    }
+   },
+   "date_format": "dd/MM/yyyy HH:mm"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#gerar_pdf img[src^=mangas/]",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Keine Neueste (supportsLatest = false); Beliebt = Startseite index.php?pageId=N ('últimos lançamentos'). Nächste Seite grob über irgendeinen pageId-Link in .pagination (Community: Link auf pageId=N+1).",
+  "Suche nicht übernommen: Community holt Vorschläge per POST ajax_pesquisar.php und lädt dann je Vorschlag (Tag/Serie/Autor/…) eine weitere Liste – mehrstufig, nicht ausdrückbar.",
+  "URLs relativ ohne '/' auf der Website (livro.php?t=…, leitor.php?t=…) → mit '/' davor gespeichert.",
+  "Kapitel: alle Links leitor.php?t=<slug>-<nummer>; Community entfernt Dubletten (distinct) und sortiert absteigend – Dubletten hier ggf. doppelt (prüfen). Datum aus .cg-date.date für alle Kapitel (dd/MM/yyyy HH:mm, São Paulo).",
+  "Status: Tipo enthält one-shot → abgeschlossen, sonst laufend (wie Community)."
+ ]
+}

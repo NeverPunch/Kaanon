@@ -1,0 +1,139 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hattori Manga",
+  "sprache": "tr",
+  "base_url": "https://hattorimanga.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.hattorimanga",
+  "quellen": [
+   {
+    "name": "Hattori Manga",
+    "sprache": "tr",
+    "quell_id": 1862736259549588334,
+    "home": "https://hattorimanga.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/hattorimanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 4,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/manga?page={page}",
+   "items": ".product-card.grow-box",
+   "has_next": {
+    "exists": ".pagination .page-item:last-child:not(.disabled)"
+   },
+   "fields": {
+    "url": {
+     "path": "@onclick",
+     "regex": "='([^']+)",
+     "group": 1
+    },
+    "title": "h5",
+    "cover": ".img-con@data-setbg"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/latest-chapters?page={page}",
+    "headers": {
+     "Accept": "application/json",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "chapters",
+   "has_next": {
+    "exists": "hasMorePages"
+   },
+   "fields": {
+    "url": {
+     "path": "manga.slug",
+     "template": "/manga/{value}"
+    },
+    "title": "manga.title",
+    "cover": {
+     "path": "manga.cover_image",
+     "template": "{base}/storage/{value}"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h3",
+    "cover": ".set-bg@data-setbg",
+    "description": ".anime-details-text p",
+    "author": ".anime-details-widget li:has(span:contains(Yazar))@ownText",
+    "artist": ".anime-details-widget li:has(span:contains(Çizer))@ownText",
+    "genres": {
+     "path": ".anime-details-widget li:has(span:contains(Etiketler))@ownText",
+     "replace": [
+      [
+       "\\s*,\\s*",
+       ", "
+      ]
+     ]
+    },
+    "status": ".anime-details-widget li:has(span:contains(Durum))@ownText"
+   },
+   "status_map": {
+    "devam ediyor": 1,
+    "tamamlandı": 2
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/load-more-chapters/{u.slug}?page={page}",
+    "headers": {
+     "Accept": "application/json",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "items": "chapters",
+   "fields": {
+    "url": {
+     "path": "chapter_slug",
+     "template": "/manga/{u.slug}/{value}"
+    },
+    "name": "title",
+    "date": "formattedUploadTime"
+   },
+   "date_format": "dd.MM.yyyy",
+   "paging": {
+    "has_next": {
+     "lt": [
+      "currentPage",
+      "lastPage"
+     ]
+    },
+    "max_pages": 100
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".image-wrapper img",
+   "image": "@data-src"
+  }
+ },
+ "hinweise": [
+  "Keine Suche: Community sucht per POST /manga/search mit CSRF-Token (_token aus meta[name=csrf-token] der Startseite) – Vorab-Anfrage mit let/then ist in Listen nicht belegt. Genre-Filter (/manga-index?genres[]=) nicht übernommen.",
+  "Beliebt = /manga?page=N; Manga-URL steckt im onclick-Attribut (='…'). Latest aus JSON /latest-chapters (je Kapitel ein Eintrag; Community entfernt doppelte Mangas per distinctBy – hier nicht).",
+  "Kapitel aus JSON /load-more-chapters/<slug>?page=N (weiter bei currentPage < lastPage). Manche Kapitel zeigen Bilder nur nach Anmeldung (Community-Fehlermeldung) – dann leere Bildliste."
+ ]
+}

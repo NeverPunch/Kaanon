@@ -1,0 +1,225 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Nexus Mangás",
+  "sprache": "pt-BR",
+  "base_url": "https://www.nexusmangas.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.nexusmangs",
+  "quellen": [
+   {
+    "name": "Nexus Mangás",
+    "sprache": "pt-BR",
+    "quell_id": 3647960912061862872,
+    "home": "https://www.nexusmangas.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/nexusmangas",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": {
+    "url": "https://supabase.nexusmangas.com/rest/v1/works?select=slug,title,cover_url,status,type&order=avg_rating.desc.nullslast,id.desc&limit=30&offset={offset}",
+    "headers": {
+     "apikey": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc4NzgwMjAwMCwiZXhwIjo0OTQzNDc1NjAwLCJyb2xlIjoiYW5vbiJ9.Cnl8Jw2DeKe84OAkmJYfO33xlcZsw0TC2Nw_il0tpRs",
+     "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc4NzgwMjAwMCwiZXhwIjo0OTQzNDc1NjAwLCJyb2xlIjoiYW5vbiJ9.Cnl8Jw2DeKe84OAkmJYfO33xlcZsw0TC2Nw_il0tpRs",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/obra/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover_url",
+     "template": "https://supabase.nexusmangas.com/functions/v1/read-public-media?key={value}"
+    }
+   },
+   "page_size": 30,
+   "has_next": {
+    "full": true
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "https://supabase.nexusmangas.com/rest/v1/works?select=slug,title,cover_url,status,type&order=updated_at.desc,id.desc&limit=30&offset={offset}",
+    "headers": {
+     "apikey": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc4NzgwMjAwMCwiZXhwIjo0OTQzNDc1NjAwLCJyb2xlIjoiYW5vbiJ9.Cnl8Jw2DeKe84OAkmJYfO33xlcZsw0TC2Nw_il0tpRs",
+     "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc4NzgwMjAwMCwiZXhwIjo0OTQzNDc1NjAwLCJyb2xlIjoiYW5vbiJ9.Cnl8Jw2DeKe84OAkmJYfO33xlcZsw0TC2Nw_il0tpRs",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/obra/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover_url",
+     "template": "https://supabase.nexusmangas.com/functions/v1/read-public-media?key={value}"
+    }
+   },
+   "page_size": 30,
+   "has_next": {
+    "full": true
+   }
+  },
+  "search": {
+   "request": {
+    "url": "https://supabase.nexusmangas.com/rest/v1/works?select=slug,title,cover_url,status,type&order=avg_rating.desc.nullslast,id.desc&limit=30&offset={offset}&or=(title.ilike.*{query}*,alternative_title.ilike.*{query}*)",
+    "headers": {
+     "apikey": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc4NzgwMjAwMCwiZXhwIjo0OTQzNDc1NjAwLCJyb2xlIjoiYW5vbiJ9.Cnl8Jw2DeKe84OAkmJYfO33xlcZsw0TC2Nw_il0tpRs",
+     "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc4NzgwMjAwMCwiZXhwIjo0OTQzNDc1NjAwLCJyb2xlIjoiYW5vbiJ9.Cnl8Jw2DeKe84OAkmJYfO33xlcZsw0TC2Nw_il0tpRs",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/obra/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover_url",
+     "template": "https://supabase.nexusmangas.com/functions/v1/read-public-media?key={value}"
+    }
+   },
+   "page_size": 30,
+   "has_next": {
+    "full": true
+   }
+  },
+  "details": {
+   "request": {
+    "url": "https://supabase.nexusmangas.com/rest/v1/works?select=slug,title,description,cover_url,alternative_title,status,type,author,artist,demographic,scan:scans(name),work_genres(genres(name)),chapters(id,number,title,published_at)&slug=eq.{u.slug}&chapters.order=number.desc&limit=1",
+    "headers": {
+     "apikey": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc4NzgwMjAwMCwiZXhwIjo0OTQzNDc1NjAwLCJyb2xlIjoiYW5vbiJ9.Cnl8Jw2DeKe84OAkmJYfO33xlcZsw0TC2Nw_il0tpRs",
+     "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc4NzgwMjAwMCwiZXhwIjo0OTQzNDc1NjAwLCJyb2xlIjoiYW5vbiJ9.Cnl8Jw2DeKe84OAkmJYfO33xlcZsw0TC2Nw_il0tpRs",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/obra/([^/?#]+)"
+   },
+   "let": {
+    "desc": "0.description",
+    "alt": "0.alternative_title",
+    "scan": "0.scan.name"
+   },
+   "fields": {
+    "title": "0.title",
+    "cover": {
+     "path": "0.cover_url",
+     "template": "https://supabase.nexusmangas.com/functions/v1/read-public-media?key={value}"
+    },
+    "author": "0.author",
+    "artist": "0.artist",
+    "genres": {
+     "path": [
+      "0.type",
+      "0.demographic",
+      "0.work_genres.*.genres.name"
+     ],
+     "union": true
+    },
+    "status": "0.status",
+    "description": {
+     "const": "[[{l.desc}]][[\n\nTítulo alternativo: {l.alt}]][[\n\nScan: {l.scan}]]",
+     "replace": [
+      [
+       "^\\s+|\\s+$",
+       ""
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "releasing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "slug": "/obra/([^/?#]+)"
+   },
+   "items": "0.chapters",
+   "fields": {
+    "url": {
+     "path": "number",
+     "replace": [
+      [
+       "\\.0+$",
+       ""
+      ]
+     ],
+     "template": "/capitulo/{u.slug}/{value}#{f.id}"
+    },
+    "name": {
+     "const": "Capítulo {f.number}[[ - {f.title}]]",
+     "replace": [
+      [
+       "^(Capítulo \\d+)\\.0+(?=\\D|$)",
+       "$1"
+      ]
+     ]
+    },
+    "number": "number",
+    "date": "published_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "https://supabase.nexusmangas.com/functions/v1/read-chapter",
+    "method": "POST",
+    "headers": {
+     "apikey": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc4NzgwMjAwMCwiZXhwIjo0OTQzNDc1NjAwLCJyb2xlIjoiYW5vbiJ9.Cnl8Jw2DeKe84OAkmJYfO33xlcZsw0TC2Nw_il0tpRs",
+     "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc4NzgwMjAwMCwiZXhwIjo0OTQzNDc1NjAwLCJyb2xlIjoiYW5vbiJ9.Cnl8Jw2DeKe84OAkmJYfO33xlcZsw0TC2Nw_il0tpRs",
+     "Accept": "application/json",
+     "x-nexus-client": "reader-v3"
+    },
+    "body": "{\"chapterId\":\"{u.cid}\"}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "url_vars": {
+    "cid": "#([^#/]+)$"
+   },
+   "items": "chapter.pages",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "Supabase-REST-API supabase.nexusmangas.com wie Community; anon-Schlüssel (apikey/Bearer) ist der öffentliche Schlüssel der Website, wörtlich aus der Community (Muster wie en.webdexscans/es.reizucomics).",
+  "Listen: /rest/v1/works, 30 je Seite (offset), Beliebt avg_rating.desc.nullslast, Neueste updated_at.desc. Suche or=(title.ilike…,alternative_title.ilike…) – das Entfernen von , ( ) * aus dem Suchtext (Community) ist nicht nachgebaut. Typ-/Status-/Demografie-/Genre-Filter nicht übernommen.",
+  "Cover über functions/v1/read-public-media?key=<cover_url> (wie Community; key ohne eigene URL-Kodierung).",
+  "Genres: type + demographic + work_genres (Rohwerte in Großbuchstaben, Community humanisiert und lässt demographic NONE weg – hier nicht).",
+  "Kapitel aus der Detailanfrage (chapters.order=number.desc). Abweichend von der Community wird die Kapitel-id mitgeladen und als #<id> an die URL /capitulo/<slug>/<nummer> gehängt; Seiten dann direkt POST functions/v1/read-chapter {chapterId} mit x-nexus-client: reader-v3 (Community sucht die id erst über /rest/v1/chapters). Nicht mit Community-URLs kompatibel.",
+  "Seiten: chapter.pages (signierte URLs). Ist access.allowed false (gesperrt), liefert die Community keine Seiten – hier fehlt chapter.pages dann vermutlich, Ergebnis leer (prüfen). Das Erneuern abgelaufener Bild-URLs (403 → read-chapter neu) aus dem Interceptor ist nicht nachgebaut."
+ ]
+}

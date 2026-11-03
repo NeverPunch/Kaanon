@@ -1,0 +1,169 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Yomu Comics",
+  "sprache": "pt-BR",
+  "base_url": "https://yomu.com.br",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.yomucomics",
+  "quellen": [
+   {
+    "name": "Yomu Comics",
+    "sprache": "pt-BR",
+    "quell_id": 1497838059713668619,
+    "home": "https://yomu.com.br"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/sssscanlator",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.61",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "application/json",
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "rate_limit": {
+   "permits": 5,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://yomu.tauruus.com/list?page={page}&sort=popular",
+   "format": "json",
+   "items": "series",
+   "has_next": {
+    "exists": "hasNextPage"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/obra/{value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   }
+  },
+  "latest": {
+   "request": "https://yomu.tauruus.com/list?page={page}&sort=newest",
+   "format": "json",
+   "items": "series",
+   "has_next": {
+    "exists": "hasNextPage"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/obra/{value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   }
+  },
+  "search": {
+   "request": "https://yomu.tauruus.com/list?page={page}&q={query}&sort=newest",
+   "format": "json",
+   "items": "series",
+   "has_next": {
+    "exists": "hasNextPage"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/obra/{value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   }
+  },
+  "details": {
+   "request": "https://yomu.tauruus.com/manga/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/obra/([^/?#]+)"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "cover",
+    "description": "description",
+    "author": "author",
+    "artist": "artist",
+    "genres": {
+     "path": "genres.*",
+     "all": true,
+     "join": ", "
+    },
+    "status": "status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "canceled": 5,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": "https://yomu.tauruus.com/manga/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/obra/([^/?#]+)"
+   },
+   "items": "chapters",
+   "fields": {
+    "url": {
+     "path": "number",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "/ler/{u.slug}/{value}"
+    },
+    "name": [
+     "title",
+     {
+      "path": "number",
+      "replace": [
+       [
+        "\\.0$",
+        ""
+       ]
+      ],
+      "template": "Capítulo {value}"
+     }
+    ],
+    "number": "number",
+    "date": [
+     "releaseAt",
+     "releaseDate"
+    ]
+   },
+   "date_format": [
+    "iso",
+    "dd/MM/yyyy"
+   ]
+  },
+  "pages": {
+   "request": "https://yomu.tauruus.com/chapter/{u.slug}/{u.num}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/ler/([^/]+)/",
+    "num": "/ler/[^/]+/([^/?#]+)"
+   },
+   "items": "pages",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "API https://yomu.tauruus.com wie Community (Rate-Limit 5/s nur dort). Beliebt sort=popular, Latest sort=newest, Suche q= (Sortierung newest = erste Option des Community-Filters). Typ/Status/Gênero-Filter nicht übernommen.",
+  "Kapitel-URL /ler/<slug>/<nummer> (Website-Leser); Community speichert die Kapitel-ID und legt Slug/Nummer im memo ab.",
+  "Datum: releaseAt (ISO), sonst releaseDate (dd/MM/yyyy)."
+ ]
+}

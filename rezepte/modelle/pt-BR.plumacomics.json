@@ -1,0 +1,204 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Pluma Comics",
+  "sprache": "pt-BR",
+  "base_url": "https://plumacomics.cloud",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.plumacomics",
+  "quellen": [
+   {
+    "name": "Pluma Comics",
+    "sprache": "pt-BR",
+    "quell_id": 7420625896970441024,
+    "home": "https://plumacomics.cloud"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/plumacomics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.53",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/obras?page={page}&sort=popular",
+   "format": "json",
+   "items": "series",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/title/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "coverPath",
+     "replace": [
+      [
+       "^/+|/+$",
+       ""
+      ]
+     ],
+     "template": "{base}/api/cover/{value}"
+    }
+   },
+   "has_next": {
+    "lt": [
+     "page",
+     "totalPages"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/api/obras?page={page}",
+   "format": "json",
+   "items": "series",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/title/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "coverPath",
+     "replace": [
+      [
+       "^/+|/+$",
+       ""
+      ]
+     ],
+     "template": "{base}/api/cover/{value}"
+    }
+   },
+   "has_next": {
+    "lt": [
+     "page",
+     "totalPages"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/api/obras?page={page}&q={query}",
+   "format": "json",
+   "items": "series",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/title/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "coverPath",
+     "replace": [
+      [
+       "^/+|/+$",
+       ""
+      ]
+     ],
+     "template": "{base}/api/cover/{value}"
+    }
+   },
+   "has_next": {
+    "lt": [
+     "page",
+     "totalPages"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "path": "meta[property*=title]@content",
+     "replace": [
+      [
+       "\\s*\\|[^|]*$",
+       ""
+      ]
+     ]
+    },
+    "cover": "img.object-cover@src",
+    "description": "div p.text-neutral-300.text-sm",
+    "genres": {
+     "path": "a[href*='?genre=']",
+     "all": true,
+     "join": ", "
+    }
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}",
+   "format": "text",
+   "items": "\\{[^{}]*?\\\\*\"isVipOnly\\\\*\":(?:true|false)[^{}]*\\}",
+   "skip": {
+    "path": "",
+    "regex": "\\\\*\"isVipOnly\\\\*\":(true|false)",
+    "group": 1,
+    "equals": "true"
+   },
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "[{,]\\\\*\"id\\\\*\":(\\d+)",
+     "group": 1,
+     "template": "{url}#c{value}"
+    },
+    "name": [
+     {
+      "path": "",
+      "regex": "\\\\*\"title\\\\*\":\\\\*\"([^\"\\\\]+)\\\\*\"",
+      "group": 1
+     },
+     {
+      "path": "",
+      "regex": "\\\\*\"number\\\\*\":(\\d+)",
+      "group": 1,
+      "template": "Capítulo {value}"
+     }
+    ],
+    "number": {
+     "path": "",
+     "regex": "\\\\*\"number\\\\*\":([0-9.]+)",
+     "group": 1
+    },
+    "date": {
+     "path": "",
+     "regex": "\\\\*\"publishedAt\\\\*\":\\\\*\"([^\"\\\\]+)\\\\*\"",
+     "group": 1
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api/viewer/bootstrap?c={u.c}",
+   "format": "json",
+   "url_vars": {
+    "c": "#c(\\d+)$"
+   },
+   "items": "pages",
+   "image": {
+    "path": "u",
+    "replace": [
+     [
+      "^/+|/+$",
+      ""
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "Listen: /api/obras (page/totalPages; sort=popular für Beliebt, q= für Suche). Manga-URL /title/<slug> (Community speichert id + slug im memo, die URL nutzt nur den slug).",
+  "Kapitel: Community liest die Kapitelliste per extractNextJs aus den Next.js-Flight-Daten der Titelseite. Hier Regex über den HTML-Rohtext, tolerant gegen escapte Anführungszeichen (\\\"). VIP-Kapitel (isVipOnly true) werden übersprungen (Community zeigt sie mit Schloss).",
+  "Kapitel-URL <Titelseite>#c<id> (Community: nur die id); Seiten über /api/viewer/bootstrap?c=<id> → pages[].u (wie Community an '/' getrimmt).",
+  "Kapitelname: title (nur ohne Escape-Zeichen erkannt), sonst 'Capítulo <Ganzzahl>'.",
+  "Titel aus meta[property*=title]@content ohne ' | Seitenname' (Community nimmt .text() des meta-Elements, das leer ist)."
+ ]
+}

@@ -1,0 +1,95 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiThai",
+  "sprache": "th",
+  "base_url": "https://hentaithai.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.th.kaanon.hentaithai",
+  "quellen": [
+   {
+    "name": "HentaiThai",
+    "sprache": "th",
+    "quell_id": 2702202332509828044,
+    "home": "https://hentaithai.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/th/hentaithaicom",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/top-doujin/",
+   "items": "a.doujin-item",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "@href",
+    "title": [
+     "@title",
+     ".doujin-cover img@alt"
+    ],
+    "cover": ".doujin-cover img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/",
+   "items": "a.doujin-item",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "@href",
+    "title": [
+     "@title",
+     ".doujin-cover img@alt"
+    ],
+    "cover": ".doujin-cover img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "title",
+    "cover": "section#image-container figure.manga-page img[src*=/thai/]@src",
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Oneshot"
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "section#image-container figure.manga-page img",
+   "image": "@src",
+   "include": "/thai/"
+  }
+ },
+ "hinweise": [
+  "Ein Eintrag = ein Kapitel („Oneshot“), Status abgeschlossen (Community: ONLY_FETCH_ONCE).",
+  "Latest: Community liest die Start-ID (/next-<id>) von der Startseite und rechnet je Seite 24 IDs zurück – Rechnen nicht ausdrückbar; Ersatz: nur die erste Seite (Startseite) ohne Weiterblättern.",
+  "Keine Suche (Website hat keine). Nur Bilder mit „/thai/“ im Pfad (Community-Filter)."
+ ]
+}

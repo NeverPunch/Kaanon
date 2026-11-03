@@ -1,0 +1,186 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Mangahub",
+  "sprache": "ru",
+  "base_url": "https://mangahub.ru",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ru.kaanon.mangahub",
+  "quellen": [
+   {
+    "name": "Mangahub",
+    "sprache": "ru",
+    "quell_id": 8601336865408732240,
+    "home": "https://mangahub.ru"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ru/mangahub",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.25",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "cookies": {
+   "confirm_age": "1"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/explore/sort-is-rating?page={page}",
+   "items": "div.item-grid",
+   "fields": {
+    "url": "a.fw-medium@href",
+    "title": "a.fw-medium",
+    "cover": "img.item-grid-image@src"
+   },
+   "has_next": {
+    "exists": ".pagination .page-item:last-child a"
+   }
+  },
+  "latest": {
+   "request": "{base}/explore/sort-is-update?page={page}",
+   "items": "div.item-grid",
+   "fields": {
+    "url": "a.fw-medium@href",
+    "title": "a.fw-medium",
+    "cover": "img.item-grid-image@src"
+   },
+   "has_next": {
+    "exists": ".pagination .page-item:last-child a"
+   }
+  },
+  "search": {
+   "request": "{base}/search/title?query={query}&page={page}",
+   "items": "div.item-grid",
+   "fields": {
+    "url": "a.fw-medium@href",
+    "title": "a.fw-medium",
+    "cover": "img.item-grid-image@src"
+   },
+   "has_next": {
+    "exists": ".pagination .page-item:last-child a"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "st": ".attr-name:contains(Томов) + .attr-value",
+    "tr": ".attr-name:contains(Перевод) + .attr-value"
+   },
+   "fields": {
+    "title": ".detail-panel h1",
+    "cover": "img.cover-detail@src",
+    "author": {
+     "path": ".attr-name:contains(Автор) + .attr-value a, .attr-name:contains(Сценарист) + .attr-value a",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       "\\s*,\\s*(,\\s*)*",
+       ", "
+      ],
+      [
+       ",\\s*$",
+       ""
+      ]
+     ]
+    },
+    "artist": {
+     "path": ".attr-name:contains(Художник) + .attr-value a",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       "\\s*,\\s*(,\\s*)*",
+       ", "
+      ],
+      [
+       ",\\s*$",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": ".tags a",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       "(^|,\\s*)#",
+       "$1"
+      ]
+     ]
+    },
+    "description": ".markdown-style.text-expandable-content",
+    "status": {
+     "const": "{l.st}|{l.tr}",
+     "replace": [
+      [
+       "(?s)^.*продолжается.*$",
+       "ongoing"
+      ],
+      [
+       "(?s)^.*приостановлен.*$",
+       "hiatus"
+      ],
+      [
+       "(?s)^[^|]*(завершен|выпуск прекращён)[^|]*\\|.*Завершен.*$",
+       "completed"
+      ],
+      [
+       "(?s)^[^|]*(завершен|выпуск прекращён)[^|]*\\|.*$",
+       "publishing finished"
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "publishing finished": 4,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}/chapters",
+   "items": ".detail-items .detail-item",
+   "fields": {
+    "url": "div.align-items-center > a@href",
+    "name": "div.align-items-center > a",
+    "number": {
+     "path": "div.align-items-center > a",
+     "regex": "Глава\\s*([\\d.]+)",
+     "group": 1
+    },
+    "date": "div.text-muted"
+   },
+   "date_format": "dd.MM.yyyy"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img.reader-viewer-img",
+   "image": {
+    "path": "@data-src",
+    "replace": [
+     [
+      "^//",
+      "https://"
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "HTML wie Community, Cookie confirm_age=1. Listen /explore/sort-is-rating bzw. sort-is-update (?page=n, Community lässt page=1 weg), Suche /search/title?query=…. Genre-/Tag-/Typ-/Bereichsfilter nicht übernommen.",
+  "Status: Text 'Томов' (продолжается/приостановлен/завершен/выпуск прекращён) zusammen mit 'Перевод' per Ersetzungskette: завершен + Перевод Завершен → abgeschlossen, sonst Veröffentlichung beendet (wie Community).",
+  "Autor = Автор + Сценарист, Künstler = Художник (Links, Komma am Ende entfernt; Doppelte nicht entfernt).",
+  "Kapitel von <Eintrag>/chapters; Übersetzer (Переводчик aus der Detailseite) als Scanlator NICHT übernommen – kein Zugriff auf Detailfelder in der Kapitelliste.",
+  "Seiten: img.reader-viewer-img@data-src, '//' → https://."
+ ]
+}

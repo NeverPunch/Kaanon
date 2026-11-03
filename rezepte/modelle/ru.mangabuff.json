@@ -1,0 +1,163 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaBuff",
+  "sprache": "ru",
+  "base_url": "https://mangabuff.ru",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ru.kaanon.mangabuff",
+  "quellen": [
+   {
+    "name": "MangaBuff",
+    "sprache": "ru",
+    "quell_id": 4008409601887986192,
+    "home": "https://mangabuff.ru"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ru/mangabuff",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.8",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/manga?sort=real_views&page={page}",
+   "request_by_page": {
+    "1": "{base}/manga?sort=real_views"
+   },
+   "items": ".cards .cards__item:has(a)",
+   "fields": {
+    "url": "a@href",
+    "title": ".cards__name",
+    "cover": {
+     "path": "a@href",
+     "regex": "/([^/?#]+)/?$",
+     "group": 1,
+     "template": "{base}/img/manga/posters/{value}.jpg"
+    }
+   },
+   "has_next": {
+    "exists": ".pagination .pagination__button a:contains(Вперёд)"
+   }
+  },
+  "latest": {
+   "request": "{base}/manga?sort=updated_at&page={page}",
+   "request_by_page": {
+    "1": "{base}/manga?sort=updated_at"
+   },
+   "items": ".cards .cards__item:has(a)",
+   "fields": {
+    "url": "a@href",
+    "title": ".cards__name",
+    "cover": {
+     "path": "a@href",
+     "regex": "/([^/?#]+)/?$",
+     "group": 1,
+     "template": "{base}/img/manga/posters/{value}.jpg"
+    }
+   },
+   "has_next": {
+    "exists": ".pagination .pagination__button a:contains(Вперёд)"
+   }
+  },
+  "search": {
+   "request": "{base}/search?type=manga&q={query}&page={page}",
+   "request_by_page": {
+    "1": "{base}/search?type=manga&q={query}"
+   },
+   "items": ".cards .cards__item:has(a)",
+   "fields": {
+    "url": "a@href",
+    "title": ".cards__name",
+    "cover": {
+     "path": "a@href",
+     "regex": "/([^/?#]+)/?$",
+     "group": 1,
+     "template": "{base}/img/manga/posters/{value}.jpg"
+    }
+   },
+   "has_next": {
+    "exists": ".pagination .pagination__button a:contains(Вперёд)"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "desc": ".manga__description",
+    "alt": {
+     "path": ".manga__name-alt > span, .manga-mobile__name-alt > span",
+     "all": true,
+     "join": ", "
+    }
+   },
+   "fields": {
+    "title": [
+     "h1",
+     ".manga__name",
+     ".manga-mobile__name"
+    ],
+    "cover": ".manga__img img, img.manga-mobile__image@src",
+    "description": {
+     "const": "{l.desc}[[\n\nАльтернативные названия: {l.alt}]]"
+    },
+    "genres": {
+     "path": ".manga__middle-links > a:not(:last-child), .manga-mobile__info > a:not(:last-child), .tags > .tags__item",
+     "all": true,
+     "join": ", "
+    },
+    "status": ".manga__middle-links > a:last-child, .manga-mobile__info > a:last-child"
+   },
+   "status_map": {
+    "завершен": 2,
+    "Завершен": 2,
+    "продолжается": 1,
+    "Продолжается": 1,
+    "заморожен": 6,
+    "Заморожен": 6,
+    "заброшен": 5,
+    "Заброшен": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a.chapters__item",
+   "fields": {
+    "url": "@href",
+    "name": {
+     "path": ".chapters__volume, .chapters__value, .chapters__name",
+     "all": true,
+     "join": " "
+    },
+    "date": ".chapters__add-date",
+    "number": {
+     "path": ".chapters__value",
+     "regex": "\\s(\\d+(?:\\.\\d+)?)",
+     "group": 1
+    }
+   },
+   "date_format": "dd.MM.yyyy"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".reader__pages img",
+   "image": [
+    "@data-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Listen /manga?sort=real_views|updated_at, Suche /search?type=manga (mind. 3 Zeichen); Seite 1 ohne page-Parameter wie in der Community. Cover = {base}/img/manga/posters/<slug>.jpg wie in der Community. Filter nicht übernommen.",
+  "Kapitel: nur die bis zu 100 Kapitel der Detailseite. Weitere Kapitel lädt die Community per POST /chapters/load (manga_id, CSRF-Token aus meta csrf-token, Antwort JSON mit HTML) und hängt sie an – Zusammenfügen von HTML-Liste und JSON-Nachladen ist nicht ausdrückbar; lange Serien sind daher unvollständig.",
+  "Bei 404 auf der Detailseite verlangt die Community ggf. Anmeldung im WebView (gesperrte Inhalte) – nicht abgebildet.",
+  "Beschreibung ohne Bewertung/Aufrufe/Favoriten-Zusätze; Alternativnamen als eine Zeile. GIF→WebP-Umwandlung der Community entfällt."
+ ]
+}

@@ -1,0 +1,171 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaMen",
+  "sprache": "ru",
+  "base_url": "https://mangamen.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ru.kaanon.mangamen",
+  "quellen": [
+   {
+    "name": "MangaMen",
+    "sprache": "ru",
+    "quell_id": 601889634773560665,
+    "home": "https://mangamen.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ru/mangamen",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/manga-list?sort=views&dir=desc&page={page}",
+   "items": "a.media-card[href]",
+   "page_size": 30,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": "@href",
+    "title": ".media-card__title",
+    "cover": [
+     "@data-src",
+     {
+      "path": "@style",
+      "regex": "url\\(['\"]?([^'\")]+)['\"]?\\)",
+      "group": 1
+     }
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/manga-list?sort=last_chapter_at&dir=desc&page={page}",
+   "items": "a.media-card[href]",
+   "page_size": 30,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": "@href",
+    "title": ".media-card__title",
+    "cover": [
+     "@data-src",
+     {
+      "path": "@style",
+      "regex": "url\\(['\"]?([^'\")]+)['\"]?\\)",
+      "group": 1
+     }
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/manga-list?sort=views&dir=desc&q={query}&page={page}",
+   "items": "a.media-card[href]",
+   "page_size": 30,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": "@href",
+    "title": ".media-card__title",
+    "cover": [
+     "@data-src",
+     {
+      "path": "@style",
+      "regex": "url\\(['\"]?([^'\")]+)['\"]?\\)",
+      "group": 1
+     }
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     "h1[itemprop=name]",
+     "h1"
+    ],
+    "cover": [
+     ".manga__image img.manga__cover@data-src",
+     ".manga__image img@data-src",
+     "meta[property=og:image]@content"
+    ],
+    "description": ".info-desc__content",
+    "author": ".info-list__row:has(strong:contains(Автор)) span",
+    "artist": [
+     ".info-list__row:has(strong:contains(Художник)) span",
+     ".info-list__row:has(strong:contains(Автор)) span"
+    ],
+    "genres": {
+     "path": [
+      ".info-list__row:has(strong:contains(Тип)) span",
+      "a[href*='genres[include]']",
+      "a[href*='tags[include]']"
+     ],
+     "union": true
+    },
+    "status": ".info-list__row:has(strong:contains(Статус тайтла)) span"
+   },
+   "status_map": {
+    "онгоинг": 1,
+    "продолжается": 1,
+    "завершён": 2,
+    "завершен": 2,
+    "закончен": 2,
+    "приостановлен": 6,
+    "заморожен": 6,
+    "заброшен": 5,
+    "выпуск прекращён": 5,
+    "выпуск прекращен": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".chapter-item:has(.chapter-item__name a[href])",
+   "fields": {
+    "url": ".chapter-item__name a@href",
+    "name": [
+     ".chapter-item__name a",
+     {
+      "const": "Том {f.@data-volume}. Глава {f.@data-number}"
+     }
+    ],
+    "number": "@data-number",
+    "date": ".chapter-item__date",
+    "scanlator": ".chapter-item__added span"
+   },
+   "date_format": [
+    "dd.MM.yyyy",
+    "relative"
+   ],
+   "date_locale": "ru"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "script_json",
+   "script_regex": "(?s)window\\.__pg\\s*=\\s*(\\[.*?\\]);",
+   "items": "$",
+   "sort": "p",
+   "image": "u"
+  }
+ },
+ "hinweise": [
+  "Katalog /manga-list (sort=views bzw. last_chapter_at, dir=desc, Suche q=) wie Community; weiter, solange ≥ 30 Karten kommen. Filter nicht übernommen.",
+  "Fester Desktop-User-Agent wie Community (PR 15754). Detail-Cover: src ist Platzhalter (preroll.svg), daher data-src bzw. og:image.",
+  "Kapiteldatum: dd.MM.yyyy oder relativ auf Russisch („сегодня“, „вчера“, „N часов назад“) – ob „relative“ russische Angaben versteht, ist in keiner Vorlage belegt; auf dem PC prüfen.",
+  "Beschreibung ohne die Zusatzzeilen der Community (alternative Titel, Verlag, Übersetzer …). Bildliste aus window.__pg (p = Seite, u = URL)."
+ ]
+}

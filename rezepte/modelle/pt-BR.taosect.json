@@ -1,0 +1,155 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Tao Sect",
+  "sprache": "pt-BR",
+  "base_url": "https://taosect.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.taosect",
+  "quellen": [
+   {
+    "name": "Tao Sect",
+    "sprache": "pt-BR",
+    "quell_id": 784276282691018699,
+    "home": "https://taosect.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/taosect",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "application/json"
+  },
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 2000
+  },
+  "popular": {
+   "request": "{base}/wp-json/wp/v2/projetos?order=desc&orderby=views&page={page}&per_page=18&_fields=title,thumbnail,link",
+   "format": "json",
+   "items": "$",
+   "page_size": 18,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": "link",
+    "title": {
+     "path": "title.rendered",
+     "decode": "html_text"
+    },
+    "cover": "thumbnail"
+   }
+  },
+  "latest": {
+   "request": "{base}/wp-json/wp/v2/projetos?order=desc&orderby=modified&page={page}&per_page=18&_fields=title,thumbnail,link",
+   "format": "json",
+   "items": "$",
+   "page_size": 18,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": "link",
+    "title": {
+     "path": "title.rendered",
+     "decode": "html_text"
+    },
+    "cover": "thumbnail"
+   }
+  },
+  "search": {
+   "request": "{base}/wp-json/wp/v2/projetos?page={page}&per_page=18&_fields=title,thumbnail,link&search={query}",
+   "format": "json",
+   "items": "$",
+   "page_size": 18,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": "link",
+    "title": {
+     "path": "title.rendered",
+     "decode": "html_text"
+    },
+    "cover": "thumbnail"
+   }
+  },
+  "details": {
+   "request": "{base}/wp-json/wp/v2/projetos?per_page=1&slug={u.slug}&_fields=title,informacoes,content,thumbnail,link",
+   "format": "json",
+   "url_vars": {
+    "slug": "/projeto/([^/?#]+)"
+   },
+   "fields": {
+    "title": {
+     "path": "0.title.rendered",
+     "decode": "html_text"
+    },
+    "cover": "0.thumbnail",
+    "description": {
+     "path": "0.content.rendered",
+     "decode": "html_text"
+    },
+    "author": "0.informacoes.roteiro",
+    "artist": "0.informacoes.arte",
+    "genres": {
+     "path": "0.informacoes.generos.*.nome",
+     "all": true,
+     "join": ", "
+    },
+    "status": "0.informacoes.status_scan.nome"
+   },
+   "status_map": {
+    "ativos": 1,
+    "finalizados": 2,
+    "oneshots": 2,
+    "cancelados": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}/wp-json/wp/v2/capitulos?projeto={u.slug}&per_page=1000&order=desc&orderby=sequencia&_fields=nome_capitulo,post_id,slug,data_insercao",
+   "format": "json",
+   "url_vars": {
+    "slug": "/projeto/([^/?#]+)"
+   },
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/leitor-online/projeto/{u.slug}/{value}/"
+    },
+    "name": "nome_capitulo",
+    "date": "data_insercao",
+    "scanlator": {
+     "const": "Tao Sect"
+    }
+   },
+   "date_format": "yyyy-MM-dd HH:mm:ss"
+  },
+  "pages": {
+   "request": "{base}/wp-json/wp/v2/capitulos/{u.p}/{u.c}?_fields=id_capitulo,paginas,post_id",
+   "format": "json",
+   "url_vars": {
+    "p": "/projeto/([^/]+)/",
+    "c": "/projeto/[^/]+/([^/?#]+)"
+   },
+   "items": "paginas",
+   "image": "",
+   "referer": "chapter"
+  }
+ },
+ "hinweise": [
+  "WordPress-REST-API /wp-json/wp/v2 (projetos/capitulos) wie Community. Community blättert über den Header X-Wp-TotalPages; hier weiter, solange 18 Einträge kommen.",
+  "Latest: Community sammelt Projekt-IDs aus den neuesten Kapiteln (capitulos orderby=date) und lädt die Projekte per include= nach – nicht ausdrückbar; Ersatz: projetos orderby=modified (Sortieroption „Data de modificação“ der Website).",
+  "Beschreibung ohne angehängten Originaltitel/Serialização. Community zählt Aufrufe per POST admin-ajax (update_views_v2) und prüft das Google-Drive-Limit am ersten Bild – beides entfällt.",
+  "Community setzt User-Agent „Tachiyomi <http.agent>“; hier Standard-User-Agent – auf dem PC prüfen. Bilder (Google Drive) mit Referer = Leser-URL."
+ ]
+}

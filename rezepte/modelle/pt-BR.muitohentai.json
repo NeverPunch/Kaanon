@@ -23,7 +23,114 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 2000
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/mangas/{page}",
+    "headers": {
+     "Referer": "{base}/mangas/"
+    }
+   },
+   "request_by_page": {
+    "1": {
+     "url": "{base}/mangas/",
+     "headers": {
+      "Referer": "{base}"
+     }
+    }
+   },
+   "items": "#archive-content article.tvshows",
+   "has_next": {
+    "exists": "#paginacao a:last-child:contains(»)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "div.data h3 a",
+    "cover": "div.poster img@src"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/mangas/{page}",
+    "headers": {
+     "Referer": "{base}/mangas/"
+    }
+   },
+   "request_by_page": {
+    "1": {
+     "url": "{base}/mangas/",
+     "headers": {
+      "Referer": "{base}"
+     }
+    }
+   },
+   "items": "ul.lancamento-cap2 > li",
+   "has_next": {
+    "exists": "#paginacao a:last-child:contains(»)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "h2",
+    "cover": "div.capaMangaHentai img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/buscar-manga/?q={query}",
+   "items": "#archive-content article.tvshows",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "div.data h3 a",
+    "cover": "div.poster img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "author": "div:has(strong:contains(Autor))@ownText",
+    "genres": {
+     "path": "a.genero_btn",
+     "all": true,
+     "join": ", "
+    },
+    "description": "div.backgroundpost:contains(Sinopse)@ownText",
+    "cover": "#capaAnime img@src"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.backgroundpost:contains(Capítulos de) h3 > a",
+   "reverse": true,
+   "fields": {
+    "url": "@href",
+    "name": "@ownText"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "Referer": "{base}/"
+    }
+   },
+   "format": "script_json",
+   "script_regex": "(?s)var arr = (\\[.*?\\]);",
+   "items": "$",
+   "image": "",
+   "referer": "chapter"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Kein eigenes Beliebt: wie Community die Liste /mangas/<n> (Seite 1 ohne Nummer). Community setzt Referer auf die vorige Listenseite; hier fest {base}/mangas/ bzw. {base} für Seite 1.",
+  "Latest liest den Abschnitt ul.lancamento-cap2 derselben Listenseite (wie Community).",
+  "Details ohne Titel (Community behält den Titel aus der Liste); Gêneros ohne Großschreibung des ersten Buchstabens.",
+  "Seiten: Bildliste aus 'var arr = […];' im Skript; Bild-Referer = Kapitelseite (Community). Referer der Kapitelanfrage (Community: Kapitel-URL ohne letzten Abschnitt) hier {base}/. Rate-Limit 1 je 2 s."
+ ]
 }

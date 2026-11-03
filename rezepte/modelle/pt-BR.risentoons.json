@@ -1,0 +1,182 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Risentoons",
+  "sprache": "pt-BR",
+  "base_url": "https://risentoons.xyz",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.risentoons",
+  "quellen": [
+   {
+    "name": "Risentoons",
+    "sprache": "pt-BR",
+    "quell_id": 4905131080278546043,
+    "home": "https://risentoons.xyz"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/risentoons",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "X-Rip-Client": "V6",
+   "Accept": "application/json",
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/mangas?limit=24&page={page}&sort=views",
+   "format": "json",
+   "items": "data",
+   "page_size": 24,
+   "has_next": {
+    "total": "total"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover_image",
+     "template": "{base}{value}"
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}/api/mangas?limit=24&page={page}",
+   "format": "json",
+   "items": "data",
+   "page_size": 24,
+   "has_next": {
+    "total": "total"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover_image",
+     "template": "{base}{value}"
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/api/mangas?limit=24&page={page}&search={query}",
+   "format": "json",
+   "items": "data",
+   "page_size": 24,
+   "has_next": {
+    "total": "total"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover_image",
+     "template": "{base}{value}"
+    }
+   }
+  },
+  "details": {
+   "request": "{base}/api/mangas/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "fields": {
+    "title": "data.title",
+    "cover": {
+     "path": "data.cover_image",
+     "template": "{base}{value}"
+    },
+    "description": "data.synopsis",
+    "author": "data.author",
+    "artist": "data.artist",
+    "genres": {
+     "path": "data.genres.*",
+     "all": true,
+     "join": ", "
+    },
+    "status": "data.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "dropped": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/mangas/{u.slug}/chapters?order=desc",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "items": "chapters",
+   "fields": {
+    "url": {
+     "const": "/biblioteca/{u.slug}/{f.number}/read?chapter={f.id}",
+     "replace": [
+      [
+       "/([0-9]+)\\.0/read",
+       "/$1/read"
+      ]
+     ]
+    },
+    "name": [
+     "title",
+     {
+      "path": "number",
+      "replace": [
+       [
+        "\\.0$",
+        ""
+       ]
+      ],
+      "template": "Capítulo {value}"
+     }
+    ],
+    "number": "number",
+    "date": "created_at"
+   },
+   "date_format": [
+    "iso",
+    "yyyy-MM-dd'T'HH:mm:ss"
+   ]
+  },
+  "pages": {
+   "request": "{base}/api/mangas/chapters/{u.cid}/pages",
+   "format": "json",
+   "url_vars": {
+    "cid": "chapter=([^&#]+)"
+   },
+   "items": "pages",
+   "sort": "page_number",
+   "image": {
+    "path": "image_url",
+    "template": "{base}{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "JSON-API {base}/api wie Community; fester Header X-Rip-Client: V6 (Community: „die API lehnt Anfragen ohne ihn ab“ – konstanter Wert, keine Signatur). Weiter solange page*limit < total.",
+  "Manga-URL /manga/<slug>, Kapitel-URL /biblioteca/<slug>/<nr>/read?chapter=<id> wie Community.",
+  "Beschreibung ohne die angehängten alternativen Namen. Datum ISO_LOCAL_DATE_TIME in UTC; Filter nicht übernommen."
+ ]
+}

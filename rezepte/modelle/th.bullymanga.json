@@ -1,0 +1,147 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Bully Manga",
+  "sprache": "th",
+  "base_url": "https://bully-manga.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.th.kaanon.bullymanga",
+  "quellen": [
+   {
+    "name": "Bully Manga",
+    "sprache": "th",
+    "quell_id": 916548575565854572,
+    "home": "https://bully-manga.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/th/bullymanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/",
+   "items": "a.hit-card:has(.hit-title)",
+   "fields": {
+    "url": "@href",
+    "title": ".hit-title",
+    "cover": "img.hit-img@data-src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/genres/all/{page}",
+   "items": "div.mc-card:has(a.mc-title)",
+   "fields": {
+    "url": "a.mc-title@href",
+    "title": "a.mc-title",
+    "cover": "img.mc-img@data-src"
+   },
+   "has_next": {
+    "exists": "#nextBtn:not([disabled])"
+   }
+  },
+  "search": {
+   "request": "{base}/search?keyword={query}&page={page}",
+   "items": "div.mc-card:has(a.mc-title)",
+   "fields": {
+    "url": "a.mc-title@href",
+    "title": "a.mc-title",
+    "cover": "img.mc-img@data-src"
+   },
+   "has_next": {
+    "exists": "#nextBtn:not([disabled])"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     {
+      "path": "script[type=application/ld+json]@html",
+      "regex": "\"name\"\\s*:\\s*(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     },
+     "h1"
+    ],
+    "description": {
+     "path": "script[type=application/ld+json]@html",
+     "regex": "\"description\"\\s*:\\s*(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "cover": [
+     "img.sh-cover@src",
+     {
+      "path": "script[type=application/ld+json]@html",
+      "regex": "\"image\"\\s*:\\s*\"([^\"]+)\"",
+      "group": 1,
+      "replace": [
+       [
+        "\\\\/",
+        "/"
+       ]
+      ]
+     }
+    ],
+    "genres": {
+     "path": ".sh-genre",
+     "all": true,
+     "join": ", "
+    },
+    "status": ".sh-badge-status"
+   },
+   "status_map": {
+    "completed": 2,
+    "on going": 1,
+    "ongoing": 1,
+    "Completed": 2,
+    "On Going": 1,
+    "Ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a.sh-ep",
+   "fields": {
+    "url": "@href",
+    "name": [
+     ".sh-ep-label",
+     {
+      "path": "@data-title",
+      "template": "ตอนที่ {value}"
+     }
+    ],
+    "number": "@data-title"
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "scripts",
+   "block_regex": "(?s)const IMAGE_MAP\\s*=\\s*\\[(.*?)\\]",
+   "items": "\"(/[^\"]+)\"",
+   "image": {
+    "path": "",
+    "template": "{base}{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "Beliebt = Karten der Startseite (eine Seite); Neueste = /genres/all/N; Suche /search?keyword=&page=. Genrefilter nicht übernommen. Nächste Seite, solange #nextBtn nicht disabled ist.",
+  "Details: Titel/Beschreibung aus dem ersten ld+json (Regex + JSON-Dekodierung), Cover img.sh-cover. Status-Text completed/on going.",
+  "Kapitel a.sh-ep (Name .sh-ep-label, sonst 'ตอนที่ <data-title>'); Reihenfolge wie auf der Seite (Community sortiert absteigend nach data-title).",
+  "Bilder: Pfade aus 'const IMAGE_MAP = [...]' im Skript, mit {base} davor (wie Community)."
+ ]
+}

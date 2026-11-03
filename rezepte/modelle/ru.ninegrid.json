@@ -1,0 +1,174 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "NineGrid",
+  "sprache": "ru",
+  "base_url": "https://9grid.cc",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ru.kaanon.ninegrid",
+  "quellen": [
+   {
+    "name": "NineGrid",
+    "sprache": "ru",
+    "quell_id": 5811065998267343017,
+    "home": "https://9grid.cc"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ru/ninegrid",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "application/json"
+  },
+  "popular": {
+   "request": "{base}/api/external/v1/series?page={page0}&size=20&sort=popular",
+   "format": "json",
+   "items": "content",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/series/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "id",
+     "template": "{base}/api/external/v1/series/{value}/thumbnail"
+    }
+   },
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   }
+  },
+  "latest": {
+   "request": "{base}/api/external/v1/series?page={page0}&size=20&sort=latest",
+   "format": "json",
+   "items": "content",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/series/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "id",
+     "template": "{base}/api/external/v1/series/{value}/thumbnail"
+    }
+   },
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   }
+  },
+  "search": {
+   "request": "{base}/api/external/v1/series?page={page0}&size=20&q={query}",
+   "format": "json",
+   "items": "content",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/series/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "id",
+     "template": "{base}/api/external/v1/series/{value}/thumbnail"
+    }
+   },
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   }
+  },
+  "details": {
+   "request": "{base}/api/external/v1/series/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/series/(\\d+)"
+   },
+   "fields": {
+    "title": "name",
+    "cover": {
+     "path": "id",
+     "template": "{base}/api/external/v1/series/{value}/thumbnail"
+    },
+    "description": "description",
+    "author": "publisherName",
+    "genres": {
+     "path": "genres",
+     "all": true,
+     "join": ", "
+    },
+    "status": "status"
+   },
+   "status_map": {
+    "continuing": 1,
+    "ended": 2,
+    "Continuing": 1,
+    "Ended": 2
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/external/v1/series/{u.id}/issues",
+   "format": "json",
+   "url_vars": {
+    "id": "/series/(\\d+)"
+   },
+   "items": "issues",
+   "skip": {
+    "any": [
+     {
+      "path": "translations.0.id",
+      "regex": "^$"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "translations.0.id",
+     "template": "/api/external/v1/translations/{value}/pages"
+    },
+    "name": {
+     "path": "number",
+     "template": "#{value}[[ — {f.name}]]"
+    },
+    "number": {
+     "path": "number",
+     "replace": [
+      [
+       "(?i)^annual\\s*",
+       "1000."
+      ]
+     ]
+    },
+    "date": "translations.0.createdAt",
+    "scanlator": {
+     "path": "translations.0.teamNames",
+     "all": true,
+     "join": ", "
+    }
+   },
+   "date_format": "iso",
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "json",
+   "items": "pages",
+   "image": "url"
+  }
+ },
+ "hinweise": [
+  "API {base}/api/external/v1 (Basis-URL wechselt; Community: custom https://9grid.cc). Seiten ab 0 (page0), 20 je Seite; nächste Seite bei voller Seite (Community: page+1 < totalPages). Optionaler API-Schlüssel (nur Fortschritts-Tracking) entfällt.",
+  "Manga-URL /series/<id> (Community speichert nur die id; Website-Pfad unbekannt). Cover über /series/<id>/thumbnail. Verlag als Autor.",
+  "Kapitel: Community macht aus jeder Übersetzung (issue.translations[]) ein Kapitel mit Ausgabenummer/-name des übergeordneten issue – Zugriff auf Elternfelder nicht ausdrückbar. Hier ein Kapitel je Ausgabe mit der ersten Übersetzung (translations.0); weitere Übersetzungsteams fehlen.",
+  "Kapitel-URL /api/external/v1/translations/<id>/pages, Bilder pages[].url. 'Annual N' → Nummer 1000.N wie Community."
+ ]
+}

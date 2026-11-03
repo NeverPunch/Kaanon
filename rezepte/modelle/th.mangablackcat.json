@@ -1,0 +1,167 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaBlackCat",
+  "sprache": "th",
+  "base_url": "https://mangablackcat.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.th.kaanon.mangablackcat",
+  "quellen": [
+   {
+    "name": "MangaBlackCat",
+    "sprache": "th",
+    "quell_id": 2248402620929558947,
+    "home": "https://mangablackcat.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/th/mangablackcat",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/manga?sort=popular&page={page}",
+   "items": "article.manga-card:has(a[href*=/manga/])",
+   "has_next": {
+    "exists": "a[rel=next], a[aria-label*=Next]"
+   },
+   "fields": {
+    "url": "a[href*=/manga/]@href",
+    "title": [
+     "img@alt",
+     "h3",
+     "a[href*=/manga/]@title"
+    ],
+    "cover": [
+     "img@data-lazy-src",
+     "img@data-src",
+     "img@data-cfsrc",
+     "img@src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/latest?page={page}",
+   "items": "article.manga-card:has(a[href*=/manga/])",
+   "has_next": {
+    "exists": "a[rel=next], a[aria-label*=Next]"
+   },
+   "fields": {
+    "url": "a[href*=/manga/]@href",
+    "title": [
+     "img@alt",
+     "h3",
+     "a[href*=/manga/]@title"
+    ],
+    "cover": [
+     "img@data-lazy-src",
+     "img@data-src",
+     "img@data-cfsrc",
+     "img@src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/search?q={query}&page={page}",
+   "items": "article.manga-card:has(a[href*=/manga/])",
+   "has_next": {
+    "exists": "a[rel=next], a[aria-label*=Next]"
+   },
+   "fields": {
+    "url": "a[href*=/manga/]@href",
+    "title": [
+     "img@alt",
+     "h3",
+     "a[href*=/manga/]@title"
+    ],
+    "cover": [
+     "img@data-lazy-src",
+     "img@data-src",
+     "img@data-cfsrc",
+     "img@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "article h1, main h1",
+    "cover": [
+     "article figure img, main figure img@data-lazy-src",
+     "article figure img, main figure img@data-src",
+     "article figure img, main figure img@data-cfsrc",
+     "article figure img, main figure img@src"
+    ],
+    "author": "article span span.text-base-content, main span span.text-base-content",
+    "status": {
+     "path": "article span:contains(กำลังอัพเดท), article span:contains(จบแล้ว), main span:contains(กำลังอัพเดท), main span:contains(จบแล้ว)",
+     "regex": "(กำลังอัพเดท|จบแล้ว)",
+     "group": 1
+    },
+    "description": "article [class*=leading-relaxed], main [class*=leading-relaxed]"
+   },
+   "status_map": {
+    "กำลังอัพเดท": 1,
+    "จบแล้ว": 2
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}?page={page}",
+   "request_by_page": {
+    "1": "details"
+   },
+   "items": "a.chapter-card-link[data-chapter-number]",
+   "fields": {
+    "url": "@href",
+    "name": [
+     "h4",
+     {
+      "const": "ตอนที่ {f.@data-chapter-number}"
+     }
+    ],
+    "number": "@data-chapter-number",
+    "date": "p"
+   },
+   "date_format": [
+    "MMMM d, yyyy",
+    "relative"
+   ],
+   "date_locale": "th",
+   "paging": {
+    "has_next": {
+     "exists": "nav[aria-label='Pagination Navigation'] a[rel=next]"
+    },
+    "max_pages": 50
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "items": "boot:\\s*JSON\\.parse\\('((?:\\\\'|[^'])*)'\\)",
+   "image": {
+    "path": "",
+    "regex": "image(?:\\\\u0022|\\\\?\")\\s*:\\s*(?:\\\\u0022|\\\\?\")(.*?)(?:\\\\u0022|\\\\?\")",
+    "group": 1,
+    "replace": [
+     [
+      "\\\\/",
+      "/"
+     ]
+    ]
+   },
+   "referer": "chapter"
+  }
+ },
+ "hinweise": [
+  "Listen /manga?sort=popular, /latest, /search?q= mit ?page= wie Community; weiter bei a[rel=next].",
+  "Kapitel: Seite 1 = Detailseite, weitere Seiten über ?page=N (Laravel-Paginierung „Pagination Navigation“ – Parametername nicht gesehen, Community folgt dem rel=next-Link). Ersatzweg der Community ohne Kapitelkarten (Links /manga/<slug>/<nr>) nicht übernommen.",
+  "Datum „MMMM d, yyyy“ (th, Asia/Bangkok) oder Kurzform „45m ago“/„6mos ago“ – ob „relative“ die Kurzformen versteht, ist offen.",
+  "Beschreibung: Community nimmt den ersten leading-relaxed-Block mit > 80 Zeichen; hier den ersten.",
+  "Seiten: Bilder aus boot: JSON.parse('…')-Blöcken (JS-maskiertes JSON, Feld image, \\/ → /). Community-Ersatzweg (main img, ohne chapter-thumbnails) fehlt. Bild-Referer = Kapitelseite."
+ ]
+}
