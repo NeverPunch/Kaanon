@@ -23,7 +23,219 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "{base}/series",
+    "headers": {
+     "RSC": "1",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "text",
+   "items": "\\{[^{}]*\"coverImage\"[^{}]*\\}",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"id\":\"([^\"]+)\"",
+     "group": 1,
+     "template": "/series/{value}"
+    },
+    "title": {
+     "path": "",
+     "regex": "\"title\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "cover": {
+     "path": "",
+     "regex": "\"coverImage\":\"([^\"]+)\"",
+     "group": 1,
+     "template": "{base}{value}"
+    }
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/series",
+    "headers": {
+     "RSC": "1",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "text",
+   "items": "\\{[^{}]*\"coverImage\"[^{}]*\\}",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"id\":\"([^\"]+)\"",
+     "group": 1,
+     "template": "/series/{value}"
+    },
+    "title": {
+     "path": "",
+     "regex": "\"title\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "cover": {
+     "path": "",
+     "regex": "\"coverImage\":\"([^\"]+)\"",
+     "group": 1,
+     "template": "{base}{value}"
+    }
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "RSC": "1",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "text",
+   "url_vars": {
+    "id": "/series/([^/?#]+)"
+   },
+   "fields": {
+    "title": {
+     "path": "",
+     "regex": "\"manhwa\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"title\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "cover": {
+     "path": "",
+     "regex": "\"manhwa\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"coverImage\":\"([^\"]+)\"",
+     "group": 1,
+     "template": "{base}{value}"
+    },
+    "description": {
+     "path": "",
+     "regex": "\"manhwa\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"description\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "author": {
+     "path": "",
+     "regex": "\"manhwa\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"author\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "artist": {
+     "path": "",
+     "regex": "\"manhwa\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"artist\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "genres": {
+     "path": "",
+     "regex": "\"manhwa\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"genres\":\\[([^\\]]*)\\]",
+     "group": 1,
+     "replace": [
+      [
+       "\",\"",
+       ", "
+      ],
+      [
+       "\"",
+       ""
+      ]
+     ]
+    },
+    "status": {
+     "path": "",
+     "regex": "\"manhwa\":\\{(?:[^{}]|\\{[^{}]*\\})*?\"status\":\"([^\"]*)\"",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "text",
+   "items": "\\{[^{}]*\"number\":[0-9.]+[^{}]*\\}",
+   "skip": {
+    "path": "",
+    "regex": "\"accessRoles\":\\[(?![^\\]]*\"reader\")"
+   },
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"id\":\"([^\"]+)\"",
+     "group": 1,
+     "template": "/read/{u.id}/{value}"
+    },
+    "name": [
+     {
+      "path": "",
+      "regex": "\"title\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "",
+      "regex": "\"number\":(\\d+(?:\\.\\d*[1-9])?)",
+      "group": 1,
+      "template": "Chapter {value}"
+     }
+    ],
+    "number": {
+     "path": "",
+     "regex": "\"number\":([0-9.]+)",
+     "group": 1
+    },
+    "date": {
+     "path": "",
+     "regex": "\"releaseDate\":\"([^\"]+)\"",
+     "group": 1
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "RSC": "1",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "text",
+   "block_regex": "(?s)\"pages\":\\[(.*?)\\]",
+   "items": "\"url\":\"[^\"]+\"",
+   "image": [
+    {
+     "path": "",
+     "regex": "\"url\":\"(https?://[^\"]+)\"",
+     "group": 1
+    },
+    {
+     "path": "",
+     "regex": "\"url\":\"([^\"]+)\"",
+     "group": 1,
+     "template": "{base}{value}"
+    }
+   ]
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Community liest Next.js-Flight-Daten (extractNextJs, Header RSC: 1). Hier Abruf mit RSC: 1 als Text und Regex auf die JSON-Objekte (wie en.drakescans/en.komix); Schlüsselreihenfolge egal, Objekte ohne verschachtelte {} angenommen.",
+  "Beliebt: alle Serien von /series (eine Seite); Suche filtert dieselbe Liste lokal (client_filter). Keine Neueste.",
+  "Details: Felder aus dem 'manhwa'-Objekt (Regex überspringt eingebettete Kapitelobjekte). Cover/Seitenbilder relativ → {base} davor.",
+  "Kapitel: alle Objekte mit 'number'; URL /read/<serien-id>/<kapitel-id>. Premium-Kapitel (accessRoles ohne 'reader') übersprungen wie Community-Standard. Community sortiert absteigend nach Nummer – hier Reihenfolge der Daten (nicht sortierbar); evtl. reverse auf dem PC nachschärfen.",
+  "Seiten: Block \"pages\":[…], je \"url\"."
+ ]
 }

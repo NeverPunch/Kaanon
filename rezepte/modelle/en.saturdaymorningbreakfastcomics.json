@@ -23,7 +23,78 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/comic/archive",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/comic/archive"
+    },
+    "title": {
+     "const": "Saturday Morning Breakfast Comics"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "Saturday Morning Breakfast Comics"
+    },
+    "author": {
+     "const": "Zach Weinersmith"
+    },
+    "artist": {
+     "const": "Zach Weinersmith"
+    },
+    "description": {
+     "const": "SMBC is a daily comic strip about life, philosophy, science, mathematics, and dirty jokes."
+    },
+    "status": {
+     "const": "ongoing"
+    }
+   },
+   "status_map": {
+    "ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "option[value*=\"comic/\"]",
+   "fields": {
+    "url": {
+     "path": "@value",
+     "template": "/{value}"
+    },
+    "name": {
+     "path": "",
+     "regex": "^.*? - (.*)$",
+     "group": 1
+    },
+    "date": {
+     "path": "",
+     "regex": "^(.*?) - ",
+     "group": 1
+    }
+   },
+   "date_format": "MMMM d, yyyy",
+   "date_locale": "en",
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img#cc-comic, #aftercomic > img",
+   "image": "@src"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Ein einziger Eintrag (Community erzeugt ihn ohne Anfrage); hier Archivseite /comic/archive als Listen-Anfrage, Felder per const. Kein Cover (Community nutzt ein mitgeliefertes Bild).",
+  "Archiv- und Comicseiten antworten laut Community mit HTTP 500, liefern aber den vollen Inhalt – auf dem PC prüfen, ob die Engine 500-Antworten auswertet.",
+  "Seiten: Comicbild + Bonusbild (#aftercomic); die Community fügt dazwischen den title-Text als gerenderte Textseite (TextInterceptor) ein – nicht ausdrückbar.",
+  "Kapitelname/Datum aus dem Optionstext '<Datum> - <Titel>'. Keine Suche (Community ebenso)."
+ ]
 }
