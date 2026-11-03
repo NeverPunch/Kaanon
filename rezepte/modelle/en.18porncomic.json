@@ -1,0 +1,136 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "18 Porn Comic",
+  "sprache": "en",
+  "base_url": "https://18porncomic.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.18porncomic",
+  "quellen": [
+   {
+    "name": "18 Porn Comic",
+    "sprache": "en",
+    "quell_id": 5133553291675008671,
+    "home": "https://18porncomic.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/eighteenporncomic",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "manga18"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/list-manga/{page}?order_by=views",
+   "items": "div.story_item",
+   "has_next": {
+    "exists": ".pagination > li:last-child:not(.active)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "div.mg_info > div.mg_name a",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/list-manga/{page}",
+   "items": "div.story_item",
+   "has_next": {
+    "exists": ".pagination > li:last-child:not(.active)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "div.mg_info > div.mg_name a",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/list-manga/{page}?search={query}",
+   "items": "div.story_item",
+   "has_next": {
+    "exists": ".pagination > li:last-child:not(.active)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "div.mg_info > div.mg_name a",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.detail_name > h1",
+    "cover": "div.detail_avatar > img@src",
+    "description": {
+     "path": "div.detail_reviewContent",
+     "all": true,
+     "join": "\n\n"
+    },
+    "author": {
+     "path": "div.detail_listInfo div.info_label:contains(author) + div.info_value, div.detail_listInfo div.info_label:contains(autor) + div.info_value",
+     "replace": [
+      [
+       "^Updating$",
+       ""
+      ]
+     ]
+    },
+    "artist": {
+     "path": "div.detail_listInfo div.info_label:contains(artist) + div.info_value",
+     "replace": [
+      [
+       "^Updating$",
+       ""
+      ]
+     ]
+    },
+    "genres": "div.detail_listInfo div.info_value > a[href*=/manga-list/]",
+    "status": "div.detail_listInfo div.item:contains(Status) div.info_value"
+   },
+   "status_map": {
+    "on going": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.chapter_box .item",
+   "fields": {
+    "url": "a@href",
+    "name": "a",
+    "date": "p"
+   },
+   "date_format": "dd-MM-yyyy",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "scripts",
+   "block_regex": "slides_p_path[^\\[]*\\[([^\\]]*)\\]",
+   "items": "\"([^\"]+)\"",
+   "image": [
+    {
+     "path": "",
+     "pre_decode": "base64",
+     "regex": "^(https?://.+)$"
+    },
+    {
+     "path": "",
+     "pre_decode": "base64",
+     "regex": "^(/.+)$",
+     "template": "{base}{value}"
+    }
+   ]
+  }
+ },
+ "hinweise": [
+  "Theme Manga18: HTML; Details und Kapitel von derselben Seite.",
+  "Seiten: Skript mit slides_p_path = [\"<base64>\", …,]; jede URL base64-kodiert, relative URLs ('/…') bekommen die Basis-URL. pre_decode base64 vor regex angenommen (wie pre_decode packer in den Vorlagen) – auf dem PC prüfen.",
+  "Alternativname wird in der Community an die Beschreibung angehängt – nicht abgebildet.",
+  "Tag-/Sortierfilter (/manga-list/<tag>/<seite>) nicht abgebildet."
+ ]
+}

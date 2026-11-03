@@ -1,0 +1,164 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Love4u",
+  "sprache": "ja",
+  "base_url": "https://love4u.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.love4u",
+  "quellen": [
+   {
+    "name": "Love4u",
+    "sprache": "ja",
+    "quell_id": 1647179844716143786,
+    "home": "https://love4u.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/welovemangaone",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "fmreader"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:150.0) Gecko/20100101 Firefox/150.0"
+  },
+  "popular": {
+   "request": "{base}/manga-list.html?listType=pagination&page={page}&sort=views&sort_type=DESC",
+   "items": "div.media, .thumb-item-flow",
+   "has_next": {
+    "exists": ".pagination a:contains(»):not(.disabled)"
+   },
+   "fields": {
+    "url": [
+     "h3 a@href",
+     ".series-title a@href"
+    ],
+    "title": [
+     "h3 a",
+     ".series-title a"
+    ],
+    "cover": [
+     "img@img",
+     ".thumb-wrapper .img-in-ratio@img"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/manga-list.html?page={page}&sort=last_update",
+   "items": "div.media, .thumb-item-flow",
+   "has_next": {
+    "exists": ".pagination a:contains(»):not(.disabled)"
+   },
+   "fields": {
+    "url": [
+     "h3 a@href",
+     ".series-title a@href"
+    ],
+    "title": [
+     "h3 a",
+     ".series-title a"
+    ],
+    "cover": [
+     "img@img",
+     ".thumb-wrapper .img-in-ratio@img"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/manga-list.html?name={query}&page={page}",
+   "items": "div.media, .thumb-item-flow",
+   "has_next": {
+    "exists": ".pagination a:contains(»):not(.disabled)"
+   },
+   "fields": {
+    "url": [
+     "h3 a@href",
+     ".series-title a@href"
+    ],
+    "title": [
+     "h3 a",
+     ".series-title a"
+    ],
+    "cover": [
+     "img@img",
+     ".thumb-wrapper .img-in-ratio@img"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     ".manga-info h1",
+     ".manga-info h3"
+    ],
+    "cover": "div.row img.thumbnail@img",
+    "description": {
+     "path": "div.detail .content, div.row ~ div.row:has(h3:first-child) p, .summary-content p",
+     "all": true,
+     "join": " "
+    },
+    "author": {
+     "path": "div.row li a.btn-info:not(:matchesOwn((?i)^updating$))",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "div.row li a.btn-danger",
+     "all": true,
+     "join": ", "
+    },
+    "status": "div.row li a.btn-success"
+   },
+   "status_map": {
+    "completed": 2,
+    "complete": 2,
+    "ongoing": 1,
+    "on going": 1,
+    "updating": 1,
+    "incomplete": 1
+   }
+  },
+  "chapters": {
+   "request": "{base}/app/manga/controllers/cont.Listchapter.php?mid={u.mid}",
+   "url_vars": {
+    "mid": "(\\d+)/"
+   },
+   "items": ".list-chapters > a",
+   "fields": {
+    "url": "@href",
+    "name": "@title",
+    "date": "time, .chapter-time, .publishedDate"
+   },
+   "date_format": "relative",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "let": {
+    "cid": "#chapter@value"
+   },
+   "then": [
+    {
+     "request": "{base}/app/manga/controllers/cont.listImg.php?cid={l.cid}",
+     "format": "html"
+    }
+   ],
+   "items": "img.chapter-img",
+   "image": "@img"
+  }
+ },
+ "hinweise": [
+  "Theme FMReader (Flat-Manga). Beliebt/Suche wie Theme, Neueste laut Love4u: /manga-list.html?page=N&sort=last_update.",
+  "Nächste Seite nur über '.pagination a:contains(»)'. Die Theme-Variante 'Page x of y' (div.col-lg-9 button.btn-info) ist nicht nachgebildet.",
+  "Kapitel per XHR /app/manga/controllers/cont.Listchapter.php?mid=…; die mid ist wie im Code die erste Zahl vor einem '/' in der Manga-URL (Regex '(\\d+)/'). Kapitel-Elemente sind selbst Links (Name aus title-Attribut), daher nur '.list-chapters > a'.",
+  "Kapiteldatum nur relativ ('N mins/hours/days/weeks/months/years ago'), wie im Code.",
+  "Seiten: Kapitelseite laden, '#chapter' (value) als cid, dann /app/manga/controllers/cont.listImg.php?cid=… und 'img.chapter-img' (Bild aus data-original/data-src/…; Theme nimmt auch style=url(...) – nicht nachgebildet).",
+  "Autor-Filter 'Updating' per :matchesOwn – Annahme, dass die Engine Jsoup-Pseudoselektoren kann (kommt in Vorlagen vor). Alternative Namen nicht in die Beschreibung übernommen."
+ ]
+}

@@ -1,0 +1,145 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Raw1001",
+  "sprache": "ja",
+  "base_url": "https://raw1001.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.raw1001",
+  "quellen": [
+   {
+    "name": "Raw1001",
+    "sprache": "ja",
+    "quell_id": 3349575794425308347,
+    "home": "https://raw1001.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/raw1001",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "liliana"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/ranking/week/{page}",
+   "items": "div#main div.grid > div",
+   "has_next": {
+    "exists": ".blog-pager > span.pagecurrent + span"
+   },
+   "fields": {
+    "url": ".text-center a@href",
+    "title": ".text-center a",
+    "cover": "img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/all-manga/{page}/?sort=last_update&status=0",
+   "items": "div#main div.grid > div",
+   "has_next": {
+    "exists": ".blog-pager > span.pagecurrent + span"
+   },
+   "fields": {
+    "url": ".text-center a@href",
+    "title": ".text-center a",
+    "cover": "img@img"
+   }
+  },
+  "search": {
+   "request": "{base}/search/{page}/?keyword={query}",
+   "items": "div#main div.grid > div",
+   "has_next": {
+    "exists": ".blog-pager > span.pagecurrent + span"
+   },
+   "fields": {
+    "url": ".text-center a@href",
+    "title": ".text-center a",
+    "cover": "img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".a2 header h1",
+    "cover": ".a1 > figure img@img",
+    "description": "div#syn-target",
+    "genres": {
+     "path": ".a2 div > a[rel='tag'].label",
+     "all": true,
+     "join": ", "
+    },
+    "author": {
+     "path": "div.y6x11p i.fas.fa-user + span.dt",
+     "replace": [
+      [
+       "(?i)^\\s*updating\\s*$",
+       ""
+      ]
+     ]
+    },
+    "status": "div.y6x11p i.fas.fa-rss + span.dt"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "đang tiến hành": 1,
+    "進行中": 1,
+    "completed": 2,
+    "hoàn thành": 2,
+    "完了": 2,
+    "on-hold": 6,
+    "tạm ngưng": 6,
+    "保留": 6,
+    "canceled": 5,
+    "đã huỷ": 5,
+    "キャンセル": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "ul > li.chapter",
+   "fields": {
+    "url": "a@href",
+    "name": "a",
+    "date": "time[datetime]@datetime"
+   },
+   "date_format": "epoch_s"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "let": {
+    "cid": {
+     "path": "",
+     "regex": "const CHAPTER_ID\\s*=\\s*([^;\\s]+)\\s*;"
+    }
+   },
+   "then": [
+    {
+     "request": {
+      "url": "{base}/ajax/image/list/chap/{l.cid}",
+      "headers": {
+       "Accept": "application/json, text/javascript, */*; q=0.01",
+       "X-Requested-With": "XMLHttpRequest",
+       "Referer": "{abs_url}"
+      }
+     },
+     "format": "json_html",
+     "html_path": "html"
+    }
+   ],
+   "items": "div.separator",
+   "image": "a@href",
+   "exclude": "(?i)\\.svg(?:[?#].*)?$|loading_comments"
+  }
+ },
+ "hinweise": [
+  "Liliana-Theme (HTML). Beliebt /ranking/week/N, Neu /all-manga/N/?sort=last_update&status=0, Suche /search/N/?keyword=… (Raw1001 nutzt keine POST-Suche).",
+  "Kapiteldatum: time[datetime] in Sekunden (epoch_s).",
+  "Seiten: CHAPTER_ID aus dem Skript der Kapitelseite, dann GET /ajax/image/list/chap/<id> (X-Requested-With, Referer = Kapitelseite); Antwort-JSON enthält HTML in 'html', Bilder sind die Links in div.separator a@href. SVG-/loading_comments-Bilder ausgeschlossen.",
+  "Community sortiert nach data-index, falls vorhanden – hier Dokumentreihenfolge. Bildanfragen schickt die Community ohne Referer; ggf. am PC prüfen.",
+  "html_path innerhalb eines then-Schritts ist in den Vorlagen nur bei Listen belegt (json_html) – am PC prüfen."
+ ]
+}

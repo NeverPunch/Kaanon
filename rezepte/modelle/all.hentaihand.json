@@ -1,0 +1,358 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiHand",
+  "sprache": "all",
+  "base_url": "https://hentaihand.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.hentaihand",
+  "quellen": [
+   {
+    "name": "HentaiHand",
+    "sprache": "all",
+    "quell_id": 1235047015955289468,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "ja",
+    "quell_id": 4992571563369273240,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "en",
+    "quell_id": 1438773694780928937,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "zh",
+    "quell_id": 866133291730804205,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "bg",
+    "quell_id": 7561346598466986562,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "ceb",
+    "quell_id": 2136686110556284465,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "other",
+    "quell_id": 7302549142935671434,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "tl",
+    "quell_id": 8205998909543626240,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "ar",
+    "quell_id": 5494684486943087247,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "el",
+    "quell_id": 9098484674492839156,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "sr",
+    "quell_id": 259350817779848434,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "jv",
+    "quell_id": 8174384290387590645,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "uk",
+    "quell_id": 299569391162966579,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "tr",
+    "quell_id": 6304497572870246566,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "fi",
+    "quell_id": 4855613465785451164,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "la",
+    "quell_id": 3078530910469685147,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "mn",
+    "quell_id": 4197081087116305652,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "eo",
+    "quell_id": 6189674531673390664,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "sk",
+    "quell_id": 3548394435548008920,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "cs",
+    "quell_id": 6818645358118704394,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "ko",
+    "quell_id": 2772498967425526818,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "ru",
+    "quell_id": 5788099943016900736,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "it",
+    "quell_id": 8272502917504358946,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "es",
+    "quell_id": 1049245690865797006,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "pt-BR",
+    "quell_id": 2516244587139644000,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "th",
+    "quell_id": 392245224742696225,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "fr",
+    "quell_id": 2304134427430911086,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "id",
+    "quell_id": 202981519301875762,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "vi",
+    "quell_id": 474754362133655719,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "de",
+    "quell_id": 8300414741852788090,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "pl",
+    "quell_id": 6173663752022195918,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "hu",
+    "quell_id": 6490746811386262494,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "nl",
+    "quell_id": 7899387259192038112,
+    "home": "https://hentaihand.com"
+   },
+   {
+    "name": "HentaiHand",
+    "sprache": "hi",
+    "quell_id": 1337874080374168573,
+    "home": "https://hentaihand.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/hentaihand",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "hentaihand"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "application/json, text/plain, */*",
+   "X-Requested-With": "XMLHttpRequest"
+  },
+  "popular": {
+   "request": "{base}/api/comics?page={page}&sort=popularity&order=desc&duration=all",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "exists": "next_page_url"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/en/comic/{value}"
+    },
+    "title": "title",
+    "cover": "image_url"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/comics?page={page}&sort=uploaded_at&order=desc&duration=all",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "exists": "next_page_url"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/en/comic/{value}"
+    },
+    "title": "title",
+    "cover": "image_url"
+   }
+  },
+  "search": {
+   "request": "{base}/api/comics?page={page}&q={query}",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "exists": "next_page_url"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/en/comic/{value}"
+    },
+    "title": "title",
+    "cover": "image_url"
+   }
+  },
+  "details": {
+   "request": "{base}/api/comics/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/comic/([^/?#]+)"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "image_url",
+    "artist": {
+     "path": "artists.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "author": [
+     {
+      "path": "authors.*.name",
+      "all": true,
+      "join": ", "
+     },
+     {
+      "path": "artists.*.name",
+      "all": true,
+      "join": ", "
+     }
+    ],
+    "genres": {
+     "path": [
+      "tags.*.name",
+      "relationships.*.name"
+     ],
+     "union": true
+    },
+    "description": "description",
+    "status": "status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "onhold": 1,
+    "complete": 2,
+    "canceled": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/en/comic/{value}"
+    },
+    "name": {
+     "const": "Chapter"
+    },
+    "date": "updated_at"
+   },
+   "date_format": [
+    "yyyy-MM-dd",
+    "relative"
+   ]
+  },
+  "pages": {
+   "request": "{base}/api/comics/{u.slug}/images",
+   "format": "json",
+   "url_vars": {
+    "slug": "/comic/([^/?#]+)"
+   },
+   "items": "images",
+   "image": "source_url"
+  }
+ },
+ "hinweise": [
+  "Theme HentaiHand (JSON-API /api/comics). Die Community hat 34 Sprachquellen, die sich nur im Filter languages[-n]=ID unterscheiden; ein Rezept hat ein Modell und folgt der 'all'-Quelle (kein Sprachfilter).",
+  "Bei hentaihand.com ist chapters=false: Details und das einzige Kapitel kommen aus derselben Antwort /api/comics/{slug} (items '$' = Wurzelobjekt, wie Vorlage en.dynastyscans). Datum aus updated_at (yyyy-MM-dd oder 'N days ago').",
+  "Suche nur per q=…; die Community löst den Suchtext vorher als Tag/Künstler/Figur-ID auf, weil reines q auf manchen Seiten HTTP 500 liefert – nicht nachgebildet.",
+  "has_next über 'next_page_url' (null auf der letzten Seite); Annahme: exists wertet null als nicht vorhanden.",
+  "Status wie im Code (onhold → laufend, canceled → abgeschlossen). Beschreibung nur 'description' (Community hängt Gruppen, Seitenzahl, Kategorie, Sprache, Parodien, Figuren an).",
+  "Optionaler Login (Bearer-Token) nicht nachgebildet.",
+  "Header X-Requested-With/Accept als Ersatz für Fetch.XHR der Community (Annahme)."
+ ]
+}

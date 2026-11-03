@@ -1,0 +1,149 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Raw Otaku",
+  "sprache": "ja",
+  "base_url": "https://rawotaku.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.rawotaku",
+  "quellen": [
+   {
+    "name": "Raw Otaku",
+    "sprache": "ja",
+    "quell_id": 7370546749583817262,
+    "home": "https://rawotaku.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/rawotaku",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.6",
+  "theme": "mangareader"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/filter/?sort=most-viewed&p={page}",
+   "items": ".manga_list-sbs .manga-poster",
+   "has_next": {
+    "exists": "ul.pagination > li.active + li"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "img@alt",
+    "cover": "img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/filter/?sort=latest-updated&p={page}",
+   "items": ".manga_list-sbs .manga-poster",
+   "has_next": {
+    "exists": "ul.pagination > li.active + li"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "img@alt",
+    "cover": "img@img"
+   }
+  },
+  "search": {
+   "request": "{base}/?q={query}&p={page}",
+   "items": ".manga_list-sbs .manga-poster",
+   "has_next": {
+    "exists": "ul.pagination > li.active + li"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "img@alt",
+    "cover": "img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "#ani_detail .manga-name@ownText",
+    "cover": "#ani_detail img@img",
+    "description": "#ani_detail .description@ownText",
+    "genres": {
+     "path": "#ani_detail .genres > a@ownText",
+     "all": true,
+     "join": ", "
+    },
+    "author": {
+     "path": "#ani_detail .anisc-info > .item:has(.item-head:containsOwn(著者:)) a@ownText",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       ",\\s*,",
+       ","
+      ]
+     ]
+    },
+    "status": "#ani_detail .anisc-info > .item:has(.item-head:containsOwn(地位:)) .name"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "publishing": 1,
+    "releasing": 1,
+    "completed": 2,
+    "finished": 2,
+    "on-hold": 6,
+    "on_hiatus": 6,
+    "canceled": 5,
+    "discontinued": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#ja-chaps > li.chapter-item",
+   "fields": {
+    "url": "a@href",
+    "name": [
+     "a .name",
+     "a"
+    ]
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "let": {
+    "rid": "div[data-reading-id]@data-reading-id"
+   },
+   "then": [
+    {
+     "request": {
+      "url": "{base}/json/chapter?mode=vertical&id={l.rid}",
+      "headers": {
+       "Accept": "application/json, text/javascript, */*; q=0.01",
+       "X-Requested-With": "XMLHttpRequest",
+       "Referer": "{abs_url}"
+      }
+     },
+     "format": "json_html",
+     "html_path": "html"
+    }
+   ],
+   "items": ".container-reader-chapter > div > img",
+   "image": [
+    "@data-lazy-src",
+    "@data-src",
+    "@data-url",
+    "@src",
+    "img@img"
+   ]
+  }
+ },
+ "hinweise": [
+  "MangaReader-Theme (HTML), Raw Otaku: Seitenparameter 'p' statt 'page'. Beliebt/Neu über /filter/?sort=most-viewed|latest-updated&p=N, Suche /?q=…&p=N.",
+  "Kapitel aus #ja-chaps > li.chapter-item. Community hängt die Kapitel-ID (li@data-id) als '#id' an; hier wird – wie im Ausweichweg der Community – die ID aus div[data-reading-id] der Kapitelseite gelesen, danach GET /json/chapter?mode=vertical&id=<id> (JSON mit HTML in 'html').",
+  "Infozeilen mit japanischen Labels '著者:' und '地位:' (wie im Theme für ja); Status-Werte sind englisch (Publishing/Finished).",
+  "Bilder: .container-reader-chapter > div > img; Bild-Referer der Community = Bild-URL selbst, hier nicht nachgebildet. Autoren: Trennung Zeichner '(Art)' nicht nachgebildet."
+ ]
+}

@@ -1,0 +1,158 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "18Manhua",
+  "sprache": "zh",
+  "base_url": "https://18mh.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.18manhua",
+  "quellen": [
+   {
+    "name": "18漫画",
+    "sprache": "zh",
+    "quell_id": 5706270060628375954,
+    "home": "https://18mh.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/eighteenmanhua",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": "goda"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/hots/page/{page}",
+   "items": ".container > .cardlist .pb-2 a",
+   "has_next": {
+    "exists": "a[aria-label=下一頁] button"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h3@ownText",
+    "cover": [
+     {
+      "path": "img@src",
+      "regex": "[?&]url=(https?://[^&]+)",
+      "group": 1
+     },
+     "img@src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/newss/page/{page}",
+   "items": ".container > .cardlist .pb-2 a",
+   "has_next": {
+    "exists": "a[aria-label=下一頁] button"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h3@ownText",
+    "cover": [
+     {
+      "path": "img@src",
+      "regex": "[?&]url=(https?://[^&]+)",
+      "group": 1
+     },
+     "img@src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/s/{query}?page={page}",
+   "items": ".container > .cardlist .pb-2 a",
+   "has_next": {
+    "exists": "a[aria-label=下一頁] button"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h3@ownText",
+    "cover": [
+     {
+      "path": "img@src",
+      "regex": "[?&]url=(https?://[^&]+)",
+      "group": 1
+     },
+     "img@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "mid": "#mangachapters@data-mid"
+   },
+   "fields": {
+    "title": "main h1@ownText",
+    "cover": "main img.object-cover@src",
+    "status": "main h1 > :first-child",
+    "author": {
+     "path": "main :has(> * > h1) > :nth-child(2) > :nth-child(n+2)",
+     "replace": [
+      [
+       "\\s*,$",
+       ""
+      ]
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "main :has(> * > h1) > :nth-child(3) > :nth-child(n+2), main :has(> * > h1) > :nth-child(4) > *",
+     "replace": [
+      [
+       "\\s*,$",
+       ""
+      ],
+      [
+       "^#",
+       ""
+      ]
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "description": "main :has(> * > h1) > p:nth-child(5)"
+   },
+   "status_map": {
+    "連載中": 1,
+    "ongoing": 1,
+    "完結": 2,
+    "停止更新": 5,
+    "休刊": 6
+   }
+  },
+  "chapters": {
+   "request": "{base}/manga/get?mid={l.mid}&mode=all",
+   "items": ".chapteritem",
+   "reverse": true,
+   "fields": {
+    "url": {
+     "path": "a@data-cs",
+     "template": "/chapter/getcontent?m={l.mid}&c={value}"
+    },
+    "name": "a@data-ct"
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#chapcontent > div > img",
+   "image": [
+    "@data-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Theme GoDa (18mh.org). Listen /hots/page/N bzw. /newss/page/N, Suche /s/{Suchtext}?page=N (Suchtext als Pfadsegment – Leerzeichenkodierung ungeprüft).",
+  "Cover: der Code nimmt bei Proxy-Bildern den Parameter url=…; hier nur, wenn er unkodiert als http(s)://… dasteht, sonst die Proxy-URL selbst.",
+  "Details haben keine Klassen; nachgebildet über Kindpositionen unter dem Großelternteil von h1 (2 = Autor, 3 = Genres, 4 = Tags, 5 = Beschreibung <p>), jeweils ohne erstes Kind (Label). Setzt :has/:nth-child-Unterstützung der Engine voraus.",
+  "Kapitel per XHR /manga/get?mid={mid}&mode=all, mid aus '#mangachapters@data-mid' der Detailseite (let). Reihenfolge umgekehrt wie im Code.",
+  "Kapitel-URL = API-Adresse /chapter/getcontent?m={mid}&c={data-cs}, weil die Seitenabfrage beide IDs braucht; Annahme: {l.mid} aus details ist im Feld-Template der Kapitel verfügbar (sonst Kapitel-URL anders lösen). WebView zeigt dann nicht die Leserseite.",
+  "Status steht im ersten Kind von h1 (連載中/完結/停止更新/休刊)."
+ ]
+}

@@ -1,0 +1,147 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hwago",
+  "sprache": "id",
+  "base_url": "https://02.hwago.xyz",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.hwago",
+  "quellen": [
+   {
+    "name": "Hwago",
+    "sprache": "id",
+    "quell_id": 5490253431755133280,
+    "home": "https://02.hwago.xyz"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/hwago",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": "hwalumi"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/all-series?sort=popular&lang=id&page={page}",
+   "items": "a[href^=\"/comic/\"]:has(img:not([src*=\"flagcdn\"]))",
+   "has_next": {
+    "exists": "a[rel=next], a[aria-label*=Next], a[aria-label*=next], a[href*=\"page=\"]:containsOwn(Next), a[href*=\"page=\"]:containsOwn(›), a[href*=\"page=\"]:containsOwn(»)"
+   },
+   "fields": {
+    "url": "@href",
+    "title": [
+     "img@alt",
+     ""
+    ],
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/all-series?sort=latest&lang=id&page={page}",
+   "items": "a[href^=\"/comic/\"]:has(img:not([src*=\"flagcdn\"]))",
+   "has_next": {
+    "exists": "a[rel=next], a[aria-label*=Next], a[aria-label*=next], a[href*=\"page=\"]:containsOwn(Next), a[href*=\"page=\"]:containsOwn(›), a[href*=\"page=\"]:containsOwn(»)"
+   },
+   "fields": {
+    "url": "@href",
+    "title": [
+     "img@alt",
+     ""
+    ],
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/browse?q={query}&sort=latest&lang=id&page={page}",
+   "items": "a[href^=\"/comic/\"]:has(img:not([src*=\"flagcdn\"]))",
+   "has_next": {
+    "exists": "a[rel=next], a[aria-label*=Next], a[aria-label*=next], a[href*=\"page=\"]:containsOwn(Next), a[href*=\"page=\"]:containsOwn(›), a[href*=\"page=\"]:containsOwn(»)"
+   },
+   "fields": {
+    "url": "@href",
+    "title": [
+     "img@alt",
+     ""
+    ],
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "cover": "aside img[src*=\"/cover\"]@src",
+    "description": [
+     {
+      "path": "div[data-sr]@data-sr",
+      "decode": "base64"
+     },
+     "p.text-sm"
+    ],
+    "author": {
+     "path": "div:has(> span:containsOwn(Author)) > span:last-child",
+     "replace": [
+      [
+       "(?i)^updating$",
+       ""
+      ]
+     ]
+    },
+    "artist": {
+     "path": "div:has(> span:containsOwn(Artist)) > span:last-child",
+     "replace": [
+      [
+       "(?i)^updating$",
+       ""
+      ]
+     ]
+    },
+    "genres": "a[href*=\"genre=\"]",
+    "status": "div:has(> div:containsOwn(Status)) > div:last-child"
+   },
+   "status_map": {
+    "completed": 2,
+    "tamat": 2,
+    "ongoing": 1,
+    "berjalan": 1,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a[href*=\"/read/\"][data-chapter]",
+   "fields": {
+    "url": "@href",
+    "name": [
+     "span.text-sm",
+     "span[class*=\"font-semibold\"]",
+     ""
+    ],
+    "number": "@data-chapter",
+    "date": [
+     "span.tabular-nums",
+     "span[class*=\"tabular-nums\"]"
+    ]
+   },
+   "date_format": "relative",
+   "date_locale": "id"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img[alt^=\"Page \"]",
+   "image": "@src",
+   "exclude": "/api/image/p/"
+  }
+ },
+ "hinweise": [
+  "Theme Hwalumi: reines HTML. Listen /all-series?sort=popular|latest&lang=id&page=N, Suche /browse?q=…&sort=latest&lang=id&page=N.",
+  "has_next: Community prüft einen Link mit 'page=<N+1>' – mit Platzhalter im Selektor nicht belegt; Rezept sucht allgemeine Weiter-Links (rel=next/aria-label/Next/›/»). Auf dem PC prüfen, ggf. Selektor anpassen.",
+  "Listeneinträge: Community entfernt Dubletten (distinctBy url) – Engine evtl. nicht; Titel aus img@alt, sonst Linktext.",
+  "Beschreibung base64 in div[data-sr]@data-sr (Community ergänzt fehlendes '='-Padding), sonst p.text-sm.",
+  "Datum relativ auf Indonesisch (detik/menit/jam/hari/minggu/bulan/tahun, 'baru saja'); 'relative' mit date_locale id – prüfen.",
+  "Seiten: img[alt^='Page '], Platzhalter-Bilder unter /api/image/p/ werden ausgeschlossen."
+ ]
+}

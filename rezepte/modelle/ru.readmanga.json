@@ -1,0 +1,235 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ReadManga",
+  "sprache": "ru",
+  "base_url": "https://a.zazaza.me",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ru.kaanon.readmanga",
+  "quellen": [
+   {
+    "name": "ReadManga",
+    "sprache": "ru",
+    "quell_id": 5,
+    "home": "https://a.zazaza.me"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ru/readmanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.92",
+  "theme": "grouple"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "arora"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/api/catalog/search?offset={offset}&sortType=RATING",
+    "headers": {
+     "Accept": "application/json, text/plain, */*"
+    }
+   },
+   "format": "json",
+   "items": "list",
+   "page_size": 50,
+   "has_next": {
+    "total": "total"
+   },
+   "fields": {
+    "url": {
+     "path": "elementId.linkName",
+     "template": "/{value}"
+    },
+    "title": "name",
+    "cover": "picUrl"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/api/catalog/search?offset={offset}&sortType=DATE_UPDATE",
+    "headers": {
+     "Accept": "application/json, text/plain, */*"
+    }
+   },
+   "format": "json",
+   "items": "list",
+   "page_size": 50,
+   "has_next": {
+    "total": "total"
+   },
+   "fields": {
+    "url": {
+     "path": "elementId.linkName",
+     "template": "/{value}"
+    },
+    "title": "name",
+    "cover": "picUrl"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/catalog/search?offset={offset}&q={query}&sortType=RATING",
+    "headers": {
+     "Accept": "application/json, text/plain, */*"
+    }
+   },
+   "format": "json",
+   "items": "list",
+   "page_size": 50,
+   "has_next": {
+    "total": "total"
+   },
+   "fields": {
+    "url": {
+     "path": "elementId.linkName",
+     "template": "/{value}"
+    },
+    "title": "name",
+    "cover": "picUrl"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "category": ".cr-hero-short-details a[href*=\"/list/category/\"]",
+    "age": ".cr-hero-short-details a[href*=\"/list/limitation/\"]",
+    "tags": {
+     "path": ".creation-element-tags .creation-element-tags__item:not(.creation-element-tags__item--misc) span:not(.text-secondary)",
+     "all": true,
+     "join": ", "
+    }
+   },
+   "fields": {
+    "title": [
+     ".cr-hero-names__main",
+     "meta[itemprop=name]@content"
+    ],
+    "cover": [
+     ".cr-hero-poster__img@img",
+     ".cr-hero-overlay__bg@data-original",
+     ".cr-hero-overlay__bg@data-bg"
+    ],
+    "description": ".cr-description__content",
+    "author": {
+     "path": ".cr-main-person-item:has(.cr-main-person-item__role:contains(автор)) .cr-main-person-item__name, .cr-main-person-item:has(.cr-main-person-item__role:contains(сценар)) .cr-main-person-item__name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": ".cr-main-person-item:has(.cr-main-person-item__role:contains(худож)) .cr-main-person-item__name, .cr-main-person-item:has(.cr-main-person-item__role:contains(иллюст)) .cr-main-person-item__name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "const": "[[{l.category}, ]][[{l.age}, ]]{l.tags}"
+    },
+    "status": ".cr-hero .cr-info-details > *:has(.cr-info-details-item__title:contains(выпуск)) .cr-info-details-item__status"
+   },
+   "status_map": {
+    "продолжается": 1,
+    "выпуск продолжается": 1,
+    "начат": 1,
+    "завершен": 2,
+    "завершён": 2,
+    "выпуск завершен": 2,
+    "выпуск завершён": 2,
+    "приостановлен": 6,
+    "заморожен": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "tr.item-row:has(td > a):has(td.date:not(.text-info))",
+   "fields": {
+    "url": {
+     "path": "a.chapter-link@href",
+     "template": "{value}?mtr=true"
+    },
+    "name": "a.chapter-link@ownText",
+    "scanlator": {
+     "path": "a.chapter-link@title",
+     "replace": [
+      [
+       "\\(Переводчик\\),",
+       "&"
+      ],
+      [
+       "Переводчик,",
+       "&"
+      ],
+      [
+       "\\s*\\(?Переводчик\\)?\\s*$",
+       ""
+      ]
+     ]
+    },
+    "date": [
+     "td.d-none:last-of-type",
+     "td.d-none"
+    ]
+   },
+   "date_format": [
+    "dd.MM.yy",
+    "d.MM.yy"
+   ],
+   "date_locale": "ru"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "block_regex": "(?s)rm_h\\.reader(?:Do)?Init\\((.*?)\\);",
+   "items": "\\[['\"][^'\"]*['\"],['\"][^'\"]*['\"],['\"][^'\"]*['\"][^\\]]*\\]",
+   "image": [
+    {
+     "path": "",
+     "regex": "^\\[['\"][^'\"]*['\"],['\"]['\"],['\"](/static/[^'\"]*)['\"]",
+     "group": 1,
+     "template": "{base}{value}"
+    },
+    {
+     "path": "",
+     "replace": [
+      [
+       "^\\[['\"]([^'\"]*)['\"],['\"][^'\"]*/manga/['\"],['\"]([^'\"]*)['\"].*$",
+       "$1$2"
+      ],
+      [
+       "^\\[['\"]([^'\"]*)['\"],['\"]([^'\"]*)['\"],['\"]([^'\"]*)['\"].*$",
+       "$2$1$3"
+      ],
+      [
+       "^(?![a-z]+://)",
+       "https:"
+      ],
+      [
+       "^(https?://[^/?]*one-way\\.work[^?]*)\\?.*$",
+       "$1"
+      ],
+      [
+       "//resh",
+       "//h"
+      ]
+     ]
+    }
+   ]
+  }
+ },
+ "hinweise": [
+  "GroupLe-Theme. Listen über die JSON-API /api/catalog/search (offset in 50er-Schritten, sortType RATING/DATE_UPDATE, Suche q=…); nächste Seite solange offset+limit < total.",
+  "Community setzt standardmäßig User-Agent 'arora' (einstellbar) – übernommen.",
+  "Details: Status nur aus 'Выпуск' (продолжается/начат → laufend, завершён → abgeschlossen, приостановлен/заморожен → pausiert); die Community unterscheidet bei 'завершён' noch nach Übersetzungsstand (sonst 'Veröffentlichung beendet') – hier vereinfacht. status_map-Schlüssel sind Vermutungen über den genauen Wortlaut (Community prüft per contains).",
+  "Altersfreigabe wird ohne Umwandlung (Community: NC-17/R18+ → 18+, R/G/PG → 16+, PG-13 → 12+) in die Genres übernommen; Bewertung und Alternativtitel in der Beschreibung weggelassen.",
+  "Kapitel: URL + '?mtr=true' (ohne Login gibt es keinen user_hash 'd='); Kapitelnummer (data-num/10) und das Kürzen des Serientitels im Kapitelnamen sind nicht nachgebildet. Datum aus der letzten 'td.d-none'.",
+  "Seiten: Bildliste aus rm_h.readerInit(…)/readerDoInit(…), je Eintrag [host, mitte, ende] → mitte+host+ende; Sonderfälle wie in der Community (mitte endet auf /manga/ → host+ende; leere mitte und /static/ → base+ende; fehlendes Schema → https:; one-way.work ohne Query; //resh → //h).",
+  "Login (Auto-Auth), kostenpflichtige Kapitel und lizenzierte Werke werden nicht behandelt; Kapitel, die nur mit Login lesbar sind, liefern ohne Anmeldung Ersatzbilder."
+ ]
+}

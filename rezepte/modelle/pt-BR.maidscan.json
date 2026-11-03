@@ -1,0 +1,352 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Maid Scan",
+  "sprache": "pt-BR",
+  "base_url": "https://empreguetes.wtf",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.maidscan",
+  "quellen": [
+   {
+    "name": "Maid Scan",
+    "sprache": "pt-BR",
+    "quell_id": 7624757094973334315,
+    "home": "https://empreguetes.wtf"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/maidscan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "greenshit"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "scan-id": "3",
+   "X-Requested-With": "XMLHttpRequest"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://api.verdinha.wtf/obras/ranking?tipo=visualizacoes_geral&limite=26&pagina={page}&gen_id=4",
+   "format": "json",
+   "items": "obras",
+   "page_size": 26,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "obr_id",
+     "template": "/obra/{value}"
+    },
+    "title": "obr_nome",
+    "cover": [
+     {
+      "path": "obr_imagem",
+      "regex": "^(https?://.+)$"
+     },
+     {
+      "path": "obr_imagem",
+      "regex": "^((?:uploads/|wp-content/|manga_|WP-manga).*)$",
+      "replace": [
+       [
+        "^(manga_)",
+        "wp-content/uploads/WP-manga/data/$1"
+       ],
+       [
+        "^(WP-manga)",
+        "wp-content/uploads/$1"
+       ],
+       [
+        "^uploads/",
+        "wp-content/uploads/"
+       ]
+      ],
+      "template": "https://api.verdinha.wtf/cdn/{value}"
+     },
+     {
+      "path": "obr_imagem",
+      "replace": [
+       [
+        "^/+",
+        ""
+       ]
+      ],
+      "template": "https://api.verdinha.wtf/cdn/scans/{f.scan_id}/obras/{f.obr_id}/{value}?width=300"
+     }
+    ]
+   }
+  },
+  "latest": {
+   "request": "https://api.verdinha.wtf/obras/atualizacoes?pagina={page}&limite=26&gen_id=4",
+   "format": "json",
+   "items": "obras",
+   "page_size": 26,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "obr_id",
+     "template": "/obra/{value}"
+    },
+    "title": "obr_nome",
+    "cover": [
+     {
+      "path": "obr_imagem",
+      "regex": "^(https?://.+)$"
+     },
+     {
+      "path": "obr_imagem",
+      "regex": "^((?:uploads/|wp-content/|manga_|WP-manga).*)$",
+      "replace": [
+       [
+        "^(manga_)",
+        "wp-content/uploads/WP-manga/data/$1"
+       ],
+       [
+        "^(WP-manga)",
+        "wp-content/uploads/$1"
+       ],
+       [
+        "^uploads/",
+        "wp-content/uploads/"
+       ]
+      ],
+      "template": "https://api.verdinha.wtf/cdn/{value}"
+     },
+     {
+      "path": "obr_imagem",
+      "replace": [
+       [
+        "^/+",
+        ""
+       ]
+      ],
+      "template": "https://api.verdinha.wtf/cdn/scans/{f.scan_id}/obras/{f.obr_id}/{value}?width=300"
+     }
+    ]
+   }
+  },
+  "search": {
+   "request": "https://api.verdinha.wtf/obras/buscar?limite=26&pagina={page}&obr_nome={query}&todos_generos=1&orderBy=ultima_atualizacao",
+   "format": "json",
+   "items": "obras",
+   "page_size": 26,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "obr_id",
+     "template": "/obra/{value}"
+    },
+    "title": "obr_nome",
+    "cover": [
+     {
+      "path": "obr_imagem",
+      "regex": "^(https?://.+)$"
+     },
+     {
+      "path": "obr_imagem",
+      "regex": "^((?:uploads/|wp-content/|manga_|WP-manga).*)$",
+      "replace": [
+       [
+        "^(manga_)",
+        "wp-content/uploads/WP-manga/data/$1"
+       ],
+       [
+        "^(WP-manga)",
+        "wp-content/uploads/$1"
+       ],
+       [
+        "^uploads/",
+        "wp-content/uploads/"
+       ]
+      ],
+      "template": "https://api.verdinha.wtf/cdn/{value}"
+     },
+     {
+      "path": "obr_imagem",
+      "replace": [
+       [
+        "^/+",
+        ""
+       ]
+      ],
+      "template": "https://api.verdinha.wtf/cdn/scans/{f.scan_id}/obras/{f.obr_id}/{value}?width=300"
+     }
+    ]
+   }
+  },
+  "details": {
+   "request": "https://api.verdinha.wtf/obras/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/obras?/(\\d+)"
+   },
+   "let": {
+    "scan": "scan_id",
+    "obra": "obr_id"
+   },
+   "fields": {
+    "title": "obr_nome",
+    "cover": [
+     {
+      "path": "obr_imagem",
+      "regex": "^(https?://.+)$"
+     },
+     {
+      "path": "obr_imagem",
+      "regex": "^((?:uploads/|wp-content/|manga_|WP-manga).*)$",
+      "replace": [
+       [
+        "^(manga_)",
+        "wp-content/uploads/WP-manga/data/$1"
+       ],
+       [
+        "^(WP-manga)",
+        "wp-content/uploads/$1"
+       ],
+       [
+        "^uploads/",
+        "wp-content/uploads/"
+       ]
+      ],
+      "template": "https://api.verdinha.wtf/cdn/{value}"
+     },
+     {
+      "path": "obr_imagem",
+      "replace": [
+       [
+        "^/+",
+        ""
+       ]
+      ],
+      "template": "https://api.verdinha.wtf/cdn/scans/{l.scan}/obras/{l.obra}/{value}?width=300"
+     }
+    ],
+    "description": {
+     "path": "obr_descricao",
+     "decode": "html_text"
+    },
+    "genres": {
+     "path": [
+      "genero.gen_nome",
+      "tags.*.tag_nome"
+     ],
+     "union": true
+    },
+    "status": "status.stt_nome"
+   },
+   "status_map": {
+    "em andamento": 1,
+    "ativo": 1,
+    "concluído": 2,
+    "hiato": 6,
+    "cancelado": 5
+   }
+  },
+  "chapters": {
+   "request": "https://api.verdinha.wtf/obras/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/obras?/(\\d+)"
+   },
+   "items": "capitulos",
+   "skip": {
+    "path": "cap_liberado",
+    "equals": "false"
+   },
+   "fields": {
+    "url": {
+     "path": "cap_id",
+     "template": "/capitulo/{value}"
+    },
+    "name": "cap_nome",
+    "number": "cap_numero",
+    "date": "cap_criado_em"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://api.verdinha.wtf/capitulos/{u.cid}",
+   "format": "json",
+   "url_vars": {
+    "cid": "/capitulo/(\\d+)"
+   },
+   "let": {
+    "scan": "obra.scan_id",
+    "obra": "obra.obr_id",
+    "num": {
+     "path": "cap_numero",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ]
+    }
+   },
+   "items": "cap_paginas",
+   "image": [
+    {
+     "path": [
+      "src",
+      ""
+     ],
+     "regex": "^(https?://.+)$"
+    },
+    {
+     "path": [
+      "src",
+      ""
+     ],
+     "regex": "^((?:uploads/|wp-content/|manga_|WP-manga).*)$",
+     "replace": [
+      [
+       "^(manga_)",
+       "wp-content/uploads/WP-manga/data/$1"
+      ],
+      [
+       "^(WP-manga)",
+       "wp-content/uploads/$1"
+      ],
+      [
+       "^uploads/",
+       "wp-content/uploads/"
+      ]
+     ],
+     "template": "https://cdn.verdinha.wtf/{value}"
+    },
+    {
+     "path": [
+      "src",
+      ""
+     ],
+     "replace": [
+      [
+       "^/+",
+       ""
+      ]
+     ],
+     "template": "https://cdn.verdinha.wtf/scans/{l.scan}/obras/{l.obra}/capitulos/{l.num}/{value}"
+    }
+   ]
+  }
+ },
+ "hinweise": [
+  "GreenShit-Theme: JSON-API https://api.verdinha.wtf, Header scan-id=3, Rate-Limit 2/s. Beliebt = /obras/ranking (Aufrufe), Neueste = /obras/atualizacoes, beide mit gen_id=4.",
+  "Nächste Seite: Theme vergleicht currentPage/pagina_atual/pagina mit totalPages/paginas/totalPaginas (Feldname je Website verschieden) – hier ersatzweise 'volle Seite' (26 Einträge).",
+  "Bild-/Cover-URLs wie buildImageUrl im Theme: http(s) unverändert; WordPress-artige Pfade (uploads/, wp-content/, manga_, WP-manga) unter CDN/wp-content/…; sonst CDN/scans/<scan_id>/obras/<obr_id>/[capitulos/<nr>/]<src> (Cover mit ?width=300). Sonderfall 'mime gesetzt → WordPress-Pfad' ist nicht ausdrückbar und fehlt. Doppelte Schrägstriche werden nur am Anfang von src entfernt.",
+  "Kapitelnummer im Bildpfad: '.0' am Ende entfernt (wie removeSuffix im Theme). cap_paginas darf Strings oder Objekte {src, mime} enthalten → Pfad-Ausweichkette ['src', ''].",
+  "Theme kann sich optional mit E-Mail/Passwort anmelden (Bearer-Token); ohne Anmeldung liefert die API für manche Kapitel 403. Das Rezept meldet sich nicht an; Kapitel mit cap_liberado=false werden übersprungen.",
+  "Kapitel sortiert das Theme absteigend nach Nummer; das Rezept übernimmt die API-Reihenfolge."
+ ]
+}

@@ -1,0 +1,190 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "PizzariaScan",
+  "sprache": "pt-BR",
+  "base_url": "https://pizzariacomics.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.pizzariascan",
+  "quellen": [
+   {
+    "name": "PizzariaScan",
+    "sprache": "pt-BR",
+    "quell_id": 3359822911747375789,
+    "home": "https://pizzariacomics.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/pizzariascan",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mangawork"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/todas-as-obras/page/{page}/?title=&order=popular&status=&type=",
+   "request_by_page": {
+    "1": "{base}/todas-as-obras/?title=&order=popular&status=&type="
+   },
+   "items": "div.w-full.h-full:has(a[href*='/manga/'])",
+   "has_next": {
+    "exists": ".pagination .page-numbers.current + a[href]"
+   },
+   "fields": {
+    "url": "a[href*='/manga/']@href",
+    "title": [
+     "a[href*='/manga/']@title",
+     "h1"
+    ],
+    "cover": "a[href*='/manga/'] img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/todas-as-obras/page/{page}/?title=&order=update&status=&type=",
+   "request_by_page": {
+    "1": "{base}/todas-as-obras/?title=&order=update&status=&type="
+   },
+   "items": "div.w-full.h-full:has(a[href*='/manga/'])",
+   "has_next": {
+    "exists": ".pagination .page-numbers.current + a[href]"
+   },
+   "fields": {
+    "url": "a[href*='/manga/']@href",
+    "title": [
+     "a[href*='/manga/']@title",
+     "h1"
+    ],
+    "cover": "a[href*='/manga/'] img@img"
+   }
+  },
+  "search": {
+   "request": "{base}/todas-as-obras/page/{page}/?title={query}&order=title&status=&type=",
+   "request_by_page": {
+    "1": "{base}/todas-as-obras/?title={query}&order=title&status=&type="
+   },
+   "items": "div.w-full.h-full:has(a[href*='/manga/'])",
+   "has_next": {
+    "exists": ".pagination .page-numbers.current + a[href]"
+   },
+   "fields": {
+    "url": "a[href*='/manga/']@href",
+    "title": [
+     "a[href*='/manga/']@title",
+     "h1"
+    ],
+    "cover": "a[href*='/manga/'] img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "pid": "#chapter_list.chapter_list_container@data-post-id",
+    "cnt": [
+     "#chapter_list.chapter_list_container@data-count",
+     {
+      "const": "1000"
+     }
+    ]
+   },
+   "fields": {
+    "title": "h1.text-4xl.font-bold.mb-2",
+    "cover": [
+     "img[itemprop=image]@img",
+     "[itemprop=image] img@img"
+    ],
+    "author": "div.grid.grid-cols-2.gap-4.text-sm.text-gray-600.mb-6 > div:has(strong:containsOwn(Autor)) p",
+    "genres": {
+     "path": "[itemprop=genre]",
+     "all": true,
+     "join": ", "
+    },
+    "description": "div.text-base.leading-relaxed.mb-6.text-muted-foreground",
+    "status": "*:has(> [itemprop=genre]) > :not([itemprop=genre])"
+   },
+   "status_map": {
+    "publishing": 1,
+    "ongoing": 1,
+    "em andamento": 1,
+    "finished": 2,
+    "completed": 2,
+    "concluído": 2,
+    "concluido": 2,
+    "finalizado": 2,
+    "on hold": 6,
+    "on-hold": 6,
+    "hiatus": 6,
+    "em hiato": 6,
+    "cancelled": 5,
+    "canceled": 5,
+    "cancelado": 5
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    },
+    "form": {
+     "action": "load_chapters",
+     "post_id": "{l.pid}",
+     "count": "{l.cnt}",
+     "paged": "{page}",
+     "order": "DESC"
+    }
+   },
+   "request_by_page": {
+    "1": "details"
+   },
+   "items": "#chapter_list.chapter_list_container li",
+   "fields": {
+    "url": "a[href]@href",
+    "name": [
+     "span.m-0@ownText",
+     "span.line-clamp-1@ownText",
+     "span.m-0",
+     "span.line-clamp-1",
+     "a[href]@ownText",
+     "a[href]"
+    ],
+    "date": "span:last-of-type"
+   },
+   "date_format": [
+    "d 'de' MMMM 'de' yyyy",
+    "dd 'de' MMMM 'de' yyyy",
+    "d/M/yyyy"
+   ],
+   "date_locale": "pt-BR",
+   "paging": {
+    "has_next": {
+     "exists": "button.load-chapters[data-paged]"
+    },
+    "max_pages": 20
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.reader-area img#imagech, div.reader-area img[src*='/manga_auto_capitulos/']",
+   "image": [
+    "@src",
+    "@data-src",
+    "@data-lazy-src"
+   ]
+  }
+ },
+ "hinweise": [
+  "MangaWork-Theme (WordPress). Listen /todas-as-obras/(page/N/)?title=…&order=popular|update|title&status=&type=.",
+  "Status nimmt die Community vom Element direkt vor dem ersten Genre; hier ersatzweise das erste Nicht-Genre-Kind des Genre-Containers (Annahme: Status-Badge steht dort) – am PC prüfen.",
+  "Kapitel: erste Seite aus der Detailseite (#chapter_list li); weitere über POST admin-ajax.php action=load_chapters (post_id/count aus data-Attributen, paged, order=DESC). Die Community sendet multipart/form-data, hier normales Formular (WordPress liest beides). Weiterblättern, solange ein button.load-chapters[data-paged] da ist (Community prüft zusätzlich, ob die Seitenzahl größer ist; Duplikate werden dort entfernt) – max. 20 Seiten.",
+  "Kapiteldatum wie '15 de março de 2024' (Community normalisiert Akzente und Monatsnamen); hier 'd de MMMM de yyyy' mit pt-BR – Monatsnamen ohne Akzent ('marco') würden nicht erkannt.",
+  "Seiten: img#imagech bzw. /manga_auto_capitulos/-Bilder im reader-area; der Regex-Ausweich der Community (\"image\":\"…\" im HTML) ist nicht nachgebildet."
+ ]
+}

@@ -1,0 +1,381 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Vegitoons",
+  "sprache": "pt-BR",
+  "base_url": "https://vegitoons.black",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.vegitoons",
+  "quellen": [
+   {
+    "name": "Vegitoons",
+    "sprache": "pt-BR",
+    "quell_id": 7104462396017692362,
+    "home": "https://vegitoons.black"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/vegitoons",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "greenshit"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "scan-id": "1"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://api.vegitoons.black/obras/ranking?tipo=visualizacoes_geral&limite=26&pagina={page}&gen_id=1",
+   "format": "json",
+   "items": "obras",
+   "page_size": 26,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "obr_id",
+     "template": "/obra/{value}"
+    },
+    "title": "obr_nome",
+    "cover": [
+     {
+      "path": "obr_imagem",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "obr_imagem",
+      "regex": "^((?:manga_|WP-manga|uploads/|wp-content/).*)$",
+      "group": 1,
+      "replace": [
+       [
+        "^manga_",
+        "wp-content/uploads/WP-manga/data/manga_"
+       ],
+       [
+        "^WP-manga",
+        "wp-content/uploads/WP-manga"
+       ],
+       [
+        "^uploads/",
+        "wp-content/uploads/"
+       ],
+       [
+        "^/+",
+        ""
+       ]
+      ],
+      "template": "https://api.vegitoons.black/cdn/{value}"
+     },
+     {
+      "path": "obr_imagem",
+      "replace": [
+       [
+        "^/+",
+        ""
+       ]
+      ],
+      "template": "https://api.vegitoons.black/cdn/scans/1/obras/{f.obr_id}/{value}?width=300"
+     }
+    ]
+   }
+  },
+  "latest": {
+   "request": "https://api.vegitoons.black/obras/atualizacoes?pagina={page}&limite=26&gen_id=1",
+   "format": "json",
+   "items": "obras",
+   "page_size": 26,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "obr_id",
+     "template": "/obra/{value}"
+    },
+    "title": "obr_nome",
+    "cover": [
+     {
+      "path": "obr_imagem",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "obr_imagem",
+      "regex": "^((?:manga_|WP-manga|uploads/|wp-content/).*)$",
+      "group": 1,
+      "replace": [
+       [
+        "^manga_",
+        "wp-content/uploads/WP-manga/data/manga_"
+       ],
+       [
+        "^WP-manga",
+        "wp-content/uploads/WP-manga"
+       ],
+       [
+        "^uploads/",
+        "wp-content/uploads/"
+       ],
+       [
+        "^/+",
+        ""
+       ]
+      ],
+      "template": "https://api.vegitoons.black/cdn/{value}"
+     },
+     {
+      "path": "obr_imagem",
+      "replace": [
+       [
+        "^/+",
+        ""
+       ]
+      ],
+      "template": "https://api.vegitoons.black/cdn/scans/1/obras/{f.obr_id}/{value}?width=300"
+     }
+    ]
+   }
+  },
+  "search": {
+   "request": "https://api.vegitoons.black/obras/buscar?limite=26&pagina={page}&obr_nome={query}&todos_generos=1",
+   "format": "json",
+   "items": "obras",
+   "page_size": 26,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "obr_id",
+     "template": "/obra/{value}"
+    },
+    "title": "obr_nome",
+    "cover": [
+     {
+      "path": "obr_imagem",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "obr_imagem",
+      "regex": "^((?:manga_|WP-manga|uploads/|wp-content/).*)$",
+      "group": 1,
+      "replace": [
+       [
+        "^manga_",
+        "wp-content/uploads/WP-manga/data/manga_"
+       ],
+       [
+        "^WP-manga",
+        "wp-content/uploads/WP-manga"
+       ],
+       [
+        "^uploads/",
+        "wp-content/uploads/"
+       ],
+       [
+        "^/+",
+        ""
+       ]
+      ],
+      "template": "https://api.vegitoons.black/cdn/{value}"
+     },
+     {
+      "path": "obr_imagem",
+      "replace": [
+       [
+        "^/+",
+        ""
+       ]
+      ],
+      "template": "https://api.vegitoons.black/cdn/scans/1/obras/{f.obr_id}/{value}?width=300"
+     }
+    ]
+   }
+  },
+  "details": {
+   "request": "https://api.vegitoons.black/obras/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/obras?/(\\d+)"
+   },
+   "fields": {
+    "title": "obr_nome",
+    "cover": [
+     {
+      "path": "obr_imagem",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "obr_imagem",
+      "regex": "^((?:manga_|WP-manga|uploads/|wp-content/).*)$",
+      "group": 1,
+      "replace": [
+       [
+        "^manga_",
+        "wp-content/uploads/WP-manga/data/manga_"
+       ],
+       [
+        "^WP-manga",
+        "wp-content/uploads/WP-manga"
+       ],
+       [
+        "^uploads/",
+        "wp-content/uploads/"
+       ],
+       [
+        "^/+",
+        ""
+       ]
+      ],
+      "template": "https://api.vegitoons.black/cdn/{value}"
+     },
+     {
+      "path": "obr_imagem",
+      "replace": [
+       [
+        "^/+",
+        ""
+       ]
+      ],
+      "template": "https://api.vegitoons.black/cdn/scans/1/obras/{f.obr_id}/{value}?width=300"
+     }
+    ],
+    "description": {
+     "path": "obr_descricao",
+     "decode": "html_text"
+    },
+    "genres": {
+     "path": [
+      "genero.gen_nome",
+      "tags.*.tag_nome"
+     ],
+     "union": true
+    },
+    "status": "status.stt_nome"
+   },
+   "status_map": {
+    "em andamento": 1,
+    "ativo": 1,
+    "concluído": 2,
+    "hiato": 6,
+    "cancelado": 5
+   }
+  },
+  "chapters": {
+   "request": "https://api.vegitoons.black/obras/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/obras?/(\\d+)"
+   },
+   "items": "capitulos",
+   "locked": {
+    "path": "cap_liberado",
+    "equals": "false"
+   },
+   "fields": {
+    "url": {
+     "path": "cap_id",
+     "template": "/capitulo/{value}"
+    },
+    "name": "cap_nome",
+    "number": "cap_numero",
+    "date": "cap_criado_em"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://api.vegitoons.black/capitulos/{u.cid}",
+   "format": "json",
+   "url_vars": {
+    "cid": "/capitulo/(\\d+)"
+   },
+   "let": {
+    "oid": "obra.obr_id",
+    "sid": "obra.scan_id",
+    "num": {
+     "path": "cap_numero",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ]
+    }
+   },
+   "items": "cap_paginas",
+   "image": [
+    {
+     "path": "src",
+     "regex": "^(https?://.+)$",
+     "group": 1
+    },
+    {
+     "path": "src",
+     "regex": "^/*((?:manga_|WP-manga|uploads/|wp-content/).*)$",
+     "group": 1,
+     "replace": [
+      [
+       "^manga_",
+       "wp-content/uploads/WP-manga/data/manga_"
+      ],
+      [
+       "^WP-manga",
+       "wp-content/uploads/WP-manga"
+      ],
+      [
+       "^uploads/",
+       "wp-content/uploads/"
+      ],
+      [
+       "^/+",
+       ""
+      ]
+     ],
+     "template": "https://cdn.vegitoons.black/{value}"
+    },
+    {
+     "path": "mime",
+     "template": "https://cdn.vegitoons.black/wp-content/uploads/WP-manga/data/{f.src}"
+    },
+    {
+     "path": "src",
+     "replace": [
+      [
+       "^/+",
+       ""
+      ]
+     ],
+     "template": "https://cdn.vegitoons.black/scans/{l.sid}/obras/{l.oid}/capitulos/{l.num}/{value}"
+    },
+    {
+     "path": "$",
+     "replace": [
+      [
+       "^/+",
+       ""
+      ]
+     ],
+     "template": "https://cdn.vegitoons.black/scans/{l.sid}/obras/{l.oid}/capitulos/{l.num}/{value}"
+    }
+   ]
+  }
+ },
+ "hinweise": [
+  "GreenShit-Theme, JSON-API https://api.vegitoons.black mit Header scan-id: 1. Beliebt /obras/ranking?tipo=visualizacoes_geral, Neu /obras/atualizacoes, Suche /obras/buscar?obr_nome=…&todos_generos=1 (je limite=26, gen_id=1). Nächste Seite: Community vergleicht totalPages > currentPage (Feldnamen wechseln: currentPage/pagina_atual/pagina, totalPages/paginas/totalPaginas) – hier vereinfacht 'volle Seite = weiter' (26).",
+  "Cover/Bild-URLs wie buildImageUrl(): absolute URL bleibt; WordPress-Pfade (manga_, WP-manga, uploads/, wp-content/) unter <base>/wp-content/…; sonst <cdn>/scans/<scan>/obras/<id>/(capitulos/<nr>/)<datei>. Cover über api…/cdn mit ?width=300, Seiten über cdn.vegitoons.black.",
+  "Seiten: obr_id/scan_id/cap_numero kommen aus der Kapitel-Antwort (let). cap_paginas kann laut Community auch reine Texte statt Objekten enthalten; dafür letzte Ausweichstufe mit Pfad '$' – ob '$' auf ein Text-Element zeigt, ist in keiner Vorlage belegt, am PC prüfen. Bei Objekten mit 'mime' wird data/<src> genommen (ein führender Schrägstrich in src ergibt dort ggf. \"//\" – meist unschädlich).",
+  "Nicht freigegebene Kapitel (cap_liberado=false) werden als gesperrt ausgelassen; der optionale Login (E-Mail/Passwort → Bearer-Token) der Community ist nicht nachgebildet.",
+  "Community sortiert Kapitel nach Nummer absteigend und entfernt Doppelte; hier Reihenfolge der API."
+ ]
+}

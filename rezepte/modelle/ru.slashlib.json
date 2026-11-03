@@ -1,0 +1,210 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "SlashLib",
+  "sprache": "ru",
+  "base_url": "https://v2.shlib.life",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ru.kaanon.slashlib",
+  "quellen": [
+   {
+    "name": "SlashLib",
+    "sprache": "ru",
+    "quell_id": 2730544188738947015,
+    "home": "https://v2.shlib.life"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ru/slashlib",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "libgroup"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "text/html,application/json,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+   "Site-Id": "2",
+   "X-Requested-With": "XMLHttpRequest"
+  },
+  "image_headers": {
+   "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8"
+  },
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://api.cdnlibs.org/api/manga?site_id[]=2&page={page}",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "exists": "meta.has_next_page"
+   },
+   "fields": {
+    "url": {
+     "path": "slug_url",
+     "template": "/{value}"
+    },
+    "title": [
+     "eng_name",
+     "name"
+    ],
+    "cover": "cover.default"
+   }
+  },
+  "latest": {
+   "request": "https://api.cdnlibs.org/api/latest-updates?page={page}",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "exists": "meta.has_next_page"
+   },
+   "fields": {
+    "url": {
+     "path": "slug_url",
+     "template": "/{value}"
+    },
+    "title": [
+     "eng_name",
+     "name"
+    ],
+    "cover": "cover.default"
+   }
+  },
+  "search": {
+   "request": "https://api.cdnlibs.org/api/manga?page={page}&site_id[]=2&q={query}",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "exists": "meta.has_next_page"
+   },
+   "fields": {
+    "url": {
+     "path": "slug_url",
+     "template": "/{value}"
+    },
+    "title": [
+     "eng_name",
+     "name"
+    ],
+    "cover": "cover.default"
+   }
+  },
+  "details": {
+   "request": "https://api.cdnlibs.org/api/manga/{u.slug}?fields[]=eng_name&fields[]=otherNames&fields[]=summary&fields[]=rate&fields[]=genres&fields[]=tags&fields[]=teams&fields[]=authors&fields[]=publisher&fields[]=userRating&fields[]=manga_status_id&fields[]=status_id&fields[]=artists",
+   "format": "json",
+   "url_vars": {
+    "slug": "^/([^/?#]+)"
+   },
+   "fields": {
+    "title": [
+     "data.eng_name",
+     "data.name"
+    ],
+    "cover": "data.cover.default",
+    "description": [
+     {
+      "path": "data.summary.content.*.content.*.text",
+      "all": true,
+      "join": "\n"
+     },
+     "data.summary"
+    ],
+    "author": {
+     "path": "data.authors.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "data.artists.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": [
+      "data.type.label",
+      "data.ageRestriction.label",
+      "data.genres.*.name",
+      "data.tags.*.name"
+     ],
+     "union": true
+    },
+    "status": [
+     "data.scanlateStatus.label",
+     "data.status.label"
+    ]
+   },
+   "status_map": {
+    "продолжается": 1,
+    "выходит": 1,
+    "завершён": 2,
+    "вышло": 4,
+    "заморожен": 6,
+    "заброшен": 6,
+    "онгоинг": 1,
+    "анонс": 1,
+    "приостановлен": 6,
+    "выпуск прекращён": 5
+   }
+  },
+  "chapters": {
+   "request": "https://api.cdnlibs.org/api/manga/{u.slug}/chapters",
+   "format": "json",
+   "url_vars": {
+    "slug": "^/([^/?#]+)"
+   },
+   "items": "data",
+   "reverse": true,
+   "skip": {
+    "path": "branches.0.restricted_view.is_open",
+    "equals": "false"
+   },
+   "fields": {
+    "url": {
+     "path": "number",
+     "template": "/{u.slug}/chapter?[[&branch_id={f.branches.0.branch_id}]]&volume={f.volume}&number={value}"
+    },
+    "name": {
+     "path": "number",
+     "template": "Том {f.volume}. Глава {value}[[ - {f.name}]]"
+    },
+    "number": "number",
+    "scanlator": "branches.0.teams.0.name",
+    "date": "branches.0.created_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://api.cdnlibs.org/api/constants?fields[]=imageServers",
+   "format": "json",
+   "let": {
+    "srv": [
+     "data.imageServers.?id=compress.url",
+     "data.imageServers.?id=main.url"
+    ]
+   },
+   "then": [
+    {
+     "request": "https://api.cdnlibs.org/api/manga{url}",
+     "format": "json"
+    }
+   ],
+   "items": "data.pages",
+   "image": {
+    "path": "url",
+    "template": "{l.srv}{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "LibGroup-Theme (Site-Id 2): alles über die JSON-API https://api.cdnlibs.org (Community-Standard, dort umstellbar), Header Site-Id, Rate-Limit 1/s.",
+  "Titel wie Community-Standard (Spracheinstellung 'eng'): eng_name, sonst name.",
+  "Bildserver: Community holt /api/constants und nimmt den Server mit id 'compress' (Standard), dessen site_ids die Site-Id enthält. Filter 'site_ids enthält X' gibt es in keiner Vorlage → hier erster Server mit id=compress (Ausweich: main). Auf dem PC prüfen, ob der Server zur Site passt; Ablauf constants → then Seiten-API wie Vorlage ja.mangalt.",
+  "Kapitel: Community wählt bei mehreren Übersetzer-Zweigen den Standard-Zweig (/api/branches/{id}); hier immer branches.0. Gesperrte Kapitel (restricted_view.is_open=false) werden übersprungen.",
+  "Beschreibung: summary ist ein Rich-Text-Dokument; nur Text der Absätze (content.*.content.*.text), Bewertung und Alternativnamen fehlen. Lizenziert-Status (is_licensed) nicht abgebildet; Status nach scanlateStatus, sonst status.",
+  "Anmeldung (Bearer-Token aus WebView-localStorage) nicht nachgebildet – 18+-Titel zeigt die API ohne Anmeldung evtl. nicht."
+ ]
+}

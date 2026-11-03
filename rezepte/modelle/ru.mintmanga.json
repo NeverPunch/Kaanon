@@ -1,0 +1,237 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MintManga",
+  "sprache": "ru",
+  "base_url": "https://2.mintmanga.one",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ru.kaanon.mintmanga",
+  "quellen": [
+   {
+    "name": "MintManga",
+    "sprache": "ru",
+    "quell_id": 6,
+    "home": "https://2.mintmanga.one"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ru/mintmanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.91",
+  "theme": "grouple"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "arora"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/api/catalog/search?offset={offset}&sortType=RATING",
+    "headers": {
+     "Accept": "application/json, text/plain, */*",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "list",
+   "page_size": 50,
+   "has_next": {
+    "total": "total"
+   },
+   "fields": {
+    "url": {
+     "path": "elementId.linkName",
+     "template": "/{value}"
+    },
+    "title": "name",
+    "cover": "picUrl"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/api/catalog/search?offset={offset}&sortType=DATE_UPDATE",
+    "headers": {
+     "Accept": "application/json, text/plain, */*",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "list",
+   "page_size": 50,
+   "has_next": {
+    "total": "total"
+   },
+   "fields": {
+    "url": {
+     "path": "elementId.linkName",
+     "template": "/{value}"
+    },
+    "title": "name",
+    "cover": "picUrl"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/catalog/search?offset={offset}&q={query}&sortType=RATING",
+    "headers": {
+     "Accept": "application/json, text/plain, */*",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "list",
+   "page_size": 50,
+   "has_next": {
+    "total": "total"
+   },
+   "fields": {
+    "url": {
+     "path": "elementId.linkName",
+     "template": "/{value}"
+    },
+    "title": "name",
+    "cover": "picUrl"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     ".cr-hero-names__main",
+     "meta[itemprop=name]@content"
+    ],
+    "cover": [
+     ".cr-hero-poster__img@img",
+     ".cr-hero-overlay__bg@img",
+     ".cr-hero-overlay__bg@data-bg"
+    ],
+    "description": ".cr-description__content",
+    "author": {
+     "path": ".cr-main-person-item:has(.cr-main-person-item__role:matches([Аа]втор|[Сс]ценар)) .cr-main-person-item__name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": ".cr-main-person-item:has(.cr-main-person-item__role:matches([Хх]удож|[Ии]ллюст)) .cr-main-person-item__name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": ".cr-hero-short-details a[href*=\"/list/category/\"], .cr-hero-short-details a[href*=\"/list/limitation/\"], .creation-element-tags .creation-element-tags__item:not(.creation-element-tags__item--misc) span:not(.text-secondary)",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": ".cr-hero .cr-info-details .cr-info-details-item:has(.cr-info-details-item__title:matches([Вв]ыпуск)) .cr-info-details-item__status",
+     "regex": "([Пп]родолж|[Нн]ачат|[Зз]аверш|[Пп]риост|[Зз]аморож)"
+    }
+   },
+   "status_map": {
+    "продолж": 1,
+    "начат": 1,
+    "заверш": 2,
+    "приост": 6,
+    "заморож": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "let": {
+    "hash": {
+     "path": "script:containsData(user_hash)@html",
+     "regex": "user_hash.+'(.+)'"
+    }
+   },
+   "items": "tr.item-row:has(td > a):has(td.date:not(.text-info))",
+   "fields": {
+    "url": {
+     "path": "a.chapter-link@href",
+     "template": "{value}?[[d={l.hash}&]]mtr=true"
+    },
+    "name": "a.chapter-link@ownText",
+    "scanlator": {
+     "path": "a.chapter-link@title",
+     "replace": [
+      [
+       "\\(Переводчик\\),",
+       "&"
+      ],
+      [
+       "Переводчик,",
+       "&"
+      ],
+      [
+       " \\(Переводчик\\)$",
+       ""
+      ],
+      [
+       " Переводчик$",
+       ""
+      ]
+     ]
+    },
+    "date": {
+     "path": "td.d-none",
+     "all": true,
+     "join": " ",
+     "regex": "(\\d{1,2}\\.\\d{2}\\.\\d{2})\\s*$"
+    }
+   },
+   "date_format": [
+    "dd.MM.yy",
+    "d.MM.yy"
+   ]
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "block_regex": "(?s)rm_h\\.reader(?:Do)?Init\\((.*?)\\);",
+   "items": "\\[['\"][^'\"]*['\"],['\"][^'\"]*['\"],['\"][^'\"]*['\"][^\\]]*\\]",
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "^\\[['\"][^'\"]*['\"],['\"]['\"],['\"](/static/[^'\"]*)['\"].*$",
+      "https://2.mintmanga.one$1"
+     ],
+     [
+      "^\\[['\"]([^'\"]*)['\"],['\"][^'\"]*/manga/['\"],['\"]([^'\"]*)['\"].*$",
+      "$1$2"
+     ],
+     [
+      "^\\[['\"]([^'\"]*)['\"],['\"]([^'\"]*)['\"],['\"]([^'\"]*)['\"].*$",
+      "$2$1$3"
+     ],
+     [
+      "^//",
+      "https://"
+     ],
+     [
+      "^(https?://[^/]*one-way\\.work/[^?]*)\\?.*$",
+      "$1"
+     ],
+     [
+      "//resh",
+      "//h"
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "GroupLe-Theme. Listen über JSON-API /api/catalog/search (offset in 50er-Schritten, sortType RATING bzw. DATE_UPDATE), nächste Seite solange offset+limit < total.",
+  "User-Agent 'arora' ist der Community-Standard (dort einstellbar). Rate-Limit 2/s.",
+  "Seiten: Bildliste aus rm_h.readerInit(...)/readerDoInit(...) – Einträge ['host','mitte','ende',…]; URL-Zusammenbau wie im Theme über eine Ersetzungskette (static → Basis-URL, mitte endet auf /manga/ → host+ende, sonst mitte+host+ende; '//'→'https://'; one-way.work ohne Query; '//resh'→'//h'). Annahme: Ersetzungen werden der Reihe nach angewendet.",
+  "Kapitel-URL bekommt wie im Theme '?mtr=true' (Altersbestätigung) und, falls auf der Seite ein user_hash steht, 'd=<hash>'. Ohne Anmeldung zeigen manche Titel keine Kapitel (authGuard) bzw. Platzhalterbilder; Theme kann sich optional mit Login/Passwort anmelden – das Rezept nicht. Bezahl-/Premium-Kapitel liefern keine Bilder.",
+  "Kapitelnummer (data-num/10) nicht ausdrückbar → fehlt. Namensbereinigung bei langen Titeln und Экстра/Сингл-Nummerierung nicht nachgebildet.",
+  "Status: Theme unterscheidet bei 'заверш' zusätzlich den Übersetzungsstatus (abgeschlossen vs. Veröffentlichung beendet); hier immer abgeschlossen. Bewertung und alternative Namen fehlen in der Beschreibung.",
+  "Erkennung geänderter Domains/301-Weiterleitungen (Theme wirft Fehler) fehlt."
+ ]
+}

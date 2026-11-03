@@ -1,0 +1,157 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Lelscan-VF",
+  "sprache": "fr",
+  "base_url": "https://www.lelscanfr.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.fr.kaanon.lelscanvf",
+  "quellen": [
+   {
+    "name": "Lelscan-VF",
+    "sprache": "fr",
+    "quell_id": 4874205281198767614,
+    "home": "https://www.lelscanfr.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/fr/lelscanvf",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "fuzzydoodle"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/manga?page={page}",
+   "items": "div#card-real",
+   "has_next": {
+    "exists": "ul.pagination > li:last-child:not(.pagination-disabled)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "h2.text-sm",
+    "cover": "img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/?page={page}",
+   "items": "section:has(h2:containsOwn(Recent Chapters)) div#card-real, section:has(h2:containsOwn(Chapitres récents)) div#card-real",
+   "has_next": {
+    "exists": "ul.pagination > li:last-child:not(.pagination-disabled)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "h2.text-sm",
+    "cover": "img@img"
+   }
+  },
+  "search": {
+   "request": "{base}/manga?title={query}&page={page}",
+   "items": "div#card-real",
+   "has_next": {
+    "exists": "ul.pagination > li:last-child:not(.pagination-disabled)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "h2.text-sm",
+    "cover": "img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     "main > section > div div.flex > h1@ownText",
+     "main > section > div div.flex > h2@ownText"
+    ],
+    "cover": "main > section > div div.relative img@img",
+    "description": [
+     "p#description",
+     "div:has(> p#description)"
+    ],
+    "genres": "main > section > div div.flex > a.inline-block",
+    "author": {
+     "path": [
+      "div#buttons + div.hidden p:has(span:containsOwn(Auteur)) span.capitalize@ownText",
+      "div:has(> div#buttons) + div.flex p:has(span:containsOwn(Auteur)) span.capitalize@ownText",
+      "div#buttons + div.hidden p:has(span:containsOwn(Author)) span.capitalize@ownText"
+     ],
+     "replace": [
+      [
+       "^-$",
+       ""
+      ]
+     ]
+    },
+    "artist": {
+     "path": [
+      "div#buttons + div.hidden p:has(span:containsOwn(Artiste)) span.capitalize@ownText",
+      "div:has(> div#buttons) + div.flex p:has(span:containsOwn(Artiste)) span.capitalize@ownText",
+      "div#buttons + div.hidden p:has(span:containsOwn(Artist)) span.capitalize@ownText"
+     ],
+     "replace": [
+      [
+       "^-$",
+       ""
+      ]
+     ]
+    },
+    "status": [
+     "div#buttons + div.hidden p:has(span:containsOwn(Statut)) span.capitalize@ownText",
+     "div:has(> div#buttons) + div.flex p:has(span:containsOwn(Statut)) span.capitalize@ownText",
+     "div#buttons + div.hidden p:has(span:containsOwn(Status)) span.capitalize@ownText"
+    ]
+   },
+   "status_map": {
+    "en cours": 1,
+    "ongoing": 1,
+    "terminé": 2,
+    "termine": 2,
+    "completed": 2,
+    "dropped": 5,
+    "cancelled": 5,
+    "abandonné": 5,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}?page={page}",
+   "request_by_page": {
+    "1": "details"
+   },
+   "items": "div#chapters-list > a[href]",
+   "fields": {
+    "url": "@href",
+    "name": [
+     "#item-title@ownText",
+     "span@ownText"
+    ],
+    "date": "span.text-gray-500"
+   },
+   "date_format": "relative",
+   "date_locale": "fr",
+   "paging": {
+    "has_next": {
+     "exists": "ul.pagination > li:last-child:not(.pagination-disabled)"
+    },
+    "max_pages": 50
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div#chapter-container > img",
+   "image": "@img"
+  }
+ },
+ "hinweise": [
+  "Theme FuzzyDoodle (vorher mmrcms, versionId 2). Neueste von der Startseite (latestFromHomePage) – Abschnitt 'Chapitres récents'.",
+  "Kapitel: Detailseite ist Seite 1, weitere Seiten über '<manga-url>?page=N', solange der letzte Paginierungs-Eintrag nicht deaktiviert ist.",
+  "Beschreibung: Community entfernt aus div:has(> p#description) span.font-semibold und #show-more und hängt den Alternativtitel an; Rezept nimmt nur p#description.",
+  "Bilder: Community bevorzugt srcset (erstes Wort), data-cfsrc, data-src, data-lazy-src, src; Rezept nutzt @img.",
+  "Status in der Community per contains (en cours/terminé/dropped/hiatus …); status_map wohl exakter Vergleich – auf dem PC prüfen.",
+  "Typ (Manga/Manhwa) wird in der Community als erstes Genre eingefügt – nicht abgebildet. Platzhalter '-' bei Autor/Artiste wird per replace geleert."
+ ]
+}

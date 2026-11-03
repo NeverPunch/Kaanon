@@ -1,0 +1,133 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "SayHentai",
+  "sprache": "vi",
+  "base_url": "https://sayhentai.cx",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.sayhentai",
+  "quellen": [
+   {
+    "name": "SayHentai",
+    "sprache": "vi",
+    "quell_id": 4370817879994829481,
+    "home": "https://sayhentai.cx"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/sayhentai",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.26",
+  "theme": "manhwaz"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": "#slide-top > .item:contains(a)",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": ".info-item a@href",
+    "title": ".info-item a",
+    "cover": ".img-item img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/?page={page}",
+   "items": ".page-item-detail",
+   "has_next": {
+    "exists": "ul.pager a[rel=next]"
+   },
+   "fields": {
+    "url": ".item-summary a@href",
+    "title": ".item-summary a",
+    "cover": ".item-thumb img@img"
+   }
+  },
+  "search": {
+   "request": "{base}/search?s={query}&page={page}",
+   "items": ".page-item-detail",
+   "has_next": {
+    "exists": "ul.pager a[rel=next]"
+   },
+   "fields": {
+    "url": ".item-summary a@href",
+    "title": ".item-summary a",
+    "cover": ".item-thumb img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.post-title h1",
+    "cover": "div.summary_image img@img",
+    "description": "div.summary__content",
+    "author": "div.summary-heading:contains(Tác giả) + div.summary-content",
+    "genres": {
+     "path": "div.genres-content a[rel=tag]",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": "div.summary-heading:contains(Trạng thái) + div.summary-content",
+     "regex": "(?iu)(ongoing|đang ra|completed|hoàn thành|truyện full)"
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "đang ra": 1,
+    "completed": 2,
+    "hoàn thành": 2,
+    "truyện full": 2
+   }
+  },
+  "chapters": {
+   "request": "{l.more}",
+   "request_by_page": {
+    "1": "details"
+   },
+   "let": {
+    "more": ".c-chapter-readmore@data-ajax-url"
+   },
+   "paging": {
+    "has_next": {
+     "exists": ".c-chapter-readmore[data-ajax-url]"
+    },
+    "max_pages": 2
+   },
+   "items": "li.wp-manga-chapter",
+   "fields": {
+    "url": "a@href",
+    "name": "a",
+    "date": "span.chapter-release-date"
+   },
+   "date_format": "relative",
+   "date_locale": "vi"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.page-break img",
+   "image": [
+    "@data-src",
+    "@data-lazy-src",
+    {
+     "path": "@srcset",
+     "regex": "^(\\S+)"
+    },
+    "@data-cfsrc",
+    "@img"
+   ]
+  }
+ },
+ "hinweise": [
+  "ManhwaZ-Theme mit SayHentai-Overrides (Überschriften 'Tác giả'/'Trạng thái', Beliebt = Slider '#slide-top > .item:contains(a)' der Startseite, nur eine Seite).",
+  "Neueste {base}/?page=N ('.page-item-detail'), Suche /search?s=…&page=N.",
+  "Kapitel: erst die Detailseite, dann – falls vorhanden – die weiteren Kapitel von '.c-chapter-readmore@data-ajax-url' (Community lädt diese zweite Liste zusätzlich). Nachgebildet mit request_by_page {'1': 'details'} + let 'more' als Anfrage für Seite 2. Annahme: let aus Seite 1 steht beim Laden von Seite 2 noch zur Verfügung – auf dem PC prüfen.",
+  "Kapiteldatum relativ auf Vietnamesisch ('2 ngày trước' usw.) – Community wertet die Einheiten giây/phút/giờ/ngày/tuần/tháng/năm aus; ob 'relative' der Engine das versteht, auf dem PC prüfen.",
+  "Status per Teilwort (ongoing/đang ra → laufend, completed/hoàn thành/Truyện Full → abgeschlossen) wie im Theme."
+ ]
+}

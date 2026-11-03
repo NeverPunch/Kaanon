@@ -1,0 +1,219 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "SeiManga",
+  "sprache": "ru",
+  "base_url": "https://1.seimanga.me",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ru.kaanon.seimanga",
+  "quellen": [
+   {
+    "name": "SeiManga",
+    "sprache": "ru",
+    "quell_id": 6340120447386662351,
+    "home": "https://1.seimanga.me"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ru/seimanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.45",
+  "theme": "grouple"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "arora"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/api/catalog/search?offset={offset}&sortType=RATING",
+    "headers": {
+     "Accept": "application/json, text/plain, */*"
+    }
+   },
+   "format": "json",
+   "items": "list",
+   "page_size": 50,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "elementId.linkName",
+     "template": "/{value}"
+    },
+    "title": "name",
+    "cover": "picUrl"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/api/catalog/search?offset={offset}&sortType=DATE_UPDATE",
+    "headers": {
+     "Accept": "application/json, text/plain, */*"
+    }
+   },
+   "format": "json",
+   "items": "list",
+   "page_size": 50,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "elementId.linkName",
+     "template": "/{value}"
+    },
+    "title": "name",
+    "cover": "picUrl"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/catalog/search?offset={offset}&q={query}&sortType=RATING",
+    "headers": {
+     "Accept": "application/json, text/plain, */*"
+    }
+   },
+   "format": "json",
+   "items": "list",
+   "page_size": 50,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "elementId.linkName",
+     "template": "/{value}"
+    },
+    "title": "name",
+    "cover": "picUrl"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     ".cr-hero-names__main",
+     "meta[itemprop=name]@content"
+    ],
+    "cover": [
+     ".cr-hero-poster__img@img",
+     ".cr-hero-overlay__bg@img",
+     ".cr-hero-overlay__bg@data-bg"
+    ],
+    "description": ".cr-description__content",
+    "author": {
+     "path": ".cr-main-person-item:has(.cr-main-person-item__role:contains(автор)) .cr-main-person-item__name, .cr-main-person-item:has(.cr-main-person-item__role:contains(сценар)) .cr-main-person-item__name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": ".cr-main-person-item:has(.cr-main-person-item__role:contains(худож)) .cr-main-person-item__name, .cr-main-person-item:has(.cr-main-person-item__role:contains(иллюст)) .cr-main-person-item__name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": ".cr-hero-short-details a[href*=\"/list/category/\"], .cr-hero-short-details a[href*=\"/list/limitation/\"], .creation-element-tags .creation-element-tags__item:not(.creation-element-tags__item--misc) span:not(.text-secondary)",
+    "status": {
+     "path": ".cr-hero .cr-info-details > *:has(.cr-info-details-item__title:contains(выпуск)) .cr-info-details-item__status",
+     "regex": "(?iu)(продолж|начат|заверш|приост|заморож)"
+    }
+   },
+   "status_map": {
+    "продолж": 1,
+    "начат": 1,
+    "заверш": 2,
+    "приост": 6,
+    "заморож": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "tr.item-row:has(td > a):has(td.date:not(.text-info))",
+   "fields": {
+    "url": {
+     "path": "a.chapter-link@href",
+     "template": "{value}?mtr=true"
+    },
+    "name": "a.chapter-link@ownText",
+    "scanlator": {
+     "path": "a.chapter-link@title",
+     "replace": [
+      [
+       "\\(Переводчик\\),",
+       "&"
+      ],
+      [
+       "Переводчик,",
+       "&"
+      ],
+      [
+       "\\s*\\(?Переводчик\\)?$",
+       ""
+      ]
+     ]
+    },
+    "date": [
+     "td.d-none:last-child",
+     "td.date"
+    ]
+   },
+   "date_format": [
+    "dd.MM.yy",
+    "d.MM.yy"
+   ],
+   "date_locale": "ru"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "block_regex": "(?s)rm_h\\.reader(?:Do)?Init\\((.*?)\\);",
+   "items": "\\[['\"][^'\"]*['\"],['\"][^'\"]*['\"],['\"][^'\"]*['\"][^\\]]*\\]",
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "^\\[['\"][^'\"]*['\"],['\"]['\"],['\"](/static/[^'\"]*)['\"].*$",
+      "$1"
+     ],
+     [
+      "^\\[['\"]([^'\"]*)['\"],['\"][^'\"]*/manga/['\"],['\"]([^'\"]*)['\"].*$",
+      "$1$2"
+     ],
+     [
+      "^\\[['\"]([^'\"]*)['\"],['\"]([^'\"]*)['\"],['\"]([^'\"]*)['\"].*$",
+      "$2$1$3"
+     ],
+     [
+      "^//",
+      "https://"
+     ],
+     [
+      "^(https?://[^/]*one-way\\.work/[^?]*)\\?.*$",
+      "$1"
+     ],
+     [
+      "//resh",
+      "//h"
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "Theme GroupLe: Listen über JSON-API /api/catalog/search (offset in 50er-Schritten, Accept JSON), Details/Kapitel aus der HTML-Seite, Bilder aus dem Skript rm_h.readerInit(...)/readerDoInit(...).",
+  "User-Agent 'arora' ist der Standard der Community-Einstellung (für einige Länder änderbar).",
+  "Status: Community wertet 'выпуск' per contains aus (продолж/начат → laufend, заверш → abgeschlossen bzw. Veröffentlichung beendet, wenn Übersetzung nicht fertig, приост/заморож → pausiert); Rezept kürzt per regex auf den Wortstamm und mappt ihn.",
+  "Kapitel-URL bekommt '?mtr=true' (Community zusätzlich '&d=<user_hash>' nach Login – nicht abgebildet; Kapitel mit Login-Pflicht/Bezahlung gehen so nicht). Kapitelnummer = data-num/10 nicht abbildbar (Engine liest die Nummer aus dem Namen). Namensbereinigung (Titelwörter, 'Экстра'/'Сингл') nicht abgebildet.",
+  "Datum: Community nimmt das letzte td.d-none; Rezept nimmt td.d-none:last-child bzw. td.date – prüfen.",
+  "Bild-URL: Einträge ['host','mitte','rest',…]; Regel der Community: mitte leer + rest '/static/…' → base+rest (Rezept liefert relative URL), mitte endet auf '/manga/' → host+rest, sonst mitte+host+rest; '//' → https, one-way.work ohne Query, '//resh' → '//h'. Per replace-Kette nachgebildet.",
+  "Domainwechsel-Erkennung (301/internal/redirect) und Auto-Login der Community nicht abgebildet."
+ ]
+}

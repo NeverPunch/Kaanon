@@ -1,0 +1,108 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MeHentai",
+  "sprache": "vi",
+  "base_url": "https://mehentai.live",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.mehentai",
+  "quellen": [
+   {
+    "name": "MeHentai",
+    "sprache": "vi",
+    "quell_id": 1503074002208879050,
+    "home": "https://mehentai.live"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/mehentai",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.13",
+  "theme": "manhwaz"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": ".main-content .item",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": ".info-item a@href",
+    "title": ".info-item a",
+    "cover": ".img-item img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/?page={page}",
+   "items": ".page-item-detail",
+   "has_next": {
+    "exists": "ul.pager a[rel=next]"
+   },
+   "fields": {
+    "url": ".item-summary a@href",
+    "title": ".item-summary a",
+    "cover": ".item-thumb img@img"
+   }
+  },
+  "search": {
+   "request": "{base}/tim-kiem?s={query}&page={page}",
+   "items": ".page-item-detail",
+   "has_next": {
+    "exists": "ul.pager a[rel=next]"
+   },
+   "fields": {
+    "url": ".item-summary a@href",
+    "title": ".item-summary a",
+    "cover": ".item-thumb img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.post-title h1",
+    "cover": "div.summary_image img@img",
+    "description": "div.summary__content",
+    "author": "div.summary-heading:contains(Tác giả) + div.summary-content",
+    "genres": {
+     "path": "div.genres-content a[rel=tag]",
+     "all": true,
+     "join": ", "
+    },
+    "status": "div.summary-heading:contains(Trạng thái) + div.summary-content"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "đang ra": 1,
+    "completed": 2,
+    "hoàn thành": 2,
+    "truyện full": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "li.wp-manga-chapter",
+   "fields": {
+    "url": "a@href",
+    "name": "a",
+    "date": "span.chapter-release-date"
+   },
+   "date_format": "relative",
+   "date_locale": "vi"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.page-break img",
+   "image": "@img"
+  }
+ },
+ "hinweise": [
+  "Theme ManhwaZ. Beliebt = Startseite ('.main-content .item', nur eine Seite), Neueste /?page=N ('.page-item-detail'), Suche /tim-kiem?s=…&page=N.",
+  "Kapiteldatum relativ auf Vietnamesisch ('N giờ/ngày/tuần/tháng/năm trước'); date_locale 'vi' – ob der relative Parser der Engine vietnamesische Einheiten kennt, ist aus den Vorlagen nicht belegt.",
+  "Status per Teilwort wie im Code (ongoing/đang ra → laufend; completed/hoàn thành/Truyện Full → abgeschlossen); setzt Teilwort-Abgleich der status_map voraus.",
+  "Bilder: data-src/data-lazy-src/srcset/data-cfsrc/src im Code; hier '@img' (Annahme: deckt diese Attribute ab)."
+ ]
+}

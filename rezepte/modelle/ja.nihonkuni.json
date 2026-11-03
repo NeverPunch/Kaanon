@@ -23,7 +23,137 @@
   "theme": "fmreader"
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:150.0) Gecko/20100101 Firefox/150.0"
+  },
+  "cookies": {
+   "smartlink_shown": "1"
+  },
+  "popular": {
+   "request": "{base}/manga-list.html?listType=pagination&page={page}&artist=&author=&group=&m_status=&name=&genre=&ungenre=&magazine=&sort=views&sort_type=DESC",
+   "items": "div.manga-grid div.manga-card",
+   "has_next": {
+    "exists": ".page-link.next[href]"
+   },
+   "fields": {
+    "url": ".manga-title@href",
+    "title": ".manga-title",
+    "cover": [
+     ".manga-cover@data-original",
+     ".manga-cover@data-src",
+     ".manga-cover@data-bg",
+     {
+      "path": ".manga-cover@style",
+      "regex": "url\\(['\"]?([^'\")]+)"
+     },
+     ".manga-cover@img"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/manga-list.html?listType=pagination&page={page}&artist=&author=&group=&m_status=&name=&genre=&ungenre=&magazine=&sort=last_update&sort_type=DESC",
+   "items": "div.manga-grid div.manga-card",
+   "has_next": {
+    "exists": ".page-link.next[href]"
+   },
+   "fields": {
+    "url": ".manga-title@href",
+    "title": ".manga-title",
+    "cover": [
+     ".manga-cover@data-original",
+     ".manga-cover@data-src",
+     ".manga-cover@data-bg",
+     {
+      "path": ".manga-cover@style",
+      "regex": "url\\(['\"]?([^'\")]+)"
+     },
+     ".manga-cover@img"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/manga-list.html?listType=pagination&page={page}&artist=&author=&group=&m_status=&name={query}&genre=&ungenre=&magazine=&sort=views&sort_type=DESC",
+   "items": "div.manga-grid div.manga-card",
+   "has_next": {
+    "exists": ".page-link.next[href]"
+   },
+   "fields": {
+    "url": ".manga-title@href",
+    "title": ".manga-title",
+    "cover": [
+     ".manga-cover@data-original",
+     ".manga-cover@data-src",
+     ".manga-cover@data-bg",
+     {
+      "path": ".manga-cover@style",
+      "regex": "url\\(['\"]?([^'\")]+)"
+     },
+     ".manga-cover@img"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "path": "h1.manga-main-title@data-enc",
+     "decode": "base64"
+    },
+    "cover": "div.manga-detail-container img.thumbnail@img",
+    "description": {
+     "path": ".description-text-content, .manga-info-list > li:nth-child(1) .info-field-value",
+     "all": true,
+     "join": " "
+    },
+    "author": {
+     "path": "div.manga-detail-container li a.btn-info",
+     "all": true,
+     "join": ", "
+    },
+    "genres": "div.manga-detail-container li a.btn-danger",
+    "status": "div.manga-detail-container li a.btn-success"
+   },
+   "status_map": {
+    "completed": 2,
+    "complete": 2,
+    "ongoing": 1,
+    "on going": 1,
+    "updating": 1,
+    "incomplete": 1
+   }
+  },
+  "chapters": {
+   "request": "{base}/app/manga/controllers/cont.Listchapter.php?slug={u.slug}",
+   "url_vars": {
+    "slug": "(?:manga-|raw-)(.+?)\\.html"
+   },
+   "items": ".at-series a",
+   "fields": {
+    "url": {
+     "path": "@href",
+     "regex": "^(?:https?://[^/]+)?(?:/app/manga/controllers)?/?(.*)$",
+     "template": "/{value}"
+    },
+    "name": ".chapter-name",
+    "date": ".chapter-time"
+   },
+   "date_format": "relative",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img[id~=page\\d+]",
+   "image": "@src"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Theme FMReader (Flat-Manga) mit MangaGun-Overrides; früher MangaGun(漫画軍).",
+  "Listen-URL muss genau das lange Format haben (laut Community 'picky'); Suche nutzt dasselbe Format mit name=…, Sortierung views (Standard der Community-Sortierung).",
+  "Titel steht base64-kodiert in h1.manga-main-title@data-enc (sonst per JS gefüllt).",
+  "Kapitelliste über /app/manga/controllers/cont.Listchapter.php?slug=<slug>; slug = Teil nach 'manga-' (alt: 'raw-') bis '.html'. Kapitel-href ist relativ zum controllers-Ordner; Community schneidet alles bis 'controllers' ab → Rezept nimmt Pfad ohne /app/manga/controllers. Auf dem PC prüfen.",
+  "Datum relativ ('N mins/hours/days/weeks/months/years ...', Zahl vorn) – Community-eigener Parser; 'relative' sollte das abdecken.",
+  "Statuswörter aus dem Theme (englisch); japanische Statustexte wären unbekannt.",
+  "Autor-Filter 'Updating' der Community nicht abgebildet."
+ ]
 }

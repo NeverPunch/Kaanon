@@ -1,0 +1,136 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Goda",
+  "sprache": "en",
+  "base_url": "https://manhuascans.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.goda",
+  "quellen": [
+   {
+    "name": "Goda",
+    "sprache": "en",
+    "quell_id": 4273874799952447458,
+    "home": "https://manhuascans.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/goda",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": "goda"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/hots/page/{page}",
+   "items": ".container > .cardlist .pb-2 a",
+   "has_next": {
+    "exists": "a[aria-label=NEXT] button"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h3@ownText",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/newss/page/{page}",
+   "items": ".container > .cardlist .pb-2 a",
+   "has_next": {
+    "exists": "a[aria-label=NEXT] button"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h3@ownText",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/s/{query}?page={page}",
+   "items": ".container > .cardlist .pb-2 a",
+   "has_next": {
+    "exists": "a[aria-label=NEXT] button"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h3@ownText",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "mid": "#mangachapters@data-mid"
+   },
+   "fields": {
+    "title": "main h1@ownText",
+    "cover": "main img.object-cover@src",
+    "status": "main h1 > :first-child",
+    "author": {
+     "path": "main div:has(> * > h1) > :nth-child(2) > :not(:first-child)",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       " ,$",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": "main div:has(> * > h1) > :nth-child(3) > :not(:first-child), main div:has(> * > h1) > :nth-child(4) > *",
+     "replace": [
+      [
+       "^#",
+       ""
+      ],
+      [
+       " ,$",
+       ""
+      ]
+     ]
+    },
+    "description": "main div:has(> * > h1) > p"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "連載中": 1,
+    "完結": 2,
+    "completed": 2,
+    "停止更新": 5,
+    "休刊": 6
+   }
+  },
+  "chapters": {
+   "request": "{base}/manga/get?mid={l.mid}&mode=all",
+   "items": ".chapteritem",
+   "reverse": true,
+   "fields": {
+    "url": {
+     "path": "a@data-cs",
+     "template": "/chapter/getcontent?m={l.mid}&c={value}"
+    },
+    "name": "a@data-ct"
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#chapcontent > div > img",
+   "image": [
+    "@data-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Theme GoDa (manhuascans.org). Manga-ID steht auf der Detailseite in #mangachapters@data-mid; Kapitelliste über /manga/get?mid=<id>&mode=all (Community liest sie umgekehrt → reverse).",
+  "Kapitel-URL im Rezept = Seiten-Endpunkt /chapter/getcontent?m=<mid>&c=<data-cs> (Community speichert '<key>#<mid>/<cs>'). Dafür {l.mid} aus details.let im Kapitel-Feld-template – in Vorlagen nur in Anfragen/Seiten belegt; auf dem PC prüfen. Kapitel im WebView öffnen zeigt dann die API statt der Leseseite.",
+  "Details: Community liest die Geschwister-Elemente der h1-Großeltern per Index (1 Autor, 2 Genres, 3 Tags, 4 Beschreibung); Rezept bildet das mit :nth-child nach (Index 1 → nth-child(2) usw.). Unsicher.",
+  "Cover: Community entnimmt bei Next-Image-URLs den url=-Parameter; Rezept nimmt img@src direkt (Proxy-URL sollte auch laden).",
+  "Suche: Suchtext als Pfadsegment /s/<query>; {query} ist URL-kodiert (evtl. '+' statt '%20' – prüfen). Genre-Filter nicht abgebildet.",
+  "Kein Kapiteldatum vorhanden (auch Community nicht)."
+ ]
+}

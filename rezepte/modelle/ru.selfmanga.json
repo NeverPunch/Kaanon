@@ -1,0 +1,216 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "SelfManga",
+  "sprache": "ru",
+  "base_url": "https://1.selfmanga.live",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ru.kaanon.selfmanga",
+  "quellen": [
+   {
+    "name": "SelfManga",
+    "sprache": "ru",
+    "quell_id": 5227602742162454547,
+    "home": "https://1.selfmanga.live"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ru/selfmanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.67",
+  "theme": "grouple"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "arora"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/api/catalog/search?offset={offset}&sortType=RATING",
+    "headers": {
+     "Accept": "application/json, text/plain, */*"
+    }
+   },
+   "format": "json",
+   "items": "list",
+   "page_size": 50,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "elementId.linkName",
+     "template": "/{value}"
+    },
+    "title": "name",
+    "cover": "picUrl"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/api/catalog/search?offset={offset}&sortType=DATE_UPDATE",
+    "headers": {
+     "Accept": "application/json, text/plain, */*"
+    }
+   },
+   "format": "json",
+   "items": "list",
+   "page_size": 50,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "elementId.linkName",
+     "template": "/{value}"
+    },
+    "title": "name",
+    "cover": "picUrl"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/catalog/search?offset={offset}&q={query}",
+    "headers": {
+     "Accept": "application/json, text/plain, */*"
+    }
+   },
+   "format": "json",
+   "items": "list",
+   "page_size": 50,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "elementId.linkName",
+     "template": "/{value}"
+    },
+    "title": "name",
+    "cover": "picUrl"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     ".cr-hero-names__main",
+     "meta[itemprop=name]@content"
+    ],
+    "cover": [
+     ".cr-hero-poster__img@img",
+     ".cr-hero-overlay__bg@img"
+    ],
+    "description": ".cr-description__content",
+    "author": {
+     "path": ".cr-main-person-item:has(.cr-main-person-item__role:matches((?i)автор|сценар)) .cr-main-person-item__name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": ".cr-main-person-item:has(.cr-main-person-item__role:matches((?i)худож|иллюст)) .cr-main-person-item__name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": ".cr-hero-short-details a[href*=\"/list/category/\"], .creation-element-tags .creation-element-tags__item:not(.creation-element-tags__item--misc) span:not(.text-secondary)",
+     "all": true,
+     "join": ", "
+    },
+    "status": ".cr-hero .cr-info-details > :has(.cr-info-details-item__title:matches((?i)^выпуск)) .cr-info-details-item__status"
+   },
+   "status_map": {
+    "продолж": 1,
+    "начат": 1,
+    "заверш": 2,
+    "приост": 6,
+    "заморож": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "tr.item-row:has(td > a):has(td.date:not(.text-info))",
+   "fields": {
+    "url": {
+     "path": "a.chapter-link@href",
+     "template": "{value}?mtr=true"
+    },
+    "name": "a.chapter-link@ownText",
+    "scanlator": {
+     "path": "a.chapter-link@title",
+     "replace": [
+      [
+       "\\s*\\(Переводчик\\),",
+       " &"
+      ],
+      [
+       "\\s*Переводчик,",
+       " &"
+      ],
+      [
+       "\\s*\\(?Переводчик\\)?$",
+       ""
+      ]
+     ]
+    },
+    "date": [
+     "td.d-none:last-of-type",
+     "td.date"
+    ]
+   },
+   "date_format": [
+    "dd.MM.yy",
+    "d.MM.yy"
+   ]
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "scripts",
+   "block_regex": "(?s)rm_h\\.reader(?:Do)?Init\\((.*?)\\);",
+   "items": "\\[['\"][^'\"]*['\"],['\"][^'\"]*['\"],['\"][^'\"]*['\"][^\\]]*\\]",
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "^\\[['\"]([^'\"]*)['\"],['\"]([^'\"]*/manga/)['\"],['\"]([^'\"]*)['\"].*$",
+      "$1$3"
+     ],
+     [
+      "^\\[['\"]([^'\"]*)['\"],['\"]([^'\"]*)['\"],['\"]([^'\"]*)['\"].*$",
+      "$2$1$3"
+     ],
+     [
+      "^//",
+      "https://"
+     ],
+     [
+      "//resh",
+      "//h"
+     ],
+     [
+      "^(https?://[^/]*one-way\\.work/[^?]*)\\?.*$",
+      "$1"
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "Theme GroupLe (SelfManga, Domain 1.selfmanga.live laut Community-Einstellung). Listen/Suche über /api/catalog/search (offset=50*(N-1), sortType RATING bzw. DATE_UPDATE; Suche ohne sortType wie im Code), nächste Seite solange 50 Einträge.",
+  "User-Agent 'arora' ist der Community-Standard (einstellbar); übernommen.",
+  "Login/Auto-Login, user_hash (?d=…) und der Schutz 'blockedForAnonymous' sind nicht nachgebildet: Werke, die nur mit Anmeldung sichtbar sind, liefern keine Kapitel/Bilder (Regel 0014 – kein Login zum Lesen). Kapitel-URL bekommt nur '?mtr=true'.",
+  "Bezahlte Kapitel (td.date.text-info) werden wie im Code ausgelassen.",
+  "Kapitelname = eigener Linktext; die Community kürzt zusätzlich lange Werktitel heraus und ergänzt Nummern bei 'Экстра'/'Сингл' – nicht nachgebildet. Kapitelnummer (data-num/10) nicht übernommen (keine Division in der Rezeptsprache).",
+  "Datum: Code nimmt die letzte 'td.d-none' der Zeile ('dd.MM.yy'); hier 'td.d-none:last-of-type' mit Ausweich 'td.date'.",
+  "Status: nur 'Выпуск' ausgewertet; 'заверш' → abgeschlossen. Die Community unterscheidet über den Übersetzungsstatus noch 'Veröffentlichung beendet' (4). status_map setzt Teilwort-Abgleich voraus (wie Vorlage tr.korelimanga).",
+  "Bilder: Arrays ['host','mitte','ende',…] aus rm_h.readerInit(…)/readerDoInit(…) (format scripts + block_regex), URL = mitte+host+ende bzw. host+ende bei mitte '/manga/'; '//resh'→'//h', bei one-way.work Query entfernt. Sonderfall '/static/…' bleibt relativ.",
+  "Genres: Kategorie + Tags (Altersfreigabe-Normalisierung und Kleinschreibung der Community weggelassen); Bewertung/alternative Namen nicht in die Beschreibung übernommen."
+ ]
+}

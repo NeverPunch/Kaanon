@@ -1,0 +1,151 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "LumosKomik",
+  "sprache": "id",
+  "base_url": "https://03.lumosgg.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.lumoskomik",
+  "quellen": [
+   {
+    "name": "LumosKomik",
+    "sprache": "id",
+    "quell_id": 2530259860313477889,
+    "home": "https://03.lumosgg.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/lumoskomik",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": "hwalumi"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/all-series?sort=popular&lang=id&page={page}",
+   "items": "a[href^=\"/comic/\"]:has(img:not([src*=\"flagcdn\"]))",
+   "has_next": {
+    "exists": "a[href*=\"page=\"]"
+   },
+   "fields": {
+    "url": "@href",
+    "title": [
+     "img@alt",
+     ""
+    ],
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/all-series?sort=latest&lang=id&page={page}",
+   "items": "a[href^=\"/comic/\"]:has(img:not([src*=\"flagcdn\"]))",
+   "has_next": {
+    "exists": "a[href*=\"page=\"]"
+   },
+   "fields": {
+    "url": "@href",
+    "title": [
+     "img@alt",
+     ""
+    ],
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/browse?q={query}&sort=latest&lang=id&page={page}",
+   "items": "a[href^=\"/comic/\"]:has(img:not([src*=\"flagcdn\"]))",
+   "has_next": {
+    "exists": "a[href*=\"page=\"]"
+   },
+   "fields": {
+    "url": "@href",
+    "title": [
+     "img@alt",
+     ""
+    ],
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "cover": "aside img[src*=\"/cover\"]@src",
+    "description": [
+     {
+      "path": "div[data-sr]@data-sr",
+      "decode": "base64"
+     },
+     "p.text-sm"
+    ],
+    "author": {
+     "path": "div:has(> span:containsOwn(Author)) > span:last-child",
+     "replace": [
+      [
+       "(?i)^\\s*updating\\s*$",
+       ""
+      ]
+     ]
+    },
+    "artist": {
+     "path": "div:has(> span:containsOwn(Artist)) > span:last-child",
+     "replace": [
+      [
+       "(?i)^\\s*updating\\s*$",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": "a[href*=\"genre=\"]",
+     "all": true,
+     "join": ", "
+    },
+    "status": "div:has(> div:containsOwn(Status)) > div:last-child"
+   },
+   "status_map": {
+    "completed": 2,
+    "tamat": 2,
+    "ongoing": 1,
+    "berjalan": 1,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a[href*=\"/read/\"][data-chapter]",
+   "fields": {
+    "url": "@href",
+    "name": [
+     "span.text-sm",
+     "span[class*=\"font-semibold\"]",
+     ""
+    ],
+    "number": "@data-chapter",
+    "date": [
+     "span.tabular-nums",
+     "span[class*=\"tabular-nums\"]"
+    ]
+   },
+   "date_format": "relative",
+   "date_locale": "id"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img[alt^=\"Page \"]",
+   "image": "@src",
+   "exclude": "/api/image/p/"
+  }
+ },
+ "hinweise": [
+  "Hwalumi-Theme (HTML). Beliebt/Neu: /all-series?sort=popular|latest&lang=id&page=N; Suche /browse?q=…&sort=latest&lang=id&page=N.",
+  "Nächste Seite prüft die Community mit a[href*=\"page=<N+1>\"]; Platzhalter in Selektoren sind nicht belegt, daher hier 'irgendein page=-Link vorhanden' – auf der letzten Seite wird ggf. eine leere Folgeseite abgefragt.",
+  "Community entfernt doppelte Einträge (distinctBy url); hier nicht nachgebildet.",
+  "Beschreibung steht Base64-kodiert in div[data-sr]@data-sr, Ausweich p.text-sm. Autor/Zeichner 'Updating' wird geleert.",
+  "Kapiteldatum relativ auf Indonesisch ('3 hari', 'jam', 'menit', 'minggu', 'bulan', 'tahun', 'baru saja') – prüfen, ob 'relative' mit date_locale 'id' das versteht.",
+  "Seiten: img[alt^='Page '], Platzhalter-Bilder mit /api/image/p/ werden ausgeschlossen."
+ ]
+}

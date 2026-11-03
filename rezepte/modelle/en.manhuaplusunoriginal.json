@@ -1,0 +1,144 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ManhuaPlus (Unoriginal)",
+  "sprache": "en",
+  "base_url": "https://manhuaplus.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.manhuaplusunoriginal",
+  "quellen": [
+   {
+    "name": "ManhuaPlus (Unoriginal)",
+    "sprache": "en",
+    "quell_id": 5075089422240578347,
+    "home": "https://manhuaplus.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/manhuaplusorg",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "liliana"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "image_headers": {
+   "Accept": "image/avif,image/webp,*/*"
+  },
+  "popular": {
+   "request": "{base}/ranking/week/{page}",
+   "items": "div#main div.grid > div",
+   "has_next": {
+    "exists": ".blog-pager > span.pagecurrent + span"
+   },
+   "fields": {
+    "url": ".text-center a@href",
+    "title": ".text-center a",
+    "cover": "img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/all-manga/{page}/?sort=last_update&status=0",
+   "items": "div#main div.grid > div",
+   "has_next": {
+    "exists": ".blog-pager > span.pagecurrent + span"
+   },
+   "fields": {
+    "url": ".text-center a@href",
+    "title": ".text-center a",
+    "cover": "img@img"
+   }
+  },
+  "search": {
+   "request": "{base}/search/{page}/?keyword={query}",
+   "items": "div#main div.grid > div",
+   "has_next": {
+    "exists": ".blog-pager > span.pagecurrent + span"
+   },
+   "fields": {
+    "url": ".text-center a@href",
+    "title": ".text-center a",
+    "cover": "img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".a2 header h1",
+    "cover": ".a1 > figure img@img",
+    "description": "div#syn-target",
+    "genres": {
+     "path": ".a2 div > a[rel='tag'].label",
+     "all": true,
+     "join": ", "
+    },
+    "author": {
+     "path": "div.y6x11p i.fas.fa-user + span.dt",
+     "regex": "^(?i)(?!updating$)(.+)$",
+     "group": 1
+    },
+    "status": "div.y6x11p i.fas.fa-rss + span.dt"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "đang tiến hành": 1,
+    "進行中": 1,
+    "completed": 2,
+    "hoàn thành": 2,
+    "完了": 2,
+    "on-hold": 6,
+    "tạm ngưng": 6,
+    "保留": 6,
+    "canceled": 5,
+    "đã huỷ": 5,
+    "キャンセル": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "ul > li.chapter",
+   "fields": {
+    "url": "a@href",
+    "name": "a",
+    "date": "time[datetime]@datetime"
+   },
+   "date_format": "epoch_s"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "let": {
+    "cid": {
+     "path": "html@html",
+     "regex": "const CHAPTER_ID = ([^;]+);",
+     "group": 1
+    }
+   },
+   "then": [
+    {
+     "request": {
+      "url": "{base}/ajax/image/list/chap/{l.cid}",
+      "headers": {
+       "Accept": "application/json, text/javascript, */*; q=0.01",
+       "Referer": "{abs_url}",
+       "X-Requested-With": "XMLHttpRequest"
+      }
+     },
+     "format": "json_html",
+     "html_path": "html"
+    }
+   ],
+   "items": "div.separator",
+   "image": "a@href",
+   "exclude": "(?i)(\\.svg(?:[?#].*)?$|loading_comments)"
+  }
+ },
+ "hinweise": [
+  "Theme Liliana. Beliebt /ranking/week/N, Neueste /all-manga/N/?sort=last_update&status=0, Suche /search/N/?keyword=… (usesPostSearch ist hier aus).",
+  "Seiten: CHAPTER_ID per Regex aus dem Kapitel-HTML (let), dann /ajax/image/list/chap/{id} mit XHR-Headern; die JSON-Antwort enthält HTML im Feld 'html' (json_html), Bilder = 'div.separator a@href', SVG/'loading_comments' ausgeschlossen. Fehlerfeld status/msg nicht ausgewertet.",
+  "Die Community sortiert nach data-index, falls vorhanden; hier Dokumentreihenfolge (Annahme: identisch).",
+  "Bild-Header: Accept wie im Code; das Entfernen des Referers kann die Rezeptsprache nicht ausdrücken.",
+  "Kapiteldatum aus time[datetime] (Unix-Sekunden). Autor 'updating' wird per Regex verworfen."
+ ]
+}

@@ -1,0 +1,123 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HANMAN18",
+  "sprache": "zh",
+  "base_url": "https://hanman18.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.hanman18",
+  "quellen": [
+   {
+    "name": "HANMAN18",
+    "sprache": "zh",
+    "quell_id": 5092568988625041973,
+    "home": "https://hanman18.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/hanman18",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "manga18"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/list-manga/{page}?order_by=views",
+   "items": "div.story_item",
+   "has_next": {
+    "exists": ".pagination > li:last-child:not(.active)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "div.mg_info > div.mg_name a",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/list-manga/{page}",
+   "items": "div.story_item",
+   "has_next": {
+    "exists": ".pagination > li:last-child:not(.active)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "div.mg_info > div.mg_name a",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/list-manga/{page}?search={query}",
+   "items": "div.story_item",
+   "has_next": {
+    "exists": ".pagination > li:last-child:not(.active)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "div.mg_info > div.mg_name a",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.detail_name > h1",
+    "cover": "div.detail_avatar > img@src",
+    "description": {
+     "path": "div.detail_reviewContent",
+     "all": true,
+     "join": "\n\n"
+    },
+    "author": {
+     "path": "div.detail_listInfo div.info_label:contains(author) + div.info_value, div.detail_listInfo div.info_label:contains(autor) + div.info_value",
+     "regex": "^(?!Updating$)(.+)$",
+     "group": 1
+    },
+    "artist": {
+     "path": "div.detail_listInfo div.info_label:contains(artist) + div.info_value",
+     "regex": "^(?!Updating$)(.+)$",
+     "group": 1
+    },
+    "genres": {
+     "path": "div.detail_listInfo div.info_value > a[href*=/manga-list/]",
+     "all": true,
+     "join": ", "
+    },
+    "status": "div.detail_listInfo div.item:contains(Status) div.info_value"
+   },
+   "status_map": {
+    "on going": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.chapter_box .item",
+   "fields": {
+    "url": "a@href",
+    "name": "a",
+    "date": "p"
+   },
+   "date_format": "dd-MM-yyyy",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "block_regex": "(?s)slides_p_path\\s*=\\s*\\[(.*?)\\]",
+   "items": "[A-Za-z0-9+/=]{8,}",
+   "image": {
+    "path": "",
+    "decode": "base64"
+   }
+  }
+ },
+ "hinweise": [
+  "Manga18-Theme. Beliebt /list-manga/N?order_by=views, Neueste /list-manga/N, Suche /list-manga/N?search=… (Tag-Filter abgeschaltet).",
+  "Seiten: Base64-kodierte Bild-URLs aus 'slides_p_path = [...]' im Kapitel-HTML (format text + block_regex, jedes Element base64-dekodiert). Mit '/' beginnende URLs ergänzt die Community um die Basis-URL – hier relativ belassen (laut Referenz bei Bildern zulässig).",
+  "Autor/Künstler 'Updating' wird per Regex verworfen; alternative Namen werden nicht an die Beschreibung angehängt.",
+  "Kapiteldatum 'dd-MM-yyyy' aus dem <p> des Kapiteleintrags."
+ ]
+}

@@ -1,0 +1,266 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "nHentai.com (unoriginal)",
+  "sprache": "all",
+  "base_url": "https://nhentai.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.nhentaicomunoriginal",
+  "quellen": [
+   {
+    "name": "nHentai.com (unoriginal)",
+    "sprache": "all",
+    "quell_id": 9165839893600661480,
+    "home": "https://nhentai.com"
+   },
+   {
+    "name": "nHentai.com (unoriginal)",
+    "sprache": "zh",
+    "quell_id": 8504927104562262528,
+    "home": "https://nhentai.com"
+   },
+   {
+    "name": "nHentai.com (unoriginal)",
+    "sprache": "en",
+    "quell_id": 5591830863732393712,
+    "home": "https://nhentai.com"
+   },
+   {
+    "name": "nHentai.com (unoriginal)",
+    "sprache": "ja",
+    "quell_id": 8148939977393580424,
+    "home": "https://nhentai.com"
+   },
+   {
+    "name": "nHentai.com (unoriginal)",
+    "sprache": "other",
+    "quell_id": 5817327335315373850,
+    "home": "https://nhentai.com"
+   },
+   {
+    "name": "nHentai.com (unoriginal)",
+    "sprache": "ar",
+    "quell_id": 1773653553472615327,
+    "home": "https://nhentai.com"
+   },
+   {
+    "name": "nHentai.com (unoriginal)",
+    "sprache": "jv",
+    "quell_id": 4984830439465026319,
+    "home": "https://nhentai.com"
+   },
+   {
+    "name": "nHentai.com (unoriginal)",
+    "sprache": "bg",
+    "quell_id": 5355858532116403799,
+    "home": "https://nhentai.com"
+   },
+   {
+    "name": "nHentai.com (unoriginal)",
+    "sprache": "cs",
+    "quell_id": 1144495813995437124,
+    "home": "https://nhentai.com"
+   },
+   {
+    "name": "nHentai.com (unoriginal)",
+    "sprache": "uk",
+    "quell_id": 1872394332504252034,
+    "home": "https://nhentai.com"
+   },
+   {
+    "name": "nHentai.com (unoriginal)",
+    "sprache": "sk",
+    "quell_id": 8189813976393792973,
+    "home": "https://nhentai.com"
+   },
+   {
+    "name": "nHentai.com (unoriginal)",
+    "sprache": "eo",
+    "quell_id": 5464986831390726554,
+    "home": "https://nhentai.com"
+   },
+   {
+    "name": "nHentai.com (unoriginal)",
+    "sprache": "mn",
+    "quell_id": 3640686393110022124,
+    "home": "https://nhentai.com"
+   },
+   {
+    "name": "nHentai.com (unoriginal)",
+    "sprache": "la",
+    "quell_id": 6750311061190710079,
+    "home": "https://nhentai.com"
+   },
+   {
+    "name": "nHentai.com (unoriginal)",
+    "sprache": "ceb",
+    "quell_id": 8306394815737846919,
+    "home": "https://nhentai.com"
+   },
+   {
+    "name": "nHentai.com (unoriginal)",
+    "sprache": "tl",
+    "quell_id": 4352420071178605258,
+    "home": "https://nhentai.com"
+   },
+   {
+    "name": "nHentai.com (unoriginal)",
+    "sprache": "tr",
+    "quell_id": 6423038744951581148,
+    "home": "https://nhentai.com"
+   },
+   {
+    "name": "nHentai.com (unoriginal)",
+    "sprache": "sr",
+    "quell_id": 1001519209586733699,
+    "home": "https://nhentai.com"
+   },
+   {
+    "name": "nHentai.com (unoriginal)",
+    "sprache": "el",
+    "quell_id": 6038464145206378323,
+    "home": "https://nhentai.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/nhentaicom",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": "hentaihand"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "application/json, text/plain, */*",
+   "X-Requested-With": "XMLHttpRequest"
+  },
+  "popular": {
+   "request": "{base}/api/comics?page={page}&sort=popularity&order=desc&duration=all",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "exists": "next_page_url"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/en/comic/{value}"
+    },
+    "title": "title",
+    "cover": "image_url"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/comics?page={page}&sort=uploaded_at&order=desc&duration=all",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "exists": "next_page_url"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/en/comic/{value}"
+    },
+    "title": "title",
+    "cover": "image_url"
+   }
+  },
+  "search": {
+   "request": "{base}/api/comics?page={page}&q={query}",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "exists": "next_page_url"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/en/comic/{value}"
+    },
+    "title": "title",
+    "cover": "image_url"
+   }
+  },
+  "details": {
+   "request": "{base}/api/comics/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/comic/([^/?#]+)"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "image_url",
+    "artist": {
+     "path": "artists.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "author": [
+     {
+      "path": "authors.*.name",
+      "all": true,
+      "join": ", "
+     },
+     {
+      "path": "artists.*.name",
+      "all": true,
+      "join": ", "
+     }
+    ],
+    "genres": {
+     "path": [
+      "tags.*.name",
+      "relationships.*.name"
+     ],
+     "union": true
+    },
+    "description": "description",
+    "status": "status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "onhold": 1,
+    "complete": 2,
+    "canceled": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/en/comic/{value}"
+    },
+    "name": {
+     "const": "Chapter"
+    },
+    "date": "updated_at"
+   },
+   "date_format": [
+    "yyyy-MM-dd",
+    "relative"
+   ]
+  },
+  "pages": {
+   "request": "{base}/api/comics/{u.slug}/images",
+   "format": "json",
+   "url_vars": {
+    "slug": "/comic/([^/?#]+)"
+   },
+   "items": "images",
+   "image": "source_url"
+  }
+ },
+ "hinweise": [
+  "Gleiches Theme wie all.hentaihand (Modell übernommen): JSON-API /api/comics, chapters=false → ein Kapitel aus /api/comics/{slug} (items '$' = Wurzelobjekt, wie Vorlage en.dynastyscans). Datum aus updated_at (yyyy-MM-dd oder 'N days ago').",
+  "Die Community hat 19 Sprachquellen, die sich nur im Filter languages[-1]=ID unterscheiden; ein Rezept hat ein Modell und folgt der 'all'-Quelle (kein Sprachfilter). Die übrigen Quell-IDs stehen trotzdem in 'quellen' (gleiche Inhalte, ungefiltert) – ggf. auf 'all' kürzen.",
+  "Suche nur per q=…; die Community löst den Suchtext vorher als Tag/Künstler/Figur-ID auf, weil reines q auf manchen Seiten HTTP 500 liefert – nicht nachgebildet.",
+  "has_next über 'next_page_url' (null auf der letzten Seite); Annahme: exists wertet null als nicht vorhanden.",
+  "Status wie im Code (onhold → laufend, canceled → abgeschlossen). Beschreibung nur 'description' (Community hängt Gruppen, Seitenzahl, Kategorie, Sprache, Parodien, Figuren an). Optionaler Login (Bearer-Token) nicht nachgebildet."
+ ]
+}

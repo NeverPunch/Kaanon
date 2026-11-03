@@ -1,0 +1,140 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hentai Season",
+  "sprache": "pt-BR",
+  "base_url": "https://hentaiseason.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.hentaiseason",
+  "quellen": [
+   {
+    "name": "Hentai Season",
+    "sprache": "pt-BR",
+    "quell_id": 28629678708276,
+    "home": "https://hentaiseason.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/hentaiseason",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "gattsu"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7,es;q=0.6,gl;q=0.5"
+  },
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 2000
+  },
+  "popular": {
+   "request": "{base}/page/{page}",
+   "request_by_page": {
+    "1": "{base}/"
+   },
+   "items": "div.meio div.lista ul li a[href]",
+   "has_next": {
+    "exists": "ul.paginacao li.next > a"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "span.thumb-titulo",
+    "cover": "span.thumb-imagem img.wp-post-image@src"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}&post_type=post",
+   "items": "div.meio div.lista ul li a[href]",
+   "has_next": {
+    "exists": "ul.paginacao li.next > a"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "span.thumb-titulo",
+    "cover": "span.thumb-imagem img.wp-post-image@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.meio div.post-box h1.post-titulo",
+    "cover": {
+     "path": "div.meio div.post-box div.post-capa > img.wp-post-image@src",
+     "replace": [
+      [
+       "-\\d+x\\d+\\.",
+       "."
+      ]
+     ]
+    },
+    "description": {
+     "path": "div.meio div.post-box div.post-texto p",
+     "all": true,
+     "join": "\n\n",
+     "replace": [
+      [
+       "Sinopse :",
+       ""
+      ],
+      [
+       "^\\s+",
+       ""
+      ]
+     ]
+    },
+    "author": "div.meio div.post-box ul.post-itens li:contains(Artista) a",
+    "genres": {
+     "path": "div.meio div.post-box ul.post-itens li:contains(Tags) a",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html:has(div.meio div.post-box h1.post-titulo)",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Capítulo único"
+    },
+    "scanlator": "div.meio div.post-box ul.post-itens li:contains(Tradutor) a",
+    "date": "meta[property=article:published_time]@content"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.meio div.post-box ul.post-fotos li a > img, div.meio div.post-box.listaImagens div.galeriaHtml img",
+   "image": {
+    "path": "@img",
+    "replace": [
+     [
+      "-\\d+x\\d+\\.",
+      "."
+     ]
+    ]
+   },
+   "referer": "chapter"
+  }
+ },
+ "hinweise": [
+  "Gattsu-Theme (WordPress). Die Website hat keine Beliebt-Liste: die Community nimmt die Startseite (/, /page/N) als 'Beliebt' und bietet kein 'Neu' an.",
+  "Jeder Eintrag ist ein Einzelwerk: ein Kapitel 'Capítulo único' mit der URL des Werks; Datum aus meta article:published_time, Übersetzer aus 'Tradutor'.",
+  "Community liefert nur dann ein Kapitel, wenn die Seite Bilder enthält; hier wird das Kapitel immer angelegt, sobald ein Titel (h1.post-titulo) da ist.",
+  "Listen-Selektor in der Community: 'a[href^=<base>]' (nur interne Links); hier 'a[href]', da Platzhalter in Selektoren in keiner Vorlage belegt sind.",
+  "Thumbnail-Suffix '-123x456.' wird bei Cover und Seiten entfernt (wie withoutSize()); Bild-Referer = Kapitelseite."
+ ]
+}

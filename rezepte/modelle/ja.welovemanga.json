@@ -1,0 +1,185 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "WeLoveManga",
+  "sprache": "ja",
+  "base_url": "https://weloma.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.welovemanga",
+  "quellen": [
+   {
+    "name": "WeLoveManga",
+    "sprache": "ja",
+    "quell_id": 7595224096258102519,
+    "home": "https://weloma.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/rawlh",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "fmreader"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:150.0) Gecko/20100101 Firefox/150.0"
+  },
+  "popular": {
+   "request": "{base}/manga-list.html?listType=pagination&page={page}&sort=views&sort_type=DESC",
+   "items": "div.media, .thumb-item-flow",
+   "has_next": {
+    "exists": ".pagination a:contains(»):not(.disabled)"
+   },
+   "fields": {
+    "url": "h3 a, .series-title a@href",
+    "title": "h3 a, .series-title a",
+    "cover": [
+     {
+      "path": "div.content.img-in-ratio@style",
+      "regex": "url\\(['\"]?(.*?)['\"]?\\)"
+     },
+     "img@img"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/manga-list.html?listType=pagination&page={page}&sort=last_update&sort_type=DESC",
+   "items": "div.media, .thumb-item-flow",
+   "has_next": {
+    "exists": ".pagination a:contains(»):not(.disabled)"
+   },
+   "fields": {
+    "url": "h3 a, .series-title a@href",
+    "title": "h3 a, .series-title a",
+    "cover": [
+     {
+      "path": "div.content.img-in-ratio@style",
+      "regex": "url\\(['\"]?(.*?)['\"]?\\)"
+     },
+     "img@img"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/manga-list.html?name={query}&page={page}&sort=views",
+   "items": "div.media, .thumb-item-flow",
+   "has_next": {
+    "exists": ".pagination a:contains(»):not(.disabled)"
+   },
+   "fields": {
+    "url": "h3 a, .series-title a@href",
+    "title": "h3 a, .series-title a",
+    "cover": [
+     {
+      "path": "div.content.img-in-ratio@style",
+      "regex": "url\\(['\"]?(.*?)['\"]?\\)"
+     },
+     "img@img"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".manga-info h1, .manga-info h3",
+    "cover": "img.thumbnail@img",
+    "description": "div.detail .content, div.row ~ div.row:has(h3:first-child) p, .summary-content p",
+    "author": {
+     "path": "li a.btn-info",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "li a.btn-danger",
+     "all": true,
+     "join": ", "
+    },
+    "status": "li a.btn-success"
+   },
+   "status_map": {
+    "completed": 2,
+    "complete": 2,
+    "ongoing": 1,
+    "on going": 1,
+    "updating": 1,
+    "incomplete": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div#list-chapters p > a, table.table tr a, .list-chapters > a",
+   "fields": {
+    "url": "@href",
+    "name": [
+     {
+      "path": "@title",
+      "replace": [
+       [
+        "^{l.title_rx} ",
+        ""
+       ]
+      ]
+     },
+     ""
+    ],
+    "date": "time, .chapter-time, .publishedDate"
+   },
+   "date_format": [
+    "relative",
+    "d/M/yyyy"
+   ],
+   "date_locale": "en",
+   "let": {
+    "title_rx": {
+     "path": ".manga-info h1, .manga-info h3",
+     "replace": [
+      [
+       "[^A-Za-z0-9 ]",
+       "."
+      ]
+     ]
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img.chapter-img",
+   "image": [
+    {
+     "path": "@data-img",
+     "regex": "^([A-Za-z0-9+/=]+)$",
+     "decode": "base64"
+    },
+    {
+     "path": "@data-original",
+     "regex": "^([A-Za-z0-9+/=]+)$",
+     "decode": "base64"
+    },
+    {
+     "path": "@data-src",
+     "regex": "^([A-Za-z0-9+/=]+)$",
+     "decode": "base64"
+    },
+    {
+     "path": "@src",
+     "regex": "^([A-Za-z0-9+/=]+)$",
+     "decode": "base64"
+    },
+    "@data-img",
+    "@img"
+   ],
+   "referer": "chapter"
+  }
+ },
+ "hinweise": [
+  "FMReader-Theme (Flat-Manga). WeLoveManga (früher RawLH) überschreibt: Kapitel-Link ist das Listenelement selbst (chapterUrlSelector=''), Name aus title-Attribut; Bildliste base64-kodiert; Bild-Referer = Kapitel-URL; Cover aus style 'url(...)' von div.content.img-in-ratio.",
+  "Bilder: Theme dekodiert das erste vorhandene Attribut (data-img, data-original, data-src, data-srcset, data-aload, src) per Base64, wenn es keinen '.' enthält, sonst als URL. Nachgebildet als Ausweichkette: Base64 nur bei Werten ohne '.' (Regex), sonst @data-img/@img. Annahme: regex wird vor decode angewendet (wie Vorlage en.kunmanga).",
+  "Nächste Seite: Theme prüft zusätzlich einen 'page x of y'-Knopf (div.col-lg-9 button.btn-info); nicht ausdrückbar, nur der »-Link wird geprüft.",
+  "Autor 'Updating' filtert das Theme heraus; hier nicht. Alternative Namen werden nicht an die Beschreibung angehängt.",
+  "Datum: erst relativ ('1 day ago'), sonst 'd/M/yyyy'.",
+  "Kapitelname: Manga-Titel vorne abgeschnitten wie im Theme, über let title_rx (Sonderzeichen → '.') wie Vorlage fr.scanvf."
+ ]
+}
