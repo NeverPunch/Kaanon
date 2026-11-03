@@ -34,16 +34,8 @@
     "headers": {
      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36"
     },
-    "json": {
-     "operationName": "home",
-     "variables": {},
-     "extensions": {
-      "persistedQuery": {
-       "version": 1,
-       "sha256Hash": "b65659a4a5689bac97168591122219b69ee089d840b0415ace241d0caebee900"
-      }
-     }
-    }
+    "content_type": "application/json",
+    "body": "{\"operationName\":\"home\",\"variables\":{},\"extensions\":{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"b65659a4a5689bac97168591122219b69ee089d840b0415ace241d0caebee900\"}}}"
    },
    "format": "json",
    "items": "data.ranking.totalRanking",
@@ -69,19 +61,8 @@
     "headers": {
      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36"
     },
-    "json": {
-     "operationName": "magazinesByKeywordSearch",
-     "variables": {
-      "keyword": "{query_raw}",
-      "after": null
-     },
-     "extensions": {
-      "persistedQuery": {
-       "version": 1,
-       "sha256Hash": "55c7ca6cce30d8abdb0b32d00ad678ba37c03dd9b4851daf5ab5df5d41ce3ccc"
-      }
-     }
-    }
+    "content_type": "application/json",
+    "body": "{\"operationName\":\"magazinesByKeywordSearch\",\"variables\":{\"keyword\":\"{query_raw}\",\"after\":null},\"extensions\":{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"55c7ca6cce30d8abdb0b32d00ad678ba37c03dd9b4851daf5ab5df5d41ce3ccc\"}}}"
    },
    "format": "json",
    "items": "data.searchComic.edges.*.node",
@@ -107,18 +88,8 @@
     "headers": {
      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36"
     },
-    "json": {
-     "operationName": "magazineDetail",
-     "variables": {
-      "magazineIdOrAlias": "{u.alias}"
-     },
-     "extensions": {
-      "persistedQuery": {
-       "version": 1,
-       "sha256Hash": "9a1460a42f8d04c70b23bb9ad763d0dbef2eb6f5d05dafca98ca2be8a2bfe867"
-      }
-     }
-    }
+    "content_type": "application/json",
+    "body": "{\"operationName\":\"magazineDetail\",\"variables\":{\"magazineIdOrAlias\":\"{u.alias}\"},\"extensions\":{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"9a1460a42f8d04c70b23bb9ad763d0dbef2eb6f5d05dafca98ca2be8a2bfe867\"}}}"
    },
    "format": "json",
    "url_vars": {
@@ -154,20 +125,8 @@
     "headers": {
      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36"
     },
-    "json": {
-     "operationName": "storyInfoList",
-     "variables": {
-      "magazineIdOrAlias": "{u.alias}",
-      "first": 9999,
-      "after": null
-     },
-     "extensions": {
-      "persistedQuery": {
-       "version": 1,
-       "sha256Hash": "acd460c52a231029d09e1ccca0aa06b99ae8163d5edff661cd64984ebb6dc4c3"
-      }
-     }
-    }
+    "content_type": "application/json",
+    "body": "{\"operationName\":\"storyInfoList\",\"variables\":{\"magazineIdOrAlias\":\"{u.alias}\",\"first\":9999,\"after\":null},\"extensions\":{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"acd460c52a231029d09e1ccca0aa06b99ae8163d5edff661cd64984ebb6dc4c3\"}}}"
    },
    "format": "json",
    "url_vars": {
@@ -207,19 +166,8 @@
     "headers": {
      "User-Agent": "GanmaReader/10.11.0 Android"
     },
-    "json": {
-     "operationName": "magazineStoryForReader",
-     "variables": {
-      "magazineIdOrAlias": "{u.alias}",
-      "storyId": "{u.sid}"
-     },
-     "extensions": {
-      "persistedQuery": {
-       "version": 1,
-       "sha256Hash": "44e35d8af09515a315b06090723b72753828cf799466e3e1d722786844676617"
-      }
-     }
-    }
+    "content_type": "application/json",
+    "body": "{\"operationName\":\"magazineStoryForReader\",\"variables\":{\"magazineIdOrAlias\":\"{u.alias}\",\"storyId\":\"{u.sid}\"},\"extensions\":{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"44e35d8af09515a315b06090723b72753828cf799466e3e1d722786844676617\"}}}"
    },
    "format": "json",
    "url_vars": {
@@ -245,6 +193,6 @@
   "Manga-URL /web/magazine/<alias>, Kapitel-URL /web/reader/<alias>/<storyId>/0 (wie getMangaUrl/getChapterUrl).",
   "Gesperrte Kapitel (Zugangsbedingung nicht FreeStoryContentsAccessCondition oder Münzen > 0) werden übersprungen; Community zeigt sie optional mit Münz-Symbol. Negativer Lookahead im skip-Regex ist in keiner Vorlage belegt – prüfen. isPurchased (nur mit Login) nicht berücksichtigt.",
   "Status: isFinished true → abgeschlossen, sonst laufend (default 'false' bei fehlendem Wert – Boolean als Text gegen status_map, prüfen).",
-  "Seiten: pageImageBaseURL + n + '.jpg?' + pageImageSign + '&w=4999' für n = 1..pageCount (items_count wie en.ninehentai). Signatur liefert die API selbst. Nachwort-Bild (afterword.imageUrl) fehlt. 'variables' mit null (after) als JSON-null gesendet."
+  "Seiten: pageImageBaseURL + n + '.jpg?' + pageImageSign + '&w=4999' für n = 1..pageCount (items_count wie en.ninehentai). Signatur liefert die API selbst. Nachwort-Bild (afterword.imageUrl) fehlt. Body als JSON-Text (body + content_type wie en.ninehentai), da verschachtelte Objekte unter json nicht belegt sind; Suchtext wird roh eingesetzt (Anführungszeichen im Suchtext würden das JSON brechen)."
  ]
 }

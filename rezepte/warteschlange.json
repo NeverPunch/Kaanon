@@ -14521,7 +14521,7 @@
  },
  {
   "modul": "src/ja/mangano",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "MangaNo",
   "stufe": 2,
   "theme": null,
@@ -14531,11 +14531,14 @@
   "host": "manga-no.com",
   "nsfw": false,
   "wer": "agent-w6c",
-  "seit": "2026-11-03T11:05:15"
+  "seit": "2026-11-03T11:05:15",
+  "grund": "GraphQL nur mit Firebase-Bearer-Token (anonymes accounts:signUp per POST mit API-Schlüssel, Refresh, optional Login); Token-Beschaffung per POST in vars nicht belegt; Listen mit Cursor",
+  "datei": null,
+  "geaendert": "2026-11-03T11:05:24"
  },
  {
   "modul": "src/ja/mangaraw",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "MangaRaw",
   "stufe": 2,
   "theme": null,
@@ -14543,7 +14546,9 @@
    "ja"
   ],
   "host": "mangaraw.co.uk",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6c",
+  "seit": "2026-11-03T11:05:24"
  },
  {
   "modul": "src/ja/mangarw",
