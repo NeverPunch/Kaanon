@@ -1,0 +1,171 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Dokiraw",
+  "sprache": "ja",
+  "base_url": "https://dokiraw.city",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.dokiraw",
+  "quellen": [
+   {
+    "name": "Dokiraw",
+    "sprache": "ja",
+    "quell_id": 3967449247820755680,
+    "home": "https://dokiraw.city"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/dokiraw",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.19",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/hot?page={page}",
+   "items": "div[class*=manga-item_item]",
+   "fields": {
+    "url": "a[href*=/manga/]@href",
+    "title": "h3",
+    "cover": [
+     "img@data-original",
+     "img@src"
+    ]
+   },
+   "has_next": {
+    "full": true
+   },
+   "page_size": 36
+  },
+  "latest": {
+   "request": "{base}/search/manga?status=-1&sort=15&page={page}",
+   "items": "div[class*=manga-item_item]",
+   "fields": {
+    "url": "a[href*=/manga/]@href",
+    "title": "h3",
+    "cover": [
+     "img@data-original",
+     "img@src"
+    ]
+   },
+   "has_next": {
+    "full": true
+   },
+   "page_size": 20
+  },
+  "search": {
+   "request": "{base}/search/manga?keyword={query}&page={page}",
+   "items": "div[class*=manga-item_item]",
+   "fields": {
+    "url": "a[href*=/manga/]@href",
+    "title": "h3",
+    "cover": [
+     "img@data-original",
+     "img@src"
+    ]
+   },
+   "has_next": {
+    "full": true
+   },
+   "page_size": 20
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div[class*=manga-detail_boxInfo] h1",
+    "cover": "img[src*=cover]@src",
+    "description": {
+     "path": "div.work-break p:last-of-type"
+    },
+    "genres": "tr:contains(ジャンル) a[href*=genre]",
+    "status": [
+     {
+      "path": "body",
+      "regex": "(連載中)",
+      "group": 1
+     },
+     {
+      "path": "body",
+      "regex": "(完結)",
+      "group": 1
+     }
+    ]
+   },
+   "status_map": {
+    "連載中": 1,
+    "完結": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a:has(div[class*=manga-detail_chapter])",
+   "fields": {
+    "url": "@href",
+    "name": "div[class*=manga-detail_chapter] span:eq(0)",
+    "number": {
+     "path": "div[class*=manga-detail_chapter] span:eq(0)",
+     "regex": "(\\d+(?:\\.\\d+)?)",
+     "group": 1
+    },
+    "date": {
+     "path": "div[class*=manga-detail_chapter] span:eq(1)",
+     "replace": [
+      [
+       "^.*昨日.*$",
+       "1 day ago"
+      ],
+      [
+       "^\\D*(\\d+)\\D*秒.*$",
+       "$1 seconds ago"
+      ],
+      [
+       "^\\D*(\\d+)\\D*分.*$",
+       "$1 minutes ago"
+      ],
+      [
+       "^\\D*(\\d+)\\D*時.*$",
+       "$1 hours ago"
+      ],
+      [
+       "^\\D*(\\d+)\\D*日.*$",
+       "$1 days ago"
+      ],
+      [
+       "^\\D*(\\d+)\\D*週.*$",
+       "$1 weeks ago"
+      ],
+      [
+       "^\\D*(\\d+)\\D*月.*$",
+       "$1 months ago"
+      ],
+      [
+       "^\\D*(\\d+)\\D*年.*$",
+       "$1 years ago"
+      ]
+     ]
+    }
+   },
+   "date_format": "relative",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.page-chapter img",
+   "image": [
+    "@data-cdn",
+    "@data-original",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Listen wie Community: /hot (36 je Seite), Neueste /search/manga?status=-1&sort=15, Suche ?keyword= (je 20); nächste Seite, solange die Seite voll ist. Genrefilter nicht nachgebaut.",
+  "Status wie Community: irgendwo auf der Seite '連載中' → laufend, sonst '完結' → abgeschlossen (Regex über den Seitentext).",
+  "Datum relativ auf Japanisch (秒/分/時/日/週/月/年, 昨日); per replace in englische Angaben ('3 hours ago') umgeschrieben und mit 'relative' gelesen – prüfen.",
+  "Beschreibung = letztes p in div.work-break (p:last-of-type angenommen).",
+  "Basis-URL ist in der Community frei einstellbar (custom); hier https://dokiraw.city."
+ ]
+}

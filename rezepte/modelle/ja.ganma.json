@@ -1,0 +1,250 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "GANMA!",
+  "sprache": "ja",
+  "base_url": "https://ganma.jp",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.ganma",
+  "quellen": [
+   {
+    "name": "GANMA!",
+    "sprache": "ja",
+    "quell_id": 8045942616403978870,
+    "home": "https://ganma.jp"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/ganma",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "X-From": "{base}/web"
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/api/graphql",
+    "method": "POST",
+    "headers": {
+     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36"
+    },
+    "json": {
+     "operationName": "home",
+     "variables": {},
+     "extensions": {
+      "persistedQuery": {
+       "version": 1,
+       "sha256Hash": "b65659a4a5689bac97168591122219b69ee089d840b0415ace241d0caebee900"
+      }
+     }
+    }
+   },
+   "format": "json",
+   "items": "data.ranking.totalRanking",
+   "fields": {
+    "url": {
+     "path": "alias",
+     "template": "/web/magazine/{value}"
+    },
+    "title": "title",
+    "cover": [
+     "todaysJacketImageURL",
+     "rectangleWithLogoImageURL"
+    ]
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/graphql",
+    "method": "POST",
+    "headers": {
+     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36"
+    },
+    "json": {
+     "operationName": "magazinesByKeywordSearch",
+     "variables": {
+      "keyword": "{query_raw}",
+      "after": null
+     },
+     "extensions": {
+      "persistedQuery": {
+       "version": 1,
+       "sha256Hash": "55c7ca6cce30d8abdb0b32d00ad678ba37c03dd9b4851daf5ab5df5d41ce3ccc"
+      }
+     }
+    }
+   },
+   "format": "json",
+   "items": "data.searchComic.edges.*.node",
+   "fields": {
+    "url": {
+     "path": "alias",
+     "template": "/web/magazine/{value}"
+    },
+    "title": "title",
+    "cover": [
+     "todaysJacketImageURL",
+     "rectangleWithLogoImageURL"
+    ]
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{base}/api/graphql",
+    "method": "POST",
+    "headers": {
+     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36"
+    },
+    "json": {
+     "operationName": "magazineDetail",
+     "variables": {
+      "magazineIdOrAlias": "{u.alias}"
+     },
+     "extensions": {
+      "persistedQuery": {
+       "version": 1,
+       "sha256Hash": "9a1460a42f8d04c70b23bb9ad763d0dbef2eb6f5d05dafca98ca2be8a2bfe867"
+      }
+     }
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "alias": "/web/magazine/([^/?#]+)"
+   },
+   "fields": {
+    "title": "data.magazine.title",
+    "author": "data.magazine.authorName",
+    "description": "data.magazine.description",
+    "genres": {
+     "path": "data.magazine.magazineTags.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": "data.magazine.isFinished",
+     "default": "false"
+    },
+    "cover": [
+     "data.magazine.squareWithLogoImageURL",
+     "data.magazine.rectangleWithLogoImageURL"
+    ]
+   },
+   "status_map": {
+    "true": 2,
+    "false": 1
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/api/graphql",
+    "method": "POST",
+    "headers": {
+     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36"
+    },
+    "json": {
+     "operationName": "storyInfoList",
+     "variables": {
+      "magazineIdOrAlias": "{u.alias}",
+      "first": 9999,
+      "after": null
+     },
+     "extensions": {
+      "persistedQuery": {
+       "version": 1,
+       "sha256Hash": "acd460c52a231029d09e1ccca0aa06b99ae8163d5edff661cd64984ebb6dc4c3"
+      }
+     }
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "alias": "/web/magazine/([^/?#]+)"
+   },
+   "items": "data.magazine.storyInfos.edges",
+   "skip": {
+    "any": [
+     {
+      "path": "node.contentsAccessCondition.__typename",
+      "regex": "^(?!FreeStoryContentsAccessCondition$)"
+     },
+     {
+      "path": "node.contentsAccessCondition.info.coins",
+      "regex": "^[1-9]"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "node.storyId",
+     "template": "/web/reader/{u.alias}/{value}/0"
+    },
+    "name": {
+     "path": "node.title",
+     "template": "{value}[[ {f.node.subtitle}]]"
+    },
+    "date": "node.contentsRelease"
+   },
+   "date_format": "epoch_ms",
+   "reverse": true
+  },
+  "pages": {
+   "request": {
+    "url": "{base}/api/graphql",
+    "method": "POST",
+    "headers": {
+     "User-Agent": "GanmaReader/10.11.0 Android"
+    },
+    "json": {
+     "operationName": "magazineStoryForReader",
+     "variables": {
+      "magazineIdOrAlias": "{u.alias}",
+      "storyId": "{u.sid}"
+     },
+     "extensions": {
+      "persistedQuery": {
+       "version": 1,
+       "sha256Hash": "44e35d8af09515a315b06090723b72753828cf799466e3e1d722786844676617"
+      }
+     }
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "alias": "/web/reader/([^/]+)/",
+    "sid": "/web/reader/[^/]+/([^/]+)"
+   },
+   "let": {
+    "pbase": "data.magazine.storyContents.pageImages.pageImageBaseURL",
+    "sign": "data.magazine.storyContents.pageImages.pageImageSign",
+    "total": "data.magazine.storyContents.pageImages.pageCount"
+   },
+   "items_count": "{l.total}",
+   "image": {
+    "path": "",
+    "template": "{l.pbase}{value}.jpg?{l.sign}&w=4999"
+   }
+  }
+ },
+ "hinweise": [
+  "GraphQL {base}/api/graphql mit Persisted Queries (operationName + extensions.persistedQuery.sha256Hash, Hashes wörtlich aus dem Community-Code, öffentlich aus dem Web-JS der Website – kein Geheimnis). Ändert die Website ihr JS, veralten die Hashes.",
+  "Kopfzeile X-From: {base}/web wie im Code; Listen/Details/Kapitel mit Desktop-UA, Seiten mit dem App-UA 'GanmaReader/10.11.0 Android'. Die Community nimmt für reine Web-Kapitel (storyContents.__typename = StoryContents) den Desktop-UA – je Kapitel umschalten ist nicht ausdrückbar; solche Kapitel können hier scheitern (auf dem PC prüfen).",
+  "Beliebt = Gesamtranking der Startseite (eine Seite). Suche: Stichwortsuche, nur erste Seite (Cursor-Blättern über endCursor nicht ausdrückbar), leerer Suchtext/Wochentagsfilter nicht übernommen. Neueste (Wochentag von heute in JST) nicht ausdrückbar → entfällt.",
+  "Manga-URL /web/magazine/<alias>, Kapitel-URL /web/reader/<alias>/<storyId>/0 (wie getMangaUrl/getChapterUrl).",
+  "Gesperrte Kapitel (Zugangsbedingung nicht FreeStoryContentsAccessCondition oder Münzen > 0) werden übersprungen; Community zeigt sie optional mit Münz-Symbol. Negativer Lookahead im skip-Regex ist in keiner Vorlage belegt – prüfen. isPurchased (nur mit Login) nicht berücksichtigt.",
+  "Status: isFinished true → abgeschlossen, sonst laufend (default 'false' bei fehlendem Wert – Boolean als Text gegen status_map, prüfen).",
+  "Seiten: pageImageBaseURL + n + '.jpg?' + pageImageSign + '&w=4999' für n = 1..pageCount (items_count wie en.ninehentai). Signatur liefert die API selbst. Nachwort-Bild (afterword.imageUrl) fehlt. 'variables' mit null (after) als JSON-null gesendet."
+ ]
+}

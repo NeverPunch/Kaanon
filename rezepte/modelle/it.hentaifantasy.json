@@ -23,7 +23,131 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/most_downloaded/{page}/",
+   "items": "article.element",
+   "fields": {
+    "url": [
+     "a.thumb@href",
+     "div.title > a@href"
+    ],
+    "title": "div.title > a@title",
+    "cover": [
+     "img.cover@src",
+     "img.preview@src"
+    ]
+   },
+   "has_next": {
+    "exists": "div.next > a.gbutton:contains(»)"
+   }
+  },
+  "latest": {
+   "request": "{base}/latest/{page}/",
+   "items": "article.element",
+   "fields": {
+    "url": [
+     "a.thumb@href",
+     "div.title > a@href"
+    ],
+    "title": "div.title > a@title",
+    "cover": [
+     "img.cover@src",
+     "img.preview@src"
+    ]
+   },
+   "has_next": {
+    "exists": "div.next > a.gbutton:contains(»)"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/search",
+    "method": "POST",
+    "form": {
+     "search": "{query_raw}"
+    }
+   },
+   "items": [
+    "article.element",
+    "div.group"
+   ],
+   "fields": {
+    "url": [
+     "a.thumb@href",
+     "div.title > a@href"
+    ],
+    "title": "div.title > a@title",
+    "cover": [
+     "img.cover@src",
+     "img.preview@src"
+    ]
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "author": {
+     "path": "div.meta-row:has(div.meta-key:matchesOwn(^(?:Autore)$)) div.meta-val > a",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "div.meta-row:has(div.meta-key:matchesOwn(^(?:Genere|Tipo)$)) div.meta-val > a",
+     "all": true,
+     "join": ", "
+    },
+    "description": "div.desc-text",
+    "cover": "section.comic-hero img@src"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "article.chapter-card",
+   "fields": {
+    "url": "div.chapter-card__title > a@href",
+    "name": "div.chapter-card__title > a",
+    "date": {
+     "path": "div.chapter-card__meta@ownText",
+     "regex": "([^,]+)$",
+     "group": 1,
+     "replace": [
+      [
+       "^\\s+|\\s+$",
+       ""
+      ]
+     ]
+    }
+   },
+   "date_format": [
+    "yyyy.M.d",
+    "relative"
+   ],
+   "date_locale": "it"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "items": "\"url\":\"(.*?)\"",
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "\\\\/",
+      "/"
+     ]
+    ]
+   }
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "FoOlSlide-ähnliche Website: Beliebt /most_downloaded/N/, Neueste /latest/N/, weiter solange 'div.next > a.gbutton' mit » existiert.",
+  "Suche: POST /search mit search=<Text> (Community verlangt mind. 3 Zeichen); Treffer als article.element oder div.group. Tag-Filter (POST tag[]) nicht übernommen.",
+  "Details: Titel aus der Liste; Autor/Genere+Tipo aus div.meta-row per :matchesOwn; Status unbekannt (wie Community).",
+  "Kapiteldatum = Text nach dem letzten Komma in .chapter-card__meta, Format yyyy.M.d bzw. 'Oggi'/'Ieri' (ob 'relative' mit date_locale it das versteht, auf dem PC prüfen).",
+  "Seiten: alle \"url\":\"…\" im Quelltext der Kapitelseite (Regex wie Community), \\/ → /."
+ ]
 }

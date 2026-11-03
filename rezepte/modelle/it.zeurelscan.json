@@ -23,7 +23,118 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/series",
+   "items": "a.series-card",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "@href",
+    "title": "span.series-title",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/series",
+   "items": "a.series-card",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "@href",
+    "title": "span.series-title",
+    "cover": "img@src"
+   },
+   "client_filter": true
+  },
+  "latest": {
+   "request": "{base}/ultimi",
+   "items": "a.latest-row",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "@href",
+     "regex": "/read/([^/?#]+)",
+     "group": 1,
+     "template": "/serie/{value}"
+    },
+    "title": "span.latest-title",
+    "cover": "img.latest-thumb@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.series-header h1",
+    "author": "div.series-header p:contains(Autore)@ownText",
+    "artist": "div.series-header p:contains(Artista)@ownText",
+    "genres": "div.series-header p:contains(Genere)@ownText",
+    "description": "div.series-header p.series-plot",
+    "cover": "img@src",
+    "status": {
+     "path": "div.series-header p:contains(Stato)@ownText",
+     "regex": "(?i)(in corso|completa)",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "in corso": 1,
+    "In Corso": 1,
+    "In corso": 1,
+    "completa": 2,
+    "Completa": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.chapter:has(a)",
+   "fields": {
+    "url": "a@href",
+    "name": [
+     {
+      "path": "a@ownText",
+      "regex": "^[^#]*#\\s*(.+?\\s*(?:–| - )\\s*\\S.*)$",
+      "group": 1,
+      "replace": [
+       [
+        "\\s*–\\s*",
+        " - "
+       ]
+      ]
+     },
+     {
+      "path": "a@ownText",
+      "regex": "#\\s*([^–]+?)\\s*(?:–\\s*)?$",
+      "group": 1,
+      "template": "Capitolo {value}"
+     }
+    ],
+    "number": {
+     "path": "a@ownText",
+     "regex": "#\\s*(\\d+(?:\\.\\d+)?)",
+     "group": 1
+    },
+    "date": {
+     "path": "span.chapter-date",
+     "regex": "^(\\S+)",
+     "group": 1
+    }
+   },
+   "date_format": "d/M/yyyy"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.reader img",
+   "image": "@src"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Beliebt = alle Serien von /series (die Website sortiert nicht), Suche filtert diese Liste lokal. Neu = /ultimi, Manga-URL aus dem Leser-Link /read/<slug>/… → /serie/<slug>; doppelte Serien entfernt die Community, hier nicht.",
+  "Kapitelname: '<Nr> - <Titel>' bzw. 'Capitolo <Nr>' aus dem Linktext nach '#'. Nummer nur numerisch (Community: Sonderfälle '_' und Nebengeschichten mit +0.1).",
+  "Seiten: Die Website antwortet auf der Leserseite teils mit HTTP 400, liefert aber die Bilder; die Community wertet die Seite trotzdem aus – ob die Engine Antworten mit 400 verarbeitet, beim Test prüfen."
+ ]
 }

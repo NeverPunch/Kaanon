@@ -1,0 +1,245 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Klto9",
+  "sprache": "ja",
+  "base_url": "https://klto9.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.klto9",
+  "quellen": [
+   {
+    "name": "Klto9",
+    "sprache": "ja",
+    "quell_id": 3136857802804349121,
+    "home": "https://klto9.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/klto9",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/manga-list.html?listType=pagination&page={page}&sort=views&sort_type=DESC",
+   "items": "article.manga-update-card",
+   "fields": {
+    "url": "h3.update-title a@href",
+    "title": "h3.update-title a",
+    "cover": [
+     {
+      "path": "img.update-cover-img@src",
+      "regex": "cover\\.php[?,]q?u=([\\w-]+)",
+      "group": 1,
+      "replace": [
+       [
+        "-",
+        "+"
+       ],
+       [
+        "_",
+        "/"
+       ]
+      ],
+      "decode": "base64"
+     },
+     {
+      "path": "img.update-cover-img@src",
+      "regex": "^(https?://.*)$",
+      "group": 1
+     }
+    ]
+   },
+   "has_next": {
+    "exists": "a.pagination-btn[title=Next Page]"
+   }
+  },
+  "latest": {
+   "request": "{base}/manga-list.html?listType=pagination&page={page}&sort=last_update&sort_type=DESC",
+   "items": "article.manga-update-card",
+   "fields": {
+    "url": "h3.update-title a@href",
+    "title": "h3.update-title a",
+    "cover": [
+     {
+      "path": "img.update-cover-img@src",
+      "regex": "cover\\.php[?,]q?u=([\\w-]+)",
+      "group": 1,
+      "replace": [
+       [
+        "-",
+        "+"
+       ],
+       [
+        "_",
+        "/"
+       ]
+      ],
+      "decode": "base64"
+     },
+     {
+      "path": "img.update-cover-img@src",
+      "regex": "^(https?://.*)$",
+      "group": 1
+     }
+    ]
+   },
+   "has_next": {
+    "exists": "a.pagination-btn[title=Next Page]"
+   }
+  },
+  "search": {
+   "request": "{base}/manga-list.html?listType=pagination&page={page}&title={query}&sort=last_update&sort_type=DESC",
+   "items": "article.manga-update-card",
+   "fields": {
+    "url": "h3.update-title a@href",
+    "title": "h3.update-title a",
+    "cover": [
+     {
+      "path": "img.update-cover-img@src",
+      "regex": "cover\\.php[?,]q?u=([\\w-]+)",
+      "group": 1,
+      "replace": [
+       [
+        "-",
+        "+"
+       ],
+       [
+        "_",
+        "/"
+       ]
+      ],
+      "decode": "base64"
+     },
+     {
+      "path": "img.update-cover-img@src",
+      "regex": "^(https?://.*)$",
+      "group": 1
+     }
+    ]
+   },
+   "has_next": {
+    "exists": "a.pagination-btn[title=Next Page]"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "syn": {
+     "path": "#synopsis-content",
+     "replace": [
+      [
+       "^\\s*Updating\\s*$",
+       ""
+      ]
+     ]
+    },
+    "alt": {
+     "path": "span.alt-value",
+     "replace": [
+      [
+       "^\\s*Updating\\s*$",
+       ""
+      ],
+      [
+       ",\\s+",
+       "\n- "
+      ]
+     ]
+    }
+   },
+   "fields": {
+    "title": "h1.cinema-title",
+    "author": {
+     "path": "a.cinema-meta-link[href^=/manga-author]:not(:matchesOwn(^Updating$))",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "a.cinema-meta-link[href^=/manga-artist]:not(:matchesOwn(^Updating$))",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "a.cinema-genre-pill",
+     "all": true,
+     "join": ", "
+    },
+    "status": "span.poster-status-chip",
+    "cover": "#btn-manga-bookmark@data-cover",
+    "description": {
+     "const": "[[{l.syn}]]\n\n[[**Other Names:**\n\n- {l.alt}]]",
+     "replace": [
+      [
+       "^\\n+|\\n+$",
+       ""
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "Ongoing": 1,
+    "completed": 2,
+    "Completed": 2,
+    "paused": 6,
+    "Paused": 6
+   }
+  },
+  "chapters": {
+   "request": "{base}/Kq7Xm2Pz9Lw4Rt8Vb3Nc6Hd5J.lst?manga={u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "teap-(.+?)\\.html"
+   },
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "chapter",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "/zmqs-{f.manga}-chapter-{value}.html#{f.id}"
+    },
+    "name": {
+     "path": "chapter",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "Chapter {value}[[ - {f.name}]]"
+    },
+    "number": "chapter",
+    "date": "last_update"
+   },
+   "date_format": "yyyy-MM-dd HH:mm:ss"
+  },
+  "pages": {
+   "request": "{base}/Tg4Hs8Kd2Mq6Wz1Xc9Vb5Nf3Lp7Ry0.iog?cid={u.cid}",
+   "url_vars": {
+    "cid": "#([^#]+)$"
+   },
+   "items": "img",
+   "image": [
+    "@data-pagespeed-lazy-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Listen /manga-list.html?listType=pagination&page=N&sort=views|last_update; Suche title=…; Genre/Status/Autor/Gruppe-Filter nicht übernommen.",
+  "Cover in Listen: PageSpeed-URL cover.php?u=<Base64-URL-safe> → per Regex + base64 dekodiert ('-'/'_' vorher auf '+'/'/' gesetzt – ob replace vor decode läuft, auf dem PC prüfen); inline data:-Cover entfallen.",
+  "Kapitel/Seiten: die Website nimmt beliebige Dateinamen (<zufällig>.lst?manga=<slug> bzw. <zufällig>.iog?cid=<id>); die Community würfelt sie, hier feste Zufallsnamen (kein Schlüssel, keine Signatur).",
+  "Kapitel-URL /zmqs-<manga>-chapter-<n>.html#<id> (Web-URL der Community + Kapitel-ID hinter #; Community speichert 'id#manga#chapter'). Datum yyyy-MM-dd HH:mm:ss (UTC; Community kappt Zukunftsdaten).",
+  "Beschreibung = Synopsis + 'Other Names' (Platzhalter 'Updating' entfernt)."
+ ]
+}

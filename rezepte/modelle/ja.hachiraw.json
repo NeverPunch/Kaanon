@@ -1,0 +1,156 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hachiraw",
+  "sprache": "ja",
+  "base_url": "https://hachiraw.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.hachiraw",
+  "quellen": [
+   {
+    "name": "Hachiraw",
+    "sprache": "ja",
+    "quell_id": 8574043921162024664,
+    "home": "https://hachiraw.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/hachiraw",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/list-manga/{page}?order_by=views",
+   "request_by_page": {
+    "1": "{base}/list-manga?order_by=views"
+   },
+   "items": "div.ng-scope > div.top-15",
+   "fields": {
+    "url": "a.ng-binding.SeriesName@href",
+    "title": "a.ng-binding.SeriesName",
+    "cover": {
+     "path": "img.img-fluid@src",
+     "replace": [
+      [
+       "https://i0.wp.com/cdn.kumaraw.com/",
+       "https://cdn.hachiraw.net/"
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": "ul.pagination li:contains(→)"
+   }
+  },
+  "latest": {
+   "request": "{base}/list-manga/{page}?order_by=lastest",
+   "request_by_page": {
+    "1": "{base}/list-manga?order_by=lastest"
+   },
+   "items": "div.ng-scope > div.top-15",
+   "fields": {
+    "url": "a.ng-binding.SeriesName@href",
+    "title": "a.ng-binding.SeriesName",
+    "cover": {
+     "path": "img.img-fluid@src",
+     "replace": [
+      [
+       "https://i0.wp.com/cdn.kumaraw.com/",
+       "https://cdn.hachiraw.net/"
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": "ul.pagination li:contains(→)"
+   }
+  },
+  "search": {
+   "request": "{base}/list-manga/{page}?search={query}&order_by=views",
+   "request_by_page": {
+    "1": "{base}/list-manga?search={query}&order_by=views"
+   },
+   "items": "div.ng-scope > div.top-15",
+   "fields": {
+    "url": "a.ng-binding.SeriesName@href",
+    "title": "a.ng-binding.SeriesName",
+    "cover": {
+     "path": "img.img-fluid@src",
+     "replace": [
+      [
+       "https://i0.wp.com/cdn.kumaraw.com/",
+       "https://cdn.hachiraw.net/"
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": "ul.pagination li:contains(→)"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "info": {
+     "path": "div.BoxBody > div.row li.list-group-item:has(span.mlabel):not(:contains(著者)):not(:contains(ジャンル))",
+     "all": true,
+     "join": "\n"
+    },
+    "desc": "div.BoxBody > div.row div.Content"
+   },
+   "fields": {
+    "title": "div.BoxBody > div.row h1",
+    "author": "div.BoxBody > div.row li.list-group-item:contains(著者)@ownText",
+    "genres": {
+     "path": "div.BoxBody > div.row li.list-group-item:contains(ジャンル) a",
+     "all": true,
+     "join": ", "
+    },
+    "cover": {
+     "path": "div.BoxBody > div.row img.img-fluid@src",
+     "replace": [
+      [
+       "https://i0.wp.com/cdn.kumaraw.com/",
+       "https://cdn.hachiraw.net/"
+      ]
+     ]
+    },
+    "description": {
+     "const": "[[{l.info}]]\n\n[[{l.desc}]]",
+     "replace": [
+      [
+       "^\\n+|\\n+$",
+       ""
+      ]
+     ]
+    }
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a.ChapterLink",
+   "fields": {
+    "url": "@href",
+    "name": "span",
+    "date": "span.float-right"
+   },
+   "date_format": "d-M-yyyy"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#TopPage img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Listen /list-manga[/N]?order_by=views|lastest (Seite 1 ohne Nummer), Suche mit search=; weiter solange ein Pagination-Eintrag mit → existiert. Genre-Filter (/manga-list/<genre>) nicht übernommen.",
+  "Cover-URLs: i0.wp.com/cdn.kumaraw.com → cdn.hachiraw.net (wie Community).",
+  "Beschreibung: übrige Info-Zeilen (span.mlabel, ohne Autor/Genre) als ganzer Zeilentext plus div.Content; Community lässt Zeilen mit leerem Wert oder '-' weg – hier nicht.",
+  "Kapitelname = erstes span im Link (enthält ggf. auch das Datum, wie Community selectFirst('span')); Datum d-M-yyyy."
+ ]
+}

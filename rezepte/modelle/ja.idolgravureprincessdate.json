@@ -1,0 +1,214 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Idol. gravureprincess .date",
+  "sprache": "ja",
+  "base_url": "https://idol.gravureprincess.date",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.idolgravureprincessdate",
+  "quellen": [
+   {
+    "name": "Idol. gravureprincess .date",
+    "sprache": "ja",
+    "quell_id": 5414342435310010512,
+    "home": "https://idol.gravureprincess.date"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/idolgravureprincessdate",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/feeds/posts/default?alt=json&max-results=25&start-index={page_key}",
+   "format": "json",
+   "page_map": [
+    "1",
+    "26",
+    "51",
+    "76",
+    "101",
+    "126",
+    "151",
+    "176",
+    "201",
+    "226",
+    "251",
+    "276",
+    "301",
+    "326",
+    "351",
+    "376",
+    "401",
+    "426",
+    "451",
+    "476",
+    "501",
+    "526",
+    "551",
+    "576",
+    "601",
+    "626",
+    "651",
+    "676",
+    "701",
+    "726",
+    "751",
+    "776",
+    "801",
+    "826",
+    "851",
+    "876",
+    "901",
+    "926",
+    "951",
+    "976",
+    "1001",
+    "1026",
+    "1051",
+    "1076",
+    "1101",
+    "1126",
+    "1151",
+    "1176",
+    "1201",
+    "1226"
+   ],
+   "page_size": 25,
+   "items": "feed.entry",
+   "fields": {
+    "url": {
+     "path": "link.?rel=alternate.href",
+     "template": "{value}#{f.published.$t}"
+    },
+    "title": "title.$t",
+    "cover": {
+     "path": "content.$t",
+     "regex": "<img[^>]+src=[\"']([^\"']+)",
+     "group": 1
+    }
+   },
+   "has_next": {
+    "full": true
+   }
+  },
+  "search": {
+   "request": "{base}/feeds/posts/default?alt=json&max-results=25&start-index={page_key}&q={query}",
+   "format": "json",
+   "page_map": [
+    "1",
+    "26",
+    "51",
+    "76",
+    "101",
+    "126",
+    "151",
+    "176",
+    "201",
+    "226",
+    "251",
+    "276",
+    "301",
+    "326",
+    "351",
+    "376",
+    "401",
+    "426",
+    "451",
+    "476",
+    "501",
+    "526",
+    "551",
+    "576",
+    "601",
+    "626",
+    "651",
+    "676",
+    "701",
+    "726",
+    "751",
+    "776",
+    "801",
+    "826",
+    "851",
+    "876",
+    "901",
+    "926",
+    "951",
+    "976",
+    "1001",
+    "1026",
+    "1051",
+    "1076",
+    "1101",
+    "1126",
+    "1151",
+    "1176",
+    "1201",
+    "1226"
+   ],
+   "page_size": 25,
+   "items": "feed.entry",
+   "fields": {
+    "url": {
+     "path": "link.?rel=alternate.href",
+     "template": "{value}#{f.published.$t}"
+    },
+    "title": "title.$t",
+    "cover": {
+     "path": "content.$t",
+     "regex": "<img[^>]+src=[\"']([^\"']+)",
+     "group": 1
+    }
+   },
+   "has_next": {
+    "full": true
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "cover": "div.post-body img@src",
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Gallery"
+    },
+    "date": {
+     "const": "{url}",
+     "regex": "#(.+)$",
+     "group": 1
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.post-body a:has(> img)",
+   "image": "@href"
+  }
+ },
+ "hinweise": [
+  "Blogger-Feed (alt=json, 25 je Seite, start-index per page_map wie es.datgarscanlation); weiter, solange die Seite voll ist (wie Community). Label-Filter (Idol/Magazin) nicht übernommen.",
+  "Manga-URL = Post-URL + '#<published>' wie in der Community; daraus Datum des einzigen Kapitels 'Gallery'. Genres (Feed-Kategorien) nur in der Community-Liste gesetzt – hier nicht, da die Details neu von der Post-Seite gelesen werden.",
+  "Bilder = href der Links um die Vorschaubilder in div.post-body."
+ ]
+}

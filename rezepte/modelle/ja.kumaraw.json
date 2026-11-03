@@ -1,0 +1,146 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Kumaraw",
+  "sprache": "ja",
+  "base_url": "https://kumaraw.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.kumaraw",
+  "quellen": [
+   {
+    "name": "Kumaraw",
+    "sprache": "ja",
+    "quell_id": 6580524146378639197,
+    "home": "https://kumaraw.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/kumaraw",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": "div#top_day div.story_item, div#top_month div.story_item, div#top_all div.story_item",
+   "fields": {
+    "url": ".mg_name a@href",
+    "title": ".mg_name a",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "\\?.*$",
+       ""
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/latest/{page}",
+   "request_by_page": {
+    "1": "{base}/"
+   },
+   "items": "div.recoment_box div.story_item",
+   "fields": {
+    "url": ".mg_name a@href",
+    "title": ".mg_name a",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "\\?.*$",
+       ""
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": ".pagination a[rel=next]"
+   }
+  },
+  "search": {
+   "request": "{base}/mangas?search={query}",
+   "items": "div.recoment_box div.story_item",
+   "fields": {
+    "url": ".mg_name a@href",
+    "title": ".mg_name a",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "\\?.*$",
+       ""
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "author": {
+     "path": ".detail_listInfo > .item > .info_label:contains(著者) + .info_value",
+     "regex": "^(?!Updating$)(.+)$",
+     "group": 1
+    },
+    "genres": ".detail_listInfo a[href*='/genres/']",
+    "cover": ".detail_avatar img@src",
+    "description": {
+     "path": ".detail_reviewContent",
+     "regex": "^(?!Updating$)([\\s\\S]+)$",
+     "group": 1
+    }
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.chapter_box div.item",
+   "fields": {
+    "url": "a.chapter_num@href",
+    "name": {
+     "path": "a.chapter_num",
+     "replace": [
+      [
+       "^#\\s*",
+       ""
+      ]
+     ]
+    },
+    "date": "p.chapter_info:nth-of-type(2)"
+   },
+   "date_format": "d-M-yyyy"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "block_regex": "(?s)slides_p_path\\s*=\\s*\\[(.*?)\\]",
+   "items": "\"[^\"]+\"",
+   "image": {
+    "path": "",
+    "regex": "\"([^\"]+)\"",
+    "group": 1,
+    "decode": "base64"
+   }
+  }
+ },
+ "hinweise": [
+  "Beliebt = Startseite, Ranglisten Tag/Monat/Gesamt (#top_day/#top_month/#top_all) hintereinander; Community entfernt Doppelte (distinctBy url) – hier evtl. doppelte Einträge.",
+  "Neueste: Startseite bzw. /latest/N (.pagination a[rel=next]); Suche /mangas?search= nur eine Seite wie Community.",
+  "Beschreibung: nur .detail_reviewContent; Bewertung, Aufrufe, Abonnenten, Magazin und Alternativnamen aus der Community weggelassen.",
+  "Datum d-M-yyyy (Zeitzone Asia/Tokyo in der Community). Kein Status in der Community.",
+  "Bilder: Liste slides_p_path, jeder Eintrag base64-kodiert (wie modelle/en.manga18club)."
+ ]
+}

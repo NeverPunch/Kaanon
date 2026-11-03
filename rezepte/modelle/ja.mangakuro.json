@@ -1,0 +1,180 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaKuro",
+  "sprache": "ja",
+  "base_url": "https://mangakuro.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.mangakuro",
+  "quellen": [
+   {
+    "name": "MangaKuro",
+    "sprache": "ja",
+    "quell_id": 4278045440527026000,
+    "home": "https://mangakuro.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/mangakuro",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/all-manga/{page}?sort=views",
+   "items": "div.story_item:has(div.mg_name a)",
+   "fields": {
+    "url": "div.mg_name a@href",
+    "title": "div.mg_name a",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a[title='Last Page']"
+   }
+  },
+  "latest": {
+   "request": "{base}/all-manga/{page}?sort=latest-updated",
+   "items": "div.story_item:has(div.mg_name a)",
+   "fields": {
+    "url": "div.mg_name a@href",
+    "title": "div.mg_name a",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a[title='Last Page']"
+   }
+  },
+  "search": {
+   "request": "{base}/search/{page}?keyword={query}",
+   "items": "div.story_item:has(div.mg_name a)",
+   "fields": {
+    "url": "div.mg_name a@href",
+    "title": "div.mg_name a",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a[title='Last Page']"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.detail_name > h1",
+    "author": {
+     "path": "div:has(.lnr-user) + .info_value a[href*='/authors/']",
+     "replace": [
+      [
+       "^(未詳|不明)$",
+       ""
+      ]
+     ]
+    },
+    "status": {
+     "path": "div:has(.lnr-leaf) + .info_value",
+     "regex": "(進行中|完了|保留|キャンセル)",
+     "group": 1
+    },
+    "genres": "div.detail_listInfo a.genres-el",
+    "description": ".detail_reviewContent",
+    "cover": ".detail_avatar img@src"
+   },
+   "status_map": {
+    "進行中": 1,
+    "完了": 2,
+    "保留": 6,
+    "キャンセル": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.chapter_box .item:has(a.chapter_num)",
+   "fields": {
+    "url": "a.chapter_num@href",
+    "name": {
+     "path": "a.chapter_num",
+     "replace": [
+      [
+       "^#\\s*",
+       ""
+      ]
+     ]
+    },
+    "date": {
+     "path": "p.chapter_info:nth-of-type(2)",
+     "replace": [
+      [
+       "^.*昨日.*$",
+       "1 day ago"
+      ],
+      [
+       "^\\D*(\\d+)\\D*秒.*$",
+       "$1 seconds ago"
+      ],
+      [
+       "^\\D*(\\d+)\\D*分.*$",
+       "$1 minutes ago"
+      ],
+      [
+       "^\\D*(\\d+)\\D*時.*$",
+       "$1 hours ago"
+      ],
+      [
+       "^\\D*(\\d+)\\D*日.*$",
+       "$1 days ago"
+      ],
+      [
+       "^\\D*(\\d+)\\D*週.*$",
+       "$1 weeks ago"
+      ],
+      [
+       "^\\D*(\\d+)\\D*月.*$",
+       "$1 months ago"
+      ],
+      [
+       "^\\D*(\\d+)\\D*年.*$",
+       "$1 years ago"
+      ]
+     ]
+    }
+   },
+   "date_format": "relative",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "let": {
+    "cid": {
+     "path": "",
+     "regex": "CHAPTER_ID\\s*=\\s*(\\d+);",
+     "group": 1
+    }
+   },
+   "then": [
+    {
+     "request": {
+      "url": "{base}/ajax/image/list/chap/{l.cid}",
+      "headers": {
+       "X-Requested-With": "XMLHttpRequest",
+       "Referer": "{abs_url}"
+      }
+     },
+     "format": "json_html",
+     "html_path": "html"
+    }
+   ],
+   "items": "div.image_story img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Listen /all-manga/N?sort=views bzw. ?sort=latest-updated, Suche /search/N?keyword= wie Community; nächste Seite, solange a[title='Last Page'] existiert.",
+  "Autor: Platzhalter 未詳/不明 werden geleert (Community filtert sie; bei mehreren Autoren evtl. nur der erste).",
+  "Datum relativ auf Japanisch (秒/分/時/日/週/月/年, 昨日); per replace in englische Angaben umgeschrieben und mit 'relative' gelesen – prüfen.",
+  "Seiten: CHAPTER_ID aus dem Skript, dann /ajax/image/list/chap/<id> (XHR, Referer = Kapitel), JSON-Feld html, Bilder div.image_story img (wie modelle/ja.raw1001). Community wertet das Feld status=false als leere Liste aus."
+ ]
+}

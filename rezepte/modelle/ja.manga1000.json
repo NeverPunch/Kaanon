@@ -1,0 +1,131 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga1000",
+  "sprache": "ja",
+  "base_url": "https://hachiraw.win",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.manga1000",
+  "quellen": [
+   {
+    "name": "Manga1000",
+    "sprache": "ja",
+    "quell_id": 2990178902658283254,
+    "home": "https://hachiraw.win"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/manga1000",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/"
+   },
+   "items": "article.post.manga:has(.entry-title a)",
+   "fields": {
+    "url": ".entry-title a@href",
+    "title": ".entry-title a",
+    "cover": [
+     ".featured-thumb img@data-src",
+     ".featured-thumb img@src"
+    ]
+   },
+   "has_next": {
+    "exists": "nav.pagination a.next"
+   }
+  },
+  "search": {
+   "request": "{base}/search/page/{page}?query={query}",
+   "request_by_page": {
+    "1": "{base}/search?query={query}"
+   },
+   "items": "article.post.manga:has(.entry-title a)",
+   "fields": {
+    "url": ".entry-title a@href",
+    "title": ".entry-title a",
+    "cover": [
+     ".featured-thumb img@data-src",
+     ".featured-thumb img@src"
+    ]
+   },
+   "has_next": {
+    "exists": "nav.pagination a.next"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "path": "h1.entry-title",
+     "replace": [
+      [
+       " - .*$",
+       ""
+      ]
+     ]
+    },
+    "cover": [
+     ".entry-content img@data-src",
+     ".entry-content img@src"
+    ],
+    "author": {
+     "path": ".entry-content > p:contains(Author:)",
+     "replace": [
+      [
+       "Author:",
+       ""
+      ],
+      [
+       "^\\s+|\\s+$",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": ".entry-content > p:contains(Category:) a",
+     "all": true,
+     "join": ", "
+    },
+    "description": {
+     "path": ".entry-content > p:not(:contains(Author:)):not(:contains(Category:))",
+     "all": true,
+     "join": "\n"
+    }
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".chaplist table tbody tr td a",
+   "fields": {
+    "url": "@href",
+    "name": [
+     "",
+     {
+      "const": "Chapter"
+     }
+    ]
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".entry-content img",
+   "image": [
+    "@data-src",
+    "@src"
+   ],
+   "exclude": "lazy\\.png"
+  }
+ },
+ "hinweise": [
+  "Beliebt = Startseite (/page/N/), die Website hat keine Sortierung; Kategorie-Filter nicht übernommen.",
+  "Seiten: data-src bevorzugt, Platzhalter lazy.png ausgeschlossen (wie Community)."
+ ]
+}

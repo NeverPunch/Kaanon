@@ -14289,7 +14289,7 @@
  },
  {
   "modul": "src/it/hentaifantasy",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "HentaiFantasy",
   "stufe": 2,
   "theme": null,
@@ -14299,11 +14299,14 @@
   "host": "hentaifantasy.it",
   "nsfw": true,
   "wer": "agent-w6b",
-  "seit": "2026-11-03T11:03:28"
+  "seit": "2026-11-03T11:03:28",
+  "datei": "rezepte/modelle/it.hentaifantasy.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:04:00"
  },
  {
   "modul": "src/it/zeurelscan",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "ZeurelScan",
   "stufe": 2,
   "theme": null,
@@ -14313,11 +14316,14 @@
   "host": "zeurelscan.com",
   "nsfw": false,
   "wer": "agent-w5d",
-  "seit": "2026-11-03T11:03:41"
+  "seit": "2026-11-03T11:03:41",
+  "datei": "rezepte/modelle/it.zeurelscan.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:04:05"
  },
  {
   "modul": "src/ja/dokiraw",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Dokiraw",
   "stufe": 2,
   "theme": null,
@@ -14327,11 +14333,14 @@
   "host": "dokiraw.city",
   "nsfw": false,
   "wer": "agent-w6c",
-  "seit": "2026-11-03T11:03:43"
+  "seit": "2026-11-03T11:03:43",
+  "datei": "rezepte/modelle/ja.dokiraw.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:04:17"
  },
  {
   "modul": "src/ja/ganganonline",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Gangan Online",
   "stufe": 2,
   "theme": null,
@@ -14341,11 +14350,14 @@
   "host": "ganganonline.com",
   "nsfw": false,
   "wer": "agent-w6a",
-  "seit": "2026-11-03T11:03:43"
+  "seit": "2026-11-03T11:03:43",
+  "datei": "rezepte/modelle/ja.ganganonline.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:04:18"
  },
  {
   "modul": "src/ja/ganma",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "GANMA!",
   "stufe": 2,
   "theme": null,
@@ -14353,11 +14365,13 @@
    "ja"
   ],
   "host": "ganma.jp",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6d",
+  "seit": "2026-11-03T11:03:48"
  },
  {
   "modul": "src/ja/hachiraw",
-  "status": "offen",
+  "status": "fertig",
   "name": "Hachiraw",
   "stufe": 2,
   "theme": null,
@@ -14365,11 +14379,16 @@
    "ja"
   ],
   "host": "hachiraw.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6b",
+  "seit": "2026-11-03T11:04:00",
+  "datei": "rezepte/modelle/ja.hachiraw.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:04:25"
  },
  {
   "modul": "src/ja/idolgravureprincessdate",
-  "status": "offen",
+  "status": "fertig",
   "name": "Idol. gravureprincess .date",
   "stufe": 2,
   "theme": null,
@@ -14377,11 +14396,16 @@
    "ja"
   ],
   "host": "idol.gravureprincess.date",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w5d",
+  "seit": "2026-11-03T11:04:05",
+  "datei": "rezepte/modelle/ja.idolgravureprincessdate.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:04:31"
  },
  {
   "modul": "src/ja/jumprookie",
-  "status": "offen",
+  "status": "fertig",
   "name": "Jump Rookie!",
   "stufe": 2,
   "theme": null,
@@ -14389,11 +14413,16 @@
    "ja"
   ],
   "host": "rookie.shonenjump.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6c",
+  "seit": "2026-11-03T11:04:17",
+  "datei": "rezepte/modelle/ja.jumprookie.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:04:30"
  },
  {
   "modul": "src/ja/kisslove",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "KissLove",
   "stufe": 2,
   "theme": null,
@@ -14401,11 +14430,16 @@
    "ja"
   ],
   "host": "klz9.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6a",
+  "seit": "2026-11-03T11:04:18",
+  "grund": "Jede API-Anfrage braucht X-Client-Sig = SHA-256('<Unix-Zeit>.<Client-ID>') + X-Client-Ts; nur md5 ist in Vorlagen (vars/hash, en.roliascan) belegt, sha256 nicht",
+  "datei": null,
+  "geaendert": "2026-11-03T11:04:36"
  },
  {
   "modul": "src/ja/klto9",
-  "status": "offen",
+  "status": "fertig",
   "name": "Klto9",
   "stufe": 2,
   "theme": null,
@@ -14413,11 +14447,16 @@
    "ja"
   ],
   "host": "klto9.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6b",
+  "seit": "2026-11-03T11:04:25",
+  "datei": "rezepte/modelle/ja.klto9.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:05:01"
  },
  {
   "modul": "src/ja/kumaraw",
-  "status": "offen",
+  "status": "fertig",
   "name": "Kumaraw",
   "stufe": 2,
   "theme": null,
@@ -14425,11 +14464,16 @@
    "ja"
   ],
   "host": "kumaraw.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6c",
+  "seit": "2026-11-03T11:04:30",
+  "datei": "rezepte/modelle/ja.kumaraw.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:04:47"
  },
  {
   "modul": "src/ja/manga1000",
-  "status": "offen",
+  "status": "fertig",
   "name": "Manga1000",
   "stufe": 2,
   "theme": null,
@@ -14437,11 +14481,16 @@
    "ja"
   ],
   "host": "hachiraw.win",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5d",
+  "seit": "2026-11-03T11:04:31",
+  "datei": "rezepte/modelle/ja.manga1000.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:04:44"
  },
  {
   "modul": "src/ja/mangakuro",
-  "status": "offen",
+  "status": "fertig",
   "name": "MangaKuro",
   "stufe": 2,
   "theme": null,
@@ -14449,11 +14498,16 @@
    "ja"
   ],
   "host": "mangakuro.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6c",
+  "seit": "2026-11-03T11:04:47",
+  "datei": "rezepte/modelle/ja.mangakuro.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:05:15"
  },
  {
   "modul": "src/ja/mangameets",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "MangaMeets",
   "stufe": 2,
   "theme": null,
@@ -14461,11 +14515,13 @@
    "ja"
   ],
   "host": "manga-meets.jp",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6b",
+  "seit": "2026-11-03T11:05:01"
  },
  {
   "modul": "src/ja/mangano",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "MangaNo",
   "stufe": 2,
   "theme": null,
@@ -14473,7 +14529,9 @@
    "ja"
   ],
   "host": "manga-no.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w6c",
+  "seit": "2026-11-03T11:05:15"
  },
  {
   "modul": "src/ja/mangaraw",
