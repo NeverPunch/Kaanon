@@ -23,7 +23,128 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/advanced-search?genres=&status=&type=&sort=rating&name=&page={page}",
+   "items": "div:has(> form) + div.grid > a:has(img)",
+   "has_next": {
+    "exists": "a:has(img[alt=Next])"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "img@alt",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/advanced-search?genres=&status=&type=&sort=latest&name=&page={page}",
+   "items": "div:has(> form) + div.grid > a:has(img)",
+   "has_next": {
+    "exists": "a:has(img[alt=Next])"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "img@alt",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/advanced-search?genres=&status=&type=&sort=&name={query}&page={page}",
+   "items": "div:has(> form) + div.grid > a:has(img)",
+   "has_next": {
+    "exists": "a:has(img[alt=Next])"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "img@alt",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "description": "div.comic-content.desk",
+    "author": {
+     "path": "div[class=bg-card-section] div.flex-row.gap-4:has(> div.text-sm:matchesOwn(^\\s*Author\\s*$)) > div.text-sm:nth-child(2):last-child",
+     "replace": [
+      [
+       "^\\s*[-_]\\s*$",
+       ""
+      ],
+      [
+       "\\s*,\\s*",
+       ", "
+      ]
+     ]
+    },
+    "artist": {
+     "path": "div[class=bg-card-section] div.flex-row.gap-4:has(> div.text-sm:matchesOwn(^\\s*Artist\\s*$)) > div.text-sm:nth-child(2):last-child",
+     "replace": [
+      [
+       "^\\s*[-_]\\s*$",
+       ""
+      ],
+      [
+       "\\s*,\\s*",
+       ", "
+      ]
+     ]
+    },
+    "genres": {
+     "path": "div[class=bg-card-section] div.font-medium:contains(Genres) + div a",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": "div[class=bg-card-section] div.flex-row.gap-4:has(> div.text-sm:matchesOwn(^\\s*Status\\s*$)) > div.text-sm:nth-child(2):last-child"
+    },
+    "cover": "div[class=bg-card-section] div.thumb-cover img@src"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/comics/{u.id}/chapter-list?translation_group_id=",
+   "format": "json",
+   "url_vars": {
+    "id": "/manga/([^/?#]+)"
+   },
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "hash_id",
+     "template": "/manga/{u.id}/chapter-{f.chapter}-{value}"
+    },
+    "name": {
+     "path": "chapter",
+     "template": "Chapter {value}"
+    },
+    "number": "chapter",
+    "scanlator": {
+     "path": "group_names.*",
+     "all": true,
+     "join": ", "
+    },
+    "date": [
+     "created_at",
+     "published_at"
+    ]
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.w-full > img[loading=lazy]",
+   "image": "@src"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Listen über /advanced-search (Beliebt sort=rating wie SortFilter(2), Neu sort=latest).",
+  "Kapitel aus /api/comics/<slug>/chapter-list; URL /manga/<slug>/chapter-<nr>-<hash_id> wie in der Community.",
+  "Status 'cancelled' wird wie in der Community nicht zugeordnet. Genre-/Status-/Typ-Filter nicht übernommen."
+ ]
 }
