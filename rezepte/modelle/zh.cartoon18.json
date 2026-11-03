@@ -1,0 +1,151 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Cartoon18",
+  "sprache": "zh",
+  "base_url": "https://www.cartoon18.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.cartoon18",
+  "quellen": [
+   {
+    "name": "Cartoon18",
+    "sprache": "zh",
+    "quell_id": 28664779574072063,
+    "home": "https://www.cartoon18.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/cartoon18",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.6",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/zh-hans?sort=hits&page={page}",
+   "items": "#videos div.card",
+   "has_next": {
+    "exists": "nav .pagination .next:not(.disabled)"
+   },
+   "fields": {
+    "url": [
+     ".lines-2 a@href",
+     "a.visited@href"
+    ],
+    "title": [
+     ".lines-2 a",
+     "a.visited"
+    ],
+    "cover": [
+     ".embed-responsive img@data-src",
+     ".embed-responsive img@src",
+     "img@data-src",
+     "img@src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/zh-hans?sort=created&page={page}",
+   "items": "#videos div.card",
+   "has_next": {
+    "exists": "nav .pagination .next:not(.disabled)"
+   },
+   "fields": {
+    "url": [
+     ".lines-2 a@href",
+     "a.visited@href"
+    ],
+    "title": [
+     ".lines-2 a",
+     "a.visited"
+    ],
+    "cover": [
+     ".embed-responsive img@data-src",
+     ".embed-responsive img@src",
+     "img@data-src",
+     "img@src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/zh-hans?q={query}&page={page}&sort=score",
+   "items": "#videos div.card",
+   "has_next": {
+    "exists": "nav .pagination .next:not(.disabled)"
+   },
+   "fields": {
+    "url": [
+     ".lines-2 a@href",
+     "a.visited@href"
+    ],
+    "title": [
+     ".lines-2 a",
+     "a.visited"
+    ],
+    "cover": [
+     ".embed-responsive img@data-src",
+     ".embed-responsive img@src",
+     "img@data-src",
+     "img@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.content h1.title@ownText",
+    "cover": [
+     "div.content h1.title ~ div.row a img@src",
+     "div.content h1.title ~ div.row a img@data-src"
+    ],
+    "author": {
+     "path": "div.content h1.title ~ div.row div.my-2:has(i.fa-user) span + span",
+     "replace": [
+      [
+       ",(\\S)",
+       ", $1"
+      ]
+     ]
+    },
+    "description": "div.content h1.title ~ div.row div.my-2:has(i.fa-list) span + span",
+    "genres": {
+     "path": "div.content h1.title ~ div.row div.my-2:has(i.fa-tag) span:has(a) a",
+     "all": true,
+     "join": ", "
+    }
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.content h1.title + div a",
+   "fields": {
+    "url": "@href",
+    "name": "a"
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div#app > div > a img, div#app img",
+   "image": [
+    "@src",
+    "@data-src"
+   ]
+  }
+ },
+ "hinweise": [
+  "HTML-Website (KeiSource). Standard wie Community: vereinfachtes Chinesisch unter /zh-hans (Einstellung ‚traditionell‘ nicht abgebildet).",
+  "Autor/Beschreibung: Community nimmt jeweils das zweite span der Zeile; hier ‚span + span‘ – prüfen.",
+  "Kapitel ohne Datum, Reihenfolge umgedreht wie im Community-Code. Suche mit sort=score (Standard des Sortierfilters)."
+ ]
+}

@@ -1,0 +1,132 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga Xiao Si",
+  "sprache": "zh",
+  "base_url": "https://www.jjmhw2.top",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.mangaxiaosi",
+  "quellen": [
+   {
+    "name": "Manga Xiao Si",
+    "sprache": "zh",
+    "quell_id": 1939536259784675646,
+    "home": "https://www.jjmhw2.top"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/mangaxiaosi",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
+  },
+  "popular": {
+   "request": "{base}/rank",
+   "format": "html",
+   "items": ".mh-list.col3.top-cat > li:has(.title:contains(人气榜)) .mh-item, .mh-list.col3.top-cat > li:has(.title:contains(人气榜)) .mh-itme-top",
+   "fields": {
+    "url": "h2.title a@href",
+    "title": "h2.title a",
+    "cover": {
+     "path": ".mh-cover@style",
+     "regex": "url\\(['\"]?([^)'\"]+)"
+    }
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/update?page={page}",
+   "format": "html",
+   "items": ".mh-item",
+   "fields": {
+    "url": ".title a@href",
+    "title": ".title a",
+    "cover": {
+     "path": ".mh-cover@style",
+     "regex": "url\\(['\"]?([^)'\"]+)"
+    }
+   },
+   "has_next": {
+    "exists": "a#nextPage"
+   }
+  },
+  "search": {
+   "request": "{base}/search?keyword={query}",
+   "format": "html",
+   "items": ".mh-item",
+   "fields": {
+    "url": ".title a@href",
+    "title": ".title a",
+    "cover": {
+     "path": ".mh-cover@style",
+     "regex": "url\\(['\"]?([^)'\"]+)"
+    }
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": ".banner_detail_form .info h1",
+    "author": {
+     "path": ".banner_detail_form .info .subtitle:contains(作者)",
+     "replace": [
+      [
+       "^[^：]*：\\s*",
+       ""
+      ]
+     ]
+    },
+    "status": ".banner_detail_form .info .tip span.block:contains(状态) span",
+    "genres": {
+     "path": ".banner_detail_form .info .tip span.block:contains(标签) a",
+     "all": true,
+     "join": ", "
+    },
+    "description": ".banner_detail_form .info .content",
+    "cover": ".banner_detail_form .cover img@src"
+   },
+   "status_map": {
+    "连载": 1,
+    "完结": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "html",
+   "items": "#detail-list-select li a",
+   "fields": {
+    "url": "@href",
+    "name": ""
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "html",
+   "items": ".comicpage img",
+   "image": [
+    "@data-original",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "HTML-Website (MH-Theme wie vi.tranh18); base_url = erster Community-Spiegel jjmhw2.top (zweiter: jjmh.top). Desktop-User-Agent wie im Code, damit keine Mobilansicht kommt.",
+  "Beliebt: nur der Block '人气榜' auf /rank (eine Seite). Suche: Community lädt nur eine Seite ohne Blättern; Filter (题材/地区/进度 über /booklist) nicht nachgebaut.",
+  "Kapitel ohne Datum (Community setzt nur beim neuesten Kapitel das Aktualisierungsdatum der Detailseite). Kapitelname = Linktext (\"\" wie en.mangapill).",
+  "Status-Teiltext '连载' → laufend, '完结' → abgeschlossen."
+ ]
+}

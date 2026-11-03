@@ -1,0 +1,227 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manhua160",
+  "sprache": "zh",
+  "base_url": "https://www.mh160mh.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.manhua160",
+  "quellen": [
+   {
+    "name": "漫画160",
+    "sprache": "zh",
+    "quell_id": 8202483679232242177,
+    "home": "https://www.mh160mh.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/mh160",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "https://m.mh160mh.com/kanmanhua/zaixian_hit.html",
+   "format": "html",
+   "items": ".itemBox:has(.itemTxt a.title)",
+   "fields": {
+    "url": {
+     "path": ".itemTxt a.title@href",
+     "regex": "^(?:https?://[^/]+)?(/.*)$"
+    },
+    "title": ".itemTxt a.title",
+    "cover": ".itemImg img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "https://m.mh160mh.com/kanmanhua/zaixian_recent.html",
+   "format": "html",
+   "items": ".itemBox:has(.itemTxt a.title)",
+   "fields": {
+    "url": {
+     "path": ".itemTxt a.title@href",
+     "regex": "^(?:https?://[^/]+)?(/.*)$"
+    },
+    "title": ".itemTxt a.title",
+    "cover": ".itemImg img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/statics/searchelxt1e1.aspx?key={query}&page={page}",
+   "format": "html",
+   "items": "ul.mh-search-list > li:has(.mh-works-title h4 a)",
+   "fields": {
+    "url": ".mh-works-title h4 a@href",
+    "title": ".mh-works-title h4 a",
+    "cover": ".mh-nlook-w img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": [
+     ".mh-date-info-name h4 a",
+     ".txtItme.h1",
+     {
+      "path": "head title",
+      "replace": [
+       [
+        "漫画,.*$",
+        ""
+       ]
+      ]
+     }
+    ],
+    "cover": [
+     ".mh-date-bgpic img@src",
+     "#Cover img@src"
+    ],
+    "author": [
+     ".works-info-tc .one em",
+     {
+      "path": ".sub_r .txtItme:contains(作者)",
+      "replace": [
+       [
+        "^.*作者：\\s*",
+        ""
+       ]
+      ]
+     }
+    ],
+    "artist": [
+     ".works-info-tc .one em",
+     {
+      "path": ".sub_r .txtItme:contains(作者)",
+      "replace": [
+       [
+        "^.*作者：\\s*",
+        ""
+       ]
+      ]
+     }
+    ],
+    "description": [
+     "#workint",
+     ".detailContent p"
+    ],
+    "status": "p.works-info-tc span:contains(状态) em"
+   },
+   "status_map": {
+    "连载中": 1,
+    "已完结": 2,
+    "完结": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "html",
+   "items": "ul[id^=mh-chapter-list-ol] li a, ul[id^=chapterList_ul] li a",
+   "fields": {
+    "url": "@href",
+    "name": [
+     "p",
+     ""
+    ]
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "let": {
+    "dec": {
+     "path": "",
+     "regex": "qTcms_S_m_murl_e\\s*=\\s*\"([^\"]+)\"",
+     "group": 1,
+     "decode": "base64"
+    },
+    "arr": {
+     "const": "{l.dec}",
+     "replace": [
+      [
+       "\\$qingtiandy\\$",
+       "\",\""
+      ]
+     ]
+    },
+    "pid": {
+     "path": "",
+     "regex": "qTcms_S_p_id\\s*=\\s*\"(\\d+)\"",
+     "group": 1
+    },
+    "host": {
+     "const": "{l.pid}",
+     "replace": [
+      [
+       "^(\\d{1,5}|[0-4]\\d{5}|5[0-3]\\d{4}|54[01]\\d{3}|542[0-6]\\d{2}|5427[01]\\d|54272[0-4])$",
+       "https://mhpic6.tgmhfc.uk"
+      ],
+      [
+       "^\\d*[05]$",
+       "https://mhpic5er.tgmhfc.uk"
+      ],
+      [
+       "^\\d*[16]$",
+       "https://mhpic789-5.tgmhfc.uk"
+      ],
+      [
+       "^\\d*[27]$",
+       "https://mhpic7fr.tgmhfc.uk"
+      ],
+      [
+       "^\\d*[38]$",
+       "https://mhpicwt.tgmhfc.uk"
+      ],
+      [
+       "^\\d*[49]$",
+       "https://mhpicwx.tgmhfc.uk"
+      ]
+     ]
+    }
+   },
+   "inner": {
+    "value": {
+     "const": "[\"{l.arr}\"]"
+    },
+    "format": "json",
+    "items": "$",
+    "image": [
+     {
+      "path": "",
+      "regex": "^(https?://.+)$"
+     },
+     {
+      "path": "",
+      "regex": "^(/.+)$",
+      "template": "{l.host}{value}"
+     },
+     {
+      "path": "",
+      "regex": "^(\\S.*)$",
+      "template": "{base}/statics/pic/?p={value}"
+     }
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "qTcms-Website (qingtiancms). Beliebt/Neueste von der Mobilseite m.mh160mh.com (je eine Seite, wie im Code); Eintrags-URL per Regex auf den Pfad gekürzt, Details dann von www.",
+  "Suche über /statics/searchelxt1e1.aspx (eine Seite wie im Code); Kategorie-Filter nicht nachgebaut.",
+  "Seiten: qTcms_S_m_murl_e Base64-dekodiert, Trenner $qingtiandy$ per replace zu JSON-Liste umgebaut (Muster wie ko.toonkor).",
+  "Bild-Host wie show.js: Kapitel-ID qTcms_S_p_id > 542724 → Host[ID mod 5] (über letzte Ziffer per Regex), sonst mhpic6.tgmhfc.uk. Pfade mit '/' an Host gehängt (Community kodiert Pfadteile einzeln – hier roh, Annahme: Engine kodiert Sonderzeichen). Pfade ohne '/' → {base}/statics/pic/?p=<Pfad> (Community URL-kodiert den Wert; hier roh).",
+  "Abgesetzte Kapitel (Pfad mit '+http') werden nicht erkannt, Bilder laden dann nicht."
+ ]
+}

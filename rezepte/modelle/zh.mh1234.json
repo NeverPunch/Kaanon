@@ -1,0 +1,147 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MH1234",
+  "sprache": "zh",
+  "base_url": "https://m.wmh1234.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.mh1234",
+  "quellen": [
+   {
+    "name": "漫画1234",
+    "sprache": "zh",
+    "quell_id": 7895725080195720063,
+    "home": "https://m.wmh1234.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/mh1234",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.6",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "popular": {
+   "request": "{base}/category/order/hits/page/{page}",
+   "request_by_page": {
+    "1": "{base}/category/order/hits"
+   },
+   "items": ".comic-card",
+   "has_next": {
+    "exists": ".pagination-wrapper a:contains(下一页), .pagination-wrapper a:contains(>)"
+   },
+   "fields": {
+    "url": "a.comic-card__link@href",
+    "title": "a.comic-card__link .comic-card__title",
+    "cover": "a.comic-card__link img.comic-card__image@data-src"
+   }
+  },
+  "latest": {
+   "request": "{base}/category/order/addtime/page/{page}",
+   "request_by_page": {
+    "1": "{base}/category/order/addtime"
+   },
+   "items": ".comic-card",
+   "has_next": {
+    "exists": ".pagination-wrapper a:contains(下一页), .pagination-wrapper a:contains(>)"
+   },
+   "fields": {
+    "url": "a.comic-card__link@href",
+    "title": "a.comic-card__link .comic-card__title",
+    "cover": "a.comic-card__link img.comic-card__image@data-src"
+   }
+  },
+  "search": {
+   "request": "{base}/search/{query}/page/{page}",
+   "request_by_page": {
+    "1": "{base}/search/{query}"
+   },
+   "items": ".comic-card",
+   "has_next": {
+    "exists": ".pagination-wrapper a:contains(下一页), .pagination-wrapper a:contains(>)"
+   },
+   "fields": {
+    "url": "a.comic-card__link@href",
+    "title": "a.comic-card__link .comic-card__title",
+    "cover": "a.comic-card__link img.comic-card__image@data-src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "#mintWorkTitle",
+    "author": {
+     "path": ".mint-work-info p:nth-of-type(1)",
+     "replace": [
+      [
+       "\\s*著$",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": ".mint-work-info p:nth-of-type(2)@ownText",
+     "replace": [
+      [
+       "\\s+",
+       ", "
+      ]
+     ]
+    },
+    "status": ".mint-work-info p:nth-of-type(2) .mint-tag",
+    "description": "#mintIntroPanel > div"
+   },
+   "status_map": {
+    "连载": 1,
+    "完结": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".mint-chapter-grid a",
+   "skip": {
+    "path": "@ownText",
+    "regex": "APP"
+   },
+   "fields": {
+    "url": "@href",
+    "name": "@ownText"
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "let": {
+    "ziel": [
+     {
+      "path": "html@html",
+      "regex": "replace\\([\"'](https://.*?)[\"']",
+      "group": 1
+     },
+     {
+      "const": "{abs_url}"
+     }
+    ]
+   },
+   "then": [
+    {
+     "request": "{l.ziel}",
+     "format": "html"
+    }
+   ],
+   "items": "img.reader-image",
+   "image": "@data-src"
+  }
+ },
+ "hinweise": [
+  "HTML-Website (KeiSource). Listen ab Seite 2 als /page/N; Suche /search/<begriff>.",
+  "Autor/Genres/Status aus dem 1./2. Absatz von .mint-work-info (p:nth-of-type(1)/p:nth-of-type(2) – jsoup-Geschwisterindex, prüfen).",
+  "Seiten: Die Kapitelseite leitet per JS (location.replace(\"https://…\")) zum Leser um; ziel per Regex, sonst dieselbe Seite (then). Kapitel mit ‚APP‘ im Namen (nur in der App) werden übersprungen.",
+  "Keine Kapiteldaten; Kapitelnummer zählt der Community-Code rückwärts aus der Position – hier nicht gesetzt."
+ ]
+}

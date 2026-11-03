@@ -1,0 +1,125 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Ikanmh",
+  "sprache": "zh",
+  "base_url": "https://ikanmh.xyz",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.ikanmh",
+  "quellen": [
+   {
+    "name": "漫小肆韓漫",
+    "sprache": "zh",
+    "quell_id": 8826152585666516354,
+    "home": "https://ikanmh.xyz"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/ikanmh",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/booklist/?tag=全部&area=-1&end=-1&page={page}",
+   "request_by_page": {
+    "1": "{base}/booklist/?tag=全部&area=-1&end=-1"
+   },
+   "items": "ul.manga-list-2 > li:has(a[href])",
+   "fields": {
+    "url": [
+     ".manga-list-2-title a[href]@href",
+     "a[href]@href"
+    ],
+    "title": [
+     ".manga-list-2-title a[href]",
+     ".manga-list-2-title"
+    ],
+    "cover": "img[data-original]@data-original"
+   },
+   "has_next": {
+    "exists": "div.pagination a.paginate-btn[title=下一页]"
+   }
+  },
+  "latest": {
+   "request": "{base}/update?page={page}",
+   "request_by_page": {
+    "1": "{base}/update"
+   },
+   "items": "ul.manga-list-2 > li:has(a[href])",
+   "fields": {
+    "url": [
+     ".manga-list-2-title a[href]@href",
+     "a[href]@href"
+    ],
+    "title": [
+     ".manga-list-2-title a[href]",
+     ".manga-list-2-title"
+    ],
+    "cover": "img[data-original]@data-original"
+   },
+   "has_next": {
+    "exists": "div.pagination a.paginate-btn[title=下一页]"
+   }
+  },
+  "search": {
+   "request": "{base}/search?keyword={query}",
+   "items": "ul.book-list > li:has(p.book-list-info-title)",
+   "fields": {
+    "url": "a[href]@href",
+    "title": "p.book-list-info-title",
+    "cover": "img.book-list-cover-img@data-original"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "p.detail-main-info-title",
+    "cover": ".detail-main-cover img@data-original",
+    "description": "p.detail-desc",
+    "genres": {
+     "path": "p.detail-main-info-class a",
+     "all": true,
+     "join": ", "
+    },
+    "author": "p.detail-main-info-author:matchesOwn(^作者) a",
+    "status": "span.detail-list-title-1"
+   },
+   "status_map": {
+    "连载中": 1,
+    "已完结": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "ul#detail-list-select a.chapteritem",
+   "fields": {
+    "url": "@href",
+    "name": "",
+    "number": {
+     "path": "",
+     "regex": "第(\\d+)",
+     "group": 1
+    }
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#cp_img img[data-original]",
+   "image": "@data-original"
+  }
+ },
+ "hinweise": [
+  "Eigenes PHP-Template. Beliebt /booklist/?tag=全部&area=-1&end=-1, Neueste /update, jeweils &page=N ab Seite 2; Weiter-Erkennung über den Link 'title=下一页' wie Community. Suche /search?keyword=… (eine Seite). Tag/Region/Status-Filter nicht übernommen.",
+  "Kapitel stehen auf der Detailseite alt→neu und werden umgedreht. Kein Kapiteldatum (Community gibt nur dem neuesten Kapitel das Buch-Aktualisierungsdatum) – hier ohne Datum.",
+  "Kapitelname = Linktext (Feld name mit leerem Pfad) wie Vorlage en.mangapill."
+ ]
+}

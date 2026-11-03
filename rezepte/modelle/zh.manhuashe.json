@@ -1,0 +1,119 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manhuashe",
+  "sprache": "zh",
+  "base_url": "https://www.311s.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.manhuashe",
+  "quellen": [
+   {
+    "name": "漫画社",
+    "sprache": "zh",
+    "quell_id": 6230622879116184108,
+    "home": "https://www.311s.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/manhuashe",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "popular": {
+   "request": "{base}/category/order/hits/page/{page}",
+   "items": "div.comic-list > div.comic-item",
+   "has_next": {
+    "exists": "div.pagination > a.on + a:not(.next)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "h3 a",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/category/order/addtime/page/{page}",
+   "items": "div.comic-list > div.comic-item",
+   "has_next": {
+    "exists": "div.pagination > a.on + a:not(.next)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "h3 a",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/search/{query}/{page}",
+   "items": "div.comic-list > div.comic-item",
+   "has_next": {
+    "exists": "div.pagination > a.on + a:not(.next)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "h3 a",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.comic-meta-info > h1",
+    "cover": "div.comic-cover-large > img@src",
+    "author": {
+     "path": "div.comic-stats > div.stat-item:contains(作者：)",
+     "replace": [
+      [
+       "^作者：",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": "div.comic-meta-info > div.comic-tags > span",
+     "replace": [
+      [
+       " ",
+       ", "
+      ]
+     ]
+    },
+    "description": "div.comic-description > p",
+    "status": "div.comic-meta-info > div.comic-tags > span:last-of-type"
+   },
+   "status_map": {
+    "连载": 1,
+    "连载中": 1,
+    "完结": 2,
+    "已完结": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#chapter-list > div.chapter-item > a",
+   "reverse": true,
+   "fields": {
+    "url": "@href",
+    "name": ""
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.comic-content > img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "has_next: Community vergleicht den href von a.next mit dem der aktuellen Seite (a.on); hier: es folgt nach a.on noch ein Seitenlink, der nicht 'next' ist (Näherung, auf dem PC prüfen).",
+  "Suche: Suchtext als Pfadsegment /search/<text>/<n> ({query} URL-kodiert).",
+  "Genres = erstes Tag-span, Leerzeichen → ', ' wie Community; Status = letztes Tag-span. Kapitel stehen aufsteigend, Community dreht um (reverse). Kein Kapiteldatum."
+ ]
+}

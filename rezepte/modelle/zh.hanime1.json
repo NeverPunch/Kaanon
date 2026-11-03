@@ -1,0 +1,187 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hanime1",
+  "sprache": "zh",
+  "base_url": "https://hanimeone.me",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.hanime1",
+  "quellen": [
+   {
+    "name": "Hanime1.me",
+    "sprache": "zh",
+    "quell_id": 2853734405579058222,
+    "home": "https://hanimeone.me"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/hanime1",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "popular": {
+   "request": "{base}/comics",
+   "items": "h3:containsOwn(發燒漫畫) ~ div.comic-rows-videos-div",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "div.comic-rows-videos-title",
+    "cover": {
+     "path": "img@data-srcset",
+     "replace": [
+      [
+       ",.*$",
+       ""
+      ],
+      [
+       "\\s+\\d+(\\.\\d+)?[wx]\\s*$",
+       ""
+      ]
+     ]
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}/comics?page={page}",
+   "items": "h3:containsOwn(最新上傳) ~ div.comic-rows-videos-div",
+   "has_next": {
+    "exists": "ul.pagination a[rel=next]"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "div.comic-rows-videos-title",
+    "cover": {
+     "path": "img@data-srcset",
+     "replace": [
+      [
+       ",.*$",
+       ""
+      ],
+      [
+       "\\s+\\d+(\\.\\d+)?[wx]\\s*$",
+       ""
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/comics/search?query={query}&page={page}",
+   "items": "div#comics-search-tag-top-row + div div.comic-rows-videos-div",
+   "has_next": {
+    "exists": "ul.pagination a[rel=next]"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "div.comic-rows-videos-title",
+    "cover": {
+     "path": "img@data-srcset",
+     "replace": [
+      [
+       ",.*$",
+       ""
+      ],
+      [
+       "\\s+\\d+(\\.\\d+)?[wx]\\s*$",
+       ""
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "url_vars": {
+    "id": "/comic/(\\d+)"
+   },
+   "fields": {
+    "title": "h3.title.comics-metadata-top-row",
+    "cover": {
+     "path": "div.col-md-4 img@data-srcset",
+     "replace": [
+      [
+       ",.*$",
+       ""
+      ],
+      [
+       "\\s+\\d+(\\.\\d+)?[wx]\\s*$",
+       ""
+      ]
+     ]
+    },
+    "author": [
+     ":containsOwn(作者：) div.no-select",
+     ":containsOwn(社團：) div.no-select"
+    ],
+    "genres": {
+     "path": ":containsOwn(分類：) div.no-select",
+     "all": true,
+     "join": ", "
+    }
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "h3.title.comics-metadata-top-row",
+   "fields": {
+    "url": {
+     "const": "/comic/{u.id}/1"
+    },
+    "name": {
+     "const": "單章節"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "url_vars": {
+    "id": "/comic/(\\d+)"
+   },
+   "let": {
+    "prefix": "img#current-page-image@data-prefix"
+   },
+   "then": [
+    {
+     "request": "{base}/comic/{u.id}",
+     "format": "html"
+    }
+   ],
+   "items": "a[href~=/comic/\\d+/\\d+$] img[data-srcset]",
+   "image": {
+    "path": "@data-srcset",
+    "replace": [
+     [
+      ",.*$",
+      ""
+     ],
+     [
+      "\\s+\\d+(\\.\\d+)?[wx]\\s*$",
+      ""
+     ],
+     [
+      "^.*/(\\d+)t\\.([A-Za-z0-9]+)$",
+      "$1.$2"
+     ]
+    ],
+    "template": "{l.prefix}{value}"
+   },
+   "include": "/\\d+\\.[A-Za-z0-9]+$"
+  }
+ },
+ "hinweise": [
+  "HTML-Website (Galerien, KeiSource). Beliebt = Abschnitt ‚發燒漫畫‘ der Startseite /comics (eine Seite), Neu = Abschnitt ‚最新上傳‘.",
+  "Kapitel: Jede Galerie ist ein Kapitel (/comic/<id>/1). Community hängt zusätzlich verwandte Galerien als ‚關聯：‘-Kapitel an – bewusst weggelassen.",
+  "Seiten wie Community: Präfix aus img#current-page-image@data-prefix der Leseseite, Dateiendung je Seite aus den Vorschaubildern ‚<n>t.<ext>‘ der Galerieseite (then). Community zählt Seiten über data-pages – hier über die Vorschaubilder; prüfen, ob die Galerieseite alle Vorschaubilder zeigt.",
+  "Selektor [href~=regex] und let+then in pages wie en.asmhentai – prüfen."
+ ]
+}

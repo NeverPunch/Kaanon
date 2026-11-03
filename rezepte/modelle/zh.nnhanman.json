@@ -1,0 +1,156 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "NNHanman",
+  "sprache": "zh",
+  "base_url": "https://nnhanman.xyz",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.nnhanman",
+  "quellen": [
+   {
+    "name": "鸟鸟韩漫",
+    "sprache": "zh",
+    "quell_id": 6412117657297236190,
+    "home": "https://nnhanman.xyz"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/nnhanman",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "popular": {
+   "request": "{base}/ranking",
+   "items": "div.itemBox",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a.title@href",
+    "title": [
+     "a.title@title",
+     "a.title"
+    ],
+    "cover": "img[src]@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/update",
+   "items": "div.itemBox",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a.title@href",
+    "title": [
+     "a.title@title",
+     "a.title"
+    ],
+    "cover": "img[src]@src"
+   }
+  },
+  "search": {
+   "request": "{base}/search/{query}/page/{page}",
+   "request_by_page": {
+    "1": "{base}/search/{query}"
+   },
+   "items": "ul.col_3_1 > li:has(a.ImgA, a[href^=/comic/])",
+   "has_next": {
+    "exists": "div.pagination-wrap li:last-child a:matches(^\\.\\.\\.)"
+   },
+   "fields": {
+    "url": [
+     "a.ImgA@href",
+     "a[href^=/comic/]@href"
+    ],
+    "title": [
+     "a.ImgA@title",
+     "a.txtA",
+     ""
+    ],
+    "cover": [
+     "source[srcset]@srcset",
+     "img[src]@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "path": "h1",
+     "replace": [
+      [
+       "^《",
+       ""
+      ],
+      [
+       "》$",
+       ""
+      ]
+     ]
+    },
+    "cover": "div.pic img@src",
+    "author": "div.sub_r > p.txtItme:not(:has(a[href^=/comics/])):not(:has(span.date))@ownText",
+    "genres": {
+     "path": "p.txtItme a[href^=/comics/]",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": "span.date",
+     "regex": "(连载中|已完结)",
+     "group": 1
+    },
+    "description": {
+     "path": "p.txtDesc",
+     "replace": [
+      [
+       "^介绍:\\s*",
+       ""
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "连载中": 1,
+    "已完结": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#mh-chapter-list-ol-0 li a",
+   "fields": {
+    "url": "@href",
+    "name": [
+     "span",
+     ""
+    ]
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#m_r_imgbox_0 img[data-src]",
+   "sort": {
+    "path": "@data-index",
+    "regex": "(\\d+)"
+   },
+   "image": "@data-src"
+  }
+ },
+ "hinweise": [
+  "Beliebt = /ranking, Neueste = /update (je eine Seite, wie Community). Suche /search/<text>/page/<n> (Seite 1 ohne /page/1); Genre-/Status-/Sortierfilter (/comics/…) nicht übernommen.",
+  "has_next der Suche wie Community: letzter Pagination-Eintrag beginnt mit '...'.",
+  "Autor = erstes p.txtItme ohne Genre-Link und ohne span.date (per :not(:has(...)) nachgebildet).",
+  "Kapitel stehen neu→alt auf der Seite (Community dreht für die Nummerierung um und zählt hoch; hier keine Nummer, Seitenreihenfolge).",
+  "Seiten nach data-index sortiert (sort mit path '@data-index' – in Vorlagen nur mit JSON-Pfad belegt, prüfen)."
+ ]
+}

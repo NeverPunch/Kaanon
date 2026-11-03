@@ -1,0 +1,129 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Shenshi Huisuo",
+  "sprache": "zh",
+  "base_url": "https://www.hentaiclub.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.shenshihuisuo",
+  "quellen": [
+   {
+    "name": "绅士会所",
+    "sprache": "zh",
+    "quell_id": 8618065660246087865,
+    "home": "https://www.hentaiclub.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/hentaiclub",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "popular": {
+   "request": "{base}/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/"
+   },
+   "items": "div.item:has(a.item-link)",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": "a.item-link@href",
+    "title": ".item-link-text",
+    "cover": [
+     "img.item-img@data-original",
+     "img.item-img@src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/search/{query}/{page}/",
+   "request_by_page": {
+    "1": "{base}/search/{query}/"
+   },
+   "items": "div.item:has(a.item-link)",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": "a.item-link@href",
+    "title": ".item-link-text",
+    "cover": [
+     "img.item-img@data-original",
+     "img.item-img@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "path": "title",
+     "replace": [
+      [
+       " - 绅士会所.*$",
+       ""
+      ]
+     ]
+    },
+    "cover": ".content div.post-item[data-src]@data-src",
+    "author": ".content a[href*=/tag/]",
+    "genres": {
+     "path": ".content a[href*=/tag/]",
+     "all": true,
+     "join": ", "
+    },
+    "description": {
+     "path": ".content",
+     "regex": "浏览[：:]\\s*(\\d+)次",
+     "group": 1,
+     "template": "浏览量：{value}次"
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "章节 1"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.post-item[data-src]",
+   "image": "@data-src"
+  }
+ },
+ "hinweise": [
+  "Galerie-Website: jeder Eintrag ist ein Kapitel ('章节 1', URL = Manga-URL), wie Community. Keine Neuheiten-Liste (Community: supportsLatest = false).",
+  "Beliebt = Startseite /page/<n>/; Suche /search/<text>/<n>/ (Suchtext als Pfadsegment, {query} URL-kodiert). has_next: volle Seite (24) wie Community. Tag-/R15-R18-Filter nicht übernommen.",
+  "Status: Community setzt 'abgeschlossen' nur für /r18/-Pfade, sonst 'laufend' (Update-Strategie nur einmal laden); hier immer abgeschlossen (Einzelgalerie).",
+  "Beschreibung nur Aufrufzahl (浏览量) wie Community; Autor = erster Tag."
+ ]
+}

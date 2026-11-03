@@ -1,0 +1,105 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Guazimanhua",
+  "sprache": "zh",
+  "base_url": "https://www.guazimanhua.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.guazimanhua",
+  "quellen": [
+   {
+    "name": "瓜子漫画",
+    "sprache": "zh",
+    "quell_id": 9103931521355991619,
+    "home": "https://www.guazimanhua.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/guazimanhua",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.7",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+   "Referer": "{base}/"
+  },
+  "popular": {
+   "request": "{base}/category.php?sort=hits&page={page}",
+   "items": "article.card",
+   "has_next": {
+    "exists": "nav.pager a:matchesOwn(^>$)"
+   },
+   "fields": {
+    "url": "a.cover-wrap@href",
+    "title": "h3 a",
+    "cover": "img.cover@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/category.php?sort=update&page={page}",
+   "items": "article.card",
+   "has_next": {
+    "exists": "nav.pager a:matchesOwn(^>$)"
+   },
+   "fields": {
+    "url": "a.cover-wrap@href",
+    "title": "h3 a",
+    "cover": "img.cover@src"
+   }
+  },
+  "search": {
+   "request": "{base}/category.php?keyword={query}&sort=hits&page={page}",
+   "items": "article.card",
+   "has_next": {
+    "exists": "nav.pager a:matchesOwn(^>$)"
+   },
+   "fields": {
+    "url": "a.cover-wrap@href",
+    "title": "h3 a",
+    "cover": "img.cover@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.mobile-comic-title",
+    "cover": "img.mobile-comic-cover@src",
+    "description": "p.mobile-comic-desc",
+    "genres": "p.mobile-comic-tags",
+    "author": "div.cinema-strip > div:has(> span:matchesOwn(^作者$)) b",
+    "status": {
+     "path": "p.mobile-comic-meta",
+     "regex": "(完结|连载)",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "连载": 1,
+    "完结": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "section.mobile-comic-all-chapters div.mobile-chapter-grid a",
+   "fields": {
+    "url": "@href",
+    "name": ""
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "section.reader-images img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Desktop-User-Agent wie Community (mit Android-UA liefert die Website beim neuesten Kapitel nur eine App-Werbeseite).",
+  "Alle Listen über /category.php (Beliebt sort=hits, Neueste sort=update, Suche keyword=…); Kategorie-/Region-/Zielgruppen-/Statusfilter nicht übernommen.",
+  "Status aus p.mobile-comic-meta per Regex (完结/连载). Kein Kapiteldatum (auch Community nicht); Kapitelreihenfolge wie auf der Seite."
+ ]
+}

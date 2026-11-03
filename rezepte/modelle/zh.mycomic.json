@@ -1,0 +1,161 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MyComic",
+  "sprache": "zh",
+  "base_url": "https://mycomic.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.mycomic",
+  "quellen": [
+   {
+    "name": "MyComic",
+    "sprache": "zh",
+    "quell_id": 9119537447562549661,
+    "home": "https://mycomic.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/mycomic",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/comics?sort=-views&page={page}",
+   "request_by_page": {
+    "1": "{base}/comics?sort=-views"
+   },
+   "items": "div.grid > div.group",
+   "fields": {
+    "url": "a@href",
+    "title": "img@alt",
+    "cover": [
+     "img@data-src",
+     "img@src"
+    ]
+   },
+   "has_next": {
+    "exists": "nav[role=navigation] a[rel=next]"
+   }
+  },
+  "latest": {
+   "request": "{base}/comics?sort=-update&page={page}",
+   "request_by_page": {
+    "1": "{base}/comics?sort=-update"
+   },
+   "items": "div.grid > div.group",
+   "fields": {
+    "url": "a@href",
+    "title": "img@alt",
+    "cover": [
+     "img@data-src",
+     "img@src"
+    ]
+   },
+   "has_next": {
+    "exists": "nav[role=navigation] a[rel=next]"
+   }
+  },
+  "search": {
+   "request": "{base}/comics?q={query}&page={page}",
+   "request_by_page": {
+    "1": "{base}/comics?q={query}"
+   },
+   "items": "div.grid > div.group",
+   "fields": {
+    "url": "a@href",
+    "title": "img@alt",
+    "cover": [
+     "img@data-src",
+     "img@src"
+    ]
+   },
+   "has_next": {
+    "exists": "nav[role=navigation] a[rel=next]"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div[data-flux-card] div[data-flux-heading]",
+    "cover": [
+     "div[data-flux-card] img.object-cover@data-src",
+     "div[data-flux-card] img.object-cover@src"
+    ],
+    "status": "div[data-flux-card] div[data-flux-badge]",
+    "author": "div[data-flux-card] div[data-flux-badge] + div > :first-child a",
+    "genres": {
+     "path": "div[data-flux-card] div[data-flux-badge] + div > div:nth-child(2) ~ div a",
+     "all": true,
+     "join": ", "
+    },
+    "description": [
+     "div[data-flux-card] div[data-flux-badge] + div + div div[x-show=show]",
+     "meta[name=description]@content"
+    ]
+   },
+   "status_map": {
+    "连载中": 1,
+    "連載中": 1,
+    "已完结": 2,
+    "已完結": 2
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}",
+   "format": "text",
+   "let": {
+    "d": {
+     "path": "",
+     "regex": "<time[^>]*datetime[^>]*>\\s*(\\d{4}-\\d{2}-\\d{2})",
+     "group": 1
+    }
+   },
+   "items": "\\{(?:&quot;|&#34;|\")id(?:&quot;|&#34;|\"):\\d+,(?:&quot;|&#34;|\")title(?:&quot;|&#34;|\"):[^{}]*\\}",
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "(?:&quot;|&#34;|\")id(?:&quot;|&#34;|\"):(\\d+)",
+     "group": 1,
+     "template": "/chapters/{value}"
+    },
+    "name": {
+     "path": "",
+     "replace": [
+      [
+       "&quot;|&#34;",
+       "\""
+      ],
+      [
+       "^.*?\"title\":(\"(?:[^\"\\\\]|\\\\.)*\").*$",
+       "$1"
+      ]
+     ],
+     "decode": "json"
+    },
+    "date": {
+     "const": "{l.d}"
+    }
+   },
+   "date_format": "yyyy-MM-dd"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img[x-ref]",
+   "image": [
+    "@data-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Listen /comics?sort=-views (Beliebt), sort=-update (Neueste), q=… (Suche), &page=N ab Seite 2 wie Community; Ranglisten/Region/Tag-Filter nicht übernommen. Sprache: Standard traditionell (ohne /cn), Community-Einstellung für vereinfacht nicht übernommen.",
+  "Kapitel stehen als JSON im Alpine-Attribut x-data ('chapters: [{\"id\":…,\"title\":…}]', mehrere Gruppen). Hier als Text der Detailseite gelesen: je Kapitel ein Objekt mit id/title (Anführungszeichen roh oder als &quot;, Muster wie modelle/es.lectorxd) – setzt Schlüsselreihenfolge id,title voraus; auf dem PC prüfen. Gruppenname (Community: scanlator) entfällt.",
+  "Kapiteldatum: wie Community für alle Kapitel das Aktualisierungsdatum des Werks (time[datetime], yyyy-MM-dd).",
+  "Kapitel-URL /chapters/<id>; Bilder img[x-ref] (data-src, sonst src)."
+ ]
+}

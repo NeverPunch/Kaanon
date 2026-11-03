@@ -1,0 +1,138 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Dongman Manhua",
+  "sprache": "zh-Hans",
+  "base_url": "https://www.dongmanmanhua.cn",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.zh-Hans.kaanon.dongmanmanhua",
+  "quellen": [
+   {
+    "name": "Dongman Manhua",
+    "sprache": "zh-Hans",
+    "quell_id": 4222375517460530289,
+    "home": "https://www.dongmanmanhua.cn"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/dongmanmanhua",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "image_headers": {
+   "Referer": "{base}/"
+  },
+  "popular": {
+   "request": "{base}/dailySchedule",
+   "format": "html",
+   "items": "div#dailyList .daily_section li a, div.daily_lst.comp li a",
+   "fields": {
+    "url": "@href",
+    "title": "p.subj",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/dailySchedule?sortOrder=UPDATE&webtoonCompleteType=ONGOING",
+   "format": "html",
+   "items": "div#dailyList li > a",
+   "fields": {
+    "url": "@href",
+    "title": "p.subj",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/search?keyword={query}&page={page}",
+   "format": "html",
+   "items": "#content > div.card_wrap.search ul:not(#filterLayer) li a",
+   "fields": {
+    "url": "@href",
+    "title": "p.subj",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "div.more_area, div.paginate a[onclick] + a"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "html",
+   "fields": {
+    "title": "h1.subj, h3.subj",
+    "author": [
+     ".detail_header .info .author:nth-of-type(1)@ownText",
+     ".detail_header .info .author_area@ownText"
+    ],
+    "artist": [
+     ".detail_header .info .author:nth-of-type(2)@ownText",
+     ".detail_header .info .author_area@ownText"
+    ],
+    "genres": {
+     "path": ".detail_header .info .genre",
+     "all": true,
+     "join": ", "
+    },
+    "description": "#_asideDetail p.summary",
+    "status": "#_asideDetail p.day_info",
+    "cover": [
+     {
+      "path": "#content > div.cont_box > div.detail_body@style",
+      "regex": "url\\(['\"]?([^)'\"]+)"
+     },
+     "#content > div.cont_box > div.detail_header > span.thmb img:not([alt='Representative image'])@src"
+    ]
+   },
+   "status_map": {
+    "更新": 1,
+    "完结": 2
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}&page={page}",
+   "request_by_page": {
+    "1": "details"
+   },
+   "format": "html",
+   "items": "ul#_listUl li",
+   "paging": {
+    "has_next": {
+     "exists": "div.paginate a[onclick] + a"
+    },
+    "max_pages": 100
+   },
+   "fields": {
+    "url": "a@href",
+    "name": "span.subj span",
+    "date": "span.date"
+   },
+   "date_format": "yyyy-M-d"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "html",
+   "items": "div#_imageList > img",
+   "image": "@data-url"
+  }
+ },
+ "hinweise": [
+  "Webtoons-Ableger (dongmanmanhua.cn), HTML wie en.webtoonscom; Referer-Header als Annahme ergänzt (Community setzt keinen eigenen).",
+  "Beliebt: alle Titel aus /dailySchedule (eine Seite). Neueste: Community nimmt nur die Spalte des heutigen Wochentags (div._list_<TAG>); das ist nicht ausdrückbar, daher alle Wochentage aus der nach Aktualisierung sortierten Liste (Dubletten möglich).",
+  "Kapitel: Detailseite (list?title_no=…) ist Seite 1, weitere über {abs_url}&page=N, solange div.paginate a[onclick] + a existiert (Community folgt diesem Link). Annahme: Manga-URL enthält bereits '?title_no='.",
+  "Status: '更新' → laufend, '完结' → abgeschlossen (Teiltextvergleich wie im Code)."
+ ]
+}

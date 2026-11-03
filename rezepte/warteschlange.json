@@ -17417,7 +17417,7 @@
  },
  {
   "modul": "src/zh/cartoon18",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Cartoon18",
   "stufe": 2,
   "theme": null,
@@ -17427,11 +17427,14 @@
   "host": "cartoon18.com",
   "nsfw": true,
   "wer": "agent-w8b",
-  "seit": "2026-11-03T11:29:04"
+  "seit": "2026-11-03T11:29:04",
+  "datei": "rezepte/modelle/zh.cartoon18.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:29:29"
  },
  {
   "modul": "src/zh/cmanhua",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "CManhua",
   "stufe": 2,
   "theme": null,
@@ -17441,11 +17444,14 @@
   "host": "cmanhua.com",
   "nsfw": false,
   "wer": "agent-w8a",
-  "seit": "2026-11-03T11:29:10"
+  "seit": "2026-11-03T11:29:10",
+  "grund": "ASP.NET-WebForms: Listen ab Seite 2 und weitere Kapitelbereiche (rptChapterRanges) nur per __doPostBack mit allen Formularfeldern (ViewState) der Vorseite; Postback-Ketten bzw. mehrere Postback-Ziele je Manga nicht ausdrückbar (ohne sie fehlen Kapitel langer Serien)",
+  "datei": null,
+  "geaendert": "2026-11-03T11:29:27"
  },
  {
   "modul": "src/zh/dm5",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "Dm5",
   "stufe": 2,
   "theme": null,
@@ -17455,11 +17461,14 @@
   "host": "dm5.com",
   "nsfw": false,
   "wer": "agent-w7d",
-  "seit": "2026-11-03T11:29:14"
+  "seit": "2026-11-03T11:29:14",
+  "grund": "Seiten: meist nur über eine Anfrage je Bildseite (chapterfun.ashx?page=1..DM5_IMAGE_COUNT, Antwort packer → pix+pvalue[0]); die Seitenliste müsste aus einer Zahl (Bildanzahl) erzeugt werden – Zahlenbereich als Elementliste in der Rezeptsprache nicht ausdrückbar (nur der seltene Fall #barChapter img.load-src wäre abbildbar).",
+  "datei": null,
+  "geaendert": "2026-11-03T11:29:36"
  },
  {
   "modul": "src/zh/dongmanmanhua",
-  "status": "offen",
+  "status": "fertig",
   "name": "Dongman Manhua",
   "stufe": 2,
   "theme": null,
@@ -17467,11 +17476,16 @@
    "zh-Hans"
   ],
   "host": "dongmanmanhua.cn",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8c",
+  "seit": "2026-11-03T11:29:19",
+  "datei": "rezepte/modelle/zh-Hans.dongmanmanhua.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:30:14"
  },
  {
   "modul": "src/zh/guazimanhua",
-  "status": "offen",
+  "status": "fertig",
   "name": "Guazimanhua",
   "stufe": 2,
   "theme": null,
@@ -17479,11 +17493,16 @@
    "zh"
   ],
   "host": "guazimanhua.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:29:27",
+  "datei": "rezepte/modelle/zh.guazimanhua.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:29:40"
  },
  {
   "modul": "src/zh/hanime1",
-  "status": "offen",
+  "status": "fertig",
   "name": "Hanime1",
   "stufe": 2,
   "theme": null,
@@ -17491,11 +17510,16 @@
    "zh"
   ],
   "host": "hanimeone.me",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:29:29",
+  "datei": "rezepte/modelle/zh.hanime1.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:30:24"
  },
  {
   "modul": "src/zh/hcomic",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "H-Comic",
   "stufe": 2,
   "theme": null,
@@ -17503,11 +17527,16 @@
    "zh"
   ],
   "host": "h-comic.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:29:36",
+  "grund": "Daten nur als SvelteKit-__data.json (devalue: Felder sind Indexverweise in ein flaches Array, Auflösung data[struct.x] nötig) und Bildliste aus Seitenanzahl erzeugt (api/<source>/<mediaId>/pages/1..numPages) – beides in der Rezeptsprache nicht ausdrückbar.",
+  "datei": null,
+  "geaendert": "2026-11-03T11:29:45"
  },
  {
   "modul": "src/zh/hentaiclub",
-  "status": "offen",
+  "status": "fertig",
   "name": "Shenshi Huisuo",
   "stufe": 2,
   "theme": null,
@@ -17515,11 +17544,16 @@
    "zh"
   ],
   "host": "hentaiclub.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:29:41",
+  "datei": "rezepte/modelle/zh.shenshihuisuo.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:30:02"
  },
  {
   "modul": "src/zh/ikanmh",
-  "status": "offen",
+  "status": "fertig",
   "name": "Ikanmh",
   "stufe": 2,
   "theme": null,
@@ -17527,11 +17561,16 @@
    "zh"
   ],
   "host": "ikanmh.xyz",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:29:45",
+  "datei": "rezepte/modelle/zh.ikanmh.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:30:10"
  },
  {
   "modul": "src/zh/ikmmh",
-  "status": "offen",
+  "status": "fertig",
   "name": "Ikmmh",
   "stufe": 2,
   "theme": null,
@@ -17539,11 +17578,16 @@
    "zh"
   ],
   "host": "ymcdnyfqdapp.ikmmh.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:30:02",
+  "datei": "rezepte/modelle/zh.ikmmh.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:30:39"
  },
  {
   "modul": "src/zh/iqiyi",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Iqiyi",
   "stufe": 2,
   "theme": null,
@@ -17551,11 +17595,16 @@
    "zh-Hans"
   ],
   "host": "bud.m.iqiyi.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:30:10",
+  "grund": "Jede API-Anfrage (comic.iqiyi.com) braucht Header md5 = md5(Pfad + Query inkl. timeStamp/zufälliger qiyiId + fester Schlüssel) – anfragebezogene Signatur mit Schlüssel; vars-hash ist global und kennt Pfad/Query der Anfrage nicht. Nicht ausdrückbar (Regel: Signaturen).",
+  "datei": null,
+  "geaendert": "2026-11-03T11:30:22"
  },
  {
   "modul": "src/zh/jcomic",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "JComic",
   "stufe": 2,
   "theme": null,
@@ -17563,11 +17612,16 @@
    "zh"
   ],
   "host": "jcomic.net",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8c",
+  "seit": "2026-11-03T11:30:14",
+  "grund": "Bild-URLs stehen in data-locked als umgedrehter Base64-Text (Präfix JCOMIC_TRAP_ weg, String umkehren, dann Base64) – String-Umkehr nicht ausdrückbar; zudem Einzel-/Mehrkapitel je nach URL (/page vs. /eps) und Details nur aus Listeneintrag (memo)",
+  "datei": null,
+  "geaendert": "2026-11-03T11:30:28"
  },
  {
   "modul": "src/zh/komiic",
-  "status": "offen",
+  "status": "fertig",
   "name": "Komiic",
   "stufe": 2,
   "theme": null,
@@ -17575,11 +17629,16 @@
    "zh"
   ],
   "host": "komiic.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:30:23",
+  "datei": "rezepte/modelle/zh.komiic.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:31:04"
  },
  {
   "modul": "src/zh/mangabz",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Mangabz",
   "stufe": 2,
   "theme": null,
@@ -17587,11 +17646,16 @@
    "zh"
   ],
   "host": "mangabz.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:30:24",
+  "grund": "Bilder nur seitenweise über chapterimage.ashx?cid=<id>&page=<n> (gepacktes JS mit pix + Pfadliste, 2–15 Seiten je Antwort); Seitenzahl nur aus dem Kapitelnamen '（NP）'. N Unterseiten aus einer Zahl in HTML/Text erzeugen und pix+Pfad aus zwei Regex-Gruppen zusammensetzen ist in keiner Vorlage belegt. Dazu drei Spiegel mit unterschiedlichem URL-Suffix (bz/xm/yy) und Sprach-Cookie.",
+  "datei": null,
+  "geaendert": "2026-11-03T11:30:53"
  },
  {
   "modul": "src/zh/mangaxiaosi",
-  "status": "offen",
+  "status": "fertig",
   "name": "Manga Xiao Si",
   "stufe": 2,
   "theme": null,
@@ -17599,11 +17663,16 @@
    "zh"
   ],
   "host": "jjmhw2.top",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8c",
+  "seit": "2026-11-03T11:30:28",
+  "datei": "rezepte/modelle/zh.mangaxiaosi.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:31:03"
  },
  {
   "modul": "src/zh/manhuagui",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "ManHuaGui",
   "stufe": 2,
   "theme": null,
@@ -17611,11 +17680,16 @@
    "zh"
   ],
   "host": "manhuagui.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:30:39",
+  "grund": "Seitenliste: gepacktes Skript, dessen Wörterbuch LZString-komprimiert (decompressFromBase64) ist, vor dem Entpacken; Kapitelliste ab 18 ebenfalls LZString in #__VIEWSTATE – LZString-Dekompression ist keine Engine-Dekodierung (nur aes_cryptojs/packer/base64)",
+  "datei": null,
+  "geaendert": "2026-11-03T11:30:52"
  },
  {
   "modul": "src/zh/manhuashe",
-  "status": "offen",
+  "status": "fertig",
   "name": "Manhuashe",
   "stufe": 2,
   "theme": null,
@@ -17623,11 +17697,16 @@
    "zh"
   ],
   "host": "311s.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:30:52",
+  "datei": "rezepte/modelle/zh.manhuashe.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:31:09"
  },
  {
   "modul": "src/zh/mh1234",
-  "status": "offen",
+  "status": "fertig",
   "name": "MH1234",
   "stufe": 2,
   "theme": null,
@@ -17635,11 +17714,16 @@
    "zh"
   ],
   "host": "m.wmh1234.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:30:53",
+  "datei": "rezepte/modelle/zh.mh1234.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:31:24"
  },
  {
   "modul": "src/zh/mh160",
-  "status": "offen",
+  "status": "fertig",
   "name": "Manhua160",
   "stufe": 2,
   "theme": null,
@@ -17647,11 +17731,16 @@
    "zh"
   ],
   "host": "mh160mh.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8c",
+  "seit": "2026-11-03T11:31:03",
+  "datei": "rezepte/modelle/zh.manhua160.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:32:03"
  },
  {
   "modul": "src/zh/mycomic",
-  "status": "offen",
+  "status": "fertig",
   "name": "MyComic",
   "stufe": 2,
   "theme": null,
@@ -17659,11 +17748,16 @@
    "zh"
   ],
   "host": "mycomic.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:31:04",
+  "datei": "rezepte/modelle/zh.mycomic.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:32:05"
  },
  {
   "modul": "src/zh/nnhanman",
-  "status": "offen",
+  "status": "fertig",
   "name": "NNHanman",
   "stufe": 2,
   "theme": null,
@@ -17671,11 +17765,16 @@
    "zh"
   ],
   "host": "nnhanman.xyz",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:31:09",
+  "datei": "rezepte/modelle/zh.nnhanman.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:31:30"
  },
  {
   "modul": "src/zh/noyacg",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "NoyAcg",
   "stufe": 2,
   "theme": null,
@@ -17683,11 +17782,16 @@
    "zh-Hant"
   ],
   "host": "api.noyteam.online",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:31:24",
+  "grund": "API verlangt Anmeldung (Antwort status=login → Community meldet sich mit Benutzername/Passwort aus den Einstellungen an, Sitzungs-Cookie von noymanga.com); Login zum Lesen nicht vorgesehen. Zudem Kapitel als Objekt je Kategorie-ID (chapters.data.<id>) und Bildliste nur aus Seitenzahl erzeugt (/<id>/<n>.webp).",
+  "datei": null,
+  "geaendert": "2026-11-03T11:31:33"
  },
  {
   "modul": "src/zh/terrahistoricus",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Terra Historicus",
   "stufe": 2,
   "theme": null,
@@ -17695,11 +17799,13 @@
    "zh"
   ],
   "host": "comic.hypergryph.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8c",
+  "seit": "2026-11-03T11:32:03"
  },
  {
   "modul": "src/zh/tongli",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Tongli",
   "stufe": 2,
   "theme": null,
@@ -17707,7 +17813,9 @@
    "zh"
   ],
   "host": "ebook.tongli.com.tw",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:32:05"
  },
  {
   "modul": "src/zh/toptoon",

@@ -1,0 +1,226 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Komiic",
+  "sprache": "zh",
+  "base_url": "https://komiic.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.komiic",
+  "quellen": [
+   {
+    "name": "Komiic",
+    "sprache": "zh",
+    "quell_id": 792932060924485302,
+    "home": "https://komiic.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/komiic",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.11",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "{base}/api/query",
+    "method": "POST",
+    "json": {
+     "operationName": "commonQuery",
+     "query": "query commonQuery { comics: hotComics(pagination: { offset: {offset}, limit: 30, orderBy: MONTH_VIEWS, status: \"\", asc: false }) { id title description status imageUrl authors { id name } categories { id name } warnings } }",
+     "variables": {}
+    }
+   },
+   "format": "json",
+   "items": "data.comics",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/comic/{value}"
+    },
+    "title": "title",
+    "cover": "imageUrl"
+   },
+   "page_size": 30,
+   "has_next": {
+    "full": true
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/api/query",
+    "method": "POST",
+    "json": {
+     "operationName": "commonQuery",
+     "query": "query commonQuery { comics: recentUpdate(pagination: { offset: {offset}, limit: 30, orderBy: DATE_UPDATED, status: \"\", asc: false }) { id title description status imageUrl authors { id name } categories { id name } warnings } }",
+     "variables": {}
+    }
+   },
+   "format": "json",
+   "items": "data.comics",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/comic/{value}"
+    },
+    "title": "title",
+    "cover": "imageUrl"
+   },
+   "page_size": 30,
+   "has_next": {
+    "full": true
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/query",
+    "method": "POST",
+    "json": {
+     "operationName": "searchComicsAndAuthors",
+     "query": "query searchComicsAndAuthors($keyword: String!) { searchComicsAndAuthors(keyword: $keyword) { comics { id title description status imageUrl authors { id name } categories { id name } warnings } } }",
+     "variables": {
+      "keyword": "{query_raw}"
+     }
+    }
+   },
+   "format": "json",
+   "items": "data.searchComicsAndAuthors.comics",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/comic/{value}"
+    },
+    "title": "title",
+    "cover": "imageUrl"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{base}/api/query",
+    "method": "POST",
+    "json": {
+     "operationName": "mangaQuery",
+     "query": "query mangaQuery($comicId: ID!) { comicById(comicId: $comicId) { id title description status imageUrl authors { id name } categories { id name } warnings } chaptersByComicId(comicId: $comicId) { id serial type size dateCreated } }",
+     "variables": {
+      "comicId": "{u.id}"
+     }
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "/comic/([^/?#]+)"
+   },
+   "let": {
+    "cats": {
+     "path": "data.comicById.categories.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "warn": {
+     "path": "data.comicById.warnings.*",
+     "all": true,
+     "join": ", "
+    }
+   },
+   "fields": {
+    "title": "data.comicById.title",
+    "cover": "data.comicById.imageUrl",
+    "description": "data.comicById.description",
+    "author": {
+     "path": "data.comicById.authors.*.name",
+     "all": true,
+     "join": "，"
+    },
+    "genres": {
+     "const": "[[{l.cats}]][[, {l.warn}]]",
+     "replace": [
+      [
+       "^, ",
+       ""
+      ]
+     ]
+    },
+    "status": "data.comicById.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "end": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "data.chaptersByComicId",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/comic/{u.id}/chapter/{value}"
+    },
+    "name": {
+     "const": "{f.type}|{f.serial}",
+     "replace": [
+      [
+       "^chapter\\|(.*)$",
+       "第 $1 話"
+      ],
+      [
+       "^book\\|(.*)$",
+       "第 $1 卷"
+      ],
+      [
+       "^[^|]*\\|",
+       ""
+      ]
+     ]
+    },
+    "number": "serial",
+    "scanlator": {
+     "path": "size",
+     "template": "{value}P"
+    },
+    "date": "dateCreated"
+   },
+   "date_format": "iso",
+   "reverse": true
+  },
+  "pages": {
+   "request": {
+    "url": "{base}/api/query",
+    "method": "POST",
+    "json": {
+     "operationName": "imagesByChapterId",
+     "query": "query imagesByChapterId($chapterId: ID!) { imagesByChapterId(chapterId: $chapterId) { kid } }",
+     "variables": {
+      "chapterId": "{u.cid}"
+     }
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "cid": "/chapter/([^/?#]+)"
+   },
+   "items": "data.imagesByChapterId",
+   "image": {
+    "path": "kid",
+    "template": "{base}/api/image/{value}"
+   },
+   "referer": "chapter"
+  },
+  "image_headers": {
+   "Accept": "*/*"
+  }
+ },
+ "hinweise": [
+  "GraphQL-API {base}/api/query wie Community. Listen: Community übergibt pagination als Variable; hier als Literal im Query-Text (offset {offset}, limit 30, Muster wie modelle/en.voyceme) – prüfen. Beliebt hotComics/MONTH_VIEWS, Neueste recentUpdate/DATE_UPDATED, weiter solange 30 Einträge kommen. Suche searchComicsAndAuthors (eine Seite). Kategorie-Filter nicht übernommen.",
+  "Manga-URL /comic/<id>, Kapitel-URL /comic/<id>/chapter/<cid>.",
+  "Kapitel: Community sortiert selbst (Typ absteigend = erst Kapitel, dann Bände; dann Nummer absteigend). Hier API-Reihenfolge umgedreht (Annahme: API liefert aufsteigend) – prüfen. Community-Einstellung 'nur Kapitel/nur Bände' nicht übernommen (beide angezeigt = Standard).",
+  "Bilder {base}/api/image/<kid>; die Website begrenzt Bildabrufe für Gäste pro Tag (HTTP 402). Token-Erneuerung für eingeloggte Nutzer (Community) nicht übernommen.",
+  "Spiegel komiic.cc nicht berücksichtigt (Basis komiic.com)."
+ ]
+}

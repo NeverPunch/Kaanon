@@ -1,0 +1,198 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Ikmmh",
+  "sprache": "zh",
+  "base_url": "https://ymcdnyfqdapp.ikmmh.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.ikmmh",
+  "quellen": [
+   {
+    "name": "爱看漫",
+    "sprache": "zh",
+    "quell_id": 1793919771803569726,
+    "home": "https://ymcdnyfqdapp.ikmmh.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/ikmmh",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36",
+   "Accept-Language": "zh-CN,zh;q=0.9"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 500
+  },
+  "popular": {
+   "request": "{base}/booklists/9/%E5%85%A8%E9%83%A8/3/{page}.html",
+   "items": "li.item.comic-item:has(a[href])",
+   "page_size": 48,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": "a[href]@href",
+    "title": [
+     "p.title",
+     {
+      "path": "a[href]@title",
+      "regex": "^([^,]*)",
+      "group": 1
+     }
+    ],
+    "cover": "img.img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/update/{page}.html",
+   "items": "li.item.comic-item:has(a[href])",
+   "has_next": {
+    "min": 1
+   },
+   "fields": {
+    "url": "a[href]@href",
+    "title": [
+     "p.title",
+     {
+      "path": "a[href]@title",
+      "regex": "^([^,]*)",
+      "group": 1
+     }
+    ],
+    "cover": "img.img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/search?searchkey={query}",
+   "items": "li.item.comic-item:has(a[href])",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a[href]@href",
+    "title": [
+     "p.title",
+     {
+      "path": "a[href]@title",
+      "regex": "^([^,]*)",
+      "group": 1
+     }
+    ],
+    "cover": "img.img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "meta[property=og:title]@content",
+    "cover": "meta[property=og:image]@content",
+    "description": "meta[property=og:description]@content",
+    "genres": "meta[property=og:cartoon:category]@content",
+    "author": {
+     "path": "meta[property=og:cartoon:author]@content",
+     "replace": [
+      [
+       "\\\\,",
+       ","
+      ]
+     ]
+    },
+    "artist": {
+     "path": "meta[property=og:cartoon:author]@content",
+     "replace": [
+      [
+       "\\\\,",
+       ","
+      ]
+     ]
+    },
+    "status": "meta[property=og:cartoon:status]@content"
+   },
+   "status_map": {
+    "连载": 1,
+    "完结": 2
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/api/comic/zyz/chapters?ph=1&tempid=3&zpid={u.bid}&page=0&line=48&orderby=desc",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "text",
+   "url_vars": {
+    "bid": "/book/(\\d+)"
+   },
+   "items": "\\{[^{}]*\"url\":\"[^\"]*\"[^{}]*\\}",
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"url\":\"([^\"]+)\"",
+     "group": 1,
+     "replace": [
+      [
+       "\\\\/",
+       "/"
+      ]
+     ]
+    },
+    "name": {
+     "path": "",
+     "regex": "\"name\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "date": {
+     "path": "",
+     "regex": "\"stime\":\"([^\"]+)\"",
+     "group": 1,
+     "replace": [
+      [
+       "\\\\/",
+       "/"
+      ]
+     ]
+    }
+   },
+   "date_format": "yyyy/MM/dd"
+  },
+  "pages": {
+   "request": {
+    "url": "{base}/api/comic/read/pics",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    },
+    "form": {
+     "id": "{u.cid}",
+     "aid": "{u.aid}",
+     "offset": "0",
+     "limit": "500"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "aid": "/chapter/(\\d+)/",
+    "cid": "/chapter/\\d+/(\\d+)"
+   },
+   "items": "data.pic",
+   "image": "pic"
+  }
+ },
+ "hinweise": [
+  "Nur mit mobilem User-Agent erreichbar (Desktop-UA → 404, WAF sperrt ggf. die IP); UA und Accept-Language wie Community. Community erzwingt zusätzlich HTTP/1.1 und führt das PHPSESSID-Cookie selbst mit (Startseite vorab laden) – im Rezept nicht steuerbar, auf dem PC prüfen.",
+  "Beliebt /booklists/9/全部/3/<n>.html (volle Seite = 48), Neueste /update/<n>.html (Community: max. 7 Seiten; hier weiter, solange Einträge kommen), Suche ohne Blättern. Bereichs-/Tag-/Statusfilter nicht übernommen.",
+  "Kapitel-API liefert JSON mit ungültigem Escape '\\,' (Community ersetzt es vor dem Parsen) – daher als Text mit Regex ausgewertet (Name per decode json, '\\/' ersetzt). Reihenfolge neu→alt (orderby=desc). Keine Kapitelnummer (Community zählt rückwärts).",
+  "Seiten: Community holt die Bilder per POST /api/comic/read/pics in 10er-Blöcken (offset steigend) – Blättern in pages ist nicht belegt; hier eine Anfrage mit limit=500 (Annahme: die API begrenzt limit nicht). Unsicher, auf dem PC prüfen."
+ ]
+}
