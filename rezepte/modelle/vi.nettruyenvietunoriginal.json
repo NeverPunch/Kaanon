@@ -1,0 +1,229 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "NetTruyenViet (unoriginal)",
+  "sprache": "vi",
+  "base_url": "https://nettruyenviet10.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.nettruyenvietunoriginal",
+  "quellen": [
+   {
+    "name": "NetTruyenViet (unoriginal)",
+    "sprache": "vi",
+    "quell_id": 3975552840628459451,
+    "home": "https://nettruyenviet10.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/nettruyenviet",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 5,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/tim-truyen?sort=10&page={page}",
+   "items": "div.items div.row > div.item",
+   "fields": {
+    "url": [
+     "figcaption h3 a.jtip@href",
+     "figcaption h3 a@href",
+     ".slide-caption h3 a@href"
+    ],
+    "title": [
+     "figcaption h3 a.jtip",
+     "figcaption h3 a",
+     ".slide-caption h3 a"
+    ],
+    "cover": [
+     "div.image img@data-original",
+     "div.image img@data-src",
+     "div.image img@src",
+     "img.image-thumb@img",
+     "a > img@img"
+    ]
+   },
+   "has_next": {
+    "exists": "ul.pagination li.page-item:not(.disabled) > a:matchesOwn(^›$)"
+   }
+  },
+  "latest": {
+   "request": "{base}/?page={page}",
+   "items": [
+    "div.items:has(h1.page-title:matchesOwn(NetTruyen\\s*-\\s*Truyện tranh online)) div.row > div.item",
+    "div.items div.row > div.item"
+   ],
+   "fields": {
+    "url": [
+     "figcaption h3 a.jtip@href",
+     "figcaption h3 a@href",
+     ".slide-caption h3 a@href"
+    ],
+    "title": [
+     "figcaption h3 a.jtip",
+     "figcaption h3 a",
+     ".slide-caption h3 a"
+    ],
+    "cover": [
+     "div.image img@data-original",
+     "div.image img@data-src",
+     "div.image img@src",
+     "img.image-thumb@img",
+     "a > img@img"
+    ]
+   },
+   "has_next": {
+    "exists": "ul.pagination li.page-item:not(.disabled) > a:matchesOwn(^›$)"
+   }
+  },
+  "search": {
+   "request": "{base}/tim-truyen?keyword={query}&page={page}",
+   "items": "div.items div.row > div.item",
+   "fields": {
+    "url": [
+     "figcaption h3 a.jtip@href",
+     "figcaption h3 a@href",
+     ".slide-caption h3 a@href"
+    ],
+    "title": [
+     "figcaption h3 a.jtip",
+     "figcaption h3 a",
+     ".slide-caption h3 a"
+    ],
+    "cover": [
+     "div.image img@data-original",
+     "div.image img@data-src",
+     "div.image img@src",
+     "img.image-thumb@img",
+     "a > img@img"
+    ]
+   },
+   "has_next": {
+    "exists": "ul.pagination li.page-item:not(.disabled) > a:matchesOwn(^›$)"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     "article#item-detail h1.title-detail",
+     "article#item-detail h1"
+    ],
+    "author": "article#item-detail li.author p.col-xs-8",
+    "status": {
+     "path": "article#item-detail li.status p.col-xs-8",
+     "regex": "(?i)(đang tiến hành|đang cập nhật|hoàn thành)",
+     "group": 1
+    },
+    "genres": {
+     "path": "article#item-detail li.kind p.col-xs-8 a",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       "(?i)^đang cập nhật$",
+       ""
+      ]
+     ]
+    },
+    "cover": [
+     "article#item-detail div.col-image img@src",
+     "article#item-detail div.col-image img@data-original",
+     "article#item-detail div.col-image img@data-src"
+    ],
+    "description": [
+     "article#item-detail div.detail-content div.shortened",
+     "article#item-detail div.detail-content > p"
+    ]
+   },
+   "status_map": {
+    "đang tiến hành": 1,
+    "đang cập nhật": 1,
+    "hoàn thành": 2
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/Comic/Services/ComicService.asmx/ChapterList?slug={u.slug}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "url_vars": {
+    "slug": "/truyen-tranh/([^/?#]+)"
+   },
+   "fields": {
+    "url": {
+     "path": "chapter_slug",
+     "template": "/truyen-tranh/{u.slug}/{value}"
+    },
+    "name": "chapter_name",
+    "number": "chapter_num",
+    "date": {
+     "path": "updated_at",
+     "replace": [
+      [
+       "(?i)^\\D*(\\d+)\\D*giây.*$",
+       "$1 seconds ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\D*phút.*$",
+       "$1 minutes ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\D*giờ.*$",
+       "$1 hours ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\D*ngày.*$",
+       "$1 days ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\D*tuần.*$",
+       "$1 weeks ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\D*tháng.*$",
+       "$1 months ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\D*năm.*$",
+       "$1 years ago"
+      ]
+     ]
+    }
+   },
+   "date_format": [
+    "yyyy-MM-dd HH:mm:ss",
+    "relative"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#chapter-content img, .reading-detail .page-chapter img, .chapter-content img, .page-chapter img",
+   "image": [
+    "@data-src",
+    "@data-original",
+    "@src"
+   ],
+   "exclude": "(?i)/assets/images/nettruyenviet\\.webp"
+  }
+ },
+ "hinweise": [
+  "WPComics-ähnliche Seite, aber eigene Community-Erweiterung (nicht Baukasten wpcomics, Vorlage vi.nettruyen als Ausgangspunkt). Beliebt /tim-truyen?sort=10, Neueste Startseite (Abschnitt 'NetTruyen - Truyện tranh online'), Suche /tim-truyen?keyword=…; Genre/Website/Sortier/Status-Filter nicht übernommen.",
+  "Weiter-Erkennung: aktiver Pagination-Link mit Text '›' wie Community.",
+  "Kapitel über /Comic/Services/ComicService.asmx/ChapterList?slug=<slug> (JSON data) wie Community; Kapitel-URL /truyen-tranh/<slug>/<chapter_slug>.",
+  "Beschreibung: Community entfernt h2.list-title/a.morelink aus div.detail-content; hier div.shortened bzw. Absätze – prüfen.",
+  "Logo-Bild /assets/images/nettruyenviet.webp ausgeschlossen."
+ ]
+}

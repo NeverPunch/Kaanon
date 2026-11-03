@@ -1,0 +1,171 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "LuotTruyen",
+  "sprache": "vi",
+  "base_url": "https://luottruyen999.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.luottruyen",
+  "quellen": [
+   {
+    "name": "LuotTruyen",
+    "sprache": "vi",
+    "quell_id": 6560112192335153780,
+    "home": "https://luottruyen999.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/luottruyen",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.13",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/tim-truyen?status=-1&sort=10&page={page}",
+   "items": "[id^=ctl00_divCenter] .row > .item",
+   "has_next": {
+    "exists": "li.next:not(.disabled) a, li:not(.disabled).next a"
+   },
+   "fields": {
+    "url": [
+     "figcaption h3 a@href",
+     "h3 a@href",
+     "a.jtip@href"
+    ],
+    "title": [
+     "figcaption h3 a",
+     "h3 a",
+     "a.jtip"
+    ],
+    "cover": [
+     "div.image a img@src",
+     "div.image img@src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/tim-truyen-nang-cao?status=-1&sort=0&advancedSearch=true&page={page}",
+   "items": "[id^=ctl00_divCenter] .row > .item",
+   "has_next": {
+    "exists": "li.next:not(.disabled) a, li:not(.disabled).next a"
+   },
+   "fields": {
+    "url": [
+     "figcaption h3 a@href",
+     "h3 a@href",
+     "a.jtip@href"
+    ],
+    "title": [
+     "figcaption h3 a",
+     "h3 a",
+     "a.jtip"
+    ],
+    "cover": [
+     "div.image a img@src",
+     "div.image img@src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/tim-truyen-nang-cao?keyword={query}&advancedSearch=true&page={page}",
+   "items": "[id^=ctl00_divCenter] .row > .item",
+   "has_next": {
+    "exists": "li.next:not(.disabled) a, li:not(.disabled).next a"
+   },
+   "fields": {
+    "url": [
+     "figcaption h3 a@href",
+     "h3 a@href",
+     "a.jtip@href"
+    ],
+    "title": [
+     "figcaption h3 a",
+     "h3 a",
+     "a.jtip"
+    ],
+    "cover": [
+     "div.image a img@src",
+     "div.image img@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "article#item-detail h1.title-detail, article#item-detail h1, h1.title-detail",
+    "author": "article#item-detail li.author p.col-xs-8, article#item-detail li.author p.col-xs-10",
+    "status": "article#item-detail li.status p.col-xs-8, article#item-detail li.status p.col-xs-10",
+    "genres": {
+     "path": "article#item-detail li.kind p.col-xs-8 a, article#item-detail li.kind p.col-xs-12 a",
+     "all": true,
+     "join": ", "
+    },
+    "description": {
+     "path": "article#item-detail div.detail-content p",
+     "all": true,
+     "join": "\n"
+    },
+    "cover": "article#item-detail div.col-image img@src"
+   },
+   "status_map": {
+    "đang tiến hành": 1,
+    "đang cập nhật": 1,
+    "hoàn thành": 2
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/Story/ListChapterByStoryID",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    },
+    "form": {
+     "StoryID": "{u.id}"
+    }
+   },
+   "url_vars": {
+    "id": "-(\\d+)/?$"
+   },
+   "items": "li.row:not(.heading)",
+   "fields": {
+    "url": [
+     "div.chapter a@href",
+     "a@href"
+    ],
+    "name": [
+     "div.chapter a",
+     "a"
+    ],
+    "date": "div.col-xs-4"
+   },
+   "date_format": "relative",
+   "date_locale": "vi"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": [
+    "#view-chapter img",
+    ".chapter-content img, .reading-content img, .content-chapter img, .reading-detail .page-chapter img[data-index]"
+   ],
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "NetTruyen-artige Website (ASP.NET). Kapitelliste per POST /Story/ListChapterByStoryID mit StoryID = Zahl am Ende der Manga-URL (wie Community).",
+  "Datum nur relativ ('… giây/phút/giờ/ngày/tuần/tháng/năm trước') wie im Code; 'relative' mit date_locale vi wie vi.umetruyen.",
+  "Suche nur Suchtext; Genre-/Sortier-/Statusfilter nicht übernommen. Dubletten in Listen (Community: distinctBy url) nicht entfernt.",
+  "Status: Community prüft 'enthält'; status_map mit den vollständigen Texten (đang tiến hành/đang cập nhật/hoàn thành)."
+ ]
+}

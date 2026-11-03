@@ -1,0 +1,159 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Goc Truyen Tranh",
+  "sprache": "vi",
+  "base_url": "https://goctruyentranh.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.goctruyentranh",
+  "quellen": [
+   {
+    "name": "GocTruyenTranh",
+    "sprache": "vi",
+    "quell_id": 8162695314495646445,
+    "home": "https://goctruyentranh.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/goctruyentranh",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.13",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/danh-sach/truyen-hot?page={page}",
+   "items": "section.mt-12 > .grid > .flex",
+   "fields": {
+    "url": "a.line-clamp-2@href",
+    "title": "a.line-clamp-2",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "nav ul li"
+   }
+  },
+  "latest": {
+   "request": "{base}/danh-sach/truyen-moi-cap-nhat?page={page}",
+   "items": "section.mt-12 > .grid > .flex",
+   "fields": {
+    "url": "a.line-clamp-2@href",
+    "title": "a.line-clamp-2",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "nav ul li"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/baseapi/comics/filterComic?keyword={query}&page={page}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "comics.data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/{value}"
+    },
+    "title": "name",
+    "cover": "thumbnail"
+   },
+   "has_next": {
+    "lt": [
+     "comics.current_page",
+     "comics.last_page"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "section aside:first-child h1",
+    "cover": "section aside:first-child img@img",
+    "author": "span:contains(Tác giả:) + b",
+    "genres": {
+     "path": "span:contains(Thể loại:) ~ a",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       "^[,\\s]+|[,\\s]+$",
+       ""
+      ]
+     ]
+    },
+    "description": {
+     "path": "div.mt-3",
+     "all": true,
+     "join": "\n\n"
+    },
+    "status": "span:contains(Trạng thái:) + b"
+   },
+   "status_map": {
+    "đang tiến hành": 1,
+    "đang cập nhật": 1,
+    "hoàn thành": 2,
+    "đã hoàn thành": 2,
+    "tạm ngưng": 6,
+    "tạm hoãn": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "section ul li a",
+   "fields": {
+    "url": "@href",
+    "name": ".items-center:contains(Chapter)",
+    "date": {
+     "path": ".text-center",
+     "replace": [
+      [
+       "(?i)^\\s*(\\d+)\\s*giây trước.*$",
+       "$1 seconds ago"
+      ],
+      [
+       "(?i)^\\s*(\\d+)\\s*phút trước.*$",
+       "$1 minutes ago"
+      ],
+      [
+       "(?i)^\\s*(\\d+)\\s*giờ trước.*$",
+       "$1 hours ago"
+      ],
+      [
+       "(?i)^\\s*(\\d+)\\s*ngày trước.*$",
+       "$1 days ago"
+      ]
+     ]
+    }
+   },
+   "date_format": [
+    "dd-MM-yyyy HH:mm:ss",
+    "relative"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img.lozad",
+   "image": "@data-src"
+  }
+ },
+ "hinweise": [
+  "Listen HTML /danh-sach/truyen-hot bzw. truyen-moi-cap-nhat?page=N wie Community; Weiter-Erkennung wie Community (irgendein 'nav ul li' vorhanden) – kann am Ende eine leere Seite mehr laden.",
+  "Suche über /baseapi/comics/filterComic?keyword=…&page=N (JSON, current_page < last_page); Genre/Status/Land/Sortier-Filter nicht übernommen.",
+  "Cover: Community leitet alle Cover über /_next/image?url=…&w=384&q=75 (mit Wiederholung bei HTTP 400 in anderen Breiten); hier img@img bzw. thumbnail direkt – prüfen.",
+  "Datum: vietnamesische Relativangaben (giây/phút/giờ/ngày trước) per replace ins Englische, sonst dd-MM-yyyy HH:mm:ss (Zeitzone Asia/Ho_Chi_Minh in der Community, hier Engine-Standard).",
+  "Status: Community prüft per 'enthält'; status_map hier mit genauen Texten."
+ ]
+}

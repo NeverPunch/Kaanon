@@ -1,0 +1,181 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaWT",
+  "sprache": "tr",
+  "base_url": "https://mangawt.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.mangawt",
+  "quellen": [
+   {
+    "name": "MangaWT",
+    "sprache": "tr",
+    "quell_id": 9068262319581900273,
+    "home": "https://mangawt.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/mangawt",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Accept": "application/json"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/mangas?sort=popular&page={page}&limit=20",
+   "format": "json",
+   "items": "mangas",
+   "has_next": {
+    "lt": [
+     "page",
+     "pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/mangas?sort=updated&page={page}&limit=20",
+   "format": "json",
+   "items": "mangas",
+   "has_next": {
+    "lt": [
+     "page",
+     "pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   }
+  },
+  "search": {
+   "request": "{base}/api/mangas?q={query}&sort=popular&page={page}&limit=20",
+   "format": "json",
+   "items": "mangas",
+   "has_next": {
+    "lt": [
+     "page",
+     "pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   }
+  },
+  "details": {
+   "request": "{base}/api/mangas/slug/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/#?]+)"
+   },
+   "let": {
+    "mid": "_id",
+    "desc": "description",
+    "alt": {
+     "path": "altTitles.*",
+     "all": true,
+     "join": ", "
+    }
+   },
+   "fields": {
+    "title": "title",
+    "cover": "coverUrl",
+    "description": {
+     "const": "{l.desc}[[§§Alternatif isimler: {l.alt}]]",
+     "replace": [
+      [
+       "^§§",
+       ""
+      ],
+      [
+       "§§",
+       "\n\n"
+      ]
+     ]
+    },
+    "genres": {
+     "path": [
+      "type",
+      "genres.*"
+     ],
+     "union": true
+    },
+    "author": "author",
+    "artist": "artist",
+    "status": "status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "chapters",
+   "skip": {
+    "path": "lockExpiresAt",
+    "is_future": "iso"
+   },
+   "fields": {
+    "url": {
+     "path": "number",
+     "template": "/manga/{u.slug}/chapter/{value}#{l.mid}"
+    },
+    "name": "title",
+    "number": "number",
+    "date": [
+     "publishAt",
+     "createdAt"
+    ]
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api/mangas/{u.mid}/chapters/{u.num}/pages",
+   "format": "json",
+   "url_vars": {
+    "mid": "#([^#]+)$",
+    "num": "/chapter/([^/#?]+)"
+   },
+   "items": "pages",
+   "sort": "pageNumber",
+   "image": "signedUrl"
+  }
+ },
+ "hinweise": [
+  "Neue KeiSource-API (JSON): Listen /api/mangas?sort=…&page=&limit=20, Details+Kapitel /api/mangas/slug/<slug>, Seiten /api/mangas/<_id>/chapters/<nummer>/pages.",
+  "Kapitel-URL trägt die Manga-_id als Fragment (#…), weil die Seitenanfrage sie braucht.",
+  "Gesperrte Kapitel mit lockExpiresAt in der Zukunft werden übersprungen; ‚locked‘ ohne Ablaufzeit lässt der Community-Code durch (Website antwortet dann evtl. 403).",
+  "Kapitelnummer wird aus JSON übernommen; Community entfernt ein ‚.0‘ – prüfen, ob die Engine 12.0 als ‚12‘ ausgibt.",
+  "Genre-Filter (eigener Endpunkt /api/mangas/genre/<g>) nicht abgebildet."
+ ]
+}

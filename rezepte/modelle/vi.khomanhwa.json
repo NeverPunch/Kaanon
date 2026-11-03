@@ -1,0 +1,115 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "KhoManhwa",
+  "sprache": "vi",
+  "base_url": "https://khomanhwa.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.khomanhwa",
+  "quellen": [
+   {
+    "name": "KhoManhwa",
+    "sprache": "vi",
+    "quell_id": 6490656436246726670,
+    "home": "https://khomanhwa.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/khomanhwa",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/popular?page={page}",
+   "items": "a.series-card",
+   "fields": {
+    "url": "@href",
+    "title": "strong",
+    "cover": [
+     "img@src",
+     "img@data-src"
+    ]
+   },
+   "has_next": {
+    "exists": "nav.pagination a:containsOwn(Next)"
+   }
+  },
+  "latest": {
+   "request": "{base}/latest?page={page}",
+   "items": "a.series-card",
+   "fields": {
+    "url": "@href",
+    "title": "strong",
+    "cover": [
+     "img@src",
+     "img@data-src"
+    ]
+   },
+   "has_next": {
+    "exists": "nav.pagination a:containsOwn(Next)"
+   }
+  },
+  "search": {
+   "request": "{base}/search?page={page}&q={query}",
+   "items": "a.series-card",
+   "fields": {
+    "url": "@href",
+    "title": "strong",
+    "cover": [
+     "img@src",
+     "img@data-src"
+    ]
+   },
+   "has_next": {
+    "exists": "nav.pagination a:containsOwn(Next)"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".series-main h1",
+    "cover": ".cover-card img@src",
+    "description": ".summary-inline p",
+    "author": "a[href*=\"author=\"] span",
+    "artist": "a[href*=\"artist=\"] span",
+    "status": ".status-badge"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".chapter-row",
+   "fields": {
+    "url": "a.chapter-main@href",
+    "name": ".chapter-name strong",
+    "number": "@data-number",
+    "date": ".chapter-age"
+   },
+   "date_format": "MMM dd, yyyy",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#chapter_boxImages img.chapter-page",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "HTML wie Community: /popular, /latest, /search?q= (je ?page=n; weiter, solange ein Link 'Next' in nav.pagination steht). Kategorie-/Genre-/Status-/Sortierfilter nicht übernommen.",
+  "Kapitel aus der Detailseite (.chapter-row), Nummer aus data-number, Datum 'MMM dd, yyyy' (englisch).",
+  "Seiten: #chapter_boxImages img.chapter-page. Manche Kapitel liefern 403 und brauchen laut Community eine Anmeldung (VIP) – wird nicht umgangen."
+ ]
+}

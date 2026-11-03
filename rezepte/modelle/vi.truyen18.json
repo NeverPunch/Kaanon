@@ -1,0 +1,222 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Truyen18",
+  "sprache": "vi",
+  "base_url": "https://truyen18.co",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.truyen18",
+  "quellen": [
+   {
+    "name": "Truyen18",
+    "sprache": "vi",
+    "quell_id": 7451996450063331380,
+    "home": "https://truyen18.co"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/truyen18",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.5",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/xem-nhieu-nhat/page/{page}",
+   "request_by_page": {
+    "1": "{base}/xem-nhieu-nhat"
+   },
+   "items": "main a[href^=/doc-truyen]:has(h3)",
+   "fields": {
+    "url": "@href",
+    "title": "h3",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "^.*[?&]url=([^&]+).*$",
+       "$1"
+      ],
+      [
+       "%2F",
+       "/"
+      ],
+      [
+       "%3A",
+       ":"
+      ],
+      [
+       "^/(?!/)",
+       "https://truyen18.co/"
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": "link[rel=next]"
+   }
+  },
+  "latest": {
+   "request": "{base}/moi-cap-nhat/page/{page}",
+   "request_by_page": {
+    "1": "{base}/moi-cap-nhat"
+   },
+   "items": "main a[href^=/doc-truyen]:has(h3)",
+   "fields": {
+    "url": "@href",
+    "title": "h3",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "^.*[?&]url=([^&]+).*$",
+       "$1"
+      ],
+      [
+       "%2F",
+       "/"
+      ],
+      [
+       "%3A",
+       ":"
+      ],
+      [
+       "^/(?!/)",
+       "https://truyen18.co/"
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": "link[rel=next]"
+   }
+  },
+  "search": {
+   "request": "{base}/search/page/{page}?q={query}",
+   "request_by_page": {
+    "1": "{base}/search?q={query}"
+   },
+   "items": "main a[href^=/doc-truyen]:has(h3)",
+   "fields": {
+    "url": "@href",
+    "title": "h3",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       "^.*[?&]url=([^&]+).*$",
+       "$1"
+      ],
+      [
+       "%2F",
+       "/"
+      ],
+      [
+       "%3A",
+       ":"
+      ],
+      [
+       "^/(?!/)",
+       "https://truyen18.co/"
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": "link[rel=next]"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "main h1",
+    "cover": {
+     "path": "main img[alt][src]@src",
+     "replace": [
+      [
+       "^.*[?&]url=([^&]+).*$",
+       "$1"
+      ],
+      [
+       "%2F",
+       "/"
+      ],
+      [
+       "%3A",
+       ":"
+      ],
+      [
+       "^/(?!/)",
+       "https://truyen18.co/"
+      ]
+     ]
+    },
+    "author": "main *:has(> span:matchesOwn((?i)^Tác giả:$)) > :eq(1)",
+    "status": {
+     "path": "main *:has(> span:matchesOwn((?i)^Trạng thái:$)) > :eq(1)",
+     "replace": [
+      [
+       "(?is)^.*(?:đang tiến hành|đang cập nhật).*$",
+       "ongoing"
+      ],
+      [
+       "(?is)^.*hoàn thành.*$",
+       "completed"
+      ]
+     ]
+    },
+    "genres": {
+     "path": "main a[href*='/category/'], main a[href*='/tag/']",
+     "all": true,
+     "join": ", "
+    },
+    "description": "main p:matches(^Nội dung cập nhật)"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "main section:has(h2:contains(Danh sách chương)) a[href*=/chapter-]",
+   "fields": {
+    "url": "@href",
+    "name": [
+     {
+      "path": "@title",
+      "regex": "^.* - (.+)$",
+      "group": 1
+     },
+     "@title",
+     ""
+    ]
+   }
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "items": "<img[^>]*?src=\\\\?\"([^\"\\\\]+)",
+   "image": "",
+   "exclude": "/bn\\.png$"
+  }
+ },
+ "hinweise": [
+  "HTML wie Community: Beliebt /xem-nhieu-nhat, Neueste /moi-cap-nhat, Suche /search?q= (Folgeseiten …/page/n; weiter, solange link[rel=next] da ist). Genre-Filter nicht übernommen. Listeneinträge = Links mit h3; Cover nur, wenn das Bild im selben Link steckt (Community sucht einen Nachbarlink mit gleicher URL); next/image-URLs (?url=…) werden per Ersetzung entpackt.",
+  "Details: Autor/Status = zweites Kind des Elements, das ein span 'Tác giả:' bzw. 'Trạng thái:' enthält (wie Community). Beschreibung = Absatz, der mit 'Nội dung cập nhật' beginnt. Genres aus /category/- und /tag/-Links (Doppelte nicht entfernt).",
+  "Kapitel: Links /chapter- im Abschnitt 'Danh sách chương'; Name = title nach dem letzten ' - '. Datum ('Đăng lúc:' in der umgebenden Zeile) NICHT übernommen – Zugriff auf Elternelemente gibt es nicht. Doppelte Links möglich (Community: distinctBy).",
+  "Seiten: Community liest das Kapitelobjekt (slug + content-HTML) aus den Next.js-Flight-Daten. Hier Abruf mit rsc: 1 (wie en.drakescans) und Regex auf alle <img src=…> im Rohtext (escaped oder roh); /bn.png (Banner) ausgeschlossen. UNSICHER: setzt voraus, dass nur der Kapitelinhalt als HTML-Text mit <img> in den Flight-Daten steht – auf dem PC prüfen."
+ ]
+}

@@ -1,0 +1,146 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MeoSSS",
+  "sprache": "vi",
+  "base_url": "https://meosss.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.meosss",
+  "quellen": [
+   {
+    "name": "MeoSSS",
+    "sprache": "vi",
+    "quell_id": 6733296438137670174,
+    "home": "https://meosss.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/meosss",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/dang-thinh-hanh/",
+   "items": ".manga-item-details",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a[href*=/truyen/]@href",
+    "title": "h2.uk-text-bold a",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/moi-cap-nhat/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/moi-cap-nhat/"
+   },
+   "items": ".manga-item-grid",
+   "has_next": {
+    "exists": ".uk-pagination a[aria-label='Trang sau'][href]"
+   },
+   "fields": {
+    "url": "a[href*=/truyen/]@href",
+    "title": "h2.uk-text-bold a",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}",
+   "request_by_page": {
+    "1": "{base}/?s={query}"
+   },
+   "items": "article",
+   "skip": {
+    "path": "h2 a[href*=/truyen/]@href",
+    "regex": "^(?!.*/truyen/[a-z0-9]+(?:-[a-z0-9]+)*/$)"
+   },
+   "has_next": {
+    "exists": ".uk-pagination a[aria-label='Trang sau'][href]"
+   },
+   "fields": {
+    "url": "h2 a[href*=/truyen/]@href",
+    "title": "h2 a[href*=/truyen/]",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "#manga-title",
+    "author": ".manga-info-details a[href*=/tac-gia/]",
+    "description": "#manga-description",
+    "genres": {
+     "path": ".manga-block a[href*=/the-loai/]",
+     "all": true,
+     "join": ", "
+    },
+    "status": "#manga-status",
+    "cover": ".story-cover img@src"
+   },
+   "status_map": {
+    "đang tiến hành": 1,
+    "đã theo kịp": 1,
+    "trọn bộ": 2,
+    "kết thúc mùa": 6,
+    "nguồn tạm ngưng": 6,
+    "bị hủy": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}/truyen/{u.slug}/chap/page/{page}/",
+   "url_vars": {
+    "slug": "/truyen/([^/?#]+)"
+   },
+   "items": ".chapter-item",
+   "fields": {
+    "url": "a.uk-link-toggle@href",
+    "name": {
+     "path": "h3",
+     "replace": [
+      [
+       "^.*–\\s*",
+       ""
+      ]
+     ]
+    },
+    "date": "a.uk-link-toggle time[datetime]@datetime"
+   },
+   "date_format": "iso",
+   "paging": {
+    "has_next": {
+     "exists": ".uk-pagination a[aria-label='Trang sau'][href]"
+    },
+    "max_pages": 100
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#chapter-content img:not(.init-manga-chapter-ad img)",
+   "image": [
+    "@data-original-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Beliebt = /dang-thinh-hanh/ (eine Seite, wie Community). Neueste/Suche WordPress-Pagination (Seite 1 ohne /page/1/).",
+  "Suche nur Suchtext (?s=); Nicht-Manga-Treffer werden per skip-Regex (negativer Lookahead, wie Community mangaUrlRegex) ausgelassen. Filterseite /bo-loc-nang-cao/ nicht übernommen.",
+  "Kapitel paginiert unter /truyen/<slug>/chap/page/<n>/; Community prüft, ob eine Seitenzahl > n verlinkt ist – hier Weiter-Link 'Trang sau' als Näherung (auf dem PC prüfen).",
+  "Kapitelname = Text nach dem letzten Gedankenstrich (–) im h3. Datum aus time@datetime (ISO).",
+  "Seiten: Werbebilder in .init-manga-chapter-ad per :not(.init-manga-chapter-ad img) ausgeschlossen (jsoup-:not mit Nachfahren-Selektor, prüfen)."
+ ]
+}

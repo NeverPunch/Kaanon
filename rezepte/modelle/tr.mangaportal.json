@@ -23,7 +23,140 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/series?sort=popular&page={page}",
+   "format": "json",
+   "items": "items",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": "coverImageUrl"
+   },
+   "has_next": {
+    "lt": [
+     "page",
+     "totalPages"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/api/series?sort=updated&page={page}",
+   "format": "json",
+   "items": "items",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": "coverImageUrl"
+   },
+   "has_next": {
+    "lt": [
+     "page",
+     "totalPages"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/api/series?search={query}&sort=new&page={page}",
+   "format": "json",
+   "items": "items",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": "coverImageUrl"
+   },
+   "has_next": {
+    "lt": [
+     "page",
+     "totalPages"
+    ]
+   }
+  },
+  "details": {
+   "request": "{base}/api/series/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/?#]+)"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "coverImageUrl",
+    "description": "description",
+    "genres": {
+     "path": [
+      "genres.*.genre.name",
+      "tags.*.tag.name"
+     ],
+     "union": true
+    },
+    "status": "status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "current": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/series/{u.slug}/chapters?pageSize=100&page={page}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/?#]+)"
+   },
+   "items": "items",
+   "skip": {
+    "path": "isEarlyAccessLocked",
+    "equals": "true"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/reader/{u.slug}/{value}#{f.id}"
+    },
+    "name": "title",
+    "number": "number",
+    "date": "publishedAt"
+   },
+   "date_format": "iso",
+   "paging": {
+    "has_next": {
+     "lt": [
+      "page",
+      "totalPages"
+     ]
+    },
+    "max_pages": 50
+   }
+  },
+  "pages": {
+   "request": "{base}/api/chapters/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "#([^#/]+)$"
+   },
+   "items": "pages",
+   "sort": "index",
+   "image": "imageUrl",
+   "referer": "chapter"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "JSON-API /api/series (page/totalPages): Beliebt sort=popular, Neueste sort=updated, Suche search=…&sort=new. Typ-/Status-/Genre-/Etiketten-Filter nicht übernommen.",
+  "Kapitel /api/series/<slug>/chapters (100 je Seite). Early-Access-gesperrte Kapitel (isEarlyAccessLocked) werden ausgelassen (Regel 0014, wie Community).",
+  "Kapitel-URL /reader/<serie>/<kapitel-slug>#<id> (Web-URL wie Community-getChapterUrl, id als Anker für /api/chapters/<id>). Nicht mit Community-URLs kompatibel.",
+  "Seiten nach index sortiert, Referer = Kapitel-URL."
+ ]
 }

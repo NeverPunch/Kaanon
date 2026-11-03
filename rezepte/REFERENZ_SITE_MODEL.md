@@ -121,3 +121,5 @@ Die Engine-Quelle liegt nicht im Repo. Deshalb gilt: nur so verwenden, wie es in
 - Bild-URLs aus `@src`/`@img` werden in den Vorlagen ohne eigenes `template` verwendet (relativ ist also offenbar erlaubt).
 - Es gibt keine Rekursion (verschachtelte Alben) und keinen Zugriff auf Felder des übergeordneten Eintrags (Band → Kapitel).
   Solche Websites werden zurückgestellt.
+- Belegt (Vorlage `tr.korelimanga`): Werte aus `details.let` stehen in `chapters` als `{l.NAME}` zur Verfügung, z. B. für
+  eine Kapitel-Anfrage mit der Post-ID aus der Detailseite.

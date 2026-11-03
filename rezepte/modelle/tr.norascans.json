@@ -1,0 +1,106 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Nora Scans",
+  "sprache": "tr",
+  "base_url": "https://norascans.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.norascans",
+  "quellen": [
+   {
+    "name": "Nora Scans",
+    "sprache": "tr",
+    "quell_id": 1572449224606837251,
+    "home": "https://norascans.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/norascans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/seri/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/seri/"
+   },
+   "items": "div.manga-item-grid",
+   "has_next": {
+    "exists": "a.next.page-numbers, a[rel=next], a:has(span[uk-pagination-next]), li.uk-pagination-next a"
+   },
+   "fields": {
+    "url": "h2 a.uk-link-heading@href",
+    "title": "h2 a.uk-link-heading",
+    "cover": "img.image-3-4@src"
+   }
+  },
+  "search": {
+   "request": "{base}/?s={query}&post_type=manga&paged={page}",
+   "request_by_page": {
+    "1": "{base}/?s={query}&post_type=manga"
+   },
+   "items": "div.manga-item-grid",
+   "has_next": {
+    "exists": "a.next.page-numbers, a[rel=next], a:has(span[uk-pagination-next]), li.uk-pagination-next a"
+   },
+   "fields": {
+    "url": "h2 a.uk-link-heading@href",
+    "title": "h2 a.uk-link-heading",
+    "cover": "img.image-3-4@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "cover": "meta[property=og:image]@content",
+    "description": "div#manga-description"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a[href*=/bolum-]",
+   "skip": {
+    "path": "@href",
+    "regex": "/bolum-(?![0-9.]+/?$)"
+   },
+   "fields": {
+    "url": "@href",
+    "name": {
+     "path": "@href",
+     "regex": "/bolum-([0-9.]+)/?$",
+     "group": 1,
+     "template": "Bölüm {value}"
+    },
+    "number": {
+     "path": "@href",
+     "regex": "/bolum-([0-9.]+)/?$",
+     "group": 1
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img[src*=init-manga]",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Beliebt = Neueste = Serienliste /seri/ (Seite 1 ohne /page/1/, wie im Code); latest entfällt daher als eigene Liste.",
+  "has_next: Community prüft auf einen Link /seri/page/<n+1>/; nicht ausdrückbar (Seite+1), daher Ausweichkette üblicher Weiter-Links (WordPress/UIkit) – auf dem PC prüfen. Suche nutzt dieselbe Prüfung.",
+  "Kapitel: alle Links mit /bolum-<zahl>; Community entfernt Dubletten und sortiert absteigend nach Nummer – beides nicht ausdrückbar, Seitenreihenfolge wird übernommen (ggf. doppelte Einträge, z. B. 'Erstes/Letztes Kapitel'-Knöpfe). Negativer Lookahead im skip-Regex ist in keiner Vorlage belegt – prüfen.",
+  "Keine Status-/Autor-/Genre-Angaben im Community-Code; kein Datum."
+ ]
+}

@@ -1,0 +1,201 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "TruyenHentaiz",
+  "sprache": "vi",
+  "base_url": "https://truyenhentaiz.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.truyenhentaiz",
+  "quellen": [
+   {
+    "name": "TruyenHentaiz",
+    "sprache": "vi",
+    "quell_id": 7162158808407514407,
+    "home": "https://truyenhentaiz.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/truyenhentaiz",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/xem-nhieu-nhat/page/{page}",
+   "request_by_page": {
+    "1": "{base}/xem-nhieu-nhat"
+   },
+   "items": "section.container-box-manga .card.card-manga",
+   "has_next": {
+    "exists": ".pagination .page-item.active + .page-item a.page-link, .pagination a.page-link[rel=next]"
+   },
+   "fields": {
+    "url": "div.card-manga-body > a[href]@href",
+    "title": "div.card-manga-body > a[href] h2.card-manga-title",
+    "cover": [
+     "img.card-img-top@src",
+     "img.card-img-top@data-src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/moi-cap-nhat/page/{page}",
+   "request_by_page": {
+    "1": "{base}/moi-cap-nhat"
+   },
+   "items": "section.container-box-manga .card.card-manga",
+   "has_next": {
+    "exists": ".pagination .page-item.active + .page-item a.page-link, .pagination a.page-link[rel=next]"
+   },
+   "fields": {
+    "url": "div.card-manga-body > a[href]@href",
+    "title": "div.card-manga-body > a[href] h2.card-manga-title",
+    "cover": [
+     "img.card-img-top@src",
+     "img.card-img-top@data-src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}?s={query}",
+   "request_by_page": {
+    "1": "{base}/?s={query}"
+   },
+   "items": "section.container-box-manga .card.card-manga",
+   "has_next": {
+    "exists": ".pagination .page-item.active + .page-item a.page-link, .pagination a.page-link[rel=next]"
+   },
+   "fields": {
+    "url": "div.card-manga-body > a[href]@href",
+    "title": "div.card-manga-body > a[href] h2.card-manga-title",
+    "cover": [
+     "img.card-img-top@src",
+     "img.card-img-top@data-src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     ".card.mb-3 h3.card-title",
+     ".pagetitle h1"
+    ],
+    "cover": [
+     ".card.mb-3 img.single-thumbnail@src",
+     ".card.mb-3 img.single-thumbnail@data-src",
+     ".card.mb-3 img@src",
+     ".card.mb-3 img@data-src"
+    ],
+    "status": {
+     "path": ".card.mb-3 .manga-info span:contains(Status:) strong",
+     "regex": "(?i)(đang tiến hành|đang cập nhật|hoàn thành|tạm ngưng|tạm dừng)",
+     "group": 1
+    },
+    "genres": {
+     "path": ".card.mb-3 .manga-info .categories a",
+     "all": true,
+     "join": ", "
+    },
+    "description": ".card.mb-3 p.desc"
+   },
+   "status_map": {
+    "đang tiến hành": 1,
+    "đang cập nhật": 1,
+    "hoàn thành": 2,
+    "tạm ngưng": 6,
+    "tạm dừng": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": [
+    "div.card:has(h2.card-title:contains(Chapters)) li.list-group-item:has(a[href])",
+    "li.list-group-item:has(a[href*=/chapter-])"
+   ],
+   "fields": {
+    "url": "a[href]@href",
+    "name": [
+     "a[href] span.fw-bold",
+     "a[href]"
+    ],
+    "date": {
+     "path": "em",
+     "replace": [
+      [
+       "\\s+",
+       " "
+      ],
+      [
+       "(?i)^\\s*(mới|vừa xong)\\s*$",
+       "0 minutes ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s*(?:giây).*$",
+       "$1 seconds ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s*(?:phút).*$",
+       "$1 minutes ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s*(?:giờ).*$",
+       "$1 hours ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s*(?:ngày).*$",
+       "$1 days ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s*(?:tuần).*$",
+       "$1 weeks ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s*(?:tháng).*$",
+       "$1 months ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s*(?:năm).*$",
+       "$1 years ago"
+      ]
+     ]
+    }
+   },
+   "date_format": [
+    "HH:mm dd-MM-yyyy",
+    "dd-MM-yyyy",
+    "relative"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": [
+    "#chapter-content img[src], #chapter-content img[data-src]",
+    "#chapter-content img, .chapter-content img"
+   ],
+   "image": [
+    "@src",
+    "@data-src"
+   ],
+   "exclude": "(^data:|/bn\\.png(\\?.*)?$)"
+  }
+ },
+ "hinweise": [
+  "HTML-Website (Bootstrap, KeiSource). Listen ab Seite 2 als /page/N.",
+  "Nächste Seite: Community prüft a.page-link[data-page=<seite+1>]; Platzhalter in Selektoren sind nicht belegt, daher aktives page-item + Nachbar – prüfen.",
+  "Datum: ‚HH:mm dd-MM-yyyy‘, ‚dd-MM-yyyy‘ oder vietnamesisch relativ (per replace auf englisch ‚x … ago‘). Zeitzone Asia/Ho_Chi_Minh nicht abbildbar.",
+  "Seiten: Banner bn.png und data:-Platzhalter ausgeschlossen."
+ ]
+}

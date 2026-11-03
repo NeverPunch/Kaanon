@@ -1,0 +1,189 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "OTruyen",
+  "sprache": "vi",
+  "base_url": "https://otruyen.cc",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.otruyen",
+  "quellen": [
+   {
+    "name": "OTruyen",
+    "sprache": "vi",
+    "quell_id": 8070757025584294717,
+    "home": "https://otruyen.cc"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/otruyen",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://otruyenapi.com/v1/api/danh-sach/hoan-thanh?page={page}",
+   "format": "json",
+   "items": "data.items",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/truyen-tranh/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "thumb_url",
+     "template": "https://img.otruyenapi.com/uploads/comics/{value}"
+    }
+   },
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   }
+  },
+  "latest": {
+   "request": "https://otruyenapi.com/v1/api/danh-sach/truyen-moi?page={page}",
+   "format": "json",
+   "items": "data.items",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/truyen-tranh/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "thumb_url",
+     "template": "https://img.otruyenapi.com/uploads/comics/{value}"
+    }
+   },
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   }
+  },
+  "search": {
+   "request": "https://otruyenapi.com/v1/api/tim-kiem?page={page}&keyword={query}",
+   "format": "json",
+   "items": "data.items",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/truyen-tranh/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "thumb_url",
+     "template": "https://img.otruyenapi.com/uploads/comics/{value}"
+    }
+   },
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   }
+  },
+  "details": {
+   "request": "https://otruyenapi.com/v1/api/truyen-tranh/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/truyen-tranh/([^/?#]+)"
+   },
+   "let": {
+    "alt": {
+     "path": "data.item.origin_name.*",
+     "all": true,
+     "join": ", "
+    },
+    "desc": {
+     "path": "data.item.content",
+     "decode": "html_text"
+    },
+    "upd": "data.item.updatedAt"
+   },
+   "fields": {
+    "title": "data.item.name",
+    "cover": {
+     "path": "data.item.thumb_url",
+     "template": "https://img.otruyenapi.com/uploads/comics/{value}"
+    },
+    "author": {
+     "path": "data.item.author.*",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "data.item.category.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "data.item.status",
+    "description": {
+     "const": "[[Tên khác: {l.alt}\n\n]][[{l.desc}]]",
+     "replace": [
+      [
+       "^\\s+|\\s+$",
+       ""
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "coming_soon": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "slug": "/truyen-tranh/([^/?#]+)"
+   },
+   "items": "data.item.chapters.0.server_data",
+   "fields": {
+    "url": {
+     "path": "chapter_api_data",
+     "regex": "([^/]+)$",
+     "group": 1,
+     "template": "/truyen-tranh/{u.slug}#{value}"
+    },
+    "name": {
+     "const": "Chapter {f.chapter_name}[[ : {f.chapter_title}]]"
+    },
+    "number": "chapter_name",
+    "date": {
+     "const": "{l.upd}"
+    }
+   },
+   "date_format": "iso",
+   "reverse": true
+  },
+  "pages": {
+   "request": "https://sv1.otruyencdn.com/v1/api/chapter/{u.cid}",
+   "format": "json",
+   "url_vars": {
+    "cid": "#([^#/]+)$"
+   },
+   "let": {
+    "cdn": "data.domain_cdn",
+    "path": "data.item.chapter_path"
+   },
+   "items": "data.item.chapter_image",
+   "image": {
+    "path": "image_file",
+    "template": "{l.cdn}/{l.path}/{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "JSON-API otruyenapi.com/v1/api wie Community: Beliebt = /danh-sach/hoan-thanh (Community-Standard), Neueste /danh-sach/truyen-moi, Suche /tim-kiem?keyword=. Weiter, solange 24 Einträge kommen (Annahme Seitengröße 24; Community rechnet aus totalItems/totalItemsPerPage). Genre-/Status-Filter nicht übernommen.",
+  "Kapitel nur vom ersten Server (chapters.0.server_data; Community fasst alle Server zusammen). Reihenfolge umgekehrt (API aufsteigend, Community sortiert absteigend nach Nummer). Datum = updatedAt des Eintrags für alle Kapitel (API hat kein Kapiteldatum – wie Community).",
+  "Kapitel-URL /truyen-tranh/<slug>#<kapitel-id> (Community: '<id>:<slug>'); Seiten über sv1.otruyencdn.com/v1/api/chapter/<id>, Bild = domain_cdn/chapter_path/image_file."
+ ]
+}

@@ -1,0 +1,233 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Zenko",
+  "sprache": "uk",
+  "base_url": "https://zenko.online",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.uk.kaanon.zenko",
+  "quellen": [
+   {
+    "name": "Zenko",
+    "sprache": "uk",
+    "quell_id": 8431849810637608898,
+    "home": "https://zenko.online"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/uk/zenko",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.9",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 10,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://api.zenko.online/titles?limit=15&offset={offset}&sortBy=viewsCount&order=DESC&categories=MANGA_UA,MANGA,MANHVA,MANHUA,WESTERN_COMICS,COMICS,OTHER",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/titles/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "coverImg",
+     "template": "https://storage.zenko.online/{value}"
+    }
+   },
+   "page_size": 15,
+   "has_next": {
+    "exists": "meta.hasNextPage"
+   }
+  },
+  "latest": {
+   "request": "https://api.zenko.online/titles?limit=15&offset={offset}&sortBy=lastChapterCreatedAt&order=DESC&categories=MANGA_UA,MANGA,MANHVA,MANHUA,WESTERN_COMICS,COMICS,OTHER",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/titles/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "coverImg",
+     "template": "https://storage.zenko.online/{value}"
+    }
+   },
+   "page_size": 15,
+   "has_next": {
+    "exists": "meta.hasNextPage"
+   }
+  },
+  "search": {
+   "request": "https://api.zenko.online/titles?limit=15&offset={offset}&sortBy=viewsCount&order=DESC&categories=MANGA_UA,MANGA,MANHVA,MANHUA,WESTERN_COMICS,COMICS,OTHER&name={query}",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/titles/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "coverImg",
+     "template": "https://storage.zenko.online/{value}"
+    }
+   },
+   "page_size": 15,
+   "has_next": {
+    "exists": "meta.hasNextPage"
+   }
+  },
+  "details": {
+   "request": "https://api.zenko.online/titles/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/titles/(\\d+)"
+   },
+   "let": {
+    "desc": "description",
+    "eng": "engName",
+    "orig": "originalName",
+    "likes": "likesCount",
+    "views": "viewsCount",
+    "bm": "bookmarksCount",
+    "age": {
+     "path": "ageLimit",
+     "regex": "^([1-9]\\d*)$",
+     "group": 1
+    },
+    "gen": {
+     "path": "genres.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "tags": {
+     "path": "tags.*.name",
+     "all": true,
+     "join": ", "
+    }
+   },
+   "fields": {
+    "title": "name",
+    "cover": {
+     "path": "coverImg",
+     "template": "https://storage.zenko.online/{value}"
+    },
+    "author": {
+     "path": "writers.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "painters.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "const": "[[{l.age}+]][[, {l.gen}]][[, {l.tags}]]",
+     "replace": [
+      [
+       "^, ",
+       ""
+      ]
+     ]
+    },
+    "description": {
+     "const": "[[{l.desc}]]\n[[\nАльтернативні назви: {l.eng}]][[, {l.orig}]][[\nВподобайок: {l.likes}]][[\nПереглядів: {l.views}]][[\nВ закладинках у: {l.bm}]]",
+     "replace": [
+      [
+       "^\\n+",
+       ""
+      ]
+     ]
+    },
+    "status": "translationStatus"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "finished": 2,
+    "paused": 6
+   }
+  },
+  "chapters": {
+   "request": "https://api.zenko.online/titles/{u.id}/chapters",
+   "format": "json",
+   "url_vars": {
+    "id": "/titles/(\\d+)"
+   },
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/titles/{u.id}/{value}"
+    },
+    "name": {
+     "path": "name",
+     "replace": [
+      [
+       "^(.*?)@#%&;№%#&\\*\\*#!@(.*?)@#%&;№%#&\\*\\*#!@(.*)$",
+       "Том $1 Розділ $2: $3"
+      ],
+      [
+       "^(.*?)@#%&;№%#&\\*\\*#!@(.*)$",
+       "Том $1 Розділ $2"
+      ],
+      [
+       "^Том\\s+Розділ",
+       "Розділ"
+      ],
+      [
+       "\\s*Розділ\\s*:?\\s*$",
+       ""
+      ],
+      [
+       ":\\s*$",
+       ""
+      ],
+      [
+       "^Розділ\\s*:\\s*",
+       ""
+      ]
+     ]
+    },
+    "number": {
+     "path": "name",
+     "regex": "^[^@]*@#%&;№%#&\\*\\*#!@([0-9.]+)",
+     "group": 1
+    },
+    "date": "createdAt",
+    "scanlator": "publisher.name"
+   },
+   "date_format": "epoch_s"
+  },
+  "pages": {
+   "request": "https://api.zenko.online/chapters/{u.cid}",
+   "format": "json",
+   "url_vars": {
+    "cid": "/titles/\\d+/(\\d+)"
+   },
+   "items": "pages",
+   "image": {
+    "path": "content",
+    "template": "https://storage.zenko.online/{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "JSON-API api.zenko.online wie Community; Manga-URL /titles/<id>, Kapitel-URL /titles/<titleId>/<id>.",
+  "Listen 15 je Seite (limit/offset), meta.hasNextPage. Kategorien wie Community-Standard ohne RANOBE (Romane); Alters-/Genre-Ausblendung und Sprachwahl (engName) der Community-Einstellungen nicht übernommen (Titel = ukrainischer Name).",
+  "Kapitelname: Feld name hat das Format Teil<SEP>Kapitel<SEP>Name (SEP = '@#%&;№%#&**#!@'); per replace zu 'Том X Розділ Y: Name' umgebaut wie StringProcessor.format. Leerer Teil ('Том ' ohne Zahl) wird nur grob entfernt – auf dem PC prüfen.",
+  "Kapitelreihenfolge: Community sortiert selbst nach Teil+Kapitel absteigend; hier API-Reihenfolge – prüfen, ggf. reverse setzen.",
+  "Datum createdAt in Sekunden (epoch_s)."
+ ]
+}

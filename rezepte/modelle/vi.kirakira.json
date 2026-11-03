@@ -1,0 +1,205 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "KiraKira",
+  "sprache": "vi",
+  "base_url": "https://truyenkira.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.kirakira",
+  "quellen": [
+   {
+    "name": "KiraKira",
+    "sprache": "vi",
+    "quell_id": 6706783596626868301,
+    "home": "https://truyenkira.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/kirakira",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.5",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": {
+    "url": "https://api.truyenkira.net/genres/all?type=all&page={page}&sort=views",
+    "headers": {
+     "Accept": "application/json",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "comics",
+   "skip": {
+    "path": "type",
+    "regex": "(?i)^novel$"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/comics/{value}"
+    },
+    "title": "title",
+    "cover": [
+     "thumbnail",
+     "banner_image_url"
+    ]
+   },
+   "has_next": {
+    "lt": [
+     "current_page",
+     "total_pages"
+    ]
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "https://api.truyenkira.net/genres/all?type=all&page={page}",
+    "headers": {
+     "Accept": "application/json",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "comics",
+   "skip": {
+    "path": "type",
+    "regex": "(?i)^novel$"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/comics/{value}"
+    },
+    "title": "title",
+    "cover": [
+     "thumbnail",
+     "banner_image_url"
+    ]
+   },
+   "has_next": {
+    "lt": [
+     "current_page",
+     "total_pages"
+    ]
+   }
+  },
+  "search": {
+   "request": {
+    "url": "https://api.truyenkira.net/search?q={query}&page={page}",
+    "headers": {
+     "Accept": "application/json",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "comics",
+   "skip": {
+    "path": "type",
+    "regex": "(?i)^novel$"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/comics/{value}"
+    },
+    "title": "title",
+    "cover": [
+     "thumbnail",
+     "banner_image_url"
+    ]
+   },
+   "has_next": {
+    "lt": [
+     "current_page",
+     "total_pages"
+    ]
+   }
+  },
+  "details": {
+   "request": {
+    "url": "https://api.truyenkira.net/comics/{u.slug}",
+    "headers": {
+     "Accept": "application/json",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/comics/([^/?#]+)"
+   },
+   "fields": {
+    "title": "title",
+    "cover": [
+     "thumbnail",
+     "banner_image_url"
+    ],
+    "author": "authors",
+    "genres": {
+     "path": "genres.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "description": "description",
+    "status": "status"
+   },
+   "status_map": {
+    "updating": 1,
+    "ongoing": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "chapters",
+   "skip": {
+    "any": [
+     {
+      "path": "coinPrice",
+      "regex": "^[1-9]"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/chapters/{u.slug}/{value}"
+    },
+    "name": "name",
+    "date": "unlockAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "https://api.truyenkira.net/comics/{u.slug}/chapters/{u.cid}",
+    "headers": {
+     "Accept": "application/json",
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/chapters/([^/?#]+)/",
+    "cid": "/chapters/[^/?#]+/([^/?#]+)"
+   },
+   "items": "images",
+   "image": "src"
+  }
+ },
+ "hinweise": [
+  "JSON-API api.truyenkira.net wie Community; Manga-URL /comics/<slug>, Kapitel-URL /chapters/<slug>/<id>.",
+  "Beliebt /genres/all?type=all&sort=views, Neueste ohne sort, Suche /search?q=…; Novels übersprungen; Genre/Status/Sortier-Filter nicht übernommen.",
+  "Kapitel mit coinPrice > 0 (bezahlt) werden übersprungen. Die Community-Option 'Tự động mở khóa' (Bild-URLs erraten, um gesperrte Kapitel zu lesen) wird bewusst NICHT nachgebaut (Regel 0014).",
+  "Kapiteldatum = unlockAt (ISO) wie Community."
+ ]
+}

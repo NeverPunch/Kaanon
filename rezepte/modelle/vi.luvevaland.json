@@ -1,0 +1,194 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "LuvEvaLand",
+  "sprache": "vi",
+  "base_url": "https://luvevalands2.co",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.luvevaland",
+  "quellen": [
+   {
+    "name": "LuvEvaLand",
+    "sprache": "vi",
+    "quell_id": 4980383988041274982,
+    "home": "https://luvevalands2.co"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/luvevaland",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.5",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/truyen-tranh",
+   "items": "#total-tab-content .comic-item",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a[href*=/truyen-tranh/]:not([href*=/chap]):not([href*=/chuong]):not([href*=/chapter])@href",
+    "title": "a.comic-name",
+    "cover": {
+     "path": [
+      ".comic-img img, img@data-src",
+      ".comic-img img, img@src"
+     ],
+     "replace": [
+      [
+       "-[0-9]+x[0-9]+(?=\\.(?:jpe?g|png|webp)$)",
+       ""
+      ]
+     ]
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}/danh-sach-chuong-moi-cap-nhat?page={page}",
+   "items": ".home__lg-book .book-vertical__item",
+   "has_next": {
+    "exists": "ul.pagination a[rel=next]"
+   },
+   "fields": {
+    "url": ".book__lg-title a[href*=/truyen-tranh/], .book__lg-image a[href*=/truyen-tranh/]@href",
+    "title": ".book__lg-title a",
+    "cover": {
+     "path": [
+      ".book__lg-image img, img@data-src",
+      ".book__lg-image img, img@src"
+     ],
+     "replace": [
+      [
+       "-[0-9]+x[0-9]+(?=\\.(?:jpe?g|png|webp)$)",
+       ""
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/tim-kiem?page={page}&comic_type=1&s={query}",
+   "items": "table.book__list tr.book__list-item",
+   "has_next": {
+    "exists": "ul.pagination a[rel=next]"
+   },
+   "fields": {
+    "url": "td.book__list-name a[href], td.book__list-image a[href]@href",
+    "title": "td.book__list-name a",
+    "cover": {
+     "path": [
+      "td.book__list-image img, img@data-src",
+      "td.book__list-image img, img@src"
+     ],
+     "replace": [
+      [
+       "-[0-9]+x[0-9]+(?=\\.(?:jpe?g|png|webp)$)",
+       ""
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     ".book__detail-name",
+     ".comic-name-detail",
+     ".comic-name"
+    ],
+    "cover": {
+     "path": [
+      ".book__detail-image img[alt], .comic-image img[alt]@data-src",
+      ".book__detail-image img[alt], .comic-image img[alt]@src"
+     ],
+     "replace": [
+      [
+       "-[0-9]+x[0-9]+(?=\\.(?:jpe?g|png|webp)$)",
+       ""
+      ]
+     ]
+    },
+    "author": [
+     ".book__detail-text:matchesOwn((?i)^\\s*Tác giả:) a",
+     ".comic-author a",
+     {
+      "path": ".book__detail-text:matchesOwn((?i)^\\s*Tác giả:), .comic-author",
+      "replace": [
+       [
+        "^[^:]*:\\s*",
+        ""
+       ]
+      ]
+     }
+    ],
+    "status": {
+     "path": [
+      ".book__detail-text:matchesOwn((?i)^\\s*Tình trạng:), .comic-status-detail, .comic-status"
+     ],
+     "regex": "(?i)(đang tiến hành|hoàn thành|truyện full)",
+     "group": 1
+    },
+    "genres": {
+     "path": ".book__detail-container a[href*=/the-loai/], .book__detail-contain a[href*=/the-loai/], .comic-info a[href*=/the-loai/]",
+     "all": true,
+     "join": ", "
+    },
+    "description": [
+     "#intro-tab-content",
+     "#comic-intro",
+     ".tab-content .tab-pane.active"
+    ]
+   },
+   "status_map": {
+    "đang tiến hành": 1,
+    "hoàn thành": 2,
+    "truyện full": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": [
+    "table.list-chapter tbody tr, table.list-chapter__container tbody tr, .chapter-list-inner tr, tr.sort-item",
+    "table tr"
+   ],
+   "fields": {
+    "url": "a[href*=/chap], a[href*=/chuong], a[href*=/chapter]@href",
+    "name": [
+     "td.list-chapter__name a@ownText",
+     "td:first-child a@ownText",
+     "td.list-chapter__name a",
+     "td:first-child a"
+    ],
+    "date": "td.list-chapter__date, td:last-child"
+   },
+   "date_format": "dd/MM/yyyy"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#view-chapter img, #chapter-content img, .chapter-content img, .reading-content img, .content-chapter img, .box-chapter-content img",
+   "image": [
+    "@data-src",
+    "@src"
+   ],
+   "exclude": "^data:image"
+  }
+ },
+ "hinweise": [
+  "HTML-Website (KeiSource). Beliebt = eine Seite /truyen-tranh (#total-tab-content), ohne weitere Seiten wie im Community-Code.",
+  "Die Website leitet manchmal auf eine Werbe-Zwischenseite /un-lock?link=<ziel> um; der Community-Code ruft dann <ziel> selbst auf. Das kann das Rezept nicht – solche Abrufe schlagen fehl (prüfen, wie oft).",
+  "Kapitel: Community sortiert nach data-order absteigend und entfernt Dubletten; hier Seitenreihenfolge – ggf. \"reverse\" ergänzen.",
+  "Genres auf den Detailbereich beschränkt (Community fällt sonst auf alle /the-loai/-Links der Seite zurück). Cover ohne -WxH-Größenzusatz."
+ ]
+}

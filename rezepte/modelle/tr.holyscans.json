@@ -1,0 +1,213 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Holy Scans",
+  "sprache": "tr",
+  "base_url": "https://holyscans.com.tr",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.holyscans",
+  "quellen": [
+   {
+    "name": "Holy Scans",
+    "sprache": "tr",
+    "quell_id": 5655539211698234342,
+    "home": "https://holyscans.com.tr"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/holyscans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest",
+     "Referer": "{base}/manga/?m_orderby=views"
+    },
+    "form": {
+     "action": "filter_manga_archive",
+     "paged": "{page}"
+    }
+   },
+   "format": "json_html",
+   "html_path": "data.content",
+   "items": ".manga-card-v2",
+   "fields": {
+    "url": [
+     ".mc-title a@href",
+     ".mc-image-box@data-href"
+    ],
+    "title": [
+     ".mc-title a",
+     ".mc-image-box img@alt"
+    ],
+    "cover": ".mc-image-box img@src"
+   },
+   "page_size": 1,
+   "has_next": {
+    "full": true
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    },
+    "form": {
+     "action": "holy_live_search",
+     "keyword": "{query_raw}"
+    }
+   },
+   "format": "json_html",
+   "html_path": "data",
+   "items": "a.holy-live-result-item",
+   "fields": {
+    "url": "@href",
+    "title": "span",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1.hs-title",
+    "cover": "meta[property=og:image]@content",
+    "author": ".hs-info-row:contains(Yazar) .val",
+    "artist": ".hs-info-row:contains(Çizer) .val",
+    "genres": {
+     "path": ".hs-genres a",
+     "all": true,
+     "join": ", "
+    },
+    "status": ".hs-info-row:contains(Durum) .hs-pill",
+    "description": ".hs-summary-content"
+   },
+   "status_map": {
+    "devam ediyor": 1,
+    "tamamlandı": 2,
+    "final": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".manga-chapter-list-wrap .ch-list-item",
+   "skip": {
+    "path": "@class",
+    "regex": "ch-locked"
+   },
+   "fields": {
+    "url": "@href",
+    "name": ".ch-title@ownText",
+    "date": {
+     "path": ".ch-date",
+     "replace": [
+      [
+       "(?i)^\\D*(\\d+)\\s*dakika.*$",
+       "$1 minutes ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\s*saat.*$",
+       "$1 hours ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\s*gün.*$",
+       "$1 days ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\s*hafta.*$",
+       "$1 weeks ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\s*ay.*$",
+       "$1 months ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\s*yıl.*$",
+       "$1 years ago"
+      ],
+      [
+       "(?i)^.*dün.*$",
+       "1 days ago"
+      ],
+      [
+       "(?i)^.*(yeni|bugün).*$",
+       "0 minutes ago"
+      ]
+     ]
+    }
+   },
+   "date_format": "relative",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "let": {
+    "cid": {
+     "path": "html@html",
+     "regex": "\"chapter_id\"\\s*:\\s*(\\d+)",
+     "group": 1
+    },
+    "lt": {
+     "path": "html@html",
+     "regex": "\"load_time\"\\s*:\\s*(\\d+)",
+     "group": 1
+    },
+    "tok": {
+     "path": "html@html",
+     "regex": "\"page_token\"\\s*:\\s*\"([^\"]+)\"",
+     "group": 1
+    },
+    "nonce": {
+     "path": "html@html",
+     "regex": "\"nonce\"\\s*:\\s*\"([^\"]+)\"",
+     "group": 1
+    }
+   },
+   "then": [
+    {
+     "request": {
+      "url": "{base}/wp-admin/admin-ajax.php",
+      "method": "POST",
+      "headers": {
+       "X-Requested-With": "XMLHttpRequest",
+       "Referer": "{abs_url}"
+      },
+      "form": {
+       "action": "holy_get_chapter_images",
+       "nonce": "{l.nonce}",
+       "chapter_id": "{l.cid}",
+       "load_time": "{l.lt}",
+       "page_token": "{l.tok}"
+      }
+     },
+     "format": "json"
+    }
+   ],
+   "items": "data.urls",
+   "image": "",
+   "referer": "chapter"
+  }
+ },
+ "hinweise": [
+  "Eigenes WordPress-Theme. Beliebt = POST admin-ajax.php (action=filter_manga_archive, paged) wie Community; keine Neueste-Liste (Community: supportsLatest=false).",
+  "Weiter-Erkennung: Community prüft, ob data.pagination 'next page-numbers' enthält; das ist in der Rezeptsprache nicht ausdrückbar. Hier has_next.full mit page_size 1 (weiter, solange Einträge kommen; Muster aus pt-BR.acervoeremita) – kostet am Ende eine leere Anfrage.",
+  "Suche nur Text über holy_live_search (eine Seite, json data = HTML); Genre/Typ/Status-Filter nicht nachgebaut.",
+  "Datum: türkische Relativangaben (dakika/saat/gün/hafta/ay/yıl önce, dün, yeni/bugün) per replace in englische 'x … ago' umgeschrieben und dann 'relative' – prüfen.",
+  "Gesperrte Kapitel (.ch-locked, VIP/Coin) werden übersprungen statt wie in der Community mit Schloss angezeigt.",
+  "Seiten: chapter_id, load_time, page_token und nonce liefert die Kapitelseite selbst (Skript); damit POST holy_get_chapter_images, Bildliste data.urls. Bilder mit Referer = Kapitel-URL.",
+  "Optionaler Login der Community (für versteckte Cover/Kapitel) nicht übernommen; Cover der Details aus og:image wie Community."
+ ]
+}

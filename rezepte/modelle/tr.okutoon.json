@@ -1,0 +1,119 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "OkuToon",
+  "sprache": "tr",
+  "base_url": "https://okutoon.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.okutoon",
+  "quellen": [
+   {
+    "name": "OkuToon",
+    "sprache": "tr",
+    "quell_id": 6023377011056301844,
+    "home": "https://okutoon.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/okutoon",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "popular": {
+   "request": "{base}/tur?sira=popular&sayfa={page}",
+   "items": ".series-grid .series-card",
+   "has_next": {
+    "exists": "nav.pagination a.pagination-btn:contains(Sonraki)"
+   },
+   "fields": {
+    "url": "@href",
+    "title": ".series-card-title",
+    "cover": ".series-card-cover img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/tur?sira=updated&sayfa={page}",
+   "items": ".series-grid .series-card",
+   "has_next": {
+    "exists": "nav.pagination a.pagination-btn:contains(Sonraki)"
+   },
+   "fields": {
+    "url": "@href",
+    "title": ".series-card-title",
+    "cover": ".series-card-cover img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/tur?sayfa={page}&q={query}&sira=updated",
+   "items": ".series-grid .series-card",
+   "has_next": {
+    "exists": "nav.pagination a.pagination-btn:contains(Sonraki)"
+   },
+   "fields": {
+    "url": "@href",
+    "title": ".series-card-title",
+    "cover": ".series-card-cover img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".series-detail-title",
+    "cover": ".series-detail-cover img@src",
+    "author": {
+     "path": ".series-detail-author",
+     "replace": [
+      [
+       "^Bilinmiyor$",
+       ""
+      ]
+     ]
+    },
+    "description": "[data-series-description-content]",
+    "genres": {
+     "path": ".series-detail-genres .tag",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": ".series-detail-kicker .series-status@class",
+     "regex": "series-status--(\\w+)",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".chapter-item",
+   "fields": {
+    "url": "a.chapter-item-link@href",
+    "name": ".chapter-title",
+    "date": ".chapter-date"
+   },
+   "date_format": "d MMMM yyyy",
+   "date_locale": "tr"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#readerPages img.reader-page",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "HTML-Website (KeiSource, Fetch.DOCUMENT); Status aus der CSS-Klasse series-status--…; Autor ‚Bilinmiyor‘ wird geleert.",
+  "Kapitelreihenfolge wie auf der Seite (Community dreht nicht um).",
+  "Bildquelle laut Community nur @src (kein Lazy-Load)."
+ ]
+}

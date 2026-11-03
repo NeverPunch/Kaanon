@@ -1,0 +1,254 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Slept Manga",
+  "sprache": "tr",
+  "base_url": "https://sleptmanga.com.tr",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.sleptmanga",
+  "quellen": [
+   {
+    "name": "Slept Manga",
+    "sprache": "tr",
+    "quell_id": 2901533594719087473,
+    "home": "https://sleptmanga.com.tr"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/sleptmanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/browse?sort=popular&page={page}",
+   "items": "div.group:has(h3 a)",
+   "skip": {
+    "path": "h3 a@href",
+    "regex": "/novel/"
+   },
+   "fields": {
+    "url": "h3 a@href",
+    "title": [
+     "h3 a",
+     "img@alt"
+    ],
+    "cover": "img@src"
+   },
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   }
+  },
+  "latest": {
+   "request": "{base}/browse?sort=latest&page={page}",
+   "items": "div.group:has(h3 a)",
+   "skip": {
+    "path": "h3 a@href",
+    "regex": "/novel/"
+   },
+   "fields": {
+    "url": "h3 a@href",
+    "title": [
+     "h3 a",
+     "img@alt"
+    ],
+    "cover": "img@src"
+   },
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   }
+  },
+  "search": {
+   "request": "{base}/browse?page={page}&q={query}",
+   "items": "div.group:has(h3 a)",
+   "skip": {
+    "path": "h3 a@href",
+    "regex": "/novel/"
+   },
+   "fields": {
+    "url": "h3 a@href",
+    "title": [
+     "h3 a",
+     "img@alt"
+    ],
+    "cover": "img@src"
+   },
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "fields": {
+    "title": [
+     {
+      "path": "",
+      "regex": "\"name\":(\"(?:[^\"\\\\]|\\\\.)*\")(?=(?:[^{}]|\\{[^{}]*\\})*?\"chapters\":\\[)",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "",
+      "regex": "\"chapters\":\\[(?:[^\\[\\]]|\\[[^\\[\\]]*\\])*\\](?:[^{}]|\\{[^{}]*\\})*?\"name\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     }
+    ],
+    "description": [
+     {
+      "path": "",
+      "regex": "\"description\":(\"(?:[^\"\\\\]|\\\\.)*\")(?=(?:[^{}]|\\{[^{}]*\\})*?\"chapters\":\\[)",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "",
+      "regex": "\"description\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     }
+    ],
+    "cover": {
+     "path": "",
+     "regex": "\"cover\":\"([^\"]+)\"",
+     "group": 1,
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://sleptmanga.com.tr/"
+      ]
+     ]
+    },
+    "genres": {
+     "path": "",
+     "regex": "\"genres\":\\[([^\\]]*)\\]",
+     "group": 1,
+     "replace": [
+      [
+       "\"\\s*,\\s*\"",
+       ", "
+      ],
+      [
+       "\"",
+       ""
+      ]
+     ]
+    },
+    "author": {
+     "path": "",
+     "regex": "\"owner\":\\{[^{}]*\"username\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "status": {
+     "path": "",
+     "regex": "\"status\":\"(Devam Ediyor|Tamamlandı|Ara Verildi)\"",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "devam ediyor": 1,
+    "tamamlandı": 2,
+    "ara verildi": 6
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "items": "\\{(?=[^{}]*\"number\":[0-9.]+)(?=[^{}]*\"createdAt\":)[^{}]*\\}",
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"number\":([0-9.]+)",
+     "group": 1,
+     "replace": [
+      [
+       "\\.0+$",
+       ""
+      ]
+     ],
+     "template": "{url}/{value}"
+    },
+    "name": [
+     {
+      "path": "",
+      "regex": "\"chapterTitle\":(\"(?!\\$undefined\")(?:[^\"\\\\]|\\\\.)+\")",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "",
+      "regex": "\"number\":([0-9.]+)",
+      "group": 1,
+      "replace": [
+       [
+        "\\.0+$",
+        ""
+       ]
+      ],
+      "template": "Bölüm {value}"
+     }
+    ],
+    "number": {
+     "path": "",
+     "regex": "\"number\":([0-9.]+)",
+     "group": 1
+    },
+    "date": {
+     "path": "",
+     "regex": "\"createdAt\":\"(?:\\$D)?([^\"]+)\"",
+     "group": 1
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "{base}/api/chapters/{u.slug}/{u.num}/images",
+    "headers": {
+     "X-API-Key": "slept-flutter-xK9mP2wQ7vL4nJ8hB3cF6dR1",
+     "X-App-Version": "1.0.5"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/([^/]+)/[^/]+/?$",
+    "num": "/([^/?#]+)/?$"
+   },
+   "items": "images",
+   "image": {
+    "path": "url",
+    "replace": [
+     [
+      "^/(?!/)",
+      "https://sleptmanga.com.tr/"
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "Listen: HTML /browse?sort=popular|latest&page=n (Suche q=…), Karten div.group:has(h3 a), Novels (/novel/) übersprungen. Weiter, solange 24 Einträge kommen (Community: Pagination aus Next-Daten, sonst ebenfalls ≥24). Status-/Typ-/Genre-Filter nicht übernommen.",
+  "Details/Kapitel: Community liest das Serienobjekt aus den Flight-Daten (rsc: 1, extractNextJs). Hier Regex auf den Rohtext wie fr.poseidonscans: Titel/Beschreibung = 'name'/'description' vor dem Feld 'chapters' im selben Objekt (eine Verschachtelungsebene), sonst nach 'chapters'. UNSICHER (Feldreihenfolge), auf dem PC prüfen. Autor = owner.username wie Community.",
+  "Kapitel: Objekte mit number + createdAt (Datum ohne React-Präfix $D); Name chapterTitle (außer '$undefined'), sonst 'Bölüm N'. URL <Eintrag>/<nummer ohne .0>. Reihenfolge wie geliefert (Community sortiert absteigend).",
+  "Seiten: /api/chapters/<slug>/<nummer>/images mit X-API-Key/X-App-Version – fester, öffentlicher App-Schlüssel wörtlich aus der Community (keine Signatur). Relative Bildpfade → https://sleptmanga.com.tr davor."
+ ]
+}

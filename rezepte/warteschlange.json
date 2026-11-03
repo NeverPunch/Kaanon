@@ -16227,7 +16227,7 @@
  },
  {
   "modul": "src/tr/holyscans",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Holy Scans",
   "stufe": 2,
   "theme": null,
@@ -16237,7 +16237,10 @@
   "host": "holyscans.com.tr",
   "nsfw": true,
   "wer": "agent-w7d",
-  "seit": "2026-11-03T11:19:03"
+  "seit": "2026-11-03T11:19:03",
+  "datei": "rezepte/modelle/tr.holyscans.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:20:46"
  },
  {
   "modul": "src/tr/juratempest",
@@ -16275,7 +16278,7 @@
  },
  {
   "modul": "src/tr/mangadusleri",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Mangadusleri",
   "stufe": 2,
   "theme": null,
@@ -16285,11 +16288,14 @@
   "host": "mangadusleri.mom",
   "nsfw": true,
   "wer": "agent-w8a",
-  "seit": "2026-11-03T11:19:40"
+  "seit": "2026-11-03T11:19:40",
+  "datei": "rezepte/modelle/tr.mangadusleri.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:20:23"
  },
  {
   "modul": "src/tr/mangaportali",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Manga Portalı",
   "stufe": 2,
   "theme": null,
@@ -16299,11 +16305,14 @@
   "host": "mangaportali.com",
   "nsfw": false,
   "wer": "agent-w7c",
-  "seit": "2026-11-03T11:19:57"
+  "seit": "2026-11-03T11:19:57",
+  "datei": "rezepte/modelle/tr.mangaportal.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:20:25"
  },
  {
   "modul": "src/tr/mangawt",
-  "status": "offen",
+  "status": "fertig",
   "name": "MangaWT",
   "stufe": 2,
   "theme": null,
@@ -16311,11 +16320,16 @@
    "tr"
   ],
   "host": "mangawt.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:20:08",
+  "datei": "rezepte/modelle/tr.mangawt.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:21:22"
  },
  {
   "modul": "src/tr/mangitto",
-  "status": "offen",
+  "status": "fertig",
   "name": "Mangitto",
   "stufe": 2,
   "theme": null,
@@ -16323,11 +16337,16 @@
    "tr"
   ],
   "host": "mangtto.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:20:23",
+  "datei": "rezepte/modelle/tr.mangitto.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:21:15"
  },
  {
   "modul": "src/tr/mikrokosmosfansub",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Mikrokosmos Fansub",
   "stufe": 2,
   "theme": null,
@@ -16335,11 +16354,16 @@
    "tr"
   ],
   "host": "mikrokosmos.fans",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:20:25",
+  "grund": "Details (Titel, Cover, Beschreibung, Status) gibt es nur in der Gesamtliste /api/series; die Community sucht den Eintrag per slug heraus – JSON-Filter mit Platzhalter (data.?slug={u.slug}) ist in keiner Vorlage belegt, Kapitel-Endpunkt liefert nur chapters",
+  "datei": null,
+  "geaendert": "2026-11-03T11:21:03"
  },
  {
   "modul": "src/tr/monomanga",
-  "status": "offen",
+  "status": "fertig",
   "name": "Mono Manga",
   "stufe": 2,
   "theme": null,
@@ -16347,11 +16371,16 @@
    "tr"
   ],
   "host": "monomanga.com.tr",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:20:46",
+  "datei": "rezepte/modelle/tr.monomanga.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:22:07"
  },
  {
   "modul": "src/tr/nemesisscans",
-  "status": "offen",
+  "status": "fertig",
   "name": "Nemesis scans",
   "stufe": 2,
   "theme": null,
@@ -16359,11 +16388,16 @@
    "tr"
   ],
   "host": "nemesisscans.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:21:03",
+  "datei": "rezepte/modelle/tr.nemesisscans.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:21:24"
  },
  {
   "modul": "src/tr/norascans",
-  "status": "offen",
+  "status": "fertig",
   "name": "Nora Scans",
   "stufe": 2,
   "theme": null,
@@ -16371,11 +16405,16 @@
    "tr"
   ],
   "host": "norascans.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:21:15",
+  "datei": "rezepte/modelle/tr.norascans.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:21:50"
  },
  {
   "modul": "src/tr/okutoon",
-  "status": "offen",
+  "status": "fertig",
   "name": "OkuToon",
   "stufe": 2,
   "theme": null,
@@ -16383,11 +16422,16 @@
    "tr"
   ],
   "host": "okutoon.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:21:22",
+  "datei": "rezepte/modelle/tr.okutoon.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:21:42"
  },
  {
   "modul": "src/tr/sleptmanga",
-  "status": "offen",
+  "status": "fertig",
   "name": "Slept Manga",
   "stufe": 2,
   "theme": null,
@@ -16395,11 +16439,16 @@
    "tr"
   ],
   "host": "sleptmanga.com.tr",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:21:24",
+  "datei": "rezepte/modelle/tr.sleptmanga.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:22:31"
  },
  {
   "modul": "src/tr/sunsetmanga",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Sunset Manga",
   "stufe": 2,
   "theme": null,
@@ -16407,11 +16456,16 @@
    "tr"
   ],
   "host": "sunsetscans.com.tr",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:21:42",
+  "grund": "Bilder nur per POST admin-ajax (action=get_protected_image, token je Bild) abrufbar (getImageRequest); Bild-POST ist in keiner Vorlage belegt. Listen brauchen zudem Nonce aus sunsetGlobalData der Startseite.",
+  "datei": null,
+  "geaendert": "2026-11-03T11:21:55"
  },
  {
   "modul": "src/tr/toontaku",
-  "status": "offen",
+  "status": "fertig",
   "name": "Toontaku",
   "stufe": 2,
   "theme": null,
@@ -16419,11 +16473,16 @@
    "tr"
   ],
   "host": "toontaku.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:21:51",
+  "datei": "rezepte/modelle/tr.toontaku.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:22:41"
  },
  {
   "modul": "src/tr/trmanga",
-  "status": "offen",
+  "status": "fertig",
   "name": "Tr Manga",
   "stufe": 2,
   "theme": null,
@@ -16431,11 +16490,16 @@
    "tr"
   ],
   "host": "trmanga.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:21:55",
+  "datei": "rezepte/modelle/tr.trmanga.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:22:30"
  },
  {
   "modul": "src/tr/webtoonoku",
-  "status": "offen",
+  "status": "fertig",
   "name": "WebtoonOku",
   "stufe": 2,
   "theme": null,
@@ -16443,11 +16507,16 @@
    "tr"
   ],
   "host": "webtoonoku.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:22:07",
+  "datei": "rezepte/modelle/tr.webtoonoku.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:22:24"
  },
  {
   "modul": "src/uk/comixtopia",
-  "status": "offen",
+  "status": "fertig",
   "name": "ComixTopia",
   "stufe": 2,
   "theme": null,
@@ -16455,11 +16524,16 @@
    "uk"
   ],
   "host": "comixtopia.in.ua",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:22:24",
+  "datei": "rezepte/modelle/uk.comixtopia.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:23:06"
  },
  {
   "modul": "src/uk/dgmanga",
-  "status": "offen",
+  "status": "fertig",
   "name": "DGManga",
   "stufe": 2,
   "theme": null,
@@ -16467,11 +16541,16 @@
    "uk"
   ],
   "host": "dgmanga.app",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:22:31",
+  "datei": "rezepte/modelle/uk.dgmanga.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:23:15"
  },
  {
   "modul": "src/uk/honeymanga",
-  "status": "offen",
+  "status": "fertig",
   "name": "HoneyManga",
   "stufe": 2,
   "theme": null,
@@ -16479,11 +16558,16 @@
    "uk"
   ],
   "host": "honey-manga.com.ua",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:22:31",
+  "datei": "rezepte/modelle/uk.honeymanga.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:23:13"
  },
  {
   "modul": "src/uk/mangainua",
-  "status": "offen",
+  "status": "fertig",
   "name": "MangaInUa",
   "stufe": 2,
   "theme": null,
@@ -16491,11 +16575,16 @@
    "uk"
   ],
   "host": "manga.in.ua",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:22:41",
+  "datei": "rezepte/modelle/uk.mangainua.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:24:00"
  },
  {
   "modul": "src/uk/zenko",
-  "status": "offen",
+  "status": "fertig",
   "name": "Zenko",
   "stufe": 2,
   "theme": null,
@@ -16503,11 +16592,16 @@
    "uk"
   ],
   "host": "zenko.online",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:23:06",
+  "datei": "rezepte/modelle/uk.zenko.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:23:52"
  },
  {
   "modul": "src/vi/cuutruyenmoe",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "CuuTruyen (unoriginal)",
   "stufe": 2,
   "theme": null,
@@ -16515,11 +16609,16 @@
    "vi"
   ],
   "host": "cuutruyen.moe",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:23:13",
+  "grund": "Website liegt hinter einem Passwort-Gate (Livewire 'enter-secret'): Community erkennt die Sperrseite und schickt per POST /livewire/message/enter-secret fingerprint/serverMemo aus wire:initial-data + CSRF-Token + Passwort – Gate-Erkennung und JSON-Nachbau aus der Seite nicht ausdrückbar (zudem Zugangssperre, Regel 0014)",
+  "datei": null,
+  "geaendert": "2026-11-03T11:23:27"
  },
  {
   "modul": "src/vi/daomeoden",
-  "status": "offen",
+  "status": "fertig",
   "name": "DaoMeoDen",
   "stufe": 2,
   "theme": null,
@@ -16527,11 +16626,16 @@
    "vi"
   ],
   "host": "daomeoden.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:23:15",
+  "datei": "rezepte/modelle/vi.daomeoden.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:23:42"
  },
  {
   "modul": "src/vi/dilib",
-  "status": "offen",
+  "status": "fertig",
   "name": "Dilib",
   "stufe": 2,
   "theme": null,
@@ -16539,11 +16643,16 @@
    "vi"
   ],
   "host": "dilib.vn",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:23:27",
+  "datei": "rezepte/modelle/vi.dilib.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:24:10"
  },
  {
   "modul": "src/vi/fastscan",
-  "status": "offen",
+  "status": "fertig",
   "name": "FastScan",
   "stufe": 2,
   "theme": null,
@@ -16551,11 +16660,16 @@
    "vi"
   ],
   "host": "fastscan.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:23:42",
+  "datei": "rezepte/modelle/vi.fastscan.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:24:08"
  },
  {
   "modul": "src/vi/goctruyentranh",
-  "status": "offen",
+  "status": "fertig",
   "name": "Goc Truyen Tranh",
   "stufe": 2,
   "theme": null,
@@ -16563,11 +16677,16 @@
    "vi"
   ],
   "host": "goctruyentranh.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:23:52",
+  "datei": "rezepte/modelle/vi.goctruyentranh.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:24:18"
  },
  {
   "modul": "src/vi/goctruyentranhvui",
-  "status": "offen",
+  "status": "fertig",
   "name": "Goc Truyen Tranh Vui",
   "stufe": 2,
   "theme": null,
@@ -16575,11 +16694,16 @@
    "vi"
   ],
   "host": "goctruyentranhvui41.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:24:00",
+  "datei": "rezepte/modelle/vi.goctruyentranhvui.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:24:45"
  },
  {
   "modul": "src/vi/hentaivnx",
-  "status": "offen",
+  "status": "fertig",
   "name": "HentaiVNx",
   "stufe": 2,
   "theme": null,
@@ -16587,11 +16711,16 @@
    "vi"
   ],
   "host": "hentaivnx.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:24:08",
+  "datei": "rezepte/modelle/vi.hentaivnx.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:24:39"
  },
  {
   "modul": "src/vi/khomanhwa",
-  "status": "offen",
+  "status": "fertig",
   "name": "KhoManhwa",
   "stufe": 2,
   "theme": null,
@@ -16599,11 +16728,16 @@
    "vi"
   ],
   "host": "khomanhwa.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:24:10",
+  "datei": "rezepte/modelle/vi.khomanhwa.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:24:25"
  },
  {
   "modul": "src/vi/kirakira",
-  "status": "offen",
+  "status": "fertig",
   "name": "KiraKira",
   "stufe": 2,
   "theme": null,
@@ -16611,11 +16745,16 @@
    "vi"
   ],
   "host": "truyenkira.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:24:19",
+  "datei": "rezepte/modelle/vi.kirakira.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:24:35"
  },
  {
   "modul": "src/vi/lavibitwindroom",
-  "status": "offen",
+  "status": "fertig",
   "name": "LavibitWindroom",
   "stufe": 2,
   "theme": null,
@@ -16623,11 +16762,16 @@
    "vi"
   ],
   "host": "lavibitwindroomgl.fun",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:24:25",
+  "datei": "rezepte/modelle/vi.lavibitwindroom.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:24:46"
  },
  {
   "modul": "src/vi/leesincomic",
-  "status": "offen",
+  "status": "fertig",
   "name": "LeesinComic",
   "stufe": 2,
   "theme": null,
@@ -16635,11 +16779,16 @@
    "vi"
   ],
   "host": "leesincomic.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:24:35",
+  "datei": "rezepte/modelle/vi.leesincomic.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:25:18"
  },
  {
   "modul": "src/vi/loppytoon",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "LoppyToon",
   "stufe": 2,
   "theme": null,
@@ -16647,11 +16796,16 @@
    "vi"
   ],
   "host": "loppytoonn.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:24:39",
+  "grund": "Kapitelliste: Detailseite zeigt nur den Anfang, Rest per /load-more-chapters?slug=&offset=<Anzahl bisher geladener Kapitel> (JSON mit html+has_more). Offset nach Zählung ist nicht belegt ({count} nur als {count+1}), Blockgröße unbekannt → sonst lückenhafte Kapitelliste.",
+  "datei": null,
+  "geaendert": "2026-11-03T11:25:06"
  },
  {
   "modul": "src/vi/luottruyen",
-  "status": "offen",
+  "status": "fertig",
   "name": "LuotTruyen",
   "stufe": 2,
   "theme": null,
@@ -16659,11 +16813,16 @@
    "vi"
   ],
   "host": "luottruyen999.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:24:45",
+  "datei": "rezepte/modelle/vi.luottruyen.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:25:18"
  },
  {
   "modul": "src/vi/luvaholic",
-  "status": "offen",
+  "status": "fertig",
   "name": "Luvaholic",
   "stufe": 2,
   "theme": null,
@@ -16671,11 +16830,16 @@
    "vi"
   ],
   "host": "luvaholic.website",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:24:46",
+  "datei": "rezepte/modelle/vi.luvaholic.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:25:13"
  },
  {
   "modul": "src/vi/luvevaland",
-  "status": "offen",
+  "status": "fertig",
   "name": "LuvEvaLand",
   "stufe": 2,
   "theme": null,
@@ -16683,11 +16847,16 @@
    "vi"
   ],
   "host": "luvevalands2.co",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:25:06",
+  "datei": "rezepte/modelle/vi.luvevaland.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:25:44"
  },
  {
   "modul": "src/vi/lxmangaorg",
-  "status": "offen",
+  "status": "fertig",
   "name": "LxManga.org (unoriginal)",
   "stufe": 2,
   "theme": null,
@@ -16695,11 +16864,16 @@
    "vi"
   ],
   "host": "lxmanga.org",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:25:14",
+  "datei": "rezepte/modelle/vi.lxmangaorgunoriginal.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:26:04"
  },
  {
   "modul": "src/vi/meosss",
-  "status": "offen",
+  "status": "fertig",
   "name": "MeoSSS",
   "stufe": 2,
   "theme": null,
@@ -16707,11 +16881,16 @@
    "vi"
   ],
   "host": "meosss.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:25:18",
+  "datei": "rezepte/modelle/vi.meosss.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:25:47"
  },
  {
   "modul": "src/vi/meosua",
-  "status": "offen",
+  "status": "fertig",
   "name": "MeoSua",
   "stufe": 2,
   "theme": null,
@@ -16719,11 +16898,16 @@
    "vi"
   ],
   "host": "meosua.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:25:19",
+  "datei": "rezepte/modelle/vi.meosua.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:25:51"
  },
  {
   "modul": "src/vi/mimi",
-  "status": "offen",
+  "status": "fertig",
   "name": "MiMi",
   "stufe": 2,
   "theme": null,
@@ -16731,11 +16915,16 @@
    "vi"
   ],
   "host": "mimihentai.moe",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:25:44",
+  "datei": "rezepte/modelle/vi.mimi.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:26:02"
  },
  {
   "modul": "src/vi/mimihentai",
-  "status": "offen",
+  "status": "fertig",
   "name": "MiMiHentai",
   "stufe": 2,
   "theme": null,
@@ -16743,11 +16932,16 @@
    "vi"
   ],
   "host": "mimihentai.net",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:25:47",
+  "datei": "rezepte/modelle/vi.mimihentai.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:26:13"
  },
  {
   "modul": "src/vi/navyteam",
-  "status": "offen",
+  "status": "fertig",
   "name": "NavyTeam",
   "stufe": 2,
   "theme": null,
@@ -16755,11 +16949,16 @@
    "vi"
   ],
   "host": "navyteamz.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:25:51",
+  "datei": "rezepte/modelle/vi.navyteam.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:26:10"
  },
  {
   "modul": "src/vi/nettruyens",
-  "status": "offen",
+  "status": "fertig",
   "name": "NetTruyenS (unoriginal)",
   "stufe": 2,
   "theme": null,
@@ -16767,11 +16966,16 @@
    "vi"
   ],
   "host": "nettruyen15s.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:26:03",
+  "datei": "rezepte/modelle/vi.nettruyensunoriginal.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:26:36"
  },
  {
   "modul": "src/vi/nettruyenviet",
-  "status": "offen",
+  "status": "fertig",
   "name": "NetTruyenViet (unoriginal)",
   "stufe": 2,
   "theme": null,
@@ -16779,11 +16983,16 @@
    "vi"
   ],
   "host": "nettruyenviet10.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:26:10",
+  "datei": "rezepte/modelle/vi.nettruyenvietunoriginal.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:26:40"
  },
  {
   "modul": "src/vi/otakusic",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Otakusic",
   "stufe": 2,
   "theme": null,
@@ -16791,11 +17000,16 @@
    "vi"
   ],
   "host": "otakusic.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:26:13",
+  "grund": "Bildquelle je Kapitel verschieden: api_url ist entweder externe API-URL (domain_cdn+chapter_path+image_file, nach image_page sortiert) oder ein JSON-Text mit Dateinamen (img.<host>/manga/uploads/chapter/…); Verzweigung je Kapitel und Auswahl des Kapitels per chapter_original_slug aus der Kapitelliste (Platzhalter im ?-Filter) nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-03T11:26:36"
  },
  {
   "modul": "src/vi/otruyen",
-  "status": "offen",
+  "status": "fertig",
   "name": "OTruyen",
   "stufe": 2,
   "theme": null,
@@ -16803,11 +17017,16 @@
    "vi"
   ],
   "host": "otruyen.cc",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:26:23",
+  "datei": "rezepte/modelle/vi.otruyen.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:26:54"
  },
  {
   "modul": "src/vi/sangchanhteam",
-  "status": "offen",
+  "status": "fertig",
   "name": "SangChanhTeam",
   "stufe": 2,
   "theme": null,
@@ -16815,11 +17034,16 @@
    "vi"
   ],
   "host": "sangchanhteam.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:26:36",
+  "datei": "rezepte/modelle/vi.sangchanhteam.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:27:07"
  },
  {
   "modul": "src/vi/sinhsieusao",
-  "status": "offen",
+  "status": "fertig",
   "name": "SinhSieuSao",
   "stufe": 2,
   "theme": null,
@@ -16827,11 +17051,16 @@
    "vi"
   ],
   "host": "sinhsieusao.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:26:36",
+  "datei": "rezepte/modelle/vi.sinhsieusao.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:27:05"
  },
  {
   "modul": "src/vi/suicaodex",
-  "status": "offen",
+  "status": "fertig",
   "name": "SuicaoDex",
   "stufe": 2,
   "theme": null,
@@ -16839,11 +17068,16 @@
    "vi"
   ],
   "host": "suicaodex.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:26:40",
+  "datei": "rezepte/modelle/vi.suicaodex.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:27:07"
  },
  {
   "modul": "src/vi/teletruyen",
-  "status": "offen",
+  "status": "fertig",
   "name": "TeleTruyen",
   "stufe": 2,
   "theme": null,
@@ -16851,11 +17085,16 @@
    "vi"
   ],
   "host": "teletruyen.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:26:54",
+  "datei": "rezepte/modelle/vi.teletruyen.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:27:15"
  },
  {
   "modul": "src/vi/thienthaitruyen",
-  "status": "offen",
+  "status": "fertig",
   "name": "ThienThaiTruyen",
   "stufe": 2,
   "theme": null,
@@ -16863,11 +17102,16 @@
    "vi"
   ],
   "host": "thienthaitruyen16.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:27:05",
+  "datei": "rezepte/modelle/vi.thienthaitruyen.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:27:30"
  },
  {
   "modul": "src/vi/thohamngu",
-  "status": "offen",
+  "status": "fertig",
   "name": "Thỏ Ham Ngủ",
   "stufe": 2,
   "theme": null,
@@ -16875,11 +17119,16 @@
    "vi"
   ],
   "host": "thohamngu.xyz",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:27:07",
+  "datei": "rezepte/modelle/vi.thhamng.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:27:30"
  },
  {
   "modul": "src/vi/tranh18",
-  "status": "offen",
+  "status": "fertig",
   "name": "Tranh18",
   "stufe": 2,
   "theme": null,
@@ -16887,11 +17136,16 @@
    "vi"
   ],
   "host": "tranh18.cc",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:27:07",
+  "datei": "rezepte/modelle/vi.tranh18.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:27:33"
  },
  {
   "modul": "src/vi/truyen18",
-  "status": "offen",
+  "status": "fertig",
   "name": "Truyen18",
   "stufe": 2,
   "theme": null,
@@ -16899,11 +17153,16 @@
    "vi"
   ],
   "host": "truyen18.co",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w7c",
+  "seit": "2026-11-03T11:27:15",
+  "datei": "rezepte/modelle/vi.truyen18.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:28:00"
  },
  {
   "modul": "src/vi/truyengg",
-  "status": "offen",
+  "status": "fertig",
   "name": "FoxTruyen",
   "stufe": 2,
   "theme": null,
@@ -16911,11 +17170,16 @@
    "vi"
   ],
   "host": "foxtruyen2.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:27:30",
+  "datei": "rezepte/modelle/vi.foxtruyen.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:27:49"
  },
  {
   "modul": "src/vi/truyenggvn",
-  "status": "offen",
+  "status": "fertig",
   "name": "TruyenGGVN",
   "stufe": 2,
   "theme": null,
@@ -16923,11 +17187,16 @@
    "vi"
   ],
   "host": "truyenggvn.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:27:30",
+  "datei": "rezepte/modelle/vi.truyenggvn.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:27:53"
  },
  {
   "modul": "src/vi/truyenhentai18",
-  "status": "offen",
+  "status": "fertig",
   "name": "Truyen Hentai 18+",
   "stufe": 2,
   "theme": null,
@@ -16935,11 +17204,16 @@
    "vi"
   ],
   "host": "truyenhentai18.net",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:27:33",
+  "datei": "rezepte/modelle/vi.truyenhentai18.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:27:53"
  },
  {
   "modul": "src/vi/truyenhentaivn",
-  "status": "offen",
+  "status": "fertig",
   "name": "TruyenHentaivn",
   "stufe": 2,
   "theme": null,
@@ -16947,11 +17221,16 @@
    "vi"
   ],
   "host": "truyenhentaivn.store",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:27:49",
+  "datei": "rezepte/modelle/vi.truyenhentaivn.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:28:10"
  },
  {
   "modul": "src/vi/truyenhentaiz",
-  "status": "offen",
+  "status": "fertig",
   "name": "TruyenHentaiz",
   "stufe": 2,
   "theme": null,
@@ -16959,11 +17238,16 @@
    "vi"
   ],
   "host": "truyenhentaiz.net",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:27:53",
+  "datei": "rezepte/modelle/vi.truyenhentaiz.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:28:13"
  },
  {
   "modul": "src/vi/truyenqq",
-  "status": "offen",
+  "status": "fertig",
   "name": "TruyenQQ",
   "stufe": 2,
   "theme": null,
@@ -16971,11 +17255,16 @@
    "vi"
   ],
   "host": "truyenqqko.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:27:53",
+  "datei": "rezepte/modelle/vi.truyenqq.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:28:07"
  },
  {
   "modul": "src/vi/truyenqqvn",
-  "status": "offen",
+  "status": "fertig",
   "name": "TruyenQQ VN",
   "stufe": 2,
   "theme": null,
@@ -16983,11 +17272,16 @@
    "vi"
   ],
   "host": "truyenqq.com.vn",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:28:07",
+  "datei": "rezepte/modelle/vi.truyenqqvn.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:28:27"
  },
  {
   "modul": "src/vi/truyentvn",
-  "status": "offen",
+  "status": "fertig",
   "name": "TruyenTVN",
   "stufe": 2,
   "theme": null,
@@ -16995,11 +17289,16 @@
    "vi"
   ],
   "host": "truyentvn.net",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:28:10",
+  "datei": "rezepte/modelle/vi.truyentvn.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:28:44"
  },
  {
   "modul": "src/vi/tulinhtruyen",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "TuLinhTruyen",
   "stufe": 2,
   "theme": null,
@@ -17007,11 +17306,16 @@
    "vi"
   ],
   "host": "api.tulinh.workers.dev",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:28:13",
+  "grund": "API (api.tulinh.workers.dev, MangaDex-artig) verlangt festen App-Schlüssel X-Manga-Token und fremden User-Agent 'MangaVaultExtension/1.4.8' aus dem Community-Code; Schlüssel wird nicht von der Website ausgeliefert (Regel 0014) – nicht übernehmen ohne Freigabe.",
+  "datei": null,
+  "geaendert": "2026-11-03T11:28:24"
  },
  {
   "modul": "src/vi/vihentai",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "ViHentai",
   "stufe": 2,
   "theme": null,
@@ -17019,11 +17323,16 @@
    "vi"
   ],
   "host": "vi-hentai.moe",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:28:24",
+  "grund": "Bildliste steckt in eval(function(h,u,n,t,e,r)…) – eigenes Zahlensystem-Verfahren, nicht der unterstützte p,a,c,k,e,d-Packer; zusätzlich Passwort-Sperrseite (Livewire POST enter-secret mit CSRF und wire:initial-data), die die Engine nicht ausfüllen kann.",
+  "datei": null,
+  "geaendert": "2026-11-03T11:28:32"
  },
  {
   "modul": "src/vi/vinahentai",
-  "status": "offen",
+  "status": "fertig",
   "name": "VinaHentai",
   "stufe": 2,
   "theme": null,
@@ -17031,11 +17340,16 @@
    "vi"
   ],
   "host": "vinahentai.beer",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:28:27",
+  "datei": "rezepte/modelle/vi.vinahentai.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:28:54"
  },
  {
   "modul": "src/vi/vitruyen",
-  "status": "offen",
+  "status": "fertig",
   "name": "ViTruyen",
   "stufe": 2,
   "theme": null,
@@ -17043,11 +17357,16 @@
    "vi"
   ],
   "host": "vitruyen1.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:28:32",
+  "datei": "rezepte/modelle/vi.vitruyen.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:28:48"
  },
  {
   "modul": "src/vi/zettruyen",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "ZetTruyen",
   "stufe": 2,
   "theme": null,
@@ -17055,11 +17374,13 @@
    "vi"
   ],
   "host": "zettruyen5.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:28:44"
  },
  {
   "modul": "src/zh/bh3",
-  "status": "offen",
+  "status": "fertig",
   "name": "BH3",
   "stufe": 2,
   "theme": null,
@@ -17067,11 +17388,16 @@
    "zh"
   ],
   "host": "comic.bh3.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:28:48",
+  "datei": "rezepte/modelle/zh.bh3.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:29:04"
  },
  {
   "modul": "src/zh/bilimanga",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "BiliManga",
   "stufe": 2,
   "theme": null,
@@ -17079,11 +17405,13 @@
    "zh"
   ],
   "host": "bilimanga.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:28:54"
  },
  {
   "modul": "src/zh/cartoon18",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Cartoon18",
   "stufe": 2,
   "theme": null,
@@ -17091,7 +17419,9 @@
    "zh"
   ],
   "host": "cartoon18.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8b",
+  "seit": "2026-11-03T11:29:04"
  },
  {
   "modul": "src/zh/cmanhua",

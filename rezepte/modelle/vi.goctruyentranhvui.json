@@ -1,0 +1,205 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Goc Truyen Tranh Vui",
+  "sprache": "vi",
+  "base_url": "https://goctruyentranhvui41.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.goctruyentranhvui",
+  "quellen": [
+   {
+    "name": "Goc Truyen Tranh Vui",
+    "sprache": "vi",
+    "quell_id": 2831859393730435398,
+    "home": "https://goctruyentranhvui41.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/goctruyentranhvui",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.19",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/api/v2/search?p={page0}&orders%5B%5D=viewCount",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "result.data",
+   "has_next": {
+    "exists": "result.next"
+   },
+   "fields": {
+    "url": {
+     "path": "nameEn",
+     "template": "/truyen/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "photo",
+     "template": "{base}{value}"
+    }
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/api/v2/search?p={page0}&orders%5B%5D=recentDate",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "result.data",
+   "has_next": {
+    "exists": "result.next"
+   },
+   "fields": {
+    "url": {
+     "path": "nameEn",
+     "template": "/truyen/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "photo",
+     "template": "{base}{value}"
+    }
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/v2/search?p={page0}&searchValue={query}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "result.data",
+   "has_next": {
+    "exists": "result.next"
+   },
+   "fields": {
+    "url": {
+     "path": "nameEn",
+     "template": "/truyen/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "photo",
+     "template": "{base}{value}"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "url_vars": {
+    "slug": "/truyen/([^/?#]+)"
+   },
+   "let": {
+    "cid": [
+     {
+      "path": "html@html",
+      "regex": "const comic = \\{[\\s\\S]*?id:\\s*\"([^\"]+)\"",
+      "group": 1
+     },
+     {
+      "path": "#comic-id-comment@value"
+     }
+    ]
+   },
+   "fields": {
+    "title": ".v-card-title",
+    "cover": "img.image@src",
+    "genres": {
+     "path": ".group-content > .v-chip-link",
+     "all": true,
+     "join": ", "
+    },
+    "author": ".mb-1:contains(Tác giả:) span",
+    "status": ".mb-1:contains(Trạng thái:) span",
+    "description": {
+     "path": ".v-card-text",
+     "all": true,
+     "join": "\n"
+    }
+   },
+   "status_map": {
+    "đang thực hiện": 1,
+    "hoàn thành": 2
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/api/comic/{l.cid}/chapter?limit=-1",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/truyen/([^/?#]+)"
+   },
+   "items": "result.chapters",
+   "fields": {
+    "url": {
+     "path": "numberChapter",
+     "template": "/truyen/{u.slug}/chuong-{value}#{f.comicId}"
+    },
+    "name": {
+     "path": "numberChapter",
+     "template": "Chương {value}"
+    },
+    "number": "numberChapter",
+    "date": "updateTime"
+   },
+   "date_format": "epoch_ms"
+  },
+  "pages": {
+   "request": "{base}/truyen/{u.slug}",
+   "url_vars": {
+    "slug": "/truyen/([^/?#]+)/chuong-",
+    "num": "/chuong-([^/?#]+)",
+    "cid": "#(.+)$"
+   },
+   "then": [
+    {
+     "request": {
+      "url": "{base}/api/chapter/loadAll",
+      "method": "POST",
+      "headers": {
+       "X-Requested-With": "XMLHttpRequest"
+      },
+      "form": {
+       "comicId": "{u.cid}",
+       "chapterNumber": "{u.num}",
+       "nameEn": "{u.slug}"
+      }
+     },
+     "format": "json"
+    }
+   ],
+   "items": "result.data",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "Manga-URL /truyen/<nameEn> (Community: '<id>:<nameEn>'); die Comic-ID für die Kapitel-API kommt aus dem Skript 'const comic = { id: \"…\"' bzw. #comic-id-comment der Detailseite (details.let → {l.cid}).",
+  "Kapitel-URL wie in der Community: /truyen/<slug>/chuong-<nr>#<comicId>. Kapitelname 'Chương <nr>' (Community: nur die Nummer). Datum updateTime in Millisekunden.",
+  "Seiten: POST /api/chapter/loadAll (comicId, chapterNumber, nameEn). Die Community lädt bei Fehlschlag die Detailseite, um das Sitzungs-Cookie zu erneuern; das Rezept lädt die Detailseite immer vorher (then). Bilder mit '/image/…' relativ zur Website.",
+  "Optionales Authorization-Token (WebView-localStorage oder Einstellung) nicht übernommen; manche Kapitel/Listen könnten ohne Anmeldung fehlen ('Chưa đăng nhập trong WebView') – auf dem PC prüfen.",
+  "Suche nur Suchtext; Status-/Sortier-/Genrefilter nicht übernommen. has_next über das Boolean result.next (exists wie en.asurascans meta.has_more)."
+ ]
+}

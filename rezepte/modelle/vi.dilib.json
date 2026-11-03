@@ -1,0 +1,197 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Dilib",
+  "sprache": "vi",
+  "base_url": "https://dilib.vn",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.dilib",
+  "quellen": [
+   {
+    "name": "Dilib",
+    "sprache": "vi",
+    "quell_id": 4436086462808946847,
+    "home": "https://dilib.vn"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/dilib",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/search.php?page={page}&media=5&sort=5",
+   "items": "div.products.row > div.type-product",
+   "fields": {
+    "url": [
+     ".block_product_thumbnail a@href",
+     ".block_product_content a@href"
+    ],
+    "title": ".block_product_content a",
+    "cover": [
+     ".block_product_thumbnail img@data-src",
+     ".block_product_thumbnail img@src"
+    ]
+   },
+   "has_next": {
+    "exists": ".woocommerce-pagination a.pagecurrent ~ span a"
+   }
+  },
+  "latest": {
+   "request": "{base}/search.php?page={page}&media=5&sort=5",
+   "items": "div.products.row > div.type-product",
+   "fields": {
+    "url": [
+     ".block_product_thumbnail a@href",
+     ".block_product_content a@href"
+    ],
+    "title": ".block_product_content a",
+    "cover": [
+     ".block_product_thumbnail img@data-src",
+     ".block_product_thumbnail img@src"
+    ]
+   },
+   "has_next": {
+    "exists": ".woocommerce-pagination a.pagecurrent ~ span a"
+   }
+  },
+  "search": {
+   "request": "{base}/search.php?page={page}&find={query}&media=5",
+   "items": "div.products.row > div.type-product",
+   "fields": {
+    "url": [
+     ".block_product_thumbnail a@href",
+     ".block_product_content a@href"
+    ],
+    "title": ".block_product_content a",
+    "cover": [
+     ".block_product_thumbnail img@data-src",
+     ".block_product_thumbnail img@src"
+    ]
+   },
+   "has_next": {
+    "exists": ".woocommerce-pagination a.pagecurrent ~ span a"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "upd": "p:contains(Cập nhật lúc)@ownText",
+    "sub": "div#content h2",
+    "intro": "div#content h2 + p",
+    "read": [
+     "a.button1[href*=-chap-]@href",
+     "a:contains(Đọc Truyện)@href"
+    ],
+    "rbase": [
+     {
+      "path": "a.button1[href*=-chap-]@href",
+      "regex": "^(.*?)-chap-",
+      "group": 1
+     },
+     {
+      "path": "a:contains(Đọc Truyện)@href",
+      "regex": "^(.*?)-chap-",
+      "group": 1
+     }
+    ]
+   },
+   "fields": {
+    "title": "div#primary h1",
+    "cover": {
+     "path": "div#primary .size-shop_catalog img@src",
+     "replace": [
+      [
+       "^//",
+       "https://"
+      ]
+     ]
+    },
+    "genres": {
+     "path": "fieldset#pdf a.button2",
+     "all": true,
+     "join": ", "
+    },
+    "author": "div#primary h1 + p",
+    "description": {
+     "const": "[[Cập nhật lúc: {l.upd}]]\n\n[[{l.sub}]]\n\n[[{l.intro}]]",
+     "replace": [
+      [
+       "\\n{3,}",
+       "\n\n"
+      ],
+      [
+       "^\\s+|\\s+$",
+       ""
+      ]
+     ]
+    },
+    "status": {
+     "path": "p:contains(Tình trạng)@ownText",
+     "replace": [
+      [
+       "(?s)^.*(?:đang cập nhật|Đang cập nhật).*$",
+       "ongoing"
+      ],
+      [
+       "(?s)^.*(?:hoàn thành|Hoàn thành).*$",
+       "completed"
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "{l.read}",
+   "items": "select option",
+   "skip": {
+    "path": "@value",
+    "regex": "(?i)^(?!.*-chap-)"
+   },
+   "fields": {
+    "url": {
+     "path": "@value",
+     "template": "{l.rbase}{value}.html"
+    },
+    "name": "@ownText"
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div#primary > img.border",
+   "image": {
+    "path": [
+     "@data-src",
+     "@src"
+    ],
+    "replace": [
+     [
+      "\\r",
+      ""
+     ]
+    ]
+   },
+   "referer": "chapter"
+  }
+ },
+ "hinweise": [
+  "HTML wie Community: Listen /search.php?media=5 (Truyện tranh) mit sort=5 (Trend); Neueste = Beliebt (wie Community). Suche find=…; Kategorie-/Autor-/Sortierfilter nicht übernommen.",
+  "Kapitel wie Community: Link des 'Đọc Truyện'-Knopfs (a.button1[href*=-chap-]) aus der Detailseite per Details-let (Muster tr.korelimanga), von dort die Kapitelauswahl (select option) der Leseseite. Kapitel-URL = Knopf-URL bis '-chap-' + option-value + '.html'.",
+  "Nur options mit -chap- im value; Reihenfolge umgekehrt (wie Community). Gibt es mehrere Auswahllisten auf der Seite, können Dubletten entstehen (Community: distinctBy).",
+  "Seiten: div#primary > img.border (data-src vor src, \\r entfernt), Referer = Kapitel-URL (wie Community)."
+ ]
+}

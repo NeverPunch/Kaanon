@@ -1,0 +1,233 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "TruyenTVN",
+  "sprache": "vi",
+  "base_url": "https://truyentvn.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.truyentvn",
+  "quellen": [
+   {
+    "name": "TruyenTVN",
+    "sprache": "vi",
+    "quell_id": 3322517246209230294,
+    "home": "https://truyentvn.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/truyentvn",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 5,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/xem-nhieu-nhat/page/{page}",
+   "request_by_page": {
+    "1": "{base}/xem-nhieu-nhat"
+   },
+   "items": "main div.comic-card > a[href]",
+   "fields": {
+    "url": "@href",
+    "title": [
+     "@title",
+     "h3",
+     "img@alt"
+    ],
+    "cover": [
+     "img@src",
+     "img@data-src"
+    ]
+   },
+   "page_size": 1,
+   "has_next": {
+    "full": true
+   }
+  },
+  "latest": {
+   "request": "{base}/moi-cap-nhat/page/{page}",
+   "request_by_page": {
+    "1": "{base}/moi-cap-nhat"
+   },
+   "items": "main div.comic-card > a[href]",
+   "fields": {
+    "url": "@href",
+    "title": [
+     "@title",
+     "h3",
+     "img@alt"
+    ],
+    "cover": [
+     "img@src",
+     "img@data-src"
+    ]
+   },
+   "page_size": 1,
+   "has_next": {
+    "full": true
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    },
+    "form": {
+     "action": "baka_ajax",
+     "type": "search_series",
+     "q": "{query_raw}"
+    }
+   },
+   "format": "json",
+   "items": "data.series",
+   "fields": {
+    "url": "url",
+    "title": "title",
+    "cover": "thumbnail"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "mid": "input#post_manga_id@value"
+   },
+   "fields": {
+    "title": "h1",
+    "cover": [
+     "#ratingModalCover@src",
+     "#ratingModalCover@data-src",
+     "#series-thumbnail img@src",
+     "#series-thumbnail img@data-src"
+    ],
+    "author": [
+     "span:has(i[title='Tác Giả']) > span",
+     "span:has(i[title='Tác Giả'])"
+    ],
+    "genres": {
+     "path": "#genres-tags-container a[href]",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": "span:has(i[title='Trạng thái'])",
+     "regex": "(?i)(đang tiến hành|đang cập nhật|hoàn thành)",
+     "group": 1
+    },
+    "description": "#synopsisText"
+   },
+   "status_map": {
+    "đang tiến hành": 1,
+    "đang cập nhật": 1,
+    "hoàn thành": 2
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    },
+    "form": {
+     "action": "baka_ajax",
+     "type": "load_chapters_paginated",
+     "parent_id": "{l.mid}",
+     "page": "{page}",
+     "order": "newest_first",
+     "per_page": "16"
+    }
+   },
+   "format": "json_html",
+   "html_path": "data.html",
+   "items": "div.comic-card > a[href]",
+   "page_size": 16,
+   "fields": {
+    "url": "@href",
+    "name": [
+     "@title",
+     "h3"
+    ],
+    "date": {
+     "path": [
+      "div.absolute.top-2.left-2 span",
+      "span.text-white"
+     ],
+     "replace": [
+      [
+       "(?i)^.*vừa xong.*$",
+       "0 minutes ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\D*giây.*$",
+       "$1 seconds ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\D*phút.*$",
+       "$1 minutes ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\D*giờ.*$",
+       "$1 hours ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\D*ngày.*$",
+       "$1 days ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\D*tuần.*$",
+       "$1 weeks ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\D*tháng.*$",
+       "$1 months ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\D*năm.*$",
+       "$1 years ago"
+      ]
+     ]
+    }
+   },
+   "date_format": [
+    "relative",
+    "dd/MM/yyyy"
+   ],
+   "date_locale": "en",
+   "paging": {
+    "has_next": {
+     "full": true
+    },
+    "max_pages": 100
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": [
+    "main.webtoon-mode img.page-image",
+    "#webtoonContainer img.page-image, #webtoonContainer img"
+   ],
+   "image": [
+    "@src",
+    "@data-src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Baka-Theme wie modelle/en.hentaitnt: Kapitel per POST admin-ajax.php (baka_ajax, load_chapters_paginated, 16 je Seite, newest_first) mit Manga-ID aus input#post_manga_id (let). Community liest die Seitenzahl aus data.pagination; hier weiter, solange 16 Einträge kommen.",
+  "Beliebt /xem-nhieu-nhat, Neueste /moi-cap-nhat (/page/N ab Seite 2); Community: nächste Seite, solange die Liste nicht leer ist (hier full mit page_size 1). Doppelte (distinctBy) nicht entfernt. Suche per baka_ajax search_series (JSON, eine Seite); erweiterte Filter nicht übernommen.",
+  "Cover: Community nimmt das Vorschaubild des neuesten Kapitels (Zusatzanfrage); hier #ratingModalCover bzw. #series-thumbnail img (Community-Ausweichweg).",
+  "Datum: vietnamesische Relativangaben per replace ins Englische, sonst dd/MM/yyyy."
+ ]
+}

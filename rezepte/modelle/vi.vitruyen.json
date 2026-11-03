@@ -1,0 +1,155 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ViTruyen",
+  "sprache": "vi",
+  "base_url": "https://vitruyen1.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.vitruyen",
+  "quellen": [
+   {
+    "name": "ViTruyen",
+    "sprache": "vi",
+    "quell_id": 2855631357866421200,
+    "home": "https://vitruyen1.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/vitruyen",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://api.vitruyen1.com/api/next/the-loai/dang-hot?page={page}&sort=view",
+   "format": "json",
+   "items": "items",
+   "has_next": {
+    "lt": [
+     "page",
+     "total_pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/{value}"
+    },
+    "title": "name",
+    "cover": "image"
+   }
+  },
+  "latest": {
+   "request": "https://api.vitruyen1.com/api/next/the-loai/dang-hot?page={page}&sort=latest",
+   "format": "json",
+   "items": "items",
+   "has_next": {
+    "lt": [
+     "page",
+     "total_pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/{value}"
+    },
+    "title": "name",
+    "cover": "image"
+   }
+  },
+  "search": {
+   "request": "https://api.vitruyen1.com/api/next/search?q={query}&page={page}",
+   "format": "json",
+   "items": "items",
+   "has_next": {
+    "lt": [
+     "page",
+     "total_pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/{value}"
+    },
+    "title": "name",
+    "cover": "image"
+   }
+  },
+  "details": {
+   "request": "https://api.vitruyen1.com/api/next/manga/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "^/([^/?#]+)"
+   },
+   "fields": {
+    "title": "name",
+    "cover": "image",
+    "description": {
+     "path": [
+      "descriptionHtml",
+      "description"
+     ],
+     "decode": "html_text"
+    },
+    "genres": {
+     "path": "categories.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "isCompleted"
+   },
+   "status_map": {
+    "true": 2,
+    "false": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "chapters",
+   "fields": {
+    "url": {
+     "path": "readUrl",
+     "replace": [
+      [
+       "^/+",
+       ""
+      ],
+      [
+       "/+$",
+       ""
+      ]
+     ],
+     "template": "/{value}"
+    },
+    "name": "name",
+    "date": "publishedAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img.v2-reader-page-image[src]",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "JSON-API api.vitruyen1.com/api/next für Listen/Details/Kapitel (Community leitet api.<host> aus baseUrl ab; hier fest).",
+  "Seiten wie im Community-Code für Gäste aus der Leseseite (img.v2-reader-page-image). Die API liefert Bilder nur mit Login-Token – nicht genutzt; gesperrte Kapitel bleiben leer.",
+  "Status aus booleschem isCompleted (true→abgeschlossen, false→laufend) – prüfen, ob die Engine true/false als Text vergleicht."
+ ]
+}

@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "BiliManga",
+  "sprache": "zh",
+  "base_url": "https://www.bilimanga.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.bilimanga",
+  "quellen": [
+   {
+    "name": "嗶哩漫畫",
+    "sprache": "zh",
+    "quell_id": 7289707411592168382,
+    "home": "https://www.bilimanga.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/bilimanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.15",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

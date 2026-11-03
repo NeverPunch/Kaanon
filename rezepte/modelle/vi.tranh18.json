@@ -1,0 +1,217 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Tranh18",
+  "sprache": "vi",
+  "base_url": "https://tranh18.cc",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.tranh18",
+  "quellen": [
+   {
+    "name": "Tranh18",
+    "sprache": "vi",
+    "quell_id": 1067821280191897902,
+    "home": "https://tranh18.cc"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/tranh18",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.8",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/comics?page={page}",
+   "request_by_page": {
+    "1": "{base}/"
+   },
+   "items": ".mh-list li",
+   "has_next": {
+    "exists": ".page-pagination li.active ~ li:not(.disabled) a"
+   },
+   "fields": {
+    "url": [
+     ".mh-item a@href",
+     ".manga-list-2-cover a@href"
+    ],
+    "title": [
+     ".mh-item a@title",
+     ".manga-list-2-cover a@title"
+    ],
+    "cover": [
+     {
+      "path": "p.mh-cover@style",
+      "regex": "url\\(([^)]+)\\)",
+      "group": 1,
+      "template": "{base}{value}"
+     },
+     {
+      "path": "img@data-original",
+      "template": "{base}{value}"
+     }
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/update?page={page}",
+   "request_by_page": {
+    "1": "{base}/update"
+   },
+   "items": ".mh-list li",
+   "has_next": {
+    "exists": ".page-pagination li.active ~ li:not(.disabled) a"
+   },
+   "fields": {
+    "url": [
+     ".mh-item a@href",
+     ".manga-list-2-cover a@href"
+    ],
+    "title": [
+     ".mh-item a@title",
+     ".manga-list-2-cover a@title"
+    ],
+    "cover": [
+     {
+      "path": "p.mh-cover@style",
+      "regex": "url\\(([^)]+)\\)",
+      "group": 1,
+      "template": "{base}{value}"
+     },
+     {
+      "path": "img@data-original",
+      "template": "{base}{value}"
+     }
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/search?keyword={query}&page={page}",
+   "items": ".mh-list li",
+   "has_next": {
+    "exists": ".page-pagination li.active ~ li:not(.disabled) a"
+   },
+   "fields": {
+    "url": [
+     ".mh-item a@href",
+     ".manga-list-2-cover a@href"
+    ],
+    "title": [
+     ".mh-item a@title",
+     ".manga-list-2-cover a@title"
+    ],
+    "cover": [
+     {
+      "path": "p.mh-cover@style",
+      "regex": "url\\(([^)]+)\\)",
+      "group": 1,
+      "template": "{base}{value}"
+     },
+     {
+      "path": "img@data-original",
+      "template": "{base}{value}"
+     }
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "path": ".info h1, .detail-main-info-title",
+     "all": true,
+     "join": " "
+    },
+    "genres": {
+     "path": "p.tip:contains(Từ khóa) span a, .detail-main-info-class span a",
+     "all": true,
+     "join": ", "
+    },
+    "description": [
+     {
+      "path": "p.content",
+      "replace": [
+       [
+        "(?s)#.*$",
+        ""
+       ]
+      ]
+     },
+     {
+      "path": "p.detail-desc",
+      "replace": [
+       [
+        "(?s)#.*$",
+        ""
+       ]
+      ]
+     }
+    ],
+    "author": {
+     "path": ".subtitle:contains(Tác giả：), .detail-main-info-author:contains(Tác giả：) a",
+     "replace": [
+      [
+       "^Tác giả：",
+       ""
+      ]
+     ]
+    },
+    "status": {
+     "path": [
+      ".block:contains(Trạng thái)",
+      ".detail-list-title-1"
+     ],
+     "regex": "(?i)(đang tiến hành|đang cập nhật|đã hoàn thành|hoàn thành|đã hoàn tất|tạm ngưng|tạm hoãn)",
+     "group": 1
+    },
+    "cover": [
+     ".banner_detail_form .cover img@src",
+     ".detail-main-cover img@data-original"
+    ]
+   },
+   "status_map": {
+    "đang tiến hành": 1,
+    "đang cập nhật": 1,
+    "hoàn thành": 2,
+    "đã hoàn thành": 2,
+    "đã hoàn tất": 2,
+    "tạm ngưng": 6,
+    "tạm hoãn": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "ul.detail-list-select li",
+   "fields": {
+    "url": "a@href",
+    "name": "a",
+    "number": {
+     "path": "a",
+     "regex": "(\\d+(?:\\.\\d+)*)",
+     "group": 1
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".comicpage img",
+   "image": "@data-original"
+  }
+ },
+ "hinweise": [
+  "HTML-Website im MangaHome-/mh-list-Stil (KeiSource). Beliebt Seite 1 = Startseite, ab Seite 2 /comics?page=N.",
+  "Cover in Listen aus style=url(…) bzw. img@data-original, wie im Community-Code mit {base} davor (Pfade relativ).",
+  "Kapitel: Community sortiert absteigend nach Nummer (aus dem Namen); hier Seitenreihenfolge – ggf. \"reverse\". Kein Kapiteldatum.",
+  "Bild-URLs über external-content.duckduckgo.com/iu/?u=… entpackt die Community; hier bleibt die Proxy-URL (kein URL-Dekodieren) – prüfen."
+ ]
+}

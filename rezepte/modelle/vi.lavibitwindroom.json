@@ -1,0 +1,195 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "LavibitWindroom",
+  "sprache": "vi",
+  "base_url": "https://lavibitwindroomgl.fun",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.lavibitwindroom",
+  "quellen": [
+   {
+    "name": "LavibitWindroom",
+    "sprache": "vi",
+    "quell_id": 8113403657936436136,
+    "home": "https://lavibitwindroomgl.fun"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/lavibitwindroom",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": {
+    "url": "https://103-77-242-114.sslip.io/rest/v1/series?select=slug,title,cover_url,author,status,tags&type=eq.comic&order=total_views.desc&offset={offset}&limit=24",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE",
+     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE",
+     "Accept-Profile": "public"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/truyen/{value}"
+    },
+    "title": "title",
+    "cover": "cover_url"
+   },
+   "page_size": 24,
+   "has_next": {
+    "min": 1
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "https://103-77-242-114.sslip.io/rest/v1/series?select=slug,title,cover_url,author,status,tags&type=eq.comic&order=updated_at.desc&offset={offset}&limit=24",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE",
+     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE",
+     "Accept-Profile": "public"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/truyen/{value}"
+    },
+    "title": "title",
+    "cover": "cover_url"
+   },
+   "page_size": 24,
+   "has_next": {
+    "min": 1
+   }
+  },
+  "search": {
+   "request": {
+    "url": "https://103-77-242-114.sslip.io/rest/v1/series?select=slug,title,cover_url,author,status,tags&type=eq.comic&or=(title.ilike.*{query}*,author.ilike.*{query}*)&order=updated_at.desc&offset={offset}&limit=24",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE",
+     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE",
+     "Accept-Profile": "public"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/truyen/{value}"
+    },
+    "title": "title",
+    "cover": "cover_url"
+   },
+   "page_size": 24,
+   "has_next": {
+    "min": 1
+   }
+  },
+  "details": {
+   "request": {
+    "url": "https://103-77-242-114.sslip.io/rest/v1/series?select=*,chapters(id,chapter_number,title,created_at,is_locked)&slug=eq.{u.slug}&chapters.order=chapter_number.desc",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE",
+     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE",
+     "Accept-Profile": "public"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/truyen/([^/?#]+)"
+   },
+   "fields": {
+    "title": "0.title",
+    "cover": "0.cover_url",
+    "author": "0.author",
+    "description": "0.description",
+    "genres": {
+     "path": "0.tags.*",
+     "all": true,
+     "join": ", "
+    },
+    "status": "0.status"
+   },
+   "status_map": {
+    "đang ra": 1,
+    "hoàn thành": 2,
+    "tạm ngưng": 6,
+    "drop": 5,
+    "đã drop": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "slug": "/truyen/([^/?#]+)"
+   },
+   "items": "0.chapters",
+   "skip": {
+    "path": "is_locked",
+    "equals": "true"
+   },
+   "fields": {
+    "url": {
+     "path": "chapter_number",
+     "replace": [
+      [
+       "\\.0+$",
+       ""
+      ]
+     ],
+     "template": "/truyen/{u.slug}/{value}#{f.id}"
+    },
+    "name": {
+     "const": "Chapter {f.chapter_number}[[: {f.title}]]",
+     "replace": [
+      [
+       "^(Chapter \\d+)\\.0+(?=\\D|$)",
+       "$1"
+      ]
+     ]
+    },
+    "number": "chapter_number",
+    "date": "created_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "https://103-77-242-114.sslip.io/rest/v1/chapter_images?select=image_url&chapter_id=eq.{u.cid}&order=page_order.asc",
+    "headers": {
+     "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE",
+     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE",
+     "Accept-Profile": "public"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "cid": "#(\\d+)$"
+   },
+   "items": "$",
+   "image": "image_url"
+  }
+ },
+ "hinweise": [
+  "Supabase-REST-API (103-77-242-114.sslip.io/rest/v1) wie Community; anon-Schlüssel (apikey/Bearer, Accept-Profile public) wörtlich aus der Community (Muster wie en.webdexscans). Nur type=eq.comic.",
+  "Listen 24 je Seite (offset), weiter solange Einträge kommen (wie Community). Beliebt total_views.desc, Neueste updated_at.desc, Suche or=(title.ilike…,author.ilike…) (Suchtext ungefiltert eingesetzt). Tag-/Status-Filter nicht übernommen.",
+  "Kapitel aus der Detailanfrage (chapters.order=chapter_number.desc). Gesperrte Kapitel (is_locked) werden ausgelassen (Regel 0014; Community zeigt sie mit Schloss).",
+  "Kapitel-URL /truyen/<slug>/<nummer>#<id> (Web-URL wie Community-getChapterUrl, id als Anker für chapter_images). Nicht mit Community-URLs kompatibel."
+ ]
+}

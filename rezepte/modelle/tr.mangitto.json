@@ -1,0 +1,174 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Mangitto",
+  "sprache": "tr",
+  "base_url": "https://mangtto.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.mangitto",
+  "quellen": [
+   {
+    "name": "Mangitto",
+    "sprache": "tr",
+    "quell_id": 4535626560473424586,
+    "home": "https://mangtto.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/mangitto",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/manga/populer?skip={offset}&take=50",
+   "format": "json",
+   "items": "mangas",
+   "page_size": 50,
+   "has_next": {
+    "total": "total"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "coverImage"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/manga/latest?skip={offset}&take=50",
+   "format": "json",
+   "items": "chapters",
+   "page_size": 50,
+   "has_next": {
+    "total": "total"
+   },
+   "fields": {
+    "url": {
+     "path": "manga.slug",
+     "template": "/manga/{value}"
+    },
+    "title": "manga.title",
+    "cover": "manga.coverImage"
+   }
+  },
+  "search": {
+   "request": "{base}/api/manga/search?page={page}&q={query}",
+   "format": "json",
+   "items": "hits",
+   "page_size": 42,
+   "has_next": {
+    "total": "estimatedTotalHits"
+   },
+   "fields": {
+    "url": {
+     "path": "document.slug",
+     "template": "/manga/{value}"
+    },
+    "title": "document.title",
+    "cover": "document.coverImage"
+   }
+  },
+  "details": {
+   "request": "{base}/api/manga/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "coverImage",
+    "description": "description",
+    "genres": {
+     "path": "genres.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "status"
+   },
+   "status_map": {
+    "releasing": 1,
+    "finished": 2,
+    "hiatus": 6,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/manga/{u.slug}/chapters?skip={offset}&take=50",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "page_size": 50,
+   "items": "chapters",
+   "fields": {
+    "url": {
+     "path": "chapter",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "/manga/{u.slug}/{value}"
+    },
+    "name": {
+     "path": "chapter",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "Bölüm {value}"
+    },
+    "number": "chapter"
+   },
+   "reverse": true,
+   "paging": {
+    "has_next": {
+     "total": "total"
+    },
+    "max_pages": 100
+   }
+  },
+  "pages": {
+   "request": "{base}/api/manga/{u.slug}/{u.ch}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/]+)/",
+    "ch": "/manga/[^/]+/([^/?#]+)"
+   },
+   "let": {
+    "cdn": "cdn",
+    "fid": "uploads.0.fansubId",
+    "total": "uploads.0.fileLength"
+   },
+   "items_count": "{l.total}",
+   "image": {
+    "path": "",
+    "template": "{l.cdn}/manga/{u.slug}/{u.ch}/{value}-{l.fid}.webp"
+   }
+  }
+ },
+ "hinweise": [
+  "Reine JSON-API {base}/api/manga/…; Manga-URL /manga/<slug>, Kapitel-URL /manga/<slug>/<nummer> (wie getMangaUrl/getChapterUrl der Community; dort steht der Slug im memo).",
+  "Neueste: API liefert Kapitel, Community entfernt doppelte Mangas (distinctBy slug) – Rezept übernimmt die Einträge so (Dubletten möglich, falls die Engine nicht selbst entdoppelt).",
+  "Suche: nur Suchtext; Genre-/Erwachsenen-/Status-/Punkte-/Jahresfilter nicht übernommen. has_next über estimatedTotalHits mit Seitengröße 42.",
+  "Kapitelnummer als Zahl; '.0' am Ende wird wie im Code entfernt (Reihenfolge replace→template angenommen). API liefert aufsteigend, daher reverse.",
+  "Seiten: erste Upload-Version (uploads.0), Bilder {cdn}/manga/<slug>/<nr>/<n>-<fansubId>.webp für n = 1..fileLength (items_count wie en.ninehentai, Zählung ab 1)."
+ ]
+}

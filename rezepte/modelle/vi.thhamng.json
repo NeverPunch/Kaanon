@@ -1,0 +1,237 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Thỏ Ham Ngủ",
+  "sprache": "vi",
+  "base_url": "https://thohamngu.xyz",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.thhamng",
+  "quellen": [
+   {
+    "name": "Thỏ Ham Ngủ",
+    "sprache": "vi",
+    "quell_id": 955691323709162100,
+    "home": "https://thohamngu.xyz"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/thohamngu",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/nhieu-xem-nhat/",
+   "items": "ul.most-views.single-list-comic li.position-relative",
+   "fields": {
+    "url": "p.super-title a@href",
+    "title": "p.super-title a",
+    "cover": [
+     {
+      "path": "img.list-left-img@data-lazy-src",
+      "regex": "^(https?://.+)$",
+      "group": 1,
+      "replace": [
+       [
+        "-150x150(\\.[a-zA-Z]+)$",
+        "$1"
+       ]
+      ]
+     },
+     {
+      "path": "img.list-left-img@src",
+      "regex": "^((?!data:).+)$",
+      "group": 1,
+      "replace": [
+       [
+        "-150x150(\\.[a-zA-Z]+)$",
+        "$1"
+       ]
+      ]
+     }
+    ]
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/"
+   },
+   "items": ".col-md-3.col-xs-6.comic-item:has(a[href*=/truyen/])",
+   "fields": {
+    "url": "a:has(h3.comic-title)@href",
+    "title": "h3.comic-title",
+    "cover": [
+     {
+      "path": "img@data-lazy-src",
+      "regex": "^(https?://.+)$",
+      "group": 1,
+      "replace": [
+       [
+        "-150x150(\\.[a-zA-Z]+)$",
+        "$1"
+       ]
+      ]
+     },
+     {
+      "path": "img@src",
+      "regex": "^((?!data:).+)$",
+      "group": 1,
+      "replace": [
+       [
+        "-150x150(\\.[a-zA-Z]+)$",
+        "$1"
+       ]
+      ]
+     }
+    ]
+   },
+   "has_next": {
+    "exists": "ul.pager li.next:not(.disabled) a"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    },
+    "form": {
+     "action": "searchtax",
+     "keyword": "{query_raw}"
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "skip": {
+    "path": "link",
+    "regex": "^((?!/truyen/).)*$"
+   },
+   "fields": {
+    "url": "link",
+    "title": "title",
+    "cover": {
+     "path": "img",
+     "replace": [
+      [
+       "-150x150(\\.[a-zA-Z]+)$",
+       "$1"
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h2.info-title",
+    "cover": [
+     {
+      "path": "div.col-sm-4 img.img-thumbnail@data-lazy-src",
+      "regex": "^(https?://.+)$",
+      "group": 1,
+      "replace": [
+       [
+        "-150x150(\\.[a-zA-Z]+)$",
+        "$1"
+       ]
+      ]
+     },
+     {
+      "path": "div.col-sm-4 img.img-thumbnail@src",
+      "regex": "^((?!data:).+)$",
+      "group": 1,
+      "replace": [
+       [
+        "-150x150(\\.[a-zA-Z]+)$",
+        "$1"
+       ]
+      ]
+     }
+    ],
+    "author": "strong:contains(Tác giả) + span",
+    "status": {
+     "path": "span.comic-stt",
+     "regex": "(?i)(đang tiến hành|hoàn thành|trọn bộ)",
+     "group": 1
+    },
+    "genres": {
+     "path": "a[href*=/the-loai/]",
+     "all": true,
+     "join": ", "
+    },
+    "description": "div.text-justify"
+   },
+   "status_map": {
+    "đang tiến hành": 1,
+    "hoàn thành": 2,
+    "trọn bộ": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".table-scroll table tr:has(a.text-capitalize)",
+   "fields": {
+    "url": "a.text-capitalize@href",
+    "name": [
+     {
+      "path": "a.text-capitalize",
+      "regex": "(?i)(Chap\\s*\\d+(?:\\.\\d+)?)",
+      "group": 1
+     },
+     {
+      "path": "a.text-capitalize",
+      "replace": [
+       [
+        "^.*[–-]\\s*",
+        ""
+       ]
+      ]
+     }
+    ],
+    "date": "td.hidden-xs.hidden-sm"
+   },
+   "date_format": "dd/MM/yy"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": [
+    "#view-chapter img",
+    "img"
+   ],
+   "image": [
+    {
+     "path": "@data-lazy-src",
+     "regex": "^(https?://.+)$",
+     "group": 1
+    },
+    {
+     "path": "@src",
+     "regex": "^(https?://.+)$",
+     "group": 1
+    }
+   ]
+  }
+ },
+ "hinweise": [
+  "Beliebt = /nhieu-xem-nhat/ (eine Seite), Neueste = Startseite /page/N/, Suche POST admin-ajax.php action=searchtax (JSON, eine Seite) wie Community; nur Links mit /truyen/. Tag/Team/Serie-Filter nicht übernommen.",
+  "Kleine Vorschaubilder (-150x150) werden wie in der Community durch das Original ersetzt; data:-Platzhalter ignoriert.",
+  "Kapitelname wie Community auf 'Chap <Nr>' gekürzt, sonst Text nach dem letzten Bindestrich. Datum dd/MM/yy.",
+  "Seiten: Bilder in #view-chapter (data-lazy-src, sonst src, nur http…); Community entfernt Doppelte – hier nicht."
+ ]
+}

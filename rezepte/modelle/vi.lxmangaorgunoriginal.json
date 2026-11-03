@@ -1,0 +1,168 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "LxManga.org (unoriginal)",
+  "sprache": "vi",
+  "base_url": "https://lxmanga.org",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.lxmangaorgunoriginal",
+  "quellen": [
+   {
+    "name": "LxManga.org (unoriginal)",
+    "sprache": "vi",
+    "quell_id": 2252098186268656747,
+    "home": "https://lxmanga.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/lxmangaorg",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 5,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/truyen-tranh-hot/page/{page}",
+   "request_by_page": {
+    "1": "{base}/truyen-tranh-hot"
+   },
+   "items": "div.card:has(a.comic-link[href$=.html])",
+   "fields": {
+    "url": "a.comic-link@href",
+    "title": "a.comic-link",
+    "cover": [
+     "a.comic-tmb img.card-img-top@data-src",
+     "a.comic-tmb img.card-img-top@src"
+    ]
+   },
+   "has_next": {
+    "min": 1
+   }
+  },
+  "latest": {
+   "request": "{base}/moi-cap-nhat/page/{page}",
+   "request_by_page": {
+    "1": "{base}/moi-cap-nhat"
+   },
+   "items": "div.card:has(a.comic-link[href$=.html])",
+   "fields": {
+    "url": "a.comic-link@href",
+    "title": "a.comic-link",
+    "cover": [
+     "a.comic-tmb img.card-img-top@data-src",
+     "a.comic-tmb img.card-img-top@src"
+    ]
+   },
+   "has_next": {
+    "min": 1
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}",
+   "request_by_page": {
+    "1": "{base}/?s={query}"
+   },
+   "items": "div.card:has(a.comic-link[href$=.html])",
+   "fields": {
+    "url": "a.comic-link@href",
+    "title": "a.comic-link",
+    "cover": [
+     "a.comic-tmb img.card-img-top@data-src",
+     "a.comic-tmb img.card-img-top@src"
+    ]
+   },
+   "has_next": {
+    "min": 1
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "pid": [
+     "meta[name=post-id]@content",
+     {
+      "path": "script:containsData(post_id)@html",
+      "regex": "post_id[\"']?\\s*:\\s*[\"'](\\d+)[\"']",
+      "group": 1
+     }
+    ],
+    "nonce": "#chapters_list_nonce@value"
+   },
+   "fields": {
+    "title": "h1.comic-title",
+    "cover": "img.img-thumbnail[alt]@src",
+    "author": {
+     "path": "div.comic-details__item:has(> .comic-details__label:containsOwn(Tác giả)) > .comic-details__item_links a",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "div.comic-details__item:has(> .comic-details__label:containsOwn(Danh mục)) > .comic-details__item_links a, div.comic-details__item:has(> .comic-details__label:containsOwn(Thể loại)) > .comic-details__item_links a, div.comic-details__item:has(> .comic-details__label:containsOwn(Quốc gia)) > .comic-details__item_links a",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": "h5",
+     "all": true,
+     "join": " ",
+     "replace": [
+      [
+       "(?s)^.*(?:đã hoàn thành|Đã hoàn thành|Đã Hoàn Thành).*$",
+       "completed"
+      ],
+      [
+       "(?s)^.*(?:đang tiến hành|Đang tiến hành|Đang Tiến Hành).*$",
+       "ongoing"
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "completed": 2,
+    "ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest",
+     "Referer": "{abs_url}"
+    },
+    "form": {
+     "action": "baka_ajax",
+     "type": "get_chapters_list",
+     "id": "{l.pid}",
+     "chap": "0",
+     "chapters_list_nonce": "{l.nonce}"
+    }
+   },
+   "format": "json",
+   "items": "data.chapters",
+   "fields": {
+    "url": "link",
+    "name": "title"
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img[alt^=Trang truyện]",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "HTML wie Community: Beliebt /truyen-tranh-hot, Neueste /moi-cap-nhat, Suche /?s=… (Folgeseiten …/page/n). Weiter, solange Einträge kommen (Community prüft a.page-link[data-page=n+1]). Klassifikations-/Genre-/Doujinshi-/Autor-Filter nicht übernommen.",
+  "Karten: div.card mit a.comic-link (Community geht vom Link zur umgebenden Karte – hier umgekehrt).",
+  "Details: Autor/Genres aus div.comic-details__item je Beschriftung (Danh mục, Thể loại, Quốc gia → Genres; Doppelte nicht entfernt). Status aus dem Text der h5-Überschriften.",
+  "Kapitel: POST /wp-admin/admin-ajax.php (action=baka_ajax, type=get_chapters_list, id=post-id, chapters_list_nonce) mit post-id und Nonce aus der Detailseite (Details-let in chapters wie tr.korelimanga; Nonce liefert die Website selbst).",
+  "Seiten: img[alt^='Trang truyện']@src."
+ ]
+}

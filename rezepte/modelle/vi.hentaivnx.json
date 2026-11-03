@@ -1,0 +1,201 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiVNx",
+  "sprache": "vi",
+  "base_url": "https://www.hentaivnx.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.hentaivnx",
+  "quellen": [
+   {
+    "name": "HentaiVNx",
+    "sprache": "vi",
+    "quell_id": 5268102422164410592,
+    "home": "https://www.hentaivnx.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/hentaivnx",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.7",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/tim-truyen-nang-cao?sort=10&page={page}",
+   "items": ".items .item",
+   "has_next": {
+    "exists": "ul.pagination li:last-child:not(.disabled) a"
+   },
+   "fields": {
+    "url": [
+     "h3 a@href",
+     "a.jtip@href",
+     ".image a@href"
+    ],
+    "title": [
+     "h3 a@title",
+     "h3 a",
+     "a.jtip@title",
+     ".image a@title"
+    ],
+    "cover": [
+     "img@data-original",
+     "img@data-src",
+     "img@src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/?page={page}",
+   "items": ".items .item",
+   "has_next": {
+    "exists": "ul.pagination li:last-child:not(.disabled) a"
+   },
+   "fields": {
+    "url": [
+     "h3 a@href",
+     "a.jtip@href",
+     ".image a@href"
+    ],
+    "title": [
+     "h3 a@title",
+     "h3 a",
+     "a.jtip@title",
+     ".image a@title"
+    ],
+    "cover": [
+     "img@data-original",
+     "img@data-src",
+     "img@src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/tim-truyen?keyword={query}&page={page}",
+   "items": ".items .item",
+   "has_next": {
+    "exists": "ul.pagination li:last-child:not(.disabled) a"
+   },
+   "fields": {
+    "url": [
+     "h3 a@href",
+     "a.jtip@href",
+     ".image a@href"
+    ],
+    "title": [
+     "h3 a@title",
+     "h3 a",
+     "a.jtip@title",
+     ".image a@title"
+    ],
+    "cover": [
+     "img@data-original",
+     "img@data-src",
+     "img@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1.title-detail",
+    "cover": [
+     ".detail-info .col-image img@data-original",
+     ".detail-info .col-image img@data-src",
+     ".detail-info .col-image img@src"
+    ],
+    "author": "li.author .col-xs-8",
+    "description": {
+     "path": ".detail-content",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "li.kind .col-xs-8 a",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": "li.status .col-xs-8",
+     "regex": "(?i)(đang tiến hành|hoàn thành)",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "đang tiến hành": 1,
+    "hoàn thành": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#nt_listchapter.list-chapter ul li.row",
+   "fields": {
+    "url": "div.chapter a@href",
+    "name": "div.chapter a",
+    "date": {
+     "path": "div.col-xs-4",
+     "replace": [
+      [
+       "(?i)^\\D*?(\\d+)\\s*giờ.*trước.*$",
+       "$1 hours ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s*ngày.*trước.*$",
+       "$1 days ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s*tuần.*trước.*$",
+       "$1 weeks ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s*tháng.*trước.*$",
+       "$1 months ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s*năm.*trước.*$",
+       "$1 years ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s*phút.*trước.*$",
+       "$1 minutes ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s*giây.*trước.*$",
+       "$1 seconds ago"
+      ]
+     ]
+    }
+   },
+   "date_format": "relative",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": [
+    ".reading-detail img, .page-chapter img",
+    ".chapter-content img"
+   ],
+   "image": [
+    "@data-original",
+    "@data-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "WPComics-artige HTML-Website (KeiSource). Beliebt = /tim-truyen-nang-cao?sort=10 (‚Top all‘, SortByList(1) im Community-Code).",
+  "Datum nur relativ (‚… trước‘), vietnamesische Einheiten per replace in englische ‚x … ago‘ umgeschrieben; absolute Angaben ergeben wie im Community-Code kein Datum.",
+  "Bild-URLs über external-content.duckduckgo.com/iu/?u=… entpackt die Community; hier bleibt die Proxy-URL (kein URL-Dekodieren in der Rezeptsprache) – prüfen, ob der Proxy lädt."
+ ]
+}

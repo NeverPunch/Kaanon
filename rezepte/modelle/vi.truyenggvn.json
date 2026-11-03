@@ -1,0 +1,137 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "TruyenGGVN",
+  "sprache": "vi",
+  "base_url": "https://truyenggvn.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.truyenggvn",
+  "quellen": [
+   {
+    "name": "TruyenGGVN",
+    "sprache": "vi",
+    "quell_id": 3763163116691059571,
+    "home": "https://truyenggvn.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/truyenggvn",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/tim-kiem-nang-cao/trang-{page}.html?status=-1&country=0&sort=4&category=&notcategory=&minchapter=0",
+   "items": ".list_grid li:has(.book_info h3 a)",
+   "has_next": {
+    "exists": ".page_redirect a:contains(›)"
+   },
+   "fields": {
+    "url": ".book_info h3 a@href",
+    "title": ".book_info h3 a",
+    "cover": [
+     ".book_avatar img@src",
+     ".book_avatar img@data-original"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/tim-kiem-nang-cao/trang-{page}.html?status=-1&country=0&sort=2&category=&notcategory=&minchapter=0",
+   "items": ".list_grid li:has(.book_info h3 a)",
+   "has_next": {
+    "exists": ".page_redirect a:contains(›)"
+   },
+   "fields": {
+    "url": ".book_info h3 a@href",
+    "title": ".book_info h3 a",
+    "cover": [
+     ".book_avatar img@src",
+     ".book_avatar img@data-original"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/tim-kiem/trang-{page}.html?q={query}",
+   "items": ".list_grid li:has(.book_info h3 a)",
+   "has_next": {
+    "exists": ".page_redirect a:contains(›)"
+   },
+   "fields": {
+    "url": ".book_info h3 a@href",
+    "title": ".book_info h3 a",
+    "cover": [
+     ".book_avatar img@src",
+     ".book_avatar img@data-original"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1[itemprop=name]",
+    "cover": [
+     ".book_avatar img@src",
+     "img[itemprop=image]@src",
+     ".book_avatar img@data-original"
+    ],
+    "author": ".book-counts li:has(.book-counts__label:contains(Tác giả)) .book-counts__value",
+    "genres": {
+     "path": ".book-genres a, .list01 a",
+     "all": true,
+     "join": ", "
+    },
+    "description": {
+     "path": ".story-detail-info.detail-content, .story-detail-info",
+     "all": true,
+     "join": "\n\n"
+    },
+    "status": ".book-counts li:has(.book-counts__label:contains(Tình trạng)) .book-counts__value"
+   },
+   "status_map": {
+    "đang cập nhật": 1,
+    "đang tiến hành": 1,
+    "đang ra": 1,
+    "hoàn thành": 2,
+    "đã hoàn thành": 2,
+    "tạm ngưng": 6,
+    "tạm hoãn": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".works-chapter-list .works-chapter-item:has(a)",
+   "fields": {
+    "url": "a@href",
+    "name": "a",
+    "date": ".time-chap"
+   },
+   "date_format": "dd/MM/yyyy"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".page-chapter img:not([src*='stress.gif'])",
+   "image": [
+    "@data-original",
+    "@data-cdn",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Listen über /tim-kiem-nang-cao/trang-<n>.html (Beliebt sort=4, Neueste sort=2), Suche /tim-kiem/trang-<n>.html?q=…; Filter nicht übernommen.",
+  "Status per status_map mit den Texten, die die Community per 'enthält' prüft.",
+  "Beschreibung: Community verbindet alle .story-detail-info-Blöcke (wholeText, Zeilenumbrüche bleiben); hier Text der Blöcke mit Leerzeile verbunden.",
+  "Seiten: Community lädt die Kapitelseite ohne Cache (FORCE_NETWORK); Bild aus data-original/data-cdn/src, Platzhalter stress.gif ausgeschlossen."
+ ]
+}

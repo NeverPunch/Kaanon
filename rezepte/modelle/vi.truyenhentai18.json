@@ -1,0 +1,193 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Truyen Hentai 18+",
+  "sprache": "vi",
+  "base_url": "https://truyenhentai18.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.truyenhentai18",
+  "quellen": [
+   {
+    "name": "Truyện Hentai 18+",
+    "sprache": "vi",
+    "quell_id": 6484094278517548634,
+    "home": "https://truyenhentai18.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/truyenhentai18",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.13",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/xem-nhieu-nhat/page/{page}",
+   "request_by_page": {
+    "1": "{base}/xem-nhieu-nhat"
+   },
+   "items": "div.col-6.col-md-4.col-lg-2.mb-3",
+   "has_next": {
+    "exists": "ul.pagination li a:contains(»)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "h2",
+    "cover": [
+     "img@data-src",
+     "img@src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/moi-cap-nhat/page/{page}",
+   "request_by_page": {
+    "1": "{base}/moi-cap-nhat"
+   },
+   "items": "div.col-6.col-md-4.col-lg-2.mb-3",
+   "has_next": {
+    "exists": "ul.pagination li a:contains(»)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "h2",
+    "cover": [
+     "img@data-src",
+     "img@src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}?s={query}",
+   "request_by_page": {
+    "1": "{base}/?s={query}"
+   },
+   "items": "div.col-6.col-md-4.col-lg-2.mb-3",
+   "has_next": {
+    "exists": "ul.pagination li a:contains(»)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "h2",
+    "cover": [
+     "img@data-src",
+     "img@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "cover": [
+     "img.manga-cover@src",
+     ".card img.img-fluid@src"
+    ],
+    "genres": {
+     "path": "a.badge.bg-primary",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": [
+      ".list-group-item:contains(Trạng thái:)",
+      "div:containsOwn(Trạng thái:)"
+     ],
+     "regex": "(?i)(hoàn thành|đang tiến hành)",
+     "group": 1
+    },
+    "author": {
+     "path": [
+      ".list-group-item:contains(Tác giả:)",
+      "div:containsOwn(Tác giả:)"
+     ],
+     "replace": [
+      [
+       "^.*?:\\s*",
+       ""
+      ]
+     ]
+    },
+    "description": {
+     "path": ".description",
+     "all": true,
+     "join": "\n"
+    }
+   },
+   "status_map": {
+    "hoàn thành": 2,
+    "đang tiến hành": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.chapter-item",
+   "fields": {
+    "url": "a.fw-bold@href",
+    "name": "a.fw-bold",
+    "date": {
+     "path": "div.chapter-date",
+     "replace": [
+      [
+       "^.*•\\s*",
+       ""
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s*(?:giây).*trước.*$",
+       "$1 seconds ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s*(?:phút).*trước.*$",
+       "$1 minutes ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s*(?:giờ|tiếng).*trước.*$",
+       "$1 hours ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s*(?:ngày).*trước.*$",
+       "$1 days ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s*(?:tuần).*trước.*$",
+       "$1 weeks ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s*(?:tháng).*trước.*$",
+       "$1 months ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s*(?:năm).*trước.*$",
+       "$1 years ago"
+      ]
+     ]
+    }
+   },
+   "date_format": "relative",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div#viewer.chapter-container img",
+   "image": [
+    "@data-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "HTML-Website (Bootstrap, KeiSource). Listen ab Seite 2 als /page/N.",
+  "Status/Autor: Community durchsucht alle .list-group-item/div nach ‚Trạng thái:‘/‚Tác giả:‘; hier .list-group-item:contains(…) mit div-Ausweichpfad – prüfen.",
+  "Datum: Text nach ‚•‘, vietnamesische Relativangaben (… trước) per replace in englische ‚x … ago‘ umgeschrieben."
+ ]
+}

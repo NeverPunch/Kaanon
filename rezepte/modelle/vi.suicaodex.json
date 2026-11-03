@@ -1,0 +1,190 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "SuicaoDex",
+  "sprache": "vi",
+  "base_url": "https://suicaodex.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.suicaodex",
+  "quellen": [
+   {
+    "name": "SuicaoDex",
+    "sprache": "vi",
+    "quell_id": 7951014720451165454,
+    "home": "https://suicaodex.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/suicaodex",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/",
+   "items": "section[aria-labelledby=home-manga-ranking-heading] ol > li > a[href^=/manga/]",
+   "fields": {
+    "url": "@href",
+    "title": [
+     {
+      "path": "img@alt",
+      "replace": [
+       [
+        "^Bìa truyện ",
+        ""
+       ]
+      ]
+     },
+     "span.line-clamp-2"
+    ],
+    "cover": "img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "https://redive.suicaodex.com/v1/manga?page={page}&limit=36&sort=latestChapter&direction=desc&hasChapter=true&includeTagMode=and&excludeTagMode=or",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{value}/{f.slug}"
+    },
+    "title": "title",
+    "cover": "cover.url"
+   },
+   "has_next": {
+    "lt": [
+     "meta.page",
+     "meta.totalPages"
+    ]
+   }
+  },
+  "search": {
+   "request": "https://redive.suicaodex.com/v1/manga?page={page}&limit=36&sort=latestChapter&direction=desc&hasChapter=true&q={query}&includeTagMode=and&excludeTagMode=or",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{value}/{f.slug}"
+    },
+    "title": "title",
+    "cover": "cover.url"
+   },
+   "has_next": {
+    "lt": [
+     "meta.page",
+     "meta.totalPages"
+    ]
+   }
+  },
+  "details": {
+   "request": "https://redive.suicaodex.com/v1/manga/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/manga/([^/?#]+)"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "cover.url",
+    "description": "description",
+    "author": {
+     "path": "authors.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "artists.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "tags.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": "https://redive.suicaodex.com/v1/manga/{u.id}/chapters?language=vi&page={page}&limit=100",
+   "format": "json",
+   "url_vars": {
+    "id": "/manga/([^/?#]+)"
+   },
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/chapter/{value}"
+    },
+    "name": {
+     "const": "[[Vol. {f.volume} ]][[Ch. {f.number}]][[ - {f.title}]]",
+     "replace": [
+      [
+       "^ - ",
+       ""
+      ],
+      [
+       "^\\s*$",
+       "Chapter"
+      ]
+     ]
+    },
+    "number": "number",
+    "date": "publishedAt",
+    "scanlator": {
+     "path": "groups.*.name",
+     "all": true,
+     "join": ", "
+    }
+   },
+   "date_format": "iso",
+   "paging": {
+    "has_next": {
+     "lt": [
+      "meta.page",
+      "meta.totalPages"
+     ]
+    },
+    "max_pages": 50
+   }
+  },
+  "pages": {
+   "request": "https://redive.suicaodex.com/v1/chapters/{u.cid}",
+   "format": "json",
+   "url_vars": {
+    "cid": "/chapter/([^/?#]+)"
+   },
+   "items": "pages",
+   "image": [
+    "url",
+    "replicaUrl"
+   ],
+   "sort": "position"
+  }
+ },
+ "hinweise": [
+  "JSON-API redive.suicaodex.com wie Community. Manga-URL /manga/<id>/<slug> (Web-URL; Community speichert id + slug im memo), Kapitel-URL /chapter/<id>.",
+  "Beliebt = Rangliste der Startseite (HTML, eine Seite) wie Community; Neueste/Suche /v1/manga (sort=latestChapter, hasChapter=true, 36 je Seite); Tag/Status/Jahr/Autor-Filter nicht übernommen.",
+  "Kapitel nur Sprache vi, 100 je Seite (meta.page < meta.totalPages). Name 'Vol. X Ch. Y - Titel' wie Community.",
+  "Seiten nach position sortiert; Bild url, sonst replicaUrl."
+ ]
+}

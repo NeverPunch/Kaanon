@@ -1,0 +1,182 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "NetTruyenS (unoriginal)",
+  "sprache": "vi",
+  "base_url": "https://nettruyen15s.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.nettruyensunoriginal",
+  "quellen": [
+   {
+    "name": "NetTruyenS (unoriginal)",
+    "sprache": "vi",
+    "quell_id": 6085559443545258070,
+    "home": "https://nettruyen15s.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/nettruyens",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/tim-kiem-nang-cao/{page}?sort=views",
+   "request_by_page": {
+    "1": "{base}/tim-kiem-nang-cao?sort=views"
+   },
+   "items": "div.items div.item",
+   "has_next": {
+    "exists": "a.next-page, a[rel=next], .pagination li.active + li a"
+   },
+   "fields": {
+    "url": "h3 a@href",
+    "title": "h3 a",
+    "cover": [
+     "div.image img@data-original",
+     "div.image img@data-src",
+     "div.image img@src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/danh-sach-truyen/{page}",
+   "request_by_page": {
+    "1": "{base}/danh-sach-truyen"
+   },
+   "items": "div.items div.item",
+   "has_next": {
+    "exists": "a.next-page, a[rel=next], .pagination li.active + li a"
+   },
+   "fields": {
+    "url": "h3 a@href",
+    "title": "h3 a",
+    "cover": [
+     "div.image img@data-original",
+     "div.image img@data-src",
+     "div.image img@src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/search/{page}?keyword={query}",
+   "request_by_page": {
+    "1": "{base}/search?keyword={query}"
+   },
+   "items": "div.items div.item",
+   "has_next": {
+    "exists": "a.next-page, a[rel=next], .pagination li.active + li a"
+   },
+   "fields": {
+    "url": "h3 a@href",
+    "title": "h3 a",
+    "cover": [
+     "div.image img@data-original",
+     "div.image img@data-src",
+     "div.image img@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "article#item-detail h1.title-detail",
+    "cover": [
+     "article#item-detail div.col-image img@data-original",
+     "article#item-detail div.col-image img@data-src",
+     "article#item-detail div.col-image img@src"
+    ],
+    "author": "article#item-detail li.author p.col-xs-8",
+    "status": {
+     "path": "article#item-detail li.status p.col-xs-8",
+     "regex": "(Đang tiến hành|Hoàn thành|Tạm ngưng)",
+     "group": 1
+    },
+    "genres": {
+     "path": "article#item-detail li.kind p.col-xs-8 a",
+     "all": true,
+     "join": ", "
+    },
+    "description": {
+     "path": "article#item-detail div.detail-content p",
+     "template": "{value}[[\n\nTên khác: {f.h2.other-name}]]"
+    }
+   },
+   "status_map": {
+    "đang tiến hành": 1,
+    "hoàn thành": 2,
+    "tạm ngưng": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.list-chapter li.row:not(.heading)",
+   "fields": {
+    "url": "a@href",
+    "name": "a",
+    "date": {
+     "path": "div.col-xs-4",
+     "replace": [
+      [
+       "(?i)^\\D*?(\\d+)\\s+giây.*$",
+       "$1 seconds ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s+phút.*$",
+       "$1 minutes ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s+giờ.*$",
+       "$1 hours ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s+ngày.*$",
+       "$1 days ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s+tuần.*$",
+       "$1 weeks ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s+tháng.*$",
+       "$1 months ago"
+      ],
+      [
+       "(?i)^\\D*?(\\d+)\\s+năm.*$",
+       "$1 years ago"
+      ]
+     ]
+    }
+   },
+   "date_format": "relative",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.page-chapter > img",
+   "image": [
+    "@data-original",
+    "@data-src",
+    "@src"
+   ],
+   "exclude": "^data:"
+  }
+ },
+ "hinweise": [
+  "WPComics-Klon (KeiSource). Seiten ab 2 als Pfadsegment (/tim-kiem-nang-cao/2?sort=views), Seite 1 ohne.",
+  "Nächste Seite: Community liest ‚Page X / Y‘ aus .pagination li.hidden; hier Ausweichkette auf Weiter-Links (a.next-page, a[rel=next], aktives li + li a) – prüfen.",
+  "Seiten: nur Bilder direkt in div.page-chapter. Fallback des Community-Codes (POST /ajax/image/list/chap/<CHAPTER_ID>, JSON mit html) fehlt – Kapitel ohne eingebettete Bilder bleiben leer.",
+  "Datum: vietnamesische Relativangaben per replace in englische ‚x … ago‘ umgeschrieben."
+ ]
+}

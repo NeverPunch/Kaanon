@@ -1,0 +1,166 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "DaoMeoDen",
+  "sprache": "vi",
+  "base_url": "https://daomeoden.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.daomeoden",
+  "quellen": [
+   {
+    "name": "DaoMeoDen",
+    "sprache": "vi",
+    "quell_id": 3635786412332322062,
+    "home": "https://daomeoden.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/daomeoden",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.5",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/",
+   "Origin": "{base}"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://api.daomeoden.net/api/search/advanced?page={page}&limit=24&sort=views",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "exists": "pagination.has_next"
+   },
+   "fields": {
+    "url": "url",
+    "title": [
+     "name",
+     "title"
+    ],
+    "cover": "images.cover_url"
+   }
+  },
+  "latest": {
+   "request": "https://api.daomeoden.net/api/search/advanced?page={page}&limit=24&sort=latest",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "exists": "pagination.has_next"
+   },
+   "fields": {
+    "url": "url",
+    "title": [
+     "name",
+     "title"
+    ],
+    "cover": "images.cover_url"
+   }
+  },
+  "search": {
+   "request": "https://api.daomeoden.net/api/search/advanced?page={page}&limit=24&q={query}",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "exists": "pagination.has_next"
+   },
+   "fields": {
+    "url": "url",
+    "title": [
+     "name",
+     "title"
+    ],
+    "cover": "images.cover_url"
+   }
+  },
+  "details": {
+   "request": "https://api.daomeoden.net/api/manga/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "-(\\d+)/?$"
+   },
+   "fields": {
+    "title": [
+     "data.name",
+     "data.title"
+    ],
+    "cover": "data.images.cover_url",
+    "description": {
+     "path": "data.description",
+     "decode": "html_text"
+    },
+    "author": {
+     "path": "data.author",
+     "replace": [
+      [
+       "^Đang cập nhật$",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": [
+      "data.categories.*.name",
+      "data.tags.*.name"
+     ],
+     "union": true
+    },
+    "status": "data.status.name"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "đang ra": 1,
+    "completed": 2,
+    "hoàn thành": 2,
+    "full": 2,
+    "hiatus": 6,
+    "tạm ngưng": 6,
+    "cancelled": 5,
+    "dropped": 5,
+    "drop": 5
+   }
+  },
+  "chapters": {
+   "request": "https://api.daomeoden.net/api/manga/{u.id}/chapters",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": "url",
+    "name": [
+     "title",
+     {
+      "path": "number",
+      "template": "Chapter {value}"
+     }
+    ],
+    "number": "number",
+    "date": "updated_at"
+   },
+   "date_format": "dd.MM.yyyy - HH:mm"
+  },
+  "pages": {
+   "request": "https://api.daomeoden.net/api/chapters/{u.cid}",
+   "format": "json",
+   "url_vars": {
+    "cid": "chuong-[^-/]+-(\\d+)"
+   },
+   "items": "data.images",
+   "image": "",
+   "referer": "chapter"
+  }
+ },
+ "hinweise": [
+  "JSON-API auf api.daomeoden.net (Community leitet api.<domain> aus baseUrl ab; hier fest eingetragen).",
+  "Manga-ID = Zahl am Ende der Manga-URL, Kapitel-ID = zweite Zahl in ‚chuong-<nr>-<id>‘ (wie chapterId() im Community-Code).",
+  "Kapiteldatum ‚dd.MM.yyyy - HH:mm‘ ist Zeitzone Asia/Ho_Chi_Minh; die Rezeptsprache kennt keine Zeitzone → evtl. Versatz von Stunden.",
+  "Kapitelreihenfolge: Community sortiert absteigend nach Nummer; hier API-Reihenfolge – prüfen, ob \"reverse\" nötig.",
+  "Bild-Referer = Kapitel-URL wie im Community-Code."
+ ]
+}

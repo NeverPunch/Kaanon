@@ -1,0 +1,189 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "SinhSieuSao",
+  "sprache": "vi",
+  "base_url": "https://sinhsieusao.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.sinhsieusao",
+  "quellen": [
+   {
+    "name": "SinhSieuSao",
+    "sprache": "vi",
+    "quell_id": 4780099289691520887,
+    "home": "https://sinhsieusao.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/sinhsieusao",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Accept": "application/json",
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/v1/works/top?period=monthly",
+   "format": "json",
+   "items": "items",
+   "skip": {
+    "path": "kind",
+    "equals": "album"
+   },
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/works/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "cover_url",
+     "template": "{base}{value}"
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}/api/v1/works?items=20&page={page}",
+   "format": "json",
+   "items": "items",
+   "skip": {
+    "path": "kind",
+    "equals": "album"
+   },
+   "has_next": {
+    "lt": [
+     "meta.pagy.page",
+     "meta.pagy.pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/works/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "cover_url",
+     "template": "{base}{value}"
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/api/v1/works?items=20&page={page}&q={query}",
+   "format": "json",
+   "items": "items",
+   "skip": {
+    "path": "kind",
+    "equals": "album"
+   },
+   "has_next": {
+    "lt": [
+     "meta.pagy.page",
+     "meta.pagy.pages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/works/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "cover_url",
+     "template": "{base}{value}"
+    }
+   }
+  },
+  "details": {
+   "request": "{base}/api/v1/works/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/works/(\\d+)"
+   },
+   "let": {
+    "wid": [
+     "workable_id",
+     "id"
+    ]
+   },
+   "fields": {
+    "title": "name",
+    "author": "author_name",
+    "description": "description",
+    "cover": {
+     "path": "cover_url",
+     "template": "{base}{value}"
+    },
+    "genres": {
+     "path": "tags.*.name",
+     "all": true,
+     "join": ", "
+    }
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/v1/mangas/{l.wid}",
+   "format": "json",
+   "url_vars": {
+    "id": "/works/(\\d+)"
+   },
+   "items": "chapters",
+   "skip": {
+    "path": "processing_status",
+    "regex": "^(?!processed$)"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/works/{u.id}/chapters/{value}"
+    },
+    "name": [
+     "name",
+     {
+      "path": "number",
+      "template": "Chapter {value}"
+     }
+    ],
+    "number": "number",
+    "date": "created_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api/v1/chapters/{u.cid}",
+   "format": "json",
+   "url_vars": {
+    "cid": "/chapters/(\\d+)"
+   },
+   "items": "pages",
+   "sort": {
+    "path": "order"
+   },
+   "image": {
+    "path": "image_url",
+    "template": "{base}{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "JSON-API {base}/api/v1; Manga-URL /works/<id>, Kapitel-URL /works/<id>/chapters/<kapitel-id> (wie Community).",
+  "Nur Werke vom Typ Manga: Fotoalben (kind = album, Kapitelquelle /api/v1/albums/<id>, ein 'Oneshot'-Kapitel) brauchen eine Verzweigung nach Typ und werden in den Listen per skip ausgelassen.",
+  "Kapitel: nur processing_status = processed; Community sortiert absteigend nach 'order' – Rezept übernimmt die API-Reihenfolge (Sortierung in chapters nicht belegt, ggf. reverse nötig – auf dem PC prüfen).",
+  "Beliebt = Monats-Top (eine Seite). Suche nur Suchtext; Typ-/Tag-/Sortierfilter nicht übernommen.",
+  "Status nicht übernommen (Community leitet ihn nur aus chapters_count ab: >0 laufend, sonst abgeschlossen).",
+  "Seiten nach 'order' sortiert (sort ohne regex – Zahlenwert, prüfen); Bild-URL = {base} + image_url."
+ ]
+}

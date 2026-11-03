@@ -1,0 +1,195 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MeoSua",
+  "sprache": "vi",
+  "base_url": "https://meosua.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.meosua",
+  "quellen": [
+   {
+    "name": "MeoSua",
+    "sprache": "vi",
+    "quell_id": 2280384130624669648,
+    "home": "https://meosua.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/meosua",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.5",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/xem-nhieu-nhat/?trang={page}",
+   "items": "article.uk-panel.uk-margin-small-bottom:has(h3 a[href*=/truyen/])",
+   "fields": {
+    "url": {
+     "path": "h3 a[href*=/truyen/]@href",
+     "replace": [
+      [
+       "\\?.*$",
+       ""
+      ]
+     ]
+    },
+    "title": "h3 a[href*=/truyen/]",
+    "cover": [
+     "img@data-src",
+     "img@data-lazy-src",
+     "img@src"
+    ]
+   },
+   "has_next": {
+    "exists": ".uk-pagination [uk-pagination-next]"
+   }
+  },
+  "latest": {
+   "request": "{base}/truyen-moi-cap-nhat/?trang={page}",
+   "items": "article.uk-panel.uk-margin-small-bottom:has(h3 a[href*=/truyen/])",
+   "fields": {
+    "url": {
+     "path": "h3 a[href*=/truyen/]@href",
+     "replace": [
+      [
+       "\\?.*$",
+       ""
+      ]
+     ]
+    },
+    "title": "h3 a[href*=/truyen/]",
+    "cover": [
+     "img@data-src",
+     "img@data-lazy-src",
+     "img@src"
+    ]
+   },
+   "has_next": {
+    "exists": ".uk-pagination [uk-pagination-next]"
+   }
+  },
+  "search": {
+   "request": "{base}/?s={query}",
+   "items": "article.uk-panel.uk-margin-small-bottom:has(h3 a[href*=/truyen/])",
+   "fields": {
+    "url": {
+     "path": "h3 a[href*=/truyen/]@href",
+     "replace": [
+      [
+       "\\?.*$",
+       ""
+      ]
+     ]
+    },
+    "title": "h3 a[href*=/truyen/]",
+    "cover": [
+     "img@data-src",
+     "img@data-lazy-src",
+     "img@src"
+    ]
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     "h2#category-title",
+     "section#single-block h2",
+     "#single-block h2.uk-margin-remove-top",
+     "h2.uk-margin-remove-top"
+    ],
+    "cover": ".single-thumb img@src",
+    "status": {
+     "path": ".tab-story :has(> [uk-icon='icon: file-edit'])",
+     "regex": "(?i)(trọn bộ|đang tiến hành)",
+     "group": 1
+    },
+    "genres": {
+     "path": ".tab-story a[href*=/the-loai/]",
+     "all": true,
+     "join": ", "
+    },
+    "description": [
+     ".tab-story .hide-long-text p",
+     ".tab-story h3:contains(Tóm tắt) + p"
+    ]
+   },
+   "status_map": {
+    "trọn bộ": 2,
+    "đang tiến hành": 1
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}?trang={page}",
+   "request_by_page": {
+    "1": "details"
+   },
+   "items": "#chapter-list-tab .chapter-item, .tab-story .chapter-list .chapter-item",
+   "skip": {
+    "any": [
+     "[uk-icon='icon: lock'], .uk-text-danger[uk-icon]"
+    ]
+   },
+   "fields": {
+    "url": "a.uk-link-toggle@href",
+    "name": [
+     {
+      "path": "a.uk-link-toggle h4",
+      "regex": "(?i)(chap\\s*\\d+(?:\\.\\d+)?)",
+      "group": 1,
+      "replace": [
+       [
+        "(?i)^chap",
+        "Chap"
+       ],
+       [
+        "\\s+",
+        " "
+       ]
+      ]
+     },
+     "a.uk-link-toggle h4"
+    ],
+    "date": ".uk-article-meta [uk-icon='icon: calendar'] + span"
+   },
+   "date_format": "dd/MM/yyyy",
+   "paging": {
+    "has_next": {
+     "exists": "#chapter-list-tab .uk-pagination li.uk-active + li a[href*=trang=], #chapter-list-tab .uk-pagination [uk-pagination-next]"
+    },
+    "max_pages": 50
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": [
+    "#view-chapter .chapter-content img",
+    ".chapter-content img, .view-comic img"
+   ],
+   "image": [
+    "@data-src",
+    "@data-lazy-src",
+    "@src"
+   ],
+   "exclude": "(?i)/wp-content/uploads/\\d{4}/\\d{2}/(?:0|999)\\.webp$"
+  }
+ },
+ "hinweise": [
+  "Listen /xem-nhieu-nhat/ bzw. /truyen-moi-cap-nhat/?trang=N wie Community; Suche /?s=… (eine Seite). Genre-Filter nicht übernommen; Community entfernt doppelte Einträge (distinctBy) – hier nicht.",
+  "Kapitel: Seite 1 = Detailseite, weitere Seiten {abs_url}?trang=N. Community ermittelt die höchste Seitenzahl aus den Links; hier weiter, solange nach dem aktiven Eintrag der Kapitel-Pagination ein Link folgt (UIkit-Annahme) – prüfen.",
+  "Gesperrte Kapitel (Schloss-Symbol) übersprungen. Kapitelname wie Community auf 'Chap <Nr>' gekürzt.",
+  "Status aus dem Text neben dem file-edit-Symbol (Community: parent().text(), 'enthält').",
+  "Platzhalterbilder (/wp-content/uploads/JJJJ/MM/0.webp bzw. 999.webp) ausgeschlossen wie Community."
+ ]
+}

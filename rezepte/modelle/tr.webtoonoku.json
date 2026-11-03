@@ -1,0 +1,145 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "WebtoonOku",
+  "sprache": "tr",
+  "base_url": "https://webtoonoku.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.webtoonoku",
+  "quellen": [
+   {
+    "name": "WebtoonOku",
+    "sprache": "tr",
+    "quell_id": 5965966687692704047,
+    "home": "https://webtoonoku.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/webtoonoku",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/manhwa/page/{page}/?order=popular",
+   "request_by_page": {
+    "1": "{base}/manhwa/?order=popular"
+   },
+   "items": "article.manga-item",
+   "fields": {
+    "url": ".manga-title a@href",
+    "title": ".manga-title a",
+    "cover": ".manga-thumb img@data-src"
+   },
+   "has_next": {
+    "exists": "a.next.page-numbers"
+   }
+  },
+  "latest": {
+   "request": "{base}/manhwa/page/{page}/?order=latest",
+   "request_by_page": {
+    "1": "{base}/manhwa/?order=latest"
+   },
+   "items": "article.manga-item",
+   "fields": {
+    "url": ".manga-title a@href",
+    "title": ".manga-title a",
+    "cover": ".manga-thumb img@data-src"
+   },
+   "has_next": {
+    "exists": "a.next.page-numbers"
+   }
+  },
+  "search": {
+   "request": "{base}/manhwa/page/{page}/?order=latest&s={query}",
+   "request_by_page": {
+    "1": "{base}/manhwa/?order=latest&s={query}"
+   },
+   "items": "article.manga-item",
+   "fields": {
+    "url": ".manga-title a@href",
+    "title": ".manga-title a",
+    "cover": ".manga-thumb img@data-src"
+   },
+   "has_next": {
+    "exists": "a.next.page-numbers"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1.manga-title-main",
+    "cover": ".manga-cover-img@data-src",
+    "author": {
+     "path": ".info-item:has(.info-label:containsOwn(Yazar)) .info-value",
+     "replace": [
+      [
+       "^-$",
+       ""
+      ]
+     ]
+    },
+    "artist": {
+     "path": ".info-item:has(.info-label:containsOwn(Sanatçı)) .info-value",
+     "replace": [
+      [
+       "^-$",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": ".manga-genres a",
+     "all": true,
+     "join": ", "
+    },
+    "description": ".synopsis-content",
+    "status": {
+     "path": ".info-item:has(.info-label:containsOwn(Durum)) .info-value",
+     "replace": [
+      [
+       "^-$",
+       ""
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "devam ediyor": 1,
+    "tamamlandı": 2,
+    "ara verildi": 6,
+    "bırakıldı": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a.chapter-box",
+   "fields": {
+    "url": "@href",
+    "name": ".chapter-num@ownText",
+    "number": "@data-chapter",
+    "date": ".chapter-date@data-time-iso"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#readerImages img[data-src]",
+   "image": "@data-src"
+  }
+ },
+ "hinweise": [
+  "Listen /manhwa/[page/N/]?order=popular|latest, Suche order=latest&s=… wie Community; Status/Typ/Genre-Filter nicht nachgebaut.",
+  "Community speichert nur Slugs (/manhwa/<slug>/ bzw. /<slug>/ für Kapitel); hier volle Website-URLs, gleiche Seiten.",
+  "Kapitel: Community entfernt doppelte URLs (distinctBy) – hier nicht ausdrückbar; Doppelte möglich, prüfen.",
+  "Autor/Künstler '-' wird geleert wie Community."
+ ]
+}

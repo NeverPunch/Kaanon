@@ -23,7 +23,92 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/latest.php?page={page}&sort=popular",
+   "items": ".recent-grid .recent-card",
+   "has_next": {
+    "exists": "a.page-link:contains(İleri)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": ".recent-card-body a .recent-card-title",
+    "cover": "img.recent-card-img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/latest.php?page={page}",
+   "items": ".recent-grid .recent-card",
+   "has_next": {
+    "exists": "a.page-link:contains(İleri)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": ".recent-card-body a .recent-card-title",
+    "cover": "img.recent-card-img@img"
+   }
+  },
+  "search": {
+   "request": "{base}/search.php?q={query}&page={page}",
+   "items": ".recent-grid .recent-card",
+   "has_next": {
+    "exists": "a.page-link:contains(İleri)"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": ".recent-card-body a .recent-card-title",
+    "cover": "img.recent-card-img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.info-col h1",
+    "cover": "img.manga-cover-big@src",
+    "genres": {
+     "path": "a[href*=genre.php] span",
+     "all": true,
+     "join": ", "
+    },
+    "author": "div:containsOwn(Yazar) + *",
+    "artist": "div:containsOwn(Çizer) + *",
+    "description": "div.info-col .manga-summary-box",
+    "status": ".status-badge"
+   },
+   "status_map": {
+    "devam ediyor": 1,
+    "tamamlandı": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#chapterList a.chapter-grid-item-new",
+   "fields": {
+    "url": "@href",
+    "name": "div > span",
+    "date": "div > span:last-of-type"
+   },
+   "date_format": "dd MMM yyyy",
+   "date_locale": "en",
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img[alt*='Manga Sayfası'], img[alt*='Resmi']",
+   "image": "@img"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Ohne Anmeldung leitet die Website manche Inhalte auf register.php/login um (Community wirft dann einen Fehler mit WebView-Hinweis); das Rezept liest nur frei zugängliche Seiten.",
+  "Status im Code zuerst über CSS-Klasse status-ongoing/status-completed, hier über den Text der .status-badge (Devam Ediyor/Tamamlandı).",
+  "Datum 'dd MMM yyyy' mit Locale.US wie im Code; das Datum steht im letzten span (div > span:last-of-type ist eine Näherung von select(...).last()).",
+  "Kapitelliste steht aufsteigend auf der Seite, Code dreht sie um (reverse)."
+ ]
 }

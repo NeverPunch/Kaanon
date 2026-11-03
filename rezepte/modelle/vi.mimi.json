@@ -1,0 +1,172 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MiMi",
+  "sprache": "vi",
+  "base_url": "https://mimihentai.moe",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.mimi",
+  "quellen": [
+   {
+    "name": "MiMi",
+    "sprache": "vi",
+    "quell_id": 2558772350527638641,
+    "home": "https://mimihentai.moe"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/mimi",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.8",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/manga?sort=views&exclude_genre=196&page={page}&page_size=45",
+   "format": "json",
+   "items": "items",
+   "has_next": {
+    "exists": "has_next"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "cover_url"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/manga?sort=updated_at&exclude_genre=196&page={page}&page_size=45",
+   "format": "json",
+   "items": "items",
+   "has_next": {
+    "exists": "has_next"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "cover_url"
+   }
+  },
+  "search": {
+   "request": "{base}/api/manga/search?page={page}&page_size=24&title={query}",
+   "format": "json",
+   "items": "items",
+   "has_next": {
+    "exists": "has_next"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{value}"
+    },
+    "title": "title",
+    "cover": "cover_url"
+   }
+  },
+  "details": {
+   "request": "{base}/api/manga/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "(\\d+)/?$"
+   },
+   "let": {
+    "alt": {
+     "path": "alt_names.*",
+     "all": true,
+     "join": ", "
+    },
+    "par": {
+     "path": "parodies.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "chr": {
+     "path": "characters.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "aid": {
+     "path": "authors.*.id",
+     "all": true,
+     "join": ", "
+    },
+    "mid": "id",
+    "desc": "description"
+   },
+   "fields": {
+    "title": "title",
+    "cover": "cover_url",
+    "description": {
+     "const": "[[Tên khác: {l.alt}§§]][[Parody: {l.par}§§]][[Nhân vật: {l.chr}§§]][[Code author: {l.aid}§§]]Code manga: {l.mid}§§[[{l.desc}]]",
+     "replace": [
+      [
+       "§§",
+       "\n\n"
+      ]
+     ]
+    },
+    "author": {
+     "path": "authors.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "genres.*.name",
+     "all": true,
+     "join": ", "
+    }
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/manga/{u.id}/chapters",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{u.id}/chapter/{value}"
+    },
+    "name": [
+     "title",
+     {
+      "path": "order",
+      "template": "Chapter {value}"
+     }
+    ],
+    "number": "order",
+    "date": "created_at"
+   },
+   "date_format": "yyyy-MM-dd'T'HH:mm:ss"
+  },
+  "pages": {
+   "request": "{base}/api/chapters/{u.cid}",
+   "format": "json",
+   "url_vars": {
+    "cid": "/chapter/(\\d+)"
+   },
+   "items": "pages",
+   "image": "image_url"
+  }
+ },
+ "hinweise": [
+  "JSON-API /api (KeiSource). Beliebt/Neu schließen wie der Community-Code Genre 196 aus (exclude_genre=196).",
+  "Manga-URL /manga/<id>, Kapitel-URL /manga/<id>/chapter/<kapitel-id> (Webadresse wie Community getChapterUrl).",
+  "Kapiteldatum ohne Zeitzone; Community rechnet in Asia/Ho_Chi_Minh → evtl. einige Stunden Versatz. Status gibt die API nicht (unbekannt)."
+ ]
+}

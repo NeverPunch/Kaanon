@@ -1,0 +1,82 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "BH3",
+  "sprache": "zh",
+  "base_url": "https://comic.bh3.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.bh3",
+  "quellen": [
+   {
+    "name": "《崩坏3》IP站",
+    "sprache": "zh",
+    "quell_id": 5943234929466346733,
+    "home": "https://comic.bh3.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/bh3",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "popular": {
+   "request": "{base}/book",
+   "items": "a[href*=book]:has(div.container[id])",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "div.container@id",
+     "template": "/book/{value}"
+    },
+    "title": "div.container-title",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "url_vars": {
+    "id": "/book/(\\d+)"
+   },
+   "fields": {
+    "title": "div.title",
+    "cover": "img.cover@src",
+    "description": "div.detail_info1"
+   }
+  },
+  "chapters": {
+   "request": "{base}/book/{u.id}/get_chapter",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "chapterid",
+     "template": "/book/{f.bookid}/{value}"
+    },
+    "name": "title",
+    "number": "chapterid",
+    "date": "timestamp"
+   },
+   "date_format": "yyyy-MM-dd HH:mm:ss"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img.lazy.comic_img",
+   "image": "@data-original"
+  }
+ },
+ "hinweise": [
+  "Offizielle Comic-Seite zu Honkai Impact 3rd (KeiSource). Nur eine Liste (/book, ohne Seiten), keine Suche und keine Neuheiten – wie im Community-Code.",
+  "Kapitel aus /book/<id>/get_chapter (JSON-Array); Nummer = chapterid wie im Community-Code.",
+  "Listeneinträge auf a[href*=book] mit div.container[id] eingeschränkt (Community nimmt alle a[href*=book])."
+ ]
+}

@@ -1,0 +1,274 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Mono Manga",
+  "sprache": "tr",
+  "base_url": "https://monomanga.com.tr",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.monomanga",
+  "quellen": [
+   {
+    "name": "Mono Manga",
+    "sprache": "tr",
+    "quell_id": 7385940383162035314,
+    "home": "https://monomanga.com.tr"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/monomanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/manga?page={page}&sort=most_chapters",
+   "items": "article.manga-card",
+   "skip": {
+    "any": [
+     "span:matches((?i)^\\s*novel\\s*$)"
+    ]
+   },
+   "fields": {
+    "url": "a@href",
+    "title": [
+     "h3",
+     "a@title"
+    ],
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "nav[aria-label=Sayfalama] a[aria-label=Sonraki sayfa]:not([disabled])"
+   }
+  },
+  "latest": {
+   "request": "{base}/manga?page={page}&sort=newest",
+   "items": "article.manga-card",
+   "skip": {
+    "any": [
+     "span:matches((?i)^\\s*novel\\s*$)"
+    ]
+   },
+   "fields": {
+    "url": "a@href",
+    "title": [
+     "h3",
+     "a@title"
+    ],
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "nav[aria-label=Sayfalama] a[aria-label=Sonraki sayfa]:not([disabled])"
+   }
+  },
+  "search": {
+   "request": "{base}/manga?page={page}&search={query}&sort=newest",
+   "items": "article.manga-card",
+   "skip": {
+    "any": [
+     "span:matches((?i)^\\s*novel\\s*$)"
+    ]
+   },
+   "fields": {
+    "url": "a@href",
+    "title": [
+     "h3",
+     "a@title"
+    ],
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "nav[aria-label=Sayfalama] a[aria-label=Sonraki sayfa]:not([disabled])"
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "RSC": "1"
+    }
+   },
+   "format": "text",
+   "url_vars": {
+    "slug": "/manga/([^/?#]+)"
+   },
+   "let": {
+    "id": [
+     {
+      "path": "",
+      "regex": "\"manga\":\\{\"_id\":\"([^\"]+)\"",
+      "group": 1
+     },
+     {
+      "path": "",
+      "regex": "\"manga\":\\{[^{}]*?\"_id\":\"([^\"]+)\"",
+      "group": 1
+     }
+    ],
+    "type": {
+     "path": "",
+     "regex": "\"manga\":\\{[^{}]*?\"type\":\"([^\"]*)\"",
+     "group": 1
+    },
+    "genre_block": {
+     "path": "",
+     "regex": "(?s)\"manga\":\\{.*?\"genres\":\\[([^\\]]*)\\]",
+     "group": 1
+    },
+    "genre_names": {
+     "const": "{l.genre_block}",
+     "regex": "\"name\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "regex_all": true,
+     "decode": "json",
+     "join": ", "
+    }
+   },
+   "fields": {
+    "title": {
+     "path": "",
+     "regex": "\"manga\":\\{[^{}]*?\"name\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "author": {
+     "path": "",
+     "regex": "\"manga\":\\{[^{}]*?\"author\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "artist": {
+     "path": "",
+     "regex": "\"manga\":\\{[^{}]*?\"artist\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "description": {
+     "path": "",
+     "regex": "\"manga\":\\{[^{}]*?\"summary\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "cover": [
+     {
+      "path": "",
+      "regex": "\"manga\":\\{[^{}]*?\"coverImage\":\"(https?://[^\"]+)\"",
+      "group": 1
+     },
+     {
+      "path": "",
+      "regex": "\"manga\":\\{[^{}]*?\"coverImage\":\"([^\"]+)\"",
+      "group": 1,
+      "template": "https://cdn.monomanga.com.tr/{value}"
+     }
+    ],
+    "status": {
+     "path": "",
+     "regex": "\"manga\":\\{[^{}]*?\"status\":\"([^\"]*)\"",
+     "group": 1
+    },
+    "genres": {
+     "const": "{l.genre_names}[[, {l.type}]]",
+     "replace": [
+      [
+       "^, ",
+       ""
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "dropped": 5
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/api/manga/{l.id}/chapters?sort=desc&limit=100&offset={offset}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "page_size": 100,
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{u.slug}/{value}"
+    },
+    "name": [
+     {
+      "path": "title",
+      "regex": "(?i)^(bölüm.*)$",
+      "group": 1
+     },
+     {
+      "const": "[[Bölüm {f.chapterNumber}]][[: {f.title}]]",
+      "replace": [
+       [
+        "^: ",
+        ""
+       ]
+      ]
+     }
+    ],
+    "number": "chapterNumber",
+    "date": "uploadDate"
+   },
+   "date_format": "iso",
+   "paging": {
+    "has_next": {
+     "full": true
+    },
+    "max_pages": 50
+   }
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "RSC": "1"
+    }
+   },
+   "format": "text",
+   "inner": {
+    "value": {
+     "path": "",
+     "regex": "(?s)\"chapter\":\\{.*?\"content\":(\\[[^\\]]*\\])",
+     "group": 1
+    },
+    "format": "json",
+    "items": "$",
+    "image": [
+     {
+      "path": "",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "",
+      "template": "https://cdn.monomanga.com.tr/{value}"
+     }
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "Listen HTML /manga?page=N (Beliebt sort=most_chapters, Neueste sort=newest, Suche search=…&sort=newest) wie Community; Novel-Karten übersprungen. Genre/Status/Typ/Sortier-Filter nicht nachgebaut.",
+  "Details per RSC-Text (Header RSC: 1) wie Community (extractNextJs); Felder per Regex aus dem Objekt \"manga\":{…} – setzt voraus, dass name/author/artist/summary/status/coverImage vor dem ersten verschachtelten Objekt stehen. Auf dem PC prüfen.",
+  "Kapitel: Community nimmt initialChapters und lädt den Rest über /api/manga/<_id>/chapters (nach Bänden min/maxChapter oder offset). Hier ALLE Kapitel über die offset-Variante (limit=100, offset 0,100,…), weiter solange 100 Einträge kommen – Annahme: offset 0 liefert auch die ersten Kapitel.",
+  "Manga-_id per Regex aus dem RSC-Text (\"manga\":{\"_id\":…) – prüfen.",
+  "Kapitelname wie Community: Titel, falls er mit 'Bölüm' beginnt, sonst 'Bölüm <Nr>: <Titel>'.",
+  "Seiten: chapter.content aus dem RSC-Text der Kapitelseite; relative Pfade mit https://cdn.monomanga.com.tr/ ergänzt wie Community."
+ ]
+}

@@ -1,0 +1,190 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaInUa",
+  "sprache": "uk",
+  "base_url": "https://manga.in.ua",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.uk.kaanon.mangainua",
+  "quellen": [
+   {
+    "name": "MANGA/in/UA",
+    "sprache": "uk",
+    "quell_id": 7444761572611117628,
+    "home": "https://manga.in.ua"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/uk/mangainua",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.13",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 2000
+  },
+  "popular": {
+   "request": "{base}/filter/sort=news_read;desc/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/filter/sort=news_read;desc"
+   },
+   "items": "div#site-content article.item",
+   "has_next": {
+    "exists": "a:contains(Наступна)"
+   },
+   "fields": {
+    "url": "h3.card__title a@href",
+    "title": "h3.card__title a",
+    "cover": "img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/filter/sort=date;desc/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/filter/sort=date;desc"
+   },
+   "items": "div#site-content article.item",
+   "has_next": {
+    "exists": "a:contains(Наступна)"
+   },
+   "fields": {
+    "url": "h3.card__title a@href",
+    "title": "h3.card__title a",
+    "cover": "img@img"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/index.php?do=search",
+    "method": "POST",
+    "form": {
+     "do": "search",
+     "subaction": "search",
+     "full_search": "1",
+     "story": "{query_raw}",
+     "search_start": "{page}"
+    }
+   },
+   "items": "div#site-content article.item",
+   "has_next": {
+    "exists": "a:contains(Наступна)"
+   },
+   "fields": {
+    "url": "h3.card__title a@href",
+    "title": "h3.card__title a",
+    "cover": "img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "nid": "div#linkstocomics@data-news_id",
+    "cat": "div#linkstocomics@data-news_category",
+    "link": "div#linkstocomics@data-this_link",
+    "hash": {
+     "path": "html@html",
+     "regex": "site_login_hash = '([^']+)'",
+     "group": 1
+    },
+    "hq": {
+     "path": "html@html",
+     "regex": "(?s)mod=load_chapters\\b.*?(\\w+)\\s*:\\s*site_login_hash",
+     "group": 1
+    }
+   },
+   "fields": {
+    "title": "span.UAname@ownText",
+    "description": "div.item__full-description p",
+    "cover": "div.item__full-sidebar--poster img@img",
+    "genres": {
+     "path": [
+      "div.item__full-sideba--header:has(div:containsOwn(Тип:)) span.item__full-sidebar--description",
+      "div.item__full-sideba--header:has(div:containsOwn(Жанри:)) span.item__full-sidebar--description a"
+     ],
+     "union": true
+    },
+    "status": "div.item__full-sideba--header:has(div:containsOwn(Статус перекладу:)) span.item__full-sidebar--description"
+   },
+   "status_map": {
+    "триває": 1,
+    "закінчений": 2,
+    "заморожено": 6,
+    "покинуто": 5
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/engine/ajax/controller.php?mod=load_chapters",
+    "method": "POST",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    },
+    "body": "action=show&news_id={l.nid}&news_category={l.cat}&this_link={l.link}&{l.hq}={l.hash}",
+    "content_type": "application/x-www-form-urlencoded"
+   },
+   "items": "div.ltcitems",
+   "reverse": true,
+   "fields": {
+    "url": "a@href",
+    "name": "a@ownText",
+    "number": "@manga-chappter",
+    "scanlator": [
+     {
+      "path": "@translate"
+     },
+     {
+      "path": "a",
+      "regex": "від:\\s*(.+)$",
+      "group": 1
+     }
+    ],
+    "date": ":first-child@ownText"
+   },
+   "date_format": "dd.MM.yyyy"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "let": {
+    "nid": "div#comics@data-news_id",
+    "hash": {
+     "path": "html@html",
+     "regex": "site_login_hash = '([^']+)'",
+     "group": 1
+    },
+    "hq": {
+     "path": "html@html",
+     "regex": "(?s)mod=load_chapters_image.*?(\\w+)\\s*:\\s*site_login_hash",
+     "group": 1
+    }
+   },
+   "then": [
+    {
+     "request": {
+      "url": "{base}/engine/ajax/controller.php?mod=load_chapters_image&news_id={l.nid}&action=show&{l.hq}={l.hash}",
+      "headers": {
+       "X-Requested-With": "XMLHttpRequest"
+      }
+     },
+     "format": "html"
+    }
+   ],
+   "items": "li img",
+   "image": "@data-src"
+  }
+ },
+ "hinweise": [
+  "DLE-Website. Kapitel und Bilder kommen per AJAX (engine/ajax/controller.php); der Parametername für den Nutzer-Hash wird aus dem Seitenskript gelesen (Regex '(\\w+): site_login_hash' im Skript mit dem Endpunkt), der Hash aus site_login_hash = '…'. Beides liefert die Website selbst (kein eigener Schlüssel).",
+  "Kapitelanfrage: Formular als body-Text mit content_type application/x-www-form-urlencoded, weil der Feldname dynamisch ist ({l.hq}); form-urlencoded als content_type ist in keiner Vorlage belegt – auf dem PC prüfen. this_link wird roh (nicht kodiert) eingesetzt.",
+  "Suche (POST index.php?do=search, mindestens 3 Zeichen): result_from (1+12*(Seite-1)) nicht übernommen, DLE blättert über search_start. Filter und die Einstellung 'Kategorien ausblenden' nicht übernommen.",
+  "Community überspringt Listeneinträge ohne Bild (gelöschte Mangas) und Kapitel ohne Band- und Kapitelnummer – nicht übernommen. Kapitelname 'Альтернативний …' wird nicht in 'Том X. Розділ Y' umgeschrieben.",
+  "Datum aus dem ersten Kindelement (':first-child@ownText' als Näherung von child(0)). Rate-Limit 1 Anfrage/2 s (Community: AJAX 1/2 s, sonst 5/s)."
+ ]
+}

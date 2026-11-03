@@ -1,0 +1,251 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HoneyManga",
+  "sprache": "uk",
+  "base_url": "https://honey-manga.com.ua",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.uk.kaanon.honeymanga",
+  "quellen": [
+   {
+    "name": "HoneyManga",
+    "sprache": "uk",
+    "quell_id": 4712783922379490416,
+    "home": "https://honey-manga.com.ua"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/uk/honeymanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.12",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 10,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": {
+    "url": "https://data.api.honey-manga.com.ua/v2/manga/cursor-list",
+    "method": "POST",
+    "body": "{\"page\":{page},\"pageSize\":30,\"sort\":{\"sortBy\":\"likes\",\"sortOrder\":\"DESC\"},\"filters\":[{\"filterBy\":\"type\",\"filterOperator\":\"NOT_IN\",\"filterValue\":[\"Новела\"]}]}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "data",
+   "skip": {
+    "any": [
+     {
+      "path": "type",
+      "equals": "Новела"
+     },
+     {
+      "path": "title",
+      "regex": "Наша команда покидає Honey Manga"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/book/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "posterId",
+     "template": "https://hmvolumestorage.b-cdn.net/public-resources/{value}"
+    }
+   },
+   "page_size": 30,
+   "has_next": {
+    "full": true
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "https://data.api.honey-manga.com.ua/v2/manga/cursor-list",
+    "method": "POST",
+    "body": "{\"page\":{page},\"pageSize\":30,\"sort\":{\"sortBy\":\"lastUpdated\",\"sortOrder\":\"DESC\"},\"filters\":[{\"filterBy\":\"type\",\"filterOperator\":\"NOT_IN\",\"filterValue\":[\"Новела\"]}]}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "data",
+   "skip": {
+    "any": [
+     {
+      "path": "type",
+      "equals": "Новела"
+     },
+     {
+      "path": "title",
+      "regex": "Наша команда покидає Honey Manga"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/book/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "posterId",
+     "template": "https://hmvolumestorage.b-cdn.net/public-resources/{value}"
+    }
+   },
+   "page_size": 30,
+   "has_next": {
+    "full": true
+   }
+  },
+  "search": {
+   "request": "https://search.api.honey-manga.com.ua/v2/manga/pattern?query={query}",
+   "format": "json",
+   "items": "$",
+   "skip": {
+    "any": [
+     {
+      "path": "type",
+      "equals": "Новела"
+     },
+     {
+      "path": "title",
+      "regex": "Наша команда покидає Honey Manga"
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/book/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "posterId",
+     "template": "https://hmvolumestorage.b-cdn.net/public-resources/{value}"
+    }
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "https://data.api.honey-manga.com.ua/manga/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/book/([^/?#]+)"
+   },
+   "fields": {
+    "title": "title",
+    "cover": {
+     "path": "posterId",
+     "template": "https://hmvolumestorage.b-cdn.net/public-resources/{value}"
+    },
+    "description": "description",
+    "author": {
+     "path": "authors.*",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "artists.*",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": [
+      "type",
+      "genresAndTags.*"
+     ],
+     "union": true
+    },
+    "status": "titleStatus"
+   },
+   "status_map": {
+    "онґоїнґ": 1,
+    "завершено": 2,
+    "покинуто": 5,
+    "призупинено": 6
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "https://data.api.honey-manga.com.ua/v2/chapter/cursor-list",
+    "method": "POST",
+    "body": "{\"mangaId\":\"{u.id}\",\"page\":{page},\"pageSize\":1000,\"sortOrder\":\"DESC\"}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "/book/([^/?#]+)"
+   },
+   "items": "data",
+   "skip": {
+    "path": "isMonetized",
+    "equals": "true"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/read/{value}/{f.mangaId}"
+    },
+    "name": {
+     "const": "Том {f.volume} - Розділ {f.chapterNum}.{f.subChapterNum}|{f.title}",
+     "replace": [
+      [
+       "\\.0\\|",
+       "|"
+      ],
+      [
+       "\\|(?:|-|--|title|Title)$",
+       ""
+      ],
+      [
+       "\\|.*[Рр]озділ.*$",
+       ""
+      ],
+      [
+       "\\|",
+       " "
+      ]
+     ]
+    },
+    "number": {
+     "const": "{f.chapterNum}.{f.subChapterNum}"
+    },
+    "date": "lastUpdated"
+   },
+   "date_format": "iso",
+   "paging": {
+    "has_next": {
+     "min": 1000
+    },
+    "max_pages": 10
+   }
+  },
+  "pages": {
+   "request": "https://data.api.honey-manga.com.ua/chapter/frames/{u.cid}",
+   "format": "text",
+   "url_vars": {
+    "cid": "/read/([^/?#]+)/"
+   },
+   "block_regex": "\"resourceIds\"\\s*:\\s*\\{([^}]*)\\}",
+   "items": "\"\\d+\"\\s*:\\s*\"([^\"]+)\"",
+   "image": {
+    "path": "",
+    "template": "https://hmvolumestorage.b-cdn.net/public-resources/{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "API data.api.honey-manga.com.ua wie Community: Listen per POST /v2/manga/cursor-list (JSON, 30 je Seite, sortBy likes bzw. lastUpdated, Novellen per Filter type NOT_IN 'Новела' ausgeblendet = Community-Standardeinstellung). Weiter, solange die Seite voll ist (Community: cursorNext).",
+  "Suche: search.api…/v2/manga/pattern?query= (eine Seite, Community verlangt ≥3 Zeichen und entfernt Sonderzeichen – hier nicht). Novellen und die umbenannten Einträge der ausgeschiedenen Übersetzergruppe ('Наша команда покидає Honey Manga') werden übersprungen. Genre-/Tag-/Status-Filter und Einstellungen (ausgeblendete Genres/Typen, 18+) nicht übernommen.",
+  "Kapitel per POST /v2/chapter/cursor-list (1000 je Seite). Bezahlkapitel (isMonetized, 'für Mäzene') werden ausgelassen (Regel 0014; Community-Standard ebenfalls ausblenden). Name 'Том V - Розділ N[.S] [Titel]' per Ersetzungskette (Titel '-', 'title' o. ä. oder mit 'Розділ' entfällt). Nummer N.S (Community: N + S/10).",
+  "Eintrags-URL /book/<id>, Kapitel-URL /read/<kapitel-id>/<manga-id> (wie Community-Web-URLs).",
+  "Seiten: /chapter/frames/<id> liefert resourceIds als JSON-Objekt {\"0\":\"…\"} – Objekt-Iteration ist nicht belegt, daher als Text per Regex (Reihenfolge wie geliefert). Bilder hmvolumestorage.b-cdn.net/public-resources/<id>."
+ ]
+}

@@ -1,0 +1,200 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "SangChanhTeam",
+  "sprache": "vi",
+  "base_url": "https://sangchanhteam.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.sangchanhteam",
+  "quellen": [
+   {
+    "name": "SangChanhTeam",
+    "sprache": "vi",
+    "quell_id": 3763639620364244824,
+    "home": "https://sangchanhteam.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/sangchanhteam",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/bo-loc-nang-cao/page/{page}/?type=&status=&age_rating=&team=&rating_min=0&rating_max=6&sort=views",
+   "request_by_page": {
+    "1": "{base}/bo-loc-nang-cao/?type=&status=&age_rating=&team=&rating_min=0&rating_max=6&sort=views"
+   },
+   "items": "main .uk-grid-small:has(> .uk-width-1-3):has(h2 a[href*='/truyen/'])",
+   "has_next": {
+    "exists": ".uk-pagination li:not(.uk-disabled) > a[aria-label='Trang sau']"
+   },
+   "fields": {
+    "url": "h2 a[href*='/truyen/'], h3 a[href*='/truyen/'], a.uk-link-toggle[href*='/truyen/']@href",
+    "title": "h2 a[href*='/truyen/'], h3 a[href*='/truyen/'], a.uk-link-toggle[href*='/truyen/']",
+    "cover": [
+     "img@data-original-src",
+     "img@data-src",
+     "img@data-lazy-src",
+     "img@src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/bo-loc-nang-cao/page/{page}/?type=&status=&age_rating=&team=&rating_min=0&rating_max=6&sort=updated",
+   "request_by_page": {
+    "1": "{base}/bo-loc-nang-cao/?type=&status=&age_rating=&team=&rating_min=0&rating_max=6&sort=updated"
+   },
+   "items": "main .uk-grid-small:has(> .uk-width-1-3):has(h2 a[href*='/truyen/'])",
+   "has_next": {
+    "exists": ".uk-pagination li:not(.uk-disabled) > a[aria-label='Trang sau']"
+   },
+   "fields": {
+    "url": "h2 a[href*='/truyen/'], h3 a[href*='/truyen/'], a.uk-link-toggle[href*='/truyen/']@href",
+    "title": "h2 a[href*='/truyen/'], h3 a[href*='/truyen/'], a.uk-link-toggle[href*='/truyen/']",
+    "cover": [
+     "img@data-original-src",
+     "img@data-src",
+     "img@data-lazy-src",
+     "img@src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/wp-json/initlise/v1/search?term={query}",
+   "format": "json",
+   "items": "$",
+   "has_next": {
+    "const": false
+   },
+   "skip": {
+    "path": "post_type",
+    "regex": "^(?!manga$).+"
+   },
+   "fields": {
+    "url": "url",
+    "title": {
+     "path": "title",
+     "decode": "html_text"
+    },
+    "cover": "thumb"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "url_vars": {
+    "slug": "/truyen/([^/#?]+)"
+   },
+   "fields": {
+    "title": "main h1",
+    "cover": [
+     "img[alt^='Ảnh bìa của']@data-original-src",
+     "img[alt^='Ảnh bìa của']@data-src",
+     "img[alt^='Ảnh bìa của']@data-lazy-src",
+     "img[alt^='Ảnh bìa của']@src",
+     "meta[property=og:image]@content"
+    ],
+    "genres": {
+     "path": ".manga-block a[href*='/the-loai/']",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": "#manga-status",
+     "regex": "(?i)(đang tiến hành|đã theo kịp|trọn bộ|hoàn thành|kết thúc mùa|tạm ngưng|bị hủy)",
+     "group": 1
+    },
+    "description": "#manga-description"
+   },
+   "status_map": {
+    "đang tiến hành": 1,
+    "đã theo kịp": 1,
+    "trọn bộ": 2,
+    "hoàn thành": 2,
+    "kết thúc mùa": 6,
+    "tạm ngưng": 6,
+    "bị hủy": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}/truyen/{u.slug}/chap/page/{page}/",
+   "request_by_page": {
+    "1": "details"
+   },
+   "items": "#chapter-list a.uk-link-toggle[href*='/chap-']",
+   "paging": {
+    "has_next": {
+     "exists": ".uk-pagination li:not(.uk-disabled) > a[aria-label='Trang sau'][href*='/chap/page/']"
+    },
+    "max_pages": 60
+   },
+   "fields": {
+    "url": "@href",
+    "name": [
+     {
+      "path": "h3",
+      "replace": [
+       [
+        "^.*–\\s*",
+        ""
+       ],
+       [
+        "^Chap",
+        "Chương"
+       ]
+      ]
+     },
+     {
+      "path": "@href",
+      "regex": "/(chap-[^/]+)/?$",
+      "group": 1,
+      "replace": [
+       [
+        "-",
+        " "
+       ],
+       [
+        "^c",
+        "C"
+       ]
+      ]
+     }
+    ],
+    "number": {
+     "path": "@href",
+     "regex": "/chap-(\\d+(?:\\.\\d+)?)/?$",
+     "group": 1
+    },
+    "date": "time@datetime"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#chapter-content img[data-imc-order]",
+   "image": [
+    "@data-original-src",
+    "@src"
+   ],
+   "exclude": "^data:"
+  }
+ },
+ "hinweise": [
+  "WordPress-Website mit UIkit (KeiSource). Listen: /bo-loc-nang-cao/[page/N/]?…&sort=views|updated.",
+  "Suche über /wp-json/initlise/v1/search?term= (nur eine Seite, nur post_type manga).",
+  "Kapitel: Seite 1 = Detailseite, weitere Seiten /truyen/<slug>/chap/page/N/; Community ermittelt die letzte Seite aus den Links, hier Weiter-Link als has_next – prüfen.",
+  "Kapiteldatum nur aus time@datetime (ISO); Relativtext-Fallback des Community-Codes fehlt.",
+  "Cover: Community lädt zuerst die Vollgröße (ohne -WxH) und fällt bei 401/404 aufs Vorschaubild zurück; hier direkt das Vorschaubild."
+ ]
+}

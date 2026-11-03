@@ -1,0 +1,166 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Tr Manga",
+  "sprache": "tr",
+  "base_url": "https://trmanga.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.trmanga",
+  "quellen": [
+   {
+    "name": "TrManga",
+    "sprache": "tr",
+    "quell_id": 7237724101525767746,
+    "home": "https://trmanga.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/trmanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.5",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "popular": {
+   "request": "{base}/webtoon-listesi?sort=views&short_type=DESC&page={page}",
+   "items": "[data-more-list=wl] > a",
+   "has_next": {
+    "exists": "a[rel=next]"
+   },
+   "fields": {
+    "url": "@href",
+    "title": [
+     "span.line-clamp-2",
+     "@title"
+    ],
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/son-eklenenler?page={page}",
+   "items": "article:has(h3 a)",
+   "has_next": {
+    "exists": "a[rel=next]"
+   },
+   "fields": {
+    "url": "h3 a@href",
+    "title": "h3 a",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/webtoon-listesi?page={page}&q={query}",
+   "items": "[data-more-list=wl] > a",
+   "has_next": {
+    "exists": "a[rel=next]"
+   },
+   "fields": {
+    "url": "@href",
+    "title": [
+     "span.line-clamp-2",
+     "@title"
+    ],
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1#wt-title",
+    "cover": "meta[property=og:image]@content",
+    "author": "dt:containsOwn(Yazar) + dd",
+    "artist": "dt:containsOwn(Yazar) + dd",
+    "description": "#wtiDesc",
+    "genres": {
+     "path": "a.badge[href^=/tur/]",
+     "all": true,
+     "join": ", "
+    },
+    "status": "dt:containsOwn(Durum) + dd"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "devam ediyor": 1,
+    "güncel": 1,
+    "complete": 2,
+    "tamamlandı": 2,
+    "bitti": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#chapters > li.wt-ch",
+   "fields": {
+    "url": "a@href",
+    "name": {
+     "path": "@data-chapter",
+     "template": "Bölüm {value}[[ - {f..wt-ch-n}]]"
+    },
+    "number": "@data-chapter",
+    "scanlator": {
+     "path": ".wt-ch-m a.fs-chip",
+     "all": true,
+     "join": ", "
+    },
+    "date": {
+     "path": ".wt-ch-m@ownText",
+     "replace": [
+      [
+       "·.*$",
+       ""
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\s*yıl.*$",
+       "$1 years ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\s*ay.*$",
+       "$1 months ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\s*hafta.*$",
+       "$1 weeks ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\s*gün.*$",
+       "$1 days ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\s*saat.*$",
+       "$1 hours ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\s*dakika.*$",
+       "$1 minutes ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\s*saniye.*$",
+       "$1 seconds ago"
+      ]
+     ]
+    }
+   },
+   "date_format": "relative",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#images img.reader-img",
+   "image": [
+    "@data-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "HTML-Website (KeiSource). Datum: türkische Relativangaben (yıl/ay/hafta/gün/saat/dakika/saniye) per replace in englische ‚x … ago‘ umgeschrieben wie tr.holyscans – prüfen.",
+  "Kapitelname wie Community: ‚Bölüm <data-chapter> - <.wt-ch-n>‘.",
+  "Üyelere-özel-Kapitel (nur mit Login) liefern keine Bilder; nicht umgangen."
+ ]
+}

@@ -1,0 +1,222 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ComixTopia",
+  "sprache": "uk",
+  "base_url": "https://comixtopia.in.ua",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.uk.kaanon.comixtopia",
+  "quellen": [
+   {
+    "name": "ComixTopia",
+    "sprache": "uk",
+    "quell_id": 7425856965491574725,
+    "home": "https://comixtopia.in.ua"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/uk/comixtopia",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "https://supa.comixtopia.in.ua/rest/v1/comics?select=slug,ukrainian_name,cover,authors:authors!inner(id),genres:genres!inner(id),publishers:publishers!inner(id),metadata:comics_metadata!inner(state,views)&metadata.state=eq.approved&order=metadata(views).desc&limit=10&offset={offset}",
+    "headers": {
+     "apikey": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2Mzk4NTk2MCwiZXhwIjo0OTE5NjU5NTYwLCJyb2xlIjoiYW5vbiJ9.mYabtnjgn71ekivrvtG86uRTUBgcUOorS9sHlT--Ats",
+     "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2Mzk4NTk2MCwiZXhwIjo0OTE5NjU5NTYwLCJyb2xlIjoiYW5vbiJ9.mYabtnjgn71ekivrvtG86uRTUBgcUOorS9sHlT--Ats",
+     "x-client-info": "supabase-ssr/0.10.3 createBrowserClient"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/titles/{value}"
+    },
+    "title": "ukrainian_name",
+    "cover": {
+     "path": "cover",
+     "template": "https://comicbookstorage.fra1.cdn.digitaloceanspaces.com/{value}"
+    }
+   },
+   "page_size": 10,
+   "has_next": {
+    "full": true
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "https://supa.comixtopia.in.ua/rest/v1/comics?select=slug,ukrainian_name,cover,authors:authors!inner(id),genres:genres!inner(id),publishers:publishers!inner(id),metadata:comics_metadata!inner(state,views)&metadata.state=eq.approved&order=updated_at.desc&limit=10&offset={offset}",
+    "headers": {
+     "apikey": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2Mzk4NTk2MCwiZXhwIjo0OTE5NjU5NTYwLCJyb2xlIjoiYW5vbiJ9.mYabtnjgn71ekivrvtG86uRTUBgcUOorS9sHlT--Ats",
+     "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2Mzk4NTk2MCwiZXhwIjo0OTE5NjU5NTYwLCJyb2xlIjoiYW5vbiJ9.mYabtnjgn71ekivrvtG86uRTUBgcUOorS9sHlT--Ats",
+     "x-client-info": "supabase-ssr/0.10.3 createBrowserClient"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/titles/{value}"
+    },
+    "title": "ukrainian_name",
+    "cover": {
+     "path": "cover",
+     "template": "https://comicbookstorage.fra1.cdn.digitaloceanspaces.com/{value}"
+    }
+   },
+   "page_size": 10,
+   "has_next": {
+    "full": true
+   }
+  },
+  "search": {
+   "request": {
+    "url": "https://supa.comixtopia.in.ua/rest/v1/comics?select=slug,ukrainian_name,cover,authors:authors!inner(id),genres:genres!inner(id),publishers:publishers!inner(id),metadata:comics_metadata!inner(state,views)&metadata.state=eq.approved&or=(ukrainian_name.ilike.*{query}*,original_name.ilike.*{query}*)&order=metadata(views).desc&limit=10&offset={offset}",
+    "headers": {
+     "apikey": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2Mzk4NTk2MCwiZXhwIjo0OTE5NjU5NTYwLCJyb2xlIjoiYW5vbiJ9.mYabtnjgn71ekivrvtG86uRTUBgcUOorS9sHlT--Ats",
+     "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2Mzk4NTk2MCwiZXhwIjo0OTE5NjU5NTYwLCJyb2xlIjoiYW5vbiJ9.mYabtnjgn71ekivrvtG86uRTUBgcUOorS9sHlT--Ats",
+     "x-client-info": "supabase-ssr/0.10.3 createBrowserClient"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/titles/{value}"
+    },
+    "title": "ukrainian_name",
+    "cover": {
+     "path": "cover",
+     "template": "https://comicbookstorage.fra1.cdn.digitaloceanspaces.com/{value}"
+    }
+   },
+   "page_size": 10,
+   "has_next": {
+    "full": true
+   }
+  },
+  "details": {
+   "request": {
+    "url": "https://supa.comixtopia.in.ua/rest/v1/comics?select=slug,original_name,ukrainian_name,release_year,comic_status,age_limit,description,cover,authors:authors!inner(name),publishers:publishers!inner(name),genres:genres!inner(name),votes:votes!inner(rating),issues:issues!inner(id,issue_no,translator,created_at,image_list,metadata:issues_metadata!inner(state))&slug=eq.{u.slug}&issues.order=issue_no.desc,created_at.desc",
+    "headers": {
+     "apikey": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2Mzk4NTk2MCwiZXhwIjo0OTE5NjU5NTYwLCJyb2xlIjoiYW5vbiJ9.mYabtnjgn71ekivrvtG86uRTUBgcUOorS9sHlT--Ats",
+     "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2Mzk4NTk2MCwiZXhwIjo0OTE5NjU5NTYwLCJyb2xlIjoiYW5vbiJ9.mYabtnjgn71ekivrvtG86uRTUBgcUOorS9sHlT--Ats",
+     "x-client-info": "supabase-ssr/0.10.3 createBrowserClient"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "/titles/([^/?#]+)"
+   },
+   "let": {
+    "orig": "0.original_name",
+    "year": "0.release_year",
+    "desc": "0.description",
+    "age": "0.age_limit",
+    "gen": {
+     "path": "0.genres.*.name",
+     "all": true,
+     "join": ", "
+    }
+   },
+   "fields": {
+    "title": "0.ukrainian_name",
+    "cover": {
+     "path": "0.cover",
+     "template": "https://comicbookstorage.fra1.cdn.digitaloceanspaces.com/{value}"
+    },
+    "author": {
+     "path": "0.authors.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "0.publishers.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "const": "[[{l.age}+]][[, {l.gen}]]",
+     "replace": [
+      [
+       "^, ",
+       ""
+      ]
+     ]
+    },
+    "description": {
+     "const": "[[**Оригінальна назва**: {l.orig}\n]][[**Рік випуску**: {l.year}\n]][[{l.desc}]]"
+    },
+    "status": "0.comic_status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "finished": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "0.issues",
+   "skip": {
+    "any": [
+     {
+      "path": "metadata.state",
+      "regex": "^(?!approved$)."
+     }
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/titles/{u.slug}/{value}"
+    },
+    "name": {
+     "path": "issue_no",
+     "template": "Розділ #{value}"
+    },
+    "number": "issue_no",
+    "date": "created_at",
+    "scanlator": "translator"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "https://supa.comixtopia.in.ua/rest/v1/issues?select=image_list&id=eq.{u.id}",
+    "headers": {
+     "apikey": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2Mzk4NTk2MCwiZXhwIjo0OTE5NjU5NTYwLCJyb2xlIjoiYW5vbiJ9.mYabtnjgn71ekivrvtG86uRTUBgcUOorS9sHlT--Ats",
+     "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2Mzk4NTk2MCwiZXhwIjo0OTE5NjU5NTYwLCJyb2xlIjoiYW5vbiJ9.mYabtnjgn71ekivrvtG86uRTUBgcUOorS9sHlT--Ats",
+     "x-client-info": "supabase-ssr/0.10.3 createBrowserClient"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "/titles/[^/]+/(\\d+)"
+   },
+   "items": "0.image_list",
+   "image": {
+    "path": "",
+    "template": "https://comicbookstorage.fra1.cdn.digitaloceanspaces.com/{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "Supabase-REST-API (supa.comixtopia.in.ua) mit dem öffentlichen anon-apikey der Website wörtlich aus der Community (Muster wie id.riztranslation).",
+  "Listen: 10 je Seite (limit/offset), weiter solange die Seite voll ist (Community: Gesamtzahl aus content-range). Beliebt metadata(views).desc, Neueste updated_at.desc, Suche ilike auf ukrainian_name/original_name mit Standardsortierung Beliebtheit; Filter nicht übernommen.",
+  "Manga-URL /titles/<slug>, Kapitel-URL /titles/<slug>/<issue-id> (Web-URLs der Community; Community speichert Slug bzw. id + memo).",
+  "Kapitel sortiert die Community selbst (Nr. absteigend, dann Datum); hier per PostgREST-Parameter issues.order=issue_no.desc,created_at.desc – prüfen. Nur Kapitel mit metadata.state=approved.",
+  "Seiten: Community nimmt image_list aus der Detailantwort (memo); hier eigene Anfrage /issues?select=image_list&id=eq.<id> – Annahme, dass die Tabelle issues direkt lesbar ist; prüfen.",
+  "Beschreibung ohne die Durchschnittsbewertung der Community (Mittelwert nicht ausdrückbar)."
+ ]
+}

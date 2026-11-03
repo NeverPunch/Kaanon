@@ -1,0 +1,178 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Toontaku",
+  "sprache": "tr",
+  "base_url": "https://toontaku.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.toontaku",
+  "quellen": [
+   {
+    "name": "Toontaku",
+    "sprache": "tr",
+    "quell_id": 8871964332446395715,
+    "home": "https://toontaku.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/tr/toontaku",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "Referer": "{base}/"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/api/series?page={page}&limit=24&sortBy=totalViews&sortOrder=desc&contentKind=IMAGE_CHAPTER",
+   "format": "json",
+   "items": "data.series",
+   "has_next": {
+    "lt": [
+     "data.page",
+     "data.totalPages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/seri/{value}"
+    },
+    "title": "title",
+    "cover": "coverImageUrl"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/chapters/new?limit=60",
+   "format": "json",
+   "items": "data.items",
+   "skip": {
+    "path": "contentKind",
+    "regex": "^(?!IMAGE_CHAPTER$)"
+   },
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "seriesSlug",
+     "template": "/seri/{value}"
+    },
+    "title": "seriesTitle",
+    "cover": "coverUrl"
+   }
+  },
+  "search": {
+   "request": "{base}/api/series?search={query}&page={page}&limit=24&sortBy=totalViews&sortOrder=desc&contentKind=IMAGE_CHAPTER",
+   "format": "json",
+   "items": "data.series",
+   "has_next": {
+    "lt": [
+     "data.page",
+     "data.totalPages"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/seri/{value}"
+    },
+    "title": "title",
+    "cover": "coverImageUrl"
+   }
+  },
+  "details": {
+   "request": "{base}/api/series/slug/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/seri/([^/?#]+)"
+   },
+   "let": {
+    "sid": "data.series.id"
+   },
+   "fields": {
+    "title": "data.series.title",
+    "cover": "data.series.coverImageUrl",
+    "description": {
+     "path": "data.series.description",
+     "decode": "html_text"
+    },
+    "genres": {
+     "path": "data.series.genres.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "data.series.status"
+   },
+   "status_map": {
+    "devam_ediyor": 1,
+    "tamamlandi": 2,
+    "sonlandi": 2,
+    "durakladi": 6,
+    "birakildi": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/chapters/series/{l.sid}?limit=2000&sortBy=chapterNumber&sortOrder=desc",
+   "format": "json",
+   "url_vars": {
+    "slug": "/seri/([^/?#]+)"
+   },
+   "items": "data.chapters",
+   "locked": {
+    "path": "canRead",
+    "equals": "false"
+   },
+   "fields": {
+    "url": {
+     "path": "chapterNumber",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "/seri/{u.slug}/bolum/{value}#{f.id}"
+    },
+    "name": {
+     "path": "chapterNumber",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "Bölüm {value}[[ - {f.title}]]"
+    },
+    "number": "chapterNumber",
+    "date": "publishedAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api/chapters/{u.id}?increment_view=false",
+   "format": "json",
+   "url_vars": {
+    "id": "#([^#]+)$"
+   },
+   "items": "data.imageUrls",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "JSON-API {base}/api; Manga-URL /seri/<slug>. Die Kapitel-API braucht die interne Serien-ID aus den Details (details.let sid → {l.sid} in der Kapitelanfrage, wie en.goda/tr.korelimanga).",
+  "Kapitel-URL = Web-URL /seri/<slug>/bolum/<nr> plus '#<kapitel-id>' (Community speichert die ID als url, Slug/Nummer im memo); Seiten holen /api/chapters/<id>?increment_view=false.",
+  "Gesperrte Kapitel (canRead=false) werden per locked ausgelassen (Community zeigt sie mit Schloss und wirft beim Lesen einen Fehler).",
+  "Kapitelname: Community hängt den Titel nur an, wenn er nicht mit 'Chapter ' beginnt – hier immer angehängt, falls vorhanden.",
+  "Neueste: /api/chapters/new ist cursor-basiert (nextCursor) – nur erste Seite (60 Kapitel, nur IMAGE_CHAPTER); Dubletten je Serie möglich.",
+  "Suche nur Suchtext (Sortierung Popularität); Typ-/Status-/Genre-/Gratis-Filter nicht übernommen. Typ (MANGA/MANHWA) fehlt in den Genres, alternative Titel fehlen in der Beschreibung."
+ ]
+}

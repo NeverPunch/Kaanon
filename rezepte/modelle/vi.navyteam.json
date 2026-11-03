@@ -1,0 +1,155 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "NavyTeam",
+  "sprache": "vi",
+  "base_url": "https://navyteamz.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.vi.kaanon.navyteam",
+  "quellen": [
+   {
+    "name": "NavyTeam",
+    "sprache": "vi",
+    "quell_id": 2905603390871515946,
+    "home": "https://navyteamz.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/vi/navyteam",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/danh-sach-truyen/truyen-tranh?page={page}",
+   "items": ".comic-item:has(a[href*=/truyen/]):has(.comic-title)",
+   "fields": {
+    "url": "a[href*=/truyen/]@href",
+    "title": ".comic-title",
+    "cover": ".comic-cover img@src"
+   },
+   "page_size": 1,
+   "has_next": {
+    "full": true
+   }
+  },
+  "search": {
+   "request": "{base}/api/search-story?keyword={query}",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/truyen/{value}"
+    },
+    "title": "title",
+    "cover": "cover"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".info-title h2",
+    "cover": ".info-cover img@src",
+    "author": ".info-row:has(.info-label:matchesOwn(^Tác giả$)) .info-value",
+    "genres": {
+     "path": ".tags a[href*=/the-loai/]",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       "#",
+       ""
+      ]
+     ]
+    },
+    "description": [
+     ".pop-description",
+     ".description",
+     ".story-description"
+    ],
+    "status": ".info-row:has(.info-label:matchesOwn(^Tình trạng$)) .info-value"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".episode-title a[href*=/truyen/][href*=/chap-]",
+   "fields": {
+    "url": "@href",
+    "name": "h3",
+    "date": {
+     "path": ".chapter-date",
+     "replace": [
+      [
+       "(?i)^.*(hôm nay|vừa).*$",
+       "0 minutes ago"
+      ],
+      [
+       "(?i)^.*hôm qua.*$",
+       "1 days ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\D*giây.*$",
+       "$1 seconds ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\D*phút.*$",
+       "$1 minutes ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\D*giờ.*$",
+       "$1 hours ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\D*ngày.*$",
+       "$1 days ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\D*tuần.*$",
+       "$1 weeks ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\D*tháng.*$",
+       "$1 months ago"
+      ],
+      [
+       "(?i)^\\D*(\\d+)\\D*năm.*$",
+       "$1 years ago"
+      ]
+     ]
+    }
+   },
+   "date_format": [
+    "relative",
+    "dd/MM/yyyy"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img.manga-img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Beliebt = /danh-sach-truyen/truyen-tranh?page=N wie Community; Community prüft einen Link auf page=N+1 (nicht ausdrückbar) → hier weiter, solange Einträge kommen (full mit page_size 1). Keine Neueste-Liste (Community: supportsLatest=false).",
+  "Suche über /api/search-story?keyword=… (JSON, eine Seite).",
+  "Datum: vietnamesische Relativangaben (giây/phút/giờ/ngày/tuần/tháng/năm, hôm nay/vừa/hôm qua) per replace ins Englische, sonst dd/MM/yyyy.",
+  "Genres: Community entfernt '#' und Doppelte; hier nur '#' entfernt."
+ ]
+}
