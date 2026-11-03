@@ -1,0 +1,131 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "LoLoBun",
+  "sprache": "en",
+  "base_url": "https://www.lolobun.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.lolobun",
+  "quellen": [
+   {
+    "name": "LoLoBun",
+    "sprache": "en",
+    "quell_id": 5291930108967632324,
+    "home": "https://www.lolobun.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/lolobun",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": ".section-item:has(a.name[href^=/c/])",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a.name@href",
+    "title": "a.name",
+    "cover": "img.cover@src"
+   }
+  },
+  "search": {
+   "request": "{base}/ajax/Common.ashx?op=searchWorks&q={query}&type=comic&pi={page0}",
+   "format": "json",
+   "items": "data.Items",
+   "has_next": {
+    "exists": "data.HasMore"
+   },
+   "fields": {
+    "url": {
+     "path": "EntityId",
+     "template": "/c/{value}"
+    },
+    "title": "Title",
+    "cover": {
+     "path": "Cover",
+     "replace": [
+      [
+       "^(?!https?://)/?",
+       "https://osrs.sfacg.com/web/comic/images/Logo/"
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".header-item-info .name",
+    "cover": "img.header-item-cover@src",
+    "description": "#comic-desc",
+    "status": {
+     "path": ".header-item-info .info",
+     "regex": "^\\s*([^·]+?)\\s*(?:·|$)",
+     "group": 1
+    },
+    "genres": {
+     "path": ".header-item-info .info",
+     "regex": "·\\s*(.+)$",
+     "group": 1,
+     "replace": [
+      [
+       "\\s*·\\s*",
+       ", "
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".catalog-list .catalog-item",
+   "skip": {
+    "path": ".icon-box img[src*=lock]@src",
+    "regex": "lock"
+   },
+   "fields": {
+    "url": ".title a@href",
+    "name": ".title a",
+    "number": {
+     "path": ".title a",
+     "regex": "(?i)chapter\\s*(\\d+(?:\\.\\d+)?)",
+     "group": 1
+    }
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": {
+    "url": "{base}/ajax/comic.ashx?op=getChapterPic",
+    "method": "POST",
+    "form": {
+     "chapId": "{u.cid}"
+    }
+   },
+   "url_vars": {
+    "cid": "/(\\d+)/?$"
+   },
+   "format": "json",
+   "items": "data",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "Beliebt = Startseiten-Abschnitte (einzige Liste der Website, wie Community, Duplikate nicht entfernt). Suche über /ajax/Common.ashx?op=searchWorks (JSON, pi ab 0).",
+  "Manga-URL /c/<id>, Kapitel-URL wie Link-href (/c/<id>/<chapId> angenommen); Seiten per POST chapId an /ajax/comic.ashx?op=getChapterPic.",
+  "Gesperrte Kapitel (Schloss-Symbol) werden übersprungen (Regel 0014; Community zeigt sie optional mit 🔒).",
+  "Kapitelnummern für 'Extra'-Kapitel nicht wie Community zwischen die Kapitel gesetzt; Datum nur für das neueste Kapitel vorhanden – weggelassen."
+ ]
+}

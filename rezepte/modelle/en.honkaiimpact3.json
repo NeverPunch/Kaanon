@@ -1,0 +1,93 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HonkaiImpact3",
+  "sprache": "en",
+  "base_url": "https://manga.honkaiimpact3.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.honkaiimpact3",
+  "quellen": [
+   {
+    "name": "Honkai Impact 3rd",
+    "sprache": "en",
+    "quell_id": 5652636928388608981,
+    "home": "https://manga.honkaiimpact3.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/honkaiimpact",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/book",
+   "items": "a[href*=book]",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "@href",
+    "title": ".container-title",
+    "cover": ".container-cover img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/book",
+   "items": "a[href*=book]",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "@href",
+    "title": ".container-title",
+    "cover": ".container-cover img@src"
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.title",
+    "cover": "img.cover@src",
+    "description": "div.detail_info1"
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{abs_url}/get_chapter",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "chapterid",
+     "regex": "^(\\d+)",
+     "group": 1,
+     "template": "/book/{f.bookid}/{value}"
+    },
+    "name": "title",
+    "number": "chapterid",
+    "date": "timestamp"
+   },
+   "date_format": "yyyy-MM-dd HH:mm:ss"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img.lazy.comic_img",
+   "image": "@data-original"
+  }
+ },
+ "hinweise": [
+  "Alle Titel stehen auf /book (eine Seite); Suche lädt dieselbe Seite und filtert lokal nach Titel (client_filter), wie die Community.",
+  "Kapitel: JSON {Manga-URL}/get_chapter (Community Fetch.XHR → X-Requested-With); URL /book/<bookid>/<chapterid als Ganzzahl>, Datum 'yyyy-MM-dd HH:mm:ss'. Reihenfolge wie geliefert.",
+  "Keine Neueste. Längere Timeouts der Community nicht abbildbar."
+ ]
+}

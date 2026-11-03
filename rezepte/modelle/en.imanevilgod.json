@@ -1,0 +1,93 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "I'm An Evil God",
+  "sprache": "en",
+  "base_url": "https://imanevilgod.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.imanevilgod",
+  "quellen": [
+   {
+    "name": "I'm An Evil God",
+    "sprache": "en",
+    "quell_id": 7749515081735994760,
+    "home": "https://imanevilgod.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/imanevilgod",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/"
+    },
+    "title": {
+     "const": "I'm An Evil God"
+    },
+    "cover": "meta[property=og:image]@content"
+   }
+  },
+  "search": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/"
+    },
+    "title": {
+     "const": "I'm An Evil God"
+    },
+    "cover": "meta[property=og:image]@content"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "I'm An Evil God"
+    },
+    "cover": "meta[property=og:image]@content",
+    "description": {
+     "const": "Across the realms, the manliest and most handsome evil god in history! Xie Yan crosses over and falls into the vixen's lair..."
+    }
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "p.has-medium-font-size a[href*=imanevilgod.com]",
+   "fields": {
+    "url": "@href",
+    "name": ""
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.entry-content img",
+   "image": [
+    "@src",
+    "@data-src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Einzeltitel-Website: ein fester Eintrag '/', Suche liefert denselben Eintrag (wie Community). Beschreibung konstant, Cover aus og:image.",
+  "Kapitel: Links in p.has-medium-font-size auf imanevilgod.com, Reihenfolge wie auf der Seite; Community-Nummer (Position) nicht übernommen.",
+  "Seiten: Bilder in div.entry-content (src, sonst data-src)."
+ ]
+}

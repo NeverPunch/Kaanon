@@ -1,0 +1,139 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaFox",
+  "sprache": "en",
+  "base_url": "https://fanfox.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mangafox",
+  "quellen": [
+   {
+    "name": "MangaFox",
+    "sprache": "en",
+    "quell_id": 6484561431658238800,
+    "home": "https://fanfox.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/mangafox",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 1000
+  },
+  "cookies": {
+   "isAdult": "1"
+  },
+  "popular": {
+   "request": "{base}/directory/{page}.html",
+   "request_by_page": {
+    "1": "{base}/directory/"
+   },
+   "items": "ul.manga-list-1-list li",
+   "fields": {
+    "url": "a@href",
+    "title": "a@title",
+    "cover": "a img@src"
+   },
+   "has_next": {
+    "exists": ".pager-list-left a.active + a + a"
+   }
+  },
+  "latest": {
+   "request": "{base}/directory/{page}.html?latest",
+   "request_by_page": {
+    "1": "{base}/directory/?latest"
+   },
+   "items": "ul.manga-list-1-list li",
+   "fields": {
+    "url": "a@href",
+    "title": "a@title",
+    "cover": "a img@src"
+   },
+   "has_next": {
+    "exists": ".pager-list-left a.active + a + a"
+   }
+  },
+  "search": {
+   "request": "{base}/search?title={query}&genres=&nogenres=&sort=&stype=1",
+   "items": "ul.manga-list-4-list li",
+   "fields": {
+    "url": "a@href",
+    "title": "a@title",
+    "cover": "a img@src"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "author": {
+     "path": ".detail-info-right .detail-info-right-say a",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": ".detail-info-right .detail-info-right-tag-list a",
+     "all": true,
+     "join": ", "
+    },
+    "description": ".detail-info-right p.fullcontent",
+    "status": {
+     "path": ".detail-info-right .detail-info-right-title-tip",
+     "regex": "(Ongoing|Completed)",
+     "group": 1
+    },
+    "cover": ".detail-info-cover-img@src"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "Ongoing": 1,
+    "completed": 2,
+    "Completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "ul.detail-main-list li a",
+   "fields": {
+    "url": "@href",
+    "name": ".detail-main-list-main p",
+    "date": ".detail-main-list-main p:last-of-type"
+   },
+   "date_format": [
+    "MMM d,yyyy",
+    "relative"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": {
+    "url": "https://m.fanfox.net/roll_manga/{u.rest}",
+    "headers": {
+     "Referer": "https://m.fanfox.net/",
+     "Cookie": "readway=2; isAdult=1"
+    }
+   },
+   "url_vars": {
+    "rest": "^/manga/(.*)$"
+   },
+   "items": "#viewer img",
+   "image": "@data-original"
+  }
+ },
+ "hinweise": [
+  "Rate-Limit 1/s und Cookie isAdult=1 wie Community.",
+  "Seiten über die mobile Seite m.fanfox.net/roll_manga/… (alle Bilder auf einer Seite); die Community setzt dafür das Cookie readway=2 auf der Mobil-Domain – hier als Cookie-Header der Seitenanfrage (Annahme, dass die Engine einen expliziten Cookie-Header durchlässt). Mobil-Host fest eingetragen.",
+  "Suche wie Community ohne Seitenparameter (nur eine Seite); Filter nicht übernommen.",
+  "Datum: 'MMM d,yyyy', 'Today'/'Yesterday'/'… ago' über relative (Community rundet auf Tagesbeginn)."
+ ]
+}

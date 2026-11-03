@@ -1,0 +1,123 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiRead.io",
+  "sprache": "en",
+  "base_url": "https://hentairead.io",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.hentaireadio",
+  "quellen": [
+   {
+    "name": "HentaiRead.io",
+    "sprache": "en",
+    "quell_id": 1055804712296309124,
+    "home": "https://hentairead.io"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/hentaireadio",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/?act=search&f%5Bstatus%5D=all&f%5Bsortby%5D=top-manga&pageNum={page}",
+   "items": "div.card:has(.jtip)",
+   "fields": {
+    "url": ".title-manga a@href",
+    "title": ".title-manga a",
+    "cover": "img.card-img-top@src"
+   },
+   "has_next": {
+    "exists": "ul.pagination li.page-item a.page-link:contains(»)"
+   }
+  },
+  "latest": {
+   "request": "{base}/?act=search&f%5Bstatus%5D=all&f%5Bsortby%5D=lastest-chap&pageNum={page}",
+   "items": "div.card:has(.jtip)",
+   "fields": {
+    "url": ".title-manga a@href",
+    "title": ".title-manga a",
+    "cover": "img.card-img-top@src"
+   },
+   "has_next": {
+    "exists": "ul.pagination li.page-item a.page-link:contains(»)"
+   }
+  },
+  "search": {
+   "request": "{base}/?act=search&pageNum={page}&f%5Bkeyword%5D={query}&f%5Bstatus%5D=all&f%5Bsortby%5D=lastest-chap",
+   "items": "div.card:has(.jtip)",
+   "fields": {
+    "url": ".title-manga a@href",
+    "title": ".title-manga a",
+    "cover": "img.card-img-top@src"
+   },
+   "has_next": {
+    "exists": "ul.pagination li.page-item a.page-link:contains(»)"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1.title-detail",
+    "author": {
+     "path": ".author p.col-8",
+     "regex": "(?i)^(?!.*updating)(.+)$",
+     "group": 1
+    },
+    "status": ".status p.col-8",
+    "genres": {
+     "path": ".kind p.col-8 a",
+     "all": true,
+     "join": ", "
+    },
+    "description": "#summary_shortened",
+    "cover": ".col-image img@src"
+   },
+   "status_map": {
+    "complete": 2,
+    "completed": 2,
+    "Complete": 2,
+    "Completed": 2,
+    "in process": 1,
+    "ongoing": 1,
+    "In process": 1,
+    "In Process": 1,
+    "Ongoing": 1,
+    "pause": 6,
+    "on hiatus": 6,
+    "Pause": 6,
+    "On hiatus": 6,
+    "On Hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "ul#list_chapter_id_detail li.wp-manga-chapter, ul.version-chap li.wp-manga-chapter",
+   "fields": {
+    "url": "a@href",
+    "name": "a",
+    "date": ".chapter-release-date i"
+   },
+   "date_format": "MMMM d, yyyy",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".page-chapter img",
+   "image": [
+    "@data-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Website laut Community hinter Cloudflare.",
+  "Filter (Status, Sortierung, Genre) nicht übernommen; Suche mit Standardwerten der Community (status=all, sortby=lastest-chap).",
+  "Autor 'Updating' wird per Regex verworfen."
+ ]
+}

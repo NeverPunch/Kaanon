@@ -23,7 +23,93 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/chapters/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/chapters/"
+    },
+    "title": {
+     "const": "Elan School"
+    },
+    "cover": {
+     "const": "{base}/wp-content/uploads/2018/11/The-Elan-School-Comic-1cNEW-1-768x1491.jpg"
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/chapters/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/chapters/"
+    },
+    "title": {
+     "const": "Elan School"
+    },
+    "cover": {
+     "const": "{base}/wp-content/uploads/2018/11/The-Elan-School-Comic-1cNEW-1-768x1491.jpg"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "Elan School"
+    },
+    "cover": {
+     "const": "{base}/wp-content/uploads/2018/11/The-Elan-School-Comic-1cNEW-1-768x1491.jpg"
+    },
+    "description": {
+     "const": "A 16 year old boy named Joe gets indoctrinated into a sick cult that is run by imprisoned teenagers. Based on the true story of the Elan School."
+    },
+    "author": {
+     "const": "Joe Nobody"
+    },
+    "artist": {
+     "const": "Joe Nobody"
+    },
+    "status": {
+     "const": "ongoing"
+    }
+   },
+   "status_map": {
+    "ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": "{base}/chapters/?dps_paged={page}",
+   "items": "div.listing-item > a.title",
+   "fields": {
+    "url": "@href",
+    "name": ""
+   },
+   "reverse": true,
+   "paging": {
+    "has_next": {
+     "exists": "a.next"
+    },
+    "max_pages": 50
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img[data-orig-file]:not(a img)",
+   "image": "@src"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Ein fester Eintrag 'Elan School' mit Angaben wie in der Community (Cover-URL, Beschreibung, Autor fest eingetragen). Suche liefert denselben Eintrag, kein Latest.",
+  "Kapitel: /chapters/?dps_paged=N, weiter solange a.next existiert (Community folgt dem href von a.next; hier Seitennummer), danach umgekehrt.",
+  "Seiten: img[data-orig-file] ohne verlinkte Bilder (Flagge, Banner, Weiter-Knöpfe) – Community filtert closest('a'); hier per :not(a img)."
+ ]
 }

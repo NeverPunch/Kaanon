@@ -1,0 +1,143 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiPill",
+  "sprache": "en",
+  "base_url": "https://hentaipill.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.hentaipill",
+  "quellen": [
+   {
+    "name": "HentaiPill",
+    "sprache": "en",
+    "quell_id": 5744141040135150417,
+    "home": "https://hentaipill.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/hentaipill",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/popular/{page}",
+   "request_by_page": {
+    "1": "{base}/popular"
+   },
+   "items": "div.galleries-list > div.gallery-item",
+   "has_next": {
+    "exists": "ul.pagination a[rel=next]"
+   },
+   "fields": {
+    "url": "a[href*=/gallery/]@href",
+    "title": "a[href*=/gallery/] span",
+    "cover": "a[href*=/gallery/] img.lazy@data-src"
+   }
+  },
+  "latest": {
+   "request": "{base}/language/english/{page}",
+   "request_by_page": {
+    "1": "{base}/language/english"
+   },
+   "items": "div.galleries-list > div.gallery-item",
+   "has_next": {
+    "exists": "ul.pagination a[rel=next]"
+   },
+   "fields": {
+    "url": "a[href*=/gallery/]@href",
+    "title": "a[href*=/gallery/] span",
+    "cover": "a[href*=/gallery/] img.lazy@data-src"
+   }
+  },
+  "search": {
+   "request": "{base}/search?q={query}&page={page}",
+   "items": "div.galleries-list > div.gallery-item",
+   "has_next": {
+    "exists": "ul.pagination a[rel=next]"
+   },
+   "fields": {
+    "url": "a[href*=/gallery/]@href",
+    "title": "a[href*=/gallery/] span",
+    "cover": "a[href*=/gallery/] img.lazy@data-src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "par": {
+     "path": ".table-row:has(.table-label:containsOwn(Parodies)) .table-value a",
+     "all": true,
+     "join": ", "
+    },
+    "cha": {
+     "path": ".table-row:has(.table-label:containsOwn(Characters)) .table-value a",
+     "all": true,
+     "join": ", "
+    }
+   },
+   "fields": {
+    "title": "div.reading-page-header h1",
+    "cover": "button.js-button-favorite@data-cover",
+    "artist": {
+     "path": ".table-row:has(.table-label:containsOwn(Artists)) .table-value a",
+     "all": true,
+     "join": ", "
+    },
+    "author": {
+     "path": ".table-row:has(.table-label:containsOwn(Artists)) .table-value a",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": ".table-row:has(.table-label:containsOwn(Tags)) .table-value a",
+     "all": true,
+     "join": ", "
+    },
+    "description": {
+     "const": "[[Parodies: {l.par}]]\n[[Characters: {l.cha}]]",
+     "replace": [
+      [
+       "^\\n+|\\n+$",
+       ""
+      ]
+     ]
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Chapter"
+    },
+    "date": "div.reading-page-header-data span@ownText"
+   },
+   "date_format": "yyyy-MM-dd HH:mm"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.reading-pages-content img.lazy",
+   "image": "@data-src"
+  }
+ },
+ "hinweise": [
+  "Listen /popular bzw. /language/english (Neueste), ab Seite 2 mit /<Seite> angehängt (request_by_page für Seite 1).",
+  "Suche /search?q=…&page=…; Sortier-, Tag- und Kategorie-Filter nicht übernommen.",
+  "Ein Kapitel je Galerie (URL = Galerie), Datum aus dem Kopf (yyyy-MM-dd HH:mm, Community: UTC). Status immer abgeschlossen."
+ ]
+}

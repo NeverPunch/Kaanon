@@ -1,0 +1,243 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ManhuaTop",
+  "sprache": "en",
+  "base_url": "https://manhuatop.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.manhuatop",
+  "quellen": [
+   {
+    "name": "ManhuaTop",
+    "sprache": "en",
+    "quell_id": 1903782575226230108,
+    "home": "https://manhuatop.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/manhuatop",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.58",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/api/discovery?path=/series/page/{page}/%3Fsort%3Dtrending-week",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "request_by_page": {
+    "1": {
+     "url": "{base}/api/discovery?path=/series/%3Fsort%3Dtrending-week",
+     "headers": {
+      "X-Requested-With": "XMLHttpRequest"
+     }
+    }
+   },
+   "format": "json",
+   "items": "items",
+   "has_next": {
+    "exists": "hasMore"
+   },
+   "fields": {
+    "url": "path",
+    "title": "title",
+    "cover": "thumbnail"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/api/discovery?path=/series/page/{page}/%3Fsort%3Dlatest_update",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "request_by_page": {
+    "1": {
+     "url": "{base}/api/discovery?path=/series/%3Fsort%3Dlatest_update",
+     "headers": {
+      "X-Requested-With": "XMLHttpRequest"
+     }
+    }
+   },
+   "format": "json",
+   "items": "items",
+   "has_next": {
+    "exists": "hasMore"
+   },
+   "fields": {
+    "url": "path",
+    "title": "title",
+    "cover": "thumbnail"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/discovery?path=/search/{query}/%3Fpage%3D{page}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "request_by_page": {
+    "1": {
+     "url": "{base}/api/discovery?path=/search/{query}/",
+     "headers": {
+      "X-Requested-With": "XMLHttpRequest"
+     }
+    }
+   },
+   "format": "json",
+   "items": "items",
+   "has_next": {
+    "exists": "hasMore"
+   },
+   "fields": {
+    "url": "path",
+    "title": "title",
+    "cover": "thumbnail"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "rating": ".detail-stats .card-rating",
+    "views": ".detail-stats span[title$=views]",
+    "release": ".metadata-list dt:matchesOwn(^Release$) + dd a",
+    "syn": ".rich-content.synopsis",
+    "alt": "p.alternative-title"
+   },
+   "fields": {
+    "title": "h1#manga-title",
+    "cover": ".detail-cover img@src",
+    "author": {
+     "path": ".metadata-list dt:matchesOwn(^Author$) + dd a",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       "(^|, )Updating(?=, |$)",
+       ""
+      ],
+      [
+       "^, |, $",
+       ""
+      ]
+     ]
+    },
+    "artist": {
+     "path": ".metadata-list dt:matchesOwn(^Artist$) + dd a",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       "(^|, )Updating(?=, |$)",
+       ""
+      ],
+      [
+       "^, |, $",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": ".metadata-list dt:matchesOwn(^Type$) + dd a, .genre-chips a, .tags-chips a",
+     "all": true,
+     "join": ", "
+    },
+    "status": ".detail-stats .status-badge",
+    "description": {
+     "const": "[[★ {l.rating} · ]][[{l.views} · ]][[{l.release}]]\n\n[[{l.syn}]]\n\n[[**Alternative titles:** {l.alt}]]",
+     "replace": [
+      [
+       " · (?=\\n)",
+       ""
+      ],
+      [
+       "^\\n+",
+       ""
+      ],
+      [
+       "\\n{3,}",
+       "\n\n"
+      ],
+      [
+       "\\s+$",
+       ""
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "on hold": 6,
+    "canceled": 5
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/api/reader?resource=chapters&path={u.path}%3Ftab%3Dchapters%26chapter_page%3D{page}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "path": "^(/manhua/[^/?#]+/)"
+   },
+   "page_size": 30,
+   "items": "items",
+   "paging": {
+    "has_next": {
+     "total": "total"
+    },
+    "max_pages": 100
+   },
+   "skip": {
+    "path": "path",
+    "regex": "^$"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "{u.path}{value}/"
+    },
+    "name": {
+     "const": "{f.title}[[ - {f.extra}]]"
+    },
+    "date": "date"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "{base}/api/reader?resource=content&path={u.path}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "path": "^(/manhua/[^?#]+)"
+   },
+   "items": "images",
+   "image": "url"
+  }
+ },
+ "hinweise": [
+  "Neue ManhuaTop-API: {base}/api/discovery?path=<Seitenpfad> (Beliebt sort=trending-week, Neueste sort=latest_update, Suche /search/<Text>/); ?/=/& im path-Wert vorkodiert wie OkHttp addQueryParameter. Seite 1 ohne /page/1/ (request_by_page). Suche mit Leerzeichen/Sonderzeichen auf dem PC prüfen (Community kodiert doppelt).",
+  "Kapitel: {base}/api/reader?resource=chapters&path=/manhua/<slug>/?tab=chapters&chapter_page=N, 30 je Seite (total). Kapitel ohne path ('Reader link unavailable') per skip-Regex ^$ ausgelassen – Annahme, dass leerer Wert passt; Dubletten nicht entfernt.",
+  "Kapitel-URL /manhua/<slug>/<kapitel-slug>/ (Community speichert nur den Slug + Memo). Alte Madara-Einträge (Post-ID) nicht unterstützt.",
+  "Seiten: {base}/api/reader?resource=content&path=<Kapitelpfad>; die Community lädt weitere Bildblöcke mit content_page=2… solange hasMore – nicht ausdrückbar (Seiten haben kein Paging), daher nur der erste Bildblock. Auf dem PC mit langen Kapiteln prüfen.",
+  "Filter (Typ/Status/Genre) nicht übernommen."
+ ]
+}

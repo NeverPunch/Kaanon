@@ -1,0 +1,88 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Gone with the Blastwave",
+  "sprache": "en",
+  "base_url": "https://www.blastwave-comic.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.gonewiththeblastwave",
+  "quellen": [
+   {
+    "name": "Gone with the Blastwave",
+    "sprache": "en",
+    "quell_id": 4006397036545425884,
+    "home": "https://www.blastwave-comic.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/gwtb",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/index.php",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/index.php"
+    },
+    "title": {
+     "const": "Gone with the Blastwave"
+    },
+    "cover": {
+     "const": "https://www.blastwave-comic.com/images/yarr.jpg"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "Gone with the Blastwave"
+    },
+    "cover": {
+     "const": "https://www.blastwave-comic.com/images/yarr.jpg"
+    },
+    "description": {
+     "const": "Because war can be boring too."
+    },
+    "author": {
+     "const": "Kimmo Lemetti"
+    },
+    "artist": {
+     "const": "Kimmo Lemetti"
+    }
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".fall > option:not(:first-child)",
+   "fields": {
+    "url": {
+     "path": "@value",
+     "template": "/index.php?nro={value}"
+    },
+    "name": "@ownText",
+    "number": "@value"
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".comic_title + img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Einzeltitel-Webcomic: ein fester Eintrag /index.php, Details als Konstanten wie in der Community (Cover {base}/images/yarr.jpg).",
+  "Kapitel aus dem Auswahlfeld .fall (erste Option übersprungen), URL /index.php?nro=<Wert>, Reihenfolge wie auf der Seite (Community dreht nicht um).",
+  "Keine Suche/Neueste (Community: nicht unterstützt). Seite: erstes Bild nach .comic_title."
+ ]
+}

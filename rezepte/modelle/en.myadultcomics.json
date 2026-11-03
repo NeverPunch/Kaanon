@@ -1,0 +1,123 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MyAdultComics",
+  "sprache": "en",
+  "base_url": "https://myadultcomics.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.myadultcomics",
+  "quellen": [
+   {
+    "name": "MyAdultComics",
+    "sprache": "en",
+    "quell_id": 4116931674173505341,
+    "home": "https://myadultcomics.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/myadultcomics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/index.php?page={page}",
+   "items": "td.list_container:has(p.text_container > a)",
+   "fields": {
+    "url": "p.text_container > a@href",
+    "title": "p.text_container > a",
+    "cover": "img.fon_pic_img@src"
+   },
+   "has_next": {
+    "exists": "td.tbl_page a:contains(>>)"
+   }
+  },
+  "search": {
+   "request": "{base}/index.php?name={query}&search=yes&page={page}",
+   "items": "td.list_container:has(p.text_container > a)",
+   "fields": {
+    "url": "p.text_container > a@href",
+    "title": "p.text_container > a",
+    "cover": "img.fon_pic_img@src"
+   },
+   "has_next": {
+    "exists": "td.tbl_page a:contains(>>)"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1#TOP",
+    "genres": {
+     "path": "p.text_info_book:contains(Tags:) a",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "p.text_info_book:contains(Artists:) a",
+     "all": true,
+     "join": ", "
+    },
+    "author": {
+     "path": "p.text_info_book:contains(Artists:) a",
+     "all": true,
+     "join": ", "
+    },
+    "cover": {
+     "path": "script:containsData(let template)@html",
+     "regex": "src=[\"'](books/[^\"']+)[\"']",
+     "replace": [
+      [
+       "^.*/([^/]+)/[^/]+\\.(\\w+)$",
+       "$1.$2"
+      ]
+     ],
+     "template": "{base}/poster/{value}"
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Gallery"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "block_regex": "(?s)let template(.*?)</script>",
+   "items": "src=[\"']books/[^\"']+[\"']",
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "^src=[\"'](books/[^\"']+)[\"']$",
+      "$1"
+     ]
+    ],
+    "template": "{base}/{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "Galerie-Website: ein Eintrag = ein Kapitel 'Gallery'; Bildpfade (books/…) per Regex aus dem Skript mit 'let template' (wie Community).",
+  "Cover in den Details wie Community aus dem ersten Bildpfad abgeleitet: /poster/<Ordner>.<Endung>.",
+  "Suche nur nach Titel (name=…&search=yes); Suchtypen Parodie/Figur/Tag/Künstler und ähnliche Einträge nicht übernommen."
+ ]
+}

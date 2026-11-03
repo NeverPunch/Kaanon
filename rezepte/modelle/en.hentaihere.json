@@ -1,0 +1,123 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiHere",
+  "sprache": "en",
+  "base_url": "https://hentaihere.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.hentaihere",
+  "quellen": [
+   {
+    "name": "HentaiHere",
+    "sprache": "en",
+    "quell_id": 7266624490370375187,
+    "home": "https://hentaihere.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/hentaihere",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/browse/most-viewed/page-{page}",
+   "items": "article.card[data-card]",
+   "fields": {
+    "url": "a@href",
+    "title": "h3",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a[rel=next]"
+   },
+   "request_by_page": {
+    "1": "{base}/browse/most-viewed"
+   }
+  },
+  "latest": {
+   "request": "{base}/browse/newest/page-{page}",
+   "items": "article.card[data-card]",
+   "fields": {
+    "url": "a@href",
+    "title": "h3",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a[rel=next]"
+   }
+  },
+  "search": {
+   "request": "{base}/search?q={query}&page={page}",
+   "items": "article.card[data-card]",
+   "fields": {
+    "url": "a@href",
+    "title": "h3",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a[rel=next]"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1#book-title",
+    "author": [
+     "dl[aria-label=Details] dt:contains(Artist) + dd",
+     "dl[aria-label=Details] dt:contains(Author) + dd"
+    ],
+    "genres": {
+     "path": "ul[aria-label=Tags] a",
+     "all": true,
+     "join": ", "
+    },
+    "status": "dl[aria-label=Details] dt:contains(Status) + dd",
+    "cover": "meta[property=og:image]@content"
+   },
+   "status_map": {
+    "completed": 2,
+    "Completed": 2,
+    "ongoing": 1,
+    "Ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#preview-chapter option",
+   "fields": {
+    "url": "@data-read",
+    "name": {
+     "path": "",
+     "replace": [
+      [
+       "\\s*\\(latest\\)\\s*$",
+       ""
+      ]
+     ]
+    },
+    "number": {
+     "path": "",
+     "regex": "Chapter\\s+([\\d.]+)",
+     "group": 1
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "script_json",
+   "script_regex": "(?s)<script[^>]*data-reader-data[^>]*>(.*?)</script>",
+   "items": "images"
+  }
+ },
+ "hinweise": [
+  "Beliebt = /browse/most-viewed (Community-Standard 'Most Read'), Seite 1 ohne /page-1.",
+  "Filter (Sortierung, Anfangsbuchstabe, Status, Kategorie) nicht übernommen; Textsuche über /search?q=.",
+  "Alte /m/<id>-Links (Community schreibt sie auf /doujinshi/<id> um) nicht abgebildet.",
+  "Status-Werte klein angenommen ('Completed'/'Ongoing'); status_map führt beide Schreibweisen."
+ ]
+}

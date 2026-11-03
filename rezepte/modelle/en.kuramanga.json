@@ -1,0 +1,184 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "KuraManga",
+  "sprache": "en",
+  "base_url": "https://kuramanga.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.kuramanga",
+  "quellen": [
+   {
+    "name": "KuraManga",
+    "sprache": "en",
+    "quell_id": 7076475127850729187,
+    "home": "https://kuramanga.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/kuramanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": "section:has(h2:contains(Popular)) a.sp-card:has(.sp-cap h3)",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "@href",
+     "regex": "^/?(.*)$",
+     "group": 1,
+     "template": "/{value}"
+    },
+    "title": ".sp-cap h3",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/?page={page}",
+   "request_by_page": {
+    "1": "{base}/"
+   },
+   "items": ".update-list .update-row:has(a.update-series-link)",
+   "has_next": {
+    "exists": "a[data-lu-next]:not(.is-disabled)"
+   },
+   "fields": {
+    "url": {
+     "path": "a.update-series-link@href",
+     "regex": "^/?(.*)$",
+     "group": 1,
+     "template": "/{value}"
+    },
+    "title": "a.update-series-link",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/search?ajax=1&page={page}&name={query}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "page_size": 18,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "normalized_title",
+     "template": "/{value}"
+    },
+    "title": "title",
+    "cover": [
+     "thumb",
+     "cover_image_url"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1.manga-title",
+    "description": [
+     ".summary-inner",
+     ".mp-synopsis"
+    ],
+    "author": [
+     ".mp-cred:has(.mp-cred-k:contains(Author)) .mp-cred-v",
+     ".mp-cred:has(.mp-cred-k:contains(Story)) .mp-cred-v",
+     ".mp-cred:has(.mp-cred-k:contains(Story & Art)) .mp-cred-v",
+     ".mp-cred:has(.mp-cred-k:contains(Author & Artist)) .mp-cred-v",
+     {
+      "path": ".meta-grid div:contains(Author:)",
+      "regex": "Author:\\s*(.*)$",
+      "group": 1
+     }
+    ],
+    "artist": [
+     ".mp-cred:has(.mp-cred-k:contains(Artist)) .mp-cred-v",
+     ".mp-cred:has(.mp-cred-k:contains(Art)) .mp-cred-v",
+     ".mp-cred:has(.mp-cred-k:contains(Story & Art)) .mp-cred-v",
+     ".mp-cred:has(.mp-cred-k:contains(Author & Artist)) .mp-cred-v",
+     {
+      "path": ".meta-grid div:contains(Artist:)",
+      "regex": "Artist:\\s*(.*)$",
+      "group": 1
+     }
+    ],
+    "genres": {
+     "path": ".genre-list a.genre-chip",
+     "all": true,
+     "join": ", "
+    },
+    "status": [
+     ".mp-status",
+     {
+      "path": ".meta-grid div:contains(Status:)",
+      "regex": "Status:\\s*(.*)$",
+      "group": 1
+     }
+    ],
+    "cover": "meta[property='og:image']@content"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "upcoming": 1,
+    "completed": 2,
+    "on_hold": 6,
+    "on hold": 6,
+    "hiatus": 6,
+    "canceled": 5,
+    "cancelled": 5,
+    "Ongoing": 1,
+    "Upcoming": 1,
+    "Completed": 2,
+    "On Hold": 6,
+    "On hold": 6,
+    "Hiatus": 6,
+    "Canceled": 5,
+    "Cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".chapter-list .chapter-item:has(a)",
+   "fields": {
+    "url": {
+     "path": "a@href",
+     "regex": "^/?(.*)$",
+     "group": 1,
+     "template": "/{value}"
+    },
+    "name": "a",
+    "date": "time"
+   },
+   "date_format": "MMM d, yyyy",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#chapterImages img",
+   "image": [
+    "@data-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Beliebt = Abschnitt 'Popular' der Startseite (eine Seite, wie Community).",
+  "Suche über /search?ajax=1 (JSON, 18 je Seite); Filter (Status, Genres, Adult) nicht übernommen – die Website zeigt Adult-Inhalte standardmäßig mit an (Community-Standard).",
+  "Neuheiten: Community entfernt doppelte Serien (distinctBy) – hier nicht möglich, Dubletten möglich.",
+  "URLs werden wie in der Community immer als '/<pfad>' gebildet."
+ ]
+}

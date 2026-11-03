@@ -1,0 +1,131 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiKisu",
+  "sprache": "en",
+  "base_url": "https://hentaikisu.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.hentaikisu",
+  "quellen": [
+   {
+    "name": "HentaiKisu",
+    "sprache": "en",
+    "quell_id": 5345672200867563334,
+    "home": "https://hentaikisu.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/hentaikisu",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "{base}/backend/infinite.index.php?p={page}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "has_next": {
+    "exists": "*.id"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/g/{value}"
+    },
+    "title": "title",
+    "cover": "img"
+   }
+  },
+  "search": {
+   "request": "{base}/search?s={query}",
+   "items": "div.book-list a",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "@href",
+    "title": "div.book-description p",
+    "cover": [
+     "img.lozad@data-src",
+     "img@img"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div#info h1",
+    "cover": "div#cover img@src",
+    "artist": "div.tag-container:contains(Artist:) span.tags",
+    "author": "div.tag-container:contains(Group:) span.tags",
+    "genres": {
+     "path": "div.tag-container:contains(Categories:) span.tags a.tag@ownText",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Chapter"
+    }
+   }
+  },
+  "pages": {
+   "request": "{base}/read/{u.rest}",
+   "url_vars": {
+    "rest": "/g/(.*)$"
+   },
+   "format": "text",
+   "let": {
+    "liste": {
+     "path": "",
+     "regex": "la\\s*=\\s*'([A-Za-z0-9+/=]+)'",
+     "decode": "base64"
+    }
+   },
+   "inner": {
+    "value": {
+     "const": "{l.liste}",
+     "replace": [
+      [
+       ",",
+       "\",\""
+      ]
+     ],
+     "template": "[\"{value}\"]"
+    },
+    "format": "json",
+    "items": "$",
+    "image": ""
+   }
+  }
+ },
+ "hinweise": [
+  "Beliebt: JSON-Liste /backend/infinite.index.php?p=<Seite> (Community mit Fetch.XHR, hier X-Requested-With); weiter, solange die Liste Einträge hat ('exists': '*.id' – Annahme).",
+  "Suche: /search?s=<Text>, nur eine Seite wie in der Community. Keine Neueste.",
+  "Ein Kapitel je Galerie (URL = Galerie-URL). Community nimmt den Pfad nach Weiterleitungen; hier die gespeicherte URL.",
+  "Seiten: /g/ → /read/; im Skript steht la='<Base64>', dekodiert eine kommagetrennte URL-Liste. Sie wird per replace/template zu einem JSON-Array umgebaut und über inner ausgewertet (Reihenfolge regex→decode in let, dann replace→template im inner-Wert – auf dem PC prüfen)."
+ ]
+}

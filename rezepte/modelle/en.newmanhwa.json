@@ -1,0 +1,167 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "New Manhwa",
+  "sprache": "en",
+  "base_url": "https://saymanhwa.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.newmanhwa",
+  "quellen": [
+   {
+    "name": "New Manhwa",
+    "sprache": "en",
+    "quell_id": 3639911276143172075,
+    "home": "https://saymanhwa.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/newmanhwa",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.36",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/popular?page={page}",
+   "items": "article.series-card",
+   "has_next": {
+    "exists": "a:contains(Next):not(.disabled)"
+   },
+   "fields": {
+    "url": "a.series-card-cover@href",
+    "title": {
+     "path": "div.series-card-body h2 a",
+     "replace": [
+      [
+       "^#\\d+\\s+",
+       ""
+      ]
+     ]
+    },
+    "cover": [
+     "a.series-card-cover img@data-src",
+     "a.series-card-cover img@src"
+    ]
+   }
+  },
+  "latest": {
+   "request": "{base}/latest?page={page}",
+   "items": "article.series-card",
+   "has_next": {
+    "exists": "a:contains(Next):not(.disabled)"
+   },
+   "fields": {
+    "url": "a.series-card-cover@href",
+    "title": {
+     "path": "div.series-card-body h2 a",
+     "replace": [
+      [
+       "^#\\d+\\s+",
+       ""
+      ]
+     ]
+    },
+    "cover": [
+     "a.series-card-cover img@data-src",
+     "a.series-card-cover img@src"
+    ]
+   }
+  },
+  "search": {
+   "request": "{base}/series?q={query}&page={page}",
+   "items": "article.series-card",
+   "has_next": {
+    "exists": "a:contains(Next):not(.disabled)"
+   },
+   "fields": {
+    "url": "a.series-card-cover@href",
+    "title": {
+     "path": "div.series-card-body h2 a",
+     "replace": [
+      [
+       "^#\\d+\\s+",
+       ""
+      ]
+     ]
+    },
+    "cover": [
+     "a.series-card-cover img@data-src",
+     "a.series-card-cover img@src"
+    ]
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "cover": "aside.series-left .cover-card img@src",
+    "author": "aside.series-v72-sidebar .series-v72-meta :has(> span:matchesOwn((?i)^Author$)) > strong",
+    "artist": "aside.series-v72-sidebar .series-v72-meta :has(> span:matchesOwn((?i)^Artist$)) > strong",
+    "status": "aside.series-v72-sidebar .series-v72-meta :has(> span:matchesOwn((?i)^Status$)) > strong",
+    "genres": [
+     {
+      "path": "div.series-v72-genres a",
+      "all": true,
+      "join": ", "
+     },
+     {
+      "path": "script[type=application/ld+json]:containsData(ComicSeries)@html",
+      "regex": "\"genre\":\\s*\\[(.*?)\\]",
+      "group": 1,
+      "replace": [
+       [
+        "\"",
+        ""
+       ],
+       [
+        "\\s*,\\s*",
+        ", "
+       ]
+      ]
+     }
+    ],
+    "description": {
+     "path": "div.series-v72-description",
+     "regex": "(?s)^(.*?)(?:\\s*\\bTags\\b.*)?$",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "Ongoing": 1,
+    "completed": 2,
+    "Completed": 2,
+    "hiatus": 6,
+    "Hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.series-v72-chapter-list a.series-v72-chapter-row",
+   "skip": ".chapter-mini-lock@class",
+   "fields": {
+    "url": "@href",
+    "name": ".series-chapter-number-text",
+    "date": "time.series-chapter-date@datetime"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.reader-pages img",
+   "image": [
+    "@data-src",
+    "@src"
+   ]
+  }
+ },
+ "hinweise": [
+  "Website saymanhwa.com ohne Sprachpräfix (Pfade /popular, /latest, /series?q=… wie in der Community); vgl. all.saymanhwa (gleiche Website, /en/-Pfade).",
+  "Suche liefert bei eindeutigem Treffer direkt die Detailseite (aside.series-left) – Community baut daraus einen Eintrag; hier nicht abgebildet (dann leere Liste). Filter (Status, Genre, Sortierung) nicht übernommen.",
+  "Autor/Zeichner/Status aus der Meta-Leiste (span-Beschriftung → strong). Genres aus der Seitenleiste, sonst aus dem ComicSeries-JSON-LD. Beschreibung bis zum Wort 'Tags'.",
+  "VIP-Kapitel (.chapter-mini-lock) werden übersprungen wie in all.saymanhwa (Community zeigt sie an)."
+ ]
+}

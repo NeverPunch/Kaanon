@@ -1,0 +1,139 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Kaiji Manga Online",
+  "sprache": "en",
+  "base_url": "https://w9.kaijimanga.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.kaijimangaonline",
+  "quellen": [
+   {
+    "name": "Kaiji Manga Online",
+    "sprache": "en",
+    "quell_id": 4534836110470234374,
+    "home": "https://w9.kaijimanga.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/kaijimangaonline",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/"
+    },
+    "title": {
+     "const": "Kaiji"
+    },
+    "cover": "meta[property='og:image']@content"
+   }
+  },
+  "search": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/"
+    },
+    "title": {
+     "const": "Kaiji"
+    },
+    "cover": "meta[property='og:image']@content"
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{base}/",
+   "fields": {
+    "title": {
+     "const": "Kaiji"
+    },
+    "cover": "meta[property='og:image']@content",
+    "description": "meta[property='og:description']@content"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a[href*='-chapter-']",
+   "skip": {
+    "any": [
+     {
+      "path": "@href",
+      "regex": "^(?!.*/manga/.+-chapter-\\d+/?$)"
+     }
+    ]
+   },
+   "fields": {
+    "url": "@href",
+    "name": [
+     {
+      "path": "@href",
+      "regex": "/manga/kaiji-chapter-(\\d+)/?$",
+      "group": 1,
+      "template": "Chapter {value}"
+     },
+     {
+      "path": "@href",
+      "regex": "/manga/tobaku-datenroku-kaiji-chapter-(\\d+)/?$",
+      "group": 1,
+      "template": "Tobaku Datenroku Kaiji Chapter {value}"
+     },
+     {
+      "path": "@href",
+      "regex": "/manga/tobaku-hakairoku-kaiji-chapter-(\\d+)/?$",
+      "group": 1,
+      "template": "Tobaku Hakairoku Kaiji Chapter {value}"
+     },
+     {
+      "path": "@href",
+      "regex": "/manga/tobaku-mokushiroku-kaiji-chapter-(\\d+)/?$",
+      "group": 1,
+      "template": "Tobaku Mokushiroku Kaiji Chapter {value}"
+     },
+     {
+      "path": "@href",
+      "regex": "/manga/(.+-chapter-\\d+)/?$",
+      "group": 1
+     }
+    ],
+    "number": {
+     "path": "@href",
+     "regex": "-chapter-(\\d+)/?$",
+     "group": 1
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".entry-content img",
+   "image": [
+    "@data-src",
+    "@data-lazy-src",
+    "@img"
+   ],
+   "include": "blogger\\.googleusercontent\\.com|bp\\.blogspot\\.com|img\\.kaijimanga\\.com|kaijimanga\\.com/wp-content/uploads",
+   "exclude": "cropped-"
+  }
+ },
+ "hinweise": [
+  "Einzel-Manga 'Kaiji' (Startseite); Suche filtert diesen einen Eintrag clientseitig.",
+  "Kapitel aus allen Links a[href*='-chapter-'] der Startseite. Die Community entfernt Dubletten und sortiert vier Handlungsbögen per Nummern-Versatz (-1000/-2000/-3000); beides nicht ausdrückbar – Reihenfolge wie auf der Seite, Nummer = Kapitelnummer des Bogens, doppelte Links möglich.",
+  "skip mit negativem Lookahead verwirft Links, die nicht dem Muster /manga/<bogen>-chapter-<n> entsprechen (Annahme, dass die Engine skip-regex mit find auswertet).",
+  "Seiten: data-src (Lazy-Load) bevorzugt; nur Bilder von Blogger/img.kaijimanga.com/wp-content/uploads, ohne 'cropped-' (wie Community)."
+ ]
+}

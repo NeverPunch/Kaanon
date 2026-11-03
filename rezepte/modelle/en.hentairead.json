@@ -1,0 +1,209 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiRead",
+  "sprache": "en",
+  "base_url": "https://hentairead.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.hentairead",
+  "quellen": [
+   {
+    "name": "HentaiRead",
+    "sprache": "en",
+    "quell_id": 2299981010822511979,
+    "home": "https://hentairead.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/hentairead",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/hentai/page/{page}/?sortby=views",
+   "request_by_page": {
+    "1": "{base}/hentai/?sortby=views"
+   },
+   "items": ".manga-item",
+   "fields": {
+    "url": "a.manga-item__link@href",
+    "title": "a.manga-item__link@ownText",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "a[rel=next]"
+   }
+  },
+  "latest": {
+   "request": "{base}/hentai/page/{page}/?sortby=new",
+   "request_by_page": {
+    "1": "{base}/hentai/?sortby=new"
+   },
+   "items": ".manga-item",
+   "fields": {
+    "url": "a.manga-item__link@href",
+    "title": "a.manga-item__link@ownText",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "a[rel=next]"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}&title-type=contains",
+   "items": ".manga-item",
+   "fields": {
+    "url": "a.manga-item__link@href",
+    "title": "a.manga-item__link@ownText",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "a[rel=next]"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "chars": {
+     "path": "a[href*=/characters/] span:first-of-type",
+     "all": true,
+     "join": ", "
+    },
+    "par": {
+     "path": "a[href*=/parody/] span:first-of-type",
+     "all": true,
+     "join": ", "
+    },
+    "circ": {
+     "path": "a[href*=/circle/] span:first-of-type",
+     "all": true,
+     "join": ", "
+    },
+    "conv": {
+     "path": "a[href*=/convention/] span:first-of-type",
+     "all": true,
+     "join": ", "
+    },
+    "scan": {
+     "path": "a[href*=/scanlator/] span:first-of-type",
+     "all": true,
+     "join": ", "
+    },
+    "alt": {
+     "path": ".manga-titles h2",
+     "replace": [
+      [
+       "\\s*\\|\\s*",
+       "\n- "
+      ]
+     ]
+    },
+    "pg": ".items-center:contains(pages:)"
+   },
+   "fields": {
+    "title": "h1@ownText",
+    "cover": "meta[property=og:image]@content",
+    "author": {
+     "path": [
+      "a[href*=/circle/] span:first-of-type",
+      "a[href*=/artist/] span:first-of-type"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": [
+      "a[href*=/artist/] span:first-of-type",
+      "a[href*=/circle/] span:first-of-type"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "a[href*=/tag/] span:first-of-type",
+     "all": true,
+     "join": ", "
+    },
+    "description": {
+     "const": "[[Characters: {l.chars}]]\n\n[[Parodies: {l.par}]]\n\n[[Circles: {l.circ}]]\n\n[[Convention: {l.conv}]]\n\n[[Scanlators: {l.scan}]]\n\n[[Alternative Titles: \n- {l.alt}]]\n\n[[{l.pg}]]",
+     "replace": [
+      [
+       "\\n{3,}",
+       "\n\n"
+      ],
+      [
+       "^\\n+",
+       ""
+      ]
+     ]
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "path": "div.manga-titles h1",
+     "template": "1 - {value}"
+    },
+    "number": {
+     "const": "1"
+    },
+    "scanlator": {
+     "path": "a[href*=/scanlator/] span:first-of-type",
+     "all": true,
+     "join": ", "
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}english/p/1/",
+   "let": {
+    "pb": {
+     "path": "[id=single-chapter-js-extra]@html",
+     "regex": "\"baseUrl\":\"([^\"]+)\"",
+     "replace": [
+      [
+       "\\\\/",
+       "/"
+      ]
+     ]
+    }
+   },
+   "inner": {
+    "value": {
+     "path": "[id=single-chapter-js-before]@html",
+     "regex": ".(ey\\S+).\\s",
+     "decode": "base64"
+    },
+    "format": "json",
+    "items": "data.chapter.images",
+    "image": {
+     "path": "src",
+     "template": "{l.pb}/{value}"
+    }
+   }
+  }
+ },
+ "hinweise": [
+  "Galerie-Website: jeder Eintrag als ein Kapitel ('1 - <Titel>'). Community lädt bei Sammlungen (#mangaCollection) stattdessen alle Teile der Sammlung als Kapitel – bedingte Kapitelquelle nicht ausdrückbar; Sammlungsteile erscheinen als eigene Einträge.",
+  "Seiten: <url>english/p/1/; Bildliste base64-kodiertes JSON im Skript #single-chapter-js-before, Bild-Basis baseUrl aus #single-chapter-js-extra (wie Community). Nicht-englische Einträge gehen auch in der Community nicht.",
+  "Suche: /page/N/?s=…&title-type=contains; Kategorie-, Tag-, Seiten- und Datumsfilter nicht übernommen.",
+  "Beschreibungs-Namen werden nicht wie in der Community auf Großbuchstaben am Wortanfang gebracht."
+ ]
+}

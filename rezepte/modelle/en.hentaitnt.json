@@ -1,0 +1,132 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiTnT",
+  "sprache": "en",
+  "base_url": "https://hentaitnt.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.hentaitnt",
+  "quellen": [
+   {
+    "name": "HentaiTnT",
+    "sprache": "en",
+    "quell_id": 1823408414151467671,
+    "home": "https://hentaitnt.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/hentaitnt",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/recommended/page/{page}",
+   "request_by_page": {
+    "1": "{base}/recommended"
+   },
+   "items": ".comic-card a",
+   "fields": {
+    "url": "@href",
+    "title": "@title",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a[title=Next]"
+   }
+  },
+  "latest": {
+   "request": "{base}/latest-updates/page/{page}",
+   "request_by_page": {
+    "1": "{base}/latest-updates"
+   },
+   "items": ".comic-card a",
+   "fields": {
+    "url": "@href",
+    "title": "@title",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a[title=Next]"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}?s={query}",
+   "request_by_page": {
+    "1": "{base}/?s={query}"
+   },
+   "items": ".comic-card a",
+   "fields": {
+    "url": "@href",
+    "title": "@title",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "a[title=Next]"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "mid": "#post_manga_id@value"
+   },
+   "fields": {
+    "author": "i[title=Artists] + span a",
+    "description": "#synopsisText",
+    "genres": {
+     "path": ".genre-item",
+     "all": true,
+     "join": ", "
+    },
+    "status": "span:has(i[title=Status])"
+   },
+   "status_map": {
+    "completed": 2,
+    "Completed": 2,
+    "ongoing": 1,
+    "Ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/wp-admin/admin-ajax.php",
+    "method": "POST",
+    "form": {
+     "action": "baka_ajax",
+     "type": "load_chapters_paginated",
+     "parent_id": "{l.mid}",
+     "per_page": "10000",
+     "order": "newest_first"
+    }
+   },
+   "format": "json_html",
+   "html_path": "data.html",
+   "items": ".comic-card:has(a)",
+   "skip": {
+    "any": [
+     {
+      "path": ".fa-crown@class"
+     }
+    ]
+   },
+   "fields": {
+    "url": "a@href",
+    "name": "a@title"
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".page-image",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Kapitel per POST admin-ajax.php (action=baka_ajax, load_chapters_paginated) mit der Manga-ID aus #post_manga_id der Detailseite (let).",
+  "VIP-Kapitel (.fa-crown) werden übersprungen (Regel 0014); die Community zeigt sie standardmäßig mit Schloss an.",
+  "Genre-Filter nicht übernommen. Seite 1 ohne /page/1 wie in der Community."
+ ]
+}

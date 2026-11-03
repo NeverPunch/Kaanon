@@ -1,0 +1,130 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaYi",
+  "sprache": "en",
+  "base_url": "https://mangayi.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mangayi",
+  "quellen": [
+   {
+    "name": "MangaYi",
+    "sprache": "en",
+    "quell_id": 712011166912060070,
+    "home": "https://mangayi.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/mangayi",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/api/search",
+    "method": "POST",
+    "body": "{\"p\": {page}, \"t\": 1}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "results",
+   "fields": {
+    "url": {
+     "path": "i",
+     "template": "/read/{value}/"
+    },
+    "title": "t",
+    "cover": {
+     "path": "i",
+     "template": "https://scp.keterfoundation.com/cover/{value}.jpg"
+    }
+   },
+   "page_size": 24,
+   "has_next": {
+    "total": "total"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/search",
+    "method": "POST",
+    "body": "{\"p\": {page}, \"s\": \"{query_raw}\"}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "results",
+   "fields": {
+    "url": {
+     "path": "i",
+     "template": "/read/{value}/"
+    },
+    "title": "t",
+    "cover": {
+     "path": "i",
+     "template": "https://scp.keterfoundation.com/cover/{value}.jpg"
+    }
+   },
+   "page_size": 24,
+   "has_next": {
+    "total": "total"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1.m-title",
+    "author": ".m-authors",
+    "description": {
+     "path": ".m-summary p",
+     "all": true,
+     "join": "\n"
+    },
+    "genres": {
+     "path": ".m-genres .pill",
+     "all": true,
+     "join": ", "
+    },
+    "status": ".m-stat:contains(Status) .value",
+    "cover": ".cover-wrap img.cover-image@src"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "on hiatus": 6,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.chapters-list a.c:not(.unreleased)",
+   "fields": {
+    "url": "@href",
+    "name": ".t",
+    "date": ".chapter-d"
+   },
+   "date_format": "d MMMM yyyy",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.c-images img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Listen per JSON-POST an /api/search ({p: Seite, t: 1} = beliebt, {p, s: Suchtext} = Suche); keine Neuesten (Community ebenso).",
+  "Eintrags-URL /read/<slug>/ (Community speichert nur den Slug). Cover in der Liste nach festem Muster scp.keterfoundation.com/cover/<slug>.jpg wie in der Community.",
+  "has_next: Community rechnet mit der größten bisher gesehenen Seitengröße (mind. 24); hier page_size 24 gegen total.",
+  "Unveröffentlichte Kapitel (a.c.unreleased) ausgelassen wie in der Community."
+ ]
+}

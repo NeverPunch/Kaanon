@@ -1,0 +1,148 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Mangatown",
+  "sprache": "en",
+  "base_url": "https://www.mangatown.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mangatown",
+  "quellen": [
+   {
+    "name": "Mangatown",
+    "sprache": "en",
+    "quell_id": 2703831045012166262,
+    "home": "https://www.mangatown.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/mangatown",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/directory/0-0-0-0-0-0/{page}.htm",
+   "items": "li:has(a.manga_cover)",
+   "fields": {
+    "url": "p.title a@href",
+    "title": "p.title a",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "div.next-page a.next:not([href^=javascript]), .page-nav a:contains(next):not([href^=javascript])"
+   }
+  },
+  "latest": {
+   "request": "{base}/latest/{page}.htm",
+   "items": "li:has(a.manga_cover)",
+   "fields": {
+    "url": "p.title a@href",
+    "title": "p.title a",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "div.next-page a.next:not([href^=javascript]), .page-nav a:contains(next):not([href^=javascript])"
+   }
+  },
+  "search": {
+   "request": "{base}/search?page={page}&name={query}",
+   "items": "li:has(a.manga_cover)",
+   "fields": {
+    "url": "p.title a@href",
+    "title": "p.title a",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "div.next-page a.next:not([href^=javascript]), .page-nav a:contains(next):not([href^=javascript])"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.article_content h1",
+    "author": {
+     "path": "div.article_content li:has(b:containsOwn(author)) a",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "div.article_content li:has(b:containsOwn(artist)) a",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "div.article_content li:has(b:containsOwn(genre)) a",
+     "all": true,
+     "join": ", "
+    },
+    "status": [
+     {
+      "path": "div.article_content div.chapter_content:contains(has been licensed)",
+      "template": "licensed"
+     },
+     {
+      "path": "div.article_content li:has(b:containsOwn(status))",
+      "regex": "(?i)(ongoing|completed)",
+      "group": 1
+     }
+    ],
+    "description": {
+     "path": "span#show",
+     "replace": [
+      [
+       "\\s*HIDE$",
+       ""
+      ]
+     ]
+    },
+    "cover": "div.detail_info img@src"
+   },
+   "status_map": {
+    "licensed": 3,
+    "ongoing": 1,
+    "Ongoing": 1,
+    "completed": 2,
+    "Completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "ul.chapter_list li",
+   "fields": {
+    "url": "a@href",
+    "name": {
+     "path": "a, span:not(span.time,span.new)",
+     "all": true,
+     "join": " "
+    },
+    "date": "span.time"
+   },
+   "date_format": [
+    "MMM dd,yyyy",
+    "relative"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "select#top_chapter_list ~ div.page_select option:not(:contains(featured))",
+   "image": "@value",
+   "subpage": {
+    "request": {
+     "url": "{url}"
+    },
+    "format": "html",
+    "image": "div#viewer img@src"
+   }
+  }
+ },
+ "hinweise": [
+  "Seiten: eine Unterseite je Option der Seitenauswahl, Bild aus div#viewer img (wie Community). Der Community-Ausweichweg ohne Seitenauswahl (alle Bilder direkt aus div#viewer) ist nicht zusätzlich abbildbar.",
+  "Status 'lizenziert', wenn ein Hinweis 'has been licensed' vorhanden ist (path + template ohne {value}, wie in den Vorlagen für completed).",
+  "Kapitelname = Linktext + weitere span-Texte (ohne Datum/new). Datum 'MMM dd,yyyy', 'Today'/'Yesterday' über relative."
+ ]
+}

@@ -1,0 +1,238 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Komix",
+  "sprache": "en",
+  "base_url": "https://komix.to",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.komix",
+  "quellen": [
+   {
+    "name": "Komix",
+    "sprache": "en",
+    "quell_id": 6862842453918709699,
+    "home": "https://komix.to"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/komix",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/api/page-data/browse?page={page}",
+   "request_by_page": {
+    "1": "{base}/api/page-data/browse"
+   },
+   "format": "json",
+   "items": "results",
+   "page_size": 60,
+   "has_next": {
+    "total": "totalCount"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/title/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover_image",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://komix.to/"
+      ]
+     ]
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}/api/page-data/browse?sort=date&page={page}",
+   "request_by_page": {
+    "1": "{base}/api/page-data/browse?sort=date"
+   },
+   "format": "json",
+   "items": "results",
+   "page_size": 60,
+   "has_next": {
+    "total": "totalCount"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/title/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover_image",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://komix.to/"
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/api/page-data/browse?q={query}&page={page}",
+   "request_by_page": {
+    "1": "{base}/api/page-data/browse?q={query}"
+   },
+   "format": "json",
+   "items": "results",
+   "page_size": 60,
+   "has_next": {
+    "total": "totalCount"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/title/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover_image",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://komix.to/"
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": "{base}/api/page-data/title/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/title/([^/?#]+)"
+   },
+   "let": {
+    "syn": [
+     {
+      "path": "jsonLd",
+      "regex": "\"@type\":\"Book\"[^{}]*?\"description\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "jsonLd",
+      "regex": "\"description\":(\"(?:[^\"\\\\]|\\\\.)*\")[^{}]*?\"@type\":\"Book\"",
+      "group": 1,
+      "decode": "json"
+     }
+    ],
+    "alt": {
+     "path": "manga.alternative_titles",
+     "all": true,
+     "join": "\n- "
+    }
+   },
+   "fields": {
+    "title": "manga.title",
+    "author": "manga.author",
+    "artist": "manga.artist",
+    "cover": {
+     "path": "manga.cover_image",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://komix.to/"
+      ]
+     ]
+    },
+    "genres": {
+     "path": [
+      "manga.type",
+      "manga.genres.*.name"
+     ],
+     "union": true
+    },
+    "description": {
+     "const": "[[{l.syn}]]\n\n[[Alternative titles:\n- {l.alt}]]",
+     "replace": [
+      [
+       "^\\n+|\\n+$",
+       ""
+      ]
+     ]
+    },
+    "status": "manga.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "cancelled": 5,
+    "dropped": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/page-data/title/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/title/([^/?#]+)"
+   },
+   "items": "chapters",
+   "fields": {
+    "url": {
+     "path": "chapter_number",
+     "template": "/title/{u.slug}/chapter/{value}[[?group={f.group}]]",
+     "replace": [
+      [
+       "\\.0(?=$|\\?)",
+       ""
+      ],
+      [
+       " ",
+       "%20"
+      ]
+     ]
+    },
+    "name": "title",
+    "number": "chapter_number",
+    "date": [
+     "release_date",
+     "created_at"
+    ],
+    "scanlator": {
+     "path": "group",
+     "replace": [
+      [
+       "^\\(none\\)$",
+       ""
+      ]
+     ]
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "rsc": "1"
+    }
+   },
+   "format": "text",
+   "items": "\"enc\":\"([^\"]+)\"",
+   "image": {
+    "path": "",
+    "template": "{base}/api/images?t={value}"
+   }
+  }
+ },
+ "hinweise": [
+  "JSON-API /api/page-data/browse (60 je Seite, weiter solange page*60 < totalCount); Beliebt = Standardsortierung, Neueste sort=date, Suche q=…; Filter (Genre/Status/Typ) nicht übernommen.",
+  "Details und Kapitel aus /api/page-data/title/<slug>. Beschreibung = Book-Beschreibung aus dem eingebetteten JSON-LD-Text (per Regex, beide Schlüsselreihenfolgen) + Alternativtitel. Genres = Typ (Community: erster Buchstabe groß) + Genres.",
+  "Kapitel-URL /title/<slug>/chapter/<Nummer ohne .0>[?group=<Gruppe>] wie in der Community; Gruppe nur Leerzeichen-kodiert. Scanlator '(none)' wird geleert.",
+  "Seiten: Community liest die Next.js-Flight-Daten (extractNextJs) der Kapitelseite; hier per rsc:1-Abruf wie en.drakescans und Regex auf \"enc\":\"…\" (Annahme: nur Seiteneinträge tragen 'enc'). Bild-URL /api/images?t=<enc> (enc nicht zusätzlich URL-kodiert – auf dem PC prüfen)."
+ ]
+}

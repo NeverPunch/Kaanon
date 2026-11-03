@@ -1,0 +1,108 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ILikeComix",
+  "sprache": "en",
+  "base_url": "https://ilikecomix.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.ilikecomix",
+  "quellen": [
+   {
+    "name": "ILikeComix",
+    "sprache": "en",
+    "quell_id": 630837345003448937,
+    "home": "https://ilikecomix.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/ilikecomix",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/king-porn-comics/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/king-porn-comics/"
+   },
+   "items": "article:has(h2.post-title a)",
+   "has_next": {
+    "exists": "a.nextp"
+   },
+   "fields": {
+    "url": "h2.post-title a@href",
+    "title": "h2.post-title a",
+    "cover": "figure.post-image img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/page/{page}/?s={query}",
+   "request_by_page": {
+    "1": "{base}/?s={query}"
+   },
+   "items": "article:has(h2.post-title a)",
+   "has_next": {
+    "exists": "a.nextp"
+   },
+   "fields": {
+    "url": "h2.post-title a@href",
+    "title": "h2.post-title a",
+    "cover": "figure.post-image img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1.post-title",
+    "cover": "meta[property='og:image']@content",
+    "description": "meta[property='og:description']@content",
+    "genres": {
+     "path": "a[rel='tag']",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Oneshot"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": [
+    "figure[data-pswp-src]",
+    ".entry-content img"
+   ],
+   "image": [
+    "@data-pswp-src",
+    "@data-src",
+    "@data-lazy-src",
+    "@src"
+   ],
+   "include": "/comic/"
+  }
+ },
+ "hinweise": [
+  "Beliebt = /king-porn-comics/ (Seite 2+: /page/N/), Suche /?s=… (Seite 2+: /page/N/?s=…). Kein Latest.",
+  "Ein Kapitel 'Oneshot' je Comic (URL = Comicseite), Status abgeschlossen.",
+  "Seiten: Community vereint figure[data-pswp-src] und .entry-content img, behält nur URLs mit '/comic/' und entfernt Doppelte. Hier Ausweichkette: zuerst die figure-Elemente, sonst die img-Elemente (keine Entdopplung möglich); Filter '/comic/' per include."
+ ]
+}

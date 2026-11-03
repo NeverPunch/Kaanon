@@ -1,0 +1,125 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Mahouirexnohentaikarte",
+  "sprache": "en",
+  "base_url": "https://mahouirexnohentaikarte.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mahouirexnohentaikarte",
+  "quellen": [
+   {
+    "name": "Mahouirexnohentaikarte",
+    "sprache": "en",
+    "quell_id": 1698910827692369662,
+    "home": "https://mahouirexnohentaikarte.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/mahouirexnohentaikarte",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.57",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/manga/mahoui-rex-no-hentai-karte/"
+    },
+    "title": {
+     "const": "Mahoui Rex no Hentai Karte"
+    },
+    "cover": {
+     "const": "https://mahouirexnohentaikarte.com/storage/manga/cover.webp"
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/manga/mahoui-rex-no-hentai-karte/"
+    },
+    "title": {
+     "const": "Mahoui Rex no Hentai Karte"
+    },
+    "cover": {
+     "const": "https://mahouirexnohentaikarte.com/storage/manga/cover.webp"
+    }
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{base}/",
+   "let": {
+    "syn": ".synopsis",
+    "alt": "h1 + p"
+   },
+   "fields": {
+    "title": "h1",
+    "cover": [
+     "picture img@src",
+     {
+      "const": "https://mahouirexnohentaikarte.com/storage/manga/cover.webp"
+     }
+    ],
+    "author": "dl div:has(> dt:containsOwn(Author)) > dd",
+    "genres": {
+     "path": "h1 ~ ul li",
+     "all": true,
+     "join": ", "
+    },
+    "status": "dl div:has(> dt:containsOwn(Status)) > dd",
+    "description": {
+     "const": "[[{l.syn}]][[\n\nAlternative titles: {l.alt}]]",
+     "replace": [
+      [
+       "^\\n+",
+       ""
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "on going": 1,
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#chapters ol > li > a",
+   "fields": {
+    "url": "@href",
+    "name": [
+     "@title",
+     "span span"
+    ],
+    "date": "time@datetime"
+   },
+   "date_format": "yyyy-MM-dd"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img[src*=/storage/manga/chapter-]",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Einzel-Manga-Website: ein fester Eintrag (URL /manga/mahoui-rex-no-hentai-karte/ wie Community, für alte Madara-Bibliothekseinträge); Details und Kapitel kommen von der Startseite.",
+  "Suche: fester Eintrag mit client_filter (Community filtert den Titel ebenso lokal)."
+ ]
+}

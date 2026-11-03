@@ -1,0 +1,128 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Milftoon",
+  "sprache": "en",
+  "base_url": "https://milftoon.xxx",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.milftoon",
+  "quellen": [
+   {
+    "name": "Milftoon",
+    "sprache": "en",
+    "quell_id": 4002667303103881826,
+    "home": "https://milftoon.xxx"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/milftoon",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.59",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/ranking/hottest?page={page}",
+   "format": "script_json",
+   "script_regex": "(?s)window\\.__INITIAL_ROUTE_DATA__\\s*=\\s*(\\{.*?\\})\\s*;?\\s*</script>",
+   "items": "data.items",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comics/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "coverPath",
+     "template": "https://fdc1.azhentai.com/{value}"
+    }
+   },
+   "page_size": 24,
+   "has_next": {
+    "total": "data.total"
+   }
+  },
+  "latest": {
+   "request": "{base}/manga_list/all?page={page}",
+   "format": "script_json",
+   "script_regex": "(?s)window\\.__INITIAL_ROUTE_DATA__\\s*=\\s*(\\{.*?\\})\\s*;?\\s*</script>",
+   "items": "data.items",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comics/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "coverPath",
+     "template": "https://fdc1.azhentai.com/{value}"
+    }
+   },
+   "page_size": 24,
+   "has_next": {
+    "total": "data.total"
+   }
+  },
+  "search": {
+   "request": "{base}/search_result?q={query}&page={page}",
+   "format": "script_json",
+   "script_regex": "(?s)window\\.__INITIAL_ROUTE_DATA__\\s*=\\s*(\\{.*?\\})\\s*;?\\s*</script>",
+   "items": "data.items",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comics/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "coverPath",
+     "template": "https://fdc1.azhentai.com/{value}"
+    }
+   },
+   "page_size": 24,
+   "has_next": {
+    "total": "data.total"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "script_json",
+   "script_regex": "(?s)window\\.__INITIAL_ROUTE_DATA__\\s*=\\s*(\\{.*?\\})\\s*;?\\s*</script>",
+   "fields": {
+    "title": "data.comic.title",
+    "cover": {
+     "path": "data.comic.coverPath",
+     "template": "https://fdc1.azhentai.com/{value}"
+    }
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Chapter"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "script_json",
+   "script_regex": "(?s)window\\.__INITIAL_ROUTE_DATA__\\s*=\\s*(\\{.*?\\})\\s*;?\\s*</script>",
+   "items": "data.pages",
+   "image": "src"
+  }
+ },
+ "hinweise": [
+  "Alle Daten aus window.__INITIAL_ROUTE_DATA__ im HTML (script_json). script_json in Listen/Details ist in den Vorlagen nur für pages belegt – auf dem PC prüfen. Ende des JSON per Regex bis '}</script>' (Community zählt Klammern).",
+  "has_next: data.page*pageSize < total; hier page_size 24 gegen data.total.",
+  "Ein Kapitel je Comic = die Comic-Seite selbst. Name fest 'Chapter' (Community: chapter.name, Datum chapter.publishedAt) – Einzelobjekt als Kapitelquelle nicht belegt, daher HTML-Wurzel + const.",
+  "Beschreibung (meta description) und Autor (aus Liste) weggelassen."
+ ]
+}

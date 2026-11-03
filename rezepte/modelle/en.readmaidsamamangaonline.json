@@ -1,0 +1,113 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Read Maid Sama Manga Online",
+  "sprache": "en",
+  "base_url": "https://w14.maid-sama.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.readmaidsamamangaonline",
+  "quellen": [
+   {
+    "name": "Read Maid Sama Manga Online",
+    "sprache": "en",
+    "quell_id": 7167497376777041176,
+    "home": "https://w14.maid-sama.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/maidsamamangaonline",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/"
+    },
+    "title": {
+     "const": "Maid Sama"
+    },
+    "cover": "meta[property='og:image']@content"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "Maid Sama"
+    },
+    "cover": "meta[property='og:image']@content",
+    "description": "meta[property='og:description']@content"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "a[href*='maid-sama-chapter-']",
+   "fields": {
+    "url": "@href",
+    "name": {
+     "path": "@href",
+     "regex": "maid-sama-chapter-(.+?)/?$",
+     "group": 1,
+     "replace": [
+      [
+       "-",
+       "."
+      ],
+      [
+       "^oneshot\\.special\\.(\\d+).*$",
+       "Oneshot Special $1"
+      ],
+      [
+       "^(?!Oneshot)",
+       "Chapter "
+      ]
+     ]
+    },
+    "number": {
+     "path": "@href",
+     "regex": "maid-sama-chapter-(\\d+(?:-\\d+)?)/?$",
+     "group": 1,
+     "replace": [
+      [
+       "-",
+       "."
+      ]
+     ]
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".entry-content img",
+   "image": [
+    "@data-src",
+    "@data-lazy-src",
+    {
+     "path": "@srcset",
+     "regex": "^\\s*([^\\s,]+)",
+     "group": 1
+    },
+    "@src"
+   ],
+   "include": "^https?://.*(blogger\\.googleusercontent\\.com|bp\\.blogspot\\.com|img\\.maid-sama\\.com)",
+   "exclude": "cropped-"
+  }
+ },
+ "hinweise": [
+  "Einzeltitel-Website: ein fester Eintrag 'Maid Sama' (URL /), Cover/Beschreibung aus og-Metadaten der Startseite. Keine Suche (Community filtert nur den einen Titel).",
+  "Kapitel = alle Links mit 'maid-sama-chapter-' auf der Startseite. Community entfernt doppelte Slugs und sortiert absteigend nach Nummer; beides nicht ausdrückbar – Reihenfolge wie auf der Seite, Doppelte möglich.",
+  "Name 'Chapter <slug mit . statt ->' bzw. 'Oneshot Special N'; Nummer aus dem Slug (12-5 → 12.5). Die Community-Nummer für Specials (86 + N/100) wird nicht gesetzt.",
+  "Seiten: data-src → data-lazy-src → erstes srcset → src; nur Blogger-/img.maid-sama.com-Bilder, ohne 'cropped-' (Logo). Doppelte Bild-URLs entfernt die Community – hier nicht."
+ ]
+}

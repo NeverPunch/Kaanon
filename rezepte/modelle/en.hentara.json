@@ -1,0 +1,119 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hentara",
+  "sprache": "en",
+  "base_url": "https://hentara.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.hentara",
+  "quellen": [
+   {
+    "name": "Hentara",
+    "sprache": "en",
+    "quell_id": 7009504251263254629,
+    "home": "https://hentara.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/hentara",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/r2-data/index.json",
+   "format": "json",
+   "items": "comics",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manhwa/{value}"
+    },
+    "title": "title",
+    "cover": "thumbnail_url"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/r2-data/index.json",
+   "format": "json",
+   "items": "comics",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manhwa/{value}"
+    },
+    "title": "title",
+    "cover": "thumbnail_url"
+   },
+   "has_next": {
+    "const": false
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "{base}/r2-data/comics/{u.slug}.json",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manhwa/([^/?#]+)"
+   },
+   "fields": {
+    "title": "comic.title",
+    "cover": "comic.thumbnail_url",
+    "description": "comic.description",
+    "genres": {
+     "path": "comic.genres.*.name",
+     "all": true,
+     "join": ", "
+    }
+   }
+  },
+  "chapters": {
+   "request": "{base}/r2-data/comics/{u.slug}.json",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manhwa/([^/?#]+)"
+   },
+   "items": "episodes",
+   "fields": {
+    "url": {
+     "path": "episode_number",
+     "template": "/manhwa/{u.slug}/chapter-{value}"
+    },
+    "name": {
+     "path": "episode_number",
+     "template": "Chapter {value}[[ - {f.title}]]"
+    },
+    "number": "episode_number",
+    "date": "created_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/r2-data/episodes/{u.slug}/{u.ep}.json",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manhwa/([^/]+)/chapter-",
+    "ep": "/chapter-(\\d+)"
+   },
+   "items": "pages",
+   "sort": "page_number",
+   "image": "image_url"
+  }
+ },
+ "hinweise": [
+  "Statische JSON-Daten unter /r2-data/ (index.json, comics/<slug>.json, episodes/<slug>/<n>.json).",
+  "Beliebt/Suche: Community lädt den ganzen Index und sortiert clientseitig (Aufrufe bzw. Datum) – Sortieren gibt es nicht, hier Index-Reihenfolge; daher kein eigenes 'latest'. Suche filtert clientseitig nach Titel (client_filter), Genre-Filter nicht nachgebaut.",
+  "Kapitelreihenfolge: Community sortiert absteigend nach Nummer; hier Reihenfolge der API (auf dem PC prüfen, ggf. reverse)."
+ ]
+}

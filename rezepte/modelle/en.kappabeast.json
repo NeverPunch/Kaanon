@@ -1,0 +1,174 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Kappa Beast",
+  "sprache": "en",
+  "base_url": "https://kappabeast.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.kappabeast",
+  "quellen": [
+   {
+    "name": "Kappa Beast",
+    "sprache": "en",
+    "quell_id": 2598579144085032375,
+    "home": "https://kappabeast.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/kappabeast",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://strapi.kappabeast.com/api/mangas?pagination%5Bpage%5D={page}&pagination%5BpageSize%5D=20&populate%5Bmedia%5D%5Bpopulate%5D=*&populate%5Bcategory%5D%5Bfields%5D%5B0%5D=name",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.documentId}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "media.0.coverImage.url",
+     "template": "https://strapi.kappabeast.com{value}"
+    }
+   },
+   "has_next": {
+    "lt": [
+     "meta.pagination.page",
+     "meta.pagination.pageCount"
+    ]
+   }
+  },
+  "latest": {
+   "request": "https://strapi.kappabeast.com/api/mangas?sort%5B0%5D=updatedAt%3Adesc&pagination%5Bpage%5D={page}&pagination%5BpageSize%5D=20&populate%5Bmedia%5D%5Bpopulate%5D=*&populate%5Bcategory%5D%5Bfields%5D%5B0%5D=name",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.documentId}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "media.0.coverImage.url",
+     "template": "https://strapi.kappabeast.com{value}"
+    }
+   },
+   "has_next": {
+    "lt": [
+     "meta.pagination.page",
+     "meta.pagination.pageCount"
+    ]
+   }
+  },
+  "search": {
+   "request": "https://strapi.kappabeast.com/api/mangas?filters%5Btitle%5D%5B%24containsi%5D={query}&pagination%5Bpage%5D={page}&pagination%5BpageSize%5D=20&populate%5Bmedia%5D%5Bpopulate%5D=*&populate%5Bcategory%5D%5Bfields%5D%5B0%5D=name",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/series/{value}#{f.documentId}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "media.0.coverImage.url",
+     "template": "https://strapi.kappabeast.com{value}"
+    }
+   },
+   "has_next": {
+    "lt": [
+     "meta.pagination.page",
+     "meta.pagination.pageCount"
+    ]
+   }
+  },
+  "details": {
+   "request": "https://strapi.kappabeast.com/api/mangas?filters%5Bslug%5D%5B%24eq%5D={u.slug}&populate%5Bmedia%5D%5Bpopulate%5D=*&populate%5Bcategory%5D%5Bfields%5D%5B0%5D=name&populate%5Bchapters%5D%5Bfields%5D%5B0%5D=number&populate%5Bchapters%5D%5Bfields%5D%5B1%5D=title&populate%5Bchapters%5D%5Bfields%5D%5B2%5D=createdAt&populate%5Bchapters%5D%5Bsort%5D%5B0%5D=number%3Adesc&pagination%5BpageSize%5D=1",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/#?]+)",
+    "doc": "#([^#]+)$"
+   },
+   "fields": {
+    "title": "data.0.title",
+    "description": "data.0.description",
+    "author": "data.0.author",
+    "artist": "data.0.artist",
+    "cover": {
+     "path": "data.0.media.0.coverImage.url",
+     "template": "https://strapi.kappabeast.com{value}"
+    },
+    "genres": {
+     "path": "data.0.category.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "data.0.manga_status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "slug": "/series/([^/#?]+)",
+    "doc": "#([^#]+)$"
+   },
+   "items": "data.0.chapters",
+   "fields": {
+    "url": {
+     "path": "number",
+     "template": "/series/{u.slug}/{value}#{u.doc}"
+    },
+    "name": {
+     "path": "number",
+     "template": "Chapter {value}[[ - {f.title}]]"
+    },
+    "number": "number",
+    "date": "createdAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "https://strapi.kappabeast.com/api/chapters?filters%5Bmanga%5D%5BdocumentId%5D%5B%24eq%5D={u.doc}&filters%5Bnumber%5D%5B%24eq%5D={u.num}&pagination%5BpageSize%5D=1",
+   "format": "json_html",
+   "html_path": "data.0.htmlContent",
+   "url_vars": {
+    "doc": "#([^#]+)$",
+    "num": "/series/[^/]+/([^/#?]+)"
+   },
+   "items": "div.separator > a",
+   "image": {
+    "path": "@href",
+    "replace": [
+     [
+      "^(https?://[^/]+/[^/]+/[^/]+/[^/]+/[^/]+/)[^/]+",
+      "$1s0"
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "Strapi-API unter strapi.kappabeast.com/api (Klammern in Parametern URL-kodiert).",
+  "Eintrags-URL /series/<slug>#<documentId> (Community: '<slug>#<documentId>' ohne /series/); Kapitel-URL /series/<slug>/<nummer>#<documentId> (Community: '<slug>/<nummer>#<documentId>'). Nicht mit Community-URLs kompatibel.",
+  "Kapitel stecken in der Detail-Antwort (populate chapters, absteigend nach Nummer); Name 'Chapter N - Titel' (Community lässt Titel weg, wenn er gleich 'Chapter N' ist).",
+  "Seiten: htmlContent des Kapitels, Bild-URL = Link in div.separator mit 5. Pfadteil auf 's0' gesetzt (Blogger-Originalgröße), per Regex nachgebildet.",
+  "Suche nur Text (filters[title][$containsi]); Genre/Status/Typ/Sortierung-Filter nicht nachgebaut."
+ ]
+}

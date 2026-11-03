@@ -1,0 +1,175 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Mangack",
+  "sprache": "en",
+  "base_url": "https://mangack.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mangack",
+  "quellen": [
+   {
+    "name": "Mangack",
+    "sprache": "en",
+    "quell_id": 7208855238528281651,
+    "home": "https://mangack.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/mangack",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/wp-json/wp/v2/manga?page={page}&per_page=24&_embed=wp%3Afeaturedmedia&orderby=date&order=desc",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": "link",
+    "title": {
+     "path": "title.rendered",
+     "decode": "html"
+    },
+    "cover": "_embedded.wp:featuredmedia.0.source_url"
+   },
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   }
+  },
+  "latest": {
+   "request": "{base}/updates/page/{page}/",
+   "request_by_page": {
+    "1": "{base}/updates/"
+   },
+   "items": ".latestmanga .Latest_chapter_update:has(a[href*=/manga/])",
+   "fields": {
+    "url": "a[href*=/manga/]@href",
+    "title": [
+     "a[href*=/manga/]@title",
+     "a[href*=/manga/]"
+    ],
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": ".pagination a.next, a.next.page-numbers"
+   }
+  },
+  "search": {
+   "request": "{base}/wp-json/wp/v2/manga?page={page}&per_page=24&_embed=wp%3Afeaturedmedia&search={query}",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": "link",
+    "title": {
+     "path": "title.rendered",
+     "decode": "html"
+    },
+    "cover": "_embedded.wp:featuredmedia.0.source_url"
+   },
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     "h1.entry-title",
+     {
+      "path": "meta[property=og:title]@content",
+      "replace": [
+       [
+        " mangack$",
+        ""
+       ]
+      ]
+     }
+    ],
+    "cover": [
+     "meta[property=og:image]@content",
+     "article figure img@img",
+     "article .mediumthumbnail1 img@img"
+    ],
+    "description": "meta[property=og:description]@content",
+    "genres": {
+     "path": "article@class",
+     "regex": "(?:^|\\s)(?:Genres|comic-type)-(\\S+)",
+     "group": 1,
+     "regex_all": true,
+     "join": ", ",
+     "replace": [
+      [
+       "-",
+       " "
+      ]
+     ]
+    },
+    "status": {
+     "path": "article@class",
+     "regex": "(?:^|\\s)manga-status-(\\S+)",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "publishing": 1,
+    "updating": 1,
+    "completed": 2,
+    "complete": 2,
+    "finished": 2,
+    "hiatus": 6,
+    "on-hiatus": 6,
+    "on-hold": 6,
+    "cancelled": 5,
+    "canceled": 5,
+    "dropped": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "ul.chapterslist li:has(a.title, a[href*=/chapter/])",
+   "fields": {
+    "url": "a.title, a[href*=/chapter/]@href",
+    "name": [
+     "a.title, a[href*=/chapter/]@ownText",
+     "a.title, a[href*=/chapter/]"
+    ],
+    "date": ".entry-date"
+   },
+   "date_format": [
+    "MMMM d, yyyy",
+    "relative"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{base}/wp-json/wp/v2/chapter?slug={u.slug}&_fields=id,content",
+   "url_vars": {
+    "slug": "/([^/]+)/?$"
+   },
+   "format": "json_html",
+   "html_path": "0.content.rendered",
+   "items": "img[src]",
+   "image": "@src",
+   "exclude": "(?i)/wp-content/(?:themes|plugins)/|/(?:logo|icon|cropped|preroll|placeholder|loading|spinner|chainsaw)[^/]*\\.(?:png|jpe?g|webp|gif|svg)"
+  }
+ },
+ "hinweise": [
+  "WordPress-REST-API (wp/v2/manga) für Beliebt/Suche; Neueste aus HTML /updates/ wie in der Community.",
+  "has_next: Community liest den Header X-WP-TotalPages – nicht ausdrückbar, hier 'volle Seite (24) = weitere Seite'.",
+  "Genres/Typ/Status aus den Klassen von <article> (Genres-…, comic-type-…, manga-status-…); Bindestriche → Leerzeichen, ohne Großschreibung (Community schreibt Wörter groß).",
+  "Beschreibung nur og:description; Community hängt Alternative/Jahr/Followers/Views an – weggelassen.",
+  "Seiten: wp/v2/chapter?slug=<letzter Pfadteil> → content.rendered des ersten Treffers (html_path '0.content.rendered', Index auf Wurzel-Liste – auf dem PC prüfen); Deko-Bilder per exclude wie in der Community.",
+  "Suche nur Text; Typ/Status/Jahr/Genre/Sortierung-Filter nicht nachgebaut."
+ ]
+}

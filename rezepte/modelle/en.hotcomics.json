@@ -1,0 +1,141 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HotComics",
+  "sprache": "en",
+  "base_url": "https://hotcomics.io",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.hotcomics",
+  "quellen": [
+   {
+    "name": "HotComics",
+    "sprache": "en",
+    "quell_id": 6335003343669033128,
+    "home": "https://hotcomics.io"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/hotcomics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "cookies": {
+   "hc_vfs": "Y"
+  },
+  "popular": {
+   "request": "{base}/en",
+   "items": "li[itemtype*=ComicSeries]:not(.no-comic) > a",
+   "fields": {
+    "url": "@href",
+    "title": "div.main-text > h4.title",
+    "cover": "div.visual img@img"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/en/new",
+   "items": "li[itemtype*=ComicSeries]:not(.no-comic) > a",
+   "fields": {
+    "url": "@href",
+    "title": "div.main-text > h4.title",
+    "cover": "div.visual img@img"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": "{base}/en/search?keyword={query}",
+   "items": "li[itemtype*=ComicSeries]:not(.no-comic) > a",
+   "fields": {
+    "url": "@href",
+    "title": "div.main-text > h4.title",
+    "cover": "div.visual img@img"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h2.episode-title",
+    "author": {
+     "path": "p.type_box span.writer",
+     "replace": [
+      [
+       "^.*ⓒ",
+       ""
+      ],
+      [
+       "^\\s+|\\s+$",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": "p.type_box span.type",
+     "replace": [
+      [
+       "\\s*/\\s*",
+       ", "
+      ]
+     ]
+    },
+    "description": {
+     "path": "div.episode-contents header, div.title_content > h2:not(.episode-title)",
+     "all": true,
+     "join": "\n\n"
+    },
+    "status": {
+     "path": "p.type_box span.date",
+     "replace": [
+      [
+       "(?i)^(?!ende?$).+$",
+       "ongoing"
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "end": 2,
+    "ende": 2,
+    "ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#tab-chapter a",
+   "fields": {
+    "url": {
+     "path": "@onclick",
+     "regex": "popupLogin\\('([^']+)'",
+     "group": 1
+    },
+    "name": ".cell-num",
+    "date": ".cell-time"
+   },
+   "date_format": "MMM d, yyyy",
+   "date_locale": "en",
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#viewer-img img",
+   "image": "@img"
+  }
+ },
+ "hinweise": [
+  "HTML-Website, Cookie hc_vfs=Y wie in der Community (Altersabfrage).",
+  "Beliebt (/en) und Neu (/en/new) ohne Seitenzahl wie in der Community, daher nur eine Seite. Suche /en/search?keyword=; Browse-Filter (Genres/Weekly) nicht nachgebaut.",
+  "Status: Community setzt 'End'/'Ende' → abgeschlossen, jeden anderen Wert → laufend; hier per replace (Nicht-End-Werte → 'ongoing').",
+  "Kapitel-URL aus onclick=\"popupLogin('…')\" wie in der Community; kostenpflichtige/gesperrte Kapitel unterscheidet die Community nicht – beim Test prüfen, ob solche Kapitel ohne Bilder bleiben."
+ ]
+}

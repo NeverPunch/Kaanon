@@ -1,0 +1,119 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "GirlsTop",
+  "sprache": "en",
+  "base_url": "https://en.girlstop.info",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.girlstop",
+  "quellen": [
+   {
+    "name": "GirlsTop",
+    "sprache": "en",
+    "quell_id": 1368670128695001652,
+    "home": "https://en.girlstop.info"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/girlstop",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+  },
+  "popular": {
+   "request": "{base}/filter.php?srt=viw&page={page0}",
+   "request_by_page": {
+    "1": "{base}/filter.php?srt=viw"
+   },
+   "items": ".thumbs .thumb",
+   "skip": {
+    "path": ".post_title a@href",
+    "regex": "models\\.php"
+   },
+   "fields": {
+    "url": ".post_title a@href",
+    "title": ".post_title a",
+    "cover": "picture img@src"
+   },
+   "has_next": {
+    "exists": "li.next a"
+   }
+  },
+  "latest": {
+   "request": "{base}/index.php?page={page0}",
+   "request_by_page": {
+    "1": "{base}/index.php"
+   },
+   "items": ".thumbs .thumb",
+   "skip": {
+    "path": ".post_title a@href",
+    "regex": "models\\.php"
+   },
+   "fields": {
+    "url": ".post_title a@href",
+    "title": ".post_title a",
+    "cover": "picture img@src"
+   },
+   "has_next": {
+    "exists": "li.next a"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "author": ".ps-desc a[href*='user.php']",
+    "genres": {
+     "path": ".ps-tags a",
+     "all": true,
+     "join": ", "
+    },
+    "description": {
+     "path": ".ps-desc:not(.ps-tags)",
+     "all": true,
+     "join": "\n"
+    },
+    "cover": ".tiles-wrap img@src",
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Gallery"
+    },
+    "number": {
+     "const": "1"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "a.fullimg",
+   "image": "@href"
+  }
+ },
+ "hinweise": [
+  "Nur Galerien (psto.php). Die Community kennt zusätzlich Modell-Seiten (models.php) mit Galerieliste als Kapitel (mit Paging über li.next a); eine Fallunterscheidung je URL ist in der Rezeptsprache nicht ausdrückbar. Modell-Einträge werden in den Listen per skip ausgelassen.",
+  "Keine Suche: die Textsuche der Community (POST models.php, Feld text) liefert Modell-Seiten. Sortierfilter nicht übernommen.",
+  "Seitenzählung wie Community: Seite 1 ohne Parameter, danach page=N-1 ({page0}).",
+  "Desktop-User-Agent wie in der Community (sonst Weiterleitung auf me.girlstop.info)."
+ ]
+}

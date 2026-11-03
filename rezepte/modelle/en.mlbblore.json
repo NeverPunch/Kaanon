@@ -1,0 +1,189 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MLBB Lore",
+  "sprache": "en",
+  "base_url": "https://play.mobilelegends.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mlbblore",
+  "quellen": [
+   {
+    "name": "MLBB Lore Comics",
+    "sprache": "en",
+    "quell_id": 1211137741907860722,
+    "home": "https://play.mobilelegends.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/mlbblore",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "https://api.mobilelegends.com/lore/album/list",
+    "method": "POST",
+    "form": {
+     "type": "3",
+     "sort": "3",
+     "page": "{page}",
+     "page_size": "5",
+     "lang": "en",
+     "token": ""
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "page_size": 5,
+   "has_next": {
+    "full": true
+   },
+   "skip": {
+    "path": "type",
+    "regex": "^(?!3$)"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/lore/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "thumb",
+     "replace": [
+      [
+       "^//",
+       "https://"
+      ]
+     ]
+    }
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "https://api.mobilelegends.com/lore/album/list",
+    "method": "POST",
+    "form": {
+     "type": "3",
+     "sort": "1",
+     "page": "{page}",
+     "page_size": "5",
+     "lang": "en",
+     "token": ""
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "page_size": 5,
+   "has_next": {
+    "full": true
+   },
+   "skip": {
+    "path": "type",
+    "regex": "^(?!3$)"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/lore/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "thumb",
+     "replace": [
+      [
+       "^//",
+       "https://"
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": {
+    "url": "https://api.mobilelegends.com/lore/album/detail",
+    "method": "POST",
+    "form": {
+     "id": "{u.id}",
+     "lang": "en",
+     "token": ""
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "/lore/(\\d+)"
+   },
+   "fields": {
+    "title": "data.title",
+    "author": "data.hero_name",
+    "cover": {
+     "path": "data.thumb",
+     "replace": [
+      [
+       "^//",
+       "https://"
+      ]
+     ]
+    },
+    "description": "data.share_content",
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Chapter 1"
+    },
+    "number": {
+     "const": "1"
+    }
+   }
+  },
+  "pages": {
+   "request": {
+    "url": "https://api.mobilelegends.com/lore/album/detail",
+    "method": "POST",
+    "form": {
+     "id": "{u.id}",
+     "lang": "en",
+     "token": ""
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "/lore/(\\d+)"
+   },
+   "items": "data.comic_content",
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "^//",
+      "https://"
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "API api.mobilelegends.com (POST-Formulare wie Community), nur Alben vom Typ 3 (Comics), 5 je Seite.",
+  "Interne URL /lore/<id> (Community speichert nur die ID); Details/Seiten holen die ID per url_vars.",
+  "Ein Kapitel je Album (items zeigt auf das Objekt data – Annahme, dass die Engine ein Einzelobjekt als einen Eintrag behandelt). Bild-URLs mit path \"\" + replace (//→https://) auf Text-Elemente angewandt. Keine Suche (Community ignoriert den Suchtext und liefert die Beliebt-Liste)."
+ ]
+}

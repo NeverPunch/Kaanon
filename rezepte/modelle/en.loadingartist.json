@@ -1,0 +1,99 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Loading Artist",
+  "sprache": "en",
+  "base_url": "https://loadingartist.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.loadingartist",
+  "quellen": [
+   {
+    "name": "Loading Artist",
+    "sprache": "en",
+    "quell_id": 1555415289901855998,
+    "home": "https://loadingartist.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/loadingartist",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/archives",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/archives"
+    },
+    "title": {
+     "const": "Loading Artist"
+    },
+    "cover": {
+     "const": "https://loadingartist.com/img/bg/logo-text_dark.png"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "Loading Artist"
+    },
+    "cover": {
+     "const": "https://loadingartist.com/img/bg/logo-text_dark.png"
+    },
+    "author": {
+     "const": "Loading Artist"
+    },
+    "artist": {
+     "const": "Loading Artist"
+    },
+    "status": {
+     "const": "ongoing"
+    }
+   },
+   "status_map": {
+    "ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "{base}/search.json",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "skip": {
+    "path": "section",
+    "regex": "^(?!(?:comic|game|art)$).+"
+   },
+   "fields": {
+    "url": "url",
+    "name": "title",
+    "date": "date"
+   },
+   "date_format": "yyyy-MM-dd"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.main-image-container img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Einzeltitel-Webcomic: ein fester Eintrag /archives, Details konstant wie in der Community. Keine Suche/Neueste.",
+  "Kapitel aus {base}/search.json (alle Beiträge); nur section comic/game/art (skip per Regex). Reihenfolge wie geliefert.",
+  "Seite: erstes Bild in div.main-image-container (Community nimmt nur das erste)."
+ ]
+}

@@ -1,0 +1,85 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "keenspot",
+  "sprache": "en",
+  "base_url": "https://twokinds.keenspot.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.keenspot",
+  "quellen": [
+   {
+    "name": "Keenspot TwoKinds",
+    "sprache": "en",
+    "quell_id": 3133607736276627986,
+    "home": "https://twokinds.keenspot.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/keenspot",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/archive/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/archive/"
+    },
+    "title": {
+     "const": "TwoKinds (1 page per chapter)"
+    },
+    "cover": {
+     "const": "https://dummyimage.com/768x994/000/ffffff.jpg&text=TwoKinds%20(1%20page%20per%20chapter)"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "TwoKinds (1 page per chapter)"
+    },
+    "cover": {
+     "const": "https://dummyimage.com/768x994/000/ffffff.jpg&text=TwoKinds%20(1%20page%20per%20chapter)"
+    },
+    "author": {
+     "const": "Tom Fischbach"
+    },
+    "artist": {
+     "const": "Tom Fischbach"
+    }
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".chapter-links > a",
+   "fields": {
+    "url": "@href",
+    "name": {
+     "path": "span",
+     "template": "Page {value}"
+    }
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#content article",
+   "image": "img@src"
+  }
+ },
+ "hinweise": [
+  "Einzeltitel-Webcomic TwoKinds: ein fester Eintrag, Kapitel = jede Comicseite aus /archive/ (.chapter-links > a), umgedreht.",
+  "Die zweite Community-Variante 'TwoKinds (20 pages per chapter)' (20 Archivseiten je Kapitel) ist nicht ausdrückbar und entfällt.",
+  "Bild = erstes img in #content article der jeweiligen Comicseite. Cover wie in der Community ein dummyimage-Platzhalter. Keine Suche (Community wirft Fehler)."
+ ]
+}

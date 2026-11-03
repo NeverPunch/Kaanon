@@ -1,0 +1,220 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga.uno",
+  "sprache": "en",
+  "base_url": "https://manga.uno",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mangauno",
+  "quellen": [
+   {
+    "name": "Manga.uno",
+    "sprache": "en",
+    "quell_id": 4237239660432093896,
+    "home": "https://manga.uno"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/mangauno",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/api/list/popular?page={page}&limit=24",
+   "format": "json",
+   "items": "data",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/m/{value}"
+    },
+    "title": [
+     "english_title",
+     "title"
+    ],
+    "cover": {
+     "path": "cover",
+     "template": "https://xz7.fstr-cdn.com{value}"
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}/api/list/latest?page={page}&limit=24",
+   "format": "json",
+   "items": "data",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/m/{value}"
+    },
+    "title": [
+     "english_title",
+     "title"
+    ],
+    "cover": {
+     "path": "cover",
+     "template": "https://xz7.fstr-cdn.com{value}"
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/api/search/advanced?page={page}&limit=24&title={query}",
+   "format": "json",
+   "items": "data",
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/m/{value}"
+    },
+    "title": [
+     "english_title",
+     "title"
+    ],
+    "cover": {
+     "path": "cover",
+     "template": "https://xz7.fstr-cdn.com{value}"
+    }
+   }
+  },
+  "details": {
+   "request": "{base}/api/manga/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/m/([^/?#]+)"
+   },
+   "let": {
+    "g": {
+     "path": "manga.genres",
+     "regex": "(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "regex_all": true,
+     "decode": "json",
+     "join": ", "
+    },
+    "t": {
+     "path": "manga.tags",
+     "regex": "(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "regex_all": true,
+     "decode": "json",
+     "join": ", "
+    }
+   },
+   "fields": {
+    "title": [
+     "manga.english_title",
+     "manga.title"
+    ],
+    "cover": {
+     "path": "manga.cover",
+     "template": "https://xz7.fstr-cdn.com{value}"
+    },
+    "description": "manga.synopsis",
+    "author": {
+     "path": "manga.author",
+     "replace": [
+      [
+       " & ",
+       ", "
+      ]
+     ]
+    },
+    "artist": {
+     "path": "manga.artist",
+     "replace": [
+      [
+       " & ",
+       ", "
+      ]
+     ]
+    },
+    "genres": {
+     "const": "[[{l.g}]][[, {l.t}]]",
+     "replace": [
+      [
+       "^, ",
+       ""
+      ]
+     ]
+    },
+    "status": "manga.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "Ongoing": 1,
+    "completed": 2,
+    "Completed": 2,
+    "hiatus": 6,
+    "Hiatus": 6,
+    "cancelled": 5,
+    "Cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/manga/{u.slug}",
+   "format": "json",
+   "url_vars": {
+    "slug": "/m/([^/?#]+)"
+   },
+   "items": "chapters",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/r/{u.slug}/{value}"
+    },
+    "name": {
+     "const": "[[Ch. {f.chapter_number}]][[ — Vol. {f.volume}]][[ — {f.title}]]",
+     "replace": [
+      [
+       "^Ch\\. (\\d+)\\.0+(?=$| )",
+       "Ch. $1"
+      ],
+      [
+       "^ — ",
+       ""
+      ],
+      [
+       "^$",
+       "Chapter"
+      ]
+     ]
+    },
+    "number": "chapter_number",
+    "scanlator": "source",
+    "date": "published_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api/chapter/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/(\\d+)/?$"
+   },
+   "items": "pages"
+  }
+ },
+ "hinweise": [
+  "JSON-API /api/list/popular|latest und /api/search/advanced (24 je Seite, weiter bei voller Seite). Suchfilter (Typ, Status, Jahr, Genres, Tags, adult) nicht übernommen.",
+  "Titel: englischer Titel, sonst title (Community-Standard 'English Title'; japanische Variante nicht). Cover vom Bild-CDN https://xz7.fstr-cdn.com wie in der Community.",
+  "Genres/Tags kommen als JSON-Text-Listen; per Regex + decode json entpackt.",
+  "Kapitelname 'Ch. N — Vol. V — Titel' wie in der Community; HTML-Entitäten im Titel werden nicht entschlüsselt. Seiten über /api/chapter/<id>."
+ ]
+}

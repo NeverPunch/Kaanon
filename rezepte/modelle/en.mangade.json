@@ -1,0 +1,168 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaDE",
+  "sprache": "en",
+  "base_url": "https://mangade.io",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mangade",
+  "quellen": [
+   {
+    "name": "MangaDE",
+    "sprache": "en",
+    "quell_id": 3447999145778061665,
+    "home": "https://mangade.io"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/mangade",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "https://api.mangade.io/api/comics?page={page}&size=20&sort=most-viewed&min_chapter_count=0",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data.list",
+   "has_next": {
+    "lt": [
+     "data.page",
+     "data.totalPage"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}-pid{f.id}"
+    },
+    "title": "name",
+    "cover": "image"
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "https://api.mangade.io/api/comics?page={page}&size=20&sort=newest&min_chapter_count=0",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data.list",
+   "has_next": {
+    "lt": [
+     "data.page",
+     "data.totalPage"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}-pid{f.id}"
+    },
+    "title": "name",
+    "cover": "image"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "https://api.mangade.io/api/comics?page={page}&size=20&name={query}&sort=newest&min_chapter_count=0",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data.list",
+   "has_next": {
+    "lt": [
+     "data.page",
+     "data.totalPage"
+    ]
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}-pid{f.id}"
+    },
+    "title": "name",
+    "cover": "image"
+   }
+  },
+  "details": {
+   "request": {
+    "url": "https://api.mangade.io/api/comics/{u.id}/view",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "slug": "^/comic/(.+)-pid[^/?#]+",
+    "id": "-pid([^/?#-]+)/?$"
+   },
+   "fields": {
+    "title": "data.name",
+    "cover": "data.image",
+    "description": "data.description",
+    "genres": {
+     "path": "data.genre_names",
+     "replace": [
+      [
+       ",\\s*",
+       ", "
+      ]
+     ]
+    },
+    "status": "data.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "releasing": 1,
+    "completed": 2,
+    "on hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "data.news_chapters",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{u.slug}-{u.id}/{value}?cid={f.id}"
+    },
+    "name": "name",
+    "number": "chapter_number",
+    "date": "published_date"
+   },
+   "date_format": "yyyy-MM-dd HH:mm:ss"
+  },
+  "pages": {
+   "request": {
+    "url": "https://api.mangade.io/api/chapters/{u.cid}/view",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "cid": "[?&]cid=([^&#]+)"
+   },
+   "items": "data.chapter_images",
+   "image": "image"
+  }
+ },
+ "hinweise": [
+  "JSON-API api.mangade.io/api/comics (Community Fetch.XHR → X-Requested-With); Beliebt sort=most-viewed, Neueste/Suche sort=newest wie die Community-Standardfilter (min_chapter_count=0). Weitere Filter nicht übernommen.",
+  "Manga-URL wie die Website: /comic/<slug>-pid<id> (Community intern /<slug>?mid=<id>); Kapitel-URL /comic/<slug>-<id>/<kapitel-slug>?cid=<kapitel-id> – cid für die Seiten-API angehängt.",
+  "Kapitel kommen aus news_chapters derselben Detail-Antwort; Datum 'yyyy-MM-dd HH:mm:ss'."
+ ]
+}

@@ -1,0 +1,233 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "LustToon",
+  "sprache": "en",
+  "base_url": "https://lustoon.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.lusttoon",
+  "quellen": [
+   {
+    "name": "LustToon",
+    "sprache": "en",
+    "quell_id": 5466172882050312169,
+    "home": "https://lustoon.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/lusttoon",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "https://back.lustoon.com/filtrar?page={page}&limit=24&orderBy=6&sort=desc&gendersId=&origin=&state=&loading=true",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "urlImg",
+     "replace": [
+      [
+       "^http://",
+       "https://"
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.last_page"
+    ]
+   }
+  },
+  "latest": {
+   "request": "https://back.lustoon.com/filtrar?page={page}&limit=24&orderBy=3&sort=desc&gendersId=&origin=&state=&loading=true",
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "urlImg",
+     "replace": [
+      [
+       "^http://",
+       "https://"
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "lt": [
+     "meta.current_page",
+     "meta.last_page"
+    ]
+   }
+  },
+  "search": {
+   "request": "https://back.lustoon.com/home/buscar?query={query}",
+   "format": "json",
+   "items": "$",
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/comic/{value}"
+    },
+    "title": "name",
+    "cover": {
+     "path": "urlImg",
+     "replace": [
+      [
+       "^http://",
+       "https://"
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "RSC": "1"
+    }
+   },
+   "format": "text",
+   "let": {
+    "genre_block": {
+     "path": "",
+     "regex": "\"genders\":\\[([^\\]]*)\\]",
+     "group": 1
+    },
+    "genre_names": {
+     "const": "{l.genre_block}",
+     "regex": "\"name\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "regex_all": true,
+     "decode": "json",
+     "join": ", "
+    }
+   },
+   "fields": {
+    "description": {
+     "path": "",
+     "regex": "\"sinopsis\":(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "status": {
+     "path": "",
+     "regex": "\"estado\":\"([^\"]+)\"",
+     "group": 1
+    },
+    "genres": {
+     "const": "{l.genre_names}"
+    }
+   },
+   "status_map": {
+    "en emision": 1,
+    "ongoing": 1,
+    "En emision": 1,
+    "En Emision": 1,
+    "Ongoing": 1,
+    "completado": 2,
+    "finalizado": 2,
+    "completed": 2,
+    "Completado": 2,
+    "Finalizado": 2,
+    "Completed": 2,
+    "cancelado": 5,
+    "cancelled": 5,
+    "Cancelado": 5,
+    "Cancelled": 5,
+    "pausado": 6,
+    "hiatus": 6,
+    "paused": 6,
+    "Pausado": 6,
+    "Hiatus": 6,
+    "Paused": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "text",
+   "items": "\\{(?=[^{}]*\"num\":)(?=[^{}]*\"slug\":\"[^\"]+\")[^{}]*\\}",
+   "fields": {
+    "url": {
+     "path": "",
+     "regex": "\"slug\":\"([^\"]+)\"",
+     "group": 1,
+     "template": "{url}/{value}"
+    },
+    "name": [
+     {
+      "path": "",
+      "regex": "\"name\":(\"[^\"]*\\d[^\"]*\")",
+      "group": 1,
+      "decode": "json"
+     },
+     {
+      "path": "",
+      "regex": "\"num\":([0-9]+(?:\\.[0-9]*[1-9])?)",
+      "group": 1,
+      "template": "Chapter {value}"
+     }
+    ],
+    "number": {
+     "path": "",
+     "regex": "\"num\":([0-9.]+)",
+     "group": 1
+    },
+    "date": {
+     "path": "",
+     "regex": "\"createdAt\":\"([^\"]+)\"",
+     "group": 1
+    }
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "RSC": "1"
+    }
+   },
+   "format": "text",
+   "items": "\\\\\"(https?://media\\.lustoon\\.com/file/[^\"\\\\]+)\\\\\"",
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "^http://",
+      "https://"
+     ]
+    ]
+   },
+   "exclude": "brakeout"
+  }
+ },
+ "hinweise": [
+  "Listen über die API back.lustoon.com/filtrar (Beliebt orderBy=6, Neuheiten orderBy=3, je 24); die Community lädt Neuheiten-Seite 1 aus dem RSC-Strom der Startseite und verschiebt danach die API-Seiten um eins – hier einheitlich page={page}.",
+  "Suche über /home/buscar?query= (eine Seite). Filter (Sortierung, Typ, Status, Genre) nicht übernommen. Einträge ohne slug (Community filtert sie) nicht ausgefiltert.",
+  "Details und Kapitel aus dem Next.js-RSC-Strom (Header RSC: 1) per Regex wie bei en.drakescans; die Schlüsselreihenfolge der Objekte ist unbekannt, deshalb Lookaheads. Titel/Cover kommen aus der Liste. UNSICHER: Status/Beschreibung nehmen den ersten Treffer im Strom.",
+  "Seiten: Community liest urlImg (JSON-Liste als String) aus den Next.js-Daten der HTML-Seite; hier RSC-Strom und nur die darin escaped (\\\") stehenden media.lustoon.com-URLs, ohne 'brakeout'. http→https wie Community."
+ ]
+}

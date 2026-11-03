@@ -1,0 +1,138 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "KaliScans.org (unoriginal)",
+  "sprache": "en",
+  "base_url": "https://kaliscans.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.kaliscansorgunoriginal",
+  "quellen": [
+   {
+    "name": "KaliScans.org (unoriginal)",
+    "sprache": "en",
+    "quell_id": 1879005209022234038,
+    "home": "https://kaliscans.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/kaliscansorg",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "image_headers": {
+   "Referer": null
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/popular?page={page}",
+   "items": "div.book-item",
+   "has_next": {
+    "exists": ".paginator a.active ~ a.btn"
+   },
+   "fields": {
+    "url": "h3 a[href]@href",
+    "title": "h3 a[href]",
+    "cover": ".thumb img@data-src"
+   }
+  },
+  "latest": {
+   "request": "{base}/latest?page={page}",
+   "items": "div.book-item",
+   "has_next": {
+    "exists": ".paginator a.active ~ a.btn"
+   },
+   "fields": {
+    "url": "h3 a[href]@href",
+    "title": "h3 a[href]",
+    "cover": ".thumb img@data-src"
+   }
+  },
+  "search": {
+   "request": "{base}/search?q={query}&status=all&sort=views&page={page}",
+   "items": "div.book-item",
+   "has_next": {
+    "exists": ".paginator a.active ~ a.btn"
+   },
+   "fields": {
+    "url": "h3 a[href]@href",
+    "title": "h3 a[href]",
+    "cover": ".thumb img@data-src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "views": ".book-info .meta p:has(strong:contains(Views)) span",
+    "syn": ".summary .content",
+    "alt": ".book-info .name h2"
+   },
+   "fields": {
+    "title": ".book-info .name h1",
+    "cover": ".book-info #cover img@data-src",
+    "author": ".book-info .meta p:has(strong:contains(Authors)) span",
+    "genres": {
+     "path": ".book-info .meta p:has(strong:contains(Genres)) a",
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       ",(?=,)",
+       ""
+      ],
+      [
+       ",\\s*$",
+       ""
+      ]
+     ]
+    },
+    "status": ".book-info .meta p:has(strong:contains(Status)) span",
+    "description": {
+     "const": "[[**Views:** {l.views}\n\n]][[{l.syn}]][[\n\n**Alternative titles:** {l.alt}]]",
+     "replace": [
+      [
+       "^\\n+",
+       ""
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "publishing": 1,
+    "completed": 2,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#chapter-list li a",
+   "fields": {
+    "url": "@href",
+    "name": ".chapter-title",
+    "date": ".chapter-update"
+   },
+   "date_format": "relative",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#chapter-images img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Listen /popular, /latest (?page=), Suche /search?q=…&status=all&sort=views&page=…; nächste Seite über '.paginator a.active ~ a.btn'. Filter (Genre/Status/Sortierung) nicht übernommen.",
+  "Community speichert nur den Slug und baut /series/<slug>; hier volle relative URL aus dem Link (deeplink /series/…).",
+  "Bild-Host lehnt Anfragen mit Referer ab → image_headers Referer null (wie all.kiutaku).",
+  "Beschreibung: Views + Synopsis + alternative Titel (h2, ungefiltert); Bewertung aus ld+json nicht übernommen.",
+  "Kapitel: Datum relativ ('3 weeks ago'); Community entfernt doppelte Zeilen und sortiert nach der Nummer in der URL – hier Reihenfolge der Seite, Dubletten möglich."
+ ]
+}

@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "NineHentai",
+  "sprache": "en",
+  "base_url": "https://9hentai.so",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.ninehentai",
+  "quellen": [
+   {
+    "name": "NineHentai",
+    "sprache": "en",
+    "quell_id": 7689490563697355048,
+    "home": "https://9hentai.so"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/ninehentai",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

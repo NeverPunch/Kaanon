@@ -23,7 +23,99 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/category/1/anime-comics?page={page}",
+   "items": "div.preview:has(div.name)",
+   "fields": {
+    "url": "a:has(img)@href",
+    "title": "a:has(img)",
+    "cover": "a:has(img) img@src"
+   },
+   "has_next": {
+    "exists": "ul.ne-pe li.next:not(.disabled)"
+   }
+  },
+  "latest": {
+   "request": "{base}/latest-comics?page={page}",
+   "items": "div.preview:has(div.name)",
+   "fields": {
+    "url": "a:has(img)@href",
+    "title": "a:has(img)",
+    "cover": "a:has(img) img@src"
+   },
+   "has_next": {
+    "exists": "ul.ne-pe li.next:not(.disabled)"
+   }
+  },
+  "search": {
+   "request": "{base}/search/{query}?page={page}",
+   "items": "div.preview:has(div.name)",
+   "fields": {
+    "url": "a:has(img)@href",
+    "title": "a:has(img)",
+    "cover": "a:has(img) img@src"
+   },
+   "has_next": {
+    "exists": "ul.ne-pe li.next:not(.disabled)"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "cover": {
+     "path": "div.grid div.image img@src",
+     "replace": [
+      [
+       "thumb300_",
+       ""
+      ]
+     ]
+    },
+    "description": {
+     "path": "div.links ul",
+     "all": true,
+     "join": "\n"
+    },
+    "genres": {
+     "path": "div.links ul a",
+     "all": true,
+     "join": ", "
+    }
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Chapter"
+    },
+    "date": "div.info > div.meta li:contains(days ago)"
+   },
+   "date_format": "relative"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.grid div.image img",
+   "image": {
+    "path": "@src",
+    "replace": [
+     [
+      "thumb300_",
+      ""
+     ]
+    ]
+   }
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Beliebt = Kategorie 'anime-comics' (wie Community, die Website hat keine Beliebt-Liste).",
+  "Suche: Community ersetzt Leerzeichen und Apostrophe im Suchtext durch '-' (/search/wort-wort); hier nur {query} eingesetzt – Suchen mit mehreren Wörtern liefern evtl. nichts. Filter (Kategorie/Comics-Tag) nicht übernommen.",
+  "Beschreibung: Text der Listen in div.links (Community formatiert 'Label: a, b'); Genres zusätzlich aus den Links (Annahme).",
+  "Ein Kapitel je Comic; Community nimmt die URL nach Weiterleitung, hier die Eintrags-URL. Datum aus 'N days ago' (relative)."
+ ]
 }

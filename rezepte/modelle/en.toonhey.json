@@ -1,0 +1,122 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ToonHey",
+  "sprache": "en",
+  "base_url": "https://toonhey.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.toonhey",
+  "quellen": [
+   {
+    "name": "ToonHey",
+    "sprache": "en",
+    "quell_id": 5192468917881435636,
+    "home": "https://toonhey.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/heytoon",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/en/genres?orderBy=views&page={page}",
+   "request_by_page": {
+    "1": "{base}/en/genres?orderBy=views"
+   },
+   "items": "div[class*=comicItem] a",
+   "has_next": {
+    "exists": ".wp-pagenavi .nextpostslink"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "img[alt!=badge]@title",
+    "cover": "img[alt!=badge]@data-src"
+   }
+  },
+  "latest": {
+   "request": "{base}/en/genres?orderBy=latest&page={page}",
+   "request_by_page": {
+    "1": "{base}/en/genres?orderBy=latest"
+   },
+   "items": "div[class*=comicItem] a",
+   "has_next": {
+    "exists": ".wp-pagenavi .nextpostslink"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "img[alt!=badge]@title",
+    "cover": "img[alt!=badge]@data-src"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/complete-search?keyword={query}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "$",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "linkComic",
+    "title": "title",
+    "cover": "raw_thumb"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "#titleSubWrapper h1.titCon",
+    "description": "#modal_detail .cont_area p",
+    "genres": {
+     "path": "#modal_detail a[href*=genres]",
+     "all": true,
+     "join": ", "
+    },
+    "cover": "meta[property=og:image]@content",
+    "status": [
+     ".badgeArea span:matchesOwn(^Up$)",
+     ".badgeArea span:matchesOwn(^Completed$)"
+    ]
+   },
+   "status_map": {
+    "up": 1,
+    "Up": 1,
+    "completed": 2,
+    "Completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".episodeListConPC a#episodeItemCon",
+   "fields": {
+    "url": "@href",
+    "name": ".comicInfo p.episodeStitle",
+    "date": ".comicInfo .episodeDate"
+   },
+   "date_format": "MMM d, yyyy",
+   "date_locale": "en",
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#comicContent img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Beliebt: Community zeigt auf Seite 1 die Popular/Trending-Slider der Startseite und danach /en/genres?orderBy=views; hier durchgehend /en/genres?orderBy=views (Seite 1 ohne page-Parameter).",
+  "Neueste = /en/genres?orderBy=latest. Genre-Filter nicht übernommen.",
+  "Suche über /api/complete-search?keyword=… (JSON-Liste, X-Requested-With), ohne Seiten.",
+  "Status: Abzeichen 'Up' = laufend, 'Completed' = abgeschlossen. Kapitel von der Website aufsteigend, daher umgedreht wie in der Community."
+ ]
+}

@@ -1,0 +1,247 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "LuxManga",
+  "sprache": "en",
+  "base_url": "https://luxmanga.org",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.luxmanga",
+  "quellen": [
+   {
+    "name": "LuxManga",
+    "sprache": "en",
+    "quell_id": 9066204719461145317,
+    "home": "https://luxmanga.org"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/luxmanga",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "https://api.luxmanga.org/works/most-read?limit=20",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": [
+     {
+      "path": "cover_url",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "cover_url",
+      "regex": "^/?(.+)$",
+      "group": 1,
+      "template": "https://api.luxmanga.org/{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "https://api.luxmanga.org/works/latest-updates?limit=24",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": [
+     {
+      "path": "cover_url",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "cover_url",
+      "regex": "^/?(.+)$",
+      "group": 1,
+      "template": "https://api.luxmanga.org/{value}"
+     }
+    ]
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "search": {
+   "request": {
+    "url": "https://api.luxmanga.org/works?search={query}&limit=24&page={page}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": [
+     {
+      "path": "cover_url",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "cover_url",
+      "regex": "^/?(.+)$",
+      "group": 1,
+      "template": "https://api.luxmanga.org/{value}"
+     }
+    ]
+   },
+   "page_size": 24,
+   "has_next": {
+    "full": true
+   }
+  },
+  "details": {
+   "request": {
+    "url": "https://api.luxmanga.org/works/{u.id}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "/series/([^/?#]+)"
+   },
+   "fields": {
+    "title": "title",
+    "cover": [
+     {
+      "path": "cover_url",
+      "regex": "^(https?://.+)$",
+      "group": 1
+     },
+     {
+      "path": "cover_url",
+      "regex": "^/?(.+)$",
+      "group": 1,
+      "template": "https://api.luxmanga.org/{value}"
+     }
+    ],
+    "description": "description",
+    "author": {
+     "path": "author",
+     "replace": [
+      [
+       "(?i)^n/a$",
+       ""
+      ],
+      [
+       " / ",
+       ", "
+      ]
+     ]
+    },
+    "status": "status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "https://api.luxmanga.org/works/{u.id}/chapters?page={page}&limit=100&order=desc",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "/series/([^/?#]+)"
+   },
+   "items": "data",
+   "paging": {
+    "has_next": {
+     "min": 100
+    },
+    "max_pages": 30
+   },
+   "skip": {
+    "path": "coins",
+    "regex": "^[1-9]"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/reader/{value}"
+    },
+    "name": {
+     "path": "chapter_number",
+     "regex": "^(\\d+(?:\\.\\d*[1-9])?)",
+     "group": 1,
+     "template": "Chapter {value}[[ — {f.title}]]"
+    },
+    "number": "chapter_number",
+    "date": "created_at"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "https://api.luxmanga.org/chapters/{u.id}",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "/reader/([^/?#]+)"
+   },
+   "items": "images",
+   "image": [
+    {
+     "path": "",
+     "regex": "^(https?://.+)$",
+     "group": 1
+    },
+    {
+     "path": "",
+     "regex": "^/?(.+)$",
+     "group": 1,
+     "template": "https://api.luxmanga.org/{value}"
+    }
+   ]
+  }
+ },
+ "hinweise": [
+  "JSON-API api.luxmanga.org (Community Fetch.XHR → X-Requested-With). Beliebt /works/most-read?limit=20, Neueste /works/latest-updates?limit=24 (je eine Seite), Suche /works?search=…&limit=24&page=… (weiter bei voller Seite; Community: page < meta.total_pages). Genre-Filter nicht übernommen.",
+  "URLs: /series/<work-id> und /reader/<chapter-id> (Community speichert nur die IDs).",
+  "Details nur aus /works/<id>; Genres/Tags und alternative Titel (/genres, /metadata – je eigene Anfrage) fehlen, da Details nur eine Anfrage haben.",
+  "Kapitel: 100 je Seite, absteigend; kostenpflichtige Kapitel (coins > 0) übersprungen (Community-Standard). Name 'Chapter N — Titel' (Community lässt Titel weg, wenn er nur die Nummer wiederholt).",
+  "Relative Cover-/Bildpfade werden an https://api.luxmanga.org angehängt (Community: apiUrl.resolve)."
+ ]
+}

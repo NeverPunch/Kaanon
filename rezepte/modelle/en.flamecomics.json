@@ -1,0 +1,213 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Flame Comics",
+  "sprache": "en",
+  "base_url": "https://flamecomics.xyz",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.flamecomics",
+  "quellen": [
+   {
+    "name": "Flame Comics",
+    "sprache": "en",
+    "quell_id": 8531542650987673943,
+    "home": "https://flamecomics.xyz"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/flamecomics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 2000
+  },
+  "vars": {
+   "bid": {
+    "request": "https://flamecomics.xyz/",
+    "format": "next_data",
+    "value": "buildId",
+    "ttl_s": 3600
+   }
+  },
+  "popular": {
+   "request": "https://flamecomics.xyz/_next/data/{v.bid}/browse.json",
+   "format": "json",
+   "items": "pageProps.series",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "series_id",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover",
+     "template": "https://cdn.flamecomics.xyz/uploads/images/series/{f.series_id}/{value}?{f.last_edit}"
+    }
+   }
+  },
+  "latest": {
+   "request": "https://flamecomics.xyz/_next/data/{v.bid}/latest.json",
+   "format": "json",
+   "items": "pageProps.allSeries",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "series_id",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover",
+     "template": "https://cdn.flamecomics.xyz/uploads/images/series/{f.series_id}/{value}?{f.last_edit}"
+    }
+   }
+  },
+  "search": {
+   "request": "https://flamecomics.xyz/_next/data/{v.bid}/browse.json",
+   "format": "json",
+   "items": "pageProps.series",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "series_id",
+     "template": "/series/{value}"
+    },
+    "title": "title",
+    "cover": {
+     "path": "cover",
+     "template": "https://cdn.flamecomics.xyz/uploads/images/series/{f.series_id}/{value}?{f.last_edit}"
+    }
+   },
+   "client_filter": true
+  },
+  "details": {
+   "request": "https://flamecomics.xyz/_next/data/{v.bid}/series/{u.id}.json?id={u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/series/(\\d+)"
+   },
+   "let": {
+    "d": {
+     "path": "pageProps.series.description",
+     "decode": "html_text"
+    },
+    "alt": {
+     "path": "pageProps.series.altTitles.*",
+     "all": true,
+     "join": "\n- "
+    }
+   },
+   "fields": {
+    "title": "pageProps.series.title",
+    "cover": {
+     "path": "pageProps.series.cover",
+     "template": "https://cdn.flamecomics.xyz/uploads/images/series/{u.id}/{value}?{f.pageProps.series.last_edit}"
+    },
+    "description": {
+     "const": "[[{l.d}]][[\n\nAlternative Names:\n- {l.alt}]]",
+     "replace": [
+      [
+       "^\\n+",
+       ""
+      ]
+     ]
+    },
+    "genres": {
+     "path": [
+      "pageProps.series.type",
+      "pageProps.series.tags.*"
+     ],
+     "union": true
+    },
+    "author": {
+     "path": "pageProps.series.author.*",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "pageProps.series.artist.*",
+     "all": true,
+     "join": ", "
+    },
+    "status": "pageProps.series.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "dropped": 5,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "items": "pageProps.chapters",
+   "fields": {
+    "url": {
+     "path": "token",
+     "template": "/series/{f.series_id}/{value}"
+    },
+    "name": {
+     "path": "chapter",
+     "replace": [
+      [
+       "\\.0$",
+       ""
+      ]
+     ],
+     "template": "Chapter {value}[[ - {f.title}]]"
+    },
+    "number": "chapter",
+    "date": "release_date"
+   },
+   "date_format": "epoch_s"
+  },
+  "pages": {
+   "request": "https://flamecomics.xyz/_next/data/{v.bid}/series/{u.sid}/{u.tok}.json?id={u.sid}&token={u.tok}",
+   "format": "text",
+   "url_vars": {
+    "sid": "/series/(\\d+)/",
+    "tok": "/series/\\d+/([^/?#]+)"
+   },
+   "let": {
+    "rd": {
+     "path": "",
+     "regex": "\"release_date\":(\\d+)"
+    }
+   },
+   "block_regex": "(?s)\"images\":\\{(.*?)\\}\\s*\\}",
+   "items": "\"name\":\"[^\"]+\"",
+   "image": {
+    "path": "",
+    "replace": [
+     [
+      "^\"name\":\"(.*)\"$",
+      "$1"
+     ]
+    ],
+    "template": "https://cdn.flamecomics.xyz/uploads/images/series/{u.sid}/{u.tok}/{value}?{l.rd}"
+   }
+  }
+ },
+ "hinweise": [
+  "Next.js-Datenrouten wie Community: /_next/data/<buildId>/…json; buildId per vars aus __NEXT_DATA__ der Startseite (ttl 1 h). Community holt die buildId bei 404 sofort neu – hier erst nach Ablauf der ttl.",
+  "Beliebt = browse.json; Community sortiert nach popularityRank aufsteigend – aufsteigende Sortierung ist in keiner Vorlage belegt, daher unsortiert.",
+  "Suche: browse.json mit client_filter (Community: Titelvergleich ohne Sonderzeichen).",
+  "Seiten: images ist ein Objekt (Map) – '*' über Objekte nicht belegt, daher Text-Regex über den Block \"images\":{…}} (setzt flache Bildobjekte voraus).",
+  "Cover/Bilder: CDN cdn.flamecomics.xyz mit ?<last_edit>/?<release_date> wie Community; Einträge ohne series_id überspringt die Community (hier nicht)."
+ ]
+}

@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Nuvia Toon",
+  "sprache": "en",
+  "base_url": "https://nuviatoon.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.nuviatoon",
+  "quellen": [
+   {
+    "name": "Nuvia Toon",
+    "sprache": "en",
+    "quell_id": 9071935154458913856,
+    "home": "https://nuviatoon.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/nuviatoon",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.3",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

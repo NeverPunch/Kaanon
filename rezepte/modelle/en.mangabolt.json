@@ -1,0 +1,132 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MangaBolt",
+  "sprache": "en",
+  "base_url": "https://mangabolt.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mangabolt",
+  "quellen": [
+   {
+    "name": "MangaBolt",
+    "sprache": "en",
+    "quell_id": 286088605022156276,
+    "home": "https://mangabolt.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/mangabolt",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": {
+    "url": "{base}/manga-list/?page={page}&_=/",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "items": "mangas",
+   "has_next": {
+    "exists": "next_page_url"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}/"
+    },
+    "title": "name",
+    "cover": "image_url"
+   }
+  },
+  "latest": {
+   "request": "{base}/latest",
+   "items": "div.bg-bg-secondary:has(a[href*=/chapter/])",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": "a[href*=/chapter/]@href",
+     "regex": "/chapter/(.+?)-chapter-",
+     "group": 1,
+     "template": "/manga/{value}/"
+    },
+    "title": {
+     "path": ".font-bold",
+     "replace": [
+      [
+       "\\s*Chapter.*$",
+       ""
+      ]
+     ]
+    },
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/manga-list/?page={page}&search={query}&_=/",
+    "headers": {
+     "X-Requested-With": "XMLHttpRequest",
+     "Accept": "application/json"
+    }
+   },
+   "format": "json",
+   "items": "mangas",
+   "has_next": {
+    "exists": "next_page_url"
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}/"
+    },
+    "title": "name",
+    "cover": "image_url"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "#main-content h1",
+    "description": {
+     "path": "div.bg-bg-secondary div.px-6 div.flex-col div.text-text-muted",
+     "all": true,
+     "join": " "
+    },
+    "cover": "div.flex img@src"
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.w-full div.bg-bg-secondary:has(div.grid)",
+   "fields": {
+    "url": "div.grid a@href",
+    "name": "div.grid a"
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".js-pages-container img.js-page:not(noscript img)",
+   "image": [
+    "@data-src",
+    "@src"
+   ],
+   "exclude": "^data:image"
+  }
+ },
+ "hinweise": [
+  "Beliebt/Suche: JSON von /manga-list/?page=N[&search=…]&_=/ mit X-Requested-With/Accept: application/json (wie Community; '_=/' verhindert die Weiterleitung).",
+  "Neueste: HTML /latest, eine Seite; Manga-Slug aus dem Kapitel-Link (/chapter/<slug>-chapter-…), Duplikate nicht entfernt.",
+  "Kapitelname ohne den Zusatztitel (.text-xs neben dem Link), den die Community anhängt; keine Kapiteldaten (Community auch nicht).",
+  "Seiten: Bilder in <noscript> per :not(noscript img) ausgeschlossen, data:-Platzhalter per exclude; doppelte URLs werden nicht entfernt."
+ ]
+}

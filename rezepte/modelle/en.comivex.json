@@ -1,0 +1,112 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Comivex",
+  "sprache": "en",
+  "base_url": "https://comivex.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.comivex",
+  "quellen": [
+   {
+    "name": "Comivex",
+    "sprache": "en",
+    "quell_id": 954997815643613941,
+    "home": "https://comivex.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/mangamob",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/explore/?sort_by=Views&results={page}&ajax=1",
+   "items": "article.manga-card:has(a.card-cover)",
+   "fields": {
+    "url": "a.card-cover@href",
+    "title": ".card-title a",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "article.manga-card a.card-cover"
+   }
+  },
+  "latest": {
+   "request": "{base}/latest/",
+   "items": "article.u-card:has(a.u-card__title)",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a.u-card__title@href",
+    "title": [
+     "a.u-card__title@title",
+     "a.u-card__title"
+    ],
+    "cover": "img.u-card__img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/explore/?search={query}&genre_included=&sort_by=Views&status=&results={page}&ajax=1",
+   "items": "article.manga-card:has(a.card-cover)",
+   "fields": {
+    "url": "a.card-cover@href",
+    "title": ".card-title a",
+    "cover": "img@src"
+   },
+   "has_next": {
+    "exists": "article.manga-card a.card-cover"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": ".md-title",
+    "author": ".md-author span",
+    "description": "#synopsis",
+    "genres": {
+     "path": ".md-genres a.md-genre-pill",
+     "all": true,
+     "join": ", "
+    },
+    "cover": ".md-cover-wrap img.md-cover@src",
+    "status": {
+     "path": ".md-status",
+     "regex": "(?i)(ongoing|completed|hiatus)",
+     "group": 1
+    }
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": ".ch-list .ch-item",
+   "fields": {
+    "url": "a.ch-link@href",
+    "name": ".ch-num",
+    "date": ".ch-date"
+   },
+   "date_format": "relative",
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#chapter-images .page-wrapper img",
+   "image": "@src"
+  }
+ },
+ "hinweise": [
+  "Comivex (früher MangaMob). Beliebt/Suche: /explore/?…&results=<Seite>&ajax=1 (HTML-Fragment); nächste Seite, solange Karten kommen (wie Community).",
+  "Neueste: /latest/ (eine Seite, Duplikate nicht entfernt). Die Community-Einstellung zum Ausblenden hängender Einträge betrifft nur sort_by=Updated und wird nicht gebraucht.",
+  "Genre-/Typ-/Status-/Sortierfilter nicht übernommen; Datum relativ ('2 days ago')."
+ ]
+}

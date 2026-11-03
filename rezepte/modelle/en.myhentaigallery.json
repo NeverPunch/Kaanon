@@ -1,0 +1,168 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MyHentaiGallery",
+  "sprache": "en",
+  "base_url": "https://myhentaigallery.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.myhentaigallery",
+  "quellen": [
+   {
+    "name": "MyHentaiGallery",
+    "sprache": "en",
+    "quell_id": 7327582601422280123,
+    "home": "https://myhentaigallery.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/myhentaigallery",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/views/{page}",
+   "items": "div.comic-inner",
+   "fields": {
+    "url": "a@href",
+    "title": "h2",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       " ",
+       "%20"
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": "li.next"
+   }
+  },
+  "latest": {
+   "request": "{base}/gpage/{page}",
+   "items": "div.comic-inner",
+   "fields": {
+    "url": "a@href",
+    "title": "h2",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       " ",
+       "%20"
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": "li.next"
+   }
+  },
+  "search": {
+   "request": "{base}/search/{page}?query={query}",
+   "items": "div.comic-inner",
+   "fields": {
+    "url": "a@href",
+    "title": "h2",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       " ",
+       "%20"
+      ]
+     ]
+    }
+   },
+   "has_next": {
+    "exists": "li.next"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "groups": {
+     "path": "div.comic-header div:containsOwn(groups) a",
+     "all": true,
+     "join": ", "
+    },
+    "parodies": {
+     "path": "div.comic-header div:containsOwn(parodies) a",
+     "all": true,
+     "join": ", "
+    }
+   },
+   "fields": {
+    "title": "div.comic-header h1",
+    "genres": {
+     "path": "div.comic-header div:containsOwn(categories) a",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "div.comic-header div:containsOwn(artists) a",
+     "all": true,
+     "join": ", "
+    },
+    "cover": {
+     "path": ".comic-listing .comic-inner img@src",
+     "replace": [
+      [
+       " ",
+       "%20"
+      ]
+     ]
+    },
+    "description": {
+     "const": "[[Groups: {l.groups}]]\n[[Parodies: {l.parodies}]]"
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Chapter"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.comic-thumb img[src]",
+   "image": {
+    "path": "@src",
+    "replace": [
+     [
+      "/thumbnail/",
+      "/original/"
+     ],
+     [
+      " ",
+      "%20"
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "Ein Kapitel je Galerie (Community nimmt die URL nach Weiterleitung, hier die Eintrags-URL).",
+  "Genres nur Kategorien; die Community hängt 'Artist: …'/'Parody: …' als Genres an und leitet solche Genre-Suchen auf Tag-Listen um (Tag-ID-Nachschlagen) – nicht übernommen. Filter (Sortierung, Kategorie, Artist/Parodie) nicht übernommen.",
+  "Beschreibung: Gruppen und Parodien als kommagetrennte Zeilen (Community: Aufzählung)."
+ ]
+}

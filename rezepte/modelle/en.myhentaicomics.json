@@ -1,0 +1,186 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "MyHentaiComics",
+  "sprache": "en",
+  "base_url": "https://myhentaicomics.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.myhentaicomics",
+  "quellen": [
+   {
+    "name": "MyHentaiComics",
+    "sprache": "en",
+    "quell_id": 4899971628155084225,
+    "home": "https://myhentaicomics.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/myhentaicomics",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/views/{page}",
+   "items": "li.item:not(.image-block) .comic-inner a",
+   "has_next": {
+    "exists": "li.next a"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h2.comic-name",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       " ",
+       "%20"
+      ]
+     ]
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}/gallery/{page}",
+   "items": "li.item:not(.image-block) .comic-inner a",
+   "has_next": {
+    "exists": "li.next a"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h2.comic-name",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       " ",
+       "%20"
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/search/{page}?query={query}",
+   "items": "li.item:not(.image-block) .comic-inner a",
+   "has_next": {
+    "exists": "li.next a"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h2.comic-name",
+    "cover": {
+     "path": "img@src",
+     "replace": [
+      [
+       " ",
+       "%20"
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "artists": {
+     "path": "div.comic-description a[href*='/gallery/artist/']",
+     "all": true,
+     "join": ", "
+    },
+    "groups": {
+     "path": "div.comic-description a[href*='/gallery/group/']",
+     "all": true,
+     "join": ", "
+    },
+    "pages": "div.comic-description div:matchesOwn(^Pages:)"
+   },
+   "fields": {
+    "title": "div.comic-description h1",
+    "cover": {
+     "path": "div.comic-cover img@src",
+     "replace": [
+      [
+       " ",
+       "%20"
+      ]
+     ]
+    },
+    "genres": {
+     "path": "div.comic-description a[href*='/gallery/category/'], div.comic-description a[href*='/gallery/artist/'], div.comic-description a[href*='/gallery/group/']",
+     "all": true,
+     "join": ", "
+    },
+    "author": {
+     "path": "div.comic-description a[href*='/gallery/artist/']",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "const": "completed"
+    },
+    "description": {
+     "const": "[[Artists: {l.artists}\n]][[Groups: {l.groups}\n]][[{l.pages}]]",
+     "replace": [
+      [
+       "\\s+$",
+       ""
+      ]
+     ]
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.comic-cover",
+   "fields": {
+    "url": {
+     "path": "a@href",
+     "regex": "/gallery/show/(\\d+)/",
+     "group": 1,
+     "template": "/gallery/show/{value}/1"
+    },
+    "name": {
+     "const": "Chapter 1"
+    },
+    "number": {
+     "const": "1"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "ul li a[href*='/gallery/show/']:matchesOwn(^\\d+$)",
+   "image": "@href",
+   "subpage": {
+    "request": {
+     "url": "{url}"
+    },
+    "format": "html",
+    "image": {
+     "path": "ul.gallery-slide li img@src",
+     "replace": [
+      [
+       " ",
+       "%20"
+      ]
+     ]
+    }
+   }
+  }
+ },
+ "hinweise": [
+  "Listen: Beliebt /views/<Seite>, Neueste /gallery/<Seite>, Suche /search/<Seite>?query=…; nächste Seite über li.next a. Kategorie-/Sortierfilter nicht übernommen.",
+  "Ein Kapitel je Galerie: /gallery/show/<id>/1, id aus dem Link in div.comic-cover. Autor = Artists (Community setzt keinen Autor; Artists/Groups zusätzlich in Genres und Beschreibung wie dort).",
+  "Seiten: Die Community rechnet Bild-URLs aus (Ordner des ersten Bildes + 001…N, N = höchste Nummer in den Seitenlinks). Zahlen-Erzeugung ist nicht ausdrückbar; hier stattdessen jede nummerierte Seiten-URL einzeln laden (subpage) und das Bild in ul.gallery-slide nehmen. Annahme: Die Paginierung listet alle Seitennummern ohne Lücken/Dubletten – auf dem PC prüfen.",
+  "Leerzeichen in Bild-URLs werden zu %20 (wie Community).",
+  "Risiko: Ist die aktuelle Seite (1) in der Paginierung kein Link, fehlt Seite 1 – dann Seiten-Teil auf dem PC nachschärfen."
+ ]
+}

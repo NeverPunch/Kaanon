@@ -1,0 +1,162 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Multporn",
+  "sprache": "en",
+  "base_url": "https://multporn.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.multporn",
+  "quellen": [
+   {
+    "name": "Multporn",
+    "sprache": "en",
+    "quell_id": 1483013328567191791,
+    "home": "https://multporn.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/multporn",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36"
+  },
+  "popular": {
+   "request": "{base}/best?page={page0}&sort_by=totalcount_1&sort_order=DESC&type=1",
+   "items": ".masonry-item",
+   "has_next": {
+    "exists": ".pager-next a"
+   },
+   "fields": {
+    "url": ".views-field-title a@href",
+    "title": ".views-field-title",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/new?page={page0}&sort_by=created&sort_order=DESC&type=1",
+   "items": ".masonry-item",
+   "has_next": {
+    "exists": ".pager-next a"
+   },
+   "fields": {
+    "url": ".views-field-title a@href",
+    "title": ".views-field-title",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/search?page={page0}&search_api_views_fulltext={query}&sort_by=search_api_relevance&type=1",
+   "items": ".masonry-item",
+   "has_next": {
+    "exists": ".pager-next a"
+   },
+   "fields": {
+    "url": ".views-field-title a@href",
+    "title": ".views-field-title",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "sec": {
+     "path": ".field:has(.field-label:contains(Section:)) .links a",
+     "all": true,
+     "join": ", "
+    },
+    "cha": {
+     "path": ".field:has(.field-label:contains(Characters:)) .links a",
+     "all": true,
+     "join": ", "
+    }
+   },
+   "fields": {
+    "title": "h1#page-title",
+    "author": {
+     "path": ".field:has(.field-label:contains(Author:)) .links a, .field-name-field-author a, .field-name-field-authors-gr a, .field-name-field-img-group a, .field-name-field-hentai-img-group a, .field-name-field-rule-63-section a",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": ".field:has(.field-label:contains(Author:)) .links a, .field-name-field-author a, .field-name-field-authors-gr a, .field-name-field-img-group a, .field-name-field-hentai-img-group a, .field-name-field-rule-63-section a",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": [
+      ".field:has(.field-label:contains(Tags:)) .links a",
+      ".field:has(.field-label:contains(Section:)) .links a",
+      ".field:has(.field-label:contains(Characters:)) .links a"
+     ],
+     "union": true
+    },
+    "description": {
+     "const": "[[Section:\n{l.sec}]]\n\n[[Characters:\n{l.cha}]]",
+     "replace": [
+      [
+       "^\\n+|\\n+$",
+       ""
+      ]
+     ]
+    },
+    "status": [
+     ".field:has(.field-label:contains(Section:)) .links a:matchesOwn(^Ongoings$)",
+     {
+      "const": "completed"
+     }
+    ]
+   },
+   "status_map": {
+    "ongoings": 1,
+    "Ongoings": 1,
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Chapter"
+    },
+    "number": {
+     "const": "1"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".jb-image img",
+   "image": {
+    "path": "@src",
+    "replace": [
+     [
+      "/styles/juicebox_2k/public",
+      ""
+     ],
+     [
+      "\\?.*$",
+      ""
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "Listen wie Community-Standard: Beliebt /best (sort_by=totalcount_1, DESC, type=1 Comics), Neueste /new (sort_by=created, DESC, type=1); Seiten ab 0.",
+  "Suche /search?search_api_views_fulltext=… mit sort_by=search_api_relevance und type=1 (Community nimmt den Sortierfilter, der standardmäßig auf 'Total Views' steht; Textsuche funktioniert laut Community nur mit Relevance/Author). Text-Tag-Filter (category/characters/…) nicht übernommen.",
+  "Autor = 'Author'-Feld + unbeschriftete Autorenfelder (CSS-Vereinigung, Doppelte möglich). Genres = Tags + Section + Characters. Status laufend, wenn Section 'Ongoings' enthält, sonst abgeschlossen.",
+  "Beschreibung ohne Seitenanzahl (Community zählt .jb-image img). User-Agent wie in der Community; Content-Type-Header entfällt (nur GET).",
+  "Bilder: Pfadteil /styles/juicebox_2k/public und Query entfernt (Originalgröße) wie in der Community."
+ ]
+}

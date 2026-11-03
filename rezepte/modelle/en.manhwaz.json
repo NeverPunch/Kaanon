@@ -1,0 +1,126 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "ManhwaZ",
+  "sprache": "en",
+  "base_url": "https://manhwaz.cc",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.manhwaz",
+  "quellen": [
+   {
+    "name": "ManhwaZ",
+    "sprache": "en",
+    "quell_id": 651625426989893977,
+    "home": "https://manhwaz.cc"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/manhwaz",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.44",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "{base}/",
+   "items": "article.popular-card:has(h3 a)",
+   "fields": {
+    "url": "h3 a@href",
+    "title": "h3 a",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": "{base}/?page={page}",
+   "items": "article.latest-card:has(h3 a)",
+   "fields": {
+    "url": "h3 a@href",
+    "title": "h3 a",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "nav.pagination a[aria-label=\"Next page\"]"
+   }
+  },
+  "search": {
+   "request": "{base}/search?s={query}&page={page}",
+   "items": "article.popular-card:has(h3 a)",
+   "fields": {
+    "url": "h3 a@href",
+    "title": "h3 a",
+    "cover": "img@img"
+   },
+   "has_next": {
+    "exists": "nav.pagination a[aria-label=\"Next page\"]"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     "section.profile-manga h1@ownText",
+     "section.profile-manga h1"
+    ],
+    "author": "div.series-facts dl > div:has(dt:contains(Author)) dd",
+    "description": "p.series-summary",
+    "genres": {
+     "path": "div.series-facts dl > div:has(dt:contains(Genre)) dd a",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "path": "div.series-facts dl > div:has(dt:contains(Status)) dd",
+     "regex": "(?i)(ongoing|completed)",
+     "group": 1
+    },
+    "cover": "div.series-cover-frame img@img"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "Ongoing": 1,
+    "ONGOING": 1,
+    "completed": 2,
+    "Completed": 2,
+    "COMPLETED": 2
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}?chapterPage={page}",
+   "request_by_page": {
+    "1": "details"
+   },
+   "items": "a.release-row",
+   "fields": {
+    "url": "@href",
+    "name": "strong"
+   },
+   "paging": {
+    "has_next": {
+     "exists": "nav.pagination a[aria-label=\"Next page\"]"
+    },
+    "max_pages": 50
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "div.reader-pages figure.reader-page-image img",
+   "image": "@img"
+  }
+ },
+ "hinweise": [
+  "Eigenes HTML (nicht mehr Madara). Beliebt = Raster der Startseite (nur eine Seite, wie Community); Neueste = Startseite ?page=N.",
+  "Kapitelliste serverseitig paginiert: Community folgt dem 'Next page'-Link; hier {abs_url}?chapterPage=N angenommen (Parametername laut Community-Kommentar).",
+  "Status: Community prüft 'enthält ongoing/completed'; hier per Regex-Gruppe mit Schreibvarianten in status_map.",
+  "Suche nur Text (/search?s=); Genre-Filter nicht nachgebaut. Kapitel ohne Datum (Community ebenso)."
+ ]
+}

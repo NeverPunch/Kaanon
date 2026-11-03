@@ -1,0 +1,99 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Gunnerkrigg Court",
+  "sprache": "en",
+  "base_url": "https://www.gunnerkrigg.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.gunnerkriggcourt",
+  "quellen": [
+   {
+    "name": "Gunnerkrigg Court",
+    "sprache": "en",
+    "quell_id": 6036325841864340105,
+    "home": "https://www.gunnerkrigg.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/gunnerkriggcourt",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/archives/",
+   "items": "html",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "const": "/archives/"
+    },
+    "title": {
+     "const": "Gunnerkrigg Court"
+    },
+    "cover": {
+     "const": "https://i.imgur.com/g2ukAIKh.jpg"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": {
+     "const": "Gunnerkrigg Court"
+    },
+    "author": {
+     "const": "Tom Siddell"
+    },
+    "artist": {
+     "const": "Tom Siddell"
+    },
+    "description": {
+     "const": "Gunnerkrigg Court is a Science Fantasy webcomic by Tom Siddell about a strange young girl attending an equally strange school. The intricate story is deeply rooted in world mythology, but has a strong focus on science (chemistry and robotics, most prominently) as well."
+    },
+    "cover": {
+     "const": "https://i.imgur.com/g2ukAIKh.jpg"
+    },
+    "status": {
+     "const": "ongoing"
+    }
+   },
+   "status_map": {
+    "ongoing": 1
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "div.chapters option[value~=\\d+]",
+   "fields": {
+    "url": {
+     "path": "@value",
+     "template": "/?p={value}"
+    },
+    "name": {
+     "path": "@value",
+     "template": "Page {value}"
+    },
+    "number": "@value"
+   },
+   "reverse": true
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".comic_image",
+   "image": "@img"
+  }
+ },
+ "hinweise": [
+  "Ein einziger Eintrag (Community erzeugt ihn ohne Anfrage mit festen Texten); hier Archivseite /archives/ als Listen-Anfrage, Felder per const.",
+  "Jede Comicseite ist ein Kapitel (/?p=N aus option@value der Archivseite). Kapitelname: Community nimmt den Text des Elements vor dem select (Kapiteltitel) + '(N)' – Zugriff auf Elternelemente nicht ausdrückbar, hier 'Page N'.",
+  "Selektor option[value~=\\d+] statt \\d* (Community), damit leere Werte nicht mitkommen.",
+  "Cover: festes imgur-Bild wie in der Community."
+ ]
+}

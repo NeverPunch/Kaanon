@@ -1,0 +1,190 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Gensura",
+  "sprache": "en",
+  "base_url": "https://gensura.net",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.gensura",
+  "quellen": [
+   {
+    "name": "Gensura",
+    "sprache": "en",
+    "quell_id": 6602595408477221375,
+    "home": "https://gensura.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/mangahen",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/advanced-search/?search=1&type=0&sort=1&page={page}",
+   "items": "a[href^=/manga/]",
+   "has_next": {
+    "exists": "a[href*=page]:not(:matches(\\S))"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h2@ownText",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/advanced-search/?search=1&type=0&sort=2&page={page}",
+   "items": "a[href^=/manga/]",
+   "has_next": {
+    "exists": "a[href*=page]:not(:matches(\\S))"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h2@ownText",
+    "cover": "img@src"
+   }
+  },
+  "search": {
+   "request": "{base}/advanced-search/?name={query}&search=1&page={page}",
+   "request_by_page": {
+    "1": "{base}/advanced-search/?name={query}&search=1"
+   },
+   "items": "a[href^=/manga/]",
+   "has_next": {
+    "exists": "a[href*=page]:not(:matches(\\S))"
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h2@ownText",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {
+    "alt1": {
+     "path": "h1.font-semibold",
+     "regex": " \\| (.*)$",
+     "group": 1
+    },
+    "alt2": {
+     "path": "h2.text-lg.font-medium",
+     "all": true,
+     "join": " "
+    },
+    "cat": {
+     "path": "a[href*=/categories/]",
+     "all": true,
+     "join": " "
+    },
+    "par": {
+     "path": "a[href*=/parodies/]",
+     "all": true,
+     "join": " "
+    },
+    "cir": {
+     "path": "a[href*=/circles/]",
+     "all": true,
+     "join": " "
+    },
+    "pg": {
+     "path": "tr:contains(page)",
+     "all": true,
+     "join": " "
+    },
+    "vw": {
+     "path": "tr:contains(view)",
+     "all": true,
+     "join": " "
+    }
+   },
+   "fields": {
+    "title": {
+     "path": "h1.font-semibold",
+     "regex": "^(.*?)(?: \\| .*)?$",
+     "group": 1
+    },
+    "author": [
+     {
+      "path": "a[href*=/circles/]",
+      "all": true,
+      "join": ", "
+     },
+     {
+      "path": "a[href*=/authors/]",
+      "all": true,
+      "join": ", "
+     }
+    ],
+    "artist": {
+     "path": "a[href*=/authors/]",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "a[href*=/tags/]",
+     "all": true,
+     "join": ", "
+    },
+    "description": {
+     "const": "[[Alternative Titles:\n- {l.alt1}\n]][[- {l.alt2}\n]]\n[[Categories: {l.cat}\n]][[Parodies: {l.par}\n]][[Circles: {l.cir}\n]]\n[[{l.pg}\n]][[{l.vw}]]",
+     "replace": [
+      [
+       "^\\n+|\\n+$",
+       ""
+      ],
+      [
+       "\\n{3,}",
+       "\n\n"
+      ]
+     ]
+    },
+    "cover": "img[src*=thumbnail].w-96@src",
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Chapter"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "img[src*=images]:not(img[src*=thumbnail]).w-full, img[data-src*=images]",
+   "image": {
+    "path": [
+     "@src",
+     "@data-src"
+    ],
+    "replace": [
+     [
+      "-t(?=\\.)",
+      ""
+     ]
+    ]
+   }
+  }
+ },
+ "hinweise": [
+  "Listen über /advanced-search/?search=1&type=0&sort=1 (Beliebt) bzw. sort=2 (Neueste); nächste Seite, wenn ein page-Link ohne Text (Pfeil) existiert.",
+  "Suche nur per Name (name=…); Sortier-/Typ-/Tag-Filter (Tag-IDs aus der Suchseite) nicht übernommen. Abschließender '/' nach advanced-search ist laut Community nötig.",
+  "Titel = Teil vor ' | ' in h1, der Rest als Alternativtitel in der Beschreibung (wie Community, leere Abschnitte entfallen hier). Autor = Circles, sonst Authors.",
+  "Ein Kapitel je Galerie; Bilder ohne '-t' vor der Endung (Vorschau → Vollbild) wie in der Community."
+ ]
+}

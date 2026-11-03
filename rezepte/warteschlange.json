@@ -10592,7 +10592,7 @@
  },
  {
   "modul": "src/en/doujins",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Doujins",
   "stufe": 2,
   "theme": null,
@@ -10602,11 +10602,13 @@
   "host": "doujins.com",
   "nsfw": true,
   "wer": "agent-w4a",
-  "seit": "2026-11-03T10:39:31"
+  "seit": "2026-11-03T10:39:31",
+  "datei": "rezepte/modelle/en.doujins.json",
+  "geaendert": "2026-11-03T10:40:03"
  },
  {
   "modul": "src/en/eggporncomics",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Eggporncomics",
   "stufe": 2,
   "theme": null,
@@ -10616,11 +10618,13 @@
   "host": "eggporncomics.com",
   "nsfw": true,
   "wer": "agent-w4d",
-  "seit": "2026-11-03T10:39:42"
+  "seit": "2026-11-03T10:39:42",
+  "datei": "rezepte/modelle/en.eggporncomics.json",
+  "geaendert": "2026-11-03T10:40:20"
  },
  {
   "modul": "src/en/egscomics",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "El Goonish Shive",
   "stufe": 2,
   "theme": null,
@@ -10630,11 +10634,13 @@
   "host": "egscomics.com",
   "nsfw": false,
   "wer": "agent-w4c",
-  "seit": "2026-11-03T10:39:50"
+  "seit": "2026-11-03T10:39:50",
+  "datei": "rezepte/modelle/en.elgoonishshive.json",
+  "geaendert": "2026-11-03T10:40:47"
  },
  {
   "modul": "src/en/elanschool",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Elan School",
   "stufe": 2,
   "theme": null,
@@ -10644,11 +10650,13 @@
   "host": "elan.school",
   "nsfw": false,
   "wer": "agent-w4b",
-  "seit": "2026-11-03T10:39:55"
+  "seit": "2026-11-03T10:39:55",
+  "datei": "rezepte/modelle/en.elanschool.json",
+  "geaendert": "2026-11-03T10:40:27"
  },
  {
   "modul": "src/en/existentialcomics",
-  "status": "offen",
+  "status": "fertig",
   "name": "Existential Comics",
   "stufe": 2,
   "theme": null,
@@ -10656,11 +10664,15 @@
    "en"
   ],
   "host": "existentialcomics.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4a",
+  "seit": "2026-11-03T10:40:03",
+  "datei": "rezepte/modelle/en.existentialcomics.json",
+  "geaendert": "2026-11-03T10:40:17"
  },
  {
   "modul": "src/en/explosm",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Cyanide & Happiness",
   "stufe": 2,
   "theme": null,
@@ -10668,11 +10680,15 @@
    "en"
   ],
   "host": "explosm.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:40:06",
+  "grund": "Archiv (_next/data/<buildId>/comics.json, buildId aus Skript-src) ist Objekt-Map Jahr→Monat→Comics; Katalog = Objektschlüssel (Jahre, feste Titel/Cover im Code), Kapitel = Verflachen der Monats-Map – Iteration über Objektschlüssel nicht belegt; Bild ohne Anfrage aus URL-Fragment",
+  "geaendert": "2026-11-03T10:40:33"
  },
  {
   "modul": "src/en/flamecomics",
-  "status": "offen",
+  "status": "fertig",
   "name": "Flame Comics",
   "stufe": 2,
   "theme": null,
@@ -10680,11 +10696,15 @@
    "en"
   ],
   "host": "flamecomics.xyz",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4a",
+  "seit": "2026-11-03T10:40:17",
+  "datei": "rezepte/modelle/en.flamecomics.json",
+  "geaendert": "2026-11-03T10:41:19"
  },
  {
   "modul": "src/en/girlstop",
-  "status": "offen",
+  "status": "fertig",
   "name": "GirlsTop",
   "stufe": 2,
   "theme": null,
@@ -10692,11 +10712,15 @@
    "en"
   ],
   "host": "en.girlstop.info",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4d",
+  "seit": "2026-11-03T10:40:20",
+  "datei": "rezepte/modelle/en.girlstop.json",
+  "geaendert": "2026-11-03T10:41:02"
  },
  {
   "modul": "src/en/grrlpower",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Grrl Power Comic",
   "stufe": 2,
   "theme": null,
@@ -10704,11 +10728,15 @@
    "en"
   ],
   "host": "grrlpowercomic.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:40:27",
+  "grund": "Kapitel nur über Jahresarchive /archive/?archive_year=2010..aktuelles Jahr (eine Anfrage je Jahr, Jahr aus der Anfrage nötig fürs Datum) – Jahresschleife in chapters nicht ausdrückbar",
+  "geaendert": "2026-11-03T10:40:59"
  },
  {
   "modul": "src/en/gunnerkriggcourt",
-  "status": "offen",
+  "status": "fertig",
   "name": "Gunnerkrigg Court",
   "stufe": 2,
   "theme": null,
@@ -10716,11 +10744,15 @@
    "en"
   ],
   "host": "gunnerkrigg.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:40:33",
+  "datei": "rezepte/modelle/en.gunnerkriggcourt.json",
+  "geaendert": "2026-11-03T10:41:04"
  },
  {
   "modul": "src/en/gwtb",
-  "status": "offen",
+  "status": "fertig",
   "name": "Gone with the Blastwave",
   "stufe": 2,
   "theme": null,
@@ -10728,11 +10760,15 @@
    "en"
   ],
   "host": "blastwave-comic.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4c",
+  "seit": "2026-11-03T10:40:47",
+  "datei": "rezepte/modelle/en.gonewiththeblastwave.json",
+  "geaendert": "2026-11-03T10:41:04"
  },
  {
   "modul": "src/en/hentaifc",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "HentaiFC",
   "stufe": 2,
   "theme": null,
@@ -10740,11 +10776,15 @@
    "en"
   ],
   "host": "hentaifc.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:40:59",
+  "grund": "Leser JS-gerendert; Kapitel werden aus dem Vorschaugitter abgeleitet (Links /e/<id>/cN entdoppeln) und Seiten nach Kapitelnummer gefiltert – Entdoppeln und Filter mit Platzhalter nicht ausdrückbar",
+  "geaendert": "2026-11-03T10:41:17"
  },
  {
   "modul": "src/en/hentaihere",
-  "status": "offen",
+  "status": "fertig",
   "name": "HentaiHere",
   "stufe": 2,
   "theme": null,
@@ -10752,11 +10792,15 @@
    "en"
   ],
   "host": "hentaihere.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4d",
+  "seit": "2026-11-03T10:41:02",
+  "datei": "rezepte/modelle/en.hentaihere.json",
+  "geaendert": "2026-11-03T10:41:30"
  },
  {
   "modul": "src/en/hentaikisu",
-  "status": "offen",
+  "status": "fertig",
   "name": "HentaiKisu",
   "stufe": 2,
   "theme": null,
@@ -10764,11 +10808,15 @@
    "en"
   ],
   "host": "hentaikisu.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4c",
+  "seit": "2026-11-03T10:41:04",
+  "datei": "rezepte/modelle/en.hentaikisu.json",
+  "geaendert": "2026-11-03T10:42:11"
  },
  {
   "modul": "src/en/hentaikun",
-  "status": "offen",
+  "status": "fertig",
   "name": "HentaiKun",
   "stufe": 2,
   "theme": null,
@@ -10776,11 +10824,15 @@
    "en"
   ],
   "host": "hentaikun.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:41:04",
+  "datei": "rezepte/modelle/en.hentaikun.json",
+  "geaendert": "2026-11-03T10:41:50"
  },
  {
   "modul": "src/en/hentaipill",
-  "status": "offen",
+  "status": "fertig",
   "name": "HentaiPill",
   "stufe": 2,
   "theme": null,
@@ -10788,11 +10840,15 @@
    "en"
   ],
   "host": "hentaipill.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:41:17",
+  "datei": "rezepte/modelle/en.hentaipill.json",
+  "geaendert": "2026-11-03T10:41:36"
  },
  {
   "modul": "src/en/hentairead",
-  "status": "offen",
+  "status": "fertig",
   "name": "HentaiRead",
   "stufe": 2,
   "theme": null,
@@ -10800,11 +10856,15 @@
    "en"
   ],
   "host": "hentairead.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4a",
+  "seit": "2026-11-03T10:41:19",
+  "datei": "rezepte/modelle/en.hentairead.json",
+  "geaendert": "2026-11-03T10:42:05"
  },
  {
   "modul": "src/en/hentaireadio",
-  "status": "offen",
+  "status": "fertig",
   "name": "HentaiRead.io",
   "stufe": 2,
   "theme": null,
@@ -10812,11 +10872,15 @@
    "en"
   ],
   "host": "hentairead.io",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4d",
+  "seit": "2026-11-03T10:41:30",
+  "datei": "rezepte/modelle/en.hentaireadio.json",
+  "geaendert": "2026-11-03T10:41:49"
  },
  {
   "modul": "src/en/hentaisco",
-  "status": "offen",
+  "status": "fertig",
   "name": "HentaiSco",
   "stufe": 2,
   "theme": null,
@@ -10824,11 +10888,15 @@
    "en"
   ],
   "host": "hentaisco.cc",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:41:36",
+  "datei": "rezepte/modelle/en.hentaisco.json",
+  "geaendert": "2026-11-03T10:41:58"
  },
  {
   "modul": "src/en/hentaitnt",
-  "status": "offen",
+  "status": "fertig",
   "name": "HentaiTnT",
   "stufe": 2,
   "theme": null,
@@ -10836,11 +10904,15 @@
    "en"
   ],
   "host": "hentaitnt.net",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4d",
+  "seit": "2026-11-03T10:41:49",
+  "datei": "rezepte/modelle/en.hentaitnt.json",
+  "geaendert": "2026-11-03T10:42:17"
  },
  {
   "modul": "src/en/hentara",
-  "status": "offen",
+  "status": "fertig",
   "name": "Hentara",
   "stufe": 2,
   "theme": null,
@@ -10848,11 +10920,15 @@
    "en"
   ],
   "host": "hentara.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:41:51",
+  "datei": "rezepte/modelle/en.hentara.json",
+  "geaendert": "2026-11-03T10:42:16"
  },
  {
   "modul": "src/en/heytoon",
-  "status": "offen",
+  "status": "fertig",
   "name": "ToonHey",
   "stufe": 2,
   "theme": null,
@@ -10860,11 +10936,15 @@
    "en"
   ],
   "host": "toonhey.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:41:58",
+  "datei": "rezepte/modelle/en.toonhey.json",
+  "geaendert": "2026-11-03T10:42:19"
  },
  {
   "modul": "src/en/hiveworks",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Hiveworks Comics",
   "stufe": 2,
   "theme": null,
@@ -10872,11 +10952,15 @@
    "en"
   ],
   "host": "hiveworkscomics.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4a",
+  "seit": "2026-11-03T10:42:05",
+  "grund": "Aggregator: Comics liegen auf fremden Domains (absolute Fremd-URLs) mit Sonderfällen je Comic (sssscomic, awkwardzombie, witchy); Details nur durch Abgleich der Manga-URL mit den Startseiten-Blöcken (Platzhalter im Filter nicht belegt)",
+  "geaendert": "2026-11-03T10:42:30"
  },
  {
   "modul": "src/en/honkaiimpact",
-  "status": "offen",
+  "status": "fertig",
   "name": "HonkaiImpact3",
   "stufe": 2,
   "theme": null,
@@ -10884,11 +10968,15 @@
    "en"
   ],
   "host": "manga.honkaiimpact3.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4c",
+  "seit": "2026-11-03T10:42:11",
+  "datei": "rezepte/modelle/en.honkaiimpact3.json",
+  "geaendert": "2026-11-03T10:42:29"
  },
  {
   "modul": "src/en/hotcomics",
-  "status": "offen",
+  "status": "fertig",
   "name": "HotComics",
   "stufe": 2,
   "theme": null,
@@ -10896,11 +10984,15 @@
    "en"
   ],
   "host": "hotcomics.io",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:42:16",
+  "datei": "rezepte/modelle/en.hotcomics.json",
+  "geaendert": "2026-11-03T10:42:42"
  },
  {
   "modul": "src/en/hyakuro",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Hyakuro Translations",
   "stufe": 2,
   "theme": null,
@@ -10908,11 +11000,15 @@
    "en"
   ],
   "host": "hyakuro.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4d",
+  "seit": "2026-11-03T10:42:18",
+  "grund": "Strapi-API: Seitenliste nur über Gesamtantwort des Mangas, Kapitel per ID auswählen (Filter mit Platzhalter, in keiner Vorlage belegt)",
+  "geaendert": "2026-11-03T10:42:37"
  },
  {
   "modul": "src/en/ilikecomix",
-  "status": "offen",
+  "status": "fertig",
   "name": "ILikeComix",
   "stufe": 2,
   "theme": null,
@@ -10920,11 +11016,15 @@
    "en"
   ],
   "host": "ilikecomix.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:42:20",
+  "datei": "rezepte/modelle/en.ilikecomix.json",
+  "geaendert": "2026-11-03T10:42:44"
  },
  {
   "modul": "src/en/imanevilgod",
-  "status": "offen",
+  "status": "fertig",
   "name": "I'm An Evil God",
   "stufe": 2,
   "theme": null,
@@ -10932,11 +11032,15 @@
    "en"
   ],
   "host": "imanevilgod.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4c",
+  "seit": "2026-11-03T10:42:29",
+  "datei": "rezepte/modelle/en.imanevilgod.json",
+  "geaendert": "2026-11-03T10:42:42"
  },
  {
   "modul": "src/en/irovedout",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "I Roved Out",
   "stufe": 2,
   "theme": null,
@@ -10944,11 +11048,15 @@
    "en"
   ],
   "host": "irovedout.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4a",
+  "seit": "2026-11-03T10:42:30",
+  "grund": "Seitenliste nur durch Suche des Kapitels per Titel im Buch-Archiv (Platzhalter in Selektor/Filter nicht belegt), danach jede Seite als Unterseite; Kapitel über mehrere Buch-Archive aus dem Menü verteilt",
+  "geaendert": "2026-11-03T10:42:45"
  },
  {
   "modul": "src/en/kaijimangaonline",
-  "status": "offen",
+  "status": "fertig",
   "name": "Kaiji Manga Online",
   "stufe": 2,
   "theme": null,
@@ -10956,11 +11064,15 @@
    "en"
   ],
   "host": "w9.kaijimanga.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4d",
+  "seit": "2026-11-03T10:42:37",
+  "datei": "rezepte/modelle/en.kaijimangaonline.json",
+  "geaendert": "2026-11-03T10:43:05"
  },
  {
   "modul": "src/en/kaliscansorg",
-  "status": "offen",
+  "status": "fertig",
   "name": "KaliScans.org (unoriginal)",
   "stufe": 2,
   "theme": null,
@@ -10968,11 +11080,15 @@
    "en"
   ],
   "host": "kaliscans.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4c",
+  "seit": "2026-11-03T10:42:42",
+  "datei": "rezepte/modelle/en.kaliscansorgunoriginal.json",
+  "geaendert": "2026-11-03T10:43:17"
  },
  {
   "modul": "src/en/kappabeast",
-  "status": "offen",
+  "status": "fertig",
   "name": "Kappa Beast",
   "stufe": 2,
   "theme": null,
@@ -10980,11 +11096,15 @@
    "en"
   ],
   "host": "kappabeast.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:42:42",
+  "datei": "rezepte/modelle/en.kappabeast.json",
+  "geaendert": "2026-11-03T10:43:28"
  },
  {
   "modul": "src/en/keenspot",
-  "status": "offen",
+  "status": "fertig",
   "name": "keenspot",
   "stufe": 2,
   "theme": null,
@@ -10992,11 +11112,15 @@
    "en"
   ],
   "host": "twokinds.keenspot.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:42:44",
+  "datei": "rezepte/modelle/en.keenspot.json",
+  "geaendert": "2026-11-03T10:43:05"
  },
  {
   "modul": "src/en/killsixbilliondemons",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Kill Six Billion Demons",
   "stufe": 2,
   "theme": null,
@@ -11004,11 +11128,15 @@
    "en"
   ],
   "host": "killsixbilliondemons.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4a",
+  "seit": "2026-11-03T10:42:45",
+  "grund": "Kapitel = Optionen zwischen der eigenen Buch-Option und der nächsten im Auswahlmenü (Bereichsauswahl per Abgleich mit Manga-URL nicht ausdrückbar); Seiten über paginierte Archive mit Unterseiten je Beitrag, mehrere Bilder je Unterseite",
+  "geaendert": "2026-11-03T10:42:57"
  },
  {
   "modul": "src/en/kingcomix",
-  "status": "offen",
+  "status": "fertig",
   "name": "KingComiX",
   "stufe": 2,
   "theme": null,
@@ -11016,11 +11144,15 @@
    "en"
   ],
   "host": "kingcomix.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4a",
+  "seit": "2026-11-03T10:42:57",
+  "datei": "rezepte/modelle/en.kingcomix.json",
+  "geaendert": "2026-11-03T10:43:16"
  },
  {
   "modul": "src/en/komix",
-  "status": "offen",
+  "status": "fertig",
   "name": "Komix",
   "stufe": 2,
   "theme": null,
@@ -11028,11 +11160,15 @@
    "en"
   ],
   "host": "komix.to",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:43:05",
+  "datei": "rezepte/modelle/en.komix.json",
+  "geaendert": "2026-11-03T10:43:58"
  },
  {
   "modul": "src/en/kuramanga",
-  "status": "offen",
+  "status": "fertig",
   "name": "KuraManga",
   "stufe": 2,
   "theme": null,
@@ -11040,11 +11176,15 @@
    "en"
   ],
   "host": "kuramanga.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4d",
+  "seit": "2026-11-03T10:43:05",
+  "datei": "rezepte/modelle/en.kuramanga.json",
+  "geaendert": "2026-11-03T10:43:29"
  },
  {
   "modul": "src/en/leslievictims",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Leslie&Victims",
   "stufe": 2,
   "theme": null,
@@ -11052,11 +11192,15 @@
    "en"
   ],
   "host": "leslie-victims.pages.dev",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4a",
+  "seit": "2026-11-03T10:43:16",
+  "grund": "Details/Kapitel nur durch Suche des Eintrags per series-ID in manga.json (Platzhalter im ?feld=wert-Filter nicht belegt); Seiten per HEAD-Abtasten 01.webp… bzw. aus Seitenanzahl erzeugt",
+  "geaendert": "2026-11-03T10:43:27"
  },
  {
   "modul": "src/en/loadingartist",
-  "status": "offen",
+  "status": "fertig",
   "name": "Loading Artist",
   "stufe": 2,
   "theme": null,
@@ -11064,11 +11208,15 @@
    "en"
   ],
   "host": "loadingartist.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4c",
+  "seit": "2026-11-03T10:43:17",
+  "datei": "rezepte/modelle/en.loadingartist.json",
+  "geaendert": "2026-11-03T10:43:32"
  },
  {
   "modul": "src/en/lolobun",
-  "status": "offen",
+  "status": "fertig",
   "name": "LoLoBun",
   "stufe": 2,
   "theme": null,
@@ -11076,11 +11224,15 @@
    "en"
   ],
   "host": "lolobun.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4a",
+  "seit": "2026-11-03T10:43:27",
+  "datei": "rezepte/modelle/en.lolobun.json",
+  "geaendert": "2026-11-03T10:43:53"
  },
  {
   "modul": "src/en/luminaretranslations",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Luminare Translations",
   "stufe": 2,
   "theme": null,
@@ -11088,11 +11240,15 @@
    "en"
   ],
   "host": "luminaretranslations.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:43:28",
+  "grund": "Kapitel und Infozeilen nur als JSON im Alpine-Attribut section[x-data] (zeilenweise 'chapters: [...]', HTML-kodiert) – JSON aus HTML-Attribut als Item-Quelle nicht belegt; Bildliste muss auf data-server-id des ersten Bildes gefiltert werden (dynamischer Vergleich nicht ausdrückbar, sonst doppelte Seiten)",
+  "geaendert": "2026-11-03T10:44:16"
  },
  {
   "modul": "src/en/lusttoon",
-  "status": "offen",
+  "status": "fertig",
   "name": "LustToon",
   "stufe": 2,
   "theme": null,
@@ -11100,11 +11256,15 @@
    "en"
   ],
   "host": "lustoon.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4d",
+  "seit": "2026-11-03T10:43:29",
+  "datei": "rezepte/modelle/en.lusttoon.json",
+  "geaendert": "2026-11-03T10:44:22"
  },
  {
   "modul": "src/en/luxmanga",
-  "status": "offen",
+  "status": "fertig",
   "name": "LuxManga",
   "stufe": 2,
   "theme": null,
@@ -11112,11 +11272,15 @@
    "en"
   ],
   "host": "luxmanga.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4c",
+  "seit": "2026-11-03T10:43:32",
+  "datei": "rezepte/modelle/en.luxmanga.json",
+  "geaendert": "2026-11-03T10:44:17"
  },
  {
   "modul": "src/en/mahouirexnohentaikarte",
-  "status": "offen",
+  "status": "fertig",
   "name": "Mahouirexnohentaikarte",
   "stufe": 2,
   "theme": null,
@@ -11124,11 +11288,15 @@
    "en"
   ],
   "host": "mahouirexnohentaikarte.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4a",
+  "seit": "2026-11-03T10:43:53",
+  "datei": "rezepte/modelle/en.mahouirexnohentaikarte.json",
+  "geaendert": "2026-11-03T10:44:13"
  },
  {
   "modul": "src/en/maidsamamangaonline",
-  "status": "offen",
+  "status": "fertig",
   "name": "Read Maid Sama Manga Online",
   "stufe": 2,
   "theme": null,
@@ -11136,11 +11304,15 @@
    "en"
   ],
   "host": "w14.maid-sama.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:43:58",
+  "datei": "rezepte/modelle/en.readmaidsamamangaonline.json",
+  "geaendert": "2026-11-03T10:44:29"
  },
  {
   "modul": "src/en/mangabolt",
-  "status": "offen",
+  "status": "fertig",
   "name": "MangaBolt",
   "stufe": 2,
   "theme": null,
@@ -11148,11 +11320,15 @@
    "en"
   ],
   "host": "mangabolt.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4a",
+  "seit": "2026-11-03T10:44:13",
+  "datei": "rezepte/modelle/en.mangabolt.json",
+  "geaendert": "2026-11-03T10:44:43"
  },
  {
   "modul": "src/en/mangack",
-  "status": "offen",
+  "status": "fertig",
   "name": "Mangack",
   "stufe": 2,
   "theme": null,
@@ -11160,11 +11336,15 @@
    "en"
   ],
   "host": "mangack.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:44:16",
+  "datei": "rezepte/modelle/en.mangack.json",
+  "geaendert": "2026-11-03T10:44:47"
  },
  {
   "modul": "src/en/mangade",
-  "status": "offen",
+  "status": "fertig",
   "name": "MangaDE",
   "stufe": 2,
   "theme": null,
@@ -11172,11 +11352,15 @@
    "en"
   ],
   "host": "mangade.io",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4c",
+  "seit": "2026-11-03T10:44:17",
+  "datei": "rezepte/modelle/en.mangade.json",
+  "geaendert": "2026-11-03T10:44:51"
  },
  {
   "modul": "src/en/mangafox",
-  "status": "offen",
+  "status": "fertig",
   "name": "MangaFox",
   "stufe": 2,
   "theme": null,
@@ -11184,11 +11368,15 @@
    "en"
   ],
   "host": "fanfox.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4d",
+  "seit": "2026-11-03T10:44:23",
+  "datei": "rezepte/modelle/en.mangafox.json",
+  "geaendert": "2026-11-03T10:45:00"
  },
  {
   "modul": "src/en/mangahen",
-  "status": "offen",
+  "status": "fertig",
   "name": "Gensura",
   "stufe": 2,
   "theme": null,
@@ -11196,11 +11384,15 @@
    "en"
   ],
   "host": "gensura.net",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:44:29",
+  "datei": "rezepte/modelle/en.gensura.json",
+  "geaendert": "2026-11-03T10:45:02"
  },
  {
   "modul": "src/en/mangalix",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "MangaLix",
   "stufe": 2,
   "theme": null,
@@ -11208,11 +11400,15 @@
    "en"
   ],
   "host": "mangalix.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4a",
+  "seit": "2026-11-03T10:44:43",
+  "grund": "Katalog nur als JS-Objektliteral (kein JSON, eigener Parser) in einem Vite-Asset, dessen Name erst aus der Startseite kommt; Seiten nur per Suche des Kapitels nach id/Nummer in chapters/<slug>.json (Platzhalter im Filter nicht belegt)",
+  "geaendert": "2026-11-03T10:44:58"
  },
  {
   "modul": "src/en/mangamelon",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "MangaMelon",
   "stufe": 2,
   "theme": null,
@@ -11220,11 +11416,15 @@
    "en"
   ],
   "host": "mangamelon.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:44:47",
+  "grund": "Jede API-Anfrage ist ein POST mit data=Base64(JSON-Anfrage mit Suchtext/Manga-ID/Kapitel-ID) – Base64-Kodieren dynamischer Werte gibt es in keiner Vorlage (nur decode)",
+  "geaendert": "2026-11-03T10:45:02"
  },
  {
   "modul": "src/en/mangamo",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Mangamo",
   "stufe": 2,
   "theme": null,
@@ -11232,11 +11432,15 @@
    "en"
   ],
   "host": "mangamo.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4c",
+  "seit": "2026-11-03T10:44:51",
+  "grund": "Seiten nur mit Firebase-idToken (anonyme Kontoregistrierung über identitytoolkit signUp + Token-Refresh, Firestore-Abfragen); Login/Kontoerzeugung nicht ausdrückbar",
+  "geaendert": "2026-11-03T10:45:03"
  },
  {
   "modul": "src/en/mangamob",
-  "status": "offen",
+  "status": "fertig",
   "name": "Comivex",
   "stufe": 2,
   "theme": null,
@@ -11244,11 +11448,15 @@
    "en"
   ],
   "host": "comivex.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4a",
+  "seit": "2026-11-03T10:44:58",
+  "datei": "rezepte/modelle/en.comivex.json",
+  "geaendert": "2026-11-03T10:45:18"
  },
  {
   "modul": "src/en/mangatown",
-  "status": "offen",
+  "status": "fertig",
   "name": "Mangatown",
   "stufe": 2,
   "theme": null,
@@ -11256,11 +11464,15 @@
    "en"
   ],
   "host": "mangatown.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4d",
+  "seit": "2026-11-03T10:45:00",
+  "datei": "rezepte/modelle/en.mangatown.json",
+  "geaendert": "2026-11-03T10:45:36"
  },
  {
   "modul": "src/en/mangauno",
-  "status": "offen",
+  "status": "fertig",
   "name": "Manga.uno",
   "stufe": 2,
   "theme": null,
@@ -11268,11 +11480,15 @@
    "en"
   ],
   "host": "manga.uno",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:45:02",
+  "datei": "rezepte/modelle/en.mangauno.json",
+  "geaendert": "2026-11-03T10:45:32"
  },
  {
   "modul": "src/en/mangayi",
-  "status": "offen",
+  "status": "fertig",
   "name": "MangaYi",
   "stufe": 2,
   "theme": null,
@@ -11280,11 +11496,15 @@
    "en"
   ],
   "host": "mangayi.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:45:02",
+  "datei": "rezepte/modelle/en.mangayi.json",
+  "geaendert": "2026-11-03T10:45:26"
  },
  {
   "modul": "src/en/manhuatop",
-  "status": "offen",
+  "status": "fertig",
   "name": "ManhuaTop",
   "stufe": 2,
   "theme": null,
@@ -11292,11 +11512,15 @@
    "en"
   ],
   "host": "manhuatop.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4c",
+  "seit": "2026-11-03T10:45:03",
+  "datei": "rezepte/modelle/en.manhuatop.json",
+  "geaendert": "2026-11-03T10:46:06"
  },
  {
   "modul": "src/en/manhwalike",
-  "status": "offen",
+  "status": "fertig",
   "name": "Manhwalike",
   "stufe": 2,
   "theme": null,
@@ -11304,11 +11528,15 @@
    "en"
   ],
   "host": "manhwalike.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4a",
+  "seit": "2026-11-03T10:45:18",
+  "datei": "rezepte/modelle/en.manhwalike.json",
+  "geaendert": "2026-11-03T10:45:42"
  },
  {
   "modul": "src/en/manhwaz",
-  "status": "offen",
+  "status": "fertig",
   "name": "ManhwaZ",
   "stufe": 2,
   "theme": null,
@@ -11316,11 +11544,15 @@
    "en"
   ],
   "host": "manhwaz.cc",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:45:26",
+  "datei": "rezepte/modelle/en.manhwaz.json",
+  "geaendert": "2026-11-03T10:45:50"
  },
  {
   "modul": "src/en/manhwazone",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "ManhwaZone",
   "stufe": 2,
   "theme": null,
@@ -11328,11 +11560,15 @@
    "en"
   ],
   "host": "manhwazone.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:45:32",
+  "grund": "Kapitel nur per Livewire-Roundtrip: JSON-POST /livewire/update mit Snapshot-String + CSRF aus der Seite, Antwort-Snapshot ist JSON-im-String mit [Wert, Meta]-Tupeln – then/JSON-Body in chapters nicht belegt (wie src/all/onisaga)",
+  "geaendert": "2026-11-03T10:45:53"
  },
  {
   "modul": "src/en/megatokyo",
-  "status": "offen",
+  "status": "fertig",
   "name": "Megatokyo",
   "stufe": 2,
   "theme": null,
@@ -11340,11 +11576,15 @@
    "en"
   ],
   "host": "megatokyo.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4d",
+  "seit": "2026-11-03T10:45:36",
+  "datei": "rezepte/modelle/en.megatokyo.json",
+  "geaendert": "2026-11-03T10:45:51"
  },
  {
   "modul": "src/en/mehgazone",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Mehgazone",
   "stufe": 2,
   "theme": null,
@@ -11352,11 +11592,15 @@
    "en"
   ],
   "host": "mehgazone.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4a",
+  "seit": "2026-11-03T10:45:42",
+  "grund": "Liste: Comic-Einträge sind keine Elementgruppen (h2 'Latest \"Titel\"' + nachfolgende Geschwister mit Feed-Link/Bild, Titel aus Anführungszeichen); Comics auf eigenen Subdomains (absolute Fremd-URLs für wp-json-Kapitel/Seiten); Excerpt-Textseite per TextInterceptor",
+  "geaendert": "2026-11-03T10:45:57"
  },
  {
   "modul": "src/en/milftoon",
-  "status": "offen",
+  "status": "fertig",
   "name": "Milftoon",
   "stufe": 2,
   "theme": null,
@@ -11364,11 +11608,15 @@
    "en"
   ],
   "host": "milftoon.xxx",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:45:50",
+  "datei": "rezepte/modelle/en.milftoon.json",
+  "geaendert": "2026-11-03T10:46:52"
  },
  {
   "modul": "src/en/mlbblore",
-  "status": "offen",
+  "status": "fertig",
   "name": "MLBB Lore",
   "stufe": 2,
   "theme": null,
@@ -11376,11 +11624,15 @@
    "en"
   ],
   "host": "play.mobilelegends.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4d",
+  "seit": "2026-11-03T10:45:51",
+  "datei": "rezepte/modelle/en.mlbblore.json",
+  "geaendert": "2026-11-03T10:46:16"
  },
  {
   "modul": "src/en/multporn",
-  "status": "offen",
+  "status": "fertig",
   "name": "Multporn",
   "stufe": 2,
   "theme": null,
@@ -11388,11 +11640,15 @@
    "en"
   ],
   "host": "multporn.net",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:45:53",
+  "datei": "rezepte/modelle/en.multporn.json",
+  "geaendert": "2026-11-03T10:46:24"
  },
  {
   "modul": "src/en/myadultcomics",
-  "status": "offen",
+  "status": "fertig",
   "name": "MyAdultComics",
   "stufe": 2,
   "theme": null,
@@ -11400,11 +11656,15 @@
    "en"
   ],
   "host": "myadultcomics.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4a",
+  "seit": "2026-11-03T10:45:57",
+  "datei": "rezepte/modelle/en.myadultcomics.json",
+  "geaendert": "2026-11-03T10:46:17"
  },
  {
   "modul": "src/en/myhentaicomics",
-  "status": "offen",
+  "status": "fertig",
   "name": "MyHentaiComics",
   "stufe": 2,
   "theme": null,
@@ -11412,11 +11672,15 @@
    "en"
   ],
   "host": "myhentaicomics.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4c",
+  "seit": "2026-11-03T10:46:06",
+  "datei": "rezepte/modelle/en.myhentaicomics.json",
+  "geaendert": "2026-11-03T10:46:50"
  },
  {
   "modul": "src/en/myhentaigallery",
-  "status": "offen",
+  "status": "fertig",
   "name": "MyHentaiGallery",
   "stufe": 2,
   "theme": null,
@@ -11424,11 +11688,15 @@
    "en"
   ],
   "host": "myhentaigallery.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4d",
+  "seit": "2026-11-03T10:46:16",
+  "datei": "rezepte/modelle/en.myhentaigallery.json",
+  "geaendert": "2026-11-03T10:46:33"
  },
  {
   "modul": "src/en/newmanhwa",
-  "status": "offen",
+  "status": "fertig",
   "name": "New Manhwa",
   "stufe": 2,
   "theme": null,
@@ -11436,11 +11704,15 @@
    "en"
   ],
   "host": "saymanhwa.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:46:24",
+  "datei": "rezepte/modelle/en.newmanhwa.json",
+  "geaendert": "2026-11-03T10:46:49"
  },
  {
   "modul": "src/en/nexcomic",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "NexComic",
   "stufe": 2,
   "theme": null,
@@ -11448,11 +11720,15 @@
    "en"
   ],
   "host": "nexcomic.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4d",
+  "seit": "2026-11-03T10:46:33",
+  "grund": "Details/Kapitel nur aus RSC-Gesamtkatalog aller Serien; Auswahl per seriesSlug braucht Platzhalter im Filter/skip (nicht belegt); Beliebt braucht Zusammenführen zweier APIs",
+  "geaendert": "2026-11-03T10:46:46"
  },
  {
   "modul": "src/en/ninehentai",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "NineHentai",
   "stufe": 2,
   "theme": null,
@@ -11460,11 +11736,13 @@
    "en"
   ],
   "host": "9hentai.so",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4d",
+  "seit": "2026-11-03T10:46:46"
  },
  {
   "modul": "src/en/nortverse",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Nortverse",
   "stufe": 2,
   "theme": null,
@@ -11472,11 +11750,13 @@
    "en"
   ],
   "host": "nortverse.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w4b",
+  "seit": "2026-11-03T10:46:49"
  },
  {
   "modul": "src/en/nuviatoon",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Nuvia Toon",
   "stufe": 2,
   "theme": null,
@@ -11484,11 +11764,13 @@
    "en"
   ],
   "host": "nuviatoon.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w4c",
+  "seit": "2026-11-03T10:46:50"
  },
  {
   "modul": "src/en/nuxscans",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Nux Scans",
   "stufe": 2,
   "theme": null,
@@ -11496,7 +11778,9 @@
    "en"
   ],
   "host": "nuxscans-comics.blogspot.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w5a",
+  "seit": "2026-11-03T10:46:52"
  },
  {
   "modul": "src/en/oglaf",

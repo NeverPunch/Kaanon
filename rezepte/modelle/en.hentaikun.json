@@ -1,0 +1,171 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "HentaiKun",
+  "sprache": "en",
+  "base_url": "https://hentaikun.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.hentaikun",
+  "quellen": [
+   {
+    "name": "HentaiKun",
+    "sprache": "en",
+    "quell_id": 2420370334023011697,
+    "home": "https://hentaikun.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/hentaikun",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/manga/manga-list/most-viewed/{page}/",
+   "request_by_page": {
+    "1": "{base}/manga/manga-list/most-viewed/"
+   },
+   "items": "table.table-striped tr:not(.danger):has(td:first-child a), div.thumbnail[id^=galary-]:has(div.overlay a)",
+   "fields": {
+    "url": [
+     "td:first-child a@href",
+     "div.overlay a@href"
+    ],
+    "title": [
+     "td:first-child a",
+     "div.overlay a"
+    ],
+    "cover": [
+     {
+      "path": "td:first-child a@title",
+      "regex": "src=[\"']([^\"']+)",
+      "group": 1
+     },
+     "img.img-responsive@img"
+    ]
+   },
+   "has_next": {
+    "exists": "ul.pagination li[aria-label=Next]"
+   }
+  },
+  "latest": {
+   "request": "{base}/manga/manga-list/last-updated/{page}/",
+   "request_by_page": {
+    "1": "{base}/manga/manga-list/last-updated/"
+   },
+   "items": "table.table-striped tr:not(.danger):has(td:first-child a), div.thumbnail[id^=galary-]:has(div.overlay a)",
+   "fields": {
+    "url": [
+     "td:first-child a@href",
+     "div.overlay a@href"
+    ],
+    "title": [
+     "td:first-child a",
+     "div.overlay a"
+    ],
+    "cover": [
+     {
+      "path": "td:first-child a@title",
+      "regex": "src=[\"']([^\"']+)",
+      "group": 1
+     },
+     "img.img-responsive@img"
+    ]
+   },
+   "has_next": {
+    "exists": "ul.pagination li[aria-label=Next]"
+   }
+  },
+  "search": {
+   "request": "{base}/manga/search/title/{query}/{page}/",
+   "request_by_page": {
+    "1": "{base}/manga/search/title/{query}/"
+   },
+   "items": "table.table-striped tr:not(.danger):has(td:first-child a), div.thumbnail[id^=galary-]:has(div.overlay a)",
+   "fields": {
+    "url": [
+     "td:first-child a@href",
+     "div.overlay a@href"
+    ],
+    "title": [
+     "td:first-child a",
+     "div.overlay a"
+    ],
+    "cover": [
+     {
+      "path": "td:first-child a@title",
+      "regex": "src=[\"']([^\"']+)",
+      "group": 1
+     },
+     "img.img-responsive@img"
+    ]
+   },
+   "has_next": {
+    "exists": "ul.pagination li[aria-label=Next]"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.single_title h1",
+    "cover": "meta[property=og:image]@content",
+    "author": {
+     "path": "h2:has(strong:contains(Artist)) a",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "h2:has(strong:contains(Category)) a, div.desc a[href*=/tag/] span.label-danger",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "table tr:has(a.readchap)",
+   "fields": {
+    "url": "a.readchap@href",
+    "name": "a.readchap",
+    "date": "td:last-child h6",
+    "number": {
+     "path": "a.readchap",
+     "regex": "(\\d+(?:\\.\\d+)?)",
+     "group": 1
+    }
+   },
+   "date_format": "dd-MM-yyyy"
+  },
+  "pages": {
+   "request": {
+    "url": "{abs_url}",
+    "headers": {
+     "Cookie": "{u.ck}=2"
+    }
+   },
+   "url_vars": {
+    "ck": "/manga/[^/]+/([^/]+/[^/]+)"
+   },
+   "format": "script_json",
+   "script_regex": "var jsondata=(\\[.*?\\]);",
+   "items": "$"
+  }
+ },
+ "hinweise": [
+  "HTML-Website (Tabellenlisten). Suche nur nach Titel (/manga/search/title/<text>/); Community-Filter Artist/Category/Translator nicht nachgebaut. Suchtext steht im Pfad – Kodierung von Leerzeichen ({query}) auf dem PC prüfen.",
+  "Suchergebnis ist je nach Seite Tabelle oder Galerie (div.thumbnail[id^=galary-]); beide über eine Selektorliste mit Ausweichfeldern abgedeckt.",
+  "Cover in Tabellenlisten steckt als HTML im title-Attribut des Links – per Regex auf src= ausgelesen.",
+  "Seiten: Community setzt per Interceptor das Cookie '<Pfadteil3>/<Pfadteil4>=2' (Lesemodus 'alle Seiten'), dann var jsondata=[…]. Hier als Cookie-Header mit url_vars nachgebildet; {u.…} im Header ist in keiner Vorlage belegt (nur {v.…}) – auf dem PC prüfen.",
+  "Status fest 'abgeschlossen' wie in der Community."
+ ]
+}
