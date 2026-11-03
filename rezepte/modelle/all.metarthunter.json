@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Metart Hunter",
+  "sprache": "all",
+  "base_url": "https://www.metarthunter.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.metarthunter",
+  "quellen": [
+   {
+    "name": "Metart Hunter",
+    "sprache": "all",
+    "quell_id": 3567512546321944475,
+    "home": "https://www.metarthunter.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/metarthunter",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": "masonry"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}
