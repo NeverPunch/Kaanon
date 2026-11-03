@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Monochrome Custom",
+  "sprache": "en",
+  "base_url": "https://monochromecms.netlify.app",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.monochromecustom",
+  "quellen": [
+   {
+    "name": "Monochrome Custom",
+    "sprache": "en",
+    "quell_id": 1373514020932708527,
+    "home": "https://monochromecms.netlify.app"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/monochromecustom",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "monochrome"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

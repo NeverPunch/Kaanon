@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Monochrome Scans",
+  "sprache": "en",
+  "base_url": "https://manga.d34d.one",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.monochromescans",
+  "quellen": [
+   {
+    "name": "Monochrome Scans",
+    "sprache": "en",
+    "quell_id": 6808348229250819000,
+    "home": "https://manga.d34d.one"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/monochromescans",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "monochrome"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

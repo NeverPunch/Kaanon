@@ -7847,7 +7847,7 @@
  },
  {
   "modul": "src/all/metarthunter",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Metart Hunter",
   "stufe": 2,
   "theme": "masonry",
@@ -7857,7 +7857,9 @@
   "host": "metarthunter.com",
   "nsfw": true,
   "wer": "agent-w2b",
-  "seit": "2026-11-03T10:16:32"
+  "seit": "2026-11-03T10:16:32",
+  "datei": "rezepte/modelle/all.metarthunter.json",
+  "geaendert": "2026-11-03T10:16:57"
  },
  {
   "modul": "src/all/playmatehunter",
@@ -7877,7 +7879,7 @@
  },
  {
   "modul": "src/all/xarthunter",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "XArt Hunter",
   "stufe": 2,
   "theme": "masonry",
@@ -7887,11 +7889,13 @@
   "host": "xarthunter.com",
   "nsfw": true,
   "wer": "agent-w2a",
-  "seit": "2026-11-03T10:16:43"
+  "seit": "2026-11-03T10:16:43",
+  "datei": "rezepte/modelle/all.xarthunter.json",
+  "geaendert": "2026-11-03T10:16:51"
  },
  {
   "modul": "src/zh/manhuawu",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Manhuawu",
   "stufe": 2,
   "theme": "mccms",
@@ -7899,11 +7903,13 @@
    "zh"
   ],
   "host": "mhua5.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2c",
+  "seit": "2026-11-03T10:16:50"
  },
  {
   "modul": "src/en/monochromecustom",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Monochrome Custom",
   "stufe": 2,
   "theme": "monochrome",
@@ -7911,11 +7917,13 @@
    "en"
   ],
   "host": "monochromecms.netlify.app",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2a",
+  "seit": "2026-11-03T10:16:51"
  },
  {
   "modul": "src/en/monochromescans",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Monochrome Scans",
   "stufe": 2,
   "theme": "monochrome",
@@ -7923,7 +7931,9 @@
    "en"
   ],
   "host": "manga.d34d.one",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w2b",
+  "seit": "2026-11-03T10:16:57"
  },
  {
   "modul": "src/es/lectorasteria",

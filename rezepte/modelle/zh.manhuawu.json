@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manhuawu",
+  "sprache": "zh",
+  "base_url": "https://www.mhua5.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.manhuawu",
+  "quellen": [
+   {
+    "name": "漫画屋",
+    "sprache": "zh",
+    "quell_id": 3279300917142951720,
+    "home": "https://www.mhua5.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/manhuawu",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.1",
+  "theme": "mccms"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

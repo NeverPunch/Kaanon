@@ -29,4 +29,5 @@ Schon fertige Stufe-2-Rezepte (`rezepte/modelle/`) sind ebenfalls Vorlagen, beso
   Schlüssel/Signaturen. Gesperrte Kapitel per `skip`/`locked` auslassen.
 - Zeit-Tokens, die das Skript der Website selbst bildet und die schon in einer Vorlage vorkommen (`vars` mit `hash`, z. B. en.roliascan),
   dürfen wie dort verwendet werden; in `hinweise` vermerken.
+- Eigene Hilfsskripte nur in einem eigenen Ordner (`<scratchpad>/<name>/`), nie Dateien anderer Bearbeiter überschreiben.
 - Nur eigene `rezepte/modelle/*.json` anlegen; die Warteschlange nur über das Skript ändern.

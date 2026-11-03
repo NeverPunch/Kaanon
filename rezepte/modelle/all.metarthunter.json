@@ -23,7 +23,97 @@
   "theme": "masonry"
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/archive/page/{page0}/",
+   "request_by_page": {
+    "1": "{base}/",
+    "2": "{base}/archive/"
+   },
+   "items": ".list-gallery:not(.static) figure:not(:has(a[href*=/video/]))",
+   "has_next": {
+    "exists": ".pagination-a li.next"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "a@title",
+    "cover": "img@img"
+   }
+  },
+  "latest": {
+   "request": "{base}/updates/sort/newest/mpage/{page}/",
+   "items": ".list-gallery:not(.static) figure:not(:has(a[href*=/video/]))",
+   "has_next": {
+    "exists": ".pagination-a li.next"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "a@title",
+    "cover": "img@img"
+   }
+  },
+  "search": {
+   "request": "{base}/search/post/{query}/mpage/{page}/",
+   "items": ".list-gallery:not(.static) figure:not(:has(a[href*=/video/]))",
+   "has_next": {
+    "exists": ".pagination-a li.next"
+   },
+   "fields": {
+    "url": "a@href",
+    "title": "a@title",
+    "cover": "img@img"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": [
+     "h1",
+     "meta[property=og:title]@content"
+    ],
+    "description": "#content > p",
+    "author": "p.link-btn a",
+    "artist": {
+     "path": "p.link-btn a[href*=/model/]",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "p.link-btn a[href*=/tag/]",
+     "all": true,
+     "join": ", "
+    },
+    "status": {
+     "const": "completed"
+    }
+   },
+   "status_map": {
+    "completed": 2
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "html",
+   "fields": {
+    "url": {
+     "const": "{url}"
+    },
+    "name": {
+     "const": "Gallery"
+    }
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": ".list-gallery a[href^=https://cdn.]",
+   "image": "@href"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Übernommen aus all.femjoyhunter (gleiches Masonry-Theme, MetartHunter ohne Overrides).",
+  "Masonry-Theme ohne Overrides. Beliebt: Seite 1 = Startseite, Seite 2 = /archive/, ab Seite 3 /archive/page/<N-1>/ (über {page0} + request_by_page).",
+  "Neueste /updates/sort/newest/mpage/N/, Suche /search/post/<Suchtext>/mpage/N/ (Suchtext als Pfadsegment – Kodierung von Leerzeichen auf dem PC prüfen).",
+  "Eine Galerie = ein Kapitel ('Gallery', URL = Galerie-URL) wie Vorlage en.hentaifox; Status immer abgeschlossen. Bilder = Links '.list-gallery a[href^=https://cdn.]'.",
+  "Titel setzt die Community nur aus der Liste (title-Attribut); für die Details ersatzweise h1 bzw. og:title (Annahme). Videos werden in Listen wie im Theme ausgeblendet."
+ ]
 }
