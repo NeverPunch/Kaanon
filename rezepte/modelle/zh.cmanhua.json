@@ -2,24 +2,24 @@
  "rezept": "kaanon-rezept/1",
  "status": "entwurf",
  "extension": {
-  "name": "BiliManga",
+  "name": "CManhua",
   "sprache": "zh",
-  "base_url": "https://www.bilimanga.net",
+  "base_url": "https://cmanhua.com",
   "nsfw": false,
-  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.bilimanga",
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.cmanhua",
   "quellen": [
    {
-    "name": "嗶哩漫畫",
+    "name": "CManhua",
     "sprache": "zh",
-    "quell_id": 7289707411592168382,
-    "home": "https://www.bilimanga.net"
+    "quell_id": 7460126106933105633,
+    "home": "https://cmanhua.com"
    }
   ]
  },
  "quelle": {
-  "modul": "src/zh/bilimanga",
+  "modul": "src/zh/cmanhua",
   "community_stand": "efa93f5a 2026-11-02",
-  "community_version": "1.6.15",
+  "community_version": "1.6.1",
   "theme": null
  },
  "modell": {

@@ -17366,7 +17366,7 @@
  },
  {
   "modul": "src/vi/zettruyen",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "ZetTruyen",
   "stufe": 2,
   "theme": null,
@@ -17376,7 +17376,10 @@
   "host": "zettruyen5.com",
   "nsfw": false,
   "wer": "agent-w7d",
-  "seit": "2026-11-03T11:28:44"
+  "seit": "2026-11-03T11:28:44",
+  "datei": "rezepte/modelle/vi.zettruyen.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:29:14"
  },
  {
   "modul": "src/zh/bh3",
@@ -17397,7 +17400,7 @@
  },
  {
   "modul": "src/zh/bilimanga",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "BiliManga",
   "stufe": 2,
   "theme": null,
@@ -17407,7 +17410,10 @@
   "host": "bilimanga.net",
   "nsfw": false,
   "wer": "agent-w8a",
-  "seit": "2026-11-03T11:28:54"
+  "seit": "2026-11-03T11:28:54",
+  "grund": "Kapitel-Links teils 'javascript:cid(1)': URL muss aus der Nachbarkapitelseite (url_previous/url_next im Skript, '.'→'_2.') per Interceptor ermittelt werden – je Kapitel bedingte Folgeanfrage nicht ausdrückbar; Suche braucht jieqiSearchTicket-Cookie, das aus JS-Antwort (cookie=\"…\") gesetzt und per redeem eingelöst wird",
+  "datei": null,
+  "geaendert": "2026-11-03T11:29:10"
  },
  {
   "modul": "src/zh/cartoon18",
@@ -17425,7 +17431,7 @@
  },
  {
   "modul": "src/zh/cmanhua",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "CManhua",
   "stufe": 2,
   "theme": null,
@@ -17433,11 +17439,13 @@
    "zh"
   ],
   "host": "cmanhua.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8a",
+  "seit": "2026-11-03T11:29:10"
  },
  {
   "modul": "src/zh/dm5",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Dm5",
   "stufe": 2,
   "theme": null,
@@ -17445,7 +17453,9 @@
    "zh"
   ],
   "host": "dm5.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w7d",
+  "seit": "2026-11-03T11:29:14"
  },
  {
   "modul": "src/zh/dongmanmanhua",
