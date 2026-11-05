@@ -29,13 +29,13 @@ Der private Schlüssel liegt nicht in diesem Repository.
 
 | Name | Sprache | Version | Inhalt |
 |---|---|---|---|
-| Comikey | all | 1.6.13 |  |
-| Lunar Manga | all | 1.6.5 | gemischt |
-| MANGA Plus by SHUEISHA | all | 1.6.67 |  |
-| MangaDot | all | 1.6.27 | gemischt |
-| MangaFire | all | 1.6.35 | gemischt |
+| Comikey | all | 1.6.14 |  |
+| Lunar Manga | all | 1.6.6 | gemischt |
+| MANGA Plus by SHUEISHA | all | 1.6.68 |  |
+| MangaDot | all | 1.6.29 | gemischt |
+| MangaFire | all | 1.6.37 | gemischt |
 | Hizo Manga | ar | 1.6.11 |  |
-| Manga Tube | Deutsch | 1.6.0 |  |
+| Manga Tube | Deutsch | 1.6.1 |  |
 | Niadd | Deutsch | 1.6.11 |  |
 | NovelCool | Deutsch | 1.6.11 |  |
 | Toomics | Deutsch | 1.6.11 | 18+ |
@@ -43,7 +43,7 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | aster scans | Englisch | 1.6.12 |  |
 | Asura Scans | Englisch | 1.6.11 |  |
 | Atsumaru | Englisch | 1.6.12 | gemischt |
-| BatCave | Englisch | 1.6.13 |  |
+| BatCave | Englisch | 1.6.14 |  |
 | Comix | Englisch | 1.6.59 | gemischt |
 | Comizy | Englisch | 1.6.11 | gemischt |
 | Deathtollscans | Englisch | 1.6.12 |  |
@@ -71,7 +71,7 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | MangaDex | Englisch | 1.6.11 | gemischt |
 | Mangafreak | Englisch | 1.6.13 | gemischt |
 | MangaGeko | Englisch | 1.6.11 | gemischt |
-| MangaHub | Englisch | 1.6.49 | gemischt |
+| MangaHub | Englisch | 1.6.50 | gemischt |
 | MangaK | Englisch | 1.6.11 | gemischt |
 | Mangakakalot | Englisch | 1.6.11 | gemischt |
 | MangaKatana | Englisch | 1.6.12 | gemischt |
@@ -142,15 +142,15 @@ Diese Extensions enthalten unveränderten Quellcode aus [keiyoushi/extensions-so
 
 | Name | Paket | Community-Modul | Stand |
 |---|---|---|---|
-| BatCave | `eu.kanade.tachiyomi.extension.en.kaanon.batcave` | `src/en/batcave` | 0d83f6be79e1 (2026-10-31) |
-| Comikey | `eu.kanade.tachiyomi.extension.all.kaanon.comikey` | `src/all/comikey` | 0d83f6be79e1 (2026-10-31) |
+| BatCave | `eu.kanade.tachiyomi.extension.en.kaanon.batcave` | `src/en/batcave` | ee661f5233b3 (2026-11-04) |
+| Comikey | `eu.kanade.tachiyomi.extension.all.kaanon.comikey` | `src/all/comikey` | ee661f5233b3 (2026-11-04) |
 | Comix | `eu.kanade.tachiyomi.extension.en.kaanon.comix` | `src/en/comix` | 0d83f6be79e1 (2026-10-31) |
-| Lunar Manga | `eu.kanade.tachiyomi.extension.all.kaanon.lunarmanga` | `src/all/lunaranime` | 0d83f6be79e1 (2026-10-31) |
-| MANGA Plus by SHUEISHA | `eu.kanade.tachiyomi.extension.all.kaanon.mangaplusbyshueisha` | `src/all/mangaplus` | 0d83f6be79e1 (2026-10-31) |
-| Manga Tube | `eu.kanade.tachiyomi.extension.de.kaanon.mangatube` | `src/de/mangatube` | 0d83f6be79e1 (2026-10-31) |
-| MangaDot | `eu.kanade.tachiyomi.extension.all.kaanon.mangadot` | `src/all/mangadotnet` | 0d83f6be79e1 (2026-10-31) |
-| MangaFire | `eu.kanade.tachiyomi.extension.all.kaanon.mangafire` | `src/all/mangafire` | 0d83f6be79e1 (2026-10-31) |
-| MangaHub | `eu.kanade.tachiyomi.extension.en.kaanon.mangahub` | `src/en/mangahubio` | 0d83f6be79e1 (2026-10-31) |
+| Lunar Manga | `eu.kanade.tachiyomi.extension.all.kaanon.lunarmanga` | `src/all/lunaranime` | ee661f5233b3 (2026-11-04) |
+| MANGA Plus by SHUEISHA | `eu.kanade.tachiyomi.extension.all.kaanon.mangaplusbyshueisha` | `src/all/mangaplus` | ee661f5233b3 (2026-11-04) |
+| Manga Tube | `eu.kanade.tachiyomi.extension.de.kaanon.mangatube` | `src/de/mangatube` | ee661f5233b3 (2026-11-04) |
+| MangaDot | `eu.kanade.tachiyomi.extension.all.kaanon.mangadot` | `src/all/mangadotnet` | ee661f5233b3 (2026-11-04) |
+| MangaFire | `eu.kanade.tachiyomi.extension.all.kaanon.mangafire` | `src/all/mangafire` | ee661f5233b3 (2026-11-04) |
+| MangaHub | `eu.kanade.tachiyomi.extension.en.kaanon.mangahub` | `src/en/mangahubio` | ee661f5233b3 (2026-11-04) |
 | ManhwaRead | `eu.kanade.tachiyomi.extension.en.kaanon.manhwaread` | `src/en/manhwaread` | 7363e4298c2a (2026-10-16) |
 
 Diese Datei wird automatisch erzeugt (`python -m kaanon_builder --store`).

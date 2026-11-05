@@ -12,12 +12,12 @@
         "name": "Comikey",
         "packageName": "eu.kanade.tachiyomi.extension.all.kaanon.comikey",
         "resources": {
-          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-all.kaanon.comikey-v1.6.13.apk",
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-all.kaanon.comikey-v1.6.14.apk",
           "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.all.kaanon.comikey.png"
         },
         "extensionLib": "1.6",
-        "versionCode": 106013,
-        "versionName": "1.6.13",
+        "versionCode": 106014,
+        "versionName": "1.6.14",
         "contentWarning": "SAFE",
         "sources": [
           {
@@ -61,12 +61,12 @@
         "name": "Lunar Manga",
         "packageName": "eu.kanade.tachiyomi.extension.all.kaanon.lunarmanga",
         "resources": {
-          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-all.kaanon.lunarmanga-v1.6.5.apk",
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-all.kaanon.lunarmanga-v1.6.6.apk",
           "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.all.kaanon.lunarmanga.png"
         },
         "extensionLib": "1.6",
-        "versionCode": 106005,
-        "versionName": "1.6.5",
+        "versionCode": 106006,
+        "versionName": "1.6.6",
         "contentWarning": "MIXED",
         "sources": [
           {
@@ -103,12 +103,12 @@
         "name": "MangaDot",
         "packageName": "eu.kanade.tachiyomi.extension.all.kaanon.mangadot",
         "resources": {
-          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-all.kaanon.mangadot-v1.6.27.apk",
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-all.kaanon.mangadot-v1.6.29.apk",
           "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.all.kaanon.mangadot.png"
         },
         "extensionLib": "1.6",
-        "versionCode": 106027,
-        "versionName": "1.6.27",
+        "versionCode": 106029,
+        "versionName": "1.6.29",
         "contentWarning": "MIXED",
         "sources": [
           {
@@ -873,12 +873,12 @@
         "name": "MangaFire",
         "packageName": "eu.kanade.tachiyomi.extension.all.kaanon.mangafire",
         "resources": {
-          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-all.kaanon.mangafire-v1.6.35.apk",
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-all.kaanon.mangafire-v1.6.37.apk",
           "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.all.kaanon.mangafire.png"
         },
         "extensionLib": "1.6",
-        "versionCode": 106035,
-        "versionName": "1.6.35",
+        "versionCode": 106037,
+        "versionName": "1.6.37",
         "contentWarning": "MIXED",
         "sources": [
           {
@@ -936,12 +936,12 @@
         "name": "MANGA Plus by SHUEISHA",
         "packageName": "eu.kanade.tachiyomi.extension.all.kaanon.mangaplusbyshueisha",
         "resources": {
-          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-all.kaanon.mangaplusbyshueisha-v1.6.67.apk",
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-all.kaanon.mangaplusbyshueisha-v1.6.68.apk",
           "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.all.kaanon.mangaplusbyshueisha.png"
         },
         "extensionLib": "1.6",
-        "versionCode": 106067,
-        "versionName": "1.6.67",
+        "versionCode": 106068,
+        "versionName": "1.6.68",
         "contentWarning": "SAFE",
         "sources": [
           {
@@ -1034,12 +1034,12 @@
         "name": "Manga Tube",
         "packageName": "eu.kanade.tachiyomi.extension.de.kaanon.mangatube",
         "resources": {
-          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-de.kaanon.mangatube-v1.6.0.apk",
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-de.kaanon.mangatube-v1.6.1.apk",
           "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.de.kaanon.mangatube.png"
         },
         "extensionLib": "1.6",
-        "versionCode": 106000,
-        "versionName": "1.6.0",
+        "versionCode": 106001,
+        "versionName": "1.6.1",
         "contentWarning": "SAFE",
         "sources": [
           {
@@ -1202,12 +1202,12 @@
         "name": "BatCave",
         "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.batcave",
         "resources": {
-          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.batcave-v1.6.13.apk",
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.batcave-v1.6.14.apk",
           "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.en.kaanon.batcave.png"
         },
         "extensionLib": "1.6",
-        "versionCode": 106013,
-        "versionName": "1.6.13",
+        "versionCode": 106014,
+        "versionName": "1.6.14",
         "contentWarning": "SAFE",
         "sources": [
           {
@@ -1793,12 +1793,12 @@
         "name": "MangaHub",
         "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.mangahub",
         "resources": {
-          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.mangahub-v1.6.49.apk",
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.mangahub-v1.6.50.apk",
           "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.en.kaanon.mangahub.png"
         },
         "extensionLib": "1.6",
-        "versionCode": 106049,
-        "versionName": "1.6.49",
+        "versionCode": 106050,
+        "versionName": "1.6.50",
         "contentWarning": "MIXED",
         "sources": [
           {
