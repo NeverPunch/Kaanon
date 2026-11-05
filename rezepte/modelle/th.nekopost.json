@@ -1,0 +1,234 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Nekopost",
+  "sprache": "th",
+  "base_url": "https://www.nekopost.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.th.kaanon.nekopost",
+  "quellen": [
+   {
+    "name": "Nekopost",
+    "sprache": "th",
+    "quell_id": 4353470354941192417,
+    "home": "https://www.nekopost.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/th/nekopost",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.19",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "headers": {
+   "X-Requested-With": "XMLHttpRequest"
+  },
+  "popular": {
+   "request": {
+    "url": "{base}/api/project/list/popular",
+    "method": "POST",
+    "body": "{\"type\":\"mc\",\"paging\":{\"pageNo\":1,\"pageSize\":15}}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "listProject",
+   "fields": {
+    "url": {
+     "path": "pid",
+     "template": "/manga/{value}"
+    },
+    "title": "projectName",
+    "cover": {
+     "path": "pid",
+     "replace": [
+      [
+       "^(\\d{1,4}|1[0-6]\\d{3}|17[0-4]\\d{2}|17500)$",
+       "https://www.osemocphoto.com/collectManga/$1/$1_cover.jpg"
+      ],
+      [
+       "^(\\d+)$",
+       "https://fs.osemocphoto.com/collectManga/$1/$1_cover.jpg"
+      ]
+     ],
+     "template": "{value}[[?ver={f.coverVersion}]]"
+    }
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "{base}/api/project/latest",
+    "method": "POST",
+    "body": "{\"type\":\"m\",\"paging\":{\"pageNo\":{page},\"pageSize\":15}}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "listChapter",
+   "fields": {
+    "url": {
+     "path": "pid",
+     "template": "/manga/{value}"
+    },
+    "title": "projectName",
+    "cover": {
+     "path": "pid",
+     "replace": [
+      [
+       "^(\\d{1,4}|1[0-6]\\d{3}|17[0-4]\\d{2}|17500)$",
+       "https://www.osemocphoto.com/collectManga/$1/$1_cover.jpg"
+      ],
+      [
+       "^(\\d+)$",
+       "https://fs.osemocphoto.com/collectManga/$1/$1_cover.jpg"
+      ]
+     ],
+     "template": "{value}[[?ver={f.coverVersion}]]"
+    }
+   },
+   "page_size": 15,
+   "has_next": {
+    "full": true
+   }
+  },
+  "search": {
+   "request": {
+    "url": "{base}/api/project/search",
+    "method": "POST",
+    "body": "{\"keyword\":\"{query_raw}\",\"status\":0,\"paging\":{\"pageNo\":{page},\"pageSize\":100}}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "items": "listProject",
+   "skip": {
+    "path": "projectType",
+    "regex": "^(?!m$)"
+   },
+   "fields": {
+    "url": {
+     "path": "pid",
+     "template": "/manga/{value}"
+    },
+    "title": "projectName",
+    "cover": {
+     "path": "pid",
+     "replace": [
+      [
+       "^(\\d{1,4}|1[0-6]\\d{3}|17[0-4]\\d{2}|17500)$",
+       "https://www.osemocphoto.com/collectManga/$1/$1_cover.jpg"
+      ],
+      [
+       "^(\\d+)$",
+       "https://fs.osemocphoto.com/collectManga/$1/$1_cover.jpg"
+      ]
+     ],
+     "template": "{value}[[?ver={f.coverVersion}]]"
+    }
+   },
+   "page_size": 100,
+   "has_next": {
+    "full": true
+   }
+  },
+  "details": {
+   "request": {
+    "url": "{base}/api/project/detail2",
+    "method": "POST",
+    "body": "{\"pid\":{u.pid}}",
+    "content_type": "application/json"
+   },
+   "format": "json",
+   "url_vars": {
+    "pid": "/manga/(\\d+)"
+   },
+   "fields": {
+    "title": "projectInfo.Project.projectName",
+    "cover": {
+     "path": "projectInfo.Project.pid",
+     "replace": [
+      [
+       "^(\\d{1,4}|1[0-6]\\d{3}|17[0-4]\\d{2}|17500)$",
+       "https://www.osemocphoto.com/collectManga/$1/$1_cover.jpg"
+      ],
+      [
+       "^(\\d+)$",
+       "https://fs.osemocphoto.com/collectManga/$1/$1_cover.jpg"
+      ]
+     ]
+    },
+    "description": "projectInfo.Project.info",
+    "author": "projectInfo.Project.authorName",
+    "artist": "projectInfo.Project.artistName",
+    "genres": {
+     "path": "projectInfo.ListCate.*.CateName",
+     "all": true,
+     "join": ", "
+    },
+    "status": "projectInfo.Project.status"
+   },
+   "status_map": {
+    "1": 1,
+    "2": 2,
+    "3": 3
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "pid": "/manga/(\\d+)"
+   },
+   "items": "projectInfo.ListChapter",
+   "fields": {
+    "url": {
+     "path": "ChapterID",
+     "template": "/manga/{u.pid}/{f.ChapterNo}#{value}"
+    },
+    "name": "ChapterName",
+    "number": "ChapterNo",
+    "date": "PublishDate.String",
+    "scanlator": "ProviderName"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "{base}/api/handler/cinfo",
+    "method": "POST",
+    "body": "{\"p\":{u.pid},\"c\":{u.cid}}",
+    "content_type": "application/json"
+   },
+   "format": "text",
+   "url_vars": {
+    "pid": "/manga/(\\d+)/",
+    "cid": "#(\\d+)$"
+   },
+   "inner": {
+    "value": {
+     "path": "",
+     "decode": "aes_cryptojs",
+     "key": "AeyTest"
+    },
+    "format": "json",
+    "items": "pageItem",
+    "sort": {
+     "path": "pageNo"
+    },
+    "image": "pageName"
+   }
+  }
+ },
+ "hinweise": [
+  "Stufe 3 geprüft: Einzige 'neue Technik' ist die Seitenliste von /api/handler/cinfo – Antworttext ist Base64 eines CryptoJS-Passphrasen-Chiffrats (OpenSSL-Format 'Salted__'), Passphrase 'AeyTest' aus dem Client-Bundle der Website (Community: cryptoJsDecrypt). Als aes_cryptojs mit key abgebildet; unsicher, ob die Engine neben dem Madara-JSON {ct,iv,s} auch den Base64-'Salted__'-String annimmt – auf dem PC prüfen.",
+  "Alle API-Aufrufe sind POST mit JSON-Rumpf (Go-Backend, Zahlen ohne Anführungszeichen). Manga-URL /manga/<pid> wie die Website; Kapitel-URL /manga/<pid>/<ChapterNo>#<ChapterID> (pid/ChapterID für den cinfo-Rumpf).",
+  "Cover-Host hängt an der Projekt-ID: pid > 17500 → fs.osemocphoto.com, sonst www.osemocphoto.com (falscher Host liefert Platzhalter); per replace-Kette wie zh.manhua160 abgebildet.",
+  "Beliebt: nur eine Seite (15 Einträge, type mc), wie Community. Neueste: Kapitel-Feed (type m), Mangas können sich wiederholen. Suche: nur projectType 'm' (skip per Regex).",
+  "Seiten nach pageNo sortieren (Community/Website-Leser); 'sort' steht innerhalb von 'inner' – unsicher, ob die Engine es dort anwendet. pageName ist eine signierte absolute URL.",
+  "Status 3 = lizenziert (Community wirft dann beim Kapitelabruf einen Fehler; hier werden die Kapitel einfach gelistet, die Website liefert dann ggf. keine)."
+ ]
+}

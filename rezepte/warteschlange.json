@@ -19752,7 +19752,7 @@
  },
  {
   "modul": "src/ja/sokuyomi",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "Sokuyomi",
   "stufe": 3,
   "theme": null,
@@ -19762,7 +19762,10 @@
   "host": "sokuyomi.jp",
   "nsfw": false,
   "wer": "agent-w10a",
-  "seit": "2026-11-05T09:37:37"
+  "seit": "2026-11-05T09:37:37",
+  "grund": "Kapitel aus zwei GraphQL-Listen (listChapter + listVolume) mit je eigener Viewer-Query je Eintragstyp (getChapterViewer/getVolumeViewer) – Vereinigung zweier Listen und Verzweigung je Typ nicht belegt; dazu Header Client-Version = JST-Tagesdatum und 4x4-Transpose ohne multiple; Sperrlogik (Coins/Kampagne) mit UND/NICHT nicht als skip ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:38:56"
  },
  {
   "modul": "src/ja/zebrack",
@@ -19800,7 +19803,7 @@
  },
  {
   "modul": "src/ko/sbxh",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "Newtoki (SBXH)",
   "stufe": 3,
   "theme": null,
@@ -19810,11 +19813,14 @@
   "host": "sbxh9.com",
   "nsfw": false,
   "wer": "agent-w10b",
-  "seit": "2026-11-05T09:38:36"
+  "seit": "2026-11-05T09:38:36",
+  "grund": "Seitenliste nur per WebView: Bild-URLs gibt die Website nur an ihr eigenes Viewer-Skript aus (Fingerprint-Sitzung + Werbeprüfung), Community rendert die Kapitelseite und sammelt <img alt='page N'> per JavaScript – WebView/JS nötig",
+  "datei": null,
+  "geaendert": "2026-11-05T09:38:57"
  },
  {
   "modul": "src/pt/kuromangas",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "KuroMangas",
   "stufe": 3,
   "theme": null,
@@ -19822,11 +19828,16 @@
    "pt-BR"
   ],
   "host": "kuromangas.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:38:56",
+  "grund": "API-Antworten (vSecure) mit Rabbit-Stromchiffre (crypto-js) verschlüsselt, Schlüssel aus Cookie _kn/Login; Rabbit nicht in der Engine, Login nötig",
+  "datei": null,
+  "geaendert": "2026-11-05T09:39:04"
  },
  {
   "modul": "src/pt/randomscan",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Lura Toon",
   "stufe": 3,
   "theme": null,
@@ -19834,11 +19845,16 @@
    "pt-BR"
   ],
   "host": "luratoons.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10b",
+  "seit": "2026-11-05T09:38:57",
+  "grund": "Lesen nur mit Login (user-info.userid nötig); Kapitel-JSON AES-CTR verschlüsselt (Schlüssel SHA-256 aus Slugs+userId), Bilder als AES-CTR-verschlüsselte ZIP-Archive (SVG/base64-Teilbilder, zusammengesetzt) – Login, AES-CTR und ZIP nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:39:05"
  },
  {
   "modul": "src/pt/spectralscan",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Nexus Toons",
   "stufe": 3,
   "theme": null,
@@ -19846,11 +19862,16 @@
    "pt-BR"
   ],
   "host": "nexustoons.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:39:04",
+  "grund": "API-JSON mit eigener S-Box/XOR/Rotation-Chiffre (Schlüssel per SHA-256 aus festem Geheimnis) verschlüsselt; Kapitel-ID per XOR+Base64url selbst kodiert; nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:39:16"
  },
  {
   "modul": "src/th/nekopost",
-  "status": "offen",
+  "status": "fertig",
   "name": "Nekopost",
   "stufe": 3,
   "theme": null,
@@ -19858,11 +19879,16 @@
    "th"
   ],
   "host": "nekopost.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10b",
+  "seit": "2026-11-05T09:39:05",
+  "datei": "rezepte/modelle/th.nekopost.json",
+  "grund": null,
+  "geaendert": "2026-11-05T09:40:58"
  },
  {
   "modul": "src/tr/mangacix",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "MangaciX",
   "stufe": 3,
   "theme": null,
@@ -19870,11 +19896,16 @@
    "tr"
   ],
   "host": "mangacix.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:39:16",
+  "grund": "Jede /secure/-API-Anfrage braucht Header X-E-H = AES-GCM-Verschlüsselung der Query mit festem Schlüssel und Zufalls-IV (selbst erzeugte Signatur, Regel 0014)",
+  "datei": null,
+  "geaendert": "2026-11-05T09:39:25"
  },
  {
   "modul": "src/tr/mangadenizi",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "MangaDenizi",
   "stufe": 3,
   "theme": null,
@@ -19882,11 +19913,16 @@
    "tr"
   ],
   "host": "mangadenizi.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:39:25",
+  "grund": "Seitenbilder (scramble.method tiled-v1) mit XorShift-Permutation aus seed/grid verwürfelt; weder grid noch rects",
+  "datei": null,
+  "geaendert": "2026-11-05T09:39:33"
  },
  {
   "modul": "src/tr/mangaship",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Manga Bahçesi",
   "stufe": 3,
   "theme": null,
@@ -19894,11 +19930,16 @@
    "tr"
   ],
   "host": "mangabahcesi.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:39:33",
+  "grund": "Jede Bild-URL (Seiten und Cover) nur über eigenen POST /PartialView/SifreCoz mit id + token aus Cookie mangaToken auflösbar; Cookie-Wert als Formularfeld und POST-Subpage je Bild sind nicht belegt",
+  "datei": null,
+  "geaendert": "2026-11-05T09:39:54"
  },
  {
   "modul": "src/vi/cotruyenday",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "CoTruyenDay",
   "stufe": 3,
   "theme": null,
@@ -19906,11 +19947,16 @@
    "vi"
   ],
   "host": "cotruyenday1.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:39:54",
+  "grund": "Bildliste (encrypted_images) mit rohem AES-256-CBC (fester Base64-Schlüssel + IV je Antwort) verschlüsselt, nicht CryptoJS-Passphrase-Format; aes_cryptojs passt nicht (nur unverschlüsselte image_urls wären lesbar)",
+  "datei": null,
+  "geaendert": "2026-11-05T09:40:17"
  },
  {
   "modul": "src/vi/hv2tcomics",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Học Viện 2Ten",
   "stufe": 3,
   "theme": null,
@@ -19918,11 +19964,16 @@
    "vi"
   ],
   "host": "hv2tcomics.net",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:40:17",
+  "grund": "Seitenbilder nur per WebView (runWebView + evaluateJs, Scrollen bis img[alt^=Page] stabil); keine API für die Bildliste im Code; dazu Auth-Token aus localStorage",
+  "datei": null,
+  "geaendert": "2026-11-05T09:40:27"
  },
  {
   "modul": "src/vi/mangamori",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "MangaMori",
   "stufe": 3,
   "theme": null,
@@ -19930,11 +19981,16 @@
    "vi"
   ],
   "host": "mangamori.dev",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:40:27",
+  "grund": "Verwürfelte Seiten (isScrambled) mit Kachelkarte, die per FNV-Seed/XOR-Strom entschlüsselt wird; eigene Entwürfelung, weder grid noch rects",
+  "datei": null,
+  "geaendert": "2026-11-05T09:40:35"
  },
  {
   "modul": "src/vi/medamtruyen",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "MeDamTruyen",
   "stufe": 3,
   "theme": null,
@@ -19942,11 +19998,16 @@
    "vi"
   ],
   "host": "saytongtaii.site",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:40:35",
+  "grund": "Kapitelinhalt (htmlContent) AES-CBC mit PBKDF2-HMAC-SHA512 (999 Runden) aus secretOne+Two+Three abgeleitet, nicht CryptoJS-EVP; Bild-URLs danach per dynamischer Ersetzung der Secrets entschleiert; dazu passwortgeschützte Kapitel",
+  "datei": null,
+  "geaendert": "2026-11-05T09:40:48"
  },
  {
   "modul": "src/vi/moetruyensuicao",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "MoeTruyenSuiCao (unoriginal)",
   "stufe": 3,
   "theme": null,
@@ -19954,11 +20015,16 @@
    "vi"
   ],
   "host": "moe.suicaodex.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:40:48",
+  "grund": "Bilder im eigenen imgx-Format (v2 XOR, v3 Blockchiffre/xorshift bzw. AES-GCM) mit Grant/storageKey verschlüsselt; Bild-Entschlüsselung nicht in der Engine",
+  "datei": null,
+  "geaendert": "2026-11-05T09:40:55"
  },
  {
   "modul": "src/vi/panomic",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Panomic",
   "stufe": 3,
   "theme": null,
@@ -19966,11 +20032,16 @@
    "vi"
   ],
   "host": "panomic.online",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:40:55",
+  "grund": "Kapitelinhalt (htmlContent) AES-CBC mit PBKDF2-HMAC-SHA512 (999 Runden) aus Schlüsselteilen im Skript, nicht CryptoJS-EVP; Bild-URLs per dynamischer Ersetzung entschleiert; Passcode-Cookie a3_site_passcode_token nötig",
+  "datei": null,
+  "geaendert": "2026-11-05T09:41:06"
  },
  {
   "modul": "src/vi/seikowo",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Seikowo",
   "stufe": 3,
   "theme": null,
@@ -19978,11 +20049,16 @@
    "vi"
   ],
   "host": "seikowo-app.blogspot.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10b",
+  "seit": "2026-11-05T09:40:58",
+  "grund": "Bildlisten liegen in Data_Node-Posts als Base64 → AES-GCM (Schlüssel fest, IV = erste 12 Byte) → GZIP-komprimiertes JSON; AES-GCM und GZIP-Entpacken nicht ausdrückbar (nur aes_cryptojs); zudem Kapitel per Nummernabgleich über mehrere Worker-Posts gesucht",
+  "datei": null,
+  "geaendert": "2026-11-05T09:41:08"
  },
  {
   "modul": "src/vi/soaicacomic",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "SoaiCaComic",
   "stufe": 3,
   "theme": null,
@@ -19990,11 +20066,16 @@
    "vi"
   ],
   "host": "soaicacomic2.top",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:41:06",
+  "grund": "Kapitelinhalt (htmlContent) AES-CBC mit PBKDF2-HMAC-SHA512 (999 Runden, feste Passphrase), nicht CryptoJS-EVP; aes_cryptojs passt nicht; dazu passwortgeschützte Kapitel (wp-login postpass)",
+  "datei": null,
+  "geaendert": "2026-11-05T09:41:15"
  },
  {
   "modul": "src/vi/teamlanhlung",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Team Lanh Lung",
   "stufe": 3,
   "theme": null,
@@ -20002,11 +20083,16 @@
    "vi"
   ],
   "host": "lanhlungteam3.top",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10b",
+  "seit": "2026-11-05T09:41:08",
+  "grund": "Bildliste in var htmlContent als JSON {ciphertext,iv,salt}: Schlüssel per PBKDF2-HMAC-SHA512 (999 Runden) aus fester Passphrase, dann AES-CBC; danach Bild-URLs in data-da9tqd mit Zeichenersatz – PBKDF2/AES-CBC ist nicht aes_cryptojs (EVP/MD5), nicht ausdrückbar; Klartext-Rückfall nur bei alten Kapiteln",
+  "datei": null,
+  "geaendert": "2026-11-05T09:41:16"
  },
  {
   "modul": "src/vi/tuitruyen",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "TuiTruyen",
   "stufe": 3,
   "theme": null,
@@ -20014,11 +20100,16 @@
    "vi"
   ],
   "host": "tuitruyen.top",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:41:15",
+  "grund": "Bilder im imgx-Format (XOR/Blockchiffre/AES-GCM mit Grant+storageKey) verschlüsselt; Seitenzugriff mit selbst erzeugtem Proof (Nonce+Zeitstempel+Hash); nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:41:26"
  },
  {
   "modul": "src/vi/tusachxinhxinh",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "TuSachXinhXinh",
   "stufe": 3,
   "theme": null,
@@ -20026,11 +20117,16 @@
    "vi"
   ],
   "host": "tusachxinhxinh12.online",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10b",
+  "seit": "2026-11-05T09:41:16",
+  "grund": "Bildliste in var htmlContent als JSON {ciphertext,iv,salt}: Schlüssel per PBKDF2-HMAC-SHA512 (999 Runden) aus fester Passphrase, dann AES-CBC; Bild-URLs danach mit Zeichenersatz – PBKDF2/AES-CBC ist nicht aes_cryptojs (EVP/MD5), nicht ausdrückbar (gleiches Verfahren wie vi.teamlanhlung)",
+  "datei": null,
+  "geaendert": "2026-11-05T09:41:23"
  },
  {
   "modul": "src/vi/yurigarden",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "YuriGarden",
   "stufe": 3,
   "theme": null,
@@ -20038,11 +20134,16 @@
    "vi"
   ],
   "host": "yurigarden.moe",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10b",
+  "seit": "2026-11-05T09:41:24",
+  "grund": "Alle API-Aufrufe brauchen Bearer-Token eines eingeloggten Kontos (per WebView aus dem Browser-Speicher gelesen) – Login zum Lesen; zudem Bilder in 10 Streifen verwürfelt (Base58/Lehmer-Permutation je Bild, weder grid noch rects)",
+  "datei": null,
+  "geaendert": "2026-11-05T09:41:31"
  },
  {
   "modul": "src/vi/yurineko",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "YuriNeko",
   "stufe": 3,
   "theme": null,
@@ -20050,11 +20151,16 @@
    "vi"
   ],
   "host": "yurinekoz.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:41:26",
+  "grund": "Seiten-URLs im RSC-Skript als /api/img?d=<base64url(url|xorKey)>; direkt geladen sind die Bilder XOR-verschlüsselt (Header x-ik), Umweg über Klartext-CDN-URL braucht base64url-Dekodierung mit anschließendem Abschneiden am '|' – beides nicht belegt",
+  "datei": null,
+  "geaendert": "2026-11-05T09:42:07"
  },
  {
   "modul": "src/zh/boylove",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "BoyLove",
   "stufe": 3,
   "theme": null,
@@ -20062,11 +20168,16 @@
    "zh"
   ],
   "host": "boylove.cc",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w10b",
+  "seit": "2026-11-05T09:41:31",
+  "grund": "Bilder (wenn Skript firstMergeImg/imageData vorhanden) in N senkrechte Streifen verwürfelt, Reihenfolge gespiegelt, letzter Streifen mit Restbreite, nur bei Bildhöhe < 4000 – weder grid (n×n) noch rects (feste Pixel); zudem Details nur über Suche nach Titel und Abgleich per ID (Auswahl per Platzhalter)",
+  "datei": null,
+  "geaendert": "2026-11-05T09:41:46"
  },
  {
   "modul": "src/zh/comicabc",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Comicabc",
   "stufe": 3,
   "theme": null,
@@ -20074,11 +20185,16 @@
    "zh"
   ],
   "host": "8comic.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10b",
+  "seit": "2026-11-05T09:41:46",
+  "grund": "Seitenliste: Bild-URLs werden von einem je Kapitel verschleierten Inline-Skript erzeugt (lc/su/nn/mm aus j.js, Schleife über ps Seiten); Community führt das Skript per QuickJS aus – JS-Engine nötig",
+  "datei": null,
+  "geaendert": "2026-11-05T09:41:53"
  },
  {
   "modul": "src/zh/creativecomic",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Creative Comic Collection",
   "stufe": 3,
   "theme": null,
@@ -20086,11 +20202,16 @@
    "zh-Hant"
   ],
   "host": "creative-comic.tw",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10b",
+  "seit": "2026-11-05T09:41:53",
+  "grund": "Bilddateien AES-CBC-verschlüsselt (Leser-DRM): Schlüssel je Bild von /book/chapter/image/<id>, selbst mit AES-CBC (Schlüssel/IV aus SHA-512 eines festen Tokens) zu entschlüsseln, dann Bild-Bytes entschlüsseln und data-URI auspacken – Bild-Entschlüsselung nicht ausdrückbar, Regel 0014 (DRM, Bezahlkapitel)",
+  "datei": null,
+  "geaendert": "2026-11-05T09:42:00"
  },
  {
   "modul": "src/zh/favcomic",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "FavComic",
   "stufe": 3,
   "theme": null,
@@ -20098,11 +20219,16 @@
    "zh"
   ],
   "host": "favcomic.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10b",
+  "seit": "2026-11-05T09:42:00",
+  "grund": "Bilddateien (img.encrypted-image, auch Cover) AES-verschlüsselt mit festem Schlüssel und vorangestelltem 16-Byte-IV (Bild-Bytes entschlüsseln) – Bild-Entschlüsselung nicht ausdrückbar; viele Kapitel zudem nur mit Login/Münzen",
+  "datei": null,
+  "geaendert": "2026-11-05T09:42:08"
  },
  {
   "modul": "src/zh/hikarinagi",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Hikarinagi",
   "stufe": 3,
   "theme": null,
@@ -20110,11 +20236,16 @@
    "zh"
   ],
   "host": "hikarinagi.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:42:07",
+  "grund": "Bilder per POST mit selbst erzeugtem Zufallstoken angefordert und als AES-256-GCM (Schlüssel aus Token, AAD manga:page:mid:cid:pid) geliefert; Bild-Entschlüsselung und selbst erzeugte Schlüssel nicht möglich; Login (401)",
+  "datei": null,
+  "geaendert": "2026-11-05T09:42:16"
  },
  {
   "modul": "src/zh/jinmantiantang",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Jinman Tiantang",
   "stufe": 3,
   "theme": null,
@@ -20122,11 +20253,16 @@
    "zh"
   ],
   "host": "18comic.vip",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w10b",
+  "seit": "2026-11-05T09:42:08",
+  "grund": "App-API: Header Token = MD5(Zeitstempel + geheimer App-Schlüssel), Antworten AES-ECB mit MD5(Zeitstempel+Schlüssel) verschlüsselt, API-Host aus verschlüsselter Serverliste – selbst erzeugte Signatur (Regel 0014) und AES-ECB nicht ausdrückbar; zudem Bilder in 2–20 Zeilen verwürfelt (Zeilenzahl aus MD5 von Album-ID+Bildnummer) – weder grid noch rects",
+  "datei": null,
+  "geaendert": "2026-11-05T09:42:21"
  },
  {
   "modul": "src/zh/kuaikanmanhua",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Kuaikanmanhua",
   "stufe": 3,
   "theme": null,
@@ -20134,11 +20270,16 @@
    "zh-Hans"
   ],
   "host": "kuaikanmanhua.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:42:16",
+  "grund": "Listen, Details, Kapitel und Seiten stecken in window.__NUXT__ als minifizierte JS-Funktion (Werte als Funktionsparameter dedupliziert), Code wertet sie mit QuickJS aus; kein JSON-Format, Regex auf Rohtext unzuverlässig; nur die Textsuche hat eine JSON-API",
+  "datei": null,
+  "geaendert": "2026-11-05T09:42:35"
  },
  {
   "modul": "src/zh/manhuaren",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Manhuaren",
   "stufe": 3,
   "theme": null,
@@ -20146,11 +20287,16 @@
    "zh"
   ],
   "host": "mangaapi.manhuaren.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10b",
+  "seit": "2026-11-05T09:42:21",
+  "grund": "App-API verlangt je Anfrage Signatur gsn = MD5(geheimes Salt + Methode + sortierte Parameter + Salt) und anonymen Nutzer-Token (Registrierung mit RSA-verschlüsselten Geräte-IDs) – selbst erzeugte Signatur/Schlüssel, Regel 0014, nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:42:29"
  },
  {
   "modul": "src/zh/manwa",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Manwa",
   "stufe": 3,
   "theme": null,
@@ -20158,11 +20304,16 @@
    "zh"
   ],
   "host": "manwa.me",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10b",
+  "seit": "2026-11-05T09:42:29",
+  "grund": "Kapitelbilder (URLs mit ?v=20220724) sind AES-CBC-verschlüsselte Bilddateien (fester Schlüssel = IV, ohne Padding), müssen nach dem Laden entschlüsselt werden – Bild-Entschlüsselung nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:42:36"
  },
  {
   "modul": "src/zh/roumanwu",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Roumanwu",
   "stufe": 3,
   "theme": null,
@@ -20170,11 +20321,16 @@
    "zh"
   ],
   "host": "rouman5.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:42:35",
+  "grund": "Bilder mit sr:1 in horizontale Streifen zerlegt und umgekehrt angeordnet; Streifenzahl = MD5(base64-dekodierter Dateiname) letztes Byte %10+5 – eigene Entwürfelung, weder grid noch rects",
+  "datei": null,
+  "geaendert": "2026-11-05T09:42:47"
  },
  {
   "modul": "src/zh/tencentcomics",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Tencent Comics (ac.qq.com)",
   "stufe": 3,
   "theme": null,
@@ -20182,11 +20338,16 @@
    "zh-Hans"
   ],
   "host": "m.ac.qq.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10b",
+  "seit": "2026-11-05T09:42:36",
+  "grund": "Seitenliste in var DATA verschleiert: Nonce ist ein JS-Ausdruck (Browser-Eigenschaften), der per QuickJS ausgewertet wird; danach Zeichen an berechneten Stellen aus dem String entfernen und Base64 – JS-Engine und eigene String-Bearbeitung nötig",
+  "datei": null,
+  "geaendert": "2026-11-05T09:42:44"
  },
  {
   "modul": "src/zh/xipimanhua",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Xipi Manhua",
   "stufe": 3,
   "theme": null,
@@ -20194,11 +20355,16 @@
    "zh"
   ],
   "host": "m.hipmh.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10b",
+  "seit": "2026-11-05T09:42:44",
+  "grund": "Bildliste der API (/v2/chapter) eigen verschleiert (Präfix/Marker abschneiden, Teile umordnen, jeden 2. 7er-Block umkehren, eigenes Base64-Alphabet) und ein Köder-Eintrag per BigInt-XOR-Rechnung zu entfernen; zudem API-Kapitel-ID aus Base64-Umkodierung der Kapitel-ID – nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:42:52"
  },
  {
   "modul": "src/zh/zaimanhua",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Zaimanhua",
   "stufe": 3,
   "theme": null,
@@ -20206,6 +20372,8 @@
    "zh"
   ],
   "host": "manhua.zaimanhua.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:42:47"
  }
 ]
