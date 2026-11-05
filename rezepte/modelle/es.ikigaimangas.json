@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Ikigai Mangas",
+  "sprache": "es",
+  "base_url": "https://visorikigai.gettocaboca.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.ikigaimangas",
+  "quellen": [
+   {
+    "name": "Ikigai Mangas",
+    "sprache": "es",
+    "quell_id": 7749406396573482811,
+    "home": "https://visorikigai.gettocaboca.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/es/ikigaimangas",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.43",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

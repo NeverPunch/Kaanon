@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "KomikNesia",
+  "sprache": "id",
+  "base_url": "https://v2.komiknesiaku.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.id.kaanon.komiknesia",
+  "quellen": [
+   {
+    "name": "KomikNesia",
+    "sprache": "id",
+    "quell_id": 8916278596443930510,
+    "home": "https://v2.komiknesiaku.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/id/komiknesia",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.6",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

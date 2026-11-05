@@ -1,0 +1,419 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Sagrado Império da Britannia",
+  "sprache": "pt-BR",
+  "base_url": "https://imperiodabritannia.net",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.sagradoimperiodabritannia",
+  "quellen": [
+   {
+    "name": "Sagrado Império da Britannia",
+    "sprache": "pt-BR",
+    "quell_id": 7355004027880350247,
+    "home": "https://imperiodabritannia.net"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/imperiodabritannia",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": "mangotheme"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "vars": {
+   "env": {
+    "request": "{base}/",
+    "format": "html",
+    "value": {
+     "path": "link[href*=env]@href",
+     "replace": [
+      [
+       "^/(?!/)",
+       "https://imperiodabritannia.net/"
+      ]
+     ]
+    },
+    "ttl_s": 3600
+   },
+   "tok": {
+    "request": "{v.env}",
+    "format": "text",
+    "value": {
+     "path": "",
+     "regex": "apiToken:.([^`]+)",
+     "group": 1
+    },
+    "ttl_s": 3600
+   }
+  },
+  "headers": {
+   "Accept-Language": "pt-BR, en-US;q=0.8, en;q=0.7"
+  },
+  "rate_limit": {
+   "permits": 2,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": {
+    "url": "https://api.imperiodabritannia.net/api/obras/top10/views?periodo=total",
+    "headers": {
+     "X-API-Token": "{v.tok}",
+     "X-Brit-Cache": "true",
+     "X-Noencryptionbritta": "1"
+    }
+   },
+   "format": "json",
+   "items": [
+    "obras",
+    "dados",
+    "data"
+   ],
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{value}"
+    },
+    "title": [
+     "nome",
+     "title"
+    ],
+    "cover": [
+     {
+      "path": [
+       "imagem",
+       "coverImage",
+       "banner_imagem"
+      ],
+      "regex": "^(https?://.*)$"
+     },
+     {
+      "path": [
+       "imagem",
+       "coverImage",
+       "banner_imagem"
+      ],
+      "template": "https://cdn.imperiodabritannia.net/{value}",
+      "replace": [
+       [
+        "^/+",
+        ""
+       ]
+      ]
+     }
+    ]
+   },
+   "has_next": {
+    "const": false
+   }
+  },
+  "latest": {
+   "request": {
+    "url": "https://api.imperiodabritannia.net/api/capitulos/recentes?pagina={page}&limite=24",
+    "headers": {
+     "X-API-Token": "{v.tok}",
+     "X-Brit-Cache": "true",
+     "X-Noencryptionbritta": "1"
+    }
+   },
+   "format": "json",
+   "items": [
+    "obras",
+    "dados",
+    "data"
+   ],
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{value}"
+    },
+    "title": [
+     "nome",
+     "title"
+    ],
+    "cover": [
+     {
+      "path": [
+       "imagem",
+       "coverImage",
+       "banner_imagem"
+      ],
+      "regex": "^(https?://.*)$"
+     },
+     {
+      "path": [
+       "imagem",
+       "coverImage",
+       "banner_imagem"
+      ],
+      "template": "https://cdn.imperiodabritannia.net/{value}",
+      "replace": [
+       [
+        "^/+",
+        ""
+       ]
+      ]
+     }
+    ]
+   },
+   "has_next": {
+    "exists": "pagination.hasNextPage"
+   }
+  },
+  "search": {
+   "request": {
+    "url": "https://api.imperiodabritannia.net/api/obras?pagina={page}&limite=20&busca={query}",
+    "headers": {
+     "X-API-Token": "{v.tok}",
+     "X-Brit-Cache": "true",
+     "X-Noencryptionbritta": "1"
+    }
+   },
+   "format": "json",
+   "items": [
+    "obras",
+    "dados",
+    "data"
+   ],
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/manga/{value}"
+    },
+    "title": [
+     "nome",
+     "title"
+    ],
+    "cover": [
+     {
+      "path": [
+       "imagem",
+       "coverImage",
+       "banner_imagem"
+      ],
+      "regex": "^(https?://.*)$"
+     },
+     {
+      "path": [
+       "imagem",
+       "coverImage",
+       "banner_imagem"
+      ],
+      "template": "https://cdn.imperiodabritannia.net/{value}",
+      "replace": [
+       [
+        "^/+",
+        ""
+       ]
+      ]
+     }
+    ]
+   },
+   "has_next": {
+    "exists": "pagination.hasNextPage"
+   }
+  },
+  "details": {
+   "request": {
+    "url": "https://api.imperiodabritannia.net/api/obras/{u.id}",
+    "headers": {
+     "X-API-Token": "{v.tok}",
+     "X-Brit-Cache": "true",
+     "X-Noencryptionbritta": "1"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "/manga/(\\d+)"
+   },
+   "fields": {
+    "title": [
+     "obra.nome",
+     "obra.title",
+     "dados.nome",
+     "dados.title",
+     "data.nome",
+     "data.title"
+    ],
+    "cover": [
+     {
+      "path": [
+       "obra.imagem",
+       "obra.coverImage",
+       "obra.banner_imagem",
+       "dados.imagem",
+       "dados.coverImage",
+       "dados.banner_imagem",
+       "data.imagem",
+       "data.coverImage",
+       "data.banner_imagem"
+      ],
+      "regex": "^(https?://.*)$"
+     },
+     {
+      "path": [
+       "obra.imagem",
+       "obra.coverImage",
+       "obra.banner_imagem",
+       "dados.imagem",
+       "dados.coverImage",
+       "dados.banner_imagem",
+       "data.imagem",
+       "data.coverImage",
+       "data.banner_imagem"
+      ],
+      "template": "https://cdn.imperiodabritannia.net/{value}",
+      "replace": [
+       [
+        "^/+",
+        ""
+       ]
+      ]
+     }
+    ],
+    "description": [
+     "obra.descricao",
+     "obra.description",
+     "dados.descricao",
+     "dados.description",
+     "data.descricao",
+     "data.description"
+    ],
+    "genres": {
+     "path": [
+      "obra.tags.*.nome",
+      "obra.tags.*.name",
+      "dados.tags.*.nome",
+      "dados.tags.*.name",
+      "data.tags.*.nome",
+      "data.tags.*.name"
+     ],
+     "all": true,
+     "join": ", "
+    },
+    "status": [
+     "obra.status_nome",
+     "obra.statusName",
+     "dados.status_nome",
+     "dados.statusName",
+     "data.status_nome",
+     "data.statusName"
+    ]
+   },
+   "status_map": {
+    "ativo": 1,
+    "em andamento": 1,
+    "concluído": 2,
+    "hiato": 6,
+    "pausado": 6,
+    "cancelado": 5
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "format": "json",
+   "url_vars": {
+    "id": "/manga/(\\d+)"
+   },
+   "items": [
+    "obra.capitulos",
+    "dados.capitulos",
+    "data.capitulos"
+   ],
+   "skip": {
+    "path": "paywall",
+    "equals": "true"
+   },
+   "fields": {
+    "url": {
+     "path": "numero",
+     "template": "/manga/{u.id}/capitulo/{value}",
+     "replace": [
+      [
+       "^(\\d+)\\.0+$",
+       "$1"
+      ]
+     ]
+    },
+    "name": {
+     "path": "numero",
+     "template": "Capitulo {value}",
+     "replace": [
+      [
+       "^Capitulo (\\d+)\\.0+$",
+       "Capitulo $1"
+      ]
+     ]
+    },
+    "number": "numero",
+    "date": [
+     "criado_em",
+     "atualizado_em"
+    ]
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": {
+    "url": "https://api.imperiodabritannia.net/api/obras/{u.id}/capitulos/{u.num}",
+    "headers": {
+     "X-API-Token": "{v.tok}",
+     "X-Brit-Cache": "true",
+     "X-Noencryptionbritta": "1"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "/manga/(\\d+)/",
+    "num": "/capitulo/([^/?#]+)"
+   },
+   "items": [
+    "capitulo.paginas",
+    "dados.paginas",
+    "data.paginas"
+   ],
+   "image": [
+    {
+     "path": [
+      "cdn_id",
+      "imagem",
+      "image",
+      "src",
+      "link",
+      "path",
+      "arquivo"
+     ],
+     "regex": "^(https?://.*)$"
+    },
+    {
+     "path": [
+      "cdn_id",
+      "imagem",
+      "image",
+      "src",
+      "link",
+      "path",
+      "arquivo"
+     ],
+     "template": "https://cdn.imperiodabritannia.net/{value}",
+     "replace": [
+      [
+       "^/+",
+       ""
+      ]
+     ]
+    }
+   ]
+  }
+ },
+ "hinweise": [
+  "MangoTheme-API https://api.imperiodabritannia.net/api; Header X-API-Token, X-Brit-Cache und X-Noencryptionbritta=1 wie Community (letzteres schaltet offenbar die AES-Verschlüsselung der Antworten ab – die Entschlüsselung der Community (AES-CBC, SHA-256-Schlüssel) ist NICHT nachgebaut).",
+  "X-API-Token: wie Community aus der Startseite (link[href*=env] → Skript → Regex 'apiToken:.([^`]+)'). Dafür zwei verkettete vars (tok nutzt {v.env} in der Anfrage) – Verkettung von vars in Anfragen ist in keiner Vorlage belegt, auf dem PC prüfen.",
+  "Antwortschlüssel schwanken (Community: JsonNames dados/obras/obra/data/capitulo …); deshalb Ausweichketten über obras/obra/capitulo/dados/data.",
+  "Manga-URL /manga/<id> (Community: /obra/<id>?slug=<slug>, Web-Link /manga/<slug>); Kapitel-URL /manga/<id>/capitulo/<nummer>. Nicht mit Community-URLs kompatibel.",
+  "Beliebt = Top 10 nach Aufrufen (eine Seite). Kapitel mit paywall=true ausgelassen. Community sortiert Kapitel absteigend nach Nummer – hier API-Reihenfolge. Status über status_nome (status_id-Rückfall nicht nachgebaut). Filter nicht nachgebaut."
+ ]
+}

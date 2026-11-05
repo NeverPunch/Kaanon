@@ -18233,7 +18233,7 @@
  },
  {
   "modul": "src/en/meitoon",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "MeiToon",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18243,7 +18243,10 @@
   "host": "meitoon.org",
   "nsfw": false,
   "wer": "agent-w8d",
-  "seit": "2026-11-03T11:36:21"
+  "seit": "2026-11-03T11:36:21",
+  "datei": "rezepte/modelle/en.meitoon.json",
+  "grund": null,
+  "geaendert": "2026-11-05T09:32:15"
  },
  {
   "modul": "src/en/mistscans",
@@ -18264,7 +18267,7 @@
  },
  {
   "modul": "src/en/nyanukafe",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Nyanu Kafe",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18274,11 +18277,14 @@
   "host": "nyanukafe.com",
   "nsfw": false,
   "wer": "agent-w9a",
-  "seit": "2026-11-05T09:32:09"
+  "seit": "2026-11-05T09:32:09",
+  "datei": "rezepte/modelle/en.nyanukafe.json",
+  "grund": null,
+  "geaendert": "2026-11-05T09:32:19"
  },
  {
   "modul": "src/en/ritharscans",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "RitharScans",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18288,11 +18294,14 @@
   "host": "ritharscans.com",
   "nsfw": false,
   "wer": "agent-w8c",
-  "seit": "2026-11-05T09:32:10"
+  "seit": "2026-11-05T09:32:10",
+  "datei": "rezepte/modelle/en.ritharscans.json",
+  "grund": null,
+  "geaendert": "2026-11-05T09:32:21"
  },
  {
   "modul": "src/en/sirenscans",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Siren Scans",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18302,11 +18311,14 @@
   "host": "sirenscans.org",
   "nsfw": false,
   "wer": "agent-w9b",
-  "seit": "2026-11-05T09:32:14"
+  "seit": "2026-11-05T09:32:14",
+  "datei": "rezepte/modelle/en.sirenscans.json",
+  "grund": null,
+  "geaendert": "2026-11-05T09:32:27"
  },
  {
   "modul": "src/en/timelesstoons",
-  "status": "offen",
+  "status": "fertig",
   "name": "TimelessToons",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18314,11 +18326,16 @@
    "en"
   ],
   "host": "timelesstoons.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8d",
+  "seit": "2026-11-05T09:32:15",
+  "datei": "rezepte/modelle/en.timelesstoons.json",
+  "grund": null,
+  "geaendert": "2026-11-05T09:32:24"
  },
  {
   "modul": "src/en/writerscans",
-  "status": "offen",
+  "status": "fertig",
   "name": "Writer Scans",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18326,11 +18343,16 @@
    "en"
   ],
   "host": "writerscans.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:32:19",
+  "datei": "rezepte/modelle/en.writerscans.json",
+  "grund": null,
+  "geaendert": "2026-11-05T09:32:25"
  },
  {
   "modul": "src/es/mangasnosekai",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Mangas No Sekai",
   "stufe": 3,
   "theme": "madara",
@@ -18338,11 +18360,16 @@
    "es"
   ],
   "host": "mangasnosekai.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8c",
+  "seit": "2026-11-05T09:32:21",
+  "grund": "Kapitel-Endpunkt und Formularfelder stehen nur im verschleierten Skript wp-manga-js (Entschleierung per lib synchrony/Deobfuscator nötig); ohne sie keine Kapitelliste",
+  "datei": null,
+  "geaendert": "2026-11-05T09:32:28"
  },
  {
   "modul": "src/pt/xxxyaoi",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "XXX Yaoi",
   "stufe": 3,
   "theme": "madara",
@@ -18350,11 +18377,16 @@
    "pt-BR"
   ],
   "host": "3xyaoi.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8d",
+  "seit": "2026-11-05T09:32:24",
+  "grund": "Kapitelseite muss in WebView gerendert werden (Seiten-JS dekodiert die Bildliste erst im Browser, Community wertet document.outerHTML nach JS aus) – WebView/JS-Ausführung nötig",
+  "datei": null,
+  "geaendert": "2026-11-05T09:32:32"
  },
  {
   "modul": "src/en/mangafoxfun",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "MangaFox.fun",
   "stufe": 3,
   "theme": "mangahub",
@@ -18362,11 +18394,16 @@
    "en"
   ],
   "host": "mangafox.fun",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:32:25",
+  "grund": "MangaHub-Theme: Seitenliste kann AES-GCM-verschlüsselt sein (enc:v1, Schlüssel von /api/chapter-crypto) – nicht aes_cryptojs; außerdem GraphQL-Zugang nur mit Header x-mhub-access, den die Community zufällig selbst erzeugt bzw. aus Set-Cookie einer Kapitelseite (ohne Redirect) erneuert – nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:32:42"
  },
  {
   "modul": "src/en/mangahereonl",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "MangaHere.onl",
   "stufe": 3,
   "theme": "mangahub",
@@ -18374,11 +18411,16 @@
    "en"
   ],
   "host": "mangahere.onl",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:32:27",
+  "grund": "MangaHub-Theme: GraphQL-API braucht x-mhub-access-Schlüssel (clientseitig zufällig erzeugt bzw. aus Set-Cookie einer Redirect-Antwort), Seitenliste oft AES-GCM verschlüsselt (enc:v1, Schlüssel von /api/chapter-crypto) – kein aes_cryptojs, selbst erzeugter Schlüssel",
+  "datei": null,
+  "geaendert": "2026-11-05T09:32:43"
  },
  {
   "modul": "src/en/mangakakalotfun",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Mangakakalot.fun",
   "stufe": 3,
   "theme": "mangahub",
@@ -18386,11 +18428,16 @@
    "en"
   ],
   "host": "mangakakalot.fun",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8c",
+  "seit": "2026-11-05T09:32:28",
+  "grund": "MangaHub-Theme: Seitenliste meist 'enc:v1:…' AES-GCM-verschlüsselt (Schlüssel aus /api/chapter-crypto) – AES-GCM nicht ausdrückbar (nur aes_cryptojs); zudem GraphQL nur mit x-mhub-access-Schlüssel, den der Client zufällig erzeugt bzw. per Set-Cookie einer Kapitelseite ohne Weiterleitung holt",
+  "datei": null,
+  "geaendert": "2026-11-05T09:32:44"
  },
  {
   "modul": "src/en/manganel",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "MangaNel",
   "stufe": 3,
   "theme": "mangahub",
@@ -18398,11 +18445,16 @@
    "en"
   ],
   "host": "manganel.me",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8d",
+  "seit": "2026-11-05T09:32:32",
+  "grund": "MangaHub-Theme: GraphQL api.mghcdn.com verlangt x-mhub-access-Schlüssel (zufällig erzeugt bzw. aus Set-Cookie der Kapitelseite erneuert) und Bildlisten 'enc:v1' sind AES-GCM-verschlüsselt (Schlüssel von /api/chapter-crypto) – weder Schlüsselbeschaffung noch AES-GCM ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:32:46"
  },
  {
   "modul": "src/en/mangaonlinefun",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "MangaOnline.fun",
   "stufe": 3,
   "theme": "mangahub",
@@ -18410,11 +18462,16 @@
    "en"
   ],
   "host": "mangaonline.fun",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:32:42",
+  "grund": "MangaHub-Theme: Seitenliste kann AES-GCM-verschlüsselt sein (enc:v1, Schlüssel von /api/chapter-crypto) – nicht aes_cryptojs; außerdem GraphQL-Zugang nur mit Header x-mhub-access, den die Community zufällig selbst erzeugt bzw. aus Set-Cookie einer Kapitelseite (ohne Redirect) erneuert – nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:32:48"
  },
  {
   "modul": "src/en/mangapandaonl",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "MangaPanda.onl",
   "stufe": 3,
   "theme": "mangahub",
@@ -18422,11 +18479,16 @@
    "en"
   ],
   "host": "mangapanda.onl",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:32:43",
+  "grund": "MangaHub-Theme: GraphQL-API braucht x-mhub-access-Schlüssel (clientseitig zufällig erzeugt bzw. aus Set-Cookie einer Redirect-Antwort), Seitenliste oft AES-GCM verschlüsselt (enc:v1, Schlüssel von /api/chapter-crypto) – kein aes_cryptojs, selbst erzeugter Schlüssel",
+  "datei": null,
+  "geaendert": "2026-11-05T09:32:55"
  },
  {
   "modul": "src/en/mangareadersite",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "MangaReader.site",
   "stufe": 3,
   "theme": "mangahub",
@@ -18434,11 +18496,16 @@
    "en"
   ],
   "host": "mangareader.site",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8c",
+  "seit": "2026-11-05T09:32:44",
+  "grund": "MangaHub-Theme: Seitenliste meist 'enc:v1:…' AES-GCM-verschlüsselt (Schlüssel aus /api/chapter-crypto) – AES-GCM nicht ausdrückbar (nur aes_cryptojs); zudem GraphQL nur mit x-mhub-access-Schlüssel, den der Client zufällig erzeugt bzw. per Set-Cookie einer Kapitelseite ohne Weiterleitung holt",
+  "datei": null,
+  "geaendert": "2026-11-05T09:32:51"
  },
  {
   "modul": "src/en/mangatoday",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "MangaToday",
   "stufe": 3,
   "theme": "mangahub",
@@ -18446,11 +18513,16 @@
    "en"
   ],
   "host": "mangatoday.fun",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8d",
+  "seit": "2026-11-05T09:32:46",
+  "grund": "MangaHub-Theme: GraphQL api.mghcdn.com verlangt x-mhub-access-Schlüssel (zufällig erzeugt bzw. aus Set-Cookie der Kapitelseite erneuert) und Bildlisten 'enc:v1' sind AES-GCM-verschlüsselt (Schlüssel von /api/chapter-crypto) – weder Schlüsselbeschaffung noch AES-GCM ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:32:54"
  },
  {
   "modul": "src/en/onemangaco",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "1Manga.co",
   "stufe": 3,
   "theme": "mangahub",
@@ -18458,11 +18530,16 @@
    "en"
   ],
   "host": "1manga.co",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:32:48",
+  "grund": "MangaHub-Theme: Seitenliste kann AES-GCM-verschlüsselt sein (enc:v1, Schlüssel von /api/chapter-crypto) – nicht aes_cryptojs; außerdem GraphQL-Zugang nur mit Header x-mhub-access, den die Community zufällig selbst erzeugt bzw. aus Set-Cookie einer Kapitelseite (ohne Redirect) erneuert – nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:32:53"
  },
  {
   "modul": "src/en/onemangainfo",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "OneManga.info",
   "stufe": 3,
   "theme": "mangahub",
@@ -18470,11 +18547,16 @@
    "en"
   ],
   "host": "onemanga.info",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8c",
+  "seit": "2026-11-05T09:32:51",
+  "grund": "MangaHub-Theme: Seitenliste meist 'enc:v1:…' AES-GCM-verschlüsselt (Schlüssel aus /api/chapter-crypto) – AES-GCM nicht ausdrückbar (nur aes_cryptojs); zudem GraphQL nur mit x-mhub-access-Schlüssel, den der Client zufällig erzeugt bzw. per Set-Cookie einer Kapitelseite ohne Weiterleitung holt",
+  "datei": null,
+  "geaendert": "2026-11-05T09:32:58"
  },
  {
   "modul": "src/ar/hijala",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Hijala",
   "stufe": 3,
   "theme": "mangathemesia",
@@ -18482,11 +18564,16 @@
    "ar"
   ],
   "host": "hijala.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:32:53",
+  "grund": "MangaThemesia mit Bild-Zusammensetzung: bei #chapter-pages-js-before wird jede Seite aus zwei getrennt geladenen Bildern (links/rechts) per Bitmap zusammengefügt – weder grid noch rects, nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:33:04"
  },
  {
   "modul": "src/es/mangatv",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Manga TV",
   "stufe": 3,
   "theme": "mangathemesia",
@@ -18494,11 +18581,16 @@
    "es"
   ],
   "host": "mangatv.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8d",
+  "seit": "2026-11-05T09:32:54",
+  "grund": "Bildliste im gepackten Skript als ReaderBlob {k,iv,c} AES-GCM-verschlüsselt (Schlüssel mitgeliefert, aber AES-GCM ist kein aes_cryptojs); packer+base64-Liste nur noch alter Rückfall",
+  "datei": null,
+  "geaendert": "2026-11-05T09:33:01"
  },
  {
   "modul": "src/th/mangakimi",
-  "status": "offen",
+  "status": "fertig",
   "name": "MangaKimi",
   "stufe": 3,
   "theme": "mangathemesia",
@@ -18506,11 +18598,16 @@
    "th"
   ],
   "host": "mangakimi.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:32:55",
+  "datei": "rezepte/modelle/th.mangakimi.json",
+  "grund": null,
+  "geaendert": "2026-11-05T09:33:50"
  },
  {
   "modul": "src/pt/bladetoons",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Bladetoons",
   "stufe": 3,
   "theme": "mangotheme",
@@ -18518,11 +18615,16 @@
    "pt-BR"
   ],
   "host": "bladetoons.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8c",
+  "seit": "2026-11-05T09:32:58",
+  "grund": "MangoTheme mit requiresLogin=true: alle API-Aufrufe brauchen Bearer-Token aus E-Mail/Passwort-Login; zudem API-Antworten AES-CBC mit SHA-256(Schlüssel+'salt') und Hex-IV verschlüsselt (kein aes_cryptojs-Format)",
+  "datei": null,
+  "geaendert": "2026-11-05T09:33:14"
  },
  {
   "modul": "src/pt/imperiodabritannia",
-  "status": "offen",
+  "status": "fertig",
   "name": "Sagrado Império da Britannia",
   "stufe": 3,
   "theme": "mangotheme",
@@ -18530,11 +18632,16 @@
    "pt-BR"
   ],
   "host": "imperiodabritannia.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8d",
+  "seit": "2026-11-05T09:33:01",
+  "datei": "rezepte/modelle/pt-BR.sagradoimperiodabritannia.json",
+  "grund": null,
+  "geaendert": "2026-11-05T09:34:27"
  },
  {
   "modul": "src/zh/miaoqu",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Miaoqu Manhua",
   "stufe": 3,
   "theme": "mccms",
@@ -18542,11 +18649,16 @@
    "zh"
   ],
   "host": "miaoqumh.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:33:04",
+  "grund": "Seitenliste in var DATA: Base64 → XOR mit 8-Byte-Schlüssel (je nach Kapitel-ID mod 10) → Base64 → JSON; XOR-Entschlüsselung gibt es in keiner Vorlage (nur aes_cryptojs/packer/base64)",
+  "datei": null,
+  "geaendert": "2026-11-05T09:33:15"
  },
  {
   "modul": "src/zh/sixmh",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "6Manhua",
   "stufe": 3,
   "theme": "mccms",
@@ -18554,11 +18666,16 @@
    "zh"
   ],
   "host": "liumanhua.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8c",
+  "seit": "2026-11-05T09:33:14",
+  "grund": "Seitenliste in params='…' : Base64 → AES-CBC mit festem Rohschlüssel (16 Byte) und IV = erste 16 Byte der Daten → JSON; aes_cryptojs kennt nur das CryptoJS-Passphrasen-Format (Madara chapter_data), kein Rohschlüssel/IV-Präfix",
+  "datei": null,
+  "geaendert": "2026-11-05T09:33:26"
  },
  {
   "modul": "src/zh/dumanwu",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Dumanwu",
   "stufe": 3,
   "theme": "mmlook",
@@ -18566,11 +18683,16 @@
    "zh"
   ],
   "host": "m.dumanwu1.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:33:15",
+  "grund": "MMLook-Theme: Bildliste nach packer-Entpacken zusätzlich Base64 → XOR mit 8-Byte-Schlüssel (je nach data-id 0–9) → Base64; XOR-Entschlüsselung in keiner Vorlage – nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:33:25"
  },
  {
   "modul": "src/zh/rumanhua",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Rumanhua",
   "stufe": 3,
   "theme": "mmlook",
@@ -18578,11 +18700,16 @@
    "zh"
   ],
   "host": "m.rumanhua2.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:33:25",
+  "grund": "MMLook-Theme: Bildliste nach packer-Entpacken zusätzlich Base64 → XOR mit 8-Byte-Schlüssel (je nach data-id 0–9) → Base64; XOR-Entschlüsselung in keiner Vorlage – nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:33:30"
  },
  {
   "modul": "src/es/mangasin",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Mangas.in",
   "stufe": 3,
   "theme": "mmrcms",
@@ -18590,11 +18717,16 @@
    "es"
   ],
   "host": "m440.in",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8c",
+  "seit": "2026-11-05T09:33:26",
+  "grund": "Kapitelliste CryptoJS-verschlüsselt (ct/iv/s – wäre aes_cryptojs), aber der Schlüssel steht nur im verschleierten /js/ads2.js und braucht den synchrony-Deobfuscator (JS-Entschleierung)",
+  "datei": null,
+  "geaendert": "2026-11-05T09:33:33"
  },
  {
   "modul": "src/all/cubari",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Cubari",
   "stufe": 3,
   "theme": null,
@@ -18604,11 +18736,16 @@
    "other"
   ],
   "host": "cubari.moe",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:33:30",
+  "grund": "Cubari ist ein Proxy-Leser ohne eigenen Katalog: Beliebt/Neueste/Suche lesen per WebView + JS (globalHistoryHandler, remoteStorage) den lokalen Verlauf; Kapitel entstehen aus JSON-Objekt-Maps (chapters → groups), Iteration über Objektschlüssel in keiner Vorlage belegt",
+  "datei": null,
+  "geaendert": "2026-11-05T09:33:40"
  },
  {
   "modul": "src/all/honeytoon",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Honeytoon",
   "stufe": 3,
   "theme": null,
@@ -18621,11 +18758,16 @@
    "pt-BR"
   ],
   "host": "honeytoon.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8c",
+  "seit": "2026-11-05T09:33:33",
+  "grund": "Seiten als .comic-canvas-scramble: /api/common/resource/sync liefert mehrere Bilddateien hintereinander (application/octet-stream, Teilgrößen im Header X-Part-Sizes), die untereinander zusammengesetzt werden müssen – weder grid noch rects",
+  "datei": null,
+  "geaendert": "2026-11-05T09:33:44"
  },
  {
   "modul": "src/all/mangamillion",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Manga Million",
   "stufe": 3,
   "theme": null,
@@ -18638,11 +18780,16 @@
    "bg"
   ],
   "host": "mangamillion.shueisha.co.jp",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:33:40",
+  "grund": "Alle API-Antworten sind Protobuf (parseAsProto); Zugriffstoken per POST /api/register (Protobuf); Bilder AES-CBC-verschlüsselt (Schlüssel/IV hex aus Viewer-Antwort, Bild-Bytes entschlüsseln) – Protobuf und Bild-Entschlüsselung nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:33:49"
  },
  {
   "modul": "src/all/mangaup",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Manga UP!",
   "stufe": 3,
   "theme": null,
@@ -18650,11 +18797,16 @@
    "en"
   ],
   "host": "global.manga-up.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8c",
+  "seit": "2026-11-05T09:33:44",
+  "grund": "API antwortet nur in Protobuf (parseAsProto); Bilder zusätzlich AES-CBC-verschlüsselt (Schlüssel/IV je Seite aus der Protobuf-Antwort, Rohbytes als Hex) – beides nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:33:55"
  },
  {
   "modul": "src/all/namicomi",
-  "status": "offen",
+  "status": "fertig",
   "name": "NamiComi",
   "stufe": 3,
   "theme": null,
@@ -18667,11 +18819,16 @@
    "de"
   ],
   "host": "namicomi.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:33:49",
+  "datei": "rezepte/modelle/all.namicomi.json",
+  "grund": null,
+  "geaendert": "2026-11-05T09:34:33"
  },
  {
   "modul": "src/all/pandachaika",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "PandaChaika",
   "stufe": 3,
   "theme": null,
@@ -18683,11 +18840,16 @@
    "zh"
   ],
   "host": "panda.chaika.moe",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:33:50",
+  "grund": "Seiten nur aus ZIP-Archiv (/download/): Zentralverzeichnis lesen, Einträge per HTTP-Range holen und entpacken (zipDirectory/readEntry) – ZIP/Range-Zugriff kann die Engine nicht",
+  "datei": null,
+  "geaendert": "2026-11-05T09:34:04"
  },
  {
   "modul": "src/all/toonlook",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "ToonLook",
   "stufe": 3,
   "theme": null,
@@ -18697,11 +18859,16 @@
    "zh"
   ],
   "host": "toonlook.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8c",
+  "seit": "2026-11-05T09:33:55",
+  "grund": "Jedes Seitenbild in Streifen verwürfelt; Reihenfolge = Fisher-Yates mit mulberry32, Startwert aus SHA-256(salt|Streifenhöhe|URL-Pfadteile) – eigene Entwürfelung, weder grid noch rects",
+  "datei": null,
+  "geaendert": "2026-11-05T09:34:05"
  },
  {
   "modul": "src/ar/dilar",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Dilar",
   "stufe": 3,
   "theme": null,
@@ -18709,11 +18876,16 @@
    "ar"
   ],
   "host": "dilar.tube",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:34:04",
+  "grund": "Seitenliste: Kapitel-Antwort mit wechselndem Schema verschlüsselt; Community lädt den Reader im WebView und fängt JSON.parse ab (storage_key/media_token/pages) – WebView/JS nötig",
+  "datei": null,
+  "geaendert": "2026-11-05T09:34:13"
  },
  {
   "modul": "src/ar/mangatales",
-  "status": "offen",
+  "status": "fertig",
   "name": "Manga Tales",
   "stufe": 3,
   "theme": null,
@@ -18721,11 +18893,16 @@
    "ar"
   ],
   "host": "mangatales.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8c",
+  "seit": "2026-11-05T09:34:06",
+  "datei": "rezepte/modelle/ar.mangatales.json",
+  "grund": null,
+  "geaendert": "2026-11-05T09:34:54"
  },
  {
   "modul": "src/ar/mangatek",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "MangaTek",
   "stufe": 3,
   "theme": null,
@@ -18733,11 +18910,16 @@
    "ar"
   ],
   "host": "mangatek.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:34:13",
+  "grund": "Seiten: fehlende Seiten nur per /api/reader/pages mit Proof (Seeds aus Reader-Bundle per QuickJS, eigene Kryptografie, ggf. Proof-of-Work); Übersetzungstext als verschlüsseltes Overlay, das per Interceptor in die Bilder gezeichnet wird – JS-Engine/Signatur/Bildbearbeitung nötig",
+  "datei": null,
+  "geaendert": "2026-11-05T09:34:31"
  },
  {
   "modul": "src/ar/stellarsaber",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "StellarSaber",
   "stufe": 3,
   "theme": null,
@@ -18745,11 +18927,16 @@
    "ar"
   ],
   "host": "stellarsaber.pro",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8d",
+  "seit": "2026-11-05T09:34:27",
+  "grund": "Bilddateien selbst AES-GCM-verschlüsselt (IV vorangestellt, Schlüssel per admin-ajax flavor_cdn_get_key) – Bild-Entschlüsselung nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:34:37"
  },
  {
   "modul": "src/en/alphamanga",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Alpha Manga",
   "stufe": 3,
   "theme": null,
@@ -18757,11 +18944,16 @@
    "en"
   ],
   "host": "alpha-manga.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:34:31",
+  "grund": "Bilder verwürfelt mit Schlüssel je Seite aus binärem PNG-Platzhalter (base64); Entwürfelung mit Kacheln inkl. Rotation/Spiegelung/Randabzug (WASM createData nachgebaut) – weder grid noch rects",
+  "datei": null,
+  "geaendert": "2026-11-05T09:34:44"
  },
  {
   "modul": "src/en/coolmic",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Coolmic",
   "stufe": 3,
   "theme": null,
@@ -18769,11 +18961,16 @@
    "en"
   ],
   "host": "coolmic.me",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:34:33",
+  "grund": "Bilder verschlüsselt (Leser-DRM): je Bild JSON mit KMS-verschlüsseltem Schlüssel, Klartext-Schlüssel per POST /decryption_keys mit CSRF-Token, dann PBKDF2-SHA256 + AES-CBC über die Bilddaten – Bild-Entschlüsselung nicht ausdrückbar und Regel 0014 (DRM)",
+  "datei": null,
+  "geaendert": "2026-11-05T09:34:46"
  },
  {
   "modul": "src/en/doujinio",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Doujin.io - J18",
   "stufe": 3,
   "theme": null,
@@ -18781,11 +18978,16 @@
    "en"
   ],
   "host": "doujin.io",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8d",
+  "seit": "2026-11-05T09:34:37",
+  "grund": "Lesen nur mit Login (Manifest liefert sonst HTML) und Bilder mit DRM-Wasserzeichen (AES-ECB-Daten im JPEG-Marker, Overlay-Ersetzung) – Login/DRM, Regel 0014",
+  "datei": null,
+  "geaendert": "2026-11-05T09:34:48"
  },
  {
   "modul": "src/en/ebookrenta",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "EbookRenta",
   "stufe": 3,
   "theme": null,
@@ -18793,11 +18995,16 @@
    "en"
   ],
   "host": "ebookrenta.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:34:44",
+  "grund": "Bilddateien sind eigenes Containerformat (Header + 7×7 Einzelkacheln als separate JPEGs) mit seedbasierter Permutation (Seite+prd_ser); muss byteweise zerlegt und neu zusammengesetzt werden – weder grid noch rects; zudem Kauf-/Leih-Shop (DRM-Charakter)",
+  "datei": null,
+  "geaendert": "2026-11-05T09:34:58"
  },
  {
   "modul": "src/en/hentainexus",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "HentaiNexus",
   "stufe": 3,
   "theme": null,
@@ -18805,11 +19012,16 @@
    "en"
   ],
   "host": "hentainexus.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:34:46",
+  "grund": "Bildliste in initReader(...) mit eigener Verschleierung: Base64 → XOR mit Hostname → RC4-artige Stromchiffre mit Primzahl-Schritt (Utils.decryptData) – nicht aes_cryptojs/packer/base64, nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:34:55"
  },
  {
   "modul": "src/en/inkr",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "INKR",
   "stufe": 3,
   "theme": null,
@@ -18817,11 +19029,16 @@
    "en"
   ],
   "host": "comics.inkr.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8d",
+  "seit": "2026-11-05T09:34:48",
+  "grund": "Bilddateien (.ikc) AES-CBC-verschlüsselt mit im Code verstecktem (XOR-kodiertem) Schlüssel und Größenpräfix – Leser-DRM/Bild-Entschlüsselung nicht ausdrückbar; zudem viele Kapitel nur mit Login/Coins",
+  "datei": null,
+  "geaendert": "2026-11-05T09:34:58"
  },
  {
   "modul": "src/en/kmanga",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "K Manga",
   "stufe": 3,
   "theme": null,
@@ -18829,11 +19046,16 @@
    "en"
   ],
   "host": "kmanga.kodansha.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8c",
+  "seit": "2026-11-05T09:34:54",
+  "grund": "Jede API-Anfrage braucht Signatur-Header X-Kmanga-Hash (eigener Hash über Parameter + Geburtstags-Cookie); Bilder zusätzlich 4x4 verwürfelt mit xorshift32-Reihenfolge aus scramble_seed (WASM-Zeichensatz) – weder grid noch rects; Kapitel teils nur mit Login/Kauf",
+  "datei": null,
+  "geaendert": "2026-11-05T09:35:05"
  },
  {
   "modul": "src/en/kodansha",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Kodansha",
   "stufe": 3,
   "theme": null,
@@ -18841,11 +19063,16 @@
    "en"
   ],
   "host": "kodansha.us",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:34:55",
+  "grund": "Bilddateien von production.image-content.azuki.co sind byteweise mit XOR 174 verschleiert (Interceptor entschlüsselt die Bilddaten) – Bild-Entschlüsselung nicht ausdrückbar (nur grid/rects); zudem offizieller Verlag mit Bezahlkapiteln",
+  "datei": null,
+  "geaendert": "2026-11-05T09:35:04"
  },
  {
   "modul": "src/en/madokami",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Madokami",
   "stufe": 3,
   "theme": null,
@@ -18853,11 +19080,16 @@
    "en"
   ],
   "host": "manga.madokami.al",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:34:58",
+  "grund": "Login (HTTP-Basic mit Benutzerdaten) nötig und Seiten aus ZIP/CBZ-Archiven per HTTP-Range (zipDirectory/readZipEntry) – Login zum Lesen und ZIP kann die Engine nicht",
+  "datei": null,
+  "geaendert": "2026-11-05T09:35:08"
  },
  {
   "modul": "src/en/mangago",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Mangago",
   "stufe": 3,
   "theme": null,
@@ -18865,11 +19097,16 @@
    "en"
   ],
   "host": "mangago.me",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8d",
+  "seit": "2026-11-05T09:34:58",
+  "grund": "Bildliste AES-CBC (Schlüssel aus SoJson-v4-verschleiertem Kapitel-JS) plus String-Entwürfelung; Bild-Entwürfelungsschlüssel je Bild per QuickJS aus Website-JS – JS-Engine und eigene Verschleierung nötig",
+  "datei": null,
+  "geaendert": "2026-11-05T09:35:06"
  },
  {
   "modul": "src/en/mangahere",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Mangahere",
   "stufe": 3,
   "theme": null,
@@ -18877,11 +19114,16 @@
    "en"
   ],
   "host": "mangahere.cc",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:35:04",
+  "grund": "Seitenweiser Leser (Normalfall): Schlüssel entsteht erst durch Auswerten eines JS-String-Ausdrucks nach dem Entpacken (QuickJs), Bild-URL je Seite aus chapterfun.ashx?cid&page&key (packer-JS, pix+pvalue), Seitenzahlen 1..N aus dem Pager zu erzeugen – JS-Auswertung und Seitenbereich nicht ausdrückbar (nur Webtoon-Modus wäre packer+Regex)",
+  "datei": null,
+  "geaendert": "2026-11-05T09:35:22"
  },
  {
   "modul": "src/en/sunshinebutterflyscans",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Sunshine Butterfly Scans",
   "stufe": 3,
   "theme": null,
@@ -18889,11 +19131,16 @@
    "en"
   ],
   "host": "wings.sbs",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8c",
+  "seit": "2026-11-05T09:35:05",
+  "grund": "Album-ID je Kapitel AES-CBC mit festem Rohschlüssel/IV verschlüsselt (nicht aes_cryptojs-Format), danach Google-Drive-/Imgur-API mit API-Schlüssel; Listen müssen aus einer chapters.json nach Serie gruppiert werden (kein Gruppieren/Entdoppeln in der Rezeptsprache)",
+  "datei": null,
+  "geaendert": "2026-11-05T09:35:14"
  },
  {
   "modul": "src/en/vizshonenjump",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "VIZ",
   "stufe": 3,
   "theme": null,
@@ -18901,11 +19148,16 @@
    "en"
   ],
   "host": "viz.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8d",
+  "seit": "2026-11-05T09:35:06",
+  "grund": "Bilder verwürfelt; Entwürfelungsschlüssel steht in EXIF-Tag ImageUniqueID der Bilddatei (Kachel-Umordnung je Bild) – kein grid/rects-Verfahren mit festen Parametern; zudem Leser-DRM (Regel 0014)",
+  "datei": null,
+  "geaendert": "2026-11-05T09:35:14"
  },
  {
   "modul": "src/en/webnex",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Webnex",
   "stufe": 3,
   "theme": null,
@@ -18913,11 +19165,16 @@
    "en"
   ],
   "host": "webnex.cc",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:35:08",
+  "grund": "Seitenliste (/read/…/pages) lehnt laut Community Nicht-Browser-Clients ab; wird im WebView per fetch (reader_fetch.js) nach Redirect mit pfadgebundenem Cookie geholt – WebView nötig",
+  "datei": null,
+  "geaendert": "2026-11-05T09:35:25"
  },
  {
   "modul": "src/es/catmanhwas",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Catoons",
   "stufe": 3,
   "theme": null,
@@ -18925,11 +19182,16 @@
    "es"
   ],
   "host": "cattoons.org",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8d",
+  "seit": "2026-11-05T09:35:14",
+  "grund": "SvelteKit: Daten im devalue-Format (flache Liste mit Index-Verweisen, rekursives Auflösen nötig) und Remote-Funktions-IDs für Details/Kapitel/Neueste nur per WebView-Mitschnitt ermittelbar – WebView + Rekursion",
+  "datei": null,
+  "geaendert": "2026-11-05T09:35:25"
  },
  {
   "modul": "src/es/ikigaimangas",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Ikigai Mangas",
   "stufe": 3,
   "theme": null,
@@ -18937,11 +19199,13 @@
    "es"
   ],
   "host": "visorikigai.gettocaboca.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:35:22"
  },
  {
   "modul": "src/es/kumanga",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Kumanga",
   "stufe": 3,
   "theme": null,
@@ -18949,11 +19213,16 @@
    "es"
   ],
   "host": "kumanga.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8d",
+  "seit": "2026-11-05T09:35:25",
+  "grund": "Bildliste im Reader-Skript base64 + XOR mit festem Schlüssel (aus kx.reader.js) verschleiert – XOR-Dekodierung nicht ausdrückbar; zudem Umweg über Upload-Seite und Cover-URL mit Rechnung (id+2499)/2500",
+  "datei": null,
+  "geaendert": "2026-11-05T09:35:35"
  },
  {
   "modul": "src/es/tenkaiscan",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Falco Scan",
   "stufe": 3,
   "theme": null,
@@ -18961,11 +19230,16 @@
    "es"
   ],
   "host": "falcoscan.net",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:35:25",
+  "grund": "Bilder: Abruf nur mit X-Falco-Token-Header aus der Kapitelseite; verwürfelte Seiten als JSON-Manifest mit Einzelfragmenten (/img-fragment/…), gespiegelt und farbinvertiert – Fragment-Download und Bildbearbeitung weder grid noch rects",
+  "datei": null,
+  "geaendert": "2026-11-05T09:35:41"
  },
  {
   "modul": "src/id/doujindesu",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Doujindesu",
   "stufe": 3,
   "theme": null,
@@ -18973,11 +19247,13 @@
    "id"
   ],
   "host": "doujin.desu.xxx",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8d",
+  "seit": "2026-11-05T09:35:36"
  },
  {
   "modul": "src/id/komiknesia",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "KomikNesia",
   "stufe": 3,
   "theme": null,
@@ -18985,7 +19261,9 @@
    "id"
   ],
   "host": "v2.komiknesiaku.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:35:41"
  },
  {
   "modul": "src/id/softkomik",

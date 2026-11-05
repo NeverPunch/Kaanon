@@ -1,0 +1,216 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "NamiComi",
+  "sprache": "en",
+  "base_url": "https://namicomi.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.namicomi",
+  "quellen": [
+   {
+    "name": "NamiComi",
+    "sprache": "en",
+    "quell_id": 6815287454679474132,
+    "home": "https://namicomi.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/all/namicomi",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://api.namicomi.com/title/search?order[views]=desc&availableTranslatedLanguages[]=en&limit=20&offset={offset}&includes[]=cover_art&includes[]=organization&includes[]=tag&includes[]=primary_tag&includes[]=secondary_tag&types[]=manhua&types[]=manwha&types[]=manga&types[]=comic",
+   "format": "json",
+   "items": "data",
+   "page_size": 20,
+   "has_next": {
+    "total": "meta.total"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/en/title/{value}"
+    },
+    "title": [
+     "attributes.title.en",
+     "attributes.title.*"
+    ],
+    "cover": {
+     "path": "relationships.?type=cover_art.attributes.fileName",
+     "template": "https://uploads.namicomi.com/covers/{f.id}/{value}"
+    }
+   }
+  },
+  "latest": {
+   "request": "https://api.namicomi.com/title/search?order[publishedAt]=desc&availableTranslatedLanguages[]=en&limit=20&offset={offset}&includes[]=cover_art&includes[]=organization&includes[]=tag&includes[]=primary_tag&includes[]=secondary_tag&types[]=manhua&types[]=manwha&types[]=manga&types[]=comic",
+   "format": "json",
+   "items": "data",
+   "page_size": 20,
+   "has_next": {
+    "total": "meta.total"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/en/title/{value}"
+    },
+    "title": [
+     "attributes.title.en",
+     "attributes.title.*"
+    ],
+    "cover": {
+     "path": "relationships.?type=cover_art.attributes.fileName",
+     "template": "https://uploads.namicomi.com/covers/{f.id}/{value}"
+    }
+   }
+  },
+  "search": {
+   "request": "https://api.namicomi.com/title/search?title={query}&limit=20&offset={offset}&includes[]=cover_art&includes[]=organization&includes[]=tag&includes[]=primary_tag&includes[]=secondary_tag&types[]=manhua&types[]=manwha&types[]=manga&types[]=comic",
+   "format": "json",
+   "items": "data",
+   "page_size": 20,
+   "has_next": {
+    "total": "meta.total"
+   },
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/en/title/{value}"
+    },
+    "title": [
+     "attributes.title.en",
+     "attributes.title.*"
+    ],
+    "cover": {
+     "path": "relationships.?type=cover_art.attributes.fileName",
+     "template": "https://uploads.namicomi.com/covers/{f.id}/{value}"
+    }
+   }
+  },
+  "details": {
+   "request": "https://api.namicomi.com/title/{u.id}?includes[]=cover_art&includes[]=organization&includes[]=tag&includes[]=primary_tag&includes[]=secondary_tag",
+   "format": "json",
+   "url_vars": {
+    "id": "/title/([^/?#]+)"
+   },
+   "fields": {
+    "title": [
+     "data.attributes.title.en",
+     "data.attributes.title.*"
+    ],
+    "cover": {
+     "path": "data.relationships.?type=cover_art.attributes.fileName",
+     "template": "https://uploads.namicomi.com/covers/{f.data.id}/{value}"
+    },
+    "description": [
+     "data.attributes.description.en",
+     "data.attributes.description.*"
+    ],
+    "author": {
+     "path": "data.relationships.?type=organization.attributes.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": [
+      "data.relationships.?type=primary_tag.attributes.name.en",
+      "data.relationships.?type=secondary_tag.attributes.name.en",
+      "data.relationships.?type=tag.attributes.name.en"
+     ],
+     "union": true
+    },
+    "status": "data.attributes.publicationStatus"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "hiatus": 6,
+    "cancelled": 5
+   }
+  },
+  "chapters": {
+   "request": "https://api.namicomi.com/chapter?titleId={u.id}&includes[]=organization&limit=200&offset={offset}&translatedLanguages[]=en&order[volume]=desc&order[chapter]=desc",
+   "format": "json",
+   "url_vars": {
+    "id": "/title/([^/?#]+)"
+   },
+   "page_size": 200,
+   "items": "data",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/en/chapter/{value}"
+    },
+    "name": {
+     "const": "Vol.{f.attributes.volume} Ch.{f.attributes.chapter} - {f.attributes.name}",
+     "replace": [
+      [
+       "Vol\\.(?= Ch\\.| -|$)",
+       ""
+      ],
+      [
+       "Ch\\.(?= -|$)",
+       ""
+      ],
+      [
+       "\\s*-\\s*$",
+       ""
+      ],
+      [
+       "^\\s*-\\s*",
+       ""
+      ],
+      [
+       "\\s+",
+       " "
+      ]
+     ],
+     "default": "Oneshot"
+    },
+    "number": "attributes.chapter",
+    "date": "attributes.publishAt"
+   },
+   "date_format": "iso",
+   "paging": {
+    "has_next": {
+     "total": "meta.total"
+    },
+    "max_pages": 30
+   }
+  },
+  "pages": {
+   "request": "https://api.namicomi.com/images/chapter/{u.id}?newQualities=true",
+   "format": "json",
+   "url_vars": {
+    "id": "/chapter/([^/?#]+)"
+   },
+   "let": {
+    "base": "data.baseUrl",
+    "hash": "data.hash"
+   },
+   "items": "data.source",
+   "image": {
+    "path": "filename",
+    "template": "{l.base}/chapter/{u.id}/{l.hash}/source/{value}"
+   }
+  }
+ },
+ "hinweise": [
+  "Modell nach Vorlage en.mangadex (gleiche API-Struktur: data/relationships/attributes, Pagination meta.total).",
+  "Quellen auf Englisch gekürzt (Community: 28 Sprachquellen, Sprachfilter je Quelle über availableTranslatedLanguages[]/translatedLanguages[]); extension.sprache=en, paket .en.",
+  "Stufe 3 wegen WebView/Login: wird nur für Bezahlkapitel (Token aus localStorage) gebraucht; freie Kapitel laden ohne Anmeldung.",
+  "Gesperrte Kapitel: Die Community fragt den Zugriff per POST /gating/check (Liste aller Kapitel-IDs) ab und blendet gesperrte aus. Das ist hier nicht nachgebaut – gesperrte Kapitel erscheinen in der Liste und scheitern beim Laden (HTTP 402). Nichts wird umgangen.",
+  "Titel/Beschreibung: en, sonst erster Eintrag. Genre ohne Inhaltswarnung/Originalsprache; Bildqualität 'source' (Community-Standard, Datensparmodus nicht abgebildet).",
+  "Suche ohne Sprachfilter (wie Community)."
+ ]
+}

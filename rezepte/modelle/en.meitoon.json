@@ -23,7 +23,232 @@
   "theme": "keyoapp"
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 3,
+   "period_ms": 2000
+  },
+  "popular": {
+   "request": "{base}/",
+   "items": ".series-splide .splide__slide:not(.splide__slide--clone)",
+   "skip": {
+    "any": [
+     {
+      "path": "[data-type~=(?i)^novel$]@data-type"
+     },
+     {
+      "path": "span:matchesOwn((?i)^novel$)"
+     },
+     {
+      "path": [
+       "a[href]@title"
+      ],
+      "regex": "(?i)(\\[novel\\])"
+     }
+    ]
+   },
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a[href]@href",
+    "title": [
+     "a[href]@title",
+     "@title",
+     "a[href]@alt",
+     "@alt"
+    ],
+    "cover": {
+     "path": "[style*=background-image]@style",
+     "regex": "url\\(['\"]?([^('\")]+)",
+     "replace": [
+      [
+       "([?&])w=\\d+(?=&|$)",
+       "$1w=480"
+      ]
+     ]
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}/latest/",
+   "items": "div.grid > div.group",
+   "skip": {
+    "any": [
+     {
+      "path": "[data-type~=(?i)^novel$]@data-type"
+     },
+     {
+      "path": "span:matchesOwn((?i)^novel$)"
+     },
+     {
+      "path": [
+       "a[href]@title"
+      ],
+      "regex": "(?i)(\\[novel\\])"
+     }
+    ]
+   },
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a[href]@href",
+    "title": [
+     "a[href]@title",
+     "@title",
+     "a[href]@alt",
+     "@alt"
+    ],
+    "cover": {
+     "path": "[style*=background-image]@style",
+     "regex": "url\\(['\"]?([^('\")]+)",
+     "replace": [
+      [
+       "([?&])w=\\d+(?=&|$)",
+       "$1w=480"
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/series?q={query}",
+   "items": "#searched_series_page > button",
+   "skip": {
+    "any": [
+     {
+      "path": "[data-type~=(?i)^novel$]@data-type"
+     },
+     {
+      "path": "span:matchesOwn((?i)^novel$)"
+     },
+     {
+      "path": [
+       "a[href]@title"
+      ],
+      "regex": "(?i)(\\[novel\\])"
+     }
+    ]
+   },
+   "client_filter": true,
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a[href]@href",
+    "title": [
+     "a[href]@title",
+     "@title",
+     "a[href]@alt",
+     "@alt"
+    ],
+    "cover": {
+     "path": "[style*=background-image]@style",
+     "regex": "url\\(['\"]?([^('\")]+)",
+     "replace": [
+      [
+       "([?&])w=\\d+(?=&|$)",
+       "$1w=480"
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "let": {},
+   "fields": {
+    "title": "div.grid > h1",
+    "cover": {
+     "path": [
+      "div[class*=photoURL]@style",
+      "div[style*=photoURL]@style"
+     ],
+     "regex": "url\\(['\"]?([^('\")]+)",
+     "replace": [
+      [
+       "([?&])w=\\d+(?=&|$)",
+       "$1w=480"
+      ]
+     ]
+    },
+    "description": "#expand_content p",
+    "genres": "div:has(>h1) a[href*='genre=']",
+    "author": [
+     "div:has(span:containsOwn(Author)) ~ div",
+     "div[alt=Author]"
+    ],
+    "artist": [
+     "div:has(span:containsOwn(Artist)) ~ div",
+     "div[alt=Artist]"
+    ],
+    "status": [
+     "div:has(span:containsOwn(Status)) ~ div",
+     "div[alt=Status]"
+    ]
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "dropped": 5,
+    "paused": 6,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#chapters > :is(a, div)",
+   "skip": {
+    "any": [
+     "img[alt~=Coin]@alt",
+     ".text-sm span:matches(Upcoming)"
+    ]
+   },
+   "fields": {
+    "url": "a[href]@href",
+    "name": ".text-sm",
+    "date": [
+     "a[href]@d",
+     ".text-xs"
+    ]
+   },
+   "date_format": [
+    "MMM d, yyyy",
+    "relative"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "let": {
+    "cdn": {
+     "path": "script@html",
+     "all": true,
+     "join": "",
+     "regex": "realUrl\\s*=\\s*`[^`]+//([^/]+)",
+     "replace": [
+      [
+       "\\$\\{[^}]*\\}",
+       ""
+      ]
+     ]
+    }
+   },
+   "items": "#pages > img",
+   "image": [
+    {
+     "path": "@uid",
+     "template": "https://{l.cdn}/uploads/{value}"
+    },
+    "@img"
+   ]
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Alt-Keyoapp-Theme: Modell aus der Vorlage en.genztoon (Baukasten keyoapp) übernommen; QuickJS braucht die Community nur für die Genre-Filterliste (nicht nachgebaut).",
+  "Beliebt = Startseiten-Slider/Popular-Block, Neueste = /latest/, Suche = /series?q=… mit Titel-Filter auf dem Gerät (client_filter) wie Community; keine Pagination.",
+  "Bezahlte (Coin) und 'Upcoming'-Kapitel ausgelassen (Community-Standard). Bilder: CDN-Host aus realUrl-Skript + uid, sonst @img.",
+  "Beliebt: Selektor der Community-Überschreibung (.series-splide .splide__slide:not(.splide__slide--clone))."
+ ]
 }

@@ -1,0 +1,184 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Manga Tales",
+  "sprache": "ar",
+  "base_url": "https://www.mangatales.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ar.kaanon.mangatales",
+  "quellen": [
+   {
+    "name": "Manga Tales",
+    "sprache": "ar",
+    "quell_id": 5218550345649535189,
+    "home": "https://www.mangatales.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ar/mangatales",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.5",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/api/releases?page={page}",
+   "format": "json",
+   "items": "releases",
+   "skip": {
+    "path": "manga.is_novel",
+    "equals": "true"
+   },
+   "page_size": 30,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "manga.id",
+     "template": "/mangas/{value}"
+    },
+    "title": "manga.title",
+    "cover": {
+     "path": "manga.cover",
+     "template": "https://media.mangatales.com/uploads/manga/cover/{f.manga.id}/large_{value}"
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}/api/releases?page={page}",
+   "format": "json",
+   "items": "releases",
+   "skip": {
+    "path": "manga.is_novel",
+    "equals": "true"
+   },
+   "page_size": 30,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "manga.id",
+     "template": "/mangas/{value}"
+    },
+    "title": "manga.title",
+    "cover": {
+     "path": "manga.cover",
+     "template": "https://media.mangatales.com/uploads/manga/cover/{f.manga.id}/large_{value}"
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "format": "script_json",
+   "script_regex": "(?s)<script[^>]*js-react-on-rails-component[^>]*>\\s*(\\{.*?)\\s*</script>",
+   "url_vars": {
+    "id": "/mangas/(\\d+)"
+   },
+   "fields": {
+    "title": "mangaDataAction.mangaData.title",
+    "description": "mangaDataAction.mangaData.summary",
+    "cover": {
+     "path": "mangaDataAction.mangaData.cover",
+     "template": "https://media.mangatales.com/uploads/manga/cover/{u.id}/large_{value}"
+    },
+    "author": {
+     "path": "mangaDataAction.mangaData.authors.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "mangaDataAction.mangaData.artists.*.name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": [
+      "mangaDataAction.mangaData.type.title",
+      "mangaDataAction.mangaData.type.name",
+      "mangaDataAction.mangaData.categories.*.name"
+     ],
+     "union": true,
+     "all": true,
+     "join": ", "
+    },
+    "status": "mangaDataAction.mangaData.story_status"
+   },
+   "status_map": {
+    "2": 1,
+    "3": 2
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/mangas/{u.id}",
+   "format": "json",
+   "url_vars": {
+    "id": "/mangas/(\\d+)"
+   },
+   "items": "mangaReleases",
+   "fields": {
+    "url": {
+     "path": "id",
+     "template": "/r/{value}"
+    },
+    "name": {
+     "path": "chapter",
+     "template": "{value}[[ - {f.title}]]"
+    },
+    "number": "chapter",
+    "date": "created_at",
+    "scanlator": "team_name"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "format": "text",
+   "let": {
+    "hq": {
+     "path": "",
+     "regex": "\"hq_pages\"\\s*:\\s*(\"(?:[^\"\\\\]|\\\\.)*\")",
+     "group": 1,
+     "decode": "json"
+    },
+    "arr": {
+     "const": "{l.hq}",
+     "replace": [
+      [
+       "\\s*[\\r\\n]+\\s*",
+       "\",\""
+      ]
+     ]
+    },
+    "ak": {
+     "path": "",
+     "regex": "\"mediaKey\"\\s*:\\s*\"([^\"]+)\"",
+     "group": 1
+    }
+   },
+   "inner": {
+    "value": {
+     "const": "[\"{l.arr}\"]"
+    },
+    "format": "json",
+    "items": "$",
+    "image": {
+     "path": "",
+     "regex": "^(\\S.*)$",
+     "template": "https://media.mangatales.com/uploads/releases/{value}?ak={l.ak}"
+    }
+   }
+  }
+ },
+ "hinweise": [
+  "Suche (POST /api/mangas/search) liefert AES-verschlüsselte Antworten (Schlüssel = SHA-256 eines Teils der Antwort, eigenes Format) – nicht ausdrückbar, daher KEINE Suche. Die Community nutzt die Suche auch für 'Beliebt'.",
+  "Ersatz: Beliebt und Neueste beide aus /api/releases?page=N (unverschlüsseltes JSON, neueste Kapitel-Veröffentlichungen; Dubletten möglich, Community entfernt sie). Novels per is_novel ausgelassen.",
+  "Details aus dem React-JSON (<script class=js-react-on-rails-component>) der Seite /mangas/<id>; Status story_status 2 → laufend, 3 → abgeschlossen. Übersetzungsstatus/alternative Titel nicht in die Beschreibung übernommen.",
+  "Kapitel aus /api/mangas/<id> (unverschlüsselt), URL /r/<id>; Community sortiert nach Nummer/Datum absteigend – hier API-Reihenfolge.",
+  "Seiten: hq_pages (zeilengetrennt) per decode json + replace zur JSON-Liste umgebaut (Muster ko.toonkor), Bild = media.mangatales.com/uploads/releases/<datei>?ak=<globals.mediaKey> (Schlüssel liefert die Website selbst)."
+ ]
+}

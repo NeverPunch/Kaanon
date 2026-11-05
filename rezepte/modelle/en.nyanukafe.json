@@ -23,7 +23,221 @@
   "theme": "keyoapp"
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/",
+   "items": ".series-splide .splide__slide:not(.splide__slide--clone)",
+   "skip": {
+    "any": [
+     {
+      "path": "[data-type~=(?i)^novel$]@data-type"
+     },
+     {
+      "path": "span:matchesOwn((?i)^novel$)"
+     },
+     {
+      "path": [
+       "a[href]@title"
+      ],
+      "regex": "(?i)(\\[novel\\])"
+     }
+    ]
+   },
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a[href]@href",
+    "title": [
+     "a[href]@title",
+     "@title",
+     "a[href]@alt",
+     "@alt"
+    ],
+    "cover": {
+     "path": "[style*=background-image]@style",
+     "regex": "url\\(['\"]?([^('\")]+)",
+     "replace": [
+      [
+       "([?&])w=\\d+(?=&|$)",
+       "$1w=480"
+      ]
+     ]
+    }
+   }
+  },
+  "latest": {
+   "request": "{base}/latest/",
+   "items": "div.grid > div.group",
+   "skip": {
+    "any": [
+     {
+      "path": "[data-type~=(?i)^novel$]@data-type"
+     },
+     {
+      "path": "span:matchesOwn((?i)^novel$)"
+     },
+     {
+      "path": [
+       "a[href]@title"
+      ],
+      "regex": "(?i)(\\[novel\\])"
+     }
+    ]
+   },
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a[href]@href",
+    "title": [
+     "a[href]@title",
+     "@title",
+     "a[href]@alt",
+     "@alt"
+    ],
+    "cover": {
+     "path": "[style*=background-image]@style",
+     "regex": "url\\(['\"]?([^('\")]+)",
+     "replace": [
+      [
+       "([?&])w=\\d+(?=&|$)",
+       "$1w=480"
+      ]
+     ]
+    }
+   }
+  },
+  "search": {
+   "request": "{base}/series?q={query}",
+   "items": "#searched_series_page > button",
+   "skip": {
+    "any": [
+     {
+      "path": "[data-type~=(?i)^novel$]@data-type"
+     },
+     {
+      "path": "span:matchesOwn((?i)^novel$)"
+     },
+     {
+      "path": [
+       "a[href]@title"
+      ],
+      "regex": "(?i)(\\[novel\\])"
+     }
+    ]
+   },
+   "client_filter": true,
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": "a[href]@href",
+    "title": [
+     "a[href]@title",
+     "@title",
+     "a[href]@alt",
+     "@alt"
+    ],
+    "cover": {
+     "path": "[style*=background-image]@style",
+     "regex": "url\\(['\"]?([^('\")]+)",
+     "replace": [
+      [
+       "([?&])w=\\d+(?=&|$)",
+       "$1w=480"
+      ]
+     ]
+    }
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.grid > h1",
+    "cover": {
+     "path": [
+      "div[class*=photoURL]@style",
+      "div[style*=photoURL]@style"
+     ],
+     "regex": "url\\(['\"]?([^('\")]+)",
+     "replace": [
+      [
+       "([?&])w=\\d+(?=&|$)",
+       "$1w=480"
+      ]
+     ]
+    },
+    "description": "#expand_content p",
+    "genres": "div:has(>h1) a[href*='genre=']",
+    "author": "div.w-full.flex-wrap > div:eq(0) > div:last-child",
+    "artist": "div.w-full.flex-wrap > div:eq(1) > div:last-child",
+    "status": "div.w-full.flex-wrap > div:eq(3) > div:last-child"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "dropped": 5,
+    "paused": 6,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#chapters > :is(a, div)",
+   "skip": {
+    "any": [
+     "img[alt~=Coin]@alt",
+     ".text-sm span:matches(Upcoming)"
+    ]
+   },
+   "fields": {
+    "url": "a[href]@href",
+    "name": ".text-sm",
+    "date": [
+     "a[href]@d",
+     ".text-xs"
+    ]
+   },
+   "date_format": [
+    "MMM d, yyyy",
+    "relative"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "let": {
+    "cdn": {
+     "path": "script@html",
+     "all": true,
+     "join": "",
+     "regex": "realUrl\\s*=\\s*`[^`]+//([^/]+)",
+     "replace": [
+      [
+       "\\$\\{[^}]*\\}",
+       ""
+      ]
+     ]
+    }
+   },
+   "items": "#pages > img",
+   "image": [
+    {
+     "path": "@uid",
+     "template": "https://{l.cdn}/uploads/{value}"
+    },
+    "@img"
+   ]
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Theme keyoapp, Modell nach Vorlage en.grimscans (gleiches Theme), Selektoren mit lib-multisrc/keyoapp abgeglichen.",
+  "Stufe 3 nur wegen QuickJs: die Community nutzt es ausschließlich, um die Genre-Filterliste aus einem Skript zu lesen – für Listen/Kapitel/Seiten nicht nötig. Filter nicht abgebildet.",
+  "Beliebt = Startseiten-Block Popular/Popularie/Trending (eine Seite), Neueste = /latest/ (eine Seite), Suche = /series?q= mit clientseitigem Titelfilter wie Community.",
+  "Bezahlte (Coin) und 'Upcoming'-Kapitel werden übersprungen (Community-Standard: bezahlte ausblenden).",
+  "Bilder: CDN-Host aus realUrl-Skript + uid; Ausweich @img (Community: alte cdn*.keyoapp.com-Bilder).",
+  "Genre: Typ wird nicht wie in der Community vorangestellt; Alternativtitel nicht in der Beschreibung.",
+  "Unterklasse: Beliebt aus .series-splide-Karussell; Status/Autor/Künstler über Positions-Selektoren (jsoup :eq) wie in der Community."
+ ]
 }
