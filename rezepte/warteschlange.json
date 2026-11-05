@@ -19514,7 +19514,7 @@
  },
  {
   "modul": "src/ja/linemanga",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "Line Manga",
   "stufe": 3,
   "theme": null,
@@ -19524,7 +19524,10 @@
   "host": "manga.line.me",
   "nsfw": false,
   "wer": "agent-w9a",
-  "seit": "2026-11-05T09:36:39"
+  "seit": "2026-11-05T09:36:39",
+  "grund": "Bilder verwürfelt mit Blöcken fester Pixelgröße (bwd px, hc Spalten) und Zuordnungsliste in Basis-35 je Bild, Randstreifen bleiben unverändert – passt nicht auf grid (n×n-Teilung mit Index-Liste) oder rects; nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:36:56"
  },
  {
   "modul": "src/ja/magazinepocket",
@@ -19573,7 +19576,7 @@
  },
  {
   "modul": "src/ja/mangamee",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "MangaMee",
   "stufe": 3,
   "theme": null,
@@ -19581,7 +19584,9 @@
    "ja"
   ],
   "host": "manga-mee.jp",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:36:56"
  },
  {
   "modul": "src/ja/mangaone",

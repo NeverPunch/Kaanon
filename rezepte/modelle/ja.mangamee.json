@@ -2,24 +2,24 @@
  "rezept": "kaanon-rezept/1",
  "status": "entwurf",
  "extension": {
-  "name": "Line Manga",
+  "name": "MangaMee",
   "sprache": "ja",
-  "base_url": "https://manga.line.me",
+  "base_url": "https://manga-mee.jp",
   "nsfw": false,
-  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.linemanga",
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.mangamee",
   "quellen": [
    {
-    "name": "Line Manga",
+    "name": "MangaMee",
     "sprache": "ja",
-    "quell_id": 7324763859222949244,
-    "home": "https://manga.line.me"
+    "quell_id": 5152016637336953348,
+    "home": "https://manga-mee.jp"
    }
   ]
  },
  "quelle": {
-  "modul": "src/ja/linemanga",
+  "modul": "src/ja/mangamee",
   "community_stand": "efa93f5a 2026-11-02",
-  "community_version": "1.6.2",
+  "community_version": "1.6.4",
   "theme": null
  },
  "modell": {
