@@ -18,7 +18,7 @@ Alle 1.259 Kandidaten der Abdeckungskarte sind bearbeitet. Keiner ist mehr offen
 
 - Alle 989 Entwürfe bestehen `pruefe_rezepte.py` ohne Fehler. Keine Paketnamen oder Quell-IDs sind doppelt, weder untereinander
   noch gegenüber dem Store.
-- 668 sind ohne Altersfreigabe-Hinweis, 321 haben 18+-Inhalte. Die meisten sind englisch (297), dann pt-BR (89), es (74), id (74), ja (73).
+- 668 Entwürfe ohne, 321 mit 18+-Inhalten. Die meisten sind englisch (297), dann pt-BR (89), es (74), id (74), ja (73).
 - **Nichts davon ist gegen die echten Websites geprüft.** Die Cloud erreicht die Websites nicht. Jedes Rezept nennt in `hinweise`, wo der Bearbeiter
   unsicher war (geratene Pagination, Annahmen zur Engine-Semantik). Diese Stellen zuerst auf dem Prüfstand ansehen.
 - Warum die 270 zurückgestellt sind und welcher Engine-Baustein wie viele freischalten würde, steht in
