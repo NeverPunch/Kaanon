@@ -23,7 +23,137 @@
   "theme": "keyoapp"
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/?_ajax=search&sort=popular&offset={offset}",
+   "format": "json_html",
+   "html_path": "html",
+   "items": "a.group[href]",
+   "skip": {
+    "any": [
+     {
+      "path": "[data-type~=(?i)^novel$]@data-type"
+     },
+     {
+      "path": "span:matchesOwn((?i)^novel$)"
+     }
+    ]
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h2",
+    "cover": "img@data-src"
+   },
+   "page_size": 20,
+   "has_next": {
+    "exists": "^has_more"
+   }
+  },
+  "latest": {
+   "request": "{base}/?_ajax=recent-chapters&page={page}",
+   "items": "article.ru-card",
+   "skip": {
+    "any": [
+     {
+      "path": "[data-type~=(?i)^novel$]@data-type"
+     },
+     {
+      "path": "span:matchesOwn((?i)^novel$)"
+     }
+    ]
+   },
+   "fields": {
+    "url": "h2.ru-title > a@href",
+    "title": "h2.ru-title > a",
+    "cover": "img.ru-cover-img@data-src"
+   },
+   "has_next": {
+    "exists": "button[aria-label=\"Next recently updated page\"]:not([disabled])"
+   }
+  },
+  "search": {
+   "request": "{base}/?_ajax=search&q={query}&offset={offset}",
+   "format": "json_html",
+   "html_path": "html",
+   "items": "a.group[href]",
+   "skip": {
+    "any": [
+     {
+      "path": "[data-type~=(?i)^novel$]@data-type"
+     },
+     {
+      "path": "span:matchesOwn((?i)^novel$)"
+     }
+    ]
+   },
+   "fields": {
+    "url": "@href",
+    "title": "h2",
+    "cover": "img@data-src"
+   },
+   "page_size": 20,
+   "has_next": {
+    "exists": "^has_more"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "h1",
+    "description": "#series-desc",
+    "cover": "meta[property=og:image]@content",
+    "genres": {
+     "path": "a[href*=\"?browse&tag\"]",
+     "all": true,
+     "join": ", "
+    },
+    "author": "div:has(> span.text-xs:containsOwn(Author)) + *",
+    "artist": "div:has(> span.text-xs:containsOwn(Artist)) + *",
+    "status": "div.text-xs:containsOwn(Status) + div span.text-sm"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "dropped": 5,
+    "paused": 6
+   }
+  },
+  "chapters": {
+   "request": "{base}/?_chapters_html=1&series_slug={u.slug}",
+   "format": "json_html",
+   "html_path": "rows_html",
+   "url_vars": {
+    "slug": "^(?:https?://[^/]+)?/([^/?#]+)"
+   },
+   "items": "a.chapter-row[href]",
+   "skip": {
+    "path": "@data-ch-locked",
+    "equals": "1"
+   },
+   "fields": {
+    "url": "@href",
+    "name": "@data-ch-label",
+    "date": ".ch-date-row span:last-child"
+   },
+   "date_format": [
+    "MMM d, yyyy",
+    "relative"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "#strip-reader img.reader-page",
+   "image": "@src"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Theme keyoapp (KeyoappV2, Unterklasse ohne Änderungen); Modell übernommen aus en.asmodeusscans (gleiches KeyoappV2).",
+  "KeyoappV2-Theme: Beliebt/Suche über {base}/?_ajax=search(&sort=popular|&q=…)&offset=(Seite-1)*20, JSON {html, has_more} → HTML-Karten a.group; Neueste über ?_ajax=recent-chapters&page=N (HTML).",
+  "Novels werden per skip ausgelassen (wie Community isNovel()). Filter (Typ/Status/Sortierung/Tags) nicht nachgebaut.",
+  "Kapitel über {base}/?_chapters_html=1&series_slug=<slug> (JSON rows_html); gesperrte Kapitel (data-ch-locked=1) ausgelassen (Community-Standard). Datum 'MMM d, yyyy' oder relativ ('… ago').",
+  "Autor/Künstler: Community nimmt das nächste Geschwister des Elternelements von span.text-xs:containsOwn(Author); hier als 'div:has(> span…) + *' nachgebildet – prüfen.",
+  "Seiten: #strip-reader img.reader-page@src.",
+  "Stufe 3 unbegründet: KeyoappV2 nutzt weder QuickJs noch WebView."
+ ]
 }

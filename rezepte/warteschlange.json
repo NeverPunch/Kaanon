@@ -18114,7 +18114,7 @@
  },
  {
   "modul": "src/en/artlapsa",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Art Lapsa",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18124,7 +18124,10 @@
   "host": "artlapsa.com",
   "nsfw": false,
   "wer": "agent-w9b",
-  "seit": "2026-11-03T11:34:45"
+  "seit": "2026-11-03T11:34:45",
+  "datei": "rezepte/modelle/en.artlapsa.json",
+  "grund": null,
+  "geaendert": "2026-11-05T09:32:14"
  },
  {
   "modul": "src/en/asmotoon",
@@ -18196,7 +18199,7 @@
  },
  {
   "modul": "src/en/kitsunedawn",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Kitsune Dawn",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18206,11 +18209,14 @@
   "host": "kitsunedawn.com",
   "nsfw": true,
   "wer": "agent-w8c",
-  "seit": "2026-11-03T11:36:07"
+  "seit": "2026-11-03T11:36:07",
+  "datei": "rezepte/modelle/en.kitsunedawn.json",
+  "grund": null,
+  "geaendert": "2026-11-05T09:31:59"
  },
  {
   "modul": "src/en/lunatoons",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Luna Toons",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18220,7 +18226,10 @@
   "host": "lunatoons.net",
   "nsfw": false,
   "wer": "agent-w9a",
-  "seit": "2026-11-03T11:36:09"
+  "seit": "2026-11-03T11:36:09",
+  "datei": "rezepte/modelle/en.lunatoons.json",
+  "grund": null,
+  "geaendert": "2026-11-05T09:32:09"
  },
  {
   "modul": "src/en/meitoon",
@@ -18238,7 +18247,7 @@
  },
  {
   "modul": "src/en/mistscans",
-  "status": "offen",
+  "status": "fertig",
   "name": "Mist Scans",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18246,11 +18255,16 @@
    "en"
   ],
   "host": "mistscans.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8c",
+  "seit": "2026-11-05T09:32:00",
+  "datei": "rezepte/modelle/en.mistscans.json",
+  "grund": null,
+  "geaendert": "2026-11-05T09:32:09"
  },
  {
   "modul": "src/en/nyanukafe",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Nyanu Kafe",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18258,11 +18272,13 @@
    "en"
   ],
   "host": "nyanukafe.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:32:09"
  },
  {
   "modul": "src/en/ritharscans",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "RitharScans",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18270,11 +18286,13 @@
    "en"
   ],
   "host": "ritharscans.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8c",
+  "seit": "2026-11-05T09:32:10"
  },
  {
   "modul": "src/en/sirenscans",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Siren Scans",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18282,7 +18300,9 @@
    "en"
   ],
   "host": "sirenscans.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:32:14"
  },
  {
   "modul": "src/en/timelesstoons",
