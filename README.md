@@ -44,7 +44,7 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | Asura Scans | Englisch | 1.6.11 |  |
 | Atsumaru | Englisch | 1.6.12 | gemischt |
 | BatCave | Englisch | 1.6.14 |  |
-| Comix | Englisch | 1.6.59 | gemischt |
+| Comix | Englisch | 1.6.62 | gemischt |
 | Comizy | Englisch | 1.6.11 | gemischt |
 | Deathtollscans | Englisch | 1.6.12 |  |
 | Drake Scans | Englisch | 1.6.12 |  |
@@ -84,7 +84,7 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | Manhwa Toon | Englisch | 1.6.12 |  |
 | Manhwa18 | Englisch | 1.6.12 | 18+ |
 | ManhwaHub | Englisch | 1.6.14 | 18+ |
-| ManhwaRead | Englisch | 1.6.0 | gemischt |
+| ManhwaRead | Englisch | 1.6.2 | gemischt |
 | Raven Scans | Englisch | 1.6.15 | gemischt |
 | Readonepiece | Englisch | 1.6.12 |  |
 | Rolia Scan | Englisch | 1.6.11 |  |
@@ -144,13 +144,13 @@ Diese Extensions enthalten unveränderten Quellcode aus [keiyoushi/extensions-so
 |---|---|---|---|
 | BatCave | `eu.kanade.tachiyomi.extension.en.kaanon.batcave` | `src/en/batcave` | ee661f5233b3 (2026-11-04) |
 | Comikey | `eu.kanade.tachiyomi.extension.all.kaanon.comikey` | `src/all/comikey` | ee661f5233b3 (2026-11-04) |
-| Comix | `eu.kanade.tachiyomi.extension.en.kaanon.comix` | `src/en/comix` | 0d83f6be79e1 (2026-10-31) |
+| Comix | `eu.kanade.tachiyomi.extension.en.kaanon.comix` | `src/en/comix` | ee661f5233b3 (2026-11-04) |
 | Lunar Manga | `eu.kanade.tachiyomi.extension.all.kaanon.lunarmanga` | `src/all/lunaranime` | ee661f5233b3 (2026-11-04) |
 | MANGA Plus by SHUEISHA | `eu.kanade.tachiyomi.extension.all.kaanon.mangaplusbyshueisha` | `src/all/mangaplus` | ee661f5233b3 (2026-11-04) |
 | Manga Tube | `eu.kanade.tachiyomi.extension.de.kaanon.mangatube` | `src/de/mangatube` | ee661f5233b3 (2026-11-04) |
 | MangaDot | `eu.kanade.tachiyomi.extension.all.kaanon.mangadot` | `src/all/mangadotnet` | ee661f5233b3 (2026-11-04) |
 | MangaFire | `eu.kanade.tachiyomi.extension.all.kaanon.mangafire` | `src/all/mangafire` | ee661f5233b3 (2026-11-04) |
 | MangaHub | `eu.kanade.tachiyomi.extension.en.kaanon.mangahub` | `src/en/mangahubio` | ee661f5233b3 (2026-11-04) |
-| ManhwaRead | `eu.kanade.tachiyomi.extension.en.kaanon.manhwaread` | `src/en/manhwaread` | 7363e4298c2a (2026-10-16) |
+| ManhwaRead | `eu.kanade.tachiyomi.extension.en.kaanon.manhwaread` | `src/en/manhwaread` | ee661f5233b3 (2026-11-04) |
 
 Diese Datei wird automatisch erzeugt (`python -m kaanon_builder --store`).

@@ -1223,12 +1223,12 @@
         "name": "Comix",
         "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.comix",
         "resources": {
-          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.comix-v1.6.59.apk",
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.comix-v1.6.62.apk",
           "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.en.kaanon.comix.png"
         },
         "extensionLib": "1.6",
-        "versionCode": 106059,
-        "versionName": "1.6.59",
+        "versionCode": 106062,
+        "versionName": "1.6.62",
         "contentWarning": "MIXED",
         "sources": [
           {
@@ -2045,12 +2045,12 @@
         "name": "ManhwaRead",
         "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.manhwaread",
         "resources": {
-          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.manhwaread-v1.6.0.apk",
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.manhwaread-v1.6.2.apk",
           "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.en.kaanon.manhwaread.png"
         },
         "extensionLib": "1.6",
-        "versionCode": 106000,
-        "versionName": "1.6.0",
+        "versionCode": 106002,
+        "versionName": "1.6.2",
         "contentWarning": "MIXED",
         "sources": [
           {
