@@ -6,7 +6,7 @@
   "sprache": "en",
   "base_url": "https://webcomicsapp.com",
   "nsfw": false,
-  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.webcomics",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.webcomics",
   "quellen": [
    {
     "name": "Webcomics",

@@ -6,7 +6,7 @@
   "sprache": "en",
   "base_url": "https://mangatoon.mobi",
   "nsfw": false,
-  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.mangatoonlimited",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mangatoonlimited",
   "quellen": [
    {
     "name": "MangaToon (Limited)",

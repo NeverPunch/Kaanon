@@ -6,7 +6,7 @@
   "sprache": "en",
   "base_url": "https://saymanhwa.net",
   "nsfw": false,
-  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.saymanhwa",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.saymanhwa",
   "quellen": [
    {
     "name": "SayManhwa",

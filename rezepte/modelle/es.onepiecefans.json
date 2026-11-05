@@ -3,10 +3,10 @@
  "status": "entwurf",
  "extension": {
   "name": "One Piece Fans",
-  "sprache": "all",
+  "sprache": "es",
   "base_url": "https://one-piece-fans2.com",
   "nsfw": false,
-  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.onepiecefans",
+  "paket": "eu.kanade.tachiyomi.extension.es.kaanon.onepiecefans",
   "quellen": [
    {
     "name": "One Piece Fans",

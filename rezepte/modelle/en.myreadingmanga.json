@@ -6,7 +6,7 @@
   "sprache": "en",
   "base_url": "https://myreadingmanga.info",
   "nsfw": true,
-  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.myreadingmanga",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.myreadingmanga",
   "quellen": [
    {
     "name": "MyReadingManga",

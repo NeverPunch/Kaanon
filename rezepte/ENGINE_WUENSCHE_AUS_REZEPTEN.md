@@ -1,6 +1,6 @@
 # Engine-Wünsche aus der Rezept-Arbeit
 
-Automatisch erzeugt von `werkzeuge/rezepte/engine_wuensche.py` aus `rezepte/warteschlange.json`. 987 Rezepte sind fertig, 216 Websites sind zurückgestellt. Eine Website kann in mehreren Kategorien stehen.
+Automatisch erzeugt von `werkzeuge/rezepte/engine_wuensche.py` aus `rezepte/warteschlange.json`. 989 Rezepte sind fertig, 270 Websites sind zurückgestellt. Eine Website kann in mehreren Kategorien stehen.
 
 ## Fehlende Bausteine der Rezeptsprache (nach Nutzen)
 
@@ -8,35 +8,35 @@ Jeder Baustein würde die genannte Zahl zurückgestellter Websites (ganz oder te
 
 | Baustein | Websites |
 |---|---:|
-| Entschlüsselung/Entwürfelung außerhalb aes_cryptojs/packer/grid/rects | 60 |
-| Vorab-Anfragen (CSRF/Nonce/Token) für Listen und Kapitel | 50 |
-| Auswahl per Platzhalter (Filter/Selektor mit {u.…}, Abgleich per ID/Slug) | 29 |
+| Entschlüsselung/Entwürfelung außerhalb aes_cryptojs/packer/grid/rects | 105 |
+| Vorab-Anfragen (CSRF/Nonce/Token) für Listen und Kapitel | 60 |
+| WebView/JavaScript ausführen/Deobfuskieren | 33 |
+| Auswahl per Platzhalter (Filter/Selektor mit {u.…}, Abgleich per ID/Slug) | 31 |
 | Framework-Datenformate (SvelteKit-devalue, Qwik, turbo-stream, Inertia, Livewire, Server-Actions) | 26 |
-| WebView/JavaScript ausführen/Deobfuskieren | 26 |
-| Rekursion, Eltern-/Geschwisterzugriff, Verzweigung je Eintrag | 23 |
+| Rekursion, Eltern-/Geschwisterzugriff, Verzweigung je Eintrag | 24 |
 | Zahlenbereich erzeugen (Kapitel/Seiten 1..N) | 20 |
+| Bild-Anfragen mit Headern/POST je Bild | 18 |
+| Protobuf/ZIP/Binärformate | 16 |
 | Feste Listen im Code / Katalog ohne Anfrage | 15 |
+| Cursor-Blättern (Wert aus voriger Antwort/Header) | 14 |
 | Iteration über JSON-Objekte (Maps) | 13 |
-| Cursor-Blättern (Wert aus voriger Antwort/Header) | 12 |
 | Mehrere Quellen/Sprachen mit eigenen Pfaden | 9 |
 | Blättern in Seitenlisten / Folgeseiten-Ketten | 9 |
-| Bild-Anfragen mit Headern/POST je Bild | 9 |
-| Protobuf/ZIP/Binärformate | 8 |
-| Text-Bearbeitung/Übersetzung ins Bild | 7 |
+| Text-Bearbeitung/Übersetzung ins Bild | 8 |
 
 ## Gründe nach Regel 0014 (keine Engine-Wünsche)
 
 | Grund | Websites |
 |---|---:|
-| Login/Konto zum Lesen nötig | 20 |
-| Signatur/selbst erzeugter Schlüssel | 16 |
+| Login/Konto zum Lesen nötig | 32 |
+| Signatur/selbst erzeugter Schlüssel | 27 |
 | Prüfseite/CAPTCHA/Bot-Schutz | 8 |
 
 Diese Websites bleiben Kandidaten für den Ausweg (Community-Code unverändert), wenn ein Community-Modul existiert.
 
 ## Einzelheiten
 
-### Entschlüsselung/Entwürfelung außerhalb aes_cryptojs/packer/grid/rects (60)
+### Entschlüsselung/Entwürfelung außerhalb aes_cryptojs/packer/grid/rects (105)
 
 - `src/all/mangamillion` (Manga Million): Alle API-Antworten sind Protobuf (parseAsProto); Zugriffstoken per POST /api/register (Protobuf); Bilder AES-CBC-verschlüsselt (Schlüssel/IV hex aus Viewer-Antwort, Bild-Bytes entschlüsseln) – Protobuf und Bild-Entschlüsselung nicht ausdrückbar
 - `src/all/mangaup` (Manga UP!): API antwortet nur in Protobuf (parseAsProto); Bilder zusätzlich AES-CBC-verschlüsselt (Schlüssel/IV je Seite aus der Protobuf-Antwort, Rohbytes als Hex) – beides nicht ausdrückbar
@@ -79,27 +79,72 @@ Diese Websites bleiben Kandidaten für den Ausweg (Community-Code unverändert),
 - `src/ja/amebamanga` (Ameba Manga): Bilder verwürfelt (96×128-Blöcke), Permutation per LCG-Zufallsgenerator mit Schlüssel je Seite (Fisher-Yates) – eigene Entwürfelung, weder grid noch rects
 - `src/ja/ciaoplus` (Ciao Plus): API-Anfragen mit selbst berechneter Hash-Signatur (SHA-256/SHA-512 über Parameter) und Bilder per xorshift32-Seed verwürfelt (eigene Kachel-Permutation, nicht grid/rects)
 - `src/ja/comicfuz` (COMIC FUZ): Alle API-Anfragen und -Antworten Protobuf (toRequestBodyProto/parseAsProto); Bilder AES-CBC-verschlüsselt (key/iv je Bild, Bilddaten entschlüsseln) – Protobuf und Bild-Entschlüsselung nicht ausdrückbar
+- `src/ja/comicgrast` (Comic Grast): Bilder je Seite mit SeedRandom (seedrandom/ARC4, seed+size aus index.json) in Kachelgruppen gemischt; Entwürfelung per Zufallspermutation weder grid noch rects
 - `src/ja/corocoroonline` (Corocoro Online): API-Antworten (Ranking, Details, Viewer) sind Protobuf; Bilddateien AES-CBC-verschlüsselt (Schlüssel/IV aus Viewer-Antwort) – Protobuf + Bild-Entschlüsselung nicht ausdrückbar
 - `src/ja/drecomics` (DreComi+): Jedes Bild AES-CBC-verschlüsselt (sessionKey + iv je Seite aus der Viewer-Antwort, Bilddaten entschlüsseln) – Bild-Entschlüsselung nicht ausdrückbar; CDN zudem nur aus Japan erreichbar
 - `src/ja/flowercomics` (Flower Comics): Bilddateien AES-CBC-verschlüsselt (Schlüssel/IV je Seite im RSC-Payload) – Bild-Entschlüsselung nicht ausdrückbar (Leser-DRM)
+- `src/ja/fodfuji` (FOD): Bilder verwürfelt (96×128-Blöcke), Permutation per LCG-Zufallsgenerator mit Schlüssel je Seite (Fisher-Yates) – eigene Entwürfelung, weder grid noch rects
+- `src/ja/gorakuweb` (Goraku Web): Bilder AES-CBC-verschlüsselt (keyBytes/ivBytes hex aus den RSC-Daten des Kapitels, Bilddaten entschlüsseln) – Bild-Entschlüsselung nicht ausdrückbar
+- `src/ja/jumptoon` (Jump Toon): Bilder spaltenweise mit LCG-Permutation (Seed = Zeichensumme seriesId:number, Algorithmen V1/V2 mit Padding) verwürfelt; weder grid noch rects; außerdem Kauf-/Login-Kapitel
+- `src/ja/kadocomi` (KadoComi): Bilder (drmImageUrl) byteweise XOR-verschlüsselt mit drmHash als Schlüssel (XorInterceptor) – Bild-Byte-Entschlüsselung kann die Engine nicht; zudem ausdrücklich DRM
+- `src/ja/linemanga` (Line Manga): Bilder verwürfelt mit Blöcken fester Pixelgröße (bwd px, hc Spalten) und Zuordnungsliste in Basis-35 je Bild, Randstreifen bleiben unverändert – passt nicht auf grid (n×n-Teilung mit Index-Liste) oder rects; nicht ausdrückbar
+- `src/ja/magazinepocket` (Magazine Pocket): Bilder mit xorshift32-Permutation verwürfelt (scramble_seed über WASM-Ersetzungstabellen, XOR titleId+episodeId); weder grid noch rects; Kauf-/Login-Kapitel
+- `src/ja/mangaboxme` (MangaBox): Bilddateien byteweise XOR-verschlüsselt (mask aus GraphQL-Antwort, XorInterceptor); Bild-XOR kann die Engine nicht; Kauf-/Login-Kapitel
+- `src/ja/mangakingdom` (Manga Kingdom): Bilder als base64 in JSON (imgBase64) und verwürfelt: LCG-Permutation mit Schlüssel je Bild, Blöcke mit 1-px-Rand abgeschnitten, Größe abhängig von Bildmaßen – eigene Entwürfelung, weder grid noch rects
+- `src/ja/mangamee` (MangaMee): Details und Seitenliste nur über Protobuf-API (title_detail, parseAsProto); Bilddaten mit XOR-Schlüssel (hex je Bild) verschleiert – Protobuf und Bild-Entschlüsselung nicht ausdrückbar
+- `src/ja/mangaone` (Manga One): Alle API-Antworten Protobuf (parseAsProto) und Bilder AES-CBC-verschlüsselt (Schlüssel/IV hex im Viewer-Protobuf); Engine kann weder Protobuf noch Bild-AES
+- `src/ja/mangaparkpublisher` (Manga-Park): Bilder byteweise XOR-verschlüsselt mit Schlüssel je Bild (image.key, base64) über XorInterceptor – Bild-Byte-Entschlüsselung kann die Engine nicht
+- `src/ja/mangasaison` (Manga Saison): Bilder liegen in ZIP-Archiven (Range-Anfrage auf Eintrag, ggf. entpacken) und sind AES-CBC-verschlüsselt (Schlüssel je Bild, IV aus WASM) – ZIP-Zugriff und Bild-Entschlüsselung (Leser-DRM) nicht ausdrückbar
+- `src/ja/mangatoshokanz` (Manga Toshokan Z): Seitenbilder als Kachelstreifen; Entwürfelung per Crop-Liste mit je eigener Breite/Höhe (x,y,x2,y2,w,h) und Zielgröße aus base64-JSON; rects kennt nur feste Kachelgröße, grid passt nicht; dazu R18-Cookie-Interceptor
+- `src/ja/mechacomic` (Mecha Comic): Jedes Bild AES-verschlüsselt (Schlüssel hex aus Viewer-Anfrage, IV = erste 16 Byte der Bilddatei) – Bild-Entschlüsselung (Leser-DRM) nicht ausdrückbar
+- `src/ja/musicbookjp` (Music Book Japan): Bilder verwürfelt (eigene Koordinaten-Zuordnung je Bild) und mit zwei Zusatzbildern _b1/_b2.png überlagert zusammengesetzt – weder grid noch rects, nicht ausdrückbar
 - `src/ja/nicomanga` (Nicomanga): Details, Kapitel und Bildliste nur in einem verschleierten RSC-Textstrom: je Zeichen (Codepoint-19968) XOR Schlüssel 'NicoMangaX2', danach UTF-8-JSON – eigene XOR-Entschlüsselung ist keine belegte decode-Art
+- `src/ja/piccoma` (Piccoma): Bilder (isScrambled) mit SeedRandom-Kachelmischung entwürfelt, Seed aus URL-Parametern rotiert/XOR; weder grid noch rects; Kauf-/Login-Kapitel
+- `src/ja/readerstore` (Reader Store): Sony-Shop-Reader: Bilddaten mit Schlüssel aus /decrypt-Worker-JS verschlüsselt, eigener Decoder (282 Z.) plus Bild-Entwürfelung im Interceptor; Kauf/Login nötig – DRM, nicht ausdrückbar
+- `src/ja/zebrack` (Zebrack): API-Antworten Protobuf (ProtoNumber-DTOs), Bilder XOR-verschlüsselt (XorInterceptor), Secret per WebView geholt – Protobuf/WebView/Bild-Entschlüsselung kann die Engine nicht
 - `src/pt/bladetoons` (Bladetoons): MangoTheme mit requiresLogin=true: alle API-Aufrufe brauchen Bearer-Token aus E-Mail/Passwort-Login; zudem API-Antworten AES-CBC mit SHA-256(Schlüssel+'salt') und Hex-IV verschlüsselt (kein aes_cryptojs-Format)
 - `src/pt/leitordemangas` (Leitor de Mangas): Aurora-Theme: Bild-URLs im RSC-Payload mit eigenem HMAC-SHA256-Keystream (XOR) verschlüsselt, Schlüssel von /api/atfield/key – kein aes_cryptojs, nicht ausdrückbar
 - `src/pt/manganyx` (Manga NXY): Aurora-Theme: Bild-URLs im RSC-Payload mit eigenem HMAC-SHA256-Keystream (XOR) verschlüsselt, Schlüssel von /api/atfield/key – kein aes_cryptojs, nicht ausdrückbar
 - `src/pt/mangasbrasuka` (Mangas Brasuka): Aurora-Theme: Bild-URLs im RSC-Payload mit eigenem HMAC-SHA256-Keystream (XOR) verschlüsselt, Schlüssel von /api/atfield/key – kein aes_cryptojs, nicht ausdrückbar
 - `src/pt/mugiwarasoficial` (Mugiwaras Oficial): Aurora-Theme: Bild-URLs im RSC-Payload mit eigenem HMAC-SHA256-Keystream (XOR) verschlüsselt, Schlüssel von /api/atfield/key – kein aes_cryptojs, nicht ausdrückbar
+- `src/pt/randomscan` (Lura Toon): Lesen nur mit Login (user-info.userid nötig); Kapitel-JSON AES-CTR verschlüsselt (Schlüssel SHA-256 aus Slugs+userId), Bilder als AES-CTR-verschlüsselte ZIP-Archive (SVG/base64-Teilbilder, zusammengesetzt) – Login, AES-CTR und ZIP nicht ausdrückbar
 - `src/pt/remangas` (NoxManga): Jede API-Anfrage braucht X-Web-Signature = SHA-256 über Methode/Pfad/Slot/Token/Schlüssel, Teile aus verschleiertem /_nix/signer.js zusammengesetzt – Signatur nicht ausdrückbar
+- `src/pt/spectralscan` (Nexus Toons): API-JSON mit eigener S-Box/XOR/Rotation-Chiffre (Schlüssel per SHA-256 aus festem Geheimnis) verschlüsselt; Kapitel-ID per XOR+Base64url selbst kodiert; nicht ausdrückbar
 - `src/ru/inkstory` (InkStory): InkStory-Theme: Bilddateien (Modus x/s im Dateinamen) sind byteweise per XOR mit festem Schlüssel verschlüsselt und werden im Interceptor entschlüsselt – Bild-Byte-Entschlüsselung kann die Engine nicht (nur grid/rects)
 - `src/ru/puremanga` (PureManga): InkStory-Theme: Bilddateien (Modus x/s im Dateinamen) sind byteweise per XOR mit festem Schlüssel verschlüsselt und werden im Interceptor entschlüsselt – Bild-Byte-Entschlüsselung kann die Engine nicht (nur grid/rects)
+- `src/tr/mangacix` (MangaciX): Jede /secure/-API-Anfrage braucht Header X-E-H = AES-GCM-Verschlüsselung der Query mit festem Schlüssel und Zufalls-IV (selbst erzeugte Signatur, Regel 0014)
+- `src/tr/mangadenizi` (MangaDenizi): Seitenbilder (scramble.method tiled-v1) mit XorShift-Permutation aus seed/grid verwürfelt; weder grid noch rects
+- `src/vi/cotruyenday` (CoTruyenDay): Bildliste (encrypted_images) mit rohem AES-256-CBC (fester Base64-Schlüssel + IV je Antwort) verschlüsselt, nicht CryptoJS-Passphrase-Format; aes_cryptojs passt nicht (nur unverschlüsselte image_urls wären lesbar)
+- `src/vi/mangamori` (MangaMori): Verwürfelte Seiten (isScrambled) mit Kachelkarte, die per FNV-Seed/XOR-Strom entschlüsselt wird; eigene Entwürfelung, weder grid noch rects
+- `src/vi/medamtruyen` (MeDamTruyen): Kapitelinhalt (htmlContent) AES-CBC mit PBKDF2-HMAC-SHA512 (999 Runden) aus secretOne+Two+Three abgeleitet, nicht CryptoJS-EVP; Bild-URLs danach per dynamischer Ersetzung der Secrets entschleiert; dazu passwortgeschützte Kapitel
+- `src/vi/moetruyensuicao` (MoeTruyenSuiCao (unoriginal)): Bilder im eigenen imgx-Format (v2 XOR, v3 Blockchiffre/xorshift bzw. AES-GCM) mit Grant/storageKey verschlüsselt; Bild-Entschlüsselung nicht in der Engine
+- `src/vi/panomic` (Panomic): Kapitelinhalt (htmlContent) AES-CBC mit PBKDF2-HMAC-SHA512 (999 Runden) aus Schlüsselteilen im Skript, nicht CryptoJS-EVP; Bild-URLs per dynamischer Ersetzung entschleiert; Passcode-Cookie a3_site_passcode_token nötig
+- `src/vi/seikowo` (Seikowo): Bildlisten liegen in Data_Node-Posts als Base64 → AES-GCM (Schlüssel fest, IV = erste 12 Byte) → GZIP-komprimiertes JSON; AES-GCM und GZIP-Entpacken nicht ausdrückbar (nur aes_cryptojs); zudem Kapitel per Nummernabgleich über mehrere Worker-Posts gesucht
+- `src/vi/soaicacomic` (SoaiCaComic): Kapitelinhalt (htmlContent) AES-CBC mit PBKDF2-HMAC-SHA512 (999 Runden, feste Passphrase), nicht CryptoJS-EVP; aes_cryptojs passt nicht; dazu passwortgeschützte Kapitel (wp-login postpass)
+- `src/vi/teamlanhlung` (Team Lanh Lung): Bildliste in var htmlContent als JSON {ciphertext,iv,salt}: Schlüssel per PBKDF2-HMAC-SHA512 (999 Runden) aus fester Passphrase, dann AES-CBC; danach Bild-URLs in data-da9tqd mit Zeichenersatz – PBKDF2/AES-CBC ist nicht aes_cryptojs (EVP/MD5), nicht ausdrückbar; Klartext-Rückfall nur bei alten Kapiteln
+- `src/vi/tuitruyen` (TuiTruyen): Bilder im imgx-Format (XOR/Blockchiffre/AES-GCM mit Grant+storageKey) verschlüsselt; Seitenzugriff mit selbst erzeugtem Proof (Nonce+Zeitstempel+Hash); nicht ausdrückbar
+- `src/vi/tusachxinhxinh` (TuSachXinhXinh): Bildliste in var htmlContent als JSON {ciphertext,iv,salt}: Schlüssel per PBKDF2-HMAC-SHA512 (999 Runden) aus fester Passphrase, dann AES-CBC; Bild-URLs danach mit Zeichenersatz – PBKDF2/AES-CBC ist nicht aes_cryptojs (EVP/MD5), nicht ausdrückbar (gleiches Verfahren wie vi.teamlanhlung)
+- `src/vi/yurigarden` (YuriGarden): Alle API-Aufrufe brauchen Bearer-Token eines eingeloggten Kontos (per WebView aus dem Browser-Speicher gelesen) – Login zum Lesen; zudem Bilder in 10 Streifen verwürfelt (Base58/Lehmer-Permutation je Bild, weder grid noch rects)
+- `src/vi/yurineko` (YuriNeko): Seiten-URLs im RSC-Skript als /api/img?d=<base64url(url|xorKey)>; direkt geladen sind die Bilder XOR-verschlüsselt (Header x-ik), Umweg über Klartext-CDN-URL braucht base64url-Dekodierung mit anschließendem Abschneiden am '|' – beides nicht belegt
 - `src/zh/baozimhorg` (GoDa): Bildliste der API (/api/v2/chapter/getinfo) ist eigen verschleiert (Präfix/Marker abschneiden, Teile umordnen, jeden 2. 7er-Block umdrehen, eigenes Base64-Alphabet) – kein Verfahren der Engine (nur aes_cryptojs/packer/base64)
+- `src/zh/boylove` (BoyLove): Bilder (wenn Skript firstMergeImg/imageData vorhanden) in N senkrechte Streifen verwürfelt, Reihenfolge gespiegelt, letzter Streifen mit Restbreite, nur bei Bildhöhe < 4000 – weder grid (n×n) noch rects (feste Pixel); zudem Details nur über Suche nach Titel und Abgleich per ID (Auswahl per Platzhalter)
+- `src/zh/comicabc` (Comicabc): Seitenliste: Bild-URLs werden von einem je Kapitel verschleierten Inline-Skript erzeugt (lc/su/nn/mm aus j.js, Schleife über ps Seiten); Community führt das Skript per QuickJS aus – JS-Engine nötig
+- `src/zh/creativecomic` (Creative Comic Collection): Bilddateien AES-CBC-verschlüsselt (Leser-DRM): Schlüssel je Bild von /book/chapter/image/<id>, selbst mit AES-CBC (Schlüssel/IV aus SHA-512 eines festen Tokens) zu entschlüsseln, dann Bild-Bytes entschlüsseln und data-URI auspacken – Bild-Entschlüsselung nicht ausdrückbar, Regel 0014 (DRM, Bezahlkapitel)
 - `src/zh/dumanwu` (Dumanwu): MMLook-Theme: Bildliste nach packer-Entpacken zusätzlich Base64 → XOR mit 8-Byte-Schlüssel (je nach data-id 0–9) → Base64; XOR-Entschlüsselung in keiner Vorlage – nicht ausdrückbar
+- `src/zh/favcomic` (FavComic): Bilddateien (img.encrypted-image, auch Cover) AES-verschlüsselt mit festem Schlüssel und vorangestelltem 16-Byte-IV (Bild-Bytes entschlüsseln) – Bild-Entschlüsselung nicht ausdrückbar; viele Kapitel zudem nur mit Login/Münzen
+- `src/zh/hikarinagi` (Hikarinagi): Bilder per POST mit selbst erzeugtem Zufallstoken angefordert und als AES-256-GCM (Schlüssel aus Token, AAD manga:page:mid:cid:pid) geliefert; Bild-Entschlüsselung und selbst erzeugte Schlüssel nicht möglich; Login (401)
 - `src/zh/jcomic` (JComic): Bild-URLs stehen in data-locked als umgedrehter Base64-Text (Präfix JCOMIC_TRAP_ weg, String umkehren, dann Base64) – String-Umkehr nicht ausdrückbar; zudem Einzel-/Mehrkapitel je nach URL (/page vs. /eps) und Details nur aus Listeneintrag (memo)
+- `src/zh/jinmantiantang` (Jinman Tiantang): App-API: Header Token = MD5(Zeitstempel + geheimer App-Schlüssel), Antworten AES-ECB mit MD5(Zeitstempel+Schlüssel) verschlüsselt, API-Host aus verschlüsselter Serverliste – selbst erzeugte Signatur (Regel 0014) und AES-ECB nicht ausdrückbar; zudem Bilder in 2–20 Zeilen verwürfelt (Zeilenzahl aus MD5 von Album-ID+Bildnummer) – weder grid noch rects
 - `src/zh/manhuagui` (ManHuaGui): Seitenliste: gepacktes Skript, dessen Wörterbuch LZString-komprimiert (decompressFromBase64) ist, vor dem Entpacken; Kapitelliste ab 18 ebenfalls LZString in #__VIEWSTATE – LZString-Dekompression ist keine Engine-Dekodierung (nur aes_cryptojs/packer/base64)
+- `src/zh/manwa` (Manwa): Kapitelbilder (URLs mit ?v=20220724) sind AES-CBC-verschlüsselte Bilddateien (fester Schlüssel = IV, ohne Padding), müssen nach dem Laden entschlüsselt werden – Bild-Entschlüsselung nicht ausdrückbar
 - `src/zh/miaoqu` (Miaoqu Manhua): Seitenliste in var DATA: Base64 → XOR mit 8-Byte-Schlüssel (je nach Kapitel-ID mod 10) → Base64 → JSON; XOR-Entschlüsselung gibt es in keiner Vorlage (nur aes_cryptojs/packer/base64)
+- `src/zh/roumanwu` (Roumanwu): Bilder mit sr:1 in horizontale Streifen zerlegt und umgekehrt angeordnet; Streifenzahl = MD5(base64-dekodierter Dateiname) letztes Byte %10+5 – eigene Entwürfelung, weder grid noch rects
 - `src/zh/rumanhua` (Rumanhua): MMLook-Theme: Bildliste nach packer-Entpacken zusätzlich Base64 → XOR mit 8-Byte-Schlüssel (je nach data-id 0–9) → Base64; XOR-Entschlüsselung in keiner Vorlage – nicht ausdrückbar
 - `src/zh/sixmh` (6Manhua): Seitenliste in params='…' : Base64 → AES-CBC mit festem Rohschlüssel (16 Byte) und IV = erste 16 Byte der Daten → JSON; aes_cryptojs kennt nur das CryptoJS-Passphrasen-Format (Madara chapter_data), kein Rohschlüssel/IV-Präfix
+- `src/zh/tencentcomics` (Tencent Comics (ac.qq.com)): Seitenliste in var DATA verschleiert: Nonce ist ein JS-Ausdruck (Browser-Eigenschaften), der per QuickJS ausgewertet wird; danach Zeichen an berechneten Stellen aus dem String entfernen und Base64 – JS-Engine und eigene String-Bearbeitung nötig
+- `src/zh/xipimanhua` (Xipi Manhua): Bildliste der API (/v2/chapter) eigen verschleiert (Präfix/Marker abschneiden, Teile umordnen, jeden 2. 7er-Block umkehren, eigenes Base64-Alphabet) und ein Köder-Eintrag per BigInt-XOR-Rechnung zu entfernen; zudem API-Kapitel-ID aus Base64-Umkodierung der Kapitel-ID – nicht ausdrückbar
 
-### Vorab-Anfragen (CSRF/Nonce/Token) für Listen und Kapitel (50)
+### Vorab-Anfragen (CSRF/Nonce/Token) für Listen und Kapitel (60)
 
 - `src/all/comicfury` (Comic Fury): Kapitel verschachtelt (Archiv-Kapitel → je eigene paginierte Seiten, Kapitelkopf vom übergeordneten Eintrag) + Fallback auf <slug>.webcomic.ws; Content-Warning-Seite per Token-POST (Interceptor); 14 Quellen mit eigenem language-Parameter
 - `src/all/deviantart` (DeviantArt): Kein Katalog (Beliebt/Neueste werfen Fehler, Suche nur als 'gallery:<user>[/<ordner>]' bzw. Galerie-URL); Zusatzbilder aus __INITIAL_STATE__ per Map-Schlüssel (deviationId) und URL-Bau mit <prettyName>-Ersatz + Token per Index; 403-Rückfall-Interceptor – nicht abbildbar
@@ -144,15 +189,61 @@ Diese Websites bleiben Kandidaten für den Ausweg (Community-Code unverändert),
 - `src/pt/taiyo` (Taiyō): Einzige Liste (Beliebt/Suche) über Meilisearch-POST mit Bearer-Token, das aus wechselnden Next.js-Skript-Chunks gesucht werden muss (Chunk-Liste aus HTML) – nicht ausdrückbar; Kapitel via tRPC mit JSON-Input in der URL
 - `src/ru/astramanga` (AstraManga): Kapitel: Titel-ID aus /titles/<slug> → /titles/<id>/branches → je Übersetzer-Zweig /branches/<bid>/chapters (mehrere Zweige zusammenführen); verkettete Folgeanfragen mit Zwischenwert und Auffächern über alle Zweige in chapters nicht ausdrückbar
 - `src/ru/hentailib` (HentaiLib): LibGroup-Theme: Bild-Server-URL kommt aus /api/constants (imageServers), auszuwählen nach id UND site_ids enthält siteId=4 – zwei Bedingungen/Listen-Contains im JSON-Filter nicht belegt; dazu Kapitel-Felder (Team, Datum, Bezahlstatus) aus branches[0] (Index-Zugriff) und Erwachseneninhalte i. d. R. nur mit Bearer-Token aus der Website-Anmeldung
+- `src/tr/mangaship` (Manga Bahçesi): Jede Bild-URL (Seiten und Cover) nur über eigenen POST /PartialView/SifreCoz mit id + token aus Cookie mangaToken auflösbar; Cookie-Wert als Formularfeld und POST-Subpage je Bild sind nicht belegt
 - `src/tr/sunsetmanga` (Sunset Manga): Bilder nur per POST admin-ajax (action=get_protected_image, token je Bild) abrufbar (getImageRequest); Bild-POST ist in keiner Vorlage belegt. Listen brauchen zudem Nonce aus sunsetGlobalData der Startseite.
 - `src/vi/cuutruyenmoe` (CuuTruyen (unoriginal)): Website liegt hinter einem Passwort-Gate (Livewire 'enter-secret'): Community erkennt die Sperrseite und schickt per POST /livewire/message/enter-secret fingerprint/serverMemo aus wire:initial-data + CSRF-Token + Passwort – Gate-Erkennung und JSON-Nachbau aus der Seite nicht ausdrückbar (zudem Zugangssperre, Regel 0014)
+- `src/vi/hv2tcomics` (Học Viện 2Ten): Seitenbilder nur per WebView (runWebView + evaluateJs, Scrollen bis img[alt^=Page] stabil); keine API für die Bildliste im Code; dazu Auth-Token aus localStorage
+- `src/vi/panomic` (Panomic): Kapitelinhalt (htmlContent) AES-CBC mit PBKDF2-HMAC-SHA512 (999 Runden) aus Schlüsselteilen im Skript, nicht CryptoJS-EVP; Bild-URLs per dynamischer Ersetzung entschleiert; Passcode-Cookie a3_site_passcode_token nötig
+- `src/vi/tuitruyen` (TuiTruyen): Bilder im imgx-Format (XOR/Blockchiffre/AES-GCM mit Grant+storageKey) verschlüsselt; Seitenzugriff mit selbst erzeugtem Proof (Nonce+Zeitstempel+Hash); nicht ausdrückbar
 - `src/vi/tulinhtruyen` (TuLinhTruyen): API (api.tulinh.workers.dev, MangaDex-artig) verlangt festen App-Schlüssel X-Manga-Token und fremden User-Agent 'MangaVaultExtension/1.4.8' aus dem Community-Code; Schlüssel wird nicht von der Website ausgeliefert (Regel 0014) – nicht übernehmen ohne Freigabe.
 - `src/vi/vihentai` (ViHentai): Bildliste steckt in eval(function(h,u,n,t,e,r)…) – eigenes Zahlensystem-Verfahren, nicht der unterstützte p,a,c,k,e,d-Packer; zusätzlich Passwort-Sperrseite (Livewire POST enter-secret mit CSRF und wire:initial-data), die die Engine nicht ausfüllen kann.
+- `src/vi/yurigarden` (YuriGarden): Alle API-Aufrufe brauchen Bearer-Token eines eingeloggten Kontos (per WebView aus dem Browser-Speicher gelesen) – Login zum Lesen; zudem Bilder in 10 Streifen verwürfelt (Base58/Lehmer-Permutation je Bild, weder grid noch rects)
 - `src/zh/bilimanga` (BiliManga): Kapitel-Links teils 'javascript:cid(1)': URL muss aus der Nachbarkapitelseite (url_previous/url_next im Skript, '.'→'_2.') per Interceptor ermittelt werden – je Kapitel bedingte Folgeanfrage nicht ausdrückbar; Suche braucht jieqiSearchTicket-Cookie, das aus JS-Antwort (cookie="…") gesetzt und per redeem eingelöst wird
+- `src/zh/creativecomic` (Creative Comic Collection): Bilddateien AES-CBC-verschlüsselt (Leser-DRM): Schlüssel je Bild von /book/chapter/image/<id>, selbst mit AES-CBC (Schlüssel/IV aus SHA-512 eines festen Tokens) zu entschlüsseln, dann Bild-Bytes entschlüsseln und data-URI auspacken – Bild-Entschlüsselung nicht ausdrückbar, Regel 0014 (DRM, Bezahlkapitel)
+- `src/zh/hikarinagi` (Hikarinagi): Bilder per POST mit selbst erzeugtem Zufallstoken angefordert und als AES-256-GCM (Schlüssel aus Token, AAD manga:page:mid:cid:pid) geliefert; Bild-Entschlüsselung und selbst erzeugte Schlüssel nicht möglich; Login (401)
+- `src/zh/jinmantiantang` (Jinman Tiantang): App-API: Header Token = MD5(Zeitstempel + geheimer App-Schlüssel), Antworten AES-ECB mit MD5(Zeitstempel+Schlüssel) verschlüsselt, API-Host aus verschlüsselter Serverliste – selbst erzeugte Signatur (Regel 0014) und AES-ECB nicht ausdrückbar; zudem Bilder in 2–20 Zeilen verwürfelt (Zeilenzahl aus MD5 von Album-ID+Bildnummer) – weder grid noch rects
+- `src/zh/manhuaren` (Manhuaren): App-API verlangt je Anfrage Signatur gsn = MD5(geheimes Salt + Methode + sortierte Parameter + Salt) und anonymen Nutzer-Token (Registrierung mit RSA-verschlüsselten Geräte-IDs) – selbst erzeugte Signatur/Schlüssel, Regel 0014, nicht ausdrückbar
+- `src/zh/tencentcomics` (Tencent Comics (ac.qq.com)): Seitenliste in var DATA verschleiert: Nonce ist ein JS-Ausdruck (Browser-Eigenschaften), der per QuickJS ausgewertet wird; danach Zeichen an berechneten Stellen aus dem String entfernen und Base64 – JS-Engine und eigene String-Bearbeitung nötig
 - `src/zh/tongli` (Tongli): Kapitel- und Seiten-API (api.tongli.tw/Book/BookVol, /Comic/sas) nur mit Authorization: Bearer <Firebase-idToken>; Token entsteht durch Anmeldung bzw. anonyme Registrierung bei Google Identity Toolkit (signupNewUser, Ablauf 1 h, Refresh-Token) – Login zum Lesen, nicht ausdrückbar. Zudem kommerzieller E-Book-Shop (nur freie Bände lesbar).
 - `src/zh/vomic` (vomic): Jede API-Anfrage braucht Signatur-Header s/t (eigener Hash über Parameter+Zeit+Salz im SignInterceptor); Seiten (getChapterInfo) zusätzlich nur mit Login (Bearer-Token aus E-Mail/Passwort)
 
-### Auswahl per Platzhalter (Filter/Selektor mit {u.…}, Abgleich per ID/Slug) (29)
+### WebView/JavaScript ausführen/Deobfuskieren (33)
+
+- `src/all/cubari` (Cubari): Cubari ist ein Proxy-Leser ohne eigenen Katalog: Beliebt/Neueste/Suche lesen per WebView + JS (globalHistoryHandler, remoteStorage) den lokalen Verlauf; Kapitel entstehen aus JSON-Objekt-Maps (chapters → groups), Iteration über Objektschlüssel in keiner Vorlage belegt
+- `src/all/hdoujin` (HDoujin): Jede API-Anfrage braucht crt-Clearance-Token aus dem WebView-localStorage (getLocalStorage 'clearance'); ohne WebView nicht ausdrückbar
+- `src/ar/dilar` (Dilar): Seitenliste: Kapitel-Antwort mit wechselndem Schema verschlüsselt; Community lädt den Reader im WebView und fängt JSON.parse ab (storage_key/media_token/pages) – WebView/JS nötig
+- `src/ar/mangatek` (MangaTek): Seiten: fehlende Seiten nur per /api/reader/pages mit Proof (Seeds aus Reader-Bundle per QuickJS, eigene Kryptografie, ggf. Proof-of-Work); Übersetzungstext als verschlüsseltes Overlay, das per Interceptor in die Bilder gezeichnet wird – JS-Engine/Signatur/Bildbearbeitung nötig
+- `src/en/coffeemangaunoriginal` (Coffee Manga (Unoriginal)): ImperioManhwa-Theme: nur erste Seite inline (Inertia data-page); restliche Seiten versiegelt, werden per WebView mit Site-JS (reader.js über /build/assets-Modul) entsiegelt, ggf. mit Turnstile-Token – WebView/JS nötig
+- `src/en/mangago` (Mangago): Bildliste AES-CBC (Schlüssel aus SoJson-v4-verschleiertem Kapitel-JS) plus String-Entwürfelung; Bild-Entwürfelungsschlüssel je Bild per QuickJS aus Website-JS – JS-Engine und eigene Verschleierung nötig
+- `src/en/mangahere` (Mangahere): Seitenweiser Leser (Normalfall): Schlüssel entsteht erst durch Auswerten eines JS-String-Ausdrucks nach dem Entpacken (QuickJs), Bild-URL je Seite aus chapterfun.ashx?cid&page&key (packer-JS, pix+pvalue), Seitenzahlen 1..N aus dem Pager zu erzeugen – JS-Auswertung und Seitenbereich nicht ausdrückbar (nur Webtoon-Modus wäre packer+Regex)
+- `src/en/mangalix` (MangaLix): Katalog nur als JS-Objektliteral (kein JSON, eigener Parser) in einem Vite-Asset, dessen Name erst aus der Startseite kommt; Seiten nur per Suche des Kapitels nach id/Nummer in chapters/<slug>.json (Platzhalter im Filter nicht belegt)
+- `src/en/webnex` (Webnex): Seitenliste (/read/…/pages) lehnt laut Community Nicht-Browser-Clients ab; wird im WebView per fetch (reader_fetch.js) nach Redirect mit pfadgebundenem Cookie geholt – WebView nötig
+- `src/en/webnovel` (WebNovel): Jede API-Anfrage (/go/pcm) braucht _csrfToken als Query-Parameter, Wert nur aus dem Cookie (Community: 'Open in WebView to set necessary cookies'); Cookie-Werte in URLs einsetzen ist in keiner Vorlage belegt
+- `src/es/catmanhwas` (Catoons): SvelteKit: Daten im devalue-Format (flache Liste mit Index-Verweisen, rekursives Auflösen nötig) und Remote-Funktions-IDs für Details/Kapitel/Neueste nur per WebView-Mitschnitt ermittelbar – WebView + Rekursion
+- `src/es/emperorscan` (Emperor Scan): ImperioManhwa-Theme: nur erste Seite inline (Inertia data-page); restliche Seiten versiegelt, werden per WebView mit Site-JS (reader.js über /build/assets-Modul) entsiegelt, ggf. mit Turnstile-Token – WebView/JS nötig
+- `src/es/kumanga` (Kumanga): Bildliste im Reader-Skript base64 + XOR mit festem Schlüssel (aus kx.reader.js) verschleiert – XOR-Dekodierung nicht ausdrückbar; zudem Umweg über Upload-Seite und Cover-URL mit Rechnung (id+2499)/2500
+- `src/es/mangasin` (Mangas.in): Kapitelliste CryptoJS-verschlüsselt (ct/iv/s – wäre aes_cryptojs), aber der Schlüssel steht nur im verschleierten /js/ads2.js und braucht den synchrony-Deobfuscator (JS-Entschleierung)
+- `src/es/mangasnosekai` (Mangas No Sekai): Kapitel-Endpunkt und Formularfelder stehen nur im verschleierten Skript wp-manga-js (Entschleierung per lib synchrony/Deobfuscator nötig); ohne sie keine Kapitelliste
+- `src/es/mangatv` (Manga TV): Bildliste im gepackten Skript als ReaderBlob {k,iv,c} AES-GCM-verschlüsselt (Schlüssel mitgeliefert, aber AES-GCM ist kein aes_cryptojs); packer+base64-Liste nur noch alter Rückfall
+- `src/fr/lanortrad` (LanorTrad): Daten als JS-Objektliterale (unquotierte Schlüssel, expand()-Aufruf), Details per ID-Abgleich in series.js, Bildordner per Suche im Kapitelindex (findFolder) – nicht als JSON-Pfad ausdrückbar
+- `src/fr/mangamoins` (MangaMoins): Seiten: Bild-Basis-URL muss um 'Salts' bereinigt werden, die aus dem verschleierten reader.js (alle String-Literale mit \x-Escapes, Teilstring-Abgleich) gesucht werden; Seitennummern auf 2 Stellen aus pageNumbers
+- `src/id/softkomik` (Softkomik): API verlangt X-Token/X-Sign-Sitzung (häufig umbenannter Session-Endpunkt, Rückfall per WebView-Mitschnitt; Token an User-Agent gebunden), pageProps mit NEXT_PUBLIC_ENCRYPTION_KEY verschlüsselt, Fallen-Bilder und CDN-Wechsel – WebView/eigene Entschlüsselung nötig
+- `src/ja/zebrack` (Zebrack): API-Antworten Protobuf (ProtoNumber-DTOs), Bilder XOR-verschlüsselt (XorInterceptor), Secret per WebView geholt – Protobuf/WebView/Bild-Entschlüsselung kann die Engine nicht
+- `src/ko/sbxh` (Newtoki (SBXH)): Seitenliste nur per WebView: Bild-URLs gibt die Website nur an ihr eigenes Viewer-Skript aus (Fingerprint-Sitzung + Werbeprüfung), Community rendert die Kapitelseite und sammelt <img alt='page N'> per JavaScript – WebView/JS nötig
+- `src/pt/argoscomics` (Argos Comics): Details/Kapitel/Seiten/Suche nur über Next.js-Server-Actions; Next-Action-IDs müssen aus wechselnden JS-Chunks gesucht werden (Chunk-Liste aus HTML) – nicht ausdrückbar; Seiten teils Login
+- `src/pt/rfdragonscan` (RF Dragon Scan): Jede Anfrage braucht Login-Cookie access_token (Community: 'Faça login pelo WebView'); dazu Next.js-Server-Actions mit wechselnden next-action-IDs aus den JS-Bundles (Login zum Lesen)
+- `src/pt/xxxyaoi` (XXX Yaoi): Kapitelseite muss in WebView gerendert werden (Seiten-JS dekodiert die Bildliste erst im Browser, Community wertet document.outerHTML nach JS aus) – WebView/JS-Ausführung nötig
+- `src/vi/hv2tcomics` (Học Viện 2Ten): Seitenbilder nur per WebView (runWebView + evaluateJs, Scrollen bis img[alt^=Page] stabil); keine API für die Bildliste im Code; dazu Auth-Token aus localStorage
+- `src/vi/vihentai` (ViHentai): Bildliste steckt in eval(function(h,u,n,t,e,r)…) – eigenes Zahlensystem-Verfahren, nicht der unterstützte p,a,c,k,e,d-Packer; zusätzlich Passwort-Sperrseite (Livewire POST enter-secret mit CSRF und wire:initial-data), die die Engine nicht ausfüllen kann.
+- `src/vi/yurigarden` (YuriGarden): Alle API-Aufrufe brauchen Bearer-Token eines eingeloggten Kontos (per WebView aus dem Browser-Speicher gelesen) – Login zum Lesen; zudem Bilder in 10 Streifen verwürfelt (Base58/Lehmer-Permutation je Bild, weder grid noch rects)
+- `src/zh/bilimanga` (BiliManga): Kapitel-Links teils 'javascript:cid(1)': URL muss aus der Nachbarkapitelseite (url_previous/url_next im Skript, '.'→'_2.') per Interceptor ermittelt werden – je Kapitel bedingte Folgeanfrage nicht ausdrückbar; Suche braucht jieqiSearchTicket-Cookie, das aus JS-Antwort (cookie="…") gesetzt und per redeem eingelöst wird
+- `src/zh/comicabc` (Comicabc): Seitenliste: Bild-URLs werden von einem je Kapitel verschleierten Inline-Skript erzeugt (lc/su/nn/mm aus j.js, Schleife über ps Seiten); Community führt das Skript per QuickJS aus – JS-Engine nötig
+- `src/zh/kuaikanmanhua` (Kuaikanmanhua): Listen, Details, Kapitel und Seiten stecken in window.__NUXT__ als minifizierte JS-Funktion (Werte als Funktionsparameter dedupliziert), Code wertet sie mit QuickJS aus; kein JSON-Format, Regex auf Rohtext unzuverlässig; nur die Textsuche hat eine JSON-API
+- `src/zh/mangabz` (Mangabz): Bilder nur seitenweise über chapterimage.ashx?cid=<id>&page=<n> (gepacktes JS mit pix + Pfadliste, 2–15 Seiten je Antwort); Seitenzahl nur aus dem Kapitelnamen '（NP）'. N Unterseiten aus einer Zahl in HTML/Text erzeugen und pix+Pfad aus zwei Regex-Gruppen zusammensetzen ist in keiner Vorlage belegt. Dazu drei Spiegel mit unterschiedlichem URL-Suffix (bz/xm/yy) und Sprach-Cookie.
+- `src/zh/manhuagui` (ManHuaGui): Seitenliste: gepacktes Skript, dessen Wörterbuch LZString-komprimiert (decompressFromBase64) ist, vor dem Entpacken; Kapitelliste ab 18 ebenfalls LZString in #__VIEWSTATE – LZString-Dekompression ist keine Engine-Dekodierung (nur aes_cryptojs/packer/base64)
+- `src/zh/tencentcomics` (Tencent Comics (ac.qq.com)): Seitenliste in var DATA verschleiert: Nonce ist ein JS-Ausdruck (Browser-Eigenschaften), der per QuickJS ausgewertet wird; danach Zeichen an berechneten Stellen aus dem String entfernen und Base64 – JS-Engine und eigene String-Bearbeitung nötig
+
+### Auswahl per Platzhalter (Filter/Selektor mit {u.…}, Abgleich per ID/Slug) (31)
 
 - `src/all/coomer` (Coomer): Theme kemono: Listen/Suche laden den kompletten Creator-Katalog (/api/v1/creators, ein JSON mit allen Einträgen) und sortieren (favorited/updated), filtern und paginieren (50er) clientseitig – Sortieren/Zerteilen einer Gesamtliste gibt es in keiner Vorlage; Seiten = Vereinigung aus post.file + post.attachments mit Endungsfilter
 - `src/all/e621` (e621): Listen (Standard Tag-Modus) und Bildliste/Cover brauchen Sammelabfragen mit aus JSON-Listen zusammengesetzten IDs (tags=id:1,2,3, Pools zu Post-IDs); Blacklist-/Platzhalterlogik; e621 verlangt eigenen beschreibenden User-Agent
@@ -182,6 +273,8 @@ Diese Websites bleiben Kandidaten für den Ausweg (Community-Code unverändert),
 - `src/th/manga168` (Manga168): Details/Kapitel nur aus Next.js-Flight-Daten (series-Liste), Community wählt die Serie per slug aus mehreren – Platzhalter im Regex/Filter nicht belegt; Seiten-API braucht series.id + Kapitelnummer (Elternfeld); Suche filtert den Gesamtkatalog im Speicher
 - `src/tr/mikrokosmosfansub` (Mikrokosmos Fansub): Details (Titel, Cover, Beschreibung, Status) gibt es nur in der Gesamtliste /api/series; die Community sucht den Eintrag per slug heraus – JSON-Filter mit Platzhalter (data.?slug={u.slug}) ist in keiner Vorlage belegt, Kapitel-Endpunkt liefert nur chapters
 - `src/vi/otakusic` (Otakusic): Bildquelle je Kapitel verschieden: api_url ist entweder externe API-URL (domain_cdn+chapter_path+image_file, nach image_page sortiert) oder ein JSON-Text mit Dateinamen (img.<host>/manga/uploads/chapter/…); Verzweigung je Kapitel und Auswahl des Kapitels per chapter_original_slug aus der Kapitelliste (Platzhalter im ?-Filter) nicht ausdrückbar
+- `src/vi/seikowo` (Seikowo): Bildlisten liegen in Data_Node-Posts als Base64 → AES-GCM (Schlüssel fest, IV = erste 12 Byte) → GZIP-komprimiertes JSON; AES-GCM und GZIP-Entpacken nicht ausdrückbar (nur aes_cryptojs); zudem Kapitel per Nummernabgleich über mehrere Worker-Posts gesucht
+- `src/zh/boylove` (BoyLove): Bilder (wenn Skript firstMergeImg/imageData vorhanden) in N senkrechte Streifen verwürfelt, Reihenfolge gespiegelt, letzter Streifen mit Restbreite, nur bei Bildhöhe < 4000 – weder grid (n×n) noch rects (feste Pixel); zudem Details nur über Suche nach Titel und Abgleich per ID (Auswahl per Platzhalter)
 - `src/zh/terrahistoricus` (Terra Historicus): Bilder je Seite nur über eigenen API-Aufruf /episode/<cid>/page?pageNum=N (N = 1..Anzahl pageInfos); pageInfos haben keine Seitennummer und die Rezeptsprache kennt keinen Index-Platzhalter; Bild-URLs laufen ab (403 → neu holen)
 
 ### Framework-Datenformate (SvelteKit-devalue, Qwik, turbo-stream, Inertia, Livewire, Server-Actions) (26)
@@ -213,36 +306,7 @@ Diese Websites bleiben Kandidaten für den Ausweg (Community-Code unverändert),
 - `src/zh/hcomic` (H-Comic): Daten nur als SvelteKit-__data.json (devalue: Felder sind Indexverweise in ein flaches Array, Auflösung data[struct.x] nötig) und Bildliste aus Seitenanzahl erzeugt (api/<source>/<mediaId>/pages/1..numPages) – beides in der Rezeptsprache nicht ausdrückbar.
 - `src/zh/manhuagui` (ManHuaGui): Seitenliste: gepacktes Skript, dessen Wörterbuch LZString-komprimiert (decompressFromBase64) ist, vor dem Entpacken; Kapitelliste ab 18 ebenfalls LZString in #__VIEWSTATE – LZString-Dekompression ist keine Engine-Dekodierung (nur aes_cryptojs/packer/base64)
 
-### WebView/JavaScript ausführen/Deobfuskieren (26)
-
-- `src/all/cubari` (Cubari): Cubari ist ein Proxy-Leser ohne eigenen Katalog: Beliebt/Neueste/Suche lesen per WebView + JS (globalHistoryHandler, remoteStorage) den lokalen Verlauf; Kapitel entstehen aus JSON-Objekt-Maps (chapters → groups), Iteration über Objektschlüssel in keiner Vorlage belegt
-- `src/all/hdoujin` (HDoujin): Jede API-Anfrage braucht crt-Clearance-Token aus dem WebView-localStorage (getLocalStorage 'clearance'); ohne WebView nicht ausdrückbar
-- `src/ar/dilar` (Dilar): Seitenliste: Kapitel-Antwort mit wechselndem Schema verschlüsselt; Community lädt den Reader im WebView und fängt JSON.parse ab (storage_key/media_token/pages) – WebView/JS nötig
-- `src/ar/mangatek` (MangaTek): Seiten: fehlende Seiten nur per /api/reader/pages mit Proof (Seeds aus Reader-Bundle per QuickJS, eigene Kryptografie, ggf. Proof-of-Work); Übersetzungstext als verschlüsseltes Overlay, das per Interceptor in die Bilder gezeichnet wird – JS-Engine/Signatur/Bildbearbeitung nötig
-- `src/en/coffeemangaunoriginal` (Coffee Manga (Unoriginal)): ImperioManhwa-Theme: nur erste Seite inline (Inertia data-page); restliche Seiten versiegelt, werden per WebView mit Site-JS (reader.js über /build/assets-Modul) entsiegelt, ggf. mit Turnstile-Token – WebView/JS nötig
-- `src/en/mangago` (Mangago): Bildliste AES-CBC (Schlüssel aus SoJson-v4-verschleiertem Kapitel-JS) plus String-Entwürfelung; Bild-Entwürfelungsschlüssel je Bild per QuickJS aus Website-JS – JS-Engine und eigene Verschleierung nötig
-- `src/en/mangahere` (Mangahere): Seitenweiser Leser (Normalfall): Schlüssel entsteht erst durch Auswerten eines JS-String-Ausdrucks nach dem Entpacken (QuickJs), Bild-URL je Seite aus chapterfun.ashx?cid&page&key (packer-JS, pix+pvalue), Seitenzahlen 1..N aus dem Pager zu erzeugen – JS-Auswertung und Seitenbereich nicht ausdrückbar (nur Webtoon-Modus wäre packer+Regex)
-- `src/en/mangalix` (MangaLix): Katalog nur als JS-Objektliteral (kein JSON, eigener Parser) in einem Vite-Asset, dessen Name erst aus der Startseite kommt; Seiten nur per Suche des Kapitels nach id/Nummer in chapters/<slug>.json (Platzhalter im Filter nicht belegt)
-- `src/en/webnex` (Webnex): Seitenliste (/read/…/pages) lehnt laut Community Nicht-Browser-Clients ab; wird im WebView per fetch (reader_fetch.js) nach Redirect mit pfadgebundenem Cookie geholt – WebView nötig
-- `src/en/webnovel` (WebNovel): Jede API-Anfrage (/go/pcm) braucht _csrfToken als Query-Parameter, Wert nur aus dem Cookie (Community: 'Open in WebView to set necessary cookies'); Cookie-Werte in URLs einsetzen ist in keiner Vorlage belegt
-- `src/es/catmanhwas` (Catoons): SvelteKit: Daten im devalue-Format (flache Liste mit Index-Verweisen, rekursives Auflösen nötig) und Remote-Funktions-IDs für Details/Kapitel/Neueste nur per WebView-Mitschnitt ermittelbar – WebView + Rekursion
-- `src/es/emperorscan` (Emperor Scan): ImperioManhwa-Theme: nur erste Seite inline (Inertia data-page); restliche Seiten versiegelt, werden per WebView mit Site-JS (reader.js über /build/assets-Modul) entsiegelt, ggf. mit Turnstile-Token – WebView/JS nötig
-- `src/es/kumanga` (Kumanga): Bildliste im Reader-Skript base64 + XOR mit festem Schlüssel (aus kx.reader.js) verschleiert – XOR-Dekodierung nicht ausdrückbar; zudem Umweg über Upload-Seite und Cover-URL mit Rechnung (id+2499)/2500
-- `src/es/mangasin` (Mangas.in): Kapitelliste CryptoJS-verschlüsselt (ct/iv/s – wäre aes_cryptojs), aber der Schlüssel steht nur im verschleierten /js/ads2.js und braucht den synchrony-Deobfuscator (JS-Entschleierung)
-- `src/es/mangasnosekai` (Mangas No Sekai): Kapitel-Endpunkt und Formularfelder stehen nur im verschleierten Skript wp-manga-js (Entschleierung per lib synchrony/Deobfuscator nötig); ohne sie keine Kapitelliste
-- `src/es/mangatv` (Manga TV): Bildliste im gepackten Skript als ReaderBlob {k,iv,c} AES-GCM-verschlüsselt (Schlüssel mitgeliefert, aber AES-GCM ist kein aes_cryptojs); packer+base64-Liste nur noch alter Rückfall
-- `src/fr/lanortrad` (LanorTrad): Daten als JS-Objektliterale (unquotierte Schlüssel, expand()-Aufruf), Details per ID-Abgleich in series.js, Bildordner per Suche im Kapitelindex (findFolder) – nicht als JSON-Pfad ausdrückbar
-- `src/fr/mangamoins` (MangaMoins): Seiten: Bild-Basis-URL muss um 'Salts' bereinigt werden, die aus dem verschleierten reader.js (alle String-Literale mit \x-Escapes, Teilstring-Abgleich) gesucht werden; Seitennummern auf 2 Stellen aus pageNumbers
-- `src/id/softkomik` (Softkomik): API verlangt X-Token/X-Sign-Sitzung (häufig umbenannter Session-Endpunkt, Rückfall per WebView-Mitschnitt; Token an User-Agent gebunden), pageProps mit NEXT_PUBLIC_ENCRYPTION_KEY verschlüsselt, Fallen-Bilder und CDN-Wechsel – WebView/eigene Entschlüsselung nötig
-- `src/pt/argoscomics` (Argos Comics): Details/Kapitel/Seiten/Suche nur über Next.js-Server-Actions; Next-Action-IDs müssen aus wechselnden JS-Chunks gesucht werden (Chunk-Liste aus HTML) – nicht ausdrückbar; Seiten teils Login
-- `src/pt/rfdragonscan` (RF Dragon Scan): Jede Anfrage braucht Login-Cookie access_token (Community: 'Faça login pelo WebView'); dazu Next.js-Server-Actions mit wechselnden next-action-IDs aus den JS-Bundles (Login zum Lesen)
-- `src/pt/xxxyaoi` (XXX Yaoi): Kapitelseite muss in WebView gerendert werden (Seiten-JS dekodiert die Bildliste erst im Browser, Community wertet document.outerHTML nach JS aus) – WebView/JS-Ausführung nötig
-- `src/vi/vihentai` (ViHentai): Bildliste steckt in eval(function(h,u,n,t,e,r)…) – eigenes Zahlensystem-Verfahren, nicht der unterstützte p,a,c,k,e,d-Packer; zusätzlich Passwort-Sperrseite (Livewire POST enter-secret mit CSRF und wire:initial-data), die die Engine nicht ausfüllen kann.
-- `src/zh/bilimanga` (BiliManga): Kapitel-Links teils 'javascript:cid(1)': URL muss aus der Nachbarkapitelseite (url_previous/url_next im Skript, '.'→'_2.') per Interceptor ermittelt werden – je Kapitel bedingte Folgeanfrage nicht ausdrückbar; Suche braucht jieqiSearchTicket-Cookie, das aus JS-Antwort (cookie="…") gesetzt und per redeem eingelöst wird
-- `src/zh/mangabz` (Mangabz): Bilder nur seitenweise über chapterimage.ashx?cid=<id>&page=<n> (gepacktes JS mit pix + Pfadliste, 2–15 Seiten je Antwort); Seitenzahl nur aus dem Kapitelnamen '（NP）'. N Unterseiten aus einer Zahl in HTML/Text erzeugen und pix+Pfad aus zwei Regex-Gruppen zusammensetzen ist in keiner Vorlage belegt. Dazu drei Spiegel mit unterschiedlichem URL-Suffix (bz/xm/yy) und Sprach-Cookie.
-- `src/zh/manhuagui` (ManHuaGui): Seitenliste: gepacktes Skript, dessen Wörterbuch LZString-komprimiert (decompressFromBase64) ist, vor dem Entpacken; Kapitelliste ab 18 ebenfalls LZString in #__VIEWSTATE – LZString-Dekompression ist keine Engine-Dekodierung (nur aes_cryptojs/packer/base64)
-
-### Rekursion, Eltern-/Geschwisterzugriff, Verzweigung je Eintrag (23)
+### Rekursion, Eltern-/Geschwisterzugriff, Verzweigung je Eintrag (24)
 
 - `src/all/comicfury` (Comic Fury): Kapitel verschachtelt (Archiv-Kapitel → je eigene paginierte Seiten, Kapitelkopf vom übergeordneten Eintrag) + Fallback auf <slug>.webcomic.ws; Content-Warning-Seite per Token-POST (Interceptor); 14 Quellen mit eigenem language-Parameter
 - `src/all/junmeitu` (Junmeitu): Bildliste: Verzweigung (news-body vs. Einzelbildseiten) und Bildseiten-URLs als Zählschleife 1..N aus Seitenzahl gebildet, bei pc_cid über AJAX-Pfad ajax_<cat> mit JSON (HTML im Feld pic) – nicht abbildbar
@@ -263,6 +327,7 @@ Diese Websites bleiben Kandidaten für den Ausweg (Community-Code unverändert),
 - `src/es/catmanhwas` (Catoons): SvelteKit: Daten im devalue-Format (flache Liste mit Index-Verweisen, rekursives Auflösen nötig) und Remote-Funktions-IDs für Details/Kapitel/Neueste nur per WebView-Mitschnitt ermittelbar – WebView + Rekursion
 - `src/fr/chaostrad` (ChaosTrad): Katalog aus Menü mit Folgeabrufen je /search/-Sammlung (Weiterleitung oder Unterliste = Rekursion); Einzelkapitel-Serien ohne Kapitelliste (Kapitel = Endadresse nach Weiterleitung)
 - `src/fr/hentaiscanreader` (Hentai Scan Reader): Bild-URLs: Base64 im Skript-Array, nach dem Dekodieren Zeichenkette umgedreht (reversed) – String-Umkehr nicht abbildbar; Kapitel zudem per multipart-POST (admin-ajax + nonce) und h4-Elternsuche
+- `src/ja/sokuyomi` (Sokuyomi): Kapitel aus zwei GraphQL-Listen (listChapter + listVolume) mit je eigener Viewer-Query je Eintragstyp (getChapterViewer/getVolumeViewer) – Vereinigung zweier Listen und Verzweigung je Typ nicht belegt; dazu Header Client-Version = JST-Tagesdatum und 4x4-Transpose ohne multiple; Sperrlogik (Coins/Kampagne) mit UND/NICHT nicht als skip ausdrückbar
 - `src/pt/mangeek` (ManGeek): Jede API-Anfrage (geekstations.com.br/api/v2/pt/<route>/<nonce>/<id>/<key>) braucht key = md5('M<'+ID bzw. Nonce+'#MANG33K>D') mit festem Geheimtext; Signatur hängt je Eintrag von der ID ab – vars/hash (nur global, en.roliascan) reicht nicht, Signatur mit geheimem Schlüssel (Regel 0014)
 - `src/ru/astramanga` (AstraManga): Kapitel: Titel-ID aus /titles/<slug> → /titles/<id>/branches → je Übersetzer-Zweig /branches/<bid>/chapters (mehrere Zweige zusammenführen); verkettete Folgeanfragen mit Zwischenwert und Auffächern über alle Zweige in chapters nicht ausdrückbar
 - `src/th/manga168` (Manga168): Details/Kapitel nur aus Next.js-Flight-Daten (series-Liste), Community wählt die Serie per slug aus mehreren – Platzhalter im Regex/Filter nicht belegt; Seiten-API braucht series.id + Kapitelnummer (Elternfeld); Suche filtert den Gesamtkatalog im Speicher
@@ -291,6 +356,46 @@ Diese Websites bleiben Kandidaten für den Ausweg (Community-Code unverändert),
 - `src/zh/mangabz` (Mangabz): Bilder nur seitenweise über chapterimage.ashx?cid=<id>&page=<n> (gepacktes JS mit pix + Pfadliste, 2–15 Seiten je Antwort); Seitenzahl nur aus dem Kapitelnamen '（NP）'. N Unterseiten aus einer Zahl in HTML/Text erzeugen und pix+Pfad aus zwei Regex-Gruppen zusammensetzen ist in keiner Vorlage belegt. Dazu drei Spiegel mit unterschiedlichem URL-Suffix (bz/xm/yy) und Sprach-Cookie.
 - `src/zh/terrahistoricus` (Terra Historicus): Bilder je Seite nur über eigenen API-Aufruf /episode/<cid>/page?pageNum=N (N = 1..Anzahl pageInfos); pageInfos haben keine Seitennummer und die Rezeptsprache kennt keinen Index-Platzhalter; Bild-URLs laufen ab (403 → neu holen)
 
+### Bild-Anfragen mit Headern/POST je Bild (18)
+
+- `src/en/coolmic` (Coolmic): Bilder verschlüsselt (Leser-DRM): je Bild JSON mit KMS-verschlüsseltem Schlüssel, Klartext-Schlüssel per POST /decryption_keys mit CSRF-Token, dann PBKDF2-SHA256 + AES-CBC über die Bilddaten – Bild-Entschlüsselung nicht ausdrückbar und Regel 0014 (DRM)
+- `src/en/mangago` (Mangago): Bildliste AES-CBC (Schlüssel aus SoJson-v4-verschleiertem Kapitel-JS) plus String-Entwürfelung; Bild-Entwürfelungsschlüssel je Bild per QuickJS aus Website-JS – JS-Engine und eigene Verschleierung nötig
+- `src/en/vizshonenjump` (VIZ): Bilder verwürfelt; Entwürfelungsschlüssel steht in EXIF-Tag ImageUniqueID der Bilddatei (Kachel-Umordnung je Bild) – kein grid/rects-Verfahren mit festen Parametern; zudem Leser-DRM (Regel 0014)
+- `src/es/mangacrab` (Manga Crab): Bildanfragen brauchen je Kapitel Header 'fansy' aus API-Antwort (security.header) – dynamische Bild-Header nicht ausdrückbar
+- `src/fr/astralmanga` (Astral-Manga): Cover und Seitenbilder als S3-Schlüssel ('s3:…'), je Bild eigene Anfrage /api/s3/presign-get nötig (in Listen/Details nicht ausdrückbar); Kapitel aus RSC nach mangaId gefiltert, Seiten aus Next.js-Daten
+- `src/ja/alphapolis` (Alphapolis): Bilder verwürfelt: eigenes Kachel-Verfahren aus WASM ('createData') mit Base64-Schlüssel je Bild (Kachelgröße/Rand aus Schlüsselbits, Ränder werden abgeschnitten) – weder grid noch rects, nicht ausdrückbar
+- `src/ja/comicfuz` (COMIC FUZ): Alle API-Anfragen und -Antworten Protobuf (toRequestBodyProto/parseAsProto); Bilder AES-CBC-verschlüsselt (key/iv je Bild, Bilddaten entschlüsseln) – Protobuf und Bild-Entschlüsselung nicht ausdrückbar
+- `src/ja/linemanga` (Line Manga): Bilder verwürfelt mit Blöcken fester Pixelgröße (bwd px, hc Spalten) und Zuordnungsliste in Basis-35 je Bild, Randstreifen bleiben unverändert – passt nicht auf grid (n×n-Teilung mit Index-Liste) oder rects; nicht ausdrückbar
+- `src/ja/mangakingdom` (Manga Kingdom): Bilder als base64 in JSON (imgBase64) und verwürfelt: LCG-Permutation mit Schlüssel je Bild, Blöcke mit 1-px-Rand abgeschnitten, Größe abhängig von Bildmaßen – eigene Entwürfelung, weder grid noch rects
+- `src/ja/mangamee` (MangaMee): Details und Seitenliste nur über Protobuf-API (title_detail, parseAsProto); Bilddaten mit XOR-Schlüssel (hex je Bild) verschleiert – Protobuf und Bild-Entschlüsselung nicht ausdrückbar
+- `src/ja/mangaparkpublisher` (Manga-Park): Bilder byteweise XOR-verschlüsselt mit Schlüssel je Bild (image.key, base64) über XorInterceptor – Bild-Byte-Entschlüsselung kann die Engine nicht
+- `src/ja/mangasaison` (Manga Saison): Bilder liegen in ZIP-Archiven (Range-Anfrage auf Eintrag, ggf. entpacken) und sind AES-CBC-verschlüsselt (Schlüssel je Bild, IV aus WASM) – ZIP-Zugriff und Bild-Entschlüsselung (Leser-DRM) nicht ausdrückbar
+- `src/ja/musicbookjp` (Music Book Japan): Bilder verwürfelt (eigene Koordinaten-Zuordnung je Bild) und mit zwei Zusatzbildern _b1/_b2.png überlagert zusammengesetzt – weder grid noch rects, nicht ausdrückbar
+- `src/tr/mangaship` (Manga Bahçesi): Jede Bild-URL (Seiten und Cover) nur über eigenen POST /PartialView/SifreCoz mit id + token aus Cookie mangaToken auflösbar; Cookie-Wert als Formularfeld und POST-Subpage je Bild sind nicht belegt
+- `src/tr/sunsetmanga` (Sunset Manga): Bilder nur per POST admin-ajax (action=get_protected_image, token je Bild) abrufbar (getImageRequest); Bild-POST ist in keiner Vorlage belegt. Listen brauchen zudem Nonce aus sunsetGlobalData der Startseite.
+- `src/vi/yurigarden` (YuriGarden): Alle API-Aufrufe brauchen Bearer-Token eines eingeloggten Kontos (per WebView aus dem Browser-Speicher gelesen) – Login zum Lesen; zudem Bilder in 10 Streifen verwürfelt (Base58/Lehmer-Permutation je Bild, weder grid noch rects)
+- `src/zh/creativecomic` (Creative Comic Collection): Bilddateien AES-CBC-verschlüsselt (Leser-DRM): Schlüssel je Bild von /book/chapter/image/<id>, selbst mit AES-CBC (Schlüssel/IV aus SHA-512 eines festen Tokens) zu entschlüsseln, dann Bild-Bytes entschlüsseln und data-URI auspacken – Bild-Entschlüsselung nicht ausdrückbar, Regel 0014 (DRM, Bezahlkapitel)
+- `src/zh/dm5` (Dm5): Seiten: meist nur über eine Anfrage je Bildseite (chapterfun.ashx?page=1..DM5_IMAGE_COUNT, Antwort packer → pix+pvalue[0]); die Seitenliste müsste aus einer Zahl (Bildanzahl) erzeugt werden – Zahlenbereich als Elementliste in der Rezeptsprache nicht ausdrückbar (nur der seltene Fall #barChapter img.load-src wäre abbildbar).
+
+### Protobuf/ZIP/Binärformate (16)
+
+- `src/all/mangamillion` (Manga Million): Alle API-Antworten sind Protobuf (parseAsProto); Zugriffstoken per POST /api/register (Protobuf); Bilder AES-CBC-verschlüsselt (Schlüssel/IV hex aus Viewer-Antwort, Bild-Bytes entschlüsseln) – Protobuf und Bild-Entschlüsselung nicht ausdrückbar
+- `src/all/mangaup` (Manga UP!): API antwortet nur in Protobuf (parseAsProto); Bilder zusätzlich AES-CBC-verschlüsselt (Schlüssel/IV je Seite aus der Protobuf-Antwort, Rohbytes als Hex) – beides nicht ausdrückbar
+- `src/all/pandachaika` (PandaChaika): Seiten nur aus ZIP-Archiv (/download/): Zentralverzeichnis lesen, Einträge per HTTP-Range holen und entpacken (zipDirectory/readEntry) – ZIP/Range-Zugriff kann die Engine nicht
+- `src/all/yabai` (Yabai): Inertia-API: X-Inertia-Version aus Startseite + X-XSRF-TOKEN aus Cookie, Liste per POST mit Cursor-Pagination (Cursor der Vorseite), Bild-URLs aus parallelen Arrays (head/hash/rand/type, Index-Zip + Padding) – nicht ausdrückbar; dazu DDoS-Guard
+- `src/en/madokami` (Madokami): Login (HTTP-Basic mit Benutzerdaten) nötig und Seiten aus ZIP/CBZ-Archiven per HTTP-Range (zipDirectory/readZipEntry) – Login zum Lesen und ZIP kann die Engine nicht
+- `src/en/reimanga` (ReiManga): Seitenbilder teils als Byte-Bereiche aus Paketdateien (Range-Header je Seite berechnet), Kapitel/Seiten aus RSC-Stream (extractNextJs)
+- `src/ja/comicfuz` (COMIC FUZ): Alle API-Anfragen und -Antworten Protobuf (toRequestBodyProto/parseAsProto); Bilder AES-CBC-verschlüsselt (key/iv je Bild, Bilddaten entschlüsseln) – Protobuf und Bild-Entschlüsselung nicht ausdrückbar
+- `src/ja/corocoroonline` (Corocoro Online): API-Antworten (Ranking, Details, Viewer) sind Protobuf; Bilddateien AES-CBC-verschlüsselt (Schlüssel/IV aus Viewer-Antwort) – Protobuf + Bild-Entschlüsselung nicht ausdrückbar
+- `src/ja/mangamee` (MangaMee): Details und Seitenliste nur über Protobuf-API (title_detail, parseAsProto); Bilddaten mit XOR-Schlüssel (hex je Bild) verschleiert – Protobuf und Bild-Entschlüsselung nicht ausdrückbar
+- `src/ja/mangaone` (Manga One): Alle API-Antworten Protobuf (parseAsProto) und Bilder AES-CBC-verschlüsselt (Schlüssel/IV hex im Viewer-Protobuf); Engine kann weder Protobuf noch Bild-AES
+- `src/ja/mangasaison` (Manga Saison): Bilder liegen in ZIP-Archiven (Range-Anfrage auf Eintrag, ggf. entpacken) und sind AES-CBC-verschlüsselt (Schlüssel je Bild, IV aus WASM) – ZIP-Zugriff und Bild-Entschlüsselung (Leser-DRM) nicht ausdrückbar
+- `src/ja/mokuro` (Mokuro): Seiten nur aus CBZ-Archiven (ZIP): Zentralverzeichnis per zipDirectory, Bilder per HTTP-Range und Entpacken im CbzInterceptor – ZIP/Range-Zugriff kann die Engine nicht
+- `src/ja/zebrack` (Zebrack): API-Antworten Protobuf (ProtoNumber-DTOs), Bilder XOR-verschlüsselt (XorInterceptor), Secret per WebView geholt – Protobuf/WebView/Bild-Entschlüsselung kann die Engine nicht
+- `src/ja/zerosumonline` (Zerosum Online): Gesamte API (list/search/title/viewer) liefert Protobuf (parseAsProto, ProtoNumber-DTOs) – Protobuf kann die Engine nicht
+- `src/pt/randomscan` (Lura Toon): Lesen nur mit Login (user-info.userid nötig); Kapitel-JSON AES-CTR verschlüsselt (Schlüssel SHA-256 aus Slugs+userId), Bilder als AES-CTR-verschlüsselte ZIP-Archive (SVG/base64-Teilbilder, zusammengesetzt) – Login, AES-CTR und ZIP nicht ausdrückbar
+- `src/vi/seikowo` (Seikowo): Bildlisten liegen in Data_Node-Posts als Base64 → AES-GCM (Schlüssel fest, IV = erste 12 Byte) → GZIP-komprimiertes JSON; AES-GCM und GZIP-Entpacken nicht ausdrückbar (nur aes_cryptojs); zudem Kapitel per Nummernabgleich über mehrere Worker-Posts gesucht
+
 ### Feste Listen im Code / Katalog ohne Anfrage (15)
 
 - `src/all/commitstrip` (Commit Strip): Katalog wird im Code ohne Abruf erzeugt (ein Eintrag je Jahr 2012..aktuelles Jahr, Titel/Cover/Autor fest), zwei Sprachquellen mit Pfad /en bzw. /fr; Kapitel = alle Seiten 1..n des Jahresarchivs (n aus .wp-pagenavi) – synthetische Liste und sprachabhängige Pfade nicht abbildbar
@@ -309,6 +414,23 @@ Diese Websites bleiben Kandidaten für den Ausweg (Community-Code unverändert),
 - `src/en/randowiz` (Randowiz): Feste Liste aus 3 Einträgen im Code (Kategorien mit festen Titeln/Covern/Texten, keine Listen-Anfrage) – synthetische Mehrfach-Liste nicht abbildbar; Kapitel sonst einfach (Elementor-Archiv mit .next-Paging)
 - `src/ko/blacktoon` (BlackToon): Domain per Redirect ermitteln, Daten-/Bild-Hosts aus Startseite + config.js; Listen = zwei JS-Datenbankdateien zusammengeführt und clientseitig nach hot/updatedAt sortiert und in 24er-Seiten geteilt – nicht ausdrückbar
 
+### Cursor-Blättern (Wert aus voriger Antwort/Header) (14)
+
+- `src/all/everiaclub` (Everia.club): Seitenliste: mehrteilige Beiträge (.page-links a.post-page-numbers) – Community lädt alle Teilseiten und sammelt je Seite mehrere Bilder (.entry-content img); subpage liefert nur ein Bild je Unterseite, Sammeln über mehrere Seiten gibt es in keiner Vorlage; Listen-has_next zudem aus Antwort-Header X-WP-TotalPages
+- `src/all/honeytoon` (Honeytoon): Seiten als .comic-canvas-scramble: /api/common/resource/sync liefert mehrere Bilddateien hintereinander (application/octet-stream, Teilgrößen im Header X-Part-Sizes), die untereinander zusammengesetzt werden müssen – weder grid noch rects
+- `src/all/mangaomega` (Manga Omega): Serien entstehen erst clientseitig: alle WP-Posts laden (X-WP-TotalPages), Titel per Regex zerlegen, nach Schlüssel gruppieren und cachen – keine Serien-Seiten, nicht als Listen-/Detail-Modell ausdrückbar
+- `src/all/onisaga` (OniSaga): Livewire-Snapshot-Roundtrip (JSON-POST mit Snapshot-String) für Listen/Kapitel; Bilder einzeln per API mit rollierendem Reader-Token aus Antwort-Header
+- `src/all/rokuhentai` (RokuHentai): Bildliste wird aus der Bildanzahl erzeugt (_images/pages/<id>/0..n-1.jpg, Zählung ab 0; items_count nur ab 1 belegt), Anzahl stammt aus dem Listeneintrag (URL-Fragment); Listen blättern per Cursor (letzte ID der Vorseite)
+- `src/all/yabai` (Yabai): Inertia-API: X-Inertia-Version aus Startseite + X-XSRF-TOKEN aus Cookie, Liste per POST mit Cursor-Pagination (Cursor der Vorseite), Bild-URLs aus parallelen Arrays (head/hash/rand/type, Index-Zip + Padding) – nicht ausdrückbar; dazu DDoS-Guard
+- `src/en/kmanga` (K Manga): Jede API-Anfrage braucht Signatur-Header X-Kmanga-Hash (eigener Hash über Parameter + Geburtstags-Cookie); Bilder zusätzlich 4x4 verwürfelt mit xorshift32-Reihenfolge aus scramble_seed (WASM-Zeichensatz) – weder grid noch rects; Kapitel teils nur mit Login/Kauf
+- `src/en/mangafoxfun` (MangaFox.fun): MangaHub-Theme: Seitenliste kann AES-GCM-verschlüsselt sein (enc:v1, Schlüssel von /api/chapter-crypto) – nicht aes_cryptojs; außerdem GraphQL-Zugang nur mit Header x-mhub-access, den die Community zufällig selbst erzeugt bzw. aus Set-Cookie einer Kapitelseite (ohne Redirect) erneuert – nicht ausdrückbar
+- `src/en/mangaonlinefun` (MangaOnline.fun): MangaHub-Theme: Seitenliste kann AES-GCM-verschlüsselt sein (enc:v1, Schlüssel von /api/chapter-crypto) – nicht aes_cryptojs; außerdem GraphQL-Zugang nur mit Header x-mhub-access, den die Community zufällig selbst erzeugt bzw. aus Set-Cookie einer Kapitelseite (ohne Redirect) erneuert – nicht ausdrückbar
+- `src/en/onemangaco` (1Manga.co): MangaHub-Theme: Seitenliste kann AES-GCM-verschlüsselt sein (enc:v1, Schlüssel von /api/chapter-crypto) – nicht aes_cryptojs; außerdem GraphQL-Zugang nur mit Header x-mhub-access, den die Community zufällig selbst erzeugt bzw. aus Set-Cookie einer Kapitelseite (ohne Redirect) erneuert – nicht ausdrückbar
+- `src/en/patchfriday` (Patch Friday): Feste Ein-Eintrag-Liste; Kapitelliste per /search/?search=&id=N, wobei N aus der höchsten Strip-Nummer der ersten Seite in 10er-Schritten herunterzählt (rechnerischer Cursor) und Kapitel 1 im Code ergänzt wird – Paging mit aus der ersten Seite berechneten Werten nicht ausdrückbar
+- `src/ja/mangano` (MangaNo): GraphQL nur mit Firebase-Bearer-Token (anonymes accounts:signUp per POST mit API-Schlüssel, Refresh, optional Login); Token-Beschaffung per POST in vars nicht belegt; Listen mit Cursor
+- `src/tr/mangacix` (MangaciX): Jede /secure/-API-Anfrage braucht Header X-E-H = AES-GCM-Verschlüsselung der Query mit festem Schlüssel und Zufalls-IV (selbst erzeugte Signatur, Regel 0014)
+- `src/vi/yurineko` (YuriNeko): Seiten-URLs im RSC-Skript als /api/img?d=<base64url(url|xorKey)>; direkt geladen sind die Bilder XOR-verschlüsselt (Header x-ik), Umweg über Klartext-CDN-URL braucht base64url-Dekodierung mit anschließendem Abschneiden am '|' – beides nicht belegt
+
 ### Iteration über JSON-Objekte (Maps) (13)
 
 - `src/all/cubari` (Cubari): Cubari ist ein Proxy-Leser ohne eigenen Katalog: Beliebt/Neueste/Suche lesen per WebView + JS (globalHistoryHandler, remoteStorage) den lokalen Verlauf; Kapitel entstehen aus JSON-Objekt-Maps (chapters → groups), Iteration über Objektschlüssel in keiner Vorlage belegt
@@ -324,21 +446,6 @@ Diese Websites bleiben Kandidaten für den Ausweg (Community-Code unverändert),
 - `src/fr/scanr` (ScanR): Index ist JSON-Objekt slug->Datei, jede Serie einzeln nachzuladen; Kapitel als Objekt-Map (Schlüssel = Nummer); '*' über Objekte und Nachladen je Listeneintrag nicht ausdrückbar
 - `src/id/mikoroku` (MikoRoku): Kapitel aus drei Quellen zusammengeführt (Firestore-Subcollection, Firestore-Map 'chapters.<key>' als Objektschlüssel, zwei Blogger-Feeds mit Titel-Ähnlichkeitsabgleich) und nach Nummer entdoppelt; Seiten mit Ausweichkette über mehrere APIs
 - `src/zh/noyacg` (NoyAcg): API verlangt Anmeldung (Antwort status=login → Community meldet sich mit Benutzername/Passwort aus den Einstellungen an, Sitzungs-Cookie von noymanga.com); Login zum Lesen nicht vorgesehen. Zudem Kapitel als Objekt je Kategorie-ID (chapters.data.<id>) und Bildliste nur aus Seitenzahl erzeugt (/<id>/<n>.webp).
-
-### Cursor-Blättern (Wert aus voriger Antwort/Header) (12)
-
-- `src/all/everiaclub` (Everia.club): Seitenliste: mehrteilige Beiträge (.page-links a.post-page-numbers) – Community lädt alle Teilseiten und sammelt je Seite mehrere Bilder (.entry-content img); subpage liefert nur ein Bild je Unterseite, Sammeln über mehrere Seiten gibt es in keiner Vorlage; Listen-has_next zudem aus Antwort-Header X-WP-TotalPages
-- `src/all/honeytoon` (Honeytoon): Seiten als .comic-canvas-scramble: /api/common/resource/sync liefert mehrere Bilddateien hintereinander (application/octet-stream, Teilgrößen im Header X-Part-Sizes), die untereinander zusammengesetzt werden müssen – weder grid noch rects
-- `src/all/mangaomega` (Manga Omega): Serien entstehen erst clientseitig: alle WP-Posts laden (X-WP-TotalPages), Titel per Regex zerlegen, nach Schlüssel gruppieren und cachen – keine Serien-Seiten, nicht als Listen-/Detail-Modell ausdrückbar
-- `src/all/onisaga` (OniSaga): Livewire-Snapshot-Roundtrip (JSON-POST mit Snapshot-String) für Listen/Kapitel; Bilder einzeln per API mit rollierendem Reader-Token aus Antwort-Header
-- `src/all/rokuhentai` (RokuHentai): Bildliste wird aus der Bildanzahl erzeugt (_images/pages/<id>/0..n-1.jpg, Zählung ab 0; items_count nur ab 1 belegt), Anzahl stammt aus dem Listeneintrag (URL-Fragment); Listen blättern per Cursor (letzte ID der Vorseite)
-- `src/all/yabai` (Yabai): Inertia-API: X-Inertia-Version aus Startseite + X-XSRF-TOKEN aus Cookie, Liste per POST mit Cursor-Pagination (Cursor der Vorseite), Bild-URLs aus parallelen Arrays (head/hash/rand/type, Index-Zip + Padding) – nicht ausdrückbar; dazu DDoS-Guard
-- `src/en/kmanga` (K Manga): Jede API-Anfrage braucht Signatur-Header X-Kmanga-Hash (eigener Hash über Parameter + Geburtstags-Cookie); Bilder zusätzlich 4x4 verwürfelt mit xorshift32-Reihenfolge aus scramble_seed (WASM-Zeichensatz) – weder grid noch rects; Kapitel teils nur mit Login/Kauf
-- `src/en/mangafoxfun` (MangaFox.fun): MangaHub-Theme: Seitenliste kann AES-GCM-verschlüsselt sein (enc:v1, Schlüssel von /api/chapter-crypto) – nicht aes_cryptojs; außerdem GraphQL-Zugang nur mit Header x-mhub-access, den die Community zufällig selbst erzeugt bzw. aus Set-Cookie einer Kapitelseite (ohne Redirect) erneuert – nicht ausdrückbar
-- `src/en/mangaonlinefun` (MangaOnline.fun): MangaHub-Theme: Seitenliste kann AES-GCM-verschlüsselt sein (enc:v1, Schlüssel von /api/chapter-crypto) – nicht aes_cryptojs; außerdem GraphQL-Zugang nur mit Header x-mhub-access, den die Community zufällig selbst erzeugt bzw. aus Set-Cookie einer Kapitelseite (ohne Redirect) erneuert – nicht ausdrückbar
-- `src/en/onemangaco` (1Manga.co): MangaHub-Theme: Seitenliste kann AES-GCM-verschlüsselt sein (enc:v1, Schlüssel von /api/chapter-crypto) – nicht aes_cryptojs; außerdem GraphQL-Zugang nur mit Header x-mhub-access, den die Community zufällig selbst erzeugt bzw. aus Set-Cookie einer Kapitelseite (ohne Redirect) erneuert – nicht ausdrückbar
-- `src/en/patchfriday` (Patch Friday): Feste Ein-Eintrag-Liste; Kapitelliste per /search/?search=&id=N, wobei N aus der höchsten Strip-Nummer der ersten Seite in 10er-Schritten herunterzählt (rechnerischer Cursor) und Kapitel 1 im Code ergänzt wird – Paging mit aus der ersten Seite berechneten Werten nicht ausdrückbar
-- `src/ja/mangano` (MangaNo): GraphQL nur mit Firebase-Bearer-Token (anonymes accounts:signUp per POST mit API-Schlüssel, Refresh, optional Login); Token-Beschaffung per POST in vars nicht belegt; Listen mit Cursor
 
 ### Mehrere Quellen/Sprachen mit eigenen Pfaden (9)
 
@@ -364,30 +471,7 @@ Diese Websites bleiben Kandidaten für den Ausweg (Community-Code unverändert),
 - `src/en/oglaf` (Oglaf): Seiten eines Strips nur durch Folgen von a[rel=next] über Unterseiten unbekannter Anzahl (Kette/Rekursion)
 - `src/zh/mangabz` (Mangabz): Bilder nur seitenweise über chapterimage.ashx?cid=<id>&page=<n> (gepacktes JS mit pix + Pfadliste, 2–15 Seiten je Antwort); Seitenzahl nur aus dem Kapitelnamen '（NP）'. N Unterseiten aus einer Zahl in HTML/Text erzeugen und pix+Pfad aus zwei Regex-Gruppen zusammensetzen ist in keiner Vorlage belegt. Dazu drei Spiegel mit unterschiedlichem URL-Suffix (bz/xm/yy) und Sprach-Cookie.
 
-### Bild-Anfragen mit Headern/POST je Bild (9)
-
-- `src/en/coolmic` (Coolmic): Bilder verschlüsselt (Leser-DRM): je Bild JSON mit KMS-verschlüsseltem Schlüssel, Klartext-Schlüssel per POST /decryption_keys mit CSRF-Token, dann PBKDF2-SHA256 + AES-CBC über die Bilddaten – Bild-Entschlüsselung nicht ausdrückbar und Regel 0014 (DRM)
-- `src/en/mangago` (Mangago): Bildliste AES-CBC (Schlüssel aus SoJson-v4-verschleiertem Kapitel-JS) plus String-Entwürfelung; Bild-Entwürfelungsschlüssel je Bild per QuickJS aus Website-JS – JS-Engine und eigene Verschleierung nötig
-- `src/en/vizshonenjump` (VIZ): Bilder verwürfelt; Entwürfelungsschlüssel steht in EXIF-Tag ImageUniqueID der Bilddatei (Kachel-Umordnung je Bild) – kein grid/rects-Verfahren mit festen Parametern; zudem Leser-DRM (Regel 0014)
-- `src/es/mangacrab` (Manga Crab): Bildanfragen brauchen je Kapitel Header 'fansy' aus API-Antwort (security.header) – dynamische Bild-Header nicht ausdrückbar
-- `src/fr/astralmanga` (Astral-Manga): Cover und Seitenbilder als S3-Schlüssel ('s3:…'), je Bild eigene Anfrage /api/s3/presign-get nötig (in Listen/Details nicht ausdrückbar); Kapitel aus RSC nach mangaId gefiltert, Seiten aus Next.js-Daten
-- `src/ja/alphapolis` (Alphapolis): Bilder verwürfelt: eigenes Kachel-Verfahren aus WASM ('createData') mit Base64-Schlüssel je Bild (Kachelgröße/Rand aus Schlüsselbits, Ränder werden abgeschnitten) – weder grid noch rects, nicht ausdrückbar
-- `src/ja/comicfuz` (COMIC FUZ): Alle API-Anfragen und -Antworten Protobuf (toRequestBodyProto/parseAsProto); Bilder AES-CBC-verschlüsselt (key/iv je Bild, Bilddaten entschlüsseln) – Protobuf und Bild-Entschlüsselung nicht ausdrückbar
-- `src/tr/sunsetmanga` (Sunset Manga): Bilder nur per POST admin-ajax (action=get_protected_image, token je Bild) abrufbar (getImageRequest); Bild-POST ist in keiner Vorlage belegt. Listen brauchen zudem Nonce aus sunsetGlobalData der Startseite.
-- `src/zh/dm5` (Dm5): Seiten: meist nur über eine Anfrage je Bildseite (chapterfun.ashx?page=1..DM5_IMAGE_COUNT, Antwort packer → pix+pvalue[0]); die Seitenliste müsste aus einer Zahl (Bildanzahl) erzeugt werden – Zahlenbereich als Elementliste in der Rezeptsprache nicht ausdrückbar (nur der seltene Fall #barChapter img.load-src wäre abbildbar).
-
-### Protobuf/ZIP/Binärformate (8)
-
-- `src/all/mangamillion` (Manga Million): Alle API-Antworten sind Protobuf (parseAsProto); Zugriffstoken per POST /api/register (Protobuf); Bilder AES-CBC-verschlüsselt (Schlüssel/IV hex aus Viewer-Antwort, Bild-Bytes entschlüsseln) – Protobuf und Bild-Entschlüsselung nicht ausdrückbar
-- `src/all/mangaup` (Manga UP!): API antwortet nur in Protobuf (parseAsProto); Bilder zusätzlich AES-CBC-verschlüsselt (Schlüssel/IV je Seite aus der Protobuf-Antwort, Rohbytes als Hex) – beides nicht ausdrückbar
-- `src/all/pandachaika` (PandaChaika): Seiten nur aus ZIP-Archiv (/download/): Zentralverzeichnis lesen, Einträge per HTTP-Range holen und entpacken (zipDirectory/readEntry) – ZIP/Range-Zugriff kann die Engine nicht
-- `src/all/yabai` (Yabai): Inertia-API: X-Inertia-Version aus Startseite + X-XSRF-TOKEN aus Cookie, Liste per POST mit Cursor-Pagination (Cursor der Vorseite), Bild-URLs aus parallelen Arrays (head/hash/rand/type, Index-Zip + Padding) – nicht ausdrückbar; dazu DDoS-Guard
-- `src/en/madokami` (Madokami): Login (HTTP-Basic mit Benutzerdaten) nötig und Seiten aus ZIP/CBZ-Archiven per HTTP-Range (zipDirectory/readZipEntry) – Login zum Lesen und ZIP kann die Engine nicht
-- `src/en/reimanga` (ReiManga): Seitenbilder teils als Byte-Bereiche aus Paketdateien (Range-Header je Seite berechnet), Kapitel/Seiten aus RSC-Stream (extractNextJs)
-- `src/ja/comicfuz` (COMIC FUZ): Alle API-Anfragen und -Antworten Protobuf (toRequestBodyProto/parseAsProto); Bilder AES-CBC-verschlüsselt (key/iv je Bild, Bilddaten entschlüsseln) – Protobuf und Bild-Entschlüsselung nicht ausdrückbar
-- `src/ja/corocoroonline` (Corocoro Online): API-Antworten (Ranking, Details, Viewer) sind Protobuf; Bilddateien AES-CBC-verschlüsselt (Schlüssel/IV aus Viewer-Antwort) – Protobuf + Bild-Entschlüsselung nicht ausdrückbar
-
-### Text-Bearbeitung/Übersetzung ins Bild (7)
+### Text-Bearbeitung/Übersetzung ins Bild (8)
 
 - `src/all/dragonballmultiverse` (Dragon Ball Multiverse): 37 Sprachquellen mit sprachabhängigem Pfad (/<internalLang>/read.html, eigene Code-Tabelle) in einer Extension; übersetzter Sprechblasentext wird per Interceptor auf das Bild gezeichnet (Canvas) – beides nicht abbildbar
 - `src/all/manhuarm` (Manhuarm): Seiten sind Rohbilder (chinesisch); Übersetzung entsteht erst durch OCR-Endpunkt mit Einmal-Token (_0xvault) plus Maschinenübersetzung (Google/Bing) und Text-Einzeichnen per Bitmap-Interceptor – nicht ausdrückbar
@@ -395,6 +479,7 @@ Diese Websites bleiben Kandidaten für den Ausweg (Community-Code unverändert),
 - `src/ar/hijala` (Hijala): MangaThemesia mit Bild-Zusammensetzung: bei #chapter-pages-js-before wird jede Seite aus zwei getrennt geladenen Bildern (links/rechts) per Bitmap zusammengefügt – weder grid noch rects, nicht ausdrückbar
 - `src/ar/mangatek` (MangaTek): Seiten: fehlende Seiten nur per /api/reader/pages mit Proof (Seeds aus Reader-Bundle per QuickJS, eigene Kryptografie, ggf. Proof-of-Work); Übersetzungstext als verschlüsseltes Overlay, das per Interceptor in die Bilder gezeichnet wird – JS-Engine/Signatur/Bildbearbeitung nötig
 - `src/pt/mediocretoons` (Mediocre Toons): Alle API-Anfragen (back2.mediocrescan.com) brauchen Bearer-Token aus Login mit E-Mail/Passwort (POST /auth/login); ohne Konto kein Zugriff (Login zum Lesen)
+- `src/pt/randomscan` (Lura Toon): Lesen nur mit Login (user-info.userid nötig); Kapitel-JSON AES-CTR verschlüsselt (Schlüssel SHA-256 aus Slugs+userId), Bilder als AES-CTR-verschlüsselte ZIP-Archive (SVG/base64-Teilbilder, zusammengesetzt) – Login, AES-CTR und ZIP nicht ausdrückbar
 - `src/ru/astramanga` (AstraManga): Kapitel: Titel-ID aus /titles/<slug> → /titles/<id>/branches → je Übersetzer-Zweig /branches/<bid>/chapters (mehrere Zweige zusammenführen); verkettete Folgeanfragen mit Zwischenwert und Auffächern über alle Zweige in chapters nicht ausdrückbar
 
 ### Prüfseite/CAPTCHA/Bot-Schutz (8)
@@ -408,7 +493,7 @@ Diese Websites bleiben Kandidaten für den Ausweg (Community-Code unverändert),
 - `src/it/mangaworldadult` (MangaworldAdult): Theme mangaworld: CookieRedirectInterceptor löst bei jeder Anfrage eine JS-Cookie-Prüfseite (document.cookie="MWCookie…" aus der Seite lesen, Cookie setzen, Anfrage wiederholen) – Prüfseite lösen ist nach Regel 0014 ausgeschlossen und im Site-Model nicht ausdrückbar
 - `src/ja/rawinu` (RawINU): Community löst bei jeder Anfrage eine DDoS-Prüfseite ("DDoS protection is activated", Schlüssel aus der Seite als Cookie ct_anti_ddos_key setzen und Anfrage wiederholen) – Prüfseite lösen ist nach Regel 0014 ausgeschlossen und im Site-Model nicht ausdrückbar
 
-### Login/Konto zum Lesen nötig (20)
+### Login/Konto zum Lesen nötig (32)
 
 - `src/ar/duskoryvile` (Duskoryvile): Login zum Lesen: Community meldet sich per wp-login.php mit Benutzername/Passwort aus den Einstellungen an und bricht bei Umleitung auf /login ab
 - `src/en/doujinio` (Doujin.io - J18): Lesen nur mit Login (Manifest liefert sonst HTML) und Bilder mit DRM-Wasserzeichen (AES-ECB-Daten im JPEG-Marker, Overlay-Ersetzung) – Login/DRM, Regel 0014
@@ -417,21 +502,33 @@ Diese Websites bleiben Kandidaten für den Ausweg (Community-Code unverändert),
 - `src/en/madokami` (Madokami): Login (HTTP-Basic mit Benutzerdaten) nötig und Seiten aus ZIP/CBZ-Archiven per HTTP-Range (zipDirectory/readZipEntry) – Login zum Lesen und ZIP kann die Engine nicht
 - `src/en/mangamo` (Mangamo): Seiten nur mit Firebase-idToken (anonyme Kontoregistrierung über identitytoolkit signUp + Token-Refresh, Firestore-Abfragen); Login/Kontoerzeugung nicht ausdrückbar
 - `src/fr/hanabook` (Hana Book): Kommerzieller E-Book-Shop: Seiten nur mit Login/Abo, Bild-URLs mit selbst erzeugtem Entwürfelungs-Schlüssel (k=…), XSSI-Präfix vor JSON – Regel 0014
+- `src/ja/jumptoon` (Jump Toon): Bilder spaltenweise mit LCG-Permutation (Seed = Zeichensumme seriesId:number, Algorithmen V1/V2 mit Padding) verwürfelt; weder grid noch rects; außerdem Kauf-/Login-Kapitel
+- `src/ja/magazinepocket` (Magazine Pocket): Bilder mit xorshift32-Permutation verwürfelt (scramble_seed über WASM-Ersetzungstabellen, XOR titleId+episodeId); weder grid noch rects; Kauf-/Login-Kapitel
+- `src/ja/mangaboxme` (MangaBox): Bilddateien byteweise XOR-verschlüsselt (mask aus GraphQL-Antwort, XorInterceptor); Bild-XOR kann die Engine nicht; Kauf-/Login-Kapitel
 - `src/ja/mangano` (MangaNo): GraphQL nur mit Firebase-Bearer-Token (anonymes accounts:signUp per POST mit API-Schlüssel, Refresh, optional Login); Token-Beschaffung per POST in vars nicht belegt; Listen mit Cursor
+- `src/ja/piccoma` (Piccoma): Bilder (isScrambled) mit SeedRandom-Kachelmischung entwürfelt, Seed aus URL-Parametern rotiert/XOR; weder grid noch rects; Kauf-/Login-Kapitel
+- `src/ja/readerstore` (Reader Store): Sony-Shop-Reader: Bilddaten mit Schlüssel aus /decrypt-Worker-JS verschlüsselt, eigener Decoder (282 Z.) plus Bild-Entwürfelung im Interceptor; Kauf/Login nötig – DRM, nicht ausdrückbar
 - `src/pt/argoscomics` (Argos Comics): Details/Kapitel/Seiten/Suche nur über Next.js-Server-Actions; Next-Action-IDs müssen aus wechselnden JS-Chunks gesucht werden (Chunk-Liste aus HTML) – nicht ausdrückbar; Seiten teils Login
 - `src/pt/argosscan` (Argos Scan): API verlangt Login (Discord-Session-Cookie 'session'), sonst Fehler; Seitenbilder nur aus Kapitelliste (memo) – Login zum Lesen
 - `src/pt/bladetoons` (Bladetoons): MangoTheme mit requiresLogin=true: alle API-Aufrufe brauchen Bearer-Token aus E-Mail/Passwort-Login; zudem API-Antworten AES-CBC mit SHA-256(Schlüssel+'salt') und Hex-IV verschlüsselt (kein aes_cryptojs-Format)
+- `src/pt/kuromangas` (KuroMangas): API-Antworten (vSecure) mit Rabbit-Stromchiffre (crypto-js) verschlüsselt, Schlüssel aus Cookie _kn/Login; Rabbit nicht in der Engine, Login nötig
 - `src/pt/mediocretoons` (Mediocre Toons): Alle API-Anfragen (back2.mediocrescan.com) brauchen Bearer-Token aus Login mit E-Mail/Passwort (POST /auth/login); ohne Konto kein Zugriff (Login zum Lesen)
+- `src/pt/randomscan` (Lura Toon): Lesen nur mit Login (user-info.userid nötig); Kapitel-JSON AES-CTR verschlüsselt (Schlüssel SHA-256 aus Slugs+userId), Bilder als AES-CTR-verschlüsselte ZIP-Archive (SVG/base64-Teilbilder, zusammengesetzt) – Login, AES-CTR und ZIP nicht ausdrückbar
 - `src/pt/rfdragonscan` (RF Dragon Scan): Jede Anfrage braucht Login-Cookie access_token (Community: 'Faça login pelo WebView'); dazu Next.js-Server-Actions mit wechselnden next-action-IDs aus den JS-Bundles (Login zum Lesen)
 - `src/pt/roxinha` (Roxinha): Login zum Lesen: Kapitelseiten nur mit Bearer-Token aus E-Mail/Passwort (/api/auth/login) und Zugangsticket x-chapter-access; ohne Konto 401
 - `src/ru/hentailib` (HentaiLib): LibGroup-Theme: Bild-Server-URL kommt aus /api/constants (imageServers), auszuwählen nach id UND site_ids enthält siteId=4 – zwei Bedingungen/Listen-Contains im JSON-Filter nicht belegt; dazu Kapitel-Felder (Team, Datum, Bezahlstatus) aus branches[0] (Index-Zugriff) und Erwachseneninhalte i. d. R. nur mit Bearer-Token aus der Website-Anmeldung
 - `src/vi/cuutruyenmoe` (CuuTruyen (unoriginal)): Website liegt hinter einem Passwort-Gate (Livewire 'enter-secret'): Community erkennt die Sperrseite und schickt per POST /livewire/message/enter-secret fingerprint/serverMemo aus wire:initial-data + CSRF-Token + Passwort – Gate-Erkennung und JSON-Nachbau aus der Seite nicht ausdrückbar (zudem Zugangssperre, Regel 0014)
+- `src/vi/medamtruyen` (MeDamTruyen): Kapitelinhalt (htmlContent) AES-CBC mit PBKDF2-HMAC-SHA512 (999 Runden) aus secretOne+Two+Three abgeleitet, nicht CryptoJS-EVP; Bild-URLs danach per dynamischer Ersetzung der Secrets entschleiert; dazu passwortgeschützte Kapitel
+- `src/vi/soaicacomic` (SoaiCaComic): Kapitelinhalt (htmlContent) AES-CBC mit PBKDF2-HMAC-SHA512 (999 Runden, feste Passphrase), nicht CryptoJS-EVP; aes_cryptojs passt nicht; dazu passwortgeschützte Kapitel (wp-login postpass)
 - `src/vi/vihentai` (ViHentai): Bildliste steckt in eval(function(h,u,n,t,e,r)…) – eigenes Zahlensystem-Verfahren, nicht der unterstützte p,a,c,k,e,d-Packer; zusätzlich Passwort-Sperrseite (Livewire POST enter-secret mit CSRF und wire:initial-data), die die Engine nicht ausfüllen kann.
+- `src/vi/yurigarden` (YuriGarden): Alle API-Aufrufe brauchen Bearer-Token eines eingeloggten Kontos (per WebView aus dem Browser-Speicher gelesen) – Login zum Lesen; zudem Bilder in 10 Streifen verwürfelt (Base58/Lehmer-Permutation je Bild, weder grid noch rects)
+- `src/zh/favcomic` (FavComic): Bilddateien (img.encrypted-image, auch Cover) AES-verschlüsselt mit festem Schlüssel und vorangestelltem 16-Byte-IV (Bild-Bytes entschlüsseln) – Bild-Entschlüsselung nicht ausdrückbar; viele Kapitel zudem nur mit Login/Münzen
+- `src/zh/hikarinagi` (Hikarinagi): Bilder per POST mit selbst erzeugtem Zufallstoken angefordert und als AES-256-GCM (Schlüssel aus Token, AAD manga:page:mid:cid:pid) geliefert; Bild-Entschlüsselung und selbst erzeugte Schlüssel nicht möglich; Login (401)
 - `src/zh/noyacg` (NoyAcg): API verlangt Anmeldung (Antwort status=login → Community meldet sich mit Benutzername/Passwort aus den Einstellungen an, Sitzungs-Cookie von noymanga.com); Login zum Lesen nicht vorgesehen. Zudem Kapitel als Objekt je Kategorie-ID (chapters.data.<id>) und Bildliste nur aus Seitenzahl erzeugt (/<id>/<n>.webp).
 - `src/zh/tongli` (Tongli): Kapitel- und Seiten-API (api.tongli.tw/Book/BookVol, /Comic/sas) nur mit Authorization: Bearer <Firebase-idToken>; Token entsteht durch Anmeldung bzw. anonyme Registrierung bei Google Identity Toolkit (signupNewUser, Ablauf 1 h, Refresh-Token) – Login zum Lesen, nicht ausdrückbar. Zudem kommerzieller E-Book-Shop (nur freie Bände lesbar).
 - `src/zh/vomic` (vomic): Jede API-Anfrage braucht Signatur-Header s/t (eigener Hash über Parameter+Zeit+Salz im SignInterceptor); Seiten (getChapterInfo) zusätzlich nur mit Login (Bearer-Token aus E-Mail/Passwort)
 
-### Signatur/selbst erzeugter Schlüssel (16)
+### Signatur/selbst erzeugter Schlüssel (27)
 
 - `src/all/toonlook` (ToonLook): Jedes Seitenbild in Streifen verwürfelt; Reihenfolge = Fisher-Yates mit mulberry32, Startwert aus SHA-256(salt|Streifenhöhe|URL-Pfadteile) – eigene Entwürfelung, weder grid noch rects
 - `src/ar/mangatek` (MangaTek): Seiten: fehlende Seiten nur per /api/reader/pages mit Proof (Seeds aus Reader-Bundle per QuickJS, eigene Kryptografie, ggf. Proof-of-Work); Übersetzungstext als verschlüsseltes Overlay, das per Interceptor in die Bilder gezeichnet wird – JS-Engine/Signatur/Bildbearbeitung nötig
@@ -446,8 +543,19 @@ Diese Websites bleiben Kandidaten für den Ausweg (Community-Code unverändert),
 - `src/pt/mangasbrasuka` (Mangas Brasuka): Aurora-Theme: Bild-URLs im RSC-Payload mit eigenem HMAC-SHA256-Keystream (XOR) verschlüsselt, Schlüssel von /api/atfield/key – kein aes_cryptojs, nicht ausdrückbar
 - `src/pt/mangeek` (ManGeek): Jede API-Anfrage (geekstations.com.br/api/v2/pt/<route>/<nonce>/<id>/<key>) braucht key = md5('M<'+ID bzw. Nonce+'#MANG33K>D') mit festem Geheimtext; Signatur hängt je Eintrag von der ID ab – vars/hash (nur global, en.roliascan) reicht nicht, Signatur mit geheimem Schlüssel (Regel 0014)
 - `src/pt/mugiwarasoficial` (Mugiwaras Oficial): Aurora-Theme: Bild-URLs im RSC-Payload mit eigenem HMAC-SHA256-Keystream (XOR) verschlüsselt, Schlüssel von /api/atfield/key – kein aes_cryptojs, nicht ausdrückbar
+- `src/pt/randomscan` (Lura Toon): Lesen nur mit Login (user-info.userid nötig); Kapitel-JSON AES-CTR verschlüsselt (Schlüssel SHA-256 aus Slugs+userId), Bilder als AES-CTR-verschlüsselte ZIP-Archive (SVG/base64-Teilbilder, zusammengesetzt) – Login, AES-CTR und ZIP nicht ausdrückbar
 - `src/pt/remangas` (NoxManga): Jede API-Anfrage braucht X-Web-Signature = SHA-256 über Methode/Pfad/Slot/Token/Schlüssel, Teile aus verschleiertem /_nix/signer.js zusammengesetzt – Signatur nicht ausdrückbar
+- `src/pt/spectralscan` (Nexus Toons): API-JSON mit eigener S-Box/XOR/Rotation-Chiffre (Schlüssel per SHA-256 aus festem Geheimnis) verschlüsselt; Kapitel-ID per XOR+Base64url selbst kodiert; nicht ausdrückbar
+- `src/tr/mangacix` (MangaciX): Jede /secure/-API-Anfrage braucht Header X-E-H = AES-GCM-Verschlüsselung der Query mit festem Schlüssel und Zufalls-IV (selbst erzeugte Signatur, Regel 0014)
+- `src/vi/medamtruyen` (MeDamTruyen): Kapitelinhalt (htmlContent) AES-CBC mit PBKDF2-HMAC-SHA512 (999 Runden) aus secretOne+Two+Three abgeleitet, nicht CryptoJS-EVP; Bild-URLs danach per dynamischer Ersetzung der Secrets entschleiert; dazu passwortgeschützte Kapitel
+- `src/vi/panomic` (Panomic): Kapitelinhalt (htmlContent) AES-CBC mit PBKDF2-HMAC-SHA512 (999 Runden) aus Schlüsselteilen im Skript, nicht CryptoJS-EVP; Bild-URLs per dynamischer Ersetzung entschleiert; Passcode-Cookie a3_site_passcode_token nötig
+- `src/vi/soaicacomic` (SoaiCaComic): Kapitelinhalt (htmlContent) AES-CBC mit PBKDF2-HMAC-SHA512 (999 Runden, feste Passphrase), nicht CryptoJS-EVP; aes_cryptojs passt nicht; dazu passwortgeschützte Kapitel (wp-login postpass)
+- `src/vi/teamlanhlung` (Team Lanh Lung): Bildliste in var htmlContent als JSON {ciphertext,iv,salt}: Schlüssel per PBKDF2-HMAC-SHA512 (999 Runden) aus fester Passphrase, dann AES-CBC; danach Bild-URLs in data-da9tqd mit Zeichenersatz – PBKDF2/AES-CBC ist nicht aes_cryptojs (EVP/MD5), nicht ausdrückbar; Klartext-Rückfall nur bei alten Kapiteln
+- `src/vi/tusachxinhxinh` (TuSachXinhXinh): Bildliste in var htmlContent als JSON {ciphertext,iv,salt}: Schlüssel per PBKDF2-HMAC-SHA512 (999 Runden) aus fester Passphrase, dann AES-CBC; Bild-URLs danach mit Zeichenersatz – PBKDF2/AES-CBC ist nicht aes_cryptojs (EVP/MD5), nicht ausdrückbar (gleiches Verfahren wie vi.teamlanhlung)
 - `src/zh/iqiyi` (Iqiyi): Jede API-Anfrage (comic.iqiyi.com) braucht Header md5 = md5(Pfad + Query inkl. timeStamp/zufälliger qiyiId + fester Schlüssel) – anfragebezogene Signatur mit Schlüssel; vars-hash ist global und kennt Pfad/Query der Anfrage nicht. Nicht ausdrückbar (Regel: Signaturen).
+- `src/zh/jinmantiantang` (Jinman Tiantang): App-API: Header Token = MD5(Zeitstempel + geheimer App-Schlüssel), Antworten AES-ECB mit MD5(Zeitstempel+Schlüssel) verschlüsselt, API-Host aus verschlüsselter Serverliste – selbst erzeugte Signatur (Regel 0014) und AES-ECB nicht ausdrückbar; zudem Bilder in 2–20 Zeilen verwürfelt (Zeilenzahl aus MD5 von Album-ID+Bildnummer) – weder grid noch rects
+- `src/zh/manhuaren` (Manhuaren): App-API verlangt je Anfrage Signatur gsn = MD5(geheimes Salt + Methode + sortierte Parameter + Salt) und anonymen Nutzer-Token (Registrierung mit RSA-verschlüsselten Geräte-IDs) – selbst erzeugte Signatur/Schlüssel, Regel 0014, nicht ausdrückbar
+- `src/zh/roumanwu` (Roumanwu): Bilder mit sr:1 in horizontale Streifen zerlegt und umgekehrt angeordnet; Streifenzahl = MD5(base64-dekodierter Dateiname) letztes Byte %10+5 – eigene Entwürfelung, weder grid noch rects
 - `src/zh/vomic` (vomic): Jede API-Anfrage braucht Signatur-Header s/t (eigener Hash über Parameter+Zeit+Salz im SignInterceptor); Seiten (getChapterInfo) zusätzlich nur mit Login (Bearer-Token aus E-Mail/Passwort)
 
 ### Ohne Zuordnung (9)

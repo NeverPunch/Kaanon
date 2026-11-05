@@ -6,7 +6,7 @@
   "sprache": "tr",
   "base_url": "https://trmangaoku.com",
   "nsfw": false,
-  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.trkemangaoku",
+  "paket": "eu.kanade.tachiyomi.extension.tr.kaanon.turkcemangaoku",
   "quellen": [
    {
     "name": "Türkçe Manga Oku",

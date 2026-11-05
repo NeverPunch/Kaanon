@@ -6,7 +6,7 @@
   "sprache": "en",
   "base_url": "https://mangaplus-creators.jp",
   "nsfw": false,
-  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.mangapluscreatorsbyshueisha",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mangapluscreatorsbyshueisha",
   "quellen": [
    {
     "name": "MANGA Plus Creators by SHUEISHA",

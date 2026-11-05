@@ -3,10 +3,10 @@
  "status": "entwurf",
  "extension": {
   "name": "Hennojin",
-  "sprache": "all",
+  "sprache": "en",
   "base_url": "https://hennojin.com",
   "nsfw": true,
-  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.hennojin",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.hennojin",
   "quellen": [
    {
     "name": "Hennojin",

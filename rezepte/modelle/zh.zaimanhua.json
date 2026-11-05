@@ -1,0 +1,156 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Zaimanhua",
+  "sprache": "zh",
+  "base_url": "https://manhua.zaimanhua.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.zh.kaanon.zaimanhua",
+  "quellen": [
+   {
+    "name": "再漫画",
+    "sprache": "zh",
+    "quell_id": 524579092615598717,
+    "home": "https://manhua.zaimanhua.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/zh/zaimanhua",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.2",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "rate_limit": {
+   "permits": 5,
+   "period_ms": 1000
+  },
+  "popular": {
+   "request": "https://v4api.zaimanhua.com/app/v1/comic/rank/list?tag_id=0&page={page}",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "exists": "data.0"
+   },
+   "fields": {
+    "url": "comic_id",
+    "title": "title",
+    "cover": "cover"
+   }
+  },
+  "latest": {
+   "request": "https://v4api.zaimanhua.com/app/v1/comic/update/list/0/{page}",
+   "format": "json",
+   "items": "data",
+   "has_next": {
+    "exists": "data.0"
+   },
+   "fields": {
+    "url": "comic_id",
+    "title": "title",
+    "cover": "cover"
+   }
+  },
+  "search": {
+   "request": "https://v4api.zaimanhua.com/app/v1/search/index?source=0&size=20&keyword={query}&page={page}",
+   "format": "json",
+   "items": "data.list",
+   "page_size": 20,
+   "has_next": {
+    "total": "data.total"
+   },
+   "fields": {
+    "url": "id",
+    "title": "title",
+    "cover": "cover"
+   }
+  },
+  "details": {
+   "request": "https://v4api.zaimanhua.com/app/v1/comic/detail/{u.id}?_v=2.2.5",
+   "format": "json",
+   "url_vars": {
+    "id": "^/?(\\d+)"
+   },
+   "fields": {
+    "title": "data.data.title",
+    "cover": "data.data.cover",
+    "description": "data.data.description",
+    "author": {
+     "path": "data.data.authors.*.tag_name",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": "data.data.types.*.tag_name",
+     "all": true,
+     "join": ", "
+    },
+    "status": "data.data.status.0.tag_name"
+   },
+   "status_map": {
+    "连载中": 1,
+    "已完结": 2
+   }
+  },
+  "chapters": {
+   "request": {
+    "url": "https://v4api.zaimanhua.com/app/v1/comic/detail/{u.id}?_v=2.2.5",
+    "headers": {
+     "Platform": "pc"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "id": "^/?(\\d+)"
+   },
+   "items": "data.data.chapters.*.data.*",
+   "fields": {
+    "url": {
+     "path": "chapter_id",
+     "template": "{u.id}/{value}"
+    },
+    "name": {
+     "path": "chapter_title",
+     "replace": [
+      [
+       "^(?:连载版?)?(\\d[.\\d]*)$",
+       "第$1话"
+      ],
+      [
+       "^(?:连载版?)?(\\d[.\\d]*)([话卷])$",
+       "第$1$2"
+      ]
+     ]
+    },
+    "date": "updatetime"
+   },
+   "date_format": "epoch_s"
+  },
+  "pages": {
+   "request": {
+    "url": "https://v4api.zaimanhua.com/app/v1/comic/chapter/{u.mid}/{u.cid}?_v=2.2.5",
+    "headers": {
+     "Platform": "h5"
+    }
+   },
+   "format": "json",
+   "url_vars": {
+    "mid": "^/?([^/]+)/",
+    "cid": "/([^/]+)$"
+   },
+   "items": "data.data.page_url_hd",
+   "image": ""
+  }
+ },
+ "hinweise": [
+  "Stufe 3 geprüft: Kein WebView/JS nötig. GZIP im Code betrifft nur das Mitlesen der Kapitel-Antwort (canRead) und die optionale Kommentarseite; Listen/Kapitel/Seiten sind reine JSON-API (v4api.zaimanhua.com/app/v1).",
+  "Login (Benutzername/Passwort → JWT) ist im Community-Code optional und nur für gesperrte Kapitel nötig; nicht nachgebaut. Kapitel mit canRead=false liefern keine Bilder.",
+  "Kapitel aus data.data.chapters.*.data.* (alle Gruppen flach, verschachtelter Platzhalter); Gruppenname (scanlator) nicht übernehmbar. Sonderfall isHideChapter (PC-API /api/v1/comic2/comic/detail) nicht nachgebaut.",
+  "Kapitelname wie formatChapterName: reine Zahl → 第N话, Zahl+话/卷 → 第N话/卷. Community setzt Datum auf 0, wenn updatetime ≈ jetzt; nicht nachgebaut.",
+  "Popular/Latest: Community meldet immer eine nächste Seite (bis leere Liste) → has_next über data.0. Rangliste: comic_id, Suche: id (comic_id dort 0).",
+  "Bild-Retry (neu laden der Seitenliste bei Fehler, URLs laufen ab) und Kommentarseite nicht nachgebaut."
+ ]
+}

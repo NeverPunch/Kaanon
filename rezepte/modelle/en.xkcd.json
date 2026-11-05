@@ -6,7 +6,7 @@
   "sprache": "en",
   "base_url": "https://xkcd.com",
   "nsfw": false,
-  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.xkcd",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.xkcd",
   "quellen": [
    {
     "name": "xkcd",

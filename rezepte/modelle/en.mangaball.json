@@ -6,7 +6,7 @@
   "sprache": "en",
   "base_url": "https://mangaball.com",
   "nsfw": false,
-  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.mangaball",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mangaball",
   "quellen": [
    {
     "name": "Manga Ball",

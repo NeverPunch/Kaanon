@@ -247,6 +247,12 @@ def main():
             elif r['theme_kann']: r['stufe'] = 3
             else: r['stufe'] = 2
     nur_kaanon = sorted((v for k, v in k_alle.items() if k not in gesehen), key=lambda v: v['name'])
+    # Stand der Rezept-Arbeit (rezepte/warteschlange.json), falls vorhanden
+    wsd = os.path.join(a.store, 'rezepte', 'warteschlange.json')
+    ws = {x['modul']: x for x in json.load(open(wsd, encoding='utf-8'))} if os.path.exists(wsd) else {}
+    for r in rows:
+        x = ws.get(r['modul'])
+        r['rezept'] = dict(status=x['status'], datei=x.get('datei'), grund=x.get('grund')) if x else None
 
     meta = dict(community=git_stand(R), store=git_stand(a.store), erzeugt=datetime.date.today().isoformat(),
                 module=len(rows), themes=len(themes), kaanon=len(kaa))
@@ -272,7 +278,8 @@ def schreibe_html(rows, meta, nur_kaanon, vorlage, ziel):
                       ''.join(ABK[x] for x in REGELN if x in r['regel']),
                       ''.join(ABK[x] for x in REGELN if x in r['theme_kann']),
                       f"{k['name']} {k['version']}" if k else '', r['modul'], 1 if r['familie_bekannt'] else 0,
-                      1 if r['manuell'] else 0, 1 if r['konto'] else 0])
+                      1 if r['manuell'] else 0, 1 if r['konto'] else 0,
+                      {'fertig': 'R', 'zurueckgestellt': 'Z'}.get((r.get('rezept') or {}).get('status'), '')])
     t = open(vorlage, encoding='utf-8').read()
     t = t.replace('__DATA__', json.dumps(daten, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
     t = t.replace('__META__', json.dumps(dict(meta, nur_kaanon=[f"{v['name']} ({', '.join(v['hosts'])})" for v in nur_kaanon]),
@@ -310,6 +317,12 @@ def schreibe_readme(rows, meta, nur_kaanon, ziel):
                     ('server', 'Eigener Server', 'selbst gehostet (Komga, LANraragi …), kein Ziel für den Store')]:
         w(f'| {t} | {c[k]} | {d} |')
     w('')
+    rz = collections.Counter((r.get('rezept') or {}).get('status') for r in rows if r['kategorie'] == 'kandidat')
+    if rz:
+        w('## Stand der Rezepte\n')
+        w(f"Für {rz['fertig']} Kandidaten liegt ein Rezept-Entwurf in `rezepte/` (Stufe 1 als Baukasten, sonst als Site-Model), "
+          f"{rz['zurueckgestellt']} sind mit Grund zurückgestellt (`rezepte/warteschlange.json`, Auswertung in "
+          '`rezepte/ENGINE_WUENSCHE_AUS_REZEPTEN.md`). Geprüft gegen die echten Websites wird auf dem PC.\n')
     w('## Zuerst testen\n')
     if warn:
         w(f'**{len(warn)} eigene Extensions, deren Website im aktuellen Community-Code eine Regel-Klasse braucht.** '

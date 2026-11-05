@@ -6,7 +6,7 @@
   "sprache": "en",
   "base_url": "https://manta.net/en",
   "nsfw": false,
-  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.mantacomics",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mantacomics",
   "quellen": [
    {
     "name": "Manta",

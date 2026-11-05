@@ -1,6 +1,6 @@
 # Kaanon-Abdeckungskarte
 
-Automatisch erzeugt am 2026-11-03 von `werkzeuge/abdeckung/erzeuge_karte.py`. Community-Stand `efa93f5a 2026-11-02`, Store-Stand `dd31555 2026-11-02`. 1448 Community-Module, 67 Themes, 106 Kaanon-Extensions.
+Automatisch erzeugt am 2026-11-05 von `werkzeuge/abdeckung/erzeuge_karte.py`. Community-Stand `efa93f5a 2026-11-02`, Store-Stand `009e230 2026-11-05`. 1448 Community-Module, 67 Themes, 106 Kaanon-Extensions.
 
 Dateien: `karte.json` (alle Daten), `karte.html` (filterbare Übersicht, im Browser öffnen), diese Zusammenfassung.
 
@@ -15,6 +15,10 @@ Dateien: `karte.json` (alle Daten), `karte.html` (filterbare Übersicht, im Brow
 | Kandidat · Stufe 3 | 143 | keine Regel-Klasse, braucht neue Engine-Technik oder Entschleierung |
 | Nur Ausweg möglich | 77 | Code löst Prüfseiten/CAPTCHAs, nutzt Leser-DRM oder Schlüsseltausch/Signaturen |
 | Eigener Server | 7 | selbst gehostet (Komga, LANraragi …), kein Ziel für den Store |
+
+## Stand der Rezepte
+
+Für 989 Kandidaten liegt ein Rezept-Entwurf in `rezepte/` (Stufe 1 als Baukasten, sonst als Site-Model), 270 sind mit Grund zurückgestellt (`rezepte/warteschlange.json`, Auswertung in `rezepte/ENGINE_WUENSCHE_AUS_REZEPTEN.md`). Geprüft gegen die echten Websites wird auf dem PC.
 
 ## Zuerst testen
 

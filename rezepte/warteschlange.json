@@ -3297,7 +3297,7 @@
   ],
   "host": "cafecomyaoi.com.br",
   "nsfw": false,
-  "datei": "rezepte/stufe1/pt-BR.cafcomyaoi.json",
+  "datei": "rezepte/stufe1/pt-BR.cafecomyaoi.json",
   "wer": "stufe1.py",
   "geaendert": "2026-11-03T10:00:23"
  },
@@ -3897,7 +3897,7 @@
   ],
   "host": "ruyamanga2.com",
   "nsfw": false,
-  "datei": "rezepte/stufe1/tr.ryamanga.json",
+  "datei": "rezepte/stufe1/tr.ruyamanga.json",
   "wer": "stufe1.py",
   "geaendert": "2026-11-03T10:00:24"
  },
@@ -3957,7 +3957,7 @@
   ],
   "host": "trmangaoku.com",
   "nsfw": false,
-  "datei": "rezepte/stufe1/tr.trkemangaoku.json",
+  "datei": "rezepte/stufe1/tr.turkcemangaoku.json",
   "wer": "stufe1.py",
   "geaendert": "2026-11-03T10:00:24"
  },
@@ -4107,7 +4107,7 @@
   ],
   "host": "ruahapchanhday2.com",
   "nsfw": false,
-  "datei": "rezepte/stufe1/vi.rahpchanhdy.json",
+  "datei": "rezepte/stufe1/vi.ruahapchanhday.json",
   "wer": "stufe1.py",
   "geaendert": "2026-11-03T10:00:24"
  },
@@ -5325,7 +5325,7 @@
   ],
   "host": "tsundoku.com.br",
   "nsfw": false,
-  "datei": "rezepte/stufe1/pt-BR.tsundokutradues.json",
+  "datei": "rezepte/stufe1/pt-BR.tsundokutraducoes.json",
   "wer": "stufe1.py",
   "geaendert": "2026-11-03T10:00:26"
  },
@@ -6653,7 +6653,7 @@
   ],
   "host": "apenasuma-fa.blogspot.com",
   "nsfw": false,
-  "datei": "rezepte/stufe1/pt-BR.apenasumaf.json",
+  "datei": "rezepte/stufe1/pt-BR.apenasumafa.json",
   "wer": "stufe1.py",
   "geaendert": "2026-11-03T10:00:28"
  },
@@ -6728,7 +6728,7 @@
   ],
   "host": "temakimangas.blogspot.com",
   "nsfw": true,
-  "datei": "rezepte/stufe1/pt-BR.temakimangs.json",
+  "datei": "rezepte/stufe1/pt-BR.temakimangas.json",
   "wer": "stufe1.py",
   "geaendert": "2026-11-03T10:00:28"
  },
@@ -6743,7 +6743,7 @@
   ],
   "host": "traducoesdolipe.blogspot.com",
   "nsfw": false,
-  "datei": "rezepte/stufe1/pt-BR.traduesdolipe.json",
+  "datei": "rezepte/stufe1/pt-BR.traducoesdolipe.json",
   "wer": "stufe1.py",
   "geaendert": "2026-11-03T10:00:28"
  },
@@ -6773,7 +6773,7 @@
   ],
   "host": "shadowceviri.blogspot.com",
   "nsfw": false,
-  "datei": "rezepte/stufe1/tr.shadoweviri.json",
+  "datei": "rezepte/stufe1/tr.shadowceviri.json",
   "wer": "stufe1.py",
   "geaendert": "2026-11-03T10:00:28"
  },
@@ -9005,7 +9005,7 @@
   "nsfw": true,
   "wer": "agent-w2b",
   "seit": "2026-11-03T10:25:52",
-  "datei": "rezepte/modelle/all.hennojin.json",
+  "datei": "rezepte/modelle/en.hennojin.json",
   "geaendert": "2026-11-03T10:26:25"
  },
  {
@@ -9076,7 +9076,7 @@
   "nsfw": false,
   "wer": "agent-w2b",
   "seit": "2026-11-03T10:26:25",
-  "datei": "rezepte/modelle/all.holonometria.json",
+  "datei": "rezepte/modelle/ja.holonometria.json",
   "geaendert": "2026-11-03T10:26:46"
  },
  {
@@ -9237,7 +9237,7 @@
   "nsfw": false,
   "wer": "agent-w3b",
   "seit": "2026-11-03T10:27:48",
-  "datei": "rezepte/modelle/all.mangaball.json",
+  "datei": "rezepte/modelle/en.mangaball.json",
   "geaendert": "2026-11-03T10:29:15"
  },
  {
@@ -9287,7 +9287,7 @@
   "nsfw": false,
   "wer": "agent-w3c",
   "seit": "2026-11-03T10:28:20",
-  "datei": "rezepte/modelle/all.mangapluscreatorsbyshueisha.json",
+  "datei": "rezepte/modelle/en.mangapluscreatorsbyshueisha.json",
   "geaendert": "2026-11-03T10:29:31"
  },
  {
@@ -9308,7 +9308,7 @@
   "nsfw": false,
   "wer": "agent-w3d",
   "seit": "2026-11-03T10:28:24",
-  "datei": "rezepte/modelle/all.mangatoonlimited.json",
+  "datei": "rezepte/modelle/en.mangatoonlimited.json",
   "geaendert": "2026-11-03T10:29:45"
  },
  {
@@ -9362,7 +9362,7 @@
   "nsfw": false,
   "wer": "agent-w3b",
   "seit": "2026-11-03T10:29:15",
-  "datei": "rezepte/modelle/all.mantacomics.json",
+  "datei": "rezepte/modelle/en.mantacomics.json",
   "geaendert": "2026-11-03T10:29:57"
  },
  {
@@ -9379,7 +9379,7 @@
   "nsfw": false,
   "wer": "agent-w3a",
   "seit": "2026-11-03T10:29:22",
-  "datei": "rezepte/modelle/all.mayotune.json",
+  "datei": "rezepte/modelle/en.mayotune.json",
   "geaendert": "2026-11-03T10:30:10"
  },
  {
@@ -9432,7 +9432,7 @@
   "nsfw": true,
   "wer": "agent-w3b",
   "seit": "2026-11-03T10:29:57",
-  "datei": "rezepte/modelle/all.myreadingmanga.json",
+  "datei": "rezepte/modelle/en.myreadingmanga.json",
   "geaendert": "2026-11-03T10:31:09"
  },
  {
@@ -9449,7 +9449,7 @@
   "nsfw": false,
   "wer": "agent-w3a",
   "seit": "2026-11-03T10:30:10",
-  "datei": "rezepte/modelle/all.onepiecefans.json",
+  "datei": "rezepte/modelle/es.onepiecefans.json",
   "geaendert": "2026-11-03T10:30:48"
  },
  {
@@ -9575,7 +9575,7 @@
   "nsfw": true,
   "wer": "agent-w3c",
   "seit": "2026-11-03T10:31:17",
-  "datei": "rezepte/modelle/all.pornpics.json",
+  "datei": "rezepte/modelle/en.pornpics.json",
   "geaendert": "2026-11-03T10:31:46"
  },
  {
@@ -9641,7 +9641,7 @@
   "nsfw": false,
   "wer": "agent-w3a",
   "seit": "2026-11-03T10:31:42",
-  "datei": "rezepte/modelle/all.sandraandwoo.json",
+  "datei": "rezepte/modelle/en.sandraandwoo.json",
   "geaendert": "2026-11-03T10:32:10"
  },
  {
@@ -9662,7 +9662,7 @@
   "nsfw": false,
   "wer": "agent-w3c",
   "seit": "2026-11-03T10:31:46",
-  "datei": "rezepte/modelle/all.saymanhwa.json",
+  "datei": "rezepte/modelle/en.saymanhwa.json",
   "geaendert": "2026-11-03T10:32:15"
  },
  {
@@ -9683,7 +9683,7 @@
   "nsfw": true,
   "wer": "agent-w3b",
   "seit": "2026-11-03T10:31:53",
-  "datei": "rezepte/modelle/all.simplyhentai.json",
+  "datei": "rezepte/modelle/en.simplyhentai.json",
   "geaendert": "2026-11-03T10:32:28"
  },
  {
@@ -9720,7 +9720,7 @@
   "nsfw": false,
   "wer": "agent-w3a",
   "seit": "2026-11-03T10:32:10",
-  "datei": "rezepte/modelle/all.thelibraryofohara.json",
+  "datei": "rezepte/modelle/en.thelibraryofohara.json",
   "geaendert": "2026-11-03T10:32:44"
  },
  {
@@ -9769,7 +9769,7 @@
   "nsfw": false,
   "wer": "agent-w3c",
   "seit": "2026-11-03T10:32:27",
-  "datei": "rezepte/modelle/all.vinneveritasccc.json",
+  "datei": "rezepte/modelle/en.vinneveritasccc.json",
   "geaendert": "2026-11-03T10:32:55"
  },
  {
@@ -9789,7 +9789,7 @@
   "nsfw": false,
   "wer": "agent-w3b",
   "seit": "2026-11-03T10:32:28",
-  "datei": "rezepte/modelle/all.webcomics.json",
+  "datei": "rezepte/modelle/en.webcomics.json",
   "geaendert": "2026-11-03T10:33:05"
  },
  {
@@ -9862,7 +9862,7 @@
   "nsfw": false,
   "wer": "agent-w3b",
   "seit": "2026-11-03T10:33:05",
-  "datei": "rezepte/modelle/all.xkcd.json",
+  "datei": "rezepte/modelle/en.xkcd.json",
   "geaendert": "2026-11-03T10:33:34"
  },
  {
@@ -9931,7 +9931,7 @@
   "nsfw": false,
   "wer": "agent-w3b",
   "seit": "2026-11-03T10:33:34",
-  "datei": "rezepte/modelle/all.yskcomics.json",
+  "datei": "rezepte/modelle/en.yskcomics.json",
   "geaendert": "2026-11-03T10:33:56"
  },
  {
@@ -15541,7 +15541,7 @@
   "nsfw": false,
   "wer": "agent-w7c",
   "seit": "2026-11-03T11:13:11",
-  "datei": "rezepte/modelle/pt-BR.nexusmangs.json",
+  "datei": "rezepte/modelle/pt-BR.nexusmangas.json",
   "grund": null,
   "geaendert": "2026-11-03T11:14:33"
  },
@@ -15813,7 +15813,7 @@
   "nsfw": false,
   "wer": "agent-w6d",
   "seit": "2026-11-03T11:14:56",
-  "datei": "rezepte/modelle/pt-BR.yomumangs.json",
+  "datei": "rezepte/modelle/pt-BR.yomumangas.json",
   "grund": null,
   "geaendert": "2026-11-03T11:15:33"
  },
@@ -17122,7 +17122,7 @@
   "nsfw": false,
   "wer": "agent-w7d",
   "seit": "2026-11-03T11:27:07",
-  "datei": "rezepte/modelle/vi.thhamng.json",
+  "datei": "rezepte/modelle/vi.thohamngu.json",
   "grund": null,
   "geaendert": "2026-11-03T11:27:30"
  },
@@ -18822,7 +18822,7 @@
   "nsfw": false,
   "wer": "agent-w9a",
   "seit": "2026-11-05T09:33:49",
-  "datei": "rezepte/modelle/all.namicomi.json",
+  "datei": "rezepte/modelle/en.namicomi.json",
   "grund": null,
   "geaendert": "2026-11-05T09:34:33"
  },
@@ -20364,7 +20364,7 @@
  },
  {
   "modul": "src/zh/zaimanhua",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Zaimanhua",
   "stufe": 3,
   "theme": null,
@@ -20374,6 +20374,9 @@
   "host": "manhua.zaimanhua.com",
   "nsfw": false,
   "wer": "agent-w10a",
-  "seit": "2026-11-05T09:42:47"
+  "seit": "2026-11-05T09:42:47",
+  "datei": "rezepte/modelle/zh.zaimanhua.json",
+  "grund": null,
+  "geaendert": "2026-11-05T09:44:13"
  }
 ]

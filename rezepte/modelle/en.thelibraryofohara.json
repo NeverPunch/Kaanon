@@ -3,10 +3,10 @@
  "status": "entwurf",
  "extension": {
   "name": "The Library of Ohara",
-  "sprache": "all",
+  "sprache": "en",
   "base_url": "https://thelibraryofohara.com",
   "nsfw": false,
-  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.thelibraryofohara",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.thelibraryofohara",
   "quellen": [
    {
     "name": "The Library of Ohara",

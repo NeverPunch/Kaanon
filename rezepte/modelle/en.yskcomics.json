@@ -6,7 +6,7 @@
   "sprache": "en",
   "base_url": "https://www.ysk-comics.com",
   "nsfw": false,
-  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.yskcomics",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.yskcomics",
   "quellen": [
    {
     "name": "YSK Comics",

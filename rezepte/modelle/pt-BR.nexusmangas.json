@@ -6,7 +6,7 @@
   "sprache": "pt-BR",
   "base_url": "https://www.nexusmangas.com",
   "nsfw": false,
-  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.nexusmangs",
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.nexusmangas",
   "quellen": [
    {
     "name": "Nexus Mangás",

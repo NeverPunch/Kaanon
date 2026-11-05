@@ -3,10 +3,10 @@
  "status": "entwurf",
  "extension": {
   "name": "Sandra and Woo",
-  "sprache": "all",
+  "sprache": "en",
   "base_url": "https://www.sandraandwoo.com",
   "nsfw": false,
-  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.sandraandwoo",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.sandraandwoo",
   "quellen": [
    {
     "name": "Sandra and Woo",

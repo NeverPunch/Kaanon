@@ -3,10 +3,10 @@
  "status": "entwurf",
  "extension": {
   "name": "MayoTune",
-  "sprache": "all",
+  "sprache": "en",
   "base_url": "https://mayochuu.xyz",
   "nsfw": false,
-  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.mayotune",
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.mayotune",
   "quellen": [
    {
     "name": "MayoTune",

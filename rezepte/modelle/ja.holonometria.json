@@ -3,10 +3,10 @@
  "status": "entwurf",
  "extension": {
   "name": "HOLONOMETRIA",
-  "sprache": "all",
+  "sprache": "ja",
   "base_url": "https://holoearth.com",
   "nsfw": false,
-  "paket": "eu.kanade.tachiyomi.extension.all.kaanon.holonometria",
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.holonometria",
   "quellen": [
    {
     "name": "HOLONOMETRIA",

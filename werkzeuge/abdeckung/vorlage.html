@@ -132,6 +132,8 @@ td.name .h{display:block;font-family:var(--f-mono);font-size:11.5px;color:var(--
       <option value="K3">Kandidat · Stufe 3</option>
       <option value="N">Nur Ausweg möglich</option>
       <option value="C">Eigener Server</option>
+      <option value="R">Rezept-Entwurf vorhanden</option>
+      <option value="Z">Rezept zurückgestellt</option>
     </select>
     <select id="fl" aria-label="Sprache"><option value="">Alle Sprachen</option></select>
     <label for="f18"><input type="checkbox" id="f18"> 18+ zeigen</label>
@@ -166,7 +168,7 @@ td.name .h{display:block;font-family:var(--f-mono);font-size:11.5px;color:var(--
 <script>
 const D = __DATA__;
 const META = __META__;
-// Felder: 0 name,1 host,2 sprachen,3 n_sprachen,4 theme,5 kat,6 stufe,7 nsfw,8 regel,9 theme_kann,10 kaanon,11 modul,12 familie_bekannt,13 manuell,14 login
+// Felder: 0 name,1 host,2 sprachen,3 n_sprachen,4 theme,5 kat,6 stufe,7 nsfw,8 regel,9 theme_kann,10 kaanon,11 modul,12 familie_bekannt,13 manuell,14 login,15 rezept (R fertig, Z zurückgestellt)
 const KAT = {
   E:{t:'Kaanon · eigene Engine',c:'var(--c-eigen)',d:'Schon im Store, mit unserer Engine gebaut.'},
   A:{t:'Kaanon · Ausweg',c:'var(--c-ausweg)',d:'Schon im Store, Community-Code unverändert übernommen.'},
@@ -183,7 +185,8 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':
 const rc = (hard, soft, man, login) => '<span class="rc">' + [...hard].map(x=>`<b>${x}</b>`).join('') + [...soft].filter(x=>!hard.includes(x)).map(x=>`<b class="soft">${x}</b>`).join('') + (man?'<b class="soft">M</b>':'') + (login?'<b class="soft">L</b>':'') + '</span>';
 const [cStand, cDatum] = META.community.split(' ');
 document.getElementById('stand').textContent = `Community-Stand ${cStand} · ${new Date(cDatum).toLocaleDateString('de-DE')} · Store ${META.store.split(' ')[0]}`;
-document.getElementById('lead').textContent = `Alle ${fmt(META.module)} Community-Module, abgeglichen mit den ${META.kaanon} Kaanon-Extensions. Für jede Website steht hier, ob wir sie schon haben, ob unsere Engine sie bauen dürfte oder ob nur der Community-Code in Frage kommt.`;
+const nR = D.filter(r=>r[15]==='R').length, nZ = D.filter(r=>r[15]==='Z').length;
+document.getElementById('lead').textContent = `Alle ${fmt(META.module)} Community-Module, abgeglichen mit den ${META.kaanon} Kaanon-Extensions. Für jede Website steht hier, ob wir sie schon haben, ob unsere Engine sie bauen dürfte oder ob nur der Community-Code in Frage kommt.` + (nR ? ` Rezept-Entwürfe: ${fmt(nR)} fertig, ${fmt(nZ)} zurückgestellt.` : '');
 
 // Übersicht
 const cnt = {}; ORDER.forEach(k=>cnt[k]=0); D.forEach(r=>cnt[key(r)]++);
@@ -226,7 +229,7 @@ let shown = 100;
 const q=document.getElementById('q'), fk=document.getElementById('fk'), f18=document.getElementById('f18');
 function list(){
   const s=q.value.trim().toLowerCase(), k=fk.value, l=fl.value, adult=f18.checked;
-  return D.filter(r=>(adult||!r[7]) && (!k||key(r)===k) && (!l||L(r)===l) &&
+  return D.filter(r=>(adult||!r[7]) && (!k||(k==='R'||k==='Z'?r[15]===k:key(r)===k)) && (!l||L(r)===l) &&
     (!s || (r[0]+' '+r[1]+' '+r[4]+' '+r[10]).toLowerCase().includes(s)))
    .sort((a,b)=>rank[key(a)]-rank[key(b)] || a[0].localeCompare(b[0],'de'));
 }
@@ -234,7 +237,7 @@ function render(){
   const rows=list();
   document.getElementById('cnt').textContent = `${fmt(rows.length)} Websites`;
   document.getElementById('tab').innerHTML = '<thead><tr><th>Website</th><th>Status</th><th>Sprache</th><th>Theme</th><th>Regel</th><th>In Kaanon</th></tr></thead><tbody>' +
-    rows.slice(0,shown).map(r=>`<tr><td class="name"><a href="https://github.com/keiyoushi/extensions-source/tree/main/${r[11]}" target="_blank" rel="noopener">${esc(r[0])}</a><span class="h">${esc(r[1])}${r[7]?' · 18+':''}</span></td><td><span class="pill p-${key(r)}">${KAT[key(r)].t.replace('Kandidat · ','')}</span></td><td class="mono">${esc(r[2])}</td><td class="mono">${esc(r[4]||'–')}</td><td>${rc(r[8],r[9],r[13],r[14])}</td><td class="mono">${esc(r[10]||'')}</td></tr>`).join('') + '</tbody>';
+    rows.slice(0,shown).map(r=>`<tr><td class="name"><a href="https://github.com/keiyoushi/extensions-source/tree/main/${r[11]}" target="_blank" rel="noopener">${esc(r[0])}</a><span class="h">${esc(r[1])}${r[7]?' · 18+':''}</span></td><td><span class="pill p-${key(r)}">${KAT[key(r)].t.replace('Kandidat · ','')}</span></td><td class="mono">${esc(r[2])}</td><td class="mono">${esc(r[4]||'–')}</td><td>${rc(r[8],r[9],r[13],r[14])}</td><td class="mono">${esc(r[10]||(r[15]==='R'?'Rezept-Entwurf':r[15]==='Z'?'zurückgestellt':''))}</td></tr>`).join('') + '</tbody>';
   document.getElementById('more').hidden = rows.length<=shown;
 }
 [q,fk,fl,f18].forEach(el=>el.addEventListener('input',()=>{shown=100;render();}));
