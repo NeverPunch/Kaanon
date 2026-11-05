@@ -19548,7 +19548,7 @@
  },
  {
   "modul": "src/ja/mangaboxme",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "MangaBox",
   "stufe": 3,
   "theme": null,
@@ -19558,11 +19558,14 @@
   "host": "mangabox.me",
   "nsfw": false,
   "wer": "agent-w10a",
-  "seit": "2026-11-05T09:36:49"
+  "seit": "2026-11-05T09:36:49",
+  "grund": "Bilddateien byteweise XOR-verschlüsselt (mask aus GraphQL-Antwort, XorInterceptor); Bild-XOR kann die Engine nicht; Kauf-/Login-Kapitel",
+  "datei": null,
+  "geaendert": "2026-11-05T09:37:01"
  },
  {
   "modul": "src/ja/mangakingdom",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "Manga Kingdom",
   "stufe": 3,
   "theme": null,
@@ -19572,11 +19575,14 @@
   "host": "comic.k-manga.jp",
   "nsfw": false,
   "wer": "agent-w9b",
-  "seit": "2026-11-05T09:36:51"
+  "seit": "2026-11-05T09:36:51",
+  "grund": "Bilder als base64 in JSON (imgBase64) und verwürfelt: LCG-Permutation mit Schlüssel je Bild, Blöcke mit 1-px-Rand abgeschnitten, Größe abhängig von Bildmaßen – eigene Entwürfelung, weder grid noch rects",
+  "datei": null,
+  "geaendert": "2026-11-05T09:37:04"
  },
  {
   "modul": "src/ja/mangamee",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "MangaMee",
   "stufe": 3,
   "theme": null,
@@ -19586,11 +19592,14 @@
   "host": "manga-mee.jp",
   "nsfw": false,
   "wer": "agent-w9a",
-  "seit": "2026-11-05T09:36:56"
+  "seit": "2026-11-05T09:36:56",
+  "grund": "Details und Seitenliste nur über Protobuf-API (title_detail, parseAsProto); Bilddaten mit XOR-Schlüssel (hex je Bild) verschleiert – Protobuf und Bild-Entschlüsselung nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:37:05"
  },
  {
   "modul": "src/ja/mangaone",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Manga One",
   "stufe": 3,
   "theme": null,
@@ -19598,11 +19607,16 @@
    "ja"
   ],
   "host": "manga-one.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:37:01",
+  "grund": "Alle API-Antworten Protobuf (parseAsProto) und Bilder AES-CBC-verschlüsselt (Schlüssel/IV hex im Viewer-Protobuf); Engine kann weder Protobuf noch Bild-AES",
+  "datei": null,
+  "geaendert": "2026-11-05T09:37:08"
  },
  {
   "modul": "src/ja/mangaparkpublisher",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Manga-Park",
   "stufe": 3,
   "theme": null,
@@ -19610,11 +19624,16 @@
    "ja"
   ],
   "host": "manga-park.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:37:04",
+  "grund": "Bilder byteweise XOR-verschlüsselt mit Schlüssel je Bild (image.key, base64) über XorInterceptor – Bild-Byte-Entschlüsselung kann die Engine nicht",
+  "datei": null,
+  "geaendert": "2026-11-05T09:37:19"
  },
  {
   "modul": "src/ja/mangasaison",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Manga Saison",
   "stufe": 3,
   "theme": null,
@@ -19622,11 +19641,16 @@
    "ja"
   ],
   "host": "mechacomi.jp",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:37:05",
+  "grund": "Bilder liegen in ZIP-Archiven (Range-Anfrage auf Eintrag, ggf. entpacken) und sind AES-CBC-verschlüsselt (Schlüssel je Bild, IV aus WASM) – ZIP-Zugriff und Bild-Entschlüsselung (Leser-DRM) nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:37:14"
  },
  {
   "modul": "src/ja/mangatoshokanz",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Manga Toshokan Z",
   "stufe": 3,
   "theme": null,
@@ -19634,11 +19658,16 @@
    "ja"
   ],
   "host": "mangaz.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:37:08",
+  "grund": "Seitenbilder als Kachelstreifen; Entwürfelung per Crop-Liste mit je eigener Breite/Höhe (x,y,x2,y2,w,h) und Zielgröße aus base64-JSON; rects kennt nur feste Kachelgröße, grid passt nicht; dazu R18-Cookie-Interceptor",
+  "datei": null,
+  "geaendert": "2026-11-05T09:37:30"
  },
  {
   "modul": "src/ja/mechacomic",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Mecha Comic",
   "stufe": 3,
   "theme": null,
@@ -19646,11 +19675,16 @@
    "ja"
   ],
   "host": "mechacomic.jp",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:37:14",
+  "grund": "Jedes Bild AES-verschlüsselt (Schlüssel hex aus Viewer-Anfrage, IV = erste 16 Byte der Bilddatei) – Bild-Entschlüsselung (Leser-DRM) nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:37:23"
  },
  {
   "modul": "src/ja/mokuro",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Mokuro",
   "stufe": 3,
   "theme": null,
@@ -19658,11 +19692,16 @@
    "ja"
   ],
   "host": "mokuro.moe",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:37:19",
+  "grund": "Seiten nur aus CBZ-Archiven (ZIP): Zentralverzeichnis per zipDirectory, Bilder per HTTP-Range und Entpacken im CbzInterceptor – ZIP/Range-Zugriff kann die Engine nicht",
+  "datei": null,
+  "geaendert": "2026-11-05T09:37:32"
  },
  {
   "modul": "src/ja/musicbookjp",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Music Book Japan",
   "stufe": 3,
   "theme": null,
@@ -19670,11 +19709,16 @@
    "ja"
   ],
   "host": "music-book.jp",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:37:23",
+  "grund": "Bilder verwürfelt (eigene Koordinaten-Zuordnung je Bild) und mit zwei Zusatzbildern _b1/_b2.png überlagert zusammengesetzt – weder grid noch rects, nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:37:34"
  },
  {
   "modul": "src/ja/piccoma",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Piccoma",
   "stufe": 3,
   "theme": null,
@@ -19682,11 +19726,16 @@
    "ja"
   ],
   "host": "piccoma.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:37:30",
+  "grund": "Bilder (isScrambled) mit SeedRandom-Kachelmischung entwürfelt, Seed aus URL-Parametern rotiert/XOR; weder grid noch rects; Kauf-/Login-Kapitel",
+  "datei": null,
+  "geaendert": "2026-11-05T09:37:37"
  },
  {
   "modul": "src/ja/readerstore",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Reader Store",
   "stufe": 3,
   "theme": null,
@@ -19694,11 +19743,16 @@
    "ja"
   ],
   "host": "ebookstore.sony.jp",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:37:32",
+  "grund": "Sony-Shop-Reader: Bilddaten mit Schlüssel aus /decrypt-Worker-JS verschlüsselt, eigener Decoder (282 Z.) plus Bild-Entwürfelung im Interceptor; Kauf/Login nötig – DRM, nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:37:42"
  },
  {
   "modul": "src/ja/sokuyomi",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Sokuyomi",
   "stufe": 3,
   "theme": null,
@@ -19706,11 +19760,13 @@
    "ja"
   ],
   "host": "sokuyomi.jp",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:37:37"
  },
  {
   "modul": "src/ja/zebrack",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Zebrack",
   "stufe": 3,
   "theme": null,
@@ -19718,11 +19774,16 @@
    "ja"
   ],
   "host": "zebrack-comic.shueisha.co.jp",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:37:43",
+  "grund": "API-Antworten Protobuf (ProtoNumber-DTOs), Bilder XOR-verschlüsselt (XorInterceptor), Secret per WebView geholt – Protobuf/WebView/Bild-Entschlüsselung kann die Engine nicht",
+  "datei": null,
+  "geaendert": "2026-11-05T09:37:53"
  },
  {
   "modul": "src/ja/zerosumonline",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Zerosum Online",
   "stufe": 3,
   "theme": null,
@@ -19730,7 +19791,12 @@
    "ja"
   ],
   "host": "zerosumonline.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:37:53",
+  "grund": "Gesamte API (list/search/title/viewer) liefert Protobuf (parseAsProto, ProtoNumber-DTOs) – Protobuf kann die Engine nicht",
+  "datei": null,
+  "geaendert": "2026-11-05T09:38:07"
  },
  {
   "modul": "src/ko/sbxh",
