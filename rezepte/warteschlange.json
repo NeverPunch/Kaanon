@@ -19800,7 +19800,7 @@
  },
  {
   "modul": "src/ko/sbxh",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Newtoki (SBXH)",
   "stufe": 3,
   "theme": null,
@@ -19808,7 +19808,9 @@
    "ko"
   ],
   "host": "sbxh9.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10b",
+  "seit": "2026-11-05T09:38:36"
  },
  {
   "modul": "src/pt/kuromangas",
