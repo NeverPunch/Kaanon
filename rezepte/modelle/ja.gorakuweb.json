@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Goraku Web",
+  "sprache": "ja",
+  "base_url": "https://gorakuweb.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.ja.kaanon.gorakuweb",
+  "quellen": [
+   {
+    "name": "Goraku Web",
+    "sprache": "ja",
+    "quell_id": 8261703368756535165,
+    "home": "https://gorakuweb.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/ja/gorakuweb",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.4",
+  "theme": null
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

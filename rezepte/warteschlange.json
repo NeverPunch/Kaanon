@@ -19191,7 +19191,7 @@
  },
  {
   "modul": "src/es/ikigaimangas",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Ikigai Mangas",
   "stufe": 3,
   "theme": null,
@@ -19201,7 +19201,10 @@
   "host": "visorikigai.gettocaboca.com",
   "nsfw": false,
   "wer": "agent-w9a",
-  "seit": "2026-11-05T09:35:22"
+  "seit": "2026-11-05T09:35:22",
+  "datei": "rezepte/modelle/es.ikigaimangas.json",
+  "grund": null,
+  "geaendert": "2026-11-05T09:35:54"
  },
  {
   "modul": "src/es/kumanga",
@@ -19239,7 +19242,7 @@
  },
  {
   "modul": "src/id/doujindesu",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "Doujindesu",
   "stufe": 3,
   "theme": null,
@@ -19249,11 +19252,14 @@
   "host": "doujin.desu.xxx",
   "nsfw": true,
   "wer": "agent-w8d",
-  "seit": "2026-11-05T09:35:36"
+  "seit": "2026-11-05T09:35:36",
+  "grund": "Alle API-Antworten mit eigener Verschleierung (stündlicher Schlüssel aus Salt+LCG, XOR-Kette über Hex-Bytes, dann URL-Dekodierung) – eigene Entschlüsselung nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:35:48"
  },
  {
   "modul": "src/id/komiknesia",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "KomikNesia",
   "stufe": 3,
   "theme": null,
@@ -19263,11 +19269,14 @@
   "host": "v2.komiknesiaku.com",
   "nsfw": false,
   "wer": "agent-w9b",
-  "seit": "2026-11-05T09:35:41"
+  "seit": "2026-11-05T09:35:41",
+  "grund": "API-Antworten (encrypted:true) AES-CBC-verschlüsselt; Schlüssel aus Feld time berechnet (time/32 auf 8 Nachkommastellen formatiert, auf 32 Zeichen aufgefüllt), IV aus den ersten 16 Byte – kein aes_cryptojs, Schlüsselableitung nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:35:56"
  },
  {
   "modul": "src/id/softkomik",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Softkomik",
   "stufe": 3,
   "theme": null,
@@ -19275,11 +19284,16 @@
    "id"
   ],
   "host": "softkomik.app",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8d",
+  "seit": "2026-11-05T09:35:48",
+  "grund": "API verlangt X-Token/X-Sign-Sitzung (häufig umbenannter Session-Endpunkt, Rückfall per WebView-Mitschnitt; Token an User-Agent gebunden), pageProps mit NEXT_PUBLIC_ENCRYPTION_KEY verschlüsselt, Fallen-Bilder und CDN-Wechsel – WebView/eigene Entschlüsselung nötig",
+  "datei": null,
+  "geaendert": "2026-11-05T09:35:59"
  },
  {
   "modul": "src/ja/alphapolis",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Alphapolis",
   "stufe": 3,
   "theme": null,
@@ -19287,11 +19301,16 @@
    "ja"
   ],
   "host": "alphapolis.co.jp",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:35:54",
+  "grund": "Bilder verwürfelt: eigenes Kachel-Verfahren aus WASM ('createData') mit Base64-Schlüssel je Bild (Kachelgröße/Rand aus Schlüsselbits, Ränder werden abgeschnitten) – weder grid noch rects, nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:36:02"
  },
  {
   "modul": "src/ja/amebamanga",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Ameba Manga",
   "stufe": 3,
   "theme": null,
@@ -19299,11 +19318,16 @@
    "ja"
   ],
   "host": "dokusho-ojikan.jp",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:35:56",
+  "grund": "Bilder verwürfelt (96×128-Blöcke), Permutation per LCG-Zufallsgenerator mit Schlüssel je Seite (Fisher-Yates) – eigene Entwürfelung, weder grid noch rects",
+  "datei": null,
+  "geaendert": "2026-11-05T09:36:10"
  },
  {
   "modul": "src/ja/ciaoplus",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Ciao Plus",
   "stufe": 3,
   "theme": null,
@@ -19311,11 +19335,16 @@
    "ja"
   ],
   "host": "ciao.shogakukan.co.jp",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8d",
+  "seit": "2026-11-05T09:35:59",
+  "grund": "API-Anfragen mit selbst berechneter Hash-Signatur (SHA-256/SHA-512 über Parameter) und Bilder per xorshift32-Seed verwürfelt (eigene Kachel-Permutation, nicht grid/rects)",
+  "datei": null,
+  "geaendert": "2026-11-05T09:36:07"
  },
  {
   "modul": "src/ja/comicfuz",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "COMIC FUZ",
   "stufe": 3,
   "theme": null,
@@ -19323,11 +19352,16 @@
    "ja"
   ],
   "host": "comic-fuz.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:36:02",
+  "grund": "Alle API-Anfragen und -Antworten Protobuf (toRequestBodyProto/parseAsProto); Bilder AES-CBC-verschlüsselt (key/iv je Bild, Bilddaten entschlüsseln) – Protobuf und Bild-Entschlüsselung nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:36:12"
  },
  {
   "modul": "src/ja/comicgrast",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Comic Grast",
   "stufe": 3,
   "theme": null,
@@ -19335,11 +19369,16 @@
    "ja"
   ],
   "host": "novema.jp",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:36:05",
+  "grund": "Bilder je Seite mit SeedRandom (seedrandom/ARC4, seed+size aus index.json) in Kachelgruppen gemischt; Entwürfelung per Zufallspermutation weder grid noch rects",
+  "datei": null,
+  "geaendert": "2026-11-05T09:36:30"
  },
  {
   "modul": "src/ja/corocoroonline",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Corocoro Online",
   "stufe": 3,
   "theme": null,
@@ -19347,11 +19386,16 @@
    "ja"
   ],
   "host": "corocoro.jp",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8d",
+  "seit": "2026-11-05T09:36:07",
+  "grund": "API-Antworten (Ranking, Details, Viewer) sind Protobuf; Bilddateien AES-CBC-verschlüsselt (Schlüssel/IV aus Viewer-Antwort) – Protobuf + Bild-Entschlüsselung nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:36:17"
  },
  {
   "modul": "src/ja/cycomi",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "CyComi",
   "stufe": 3,
   "theme": null,
@@ -19359,11 +19403,16 @@
    "ja"
   ],
   "host": "cycomi.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:36:10",
+  "grund": "Bilddateien RC4-verschlüsselt (Schlüssel = Pfadsegment der Bild-URL), Entschlüsselung des Bild-Bytestroms im Interceptor – kann die Engine nicht",
+  "datei": null,
+  "geaendert": "2026-11-05T09:36:24"
  },
  {
   "modul": "src/ja/drecomics",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "DreComi+",
   "stufe": 3,
   "theme": null,
@@ -19371,11 +19420,16 @@
    "ja"
   ],
   "host": "drecomi-plus.jp",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:36:12",
+  "grund": "Jedes Bild AES-CBC-verschlüsselt (sessionKey + iv je Seite aus der Viewer-Antwort, Bilddaten entschlüsseln) – Bild-Entschlüsselung nicht ausdrückbar; CDN zudem nur aus Japan erreichbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:36:26"
  },
  {
   "modul": "src/ja/flowercomics",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Flower Comics",
   "stufe": 3,
   "theme": null,
@@ -19383,11 +19437,16 @@
    "ja"
   ],
   "host": "flowercomics.jp",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8d",
+  "seit": "2026-11-05T09:36:17",
+  "grund": "Bilddateien AES-CBC-verschlüsselt (Schlüssel/IV je Seite im RSC-Payload) – Bild-Entschlüsselung nicht ausdrückbar (Leser-DRM)",
+  "datei": null,
+  "geaendert": "2026-11-05T09:36:29"
  },
  {
   "modul": "src/ja/fodfuji",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "FOD",
   "stufe": 3,
   "theme": null,
@@ -19395,11 +19454,16 @@
    "ja"
   ],
   "host": "manga.fod.fujitv.co.jp",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:36:24",
+  "grund": "Bilder verwürfelt (96×128-Blöcke), Permutation per LCG-Zufallsgenerator mit Schlüssel je Seite (Fisher-Yates) – eigene Entwürfelung, weder grid noch rects",
+  "datei": null,
+  "geaendert": "2026-11-05T09:36:37"
  },
  {
   "modul": "src/ja/gorakuweb",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Goraku Web",
   "stufe": 3,
   "theme": null,
@@ -19407,11 +19471,13 @@
    "ja"
   ],
   "host": "gorakuweb.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:36:26"
  },
  {
   "modul": "src/ja/jumptoon",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Jump Toon",
   "stufe": 3,
   "theme": null,
@@ -19419,11 +19485,13 @@
    "ja"
   ],
   "host": "jumptoon.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:36:30"
  },
  {
   "modul": "src/ja/kadocomi",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "KadoComi",
   "stufe": 3,
   "theme": null,
@@ -19431,7 +19499,9 @@
    "ja"
   ],
   "host": "comic-walker.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:36:37"
  },
  {
   "modul": "src/ja/linemanga",

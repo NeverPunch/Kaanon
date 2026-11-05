@@ -23,7 +23,105 @@
   "theme": null
  },
  "modell": {
-  "schema": "kaanon-site-model/2"
+  "schema": "kaanon-site-model/2",
+  "cookies": {
+   "is-adult-enabled": "true"
+  },
+  "rate_limit": {
+   "permits": 1,
+   "period_ms": 2000
+  },
+  "popular": {
+   "request": "{base}/clasificacion/",
+   "items": "div.grid > div.card",
+   "has_next": {
+    "const": false
+   },
+   "fields": {
+    "url": {
+     "path": ".card-actions > a.btn[href]@href",
+     "regex": "/series/([^/?#]+)",
+     "template": "/series/{value}/"
+    },
+    "title": ".card-body .card-title",
+    "cover": "img@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/?pagina={page}",
+   "items": "section[aria-labelledby=new-chapters-heading] > ul.grid:last-of-type a.card",
+   "has_next": {
+    "exists": "nav[aria-label=pagination] > a:last-child:not([class*=btn-disabled])"
+   },
+   "fields": {
+    "url": {
+     "path": "@href",
+     "regex": "/series/([^/?#]+)",
+     "template": "/series/{value}/"
+    },
+    "title": ".card-body .card-title",
+    "cover": "img@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "main .card-body .card-title",
+    "cover": "main article.card figure > img@src",
+    "description": "main .card-body > p",
+    "status": "main figure > ul a[href*='?estados']",
+    "genres": {
+     "path": "main .card-body > ul > li > a[href*='?generos']",
+     "all": true,
+     "join": ", "
+    }
+   },
+   "status_map": {
+    "en curso": 1,
+    "completa": 2,
+    "cancelada": 5,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "{abs_url}?pagina={page}",
+   "request_by_page": {
+    "1": "details"
+   },
+   "items": "section.card > ul.grid a.card",
+   "fields": {
+    "url": "@href",
+    "name": ".card-body .card-title",
+    "date": {
+     "path": "time@datetime",
+     "replace": [
+      [
+       "\\s*\\(.*$",
+       ""
+      ]
+     ]
+    }
+   },
+   "date_format": "EEE MMM dd yyyy HH:mm:ss 'GMT'Z",
+   "date_locale": "en",
+   "paging": {
+    "has_next": {
+     "exists": "nav[aria-label=pagination] > a:last-child:not([class*=btn-disabled])"
+    },
+    "max_pages": 60
+   }
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "items": "section div > img",
+   "image": "@src"
+  }
  },
- "hinweise": []
+ "hinweise": [
+  "Stufe 3 wegen WebView: nur die Textsuche braucht sie (Qwik-Server-Funktion qfunc wird per WebView abgefangen, dann clientseitig gefiltert). Textsuche daher nicht abgebildet; Beliebt/Neueste/Details/Kapitel/Seiten sind reines HTML.",
+  "Beliebt = /clasificacion/ (eine Seite), Neueste = /?pagina=N. Manga-URL /series/<slug>/ wie Community (Slug aus href).",
+  "Kapitel seitenweise über ?pagina=N; Community liest die letzte Seitenzahl aus nav[aria-label=pagination] a[q:key^=page-], hier Weiterblättern solange der letzte Pager-Link nicht deaktiviert ist (wie bei den Listen) – prüfen.",
+  "Datum aus time@datetime (z. B. 'Tue Mar 05 2024 12:00:00 GMT+0000 (…)'), Klammerteil entfernt.",
+  "Domain wechselt häufig: Community ermittelt sie automatisch über ikigaimangas.com ('Ir al sitio'-Skript); hier fest base_url – bei Wechsel anpassen. Cookie is-adult-enabled=true und Rate-Limit 1/2 s wie Community."
+ ]
 }
