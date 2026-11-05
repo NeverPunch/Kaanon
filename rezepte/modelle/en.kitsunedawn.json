@@ -1,0 +1,183 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Kitsune Dawn",
+  "sprache": "en",
+  "base_url": "https://kitsunedawn.com",
+  "nsfw": true,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.kitsunedawn",
+  "quellen": [
+   {
+    "name": "Kitsune Dawn",
+    "sprache": "en",
+    "quell_id": 7739452864322240494,
+    "home": "https://kitsunedawn.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/kitsunedawn",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.25",
+  "theme": "keyoapp"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/search?sort=popular&page={page}",
+   "items": "main#main-content [wire:key*='serie']",
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": "a[href]@href",
+    "title": [
+     "a[href]@title",
+     "@title"
+    ],
+    "cover": "img[alt$=' cover']@src"
+   }
+  },
+  "latest": {
+   "request": "{base}/latest?page={page}",
+   "items": "div.grid > div.group",
+   "skip": {
+    "any": [
+     {
+      "path": "[data-type~=(?i)^novel$]@data-type"
+     },
+     {
+      "path": "span:matchesOwn((?i)^novel$)"
+     },
+     {
+      "path": [
+       "a[href]@title"
+      ],
+      "regex": "(?i)(\\[novel\\])"
+     }
+    ]
+   },
+   "has_next": {
+    "exists": "a[href*='?page=']"
+   },
+   "fields": {
+    "url": "a[href]@href",
+    "title": [
+     "a[href]@title",
+     "@title"
+    ],
+    "cover": "img[alt$=' cover']@src"
+   }
+  },
+  "search": {
+   "request": "{base}/search?title={query}&page={page}",
+   "items": "main#main-content [wire:key*='serie']",
+   "page_size": 20,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": "a[href]@href",
+    "title": [
+     "a[href]@title",
+     "@title"
+    ],
+    "cover": "img[alt$=' cover']@src"
+   }
+  },
+  "details": {
+   "request": "{abs_url}",
+   "fields": {
+    "title": "div.grid > h1",
+    "cover": "img[alt$=' cover']@src",
+    "description": "#expand_content p",
+    "genres": {
+     "path": [
+      "a[aria-label=Type]",
+      "div:has(>h1) a[href*='/genres/']"
+     ],
+     "union": true,
+     "all": true,
+     "join": ", ",
+     "replace": [
+      [
+       ",\\s*,",
+       ","
+      ],
+      [
+       ",\\s*$",
+       ""
+      ]
+     ]
+    },
+    "author": "dt:contains(Author) + dd",
+    "artist": "dt:contains(Artist) + dd",
+    "status": "a[aria-label=Status]"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "dropped": 5,
+    "paused": 6,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "details",
+   "items": "#chapters > :is(a, div)",
+   "skip": {
+    "any": [
+     "img[alt~=Coin]@alt",
+     ".text-sm span:matches(Upcoming)",
+     "img[src*=star-circle]@src"
+    ]
+   },
+   "fields": {
+    "url": "a[href]@href",
+    "name": ".text-sm",
+    "date": [
+     "a[href]@d",
+     ".text-xs"
+    ]
+   },
+   "date_format": [
+    "MMM d, yyyy",
+    "relative"
+   ],
+   "date_locale": "en"
+  },
+  "pages": {
+   "request": "{abs_url}",
+   "let": {
+    "raw": {
+     "path": "[x-data^=immersiveReader]@x-data",
+     "regex": "JSON\\.parse\\('(.*?)'\\)",
+     "group": 1
+    },
+    "dec": {
+     "const": "\"{l.raw}\"",
+     "decode": "json"
+    }
+   },
+   "inner": {
+    "value": {
+     "const": "{l.dec}"
+    },
+    "format": "json",
+    "items": "$",
+    "image": "path"
+   }
+  }
+ },
+ "hinweise": [
+  "Keyoapp-Theme; Modell aus der Keyoapp-Vorlage en.grimscans übernommen und an die Selektoren dieses Moduls angepasst.",
+  "Stufe 3 geprüft: QuickJS dient im Code nur dem Genre-Filter (initializeDropdownMenu), nicht Listen/Kapiteln/Seiten. Filter nicht nachgebaut, Suche nur Text (client_filter wie Vorlage).",
+  "Kostenpflichtige (img[alt~=Coin]) und angekündigte (Upcoming) Kapitel werden ausgelassen (Community-Standard). Genres = Typ + Genre-Links (union).",
+  "Beliebt über /search?sort=popular&page=N (wie Community), weiter solange 20 Einträge; Neueste /latest?page=N, weiter solange ein ?page=-Link existiert (wie Community, auch Zurück-Links zählen).",
+  "Cover seit Redesign als <img alt='… cover'> (Community überschreibt getImageUrl).",
+  "Seiten: x-data von [x-data^=immersiveReader] enthält JSON.parse('<JS-String>'); String per decode json entschlüsselt (wie Community: in Anführungszeichen gesetzt und als JSON-String gelesen), dann Feld path je Seite.",
+  "Zusätzlich Kapitel mit img[src*=star-circle] als kostenpflichtig ausgelassen (Community)."
+ ]
+}

@@ -1,0 +1,29 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Art Lapsa",
+  "sprache": "en",
+  "base_url": "https://artlapsa.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.en.kaanon.artlapsa",
+  "quellen": [
+   {
+    "name": "Art Lapsa",
+    "sprache": "en",
+    "quell_id": 734404203508686053,
+    "home": "https://artlapsa.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/en/artlapsa",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.32",
+  "theme": "keyoapp"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2"
+ },
+ "hinweise": []
+}

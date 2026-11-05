@@ -1,0 +1,176 @@
+{
+ "rezept": "kaanon-rezept/1",
+ "status": "entwurf",
+ "extension": {
+  "name": "Hipertoon",
+  "sprache": "pt-BR",
+  "base_url": "https://hipertoon.com",
+  "nsfw": false,
+  "paket": "eu.kanade.tachiyomi.extension.pt-BR.kaanon.hipertoon",
+  "quellen": [
+   {
+    "name": "Hipertoon",
+    "sprache": "pt-BR",
+    "quell_id": 977626289899996655,
+    "home": "https://hipertoon.com"
+   }
+  ]
+ },
+ "quelle": {
+  "modul": "src/pt/hipertoon",
+  "community_stand": "efa93f5a 2026-11-02",
+  "community_version": "1.6.11",
+  "theme": "hiper"
+ },
+ "modell": {
+  "schema": "kaanon-site-model/2",
+  "popular": {
+   "request": "{base}/api/trpc/search.query?batch=1&input=%7B%220%22%3A%7B%22json%22%3A%7B%22q%22%3A%22%22%2C%22sort%22%3A%22popular%22%2C%22filters%22%3A%7B%22genres%22%3Anull%2C%22type%22%3Anull%2C%22status%22%3Anull%2C%22contentRating%22%3Anull%2C%22author%22%3Anull%2C%22artist%22%3Anull%2C%22year%22%3Anull%7D%2C%22limit%22%3A30%2C%22offset%22%3A{offset}%2C%22maxRating%22%3A%22pornographic%22%7D%2C%22meta%22%3A%7B%22values%22%3A%7B%22filters.genres%22%3A%5B%22undefined%22%5D%2C%22filters.type%22%3A%5B%22undefined%22%5D%2C%22filters.status%22%3A%5B%22undefined%22%5D%2C%22filters.contentRating%22%3A%5B%22undefined%22%5D%2C%22filters.author%22%3A%5B%22undefined%22%5D%2C%22filters.artist%22%3A%5B%22undefined%22%5D%2C%22filters.year%22%3A%5B%22undefined%22%5D%7D%7D%7D%7D",
+   "format": "json",
+   "items": "0.result.data.json.hits",
+   "page_size": 30,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   }
+  },
+  "latest": {
+   "request": "{base}/api/trpc/search.query?batch=1&input=%7B%220%22%3A%7B%22json%22%3A%7B%22q%22%3A%22%22%2C%22sort%22%3A%22recent%22%2C%22filters%22%3A%7B%22genres%22%3Anull%2C%22type%22%3Anull%2C%22status%22%3Anull%2C%22contentRating%22%3Anull%2C%22author%22%3Anull%2C%22artist%22%3Anull%2C%22year%22%3Anull%7D%2C%22limit%22%3A30%2C%22offset%22%3A{offset}%2C%22maxRating%22%3A%22pornographic%22%7D%2C%22meta%22%3A%7B%22values%22%3A%7B%22filters.genres%22%3A%5B%22undefined%22%5D%2C%22filters.type%22%3A%5B%22undefined%22%5D%2C%22filters.status%22%3A%5B%22undefined%22%5D%2C%22filters.contentRating%22%3A%5B%22undefined%22%5D%2C%22filters.author%22%3A%5B%22undefined%22%5D%2C%22filters.artist%22%3A%5B%22undefined%22%5D%2C%22filters.year%22%3A%5B%22undefined%22%5D%7D%7D%7D%7D",
+   "format": "json",
+   "items": "0.result.data.json.hits",
+   "page_size": 30,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   }
+  },
+  "search": {
+   "request": "{base}/api/trpc/search.query?batch=1&input=%7B%220%22%3A%7B%22json%22%3A%7B%22q%22%3A%22{query}%22%2C%22sort%22%3A%22relevance%22%2C%22filters%22%3A%7B%22genres%22%3Anull%2C%22type%22%3Anull%2C%22status%22%3Anull%2C%22contentRating%22%3Anull%2C%22author%22%3Anull%2C%22artist%22%3Anull%2C%22year%22%3Anull%7D%2C%22limit%22%3A30%2C%22offset%22%3A{offset}%2C%22maxRating%22%3A%22pornographic%22%7D%2C%22meta%22%3A%7B%22values%22%3A%7B%22filters.genres%22%3A%5B%22undefined%22%5D%2C%22filters.type%22%3A%5B%22undefined%22%5D%2C%22filters.status%22%3A%5B%22undefined%22%5D%2C%22filters.contentRating%22%3A%5B%22undefined%22%5D%2C%22filters.author%22%3A%5B%22undefined%22%5D%2C%22filters.artist%22%3A%5B%22undefined%22%5D%2C%22filters.year%22%3A%5B%22undefined%22%5D%7D%7D%7D%7D",
+   "format": "json",
+   "items": "0.result.data.json.hits",
+   "page_size": 30,
+   "has_next": {
+    "full": true
+   },
+   "fields": {
+    "url": {
+     "path": "slug",
+     "template": "/manga/{value}#{f.id}"
+    },
+    "title": "title",
+    "cover": "coverUrl"
+   }
+  },
+  "details": {
+   "request": "{base}/api/trpc/auth.me,series.bySlugWithGenres?batch=1&input=%7B%220%22%3A%7B%22json%22%3Anull%2C%22meta%22%3A%7B%22values%22%3A%5B%22undefined%22%5D%7D%7D%2C%221%22%3A%7B%22json%22%3A%7B%22slug%22%3A%22{u.slug}%22%7D%7D%7D",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/#?]+)"
+   },
+   "fields": {
+    "title": "1.result.data.json.title",
+    "description": "1.result.data.json.synopsis",
+    "cover": "1.result.data.json.coverUrl",
+    "author": {
+     "path": "1.result.data.json.authors.*",
+     "all": true,
+     "join": ", "
+    },
+    "artist": {
+     "path": "1.result.data.json.artists.*",
+     "all": true,
+     "join": ", "
+    },
+    "genres": {
+     "path": [
+      "1.result.data.json.genres.*",
+      "1.result.data.json.type",
+      "1.result.data.json.contentRating"
+     ],
+     "union": true,
+     "all": true,
+     "join": ", "
+    },
+    "status": "1.result.data.json.status"
+   },
+   "status_map": {
+    "ongoing": 1,
+    "completed": 2,
+    "cancelled": 5,
+    "hiatus": 6
+   }
+  },
+  "chapters": {
+   "request": "{base}/api/trpc/auth.me,series.chapters?batch=1&input=%7B%220%22%3A%7B%22json%22%3A%7B%22values%22%3A%5B%22undefined%22%5D%7D%7D%2C%221%22%3A%7B%22json%22%3A%7B%22seriesId%22%3A{u.id}%2C%22chapterId%22%3Anull%2C%22sort%22%3A%22best%22%2C%22page%22%3A1%2C%22limit%22%3A20%7D%2C%22meta%22%3A%7B%22values%22%3A%7B%22chapterId%22%3A%5B%22undefined%22%5D%7D%7D%7D%2C%222%22%3A%7B%22json%22%3A%7B%22seriesId%22%3A{u.id}%7D%7D%7D",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/#?]+)",
+    "id": "#(\\d+)$"
+   },
+   "items": [
+    "2.result.data.json",
+    "1.result.data.json"
+   ],
+   "fields": {
+    "url": {
+     "path": "number",
+     "template": "/manga/{u.slug}/{value}"
+    },
+    "name": [
+     {
+      "path": "title",
+      "template": "Chapter {f.number} {value}",
+      "replace": [
+       [
+        "^Chapter (\\S+) (.*\\b\\1\\b.*)$",
+        "$2"
+       ]
+      ]
+     },
+     {
+      "path": "number",
+      "template": "Chapter {value}"
+     }
+    ],
+    "number": "number",
+    "date": "createdAt"
+   },
+   "date_format": "iso"
+  },
+  "pages": {
+   "request": "{base}/api/trpc/auth.me,series.bySlug,reader.chapterPages?batch=1&input=%7B%220%22%3A%7B%22json%22%3Anull%2C%22meta%22%3A%7B%22values%22%3A%5B%22undefined%22%5D%7D%7D%2C%221%22%3A%7B%22json%22%3A%7B%22slug%22%3A%22{u.slug}%22%7D%7D%2C%222%22%3A%7B%22json%22%3A%7B%22seriesSlug%22%3A%22{u.slug}%22%2C%22chapterNumber%22%3A{u.num}%7D%7D%2C%223%22%3A%7B%22json%22%3A%7B%22position%22%3A%22footer_bottom%22%7D%7D%7D",
+   "format": "json",
+   "url_vars": {
+    "slug": "/manga/([^/#?]+)",
+    "num": "/manga/[^/]+/([^/#?]+)"
+   },
+   "items": "2.result.data.json",
+   "image": [
+    "avifUrl",
+    "webpUrl"
+   ]
+  }
+ },
+ "hinweise": [
+  "Hiper-Theme: tRPC-API {base}/api/trpc/<prozeduren>?batch=1&input=<URL-kodiertes JSON> (GET) wie im Code; Antwort = Liste je Prozedur, Pfad <index>.result.data.json.",
+  "Eintrags-URL /manga/<slug>#<id> (Community: /manga/<slug>, Serien-ID im memo; '#ID' ist die alte Community-Form, die der Code noch versteht). Kapitel-URL /manga/<slug>/<nummer>.",
+  "Listen: search.query mit sort popular/recent/relevance, limit 30, offset; maxRating fest 'pornographic' (Community-Standard). Filter (Genre/Typ/Status/Rating) nicht nachgebaut.",
+  "Kapitel: Community hängt bei doppelter Kapitelnummer die Kapitel-ID an die URL und schickt chapterId mit – nicht nachgebaut (Dubletten zeigen dieselben Seiten). Name: Titel, wenn er die Nummer enthält, sonst 'Chapter N Titel' (Rückverweis-Regex).",
+  "Stufe 3 geprüft: WebView wird im Code nur als Rückfall für Seiten benutzt, wenn die API einen Fehler meldet (fängt dann die Header ab, die das Website-Skript an /api-Aufrufe hängt). Hiperdex/Hipercool setzen dafür feste Header; ob die Website ohne solche Header antwortet, ist ungeprüft.",
+  "Bei HTTP 401 ruft die Community einmal die Startseite (Accept: text/html) auf, um ein Cookie zu bekommen, und wiederholt die Anfrage – nicht ausdrückbar; ggf. am PC prüfen, ob das Cookie nötig ist."
+ ]
+}

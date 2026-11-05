@@ -17995,7 +17995,7 @@
  },
  {
   "modul": "src/en/hiperdex",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Hiperdex",
   "stufe": 3,
   "theme": "hiper",
@@ -18005,11 +18005,14 @@
   "host": "hiperdex.tv",
   "nsfw": false,
   "wer": "agent-w9a",
-  "seit": "2026-11-03T11:33:38"
+  "seit": "2026-11-03T11:33:38",
+  "datei": "rezepte/modelle/en.hiperdex.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:35:27"
  },
  {
   "modul": "src/pt/hipercool",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "HipercooL",
   "stufe": 3,
   "theme": "hiper",
@@ -18019,11 +18022,14 @@
   "host": "lerhentais.com",
   "nsfw": true,
   "wer": "agent-w8d",
-  "seit": "2026-11-03T11:33:39"
+  "seit": "2026-11-03T11:33:39",
+  "datei": "rezepte/modelle/pt-BR.hipercool.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:35:04"
  },
  {
   "modul": "src/pt/hipertoon",
-  "status": "in_arbeit",
+  "status": "fertig",
   "name": "Hipertoon",
   "stufe": 3,
   "theme": "hiper",
@@ -18033,11 +18039,14 @@
   "host": "hipertoon.com",
   "nsfw": false,
   "wer": "agent-w8c",
-  "seit": "2026-11-03T11:33:39"
+  "seit": "2026-11-03T11:33:39",
+  "datei": "rezepte/modelle/pt-BR.hipertoon.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:35:09"
  },
  {
   "modul": "src/en/coffeemangaunoriginal",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "Coffee Manga (Unoriginal)",
   "stufe": 3,
   "theme": "imperiomanhwa",
@@ -18047,11 +18056,14 @@
   "host": "coffeemanga.net",
   "nsfw": false,
   "wer": "agent-w9b",
-  "seit": "2026-11-03T11:33:50"
+  "seit": "2026-11-03T11:33:50",
+  "grund": "ImperioManhwa-Theme: nur erste Seite inline (Inertia data-page); restliche Seiten versiegelt, werden per WebView mit Site-JS (reader.js über /build/assets-Modul) entsiegelt, ggf. mit Turnstile-Token – WebView/JS nötig",
+  "datei": null,
+  "geaendert": "2026-11-03T11:34:09"
  },
  {
   "modul": "src/es/emperorscan",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Emperor Scan",
   "stufe": 3,
   "theme": "imperiomanhwa",
@@ -18059,11 +18071,16 @@
    "es"
   ],
   "host": "imperiomanhwa.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-03T11:34:09",
+  "grund": "ImperioManhwa-Theme: nur erste Seite inline (Inertia data-page); restliche Seiten versiegelt, werden per WebView mit Site-JS (reader.js über /build/assets-Modul) entsiegelt, ggf. mit Turnstile-Token – WebView/JS nötig",
+  "datei": null,
+  "geaendert": "2026-11-03T11:34:18"
  },
  {
   "modul": "src/ru/inkstory",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "InkStory",
   "stufe": 3,
   "theme": "inkstory",
@@ -18071,11 +18088,16 @@
    "ru"
   ],
   "host": "inkstory.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-03T11:34:18",
+  "grund": "InkStory-Theme: Bilddateien (Modus x/s im Dateinamen) sind byteweise per XOR mit festem Schlüssel verschlüsselt und werden im Interceptor entschlüsselt – Bild-Byte-Entschlüsselung kann die Engine nicht (nur grid/rects)",
+  "datei": null,
+  "geaendert": "2026-11-03T11:34:36"
  },
  {
   "modul": "src/ru/puremanga",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "PureManga",
   "stufe": 3,
   "theme": "inkstory",
@@ -18083,11 +18105,16 @@
    "ru"
   ],
   "host": "v1.puremanga.me",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-03T11:34:36",
+  "grund": "InkStory-Theme: Bilddateien (Modus x/s im Dateinamen) sind byteweise per XOR mit festem Schlüssel verschlüsselt und werden im Interceptor entschlüsselt – Bild-Byte-Entschlüsselung kann die Engine nicht (nur grid/rects)",
+  "datei": null,
+  "geaendert": "2026-11-03T11:34:45"
  },
  {
   "modul": "src/en/artlapsa",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Art Lapsa",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18095,11 +18122,13 @@
    "en"
   ],
   "host": "artlapsa.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-03T11:34:45"
  },
  {
   "modul": "src/en/asmotoon",
-  "status": "offen",
+  "status": "fertig",
   "name": "Asmodeus Scans",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18107,11 +18136,16 @@
    "en"
   ],
   "host": "asmotoon.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8d",
+  "seit": "2026-11-03T11:35:04",
+  "datei": "rezepte/modelle/en.asmodeusscans.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:36:21"
  },
  {
   "modul": "src/en/erisscans",
-  "status": "offen",
+  "status": "fertig",
   "name": "Eris Scans",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18119,11 +18153,16 @@
    "en"
   ],
   "host": "erisscans.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8c",
+  "seit": "2026-11-03T11:35:09",
+  "datei": "rezepte/modelle/en.erisscans.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:36:07"
  },
  {
   "modul": "src/en/kaizenscan",
-  "status": "offen",
+  "status": "fertig",
   "name": "Kaizen Scan",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18131,11 +18170,16 @@
    "en"
   ],
   "host": "kaizenscan.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w9a",
+  "seit": "2026-11-03T11:35:28",
+  "datei": "rezepte/modelle/en.kaizenscan.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:36:01"
  },
  {
   "modul": "src/en/kewnscans",
-  "status": "offen",
+  "status": "fertig",
   "name": "Kewn Scans",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18143,11 +18187,16 @@
    "en"
   ],
   "host": "kewnscans.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-03T11:36:01",
+  "datei": "rezepte/modelle/en.kewnscans.json",
+  "grund": null,
+  "geaendert": "2026-11-03T11:36:09"
  },
  {
   "modul": "src/en/kitsunedawn",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Kitsune Dawn",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18155,11 +18204,13 @@
    "en"
   ],
   "host": "kitsunedawn.com",
-  "nsfw": true
+  "nsfw": true,
+  "wer": "agent-w8c",
+  "seit": "2026-11-03T11:36:07"
  },
  {
   "modul": "src/en/lunatoons",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Luna Toons",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18167,11 +18218,13 @@
    "en"
   ],
   "host": "lunatoons.net",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-03T11:36:09"
  },
  {
   "modul": "src/en/meitoon",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "MeiToon",
   "stufe": 3,
   "theme": "keyoapp",
@@ -18179,7 +18232,9 @@
    "en"
   ],
   "host": "meitoon.org",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w8d",
+  "seit": "2026-11-03T11:36:21"
  },
  {
   "modul": "src/en/mistscans",
