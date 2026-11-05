@@ -19463,7 +19463,7 @@
  },
  {
   "modul": "src/ja/gorakuweb",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "Goraku Web",
   "stufe": 3,
   "theme": null,
@@ -19473,11 +19473,14 @@
   "host": "gorakuweb.com",
   "nsfw": false,
   "wer": "agent-w9a",
-  "seit": "2026-11-05T09:36:26"
+  "seit": "2026-11-05T09:36:26",
+  "grund": "Bilder AES-CBC-verschlüsselt (keyBytes/ivBytes hex aus den RSC-Daten des Kapitels, Bilddaten entschlüsseln) – Bild-Entschlüsselung nicht ausdrückbar",
+  "datei": null,
+  "geaendert": "2026-11-05T09:36:39"
  },
  {
   "modul": "src/ja/jumptoon",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "Jump Toon",
   "stufe": 3,
   "theme": null,
@@ -19487,11 +19490,14 @@
   "host": "jumptoon.com",
   "nsfw": false,
   "wer": "agent-w10a",
-  "seit": "2026-11-05T09:36:30"
+  "seit": "2026-11-05T09:36:30",
+  "grund": "Bilder spaltenweise mit LCG-Permutation (Seed = Zeichensumme seriesId:number, Algorithmen V1/V2 mit Padding) verwürfelt; weder grid noch rects; außerdem Kauf-/Login-Kapitel",
+  "datei": null,
+  "geaendert": "2026-11-05T09:36:41"
  },
  {
   "modul": "src/ja/kadocomi",
-  "status": "in_arbeit",
+  "status": "zurueckgestellt",
   "name": "KadoComi",
   "stufe": 3,
   "theme": null,
@@ -19501,11 +19507,14 @@
   "host": "comic-walker.com",
   "nsfw": false,
   "wer": "agent-w9b",
-  "seit": "2026-11-05T09:36:37"
+  "seit": "2026-11-05T09:36:37",
+  "grund": "Bilder (drmImageUrl) byteweise XOR-verschlüsselt mit drmHash als Schlüssel (XorInterceptor) – Bild-Byte-Entschlüsselung kann die Engine nicht; zudem ausdrücklich DRM",
+  "datei": null,
+  "geaendert": "2026-11-05T09:36:51"
  },
  {
   "modul": "src/ja/linemanga",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Line Manga",
   "stufe": 3,
   "theme": null,
@@ -19513,11 +19522,13 @@
    "ja"
   ],
   "host": "manga.line.me",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9a",
+  "seit": "2026-11-05T09:36:39"
  },
  {
   "modul": "src/ja/magazinepocket",
-  "status": "offen",
+  "status": "zurueckgestellt",
   "name": "Magazine Pocket",
   "stufe": 3,
   "theme": null,
@@ -19525,11 +19536,16 @@
    "ja"
   ],
   "host": "pocket.shonenmagazine.com",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:36:41",
+  "grund": "Bilder mit xorshift32-Permutation verwürfelt (scramble_seed über WASM-Ersetzungstabellen, XOR titleId+episodeId); weder grid noch rects; Kauf-/Login-Kapitel",
+  "datei": null,
+  "geaendert": "2026-11-05T09:36:49"
  },
  {
   "modul": "src/ja/mangaboxme",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "MangaBox",
   "stufe": 3,
   "theme": null,
@@ -19537,11 +19553,13 @@
    "ja"
   ],
   "host": "mangabox.me",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w10a",
+  "seit": "2026-11-05T09:36:49"
  },
  {
   "modul": "src/ja/mangakingdom",
-  "status": "offen",
+  "status": "in_arbeit",
   "name": "Manga Kingdom",
   "stufe": 3,
   "theme": null,
@@ -19549,7 +19567,9 @@
    "ja"
   ],
   "host": "comic.k-manga.jp",
-  "nsfw": false
+  "nsfw": false,
+  "wer": "agent-w9b",
+  "seit": "2026-11-05T09:36:51"
  },
  {
   "modul": "src/ja/mangamee",
