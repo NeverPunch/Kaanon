@@ -25,7 +25,7 @@ Alle APKs sind mit demselben Schlüssel signiert. SHA-256-Fingerabdruck des Zert
 
 Der private Schlüssel liegt nicht in diesem Repository.
 
-## Extensions (44)
+## Extensions (59)
 
 | Name | Sprache | Version | Inhalt |
 |---|---|---|---|
@@ -34,6 +34,7 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | MangaDot | all | 1.6.30 | gemischt |
 | MangaFire | all | 1.6.38 | gemischt |
 | NovelCool | Deutsch | 1.6.11 |  |
+| Arena Scans | Englisch | 1.6.11 | gemischt |
 | Asura Scans | Englisch | 1.6.11 |  |
 | Atsumaru | Englisch | 1.6.12 | gemischt |
 | BatCave | Englisch | 1.6.14 |  |
@@ -41,6 +42,7 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | Comizy | Englisch | 1.6.11 | gemischt |
 | Dynasty Scans | Englisch | 1.6.12 | 18+ |
 | En-thunderscans | Englisch | 1.6.13 |  |
+| Flame Comics | Englisch | 1.6.11 |  |
 | Hive Scans | Englisch | 1.6.11 |  |
 | Kingofshojo | Englisch | 1.6.13 |  |
 | Lua Scans | Englisch | 1.6.11 | gemischt |
@@ -56,23 +58,36 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | Manganato | Englisch | 1.6.15 | gemischt |
 | Mangapill | Englisch | 1.6.15 |  |
 | Mangaread | Englisch | 1.6.70 |  |
+| ManhuaPlus (Unoriginal) | Englisch | 1.6.11 |  |
+| Nyx Scans | Englisch | 1.6.11 |  |
 | Rolia Scan | Englisch | 1.6.11 |  |
 | Tapas | Englisch | 1.6.11 | gemischt |
 | Tappytoon | Englisch | 1.6.11 | gemischt |
 | TCB Scans | Englisch | 1.6.11 |  |
 | Toonily | Englisch | 1.6.12 | gemischt |
+| Valir Scans | Englisch | 1.6.11 |  |
 | Vortex Scans | Englisch | 1.6.11 |  |
 | Webtoons.com | Englisch | 1.6.11 |  |
 | Weeb Central | Englisch | 1.6.11 | gemischt |
+| EternalMangas | Spanisch | 1.6.11 | gemischt |
+| MangaOni | Spanisch | 1.6.11 | gemischt |
 | ManhwaWeb | Spanisch | 1.6.12 | gemischt |
 | Olympus Scanlation | Spanisch | 1.6.12 |  |
 | ZonaTMO | Spanisch | 1.6.11 | gemischt |
 | AnimeSama | Französisch | 1.6.12 |  |
 | Sushi-Scan | Französisch | 1.6.11 | gemischt |
+| KomikIndoID | Indonesisch | 1.6.11 | gemischt |
 | DAYS | Japanisch | 1.6.11 |  |
+| Rawkuma | Japanisch | 1.6.11 | gemischt |
 | Source | Japanisch | 1.6.11 |  |
 | Source | Japanisch | 1.6.11 |  |
 | Web | Japanisch | 1.6.11 |  |
+| MangaLib | Russisch | 1.6.11 | gemischt |
+| Bully Manga | Thai | 1.6.11 | gemischt |
+| Go Manga | Thai | 1.6.11 | gemischt |
+| MangaBlackCat | Thai | 1.6.11 | gemischt |
+| Slow Manga | Thai | 1.6.11 | gemischt |
+| Up-Manga | Thai | 1.6.11 | gemischt |
 
 ## Übernommener Community-Code
 

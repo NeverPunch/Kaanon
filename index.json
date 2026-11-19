@@ -982,6 +982,27 @@
         ]
       },
       {
+        "name": "Arena Scans",
+        "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.arenascans",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.arenascans-v1.6.11.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.en.kaanon.arenascans.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106011,
+        "versionName": "1.6.11",
+        "contentWarning": "MIXED",
+        "sources": [
+          {
+            "id": 8861274191478178487,
+            "name": "Arena Scans",
+            "language": "en",
+            "homeUrl": "https://arenascan.com",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
         "name": "Asura Scans",
         "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.asurascans",
         "resources": {
@@ -1127,6 +1148,27 @@
             "name": "En-thunderscans",
             "language": "en",
             "homeUrl": "https://en-thunderscans.com",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
+        "name": "Flame Comics",
+        "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.flamecomics",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.flamecomics-v1.6.11.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.en.kaanon.flamecomics.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106011,
+        "versionName": "1.6.11",
+        "contentWarning": "SAFE",
+        "sources": [
+          {
+            "id": 4803549722186048656,
+            "name": "Flame Comics",
+            "language": "en",
+            "homeUrl": "https://flamecomics.xyz",
             "mirrorUrls": []
           }
         ]
@@ -1447,6 +1489,48 @@
         ]
       },
       {
+        "name": "ManhuaPlus (Unoriginal)",
+        "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.manhuaplusunoriginal",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.manhuaplusunoriginal-v1.6.11.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.en.kaanon.manhuaplusunoriginal.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106011,
+        "versionName": "1.6.11",
+        "contentWarning": "SAFE",
+        "sources": [
+          {
+            "id": 5075089422240578347,
+            "name": "ManhuaPlus (Unoriginal)",
+            "language": "en",
+            "homeUrl": "https://manhuaplus.org",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
+        "name": "Nyx Scans",
+        "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.nyxscans",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.nyxscans-v1.6.11.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.en.kaanon.nyxscans.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106011,
+        "versionName": "1.6.11",
+        "contentWarning": "SAFE",
+        "sources": [
+          {
+            "id": 419822582289753882,
+            "name": "Nyx Scans",
+            "language": "en",
+            "homeUrl": "https://nyxscans.com",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
         "name": "Rolia Scan",
         "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.roliascan",
         "resources": {
@@ -1552,6 +1636,27 @@
         ]
       },
       {
+        "name": "Valir Scans",
+        "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.valirscans",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.valirscans-v1.6.11.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.en.kaanon.valirscans.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106011,
+        "versionName": "1.6.11",
+        "contentWarning": "SAFE",
+        "sources": [
+          {
+            "id": 5399846924306111232,
+            "name": "Valir Scans",
+            "language": "en",
+            "homeUrl": "https://valirscans.org",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
         "name": "Vortex Scans",
         "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.vortexscans",
         "resources": {
@@ -1610,6 +1715,48 @@
             "name": "Weeb Central",
             "language": "en",
             "homeUrl": "https://weebcentral.com",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
+        "name": "EternalMangas",
+        "packageName": "eu.kanade.tachiyomi.extension.es.kaanon.eternalmangas",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-es.kaanon.eternalmangas-v1.6.11.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.es.kaanon.eternalmangas.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106011,
+        "versionName": "1.6.11",
+        "contentWarning": "MIXED",
+        "sources": [
+          {
+            "id": 1533901034425595323,
+            "name": "EternalMangas",
+            "language": "es",
+            "homeUrl": "https://eternalmangas.org",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
+        "name": "MangaOni",
+        "packageName": "eu.kanade.tachiyomi.extension.es.kaanon.mangaoni",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-es.kaanon.mangaoni-v1.6.11.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.es.kaanon.mangaoni.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106011,
+        "versionName": "1.6.11",
+        "contentWarning": "MIXED",
+        "sources": [
+          {
+            "id": 2342274476374431513,
+            "name": "MangaOni",
+            "language": "es",
+            "homeUrl": "https://manga-oni.com",
             "mirrorUrls": []
           }
         ]
@@ -1720,6 +1867,27 @@
         ]
       },
       {
+        "name": "KomikIndoID",
+        "packageName": "eu.kanade.tachiyomi.extension.id.kaanon.komikindoid",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-id.kaanon.komikindoid-v1.6.11.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.id.kaanon.komikindoid.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106011,
+        "versionName": "1.6.11",
+        "contentWarning": "MIXED",
+        "sources": [
+          {
+            "id": 5384836574731339537,
+            "name": "KomikIndoID",
+            "language": "id",
+            "homeUrl": "https://komikindo.ch",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
         "name": "DAYS",
         "packageName": "eu.kanade.tachiyomi.extension.ja.kaanon.days",
         "resources": {
@@ -1736,6 +1904,27 @@
             "name": "DAYS",
             "language": "ja",
             "homeUrl": "https://comic-days.com",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
+        "name": "Rawkuma",
+        "packageName": "eu.kanade.tachiyomi.extension.ja.kaanon.rawkuma",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-ja.kaanon.rawkuma-v1.6.11.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.ja.kaanon.rawkuma.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106011,
+        "versionName": "1.6.11",
+        "contentWarning": "MIXED",
+        "sources": [
+          {
+            "id": 1512072040307511188,
+            "name": "Rawkuma",
+            "language": "ja",
+            "homeUrl": "https://rawkuma.net",
             "mirrorUrls": []
           }
         ]
@@ -1799,6 +1988,132 @@
             "name": "Web",
             "language": "ja",
             "homeUrl": "https://younganimal.com",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
+        "name": "MangaLib",
+        "packageName": "eu.kanade.tachiyomi.extension.ru.kaanon.mangalib",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-ru.kaanon.mangalib-v1.6.11.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.ru.kaanon.mangalib.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106011,
+        "versionName": "1.6.11",
+        "contentWarning": "MIXED",
+        "sources": [
+          {
+            "id": 6111047689498497237,
+            "name": "MangaLib",
+            "language": "ru",
+            "homeUrl": "https://mangalib.me",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
+        "name": "Bully Manga",
+        "packageName": "eu.kanade.tachiyomi.extension.th.kaanon.bullymanga",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-th.kaanon.bullymanga-v1.6.11.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.th.kaanon.bullymanga.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106011,
+        "versionName": "1.6.11",
+        "contentWarning": "MIXED",
+        "sources": [
+          {
+            "id": 916548575565854572,
+            "name": "Bully Manga",
+            "language": "th",
+            "homeUrl": "https://bully-manga.com",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
+        "name": "Go Manga",
+        "packageName": "eu.kanade.tachiyomi.extension.th.kaanon.gomanga",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-th.kaanon.gomanga-v1.6.11.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.th.kaanon.gomanga.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106011,
+        "versionName": "1.6.11",
+        "contentWarning": "MIXED",
+        "sources": [
+          {
+            "id": 748167751985747523,
+            "name": "Go Manga",
+            "language": "th",
+            "homeUrl": "https://www.go-manga.com",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
+        "name": "MangaBlackCat",
+        "packageName": "eu.kanade.tachiyomi.extension.th.kaanon.mangablackcat",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-th.kaanon.mangablackcat-v1.6.11.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.th.kaanon.mangablackcat.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106011,
+        "versionName": "1.6.11",
+        "contentWarning": "MIXED",
+        "sources": [
+          {
+            "id": 239931405385053359,
+            "name": "MangaBlackCat",
+            "language": "th",
+            "homeUrl": "https://mangablackcat.com",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
+        "name": "Slow Manga",
+        "packageName": "eu.kanade.tachiyomi.extension.th.kaanon.slowmanga",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-th.kaanon.slowmanga-v1.6.11.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.th.kaanon.slowmanga.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106011,
+        "versionName": "1.6.11",
+        "contentWarning": "MIXED",
+        "sources": [
+          {
+            "id": 3894617311216312574,
+            "name": "Slow Manga",
+            "language": "th",
+            "homeUrl": "https://www.slowmanga.net",
+            "mirrorUrls": []
+          }
+        ]
+      },
+      {
+        "name": "Up-Manga",
+        "packageName": "eu.kanade.tachiyomi.extension.th.kaanon.upmanga",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-th.kaanon.upmanga-v1.6.11.apk",
+          "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.th.kaanon.upmanga.png"
+        },
+        "extensionLib": "1.6",
+        "versionCode": 106011,
+        "versionName": "1.6.11",
+        "contentWarning": "MIXED",
+        "sources": [
+          {
+            "id": 8621253824834634233,
+            "name": "Up-Manga",
+            "language": "th",
+            "homeUrl": "https://www.up-manga.com",
             "mirrorUrls": []
           }
         ]
