@@ -29,11 +29,11 @@ Der private Schlüssel liegt nicht in diesem Repository.
 
 | Name | Sprache | Version | Inhalt |
 |---|---|---|---|
-| Comikey | all | 1.6.14 |  |
-| Lunar Manga | all | 1.6.6 | gemischt |
+| Comikey | all | 1.6.15 |  |
+| Lunar Manga | all | 1.6.9 | gemischt |
 | MANGA Plus by SHUEISHA | all | 1.6.68 |  |
-| MangaDot | all | 1.6.29 | gemischt |
-| MangaFire | all | 1.6.37 | gemischt |
+| MangaDot | all | 1.6.30 | gemischt |
+| MangaFire | all | 1.6.38 | gemischt |
 | Hizo Manga | ar | 1.6.11 |  |
 | Manga Tube | Deutsch | 1.6.1 |  |
 | Niadd | Deutsch | 1.6.11 |  |
@@ -44,7 +44,7 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | Asura Scans | Englisch | 1.6.11 |  |
 | Atsumaru | Englisch | 1.6.12 | gemischt |
 | BatCave | Englisch | 1.6.14 |  |
-| Comix | Englisch | 1.6.62 | gemischt |
+| Comix | Englisch | 1.6.64 | gemischt |
 | Comizy | Englisch | 1.6.11 | gemischt |
 | Deathtollscans | Englisch | 1.6.12 |  |
 | Drake Scans | Englisch | 1.6.12 |  |
@@ -56,7 +56,7 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | Grim Scans | Englisch | 1.6.12 |  |
 | Hentai4free.net | Englisch | 1.6.12 | 18+ |
 | Hentaifox | Englisch | 1.6.12 | 18+ |
-| Hentairox | Englisch | 1.6.12 | 18+ |
+| Hentairox | Englisch | 1.6.13 | 18+ |
 | Hive Scans | Englisch | 1.6.11 |  |
 | Kencomics | Englisch | 1.6.13 |  |
 | Kingofshojo | Englisch | 1.6.13 |  |
@@ -71,7 +71,7 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | MangaDex | Englisch | 1.6.11 | gemischt |
 | Mangafreak | Englisch | 1.6.13 | gemischt |
 | MangaGeko | Englisch | 1.6.11 | gemischt |
-| MangaHub | Englisch | 1.6.50 | gemischt |
+| MangaHub | Englisch | 1.6.51 | gemischt |
 | MangaK | Englisch | 1.6.11 | gemischt |
 | Mangakakalot | Englisch | 1.6.11 | gemischt |
 | MangaKatana | Englisch | 1.6.12 | gemischt |
@@ -105,14 +105,14 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | ZazaManga | Englisch | 1.6.12 | 18+ |
 | ZinManga | Englisch | 1.6.11 |  |
 | Datgarscanlation | Spanisch | 1.6.13 |  |
-| Dragon Translation | Spanisch | 1.6.12 |  |
+| Dragon Translation | Spanisch | 1.6.13 |  |
 | InfraFandub | Spanisch | 1.6.12 |  |
 | Inmortal scan | Spanisch | 1.6.12 |  |
 | Kiraproject | Spanisch | 1.6.12 |  |
 | ManhwaWeb | Spanisch | 1.6.12 | gemischt |
 | Olympus Scanlation | Spanisch | 1.6.12 |  |
 | ZonaTMO | Spanisch | 1.6.11 | gemischt |
-| AnimeSama | Französisch | 1.6.11 |  |
+| AnimeSama | Französisch | 1.6.12 |  |
 | Fmteam | Französisch | 1.6.12 |  |
 | Scan-vf | Französisch | 1.6.12 |  |
 | Sushi-Scan | Französisch | 1.6.11 | gemischt |
@@ -143,14 +143,14 @@ Diese Extensions enthalten unveränderten Quellcode aus [keiyoushi/extensions-so
 | Name | Paket | Community-Modul | Stand |
 |---|---|---|---|
 | BatCave | `eu.kanade.tachiyomi.extension.en.kaanon.batcave` | `src/en/batcave` | ee661f5233b3 (2026-11-04) |
-| Comikey | `eu.kanade.tachiyomi.extension.all.kaanon.comikey` | `src/all/comikey` | ee661f5233b3 (2026-11-04) |
-| Comix | `eu.kanade.tachiyomi.extension.en.kaanon.comix` | `src/en/comix` | ee661f5233b3 (2026-11-04) |
-| Lunar Manga | `eu.kanade.tachiyomi.extension.all.kaanon.lunarmanga` | `src/all/lunaranime` | ee661f5233b3 (2026-11-04) |
+| Comikey | `eu.kanade.tachiyomi.extension.all.kaanon.comikey` | `src/all/comikey` | f1d882a93ef3 (2026-11-18) |
+| Comix | `eu.kanade.tachiyomi.extension.en.kaanon.comix` | `src/en/comix` | f1d882a93ef3 (2026-11-18) |
+| Lunar Manga | `eu.kanade.tachiyomi.extension.all.kaanon.lunarmanga` | `src/all/lunaranime` | f1d882a93ef3 (2026-11-18) |
 | MANGA Plus by SHUEISHA | `eu.kanade.tachiyomi.extension.all.kaanon.mangaplusbyshueisha` | `src/all/mangaplus` | ee661f5233b3 (2026-11-04) |
 | Manga Tube | `eu.kanade.tachiyomi.extension.de.kaanon.mangatube` | `src/de/mangatube` | ee661f5233b3 (2026-11-04) |
-| MangaDot | `eu.kanade.tachiyomi.extension.all.kaanon.mangadot` | `src/all/mangadotnet` | ee661f5233b3 (2026-11-04) |
-| MangaFire | `eu.kanade.tachiyomi.extension.all.kaanon.mangafire` | `src/all/mangafire` | ee661f5233b3 (2026-11-04) |
-| MangaHub | `eu.kanade.tachiyomi.extension.en.kaanon.mangahub` | `src/en/mangahubio` | ee661f5233b3 (2026-11-04) |
+| MangaDot | `eu.kanade.tachiyomi.extension.all.kaanon.mangadot` | `src/all/mangadotnet` | f1d882a93ef3 (2026-11-18) |
+| MangaFire | `eu.kanade.tachiyomi.extension.all.kaanon.mangafire` | `src/all/mangafire` | f1d882a93ef3 (2026-11-18) |
+| MangaHub | `eu.kanade.tachiyomi.extension.en.kaanon.mangahub` | `src/en/mangahubio` | f1d882a93ef3 (2026-11-18) |
 | ManhwaRead | `eu.kanade.tachiyomi.extension.en.kaanon.manhwaread` | `src/en/manhwaread` | ee661f5233b3 (2026-11-04) |
 
 Diese Datei wird automatisch erzeugt (`python -m kaanon_builder --store`).
