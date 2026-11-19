@@ -31,7 +31,7 @@ Der private Schlüssel liegt nicht in diesem Repository.
 |---|---|---|---|
 | Comikey | all | 1.6.15 |  |
 | Lunar Manga | all | 1.6.9 | gemischt |
-| MANGA Plus by SHUEISHA | all | 1.6.68 |  |
+| MANGA Plus by SHUEISHA | all | 1.6.69 |  |
 | MangaDot | all | 1.6.30 | gemischt |
 | MangaFire | all | 1.6.38 | gemischt |
 | Hizo Manga | ar | 1.6.11 |  |
@@ -44,7 +44,7 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | Asura Scans | Englisch | 1.6.11 |  |
 | Atsumaru | Englisch | 1.6.12 | gemischt |
 | BatCave | Englisch | 1.6.14 |  |
-| Comix | Englisch | 1.6.64 | gemischt |
+| Comix | Englisch | 1.6.65 | gemischt |
 | Comizy | Englisch | 1.6.11 | gemischt |
 | Deathtollscans | Englisch | 1.6.12 |  |
 | Drake Scans | Englisch | 1.6.12 |  |
@@ -81,7 +81,7 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | Mangaread | Englisch | 1.6.70 |  |
 | MangaTop | Englisch | 1.6.11 |  |
 | ManhuaBug.com | Englisch | 1.6.12 |  |
-| Manhwa Toon | Englisch | 1.6.12 |  |
+| Manhwa Toon | Englisch | 1.6.13 |  |
 | Manhwa18 | Englisch | 1.6.12 | 18+ |
 | ManhwaHub | Englisch | 1.6.14 | 18+ |
 | ManhwaRead | Englisch | 1.6.2 | gemischt |
@@ -144,9 +144,9 @@ Diese Extensions enthalten unveränderten Quellcode aus [keiyoushi/extensions-so
 |---|---|---|---|
 | BatCave | `eu.kanade.tachiyomi.extension.en.kaanon.batcave` | `src/en/batcave` | ee661f5233b3 (2026-11-04) |
 | Comikey | `eu.kanade.tachiyomi.extension.all.kaanon.comikey` | `src/all/comikey` | f1d882a93ef3 (2026-11-18) |
-| Comix | `eu.kanade.tachiyomi.extension.en.kaanon.comix` | `src/en/comix` | f1d882a93ef3 (2026-11-18) |
+| Comix | `eu.kanade.tachiyomi.extension.en.kaanon.comix` | `src/en/comix` | 8947c372cd87 (2026-11-19) |
 | Lunar Manga | `eu.kanade.tachiyomi.extension.all.kaanon.lunarmanga` | `src/all/lunaranime` | f1d882a93ef3 (2026-11-18) |
-| MANGA Plus by SHUEISHA | `eu.kanade.tachiyomi.extension.all.kaanon.mangaplusbyshueisha` | `src/all/mangaplus` | ee661f5233b3 (2026-11-04) |
+| MANGA Plus by SHUEISHA | `eu.kanade.tachiyomi.extension.all.kaanon.mangaplusbyshueisha` | `src/all/mangaplus` | 8947c372cd87 (2026-11-19) |
 | Manga Tube | `eu.kanade.tachiyomi.extension.de.kaanon.mangatube` | `src/de/mangatube` | ee661f5233b3 (2026-11-04) |
 | MangaDot | `eu.kanade.tachiyomi.extension.all.kaanon.mangadot` | `src/all/mangadotnet` | f1d882a93ef3 (2026-11-18) |
 | MangaFire | `eu.kanade.tachiyomi.extension.all.kaanon.mangafire` | `src/all/mangafire` | f1d882a93ef3 (2026-11-18) |

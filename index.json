@@ -936,12 +936,12 @@
         "name": "MANGA Plus by SHUEISHA",
         "packageName": "eu.kanade.tachiyomi.extension.all.kaanon.mangaplusbyshueisha",
         "resources": {
-          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-all.kaanon.mangaplusbyshueisha-v1.6.68.apk",
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-all.kaanon.mangaplusbyshueisha-v1.6.69.apk",
           "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.all.kaanon.mangaplusbyshueisha.png"
         },
         "extensionLib": "1.6",
-        "versionCode": 106068,
-        "versionName": "1.6.68",
+        "versionCode": 106069,
+        "versionName": "1.6.69",
         "contentWarning": "SAFE",
         "sources": [
           {
@@ -1223,12 +1223,12 @@
         "name": "Comix",
         "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.comix",
         "resources": {
-          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.comix-v1.6.64.apk",
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.comix-v1.6.65.apk",
           "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.en.kaanon.comix.png"
         },
         "extensionLib": "1.6",
-        "versionCode": 106064,
-        "versionName": "1.6.64",
+        "versionCode": 106065,
+        "versionName": "1.6.65",
         "contentWarning": "MIXED",
         "sources": [
           {
@@ -2069,12 +2069,12 @@
         "name": "Manhwa Toon",
         "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.manhwatoon",
         "resources": {
-          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.manhwatoon-v1.6.12.apk",
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.manhwatoon-v1.6.13.apk",
           "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.en.kaanon.manhwatoon.png"
         },
         "extensionLib": "1.6",
-        "versionCode": 106012,
-        "versionName": "1.6.12",
+        "versionCode": 106013,
+        "versionName": "1.6.13",
         "contentWarning": "SAFE",
         "sources": [
           {
