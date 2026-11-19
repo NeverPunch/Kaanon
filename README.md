@@ -73,9 +73,9 @@ Der private Schlüssel liegt nicht in diesem Repository.
 | MangaGeko | Englisch | 1.6.11 | gemischt |
 | MangaHub | Englisch | 1.6.51 | gemischt |
 | MangaK | Englisch | 1.6.11 | gemischt |
-| Mangakakalot | Englisch | 1.6.11 | gemischt |
+| Mangakakalot | Englisch | 1.6.13 | gemischt |
 | MangaKatana | Englisch | 1.6.12 | gemischt |
-| Manganato | Englisch | 1.6.13 | gemischt |
+| Manganato | Englisch | 1.6.15 | gemischt |
 | MangaNato | Englisch | 1.6.11 |  |
 | Mangapill | Englisch | 1.6.15 |  |
 | Mangaread | Englisch | 1.6.70 |  |

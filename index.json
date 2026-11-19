@@ -1835,19 +1835,19 @@
         "name": "Mangakakalot",
         "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.mangakakalot",
         "resources": {
-          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.mangakakalot-v1.6.11.apk",
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.mangakakalot-v1.6.13.apk",
           "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.en.kaanon.mangakakalot.png"
         },
         "extensionLib": "1.6",
-        "versionCode": 106011,
-        "versionName": "1.6.11",
+        "versionCode": 106013,
+        "versionName": "1.6.13",
         "contentWarning": "MIXED",
         "sources": [
           {
             "id": 2528986671771677900,
             "name": "Mangakakalot",
             "language": "en",
-            "homeUrl": "https://www.mangakakalot.gg",
+            "homeUrl": "https://www.kakamanga.com",
             "mirrorUrls": []
           }
         ]
@@ -1877,19 +1877,19 @@
         "name": "Manganato",
         "packageName": "eu.kanade.tachiyomi.extension.en.kaanon.manganato",
         "resources": {
-          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.manganato-v1.6.13.apk",
+          "apkUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/apk/tachiyomi-en.kaanon.manganato-v1.6.15.apk",
           "iconUrl": "https://raw.githubusercontent.com/NeverPunch/Kaanon/main/icon/eu.kanade.tachiyomi.extension.en.kaanon.manganato.png"
         },
         "extensionLib": "1.6",
-        "versionCode": 106013,
-        "versionName": "1.6.13",
+        "versionCode": 106015,
+        "versionName": "1.6.15",
         "contentWarning": "MIXED",
         "sources": [
           {
             "id": 6978911398642923430,
             "name": "Manganato",
             "language": "en",
-            "homeUrl": "https://www.natomanga.com",
+            "homeUrl": "https://www.manganami.com",
             "mirrorUrls": []
           }
         ]
